@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,33 +18,13 @@ namespace Database\Seeders;
 
 use App\Models\Page;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class PagesTableSeeder extends Seeder
 {
-    private $pages;
-
-    public function __construct()
-    {
-        $this->pages = $this->getPages();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->pages as $page) {
-            if (Page::find($page['id']) == null) {
-                Page::create($page);
-            } else {
-                Page::find($page['id'])->update($page);
-            }
-        }
-    }
-
-    private function getPages(): array
-    {
-        return [
+        Page::upsert([
             [
                 'id'      => 1,
                 'name'    => 'Rules',
@@ -150,6 +133,6 @@ YOU AGREE THAT YOUR USE OF THIS SITE AND SERVICES WILL BE AT YOUR SOLE RISK. WE 
 (E) ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE, WHICH MAY BE TRANSMITTED TO OR THROUGH THIS SITE BY ANY THIRD PARTY, AND/OR
 (F) ANY ERRORS OR OMISSIONS IN ANY CONTRIBUTIONS, CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT, CONTRIBUTIONS, OR MATERIALS POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THIS SITE.WE WILL NOT BE LIABLE TO YOU FOR ANY LOSS OF ANY DATA (INCLUDING CONTENT) OR FOR LOSS OF USE OF THIS SITE.SOME STATES OR JURISDICTIONS DO NOT ALLOW THE LIMITATION OR EXCLUSION OF CERTAIN WARRANTIES, OR THE EXCLUSION OR LIMITATION OF CERTAIN DAMAGES. IF YOU RESIDE IN ONE OF THESE STATES OR JURISDICTIONS, THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU.',
             ],
-        ];
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

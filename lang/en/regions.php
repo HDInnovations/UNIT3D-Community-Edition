@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -114,7 +116,7 @@ return [
     'HUN' => 'Hungary',
     'IDN' => 'Indonesia',
     'IMN' => 'Isle of Man',
-    'IND' => 'Indonesia',
+    'IND' => 'India',
     'IOT' => 'British Indian Ocean Territory',
     'IRL' => 'Ireland',
     'IRN' => 'Iran',

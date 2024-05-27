@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -37,7 +40,7 @@ class SendActivationMail implements ShouldQueue
     /**
      * SendActivationMail Constructor.
      */
-    public function __construct(public User $user, public $code)
+    public function __construct(public User $user, public string $code)
     {
     }
 

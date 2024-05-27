@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,8 +16,10 @@
 
 namespace App\Http\Requests\Staff;
 
+use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateGroupRequest extends FormRequest
 {
@@ -28,13 +33,21 @@ class UpdateGroupRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\ProhibitedIf|string>>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
+        /** @var Group $group */
+        $group = $request->route('group');
+
         return [
             'name' => [
-                'required',
-                'string',
+                Rule::when(! $group->system_required, [
+                    'required',
+                    'string',
+                ]),
+                Rule::prohibitedIf($group->system_required && $request->name !== $group->name),
             ],
             'position' => [
                 'required',
@@ -48,6 +61,9 @@ class UpdateGroupRequest extends FormRequest
                 'nullable',
                 'integer',
             ],
+            'description' => [
+                'nullable',
+            ],
             'color' => [
                 'required',
             ],
@@ -58,6 +74,10 @@ class UpdateGroupRequest extends FormRequest
                 'sometimes',
             ],
             'is_internal' => [
+                'required',
+                'boolean',
+            ],
+            'is_editor' => [
                 'required',
                 'boolean',
             ],
@@ -101,6 +121,60 @@ class UpdateGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'min_uploaded' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
+            'min_ratio' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'min:0',
+                    'max:99.99',
+                ], 'nullable'),
+            ],
+            'min_age' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
+            'min_avg_seedtime' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
+            'min_seedsize' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
+            'min_uploads' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.prohibited' => 'You cannot change the name of a system required group.',
         ];
     }
 }

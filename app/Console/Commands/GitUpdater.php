@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,16 +17,15 @@
 namespace App\Console\Commands;
 
 use App\Console\ConsoleTools;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use RuntimeException;
+use Throwable;
 
-/**
- * @see \Tests\Todo\Unit\Console\Commands\GitUpdaterTest
- */
 class GitUpdater extends Command
 {
     use ConsoleTools;
@@ -57,8 +59,10 @@ class GitUpdater extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $this->input = new ArgvInput();
         $this->output = new ConsoleOutput();
@@ -84,7 +88,7 @@ class GitUpdater extends Command
         <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER! USE AT YOUR OWN RISK!</>
         </>');
 
-        if (! $this->io->confirm('Would you like to proceed', true)) {
+        if (!$this->io->confirm('Would you like to proceed', true)) {
             $this->line('<fg=red>Aborted ...</>');
 
             exit();
@@ -156,7 +160,7 @@ class GitUpdater extends Command
 
                 $this->setCache();
 
-                if ($this->io->confirm('Compile assets (npx mix -p)', true)) {
+                if ($this->io->confirm('Compile assets (bun run build)', true)) {
                     $this->compile();
                 }
 
@@ -191,7 +195,7 @@ class GitUpdater extends Command
         return $updating;
     }
 
-    private function manualUpdate($updating): void
+    private function manualUpdate(array $updating): void
     {
         $this->alertInfo('Manual Update');
         $this->red('Updating will cause you to LOSE any changes you might have made to the file!');
@@ -205,7 +209,7 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function updateFile($file): void
+    private function updateFile(string $file): void
     {
         $this->process(sprintf('git checkout origin/master -- %s', $file));
     }
@@ -233,7 +237,7 @@ class GitUpdater extends Command
         $this->header('Restoring Backups');
 
         foreach ($paths as $path) {
-            $to = Str::replaceLast('/.', '', base_path(\dirname($path)));
+            $to = Str::replaceLast('/.', '', base_path(\dirname((string) $path)));
             $from = storage_path('gitupdate').'/'.$path;
 
             if (is_dir($from)) {
@@ -246,7 +250,7 @@ class GitUpdater extends Command
 
         $this->commands([
             'git add .',
-            'git checkout origin/master -- package-lock.json',
+            'git checkout origin/master -- bun.lockb',
             'git checkout origin/master -- composer.lock',
         ]);
     }
@@ -268,11 +272,8 @@ class GitUpdater extends Command
         $this->header('Compiling Assets ...');
 
         $this->commands([
-            'npm install npm -g',
-            'rm -rf node_modules',
-            'npm cache clean --force',
-            'npm install --no-audit',
-            'npx mix -p',
+            'bun install',
+            'bun run build',
         ]);
 
         $this->done();
@@ -295,14 +296,14 @@ class GitUpdater extends Command
     private function clearCache(): void
     {
         $this->header('Clearing Application Cache');
-        $this->call('optimize:clear');
+        $this->call('clear:all_cache');
         $this->done();
     }
 
     private function setCache(): void
     {
         $this->header('Setting Cache');
-        $this->call('optimize');
+        $this->call('set:all_cache');
         $this->done();
     }
 
@@ -331,30 +332,30 @@ class GitUpdater extends Command
     private function php(): void
     {
         $this->header('Restarting PHP');
-        $this->process('systemctl restart php8.1-fpm');
+        $this->process('systemctl restart php8.3-fpm');
         $this->done();
     }
 
-    private function validatePath($path): void
+    private function validatePath(string $path): void
     {
-        if (! is_file(base_path($path)) && ! is_dir(base_path($path))) {
+        if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
             $this->red(sprintf("The path '%s' is invalid", $path));
         }
     }
 
-    private function createBackupPath($path): void
+    private function createBackupPath(string $path): void
     {
-        if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! is_file(base_path($path))) {
-            if (! mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && ! is_dir($concurrentDirectory)) {
+        if (!is_dir(storage_path(sprintf('gitupdate/%s', $path))) && !is_file(base_path($path))) {
+            if (!mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && !is_dir($concurrentDirectory)) {
                 throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
-        } elseif (is_file(base_path($path)) && \dirname($path) !== '.') {
-            $path = \dirname($path);
+        } elseif (is_file(base_path($path)) && \dirname((string) $path) !== '.') {
+            $path = \dirname((string) $path);
 
-            if (! is_dir(storage_path(sprintf('gitupdate/%s', $path))) && ! mkdir($concurrentDirectory = storage_path(sprintf(
+            if (!is_dir(storage_path(sprintf('gitupdate/%s', $path))) && !mkdir($concurrentDirectory = storage_path(sprintf(
                 'gitupdate/%s',
                 $path
-            )), 0775, true) && ! is_dir($concurrentDirectory)) {
+            )), 0775, true) && !is_dir($concurrentDirectory)) {
                 throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         }
@@ -365,6 +366,6 @@ class GitUpdater extends Command
         $p = $this->process('git diff master --name-only');
         $paths = array_filter(explode("\n", $p->getOutput()), 'strlen');
 
-        return array_merge($paths, self::ADDITIONAL);
+        return [...$paths, ...self::ADDITIONAL];
     }
 }

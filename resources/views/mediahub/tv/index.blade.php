@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="TV Shows">
+    <meta name="description" content="TV Shows" />
 @endsection
 
 @section('breadcrumbs')
@@ -14,9 +14,7 @@
             {{ __('mediahub.title') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        TV Show
-    </li>
+    <li class="breadcrumb--active">TV Show</li>
 @endsection
 
 @section('content')

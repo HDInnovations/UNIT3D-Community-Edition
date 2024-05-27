@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,6 +21,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Subscription.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int|null                        $forum_id
+ * @property int|null                        $topic_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Subscription extends Model
 {
     use Auditable;
@@ -25,6 +38,8 @@ class Subscription extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -36,6 +51,8 @@ class Subscription extends Model
 
     /**
      * Belongs To A Topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
      */
     public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -44,6 +61,8 @@ class Subscription extends Model
 
     /**
      * Belongs To A Forum.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, self>
      */
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -52,16 +71,22 @@ class Subscription extends Model
 
     /**
      * Only include subscriptions of a forum.
+     *
+     * @param  Builder<Subscription> $query
+     * @return Builder<Subscription>
      */
-    public function scopeOfForum($query, $forum_id): Builder
+    public function scopeOfForum(Builder $query, int $forum_id): Builder
     {
         return $query->where('forum_id', '=', $forum_id);
     }
 
     /**
      * Only include subscriptions of a topic.
+     *
+     * @param  Builder<Subscription> $query
+     * @return Builder<Subscription>
      */
-    public function scopeOfTopic($query, $topic_id): Builder
+    public function scopeOfTopic($query, int $topic_id): Builder
     {
         return $query->where('topic_id', '=', $topic_id);
     }

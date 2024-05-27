@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -20,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'twostep', 'banned'])->group(function (): void {
+Route::middleware(['auth', 'banned'])->group(function (): void {
     Route::prefix('chat')->group(function (): void {
         Route::get('/config', [App\Http\Controllers\API\ChatController::class, 'config']);
 
@@ -35,15 +37,15 @@ Route::middleware(['auth', 'twostep', 'banned'])->group(function (): void {
 
         /* Audibles */
         Route::get('/audibles', [App\Http\Controllers\API\ChatController::class, 'audibles']);
-        Route::post('/audibles/{user_id}/toggle/chatroom', [App\Http\Controllers\API\ChatController::class, 'toggleRoomAudible']);
-        Route::post('/audibles/{user_id}/toggle/target', [App\Http\Controllers\API\ChatController::class, 'toggleTargetAudible']);
-        Route::post('/audibles/{user_id}/toggle/bot', [App\Http\Controllers\API\ChatController::class, 'toggleBotAudible']);
+        Route::post('/audibles/toggle/chatroom', [App\Http\Controllers\API\ChatController::class, 'toggleRoomAudible']);
+        Route::post('/audibles/toggle/target', [App\Http\Controllers\API\ChatController::class, 'toggleTargetAudible']);
+        Route::post('/audibles/toggle/bot', [App\Http\Controllers\API\ChatController::class, 'toggleBotAudible']);
 
         /* Echoes */
         Route::get('/echoes', [App\Http\Controllers\API\ChatController::class, 'echoes']);
-        Route::post('/echoes/{user_id}/delete/chatroom', [App\Http\Controllers\API\ChatController::class, 'deleteRoomEcho']);
-        Route::post('/echoes/{user_id}/delete/target', [App\Http\Controllers\API\ChatController::class, 'deleteTargetEcho']);
-        Route::post('/echoes/{user_id}/delete/bot', [App\Http\Controllers\API\ChatController::class, 'deleteBotEcho']);
+        Route::post('/echoes/delete/chatroom', [App\Http\Controllers\API\ChatController::class, 'deleteRoomEcho']);
+        Route::post('/echoes/delete/target', [App\Http\Controllers\API\ChatController::class, 'deleteTargetEcho']);
+        Route::post('/echoes/delete/bot', [App\Http\Controllers\API\ChatController::class, 'deleteBotEcho']);
 
         /* Messages */
         Route::post('/messages', [App\Http\Controllers\API\ChatController::class, 'createMessage']);
@@ -57,8 +59,8 @@ Route::middleware(['auth', 'twostep', 'banned'])->group(function (): void {
         Route::get('/bot/{bot_id}', [App\Http\Controllers\API\ChatController::class, 'botMessages']);
 
         /* Users */
-        Route::post('/user/{id}/target', [App\Http\Controllers\API\ChatController::class, 'updateUserTarget']);
-        Route::post('/user/{id}/chatroom', [App\Http\Controllers\API\ChatController::class, 'updateUserRoom']);
-        Route::post('/user/{id}/status', [App\Http\Controllers\API\ChatController::class, 'updateUserChatStatus']);
+        Route::post('/user/target', [App\Http\Controllers\API\ChatController::class, 'updateUserTarget']);
+        Route::post('/user/chatroom', [App\Http\Controllers\API\ChatController::class, 'updateUserRoom']);
+        Route::post('/user/status', [App\Http\Controllers\API\ChatController::class, 'updateUserChatStatus']);
     });
 });

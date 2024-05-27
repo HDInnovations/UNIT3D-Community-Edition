@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,23 +39,24 @@ class TorrentDownloadController extends Controller
     /**
      * Download A Torrent.
      */
-    public function store(Request $request, int $id, $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\StreamedResponse
+    public function store(Request $request, int $id, ?string $rsskey = null): \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\StreamedResponse
     {
         $user = $request->user();
 
-        if (! $user && $rsskey) {
+        if (!$user && $rsskey) {
             $user = User::where('rsskey', '=', $rsskey)->sole();
         }
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $hasHistory = $user->history()->where([['torrent_id', '=', $torrent->id], ['seeder', '=', 1]])->exists();
+
         // User's ratio is too low
-        if ($user->ratio < config('other.ratio') && ! ($torrent->user_id === $user->id || $hasHistory)) {
+        if ($user->ratio < config('other.ratio') && !($torrent->user_id === $user->id || $hasHistory)) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Your Ratio Is Too Low To Download!');
         }
 
         // User's download rights are revoked
-        if ($user->can_download == 0 && ! ($torrent->user_id === $user->id || $hasHistory)) {
+        if ($user->can_download == 0 && !($torrent->user_id === $user->id || $hasHistory)) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Your Download Rights Have Been Revoked!');
         }
@@ -64,12 +68,12 @@ class TorrentDownloadController extends Controller
         }
 
         // The torrent file exist ?
-        if (! file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+        if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         }
 
-        if (! $request->user() && !($rsskey && $user)) {
+        if (!$request->user() && !($rsskey && $user)) {
             return to_route('login');
         }
 

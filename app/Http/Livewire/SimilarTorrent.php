@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,45 +21,57 @@ use App\Models\History;
 use App\Models\Movie;
 use App\Models\PrivateMessage;
 use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\Tv;
+use App\Models\User;
 use App\Services\Unit3dAnnounce;
-use Illuminate\Support\Facades\Redis;
+use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use MarcReichel\IGDBLaravel\Models\Game;
 
 class SimilarTorrent extends Component
 {
+    use CastLivewireProperties;
+    use LivewireSort;
+
     public Category $category;
 
     public Movie|Tv|Game $work;
 
-    public $tmdbId;
+    public ?int $tmdbId;
 
-    public $igdbId;
+    public ?int $igdbId;
 
-    public $reason;
+    public string $reason;
 
-    public $checked = [];
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    /**
+     * @var array<int, bool>
+     */
+    public array $checked = [];
 
     public bool $selectPage = false;
 
-    public bool $selectAll = false;
-
+    #[Url(history: true)]
     public string $sortField = 'bumped_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
     protected $listeners = ['destroy' => 'deleteRecords'];
 
-    final public function updatedSelectPage($value): void
+    final public function updating(string $field, mixed &$value): void
     {
-        $this->checked = $value ? $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray() : [];
+        $this->castLivewireProperties($field, $value);
     }
 
-    final public function selectAll(): void
+    final public function updatedSelectPage(bool $value): void
     {
-        $this->selectAll = true;
-        $this->checked = $this->torrents->pluck('id')->map(fn ($item) => (string) $item)->toArray();
+        $this->checked = $value ? $this->torrents->pluck('id')->toArray() : [];
     }
 
     final public function updatedChecked(): void
@@ -64,12 +79,11 @@ class SimilarTorrent extends Component
         $this->selectPage = false;
     }
 
-    final public function isChecked($torrentId): bool
-    {
-        return \in_array($torrentId, $this->checked);
-    }
-
-    final public function getTorrentsProperty(): \Illuminate\Support\Collection
+    /**
+     * @return \Illuminate\Support\Collection<int, Torrent>
+     */
+    #[Computed]
+    final public function torrents(): \Illuminate\Support\Collection
     {
         $user = auth()->user();
 
@@ -86,12 +100,15 @@ class SimilarTorrent extends Component
                     ->where('seeder', '=', 0),
                 'history as not_completed' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 0)
-                    ->where('seeder', '=', 1)
+                    ->where('seeder', '=', 0)
                     ->whereNull('completed_at'),
                 'history as not_seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 0)
-                    ->where('seeder', '=', 1)
-                    ->whereNotNull('completed_at'),
+                    ->where(
+                        fn ($query) => $query
+                            ->where('seeder', '=', 1)
+                            ->orWhereNotNull('completed_at')
+                    ),
             ])
             ->when(
                 $this->category->movie_meta,
@@ -109,35 +126,51 @@ class SimilarTorrent extends Component
             ->get();
     }
 
-    final public function sortBy($field): void
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, TorrentRequest>
+     */
+    #[Computed]
+    final public function torrentRequests(): \Illuminate\Database\Eloquent\Collection
     {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
+        return TorrentRequest::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+            ->withCount(['comments'])
+            ->where('tmdb', '=', $this->tmdbId)
+            ->where('category_id', '=', $this->category->id)
+            ->latest()
+            ->get();
     }
 
     final public function alertConfirm(): void
     {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
         $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
         $names = $torrents;
-        $this->dispatchBrowserEvent('swal:confirm', [
-            'type'    => 'warning',
-            'message' => 'Are you sure?',
-            'body'    => 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
+        $this->dispatch(
+            'swal:confirm',
+            type: 'warning',
+            message: 'Are you sure?',
+            body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
                         .nl2br(implode("\n", $names)),
-        ]);
+        );
     }
 
     final public function deleteRecords(): void
     {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
         $torrents = Torrent::whereKey($this->checked)->get();
         $names = [];
         $users = [];
-        $title = match (1) {
+        $title = match (true) {
             $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date.')',
             $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date.')',
             $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date.')',
@@ -148,7 +181,7 @@ class SimilarTorrent extends Component
             $names[] = $torrent->name;
 
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
-                if (! \in_array($pm->user_id, $users)) {
+                if (!\in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
                 }
             }
@@ -179,8 +212,7 @@ class SimilarTorrent extends Component
 
             $freeleechTokens->delete();
 
-            $cacheKey = config('cache.prefix').'torrents:infohash2id';
-            Redis::connection('cache')->command('HDEL', [$cacheKey, $torrent->info_hash]);
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
             Unit3dAnnounce::removeTorrent($torrent);
 
@@ -189,7 +221,7 @@ class SimilarTorrent extends Component
 
         foreach ($users as $user) {
             $pmuser = new PrivateMessage();
-            $pmuser->sender_id = 1;
+            $pmuser->sender_id = User::SYSTEM_USER_ID;
             $pmuser->receiver_id = $user;
             $pmuser->subject = 'Bulk Torrents Deleted - '.$title.'! ';
             $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
@@ -203,19 +235,20 @@ class SimilarTorrent extends Component
         }
 
         $this->checked = [];
-        $this->selectAll = false;
         $this->selectPage = false;
 
-        $this->dispatchBrowserEvent('swal:modal', [
-            'type'    => 'success',
-            'message' => 'Torrents Deleted Successfully!',
-            'text'    => 'A personal message has been sent to all users that have downloaded these torrents.',
-        ]);
+        $this->dispatch(
+            'swal:modal',
+            type: 'success',
+            message: 'Torrents Deleted Successfully!',
+            text: 'A personal message has been sent to all users that have downloaded these torrents.',
+        );
     }
 
-    final public function getPersonalFreeleechProperty()
+    #[Computed]
+    final public function personalFreeleech(): bool
     {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
@@ -224,6 +257,7 @@ class SimilarTorrent extends Component
             'user'              => auth()->user(),
             'torrents'          => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
+            'torrentRequests'   => $this->torrentRequests,
         ]);
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,26 +21,9 @@ use Illuminate\Database\Seeder;
 
 class ResolutionsTableSeeder extends Seeder
 {
-    private $resolutions;
-
-    public function __construct()
-    {
-        $this->resolutions = $this->getResolutions();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->resolutions as $resolution) {
-            Resolution::updateOrCreate($resolution);
-        }
-    }
-
-    private function getResolutions(): array
-    {
-        return [
+        Resolution::upsert([
             [
                 'id'       => 1,
                 'name'     => '4320p',
@@ -88,6 +74,6 @@ class ResolutionsTableSeeder extends Seeder
                 'name'     => 'Other',
                 'position' => 10,
             ],
-        ];
+        ], ['id'], []);
     }
 }

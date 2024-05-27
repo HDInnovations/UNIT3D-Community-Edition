@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,6 +22,7 @@ use App\Rules\PathToZip;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Spatie\Backup\BackupDestination\Backup;
 use Spatie\Backup\BackupDestination\BackupDestination;
@@ -32,7 +36,11 @@ class BackupPanel extends Component
 {
     protected $listeners = ['refreshBackups' => '$refresh'];
 
-    final public function getBackupStatusesProperty(): array
+    /**
+     * @return array<mixed>
+     */
+    #[Computed]
+    final public function backupStatuses(): array
     {
         return BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
             ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
@@ -50,7 +58,8 @@ class BackupPanel extends Component
             ->toArray();
     }
 
-    final public function getActiveDiskProperty(): ?string
+    #[Computed]
+    final public function activeDisk(): ?string
     {
         if (\count($this->backupStatuses)) {
             return $this->backupStatuses[0]['disk'];
@@ -59,7 +68,11 @@ class BackupPanel extends Component
         return null;
     }
 
-    final public function getDisksProperty(): array
+    /**
+     * @return array<mixed>
+     */
+    #[Computed]
+    final public function disks(): array
     {
         return collect($this->backupStatuses)
             ->map(fn ($backupStatus): mixed => $backupStatus['disk'])
@@ -68,9 +81,10 @@ class BackupPanel extends Component
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
-    final public function getBackupsProperty(): array
+    #[Computed]
+    final public function backups(): array
     {
         $this->validateActiveDisk();
 
@@ -79,7 +93,7 @@ class BackupPanel extends Component
         return $backupDestination
             ->backups()
             ->map(function (Backup $backup) {
-                $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
+                $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : 0;
 
                 return [
                     'path' => $backup->path(),
@@ -104,11 +118,11 @@ class BackupPanel extends Component
             ->first(fn (Backup $backup) => $backup->path() === $deletingFile['path'])
             ->delete();
 
-        $this->emit('refreshBackups');
+        $this->dispatch('refreshBackups');
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     final public function downloadBackup(string $filePath): Response|StreamedResponse|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory
     {
@@ -119,11 +133,11 @@ class BackupPanel extends Component
 
         $backup = $backupDestination->backups()->first(fn (Backup $backup) => $backup->path() === $filePath);
 
-        if (! $backup) {
+        if (!$backup) {
             return response('Backup not found', ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $fileName = pathinfo($backup->path(), PATHINFO_BASENAME);
+        $fileName = pathinfo((string) $backup->path(), PATHINFO_BASENAME);
         $size = method_exists($backup, 'sizeInBytes') ? $backup->sizeInBytes() : $backup->size();
 
         $downloadHeaders = [
@@ -156,7 +170,7 @@ class BackupPanel extends Component
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     private function validateActiveDisk(): void
     {
@@ -172,14 +186,14 @@ class BackupPanel extends Component
             )->validate();
         } catch (ValidationException $e) {
             $message = $e->validator->errors()->get('activeDisk')[0];
-            $this->emitSelf('showErrorToast', $message);
+            $this->dispatch('showErrorToast', message: $message)->self();
 
             throw $e;
         }
     }
 
     /**
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     private function validateFilePath(string $filePath): void
     {
@@ -195,7 +209,7 @@ class BackupPanel extends Component
             )->validate();
         } catch (ValidationException $e) {
             $message = $e->validator->errors()->get('file')[0];
-            $this->emitSelf('showErrorToast', $message);
+            $this->dispatch('showErrorToast', message: $message)->self();
 
             throw $e;
         }

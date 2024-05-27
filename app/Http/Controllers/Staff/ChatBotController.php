@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,7 +30,7 @@ class ChatBotController extends Controller
     /**
      * Display a listing of the Bots resource.
      */
-    public function index($hash = null): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.chat.bot.index', [
             'bots' => Bot::oldest('position')->get(),

@@ -29,61 +29,52 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('common.position') }}</th>
-                    <th>{{ __('common.name') }}</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('common.position') }}</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($types as $type)
-                    <tr>
-                        <td>{{ $type->position }}</td>
-                        <td>
-                            <a href="{{ route('staff.types.edit', ['type' => $type]) }}">
-                                {{ $type->name }}
-                            </a>
-                        </td>
-                        <td>
-                            <menu class="data-table__actions">
-                                <li class="data-table__action">
-                                    <a
-                                        href="{{ route('staff.types.edit', ['type' => $type]) }}"
-                                        class="form__button form__button--text"
-                                    >
-                                        {{ __('common.edit') }}
-                                    </a>
-                                </li>
-                                <li class="data-table__action">
-                                    <form
-                                        action="{{ route('staff.types.destroy', ['type' => $type]) }}"
-                                        method="POST"
-                                        x-data
-                                    >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this type: ${atob('{{ base64_encode($type->name) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
+                    @foreach ($types as $type)
+                        <tr>
+                            <td>{{ $type->position }}</td>
+                            <td>
+                                <a href="{{ route('staff.types.edit', ['type' => $type]) }}">
+                                    {{ $type->name }}
+                                </a>
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <a
+                                            href="{{ route('staff.types.edit', ['type' => $type]) }}"
                                             class="form__button form__button--text"
                                         >
-                                            {{ __('common.delete') }}
-                                        </button>
-                                    </form>
-                                </li>
-                            </menu>
-                        </td>
-                    </tr>
-                @endforeach
+                                            {{ __('common.edit') }}
+                                        </a>
+                                    </li>
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('staff.types.destroy', ['type' => $type]) }}"
+                                            method="POST"
+                                            x-data="confirmation"
+                                        >
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this type: ' . $type->name . '?') }}"
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

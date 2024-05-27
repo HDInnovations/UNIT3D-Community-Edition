@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,22 +33,26 @@ use App\Models\User;
 use App\Notifications\NewComment;
 use App\Notifications\NewCommentTag;
 use App\Repositories\ChatRepository;
+use App\Traits\CastLivewireProperties;
 use Illuminate\Support\Facades\Notification;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
 use voku\helper\AntiXSS;
 
 class Comments extends Component
 {
+    use CastLivewireProperties;
+
     use WithPagination;
 
     protected ChatRepository $chatRepository;
 
-    public \Illuminate\Contracts\Auth\Authenticatable|\App\Models\User $user;
+    public ?User $user;
 
     public $model;
 
-    public $anon = false;
+    public bool $anon = false;
 
     public int $perPage = 10;
 
@@ -71,6 +78,11 @@ class Comments extends Component
         $this->user = auth()->user();
     }
 
+    final public function updating(string $field, mixed &$value): void
+    {
+        $this->castLivewireProperties($field, $value);
+    }
+
     final public function taggedUsers(): array
     {
         preg_match_all('/@([\w\-]+)/', implode('', $this->newCommentState), $matches);
@@ -83,16 +95,20 @@ class Comments extends Component
         $this->perPage += 10;
     }
 
+    /// TODO: Find a better data structure to avoid this mess of exception cases
     final public function postComment(): void
     {
-        if ($this->user->can_comment === 0) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.rights-revoked')]);
+        // Set Polymorhic Model Name
+        $modelName = str()->snake(class_basename($this->model), ' ');
+
+        if ($modelName !== 'ticket' && $this->user->can_comment === false) {
+            $this->dispatch('error', type: 'error', message: __('comment.rights-revoked'));
 
             return;
         }
 
         if (strtolower(class_basename($this->model)) === 'torrent' && $this->model->status !== Torrent::APPROVED) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => trans('comment.torrent-status')]);
+            $this->dispatch('error', type: 'error', message: __('comment.torrent-status'));
 
             return;
         }
@@ -105,9 +121,6 @@ class Comments extends Component
         $comment->user()->associate($this->user);
         $comment->anon = $this->anon;
         $comment->save();
-
-        // Set Polymorhic Model Name
-        $modelName = str()->snake(class_basename($this->model), ' ');
 
         // New Comment Notification
         switch ($modelName) {
@@ -195,11 +208,16 @@ class Comments extends Component
         $this->gotoPage(1);
     }
 
-    final public function getCommentsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Comment>
+     */
+    #[Computed]
+    final public function comments(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->model
             ->comments()
             ->with(['user:id,username,group_id,image,title', 'user.group', 'children.user:id,username,group_id,image,title', 'children.user.group'])
+            ->withExists('children')
             ->parent()
             ->latest()
             ->paginate($this->perPage);

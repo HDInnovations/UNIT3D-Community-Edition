@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Category;
 
+/** @extends Factory<Category> */
 class CategoryFactory extends Factory
 {
     /**
@@ -30,7 +34,7 @@ class CategoryFactory extends Factory
     {
         return [
             'name'        => $this->faker->name(),
-            'image'       => $this->faker->image(),
+            'image'       => null,
             'position'    => $this->faker->randomNumber(),
             'icon'        => $this->faker->word(),
             'no_meta'     => $this->faker->boolean(),

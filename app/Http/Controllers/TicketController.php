@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -47,6 +50,10 @@ class TicketController extends Controller
     {
         $ticket = Ticket::create(['user_id' => $request->user()->id] + $request->validated());
 
+        if($request->hasFile('attachments')) {
+            TicketAttachmentController::storeTicketAttachments($request, $ticket, $request->user());
+        }
+
         return to_route('tickets.show', ['ticket' => $ticket])
             ->withSuccess(trans('ticket.created-success'));
     }
@@ -69,8 +76,12 @@ class TicketController extends Controller
         $ticket->save();
 
         return view('ticket.show', [
-            'user'   => $request->user(),
-            'ticket' => $ticket->load('comments'),
+            'user'            => $request->user(),
+            'ticket'          => $ticket->load('comments', 'notes'),
+            'pastUserTickets' => Ticket::query()
+                ->where('user_id', '=', $ticket->user_id)
+                ->where('id', '!=', $ticket->id)
+                ->get(),
         ]);
     }
 
@@ -81,6 +92,7 @@ class TicketController extends Controller
     {
         abort_unless($request->user()->group->is_modo, 403);
 
+        $ticket->notes()->delete();
         $ticket->comments()->delete();
         $ticket->attachments()->delete();
         $ticket->delete();

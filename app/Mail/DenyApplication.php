@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,7 +28,7 @@ class DenyApplication extends Mailable
     /**
      * DenyApplication Constructor.
      */
-    public function __construct(public $deniedMessage)
+    public function __construct(public string $deniedMessage)
     {
     }
 

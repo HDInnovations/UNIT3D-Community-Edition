@@ -10,9 +10,7 @@
             {{ __('stat.stats') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Themes
-    </li>
+    <li class="breadcrumb--active">Themes</li>
 @endsection
 
 @section('page', 'page__stats--themes')
@@ -27,36 +25,66 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             @switch($siteTheme->style)
-                                @case ('0')
-                                Light Theme
-                                @break
-                                @case ('1')
-                                Galactic Theme
-                                @break
-                                @case ('2')
-                                Dark Blue Theme
-                                @break
-                                @case ('3')
-                                Dark Green Theme
-                                @break
-                                @case ('4')
-                                Dark Pink Theme
-                                @break
-                                @case ('5')
-                                Dark Purple Theme
-                                @break
-                                @case ('6')
-                                Dark Red Theme
-                                @break
-                                @case ('7')
-                                Dark Teal Theme
-                                @break
-                                @case ('8')
-                                Dark Yellow Theme
-                                @break
-                                @case ('9')
-                                Cosmic Void Theme
-                                @break
+                                @case('0')
+                                    Light Theme
+
+                                    @break
+                                @case('1')
+                                    Galactic Theme
+
+                                    @break
+                                @case('2')
+                                    Dark Blue Theme
+
+                                    @break
+                                @case('3')
+                                    Dark Green Theme
+
+                                    @break
+                                @case('4')
+                                    Dark Pink Theme
+
+                                    @break
+                                @case('5')
+                                    Dark Purple Theme
+
+                                    @break
+                                @case('6')
+                                    Dark Red Theme
+
+                                    @break
+                                @case('7')
+                                    Dark Teal Theme
+
+                                    @break
+                                @case('8')
+                                    Dark Yellow Theme
+
+                                    @break
+                                @case('9')
+                                    Cosmic Void Theme
+
+                                    @break
+                                @case('10')
+                                    Nord Theme
+
+                                    @break
+                                @case('11')
+                                    Revel Theme
+
+                                    @break
+                                @case('12')
+                                    Material Design 3 Light Theme
+
+                                    @break
+                                @case('13')
+                                    Material Design 3 Dark Theme
+
+                                    @break
+                                @case('14')
+                                    Material Design 3 Amoled Theme
+
+                                    @break
                             @endswitch
                         </td>
                         <td>Used By {{ $siteTheme->value }} Users</td>

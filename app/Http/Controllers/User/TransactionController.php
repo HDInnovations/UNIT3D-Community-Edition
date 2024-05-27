@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -59,11 +62,9 @@ class TransactionController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        $request = (object) $request->validated();
-
         return DB::transaction(function () use ($request, $user) {
             $user->refresh();
-            $bonExchange = BonExchange::findOrFail($request->exchange);
+            $bonExchange = BonExchange::findOrFail($request->integer('exchange'));
 
             if ($bonExchange->cost > $user->seedbonus) {
                 return back()->withErrors('Not enough BON.');
@@ -117,7 +118,6 @@ class TransactionController extends Controller
                 'name'            => $bonExchange->description,
                 'cost'            => $bonExchange->value,
                 'sender_id'       => $user->id,
-                'comment'         => $bonExchange->description,
                 'torrent_id'      => null,
             ]);
 

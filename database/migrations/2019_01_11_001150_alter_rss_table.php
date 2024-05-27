@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,7 +28,7 @@ return new class () extends Migration {
         Schema::create('rss', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->integer('position')->default(0);
-            $table->string('name', '255')->default('Default');
+            $table->string('name', 255)->default('Default');
             $table->integer('user_id')->default(1);
             $table->integer('staff_id')->default(0);
             $table->boolean('is_private')->default(0)->index();

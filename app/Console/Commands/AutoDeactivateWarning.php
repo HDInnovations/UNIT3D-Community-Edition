@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,12 +21,11 @@ use App\Notifications\UserManualWarningExpire;
 use App\Notifications\UserWarningExpire;
 use App\Services\Unit3dAnnounce;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoDeactivateWarningTest
- */
 class AutoDeactivateWarning extends Command
 {
     /**
@@ -42,8 +44,10 @@ class AutoDeactivateWarning extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $current = Carbon::now();
         $warnings = Warning::with(['warneduser', 'torrenttitle'])
@@ -53,7 +57,7 @@ class AutoDeactivateWarning extends Command
         foreach ($warnings as $warning) {
             if ($warning->expires_on <= $current || ($warning->torrenttitle && $warning->torrenttitle->history()->where('user_id', '=', $warning->warneduser->id)->first()->seedtime >= config('hitrun.seedtime'))) {
                 // Set Records Active To 0 in warnings table
-                $warning->active = '0';
+                $warning->active = false;
                 $warning->save();
 
                 // Send Notifications
@@ -73,7 +77,7 @@ class AutoDeactivateWarning extends Command
             ->get();
 
         foreach ($warnings as $warning) {
-            if ($warning->warneduser->can_download === 0) {
+            if ($warning->warneduser->can_download === false) {
                 $warning->warneduser->can_download = 1;
                 $warning->warneduser->save();
 

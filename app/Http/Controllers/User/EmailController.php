@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,10 +17,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\PrivateMessage;
 use App\Models\User;
+use App\Notifications\UserEmailChange;
 use App\Rules\EmailBlacklist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class EmailController extends Controller
@@ -31,7 +35,7 @@ class EmailController extends Controller
 
         $changedByStaff = $request->user()->isNot($user);
 
-        abort_if($changedByStaff && ! $request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
+        abort_if($changedByStaff && !$request->user()->group->is_owner && $request->user()->group->level <= $user->group->level, 403);
 
         $request->validate([
             'email' => [
@@ -44,18 +48,23 @@ class EmailController extends Controller
             ],
         ]);
 
-        $user->update([
-            'email' => $request->email,
-        ]);
+        $oldEmail = $user->email;
+        $newEmail = $request->email;
 
-        if ($changedByStaff) {
-            PrivateMessage::create([
-                'sender_id'   => 1,
-                'receiver_id' => $user->id,
-                'subject'     => 'ATTENTION - Your email has been changed',
-                'message'     => "Your email has been changed by staff.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
+        $user->notify(new UserEmailChange($user, $oldEmail, $newEmail));
+
+        DB::transaction(function () use ($user, $newEmail): void {
+            $user->emailUpdates()->latest()->first()?->update(['deleted_at' => now()]);
+
+            $user->update([
+                'email'             => $newEmail,
+                'email_verified_at' => null,
             ]);
-        }
+
+            $user->emailUpdates()->create();
+        });
+
+        $user->sendEmailVerificationNotification();
 
         return to_route('users.email.edit', ['user' => $user])
             ->withSuccess('Your email was updated successfully.');
@@ -68,6 +77,9 @@ class EmailController extends Controller
     {
         abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        return view('user.email.edit', ['user' => $user]);
+        return view('user.email.edit', [
+            'user'         => $user,
+            'emailUpdates' => $user->emailUpdates()->latest()->get(),
+        ]);
     }
 }

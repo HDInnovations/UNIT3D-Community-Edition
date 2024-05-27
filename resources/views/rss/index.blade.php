@@ -13,21 +13,24 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a class="nav-tab__link" 
-            href="{{ route('torrents.index', ['view' => match(auth()->user()->torrent_layout) {
-                1       => 'card',
-                2       => 'group',
-                3       => 'poster',
-                default => 'list'
-            }]) }}"
+        <a
+            class="nav-tab__link"
+            href="{{
+                route('torrents.index', [
+                    'view' => match (auth()->user()->settings?->torrent_layout) {
+                        1 => 'card',
+                        2 => 'group',
+                        3 => 'poster',
+                        default => 'list',
+                    },
+                ])
+            }}"
         >
             {{ __('torrent.search') }}
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('top10.index') }}">
-            Top 10
-        </a>
+        <a class="nav-tab__link" href="{{ route('top10.index') }}">Top 10</a>
     </li>
     <li class="nav-tab--active">
         <a class="nav-tab--active__link" href="{{ route('rss.index') }}">
@@ -61,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($public_rss as $rss)
+                    @forelse ($public_rss as $rss)
                         <tr>
                             <td>
                                 <a
@@ -73,51 +76,79 @@
                             </td>
                             <td>
                                 @if ($rss->object_torrent?->categories)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($rss->object_torrent?->types)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($rss->object_torrent?->resolutions)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($rss->object_torrent?->genres)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($rss->object_torrent?->freeleech || $rss->object_torrent->doubleupload || $rss->object_torrent->featured)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($rss->object_torrent?->stream || $rss->object_torrent?->highspeed || $rss->object_torrent?->sd || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
                                 @if ($rss->object_torrent?->alive || $rss->object_torrent?->dying || $rss->object_torrent?->dead)
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
                                 @else
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
                                 @endif
                             </td>
                         </tr>
@@ -142,119 +173,138 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('common.name') }}</th>
-                    <th>{{ __('common.categories') }}</th>
-                    <th>{{ __('common.types') }}</th>
-                    <th>{{ __('common.resolutions') }}</th>
-                    <th>{{ __('common.genres') }}</th>
-                    <th>{{ __('torrent.discounts') }}</th>
-                    <th>{{ __('common.special') }}</th>
-                    <th>{{ __('torrent.health') }}</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.categories') }}</th>
+                        <th>{{ __('common.types') }}</th>
+                        <th>{{ __('common.resolutions') }}</th>
+                        <th>{{ __('common.genres') }}</th>
+                        <th>{{ __('torrent.discounts') }}</th>
+                        <th>{{ __('common.special') }}</th>
+                        <th>{{ __('torrent.health') }}</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @forelse($private_rss as $rss)
-                    <tr>
-                        <td>
-                            <a
-                                href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => auth()->user()->rsskey]) }}"
-                                target="_blank"
-                            >
-                                {{ $rss->name }}
-                            </a>
-                        </td>
-                        <td>
-                            @if ($rss->object_torrent?->categories)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($rss->object_torrent?->types)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($rss->object_torrent?->resolutions)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($rss->object_torrent?->genres)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($rss->object_torrent?->freeleech || $rss->object_torrent?->doubleupload || $rss->object_torrent?->featured)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($rss->object_torrent?->stream || $rss->object_torrent?->highspeed || $rss->object_torrent?->sd || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($rss->object_torrent->alive || $rss->object_torrent->dying || $rss->object_torrent->dead)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if(auth()->id() == $rss->user_id)
-                                <menu class="data-table__actions">
-                                    <li class="data-table__action">
-                                        <a
-                                            href="{{ route('rss.edit', ['id' => $rss->id]) }}"
-                                            class="form__button form__button--text"
-                                        >
-                                            {{ __('common.edit') }}
-                                        </a>
-                                    </li>
-                                    <li class="data-table__action">
-                                        <form
-                                            action="{{ route('rss.destroy', ['id' => $rss->id]) }}"
-                                            method="POST"
-                                            x-data
-                                        >
-                                            @csrf
-                                            @method('DELETE')
-                                            <button
-                                                x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to delete this private RSS feed: ${atob('{{ base64_encode($rss->name) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
+                    @forelse ($private_rss as $rss)
+                        <tr>
+                            <td>
+                                <a
+                                    href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => auth()->user()->rsskey]) }}"
+                                    target="_blank"
+                                >
+                                    {{ $rss->name }}
+                                </a>
+                            </td>
+                            <td>
+                                @if ($rss->object_torrent?->categories)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($rss->object_torrent?->types)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($rss->object_torrent?->resolutions)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($rss->object_torrent?->genres)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($rss->object_torrent?->freeleech || $rss->object_torrent?->doubleupload || $rss->object_torrent?->featured)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($rss->object_torrent?->stream || $rss->object_torrent?->highspeed || $rss->object_torrent?->sd || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($rss->object_torrent->alive || $rss->object_torrent->dying || $rss->object_torrent->dead)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if (auth()->id() == $rss->user_id)
+                                    <menu class="data-table__actions">
+                                        <li class="data-table__action">
+                                            <a
+                                                href="{{ route('rss.edit', ['id' => $rss->id]) }}"
                                                 class="form__button form__button--text"
                                             >
-                                                {{ __('common.delete') }}
-                                            </button>
-                                        </form>
-                                    </li>
-                                </menu>
-                            @endif
-                        </td>
-                    </tr>
+                                                {{ __('common.edit') }}
+                                            </a>
+                                        </li>
+                                        <li class="data-table__action">
+                                            <form
+                                                action="{{ route('rss.destroy', ['id' => $rss->id]) }}"
+                                                method="POST"
+                                                x-data="confirmation"
+                                            >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    x-on:click.prevent="confirmAction"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this private RSS feed: ' . $rss->name . '?') }}"
+                                                    class="form__button form__button--text"
+                                                >
+                                                    {{ __('common.delete') }}
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </menu>
+                                @endif
+                            </td>
+                        </tr>
                     @empty
                         <tr>
                             <td colspan="9">No private RSS feeds</td>

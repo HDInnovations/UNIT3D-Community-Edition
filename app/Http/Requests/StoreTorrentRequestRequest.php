@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,6 +33,8 @@ class StoreTorrentRequestRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
      */
     public function rules(Request $request): array
     {
@@ -43,49 +48,50 @@ class StoreTorrentRequestRequest extends FormRequest
             'imdb' => [
                 Rule::when($category->movie_meta || $category->tv_meta, [
                     'required',
-                    'numeric',
+                    'decimal:0',
+                    'min:0',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
             'tvdb' => [
                 Rule::when($category->tv_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
-                Rule::when(! $category->tv_meta, [
+                Rule::when(!$category->tv_meta, [
                     Rule::in([0]),
                 ]),
             ],
             'tmdb' => [
                 Rule::when($category->movie_meta || $category->tv_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
             'mal' => [
                 Rule::when($category->movie_meta || $category->tv_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
-                Rule::when(! ($category->movie_meta || $category->tv_meta), [
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
                     Rule::in([0]),
                 ]),
             ],
             'igdb' => [
                 Rule::when($category->game_meta, [
                     'required',
-                    'numeric',
-                    'integer',
+                    'decimal:0',
+                    'min:0',
                 ]),
-                Rule::when(! $category->game_meta, [
+                Rule::when(!$category->game_meta, [
                     Rule::in([0]),
                 ]),
             ],
@@ -118,14 +124,20 @@ class StoreTorrentRequestRequest extends FormRequest
         ];
     }
 
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
     public function messages(): array
     {
         return [
-            'igdb.in' => 'The IGBB ID must be 0 if the media doesn\'t exist on IGDB or you\'re not requesting a game.',
-            'tmdb.in' => 'The TMDB ID must be 0 if the media doesn\'t exist on TMDB or you\'re not requesting a tv show or movie.',
-            'imdb.in' => 'The IMDB ID must be 0 if the media doesn\'t exist on IMDB or you\'re not requesting a tv show or movie.',
-            'tvdb.in' => 'The TVDB ID must be 0 if the media doesn\'t exist on TVDB or you\'re not requesting a tv show.',
-            'mal.in'  => 'The MAL ID must be 0 if the media doesn\'t exist on MAL or you\'re not requesting a tv or movie.',
+            'igdb.in'    => 'The IGBB ID must be 0 if the media doesn\'t exist on IGDB or you\'re not requesting a game.',
+            'tmdb.in'    => 'The TMDB ID must be 0 if the media doesn\'t exist on TMDB or you\'re not requesting a tv show or movie.',
+            'imdb.in'    => 'The IMDB ID must be 0 if the media doesn\'t exist on IMDB or you\'re not requesting a tv show or movie.',
+            'tvdb.in'    => 'The TVDB ID must be 0 if the media doesn\'t exist on TVDB or you\'re not requesting a tv show.',
+            'mal.in'     => 'The MAL ID must be 0 if the media doesn\'t exist on MAL or you\'re not requesting a tv or movie.',
+            'bounty.max' => 'You do not have enough BON to make this request.',
         ];
     }
 }

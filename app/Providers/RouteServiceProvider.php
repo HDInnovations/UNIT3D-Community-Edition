@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -28,7 +31,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/';
+    final public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -37,9 +40,11 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
+        $this->removeIndexPhpFromUrl();
+
         $this->routes(function (): void {
             Route::prefix('api')
-                ->middleware(['web', 'auth'])
+                ->middleware(['chat'])
                 ->group(base_path('routes/vue.php'));
 
             Route::middleware('web')
@@ -63,13 +68,25 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting(): void
     {
-        RateLimiter::for('web', function (Request $request): Limit {
-            return $request->user()
-                ? Limit::perMinute(30)->by($request->user()->id)
-                : Limit::perMinute(5)->by($request->ip());
-        });
-        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));
-        RateLimiter::for('announce', fn (Request $request) => Limit::perMinute(500)->by($request->ip()));
-        RateLimiter::for('rss', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));
+        RateLimiter::for('web', fn (Request $request): Limit => $request->user()
+            ? Limit::perMinute(30)->by('web'.$request->user()->id)
+            : Limit::perMinute(8)->by('web'.$request->ip()));
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(30)->by('api'.$request->ip()));
+        RateLimiter::for('announce', fn (Request $request) => Limit::perMinute(500)->by('announce'.$request->ip()));
+        RateLimiter::for('chat', fn (Request $request) => Limit::perMinute(60)->by('chat'.($request->user()?->id ?? $request->ip())));
+        RateLimiter::for('rss', fn (Request $request) => Limit::perMinute(30)->by('rss'.$request->ip()));
+    }
+
+    protected function removeIndexPhpFromUrl(): void
+    {
+        if (str_contains(request()->getRequestUri(), '/index.php/')) {
+            $url = str_replace('index.php/', '', request()->getRequestUri());
+
+            if ($url !== '') {
+                header("Location: {$url}", true, 301);
+
+                exit;
+            }
+        }
     }
 }

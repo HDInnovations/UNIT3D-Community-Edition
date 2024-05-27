@@ -1,11 +1,13 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('common.latest-posts') }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('common.latest-posts') }} - {{ __('forum.forums') }} - {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="Forum {{ __('common.latest-posts') }}">
+    <meta name="description" content="Forum {{ __('common.latest-posts') }}" />
 @endsection
 
 @section('breadcrumbs')

@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -40,7 +42,6 @@ return [
     'comments'             => 'Kommentare',
     'community'            => 'Community',
     'content'              => 'Inhalt',
-    'connected'            => 'Verbunden',
     'contact'              => 'Kontakt',
     'contact-desc'         => 'Diese Anfrage wird an den Eigentümer gesendet, welcher sich so schnell wie möglich bei dir melden wird',
     'contact-header'       => 'Hallo',

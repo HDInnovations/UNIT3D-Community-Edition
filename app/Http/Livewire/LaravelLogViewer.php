@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,35 +16,46 @@
 
 namespace App\Http\Livewire;
 
+use App\Traits\CastLivewireProperties;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\File;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 use SplFileInfo;
 
+/**
+ * @property \Illuminate\Support\Collection $logFiles
+ * @property LengthAwarePaginator           $entries
+ */
 class LaravelLogViewer extends Component
 {
+    use CastLivewireProperties;
     use WithPagination;
 
-    public $logs = [0];
+    /**
+     * @var int[]|string[]
+     */
+    public array $logs = [0];
 
-    public $page = 1;
+    public int $page = 1;
 
-    public $perPage = 5;
+    #[Url(history: true)]
+    public int $perPage = 5;
 
-    protected $queryString = ['page'];
-
-    final public function updatedPage(): void
+    final public function updating(string $field, mixed &$value): void
     {
-        $this->emit('paginationChanged');
+        $this->castLivewireProperties($field, $value);
     }
 
-    final public function updatingLogs(): void
+    final public function loadMore(): void
     {
-        $this->page = 1;
+        $this->perPage += 5;
     }
 
-    final public function getLogFilesProperty()
+    #[Computed]
+    final public function logFiles()
     {
         $directory = storage_path('logs');
 
@@ -49,13 +63,16 @@ class LaravelLogViewer extends Component
             ->sortByDesc(fn (SplFileInfo $file) => $file->getMTime())->values();
     }
 
-    final public function getEntriesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    #[Computed]
+    final public function entries(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $files = $this->logFiles;
         $logString = '';
 
         foreach ($this->logs as $log) {
-            $logString .= file_get_contents($files[$log]->getPathname());
+            if ($files[$log] ?? []) {
+                $logString .= file_get_contents($files[$log]->getPathname());
+            }
         }
 
         $entryPattern = '/^\[(?<date>.*)\]\s(?<env>\w+)\.(?<level>\w+)\:\s/m';
@@ -71,7 +88,7 @@ class LaravelLogViewer extends Component
 
             for ($i = 0; $i < $numEntries; $i++) {
                 // The context is the portion before the first stack trace
-                $context = preg_split('/^\[stacktrace\]|Stack trace\:/ms', $stacktraces[$i])[0];
+                $context = preg_split('/^\[stacktrace\]|Stack trace\:/ms', (string) $stacktraces[$i])[0];
                 // The `context` consists of a message, an exception, a filename, and a linecount
                 preg_match($contextPattern, $context, $contextMatches);
 
@@ -92,6 +109,25 @@ class LaravelLogViewer extends Component
         $currentEntries = $groupedEntries->forPage($this->page, $this->perPage);
 
         return new LengthAwarePaginator($currentEntries, $groupedEntries->count(), $this->perPage, $this->page);
+    }
+
+    final public function clearLatestLog(): void
+    {
+        $latestLogFile = $this->logFiles->first();
+
+        if ($latestLogFile) {
+            File::put($latestLogFile->getPathname(), '');
+        }
+    }
+
+    final public function deleteAllLogs(): void
+    {
+        $directory = storage_path('logs');
+        $files = File::allFiles($directory);
+
+        foreach ($files as $file) {
+            File::delete($file->getPathname());
+        }
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

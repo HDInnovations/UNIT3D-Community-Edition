@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,6 +22,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\PrivateMessage.
+ *
+ * @property int                             $id
+ * @property int                             $sender_id
+ * @property int                             $receiver_id
+ * @property string                          $subject
+ * @property string                          $message
+ * @property int                             $read
+ * @property int|null                        $related_to
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class PrivateMessage extends Model
 {
     use HasFactory;
@@ -32,6 +48,8 @@ class PrivateMessage extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -43,6 +61,8 @@ class PrivateMessage extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -54,6 +74,8 @@ class PrivateMessage extends Model
 
     /**
      * Has a reply.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<PrivateMessage>
      */
     public function reply(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -62,6 +84,8 @@ class PrivateMessage extends Model
 
     /**
      * Has a reply.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<PrivateMessage>
      */
     public function replyRecursive(): \Illuminate\Database\Eloquent\Relations\HasOne
     {

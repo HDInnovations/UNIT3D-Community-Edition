@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,35 +18,16 @@ namespace Database\Seeders;
 
 use App\Models\Chatroom;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ChatroomTableSeeder extends Seeder
 {
-    private $rooms;
-
-    public function __construct()
-    {
-        $this->rooms = $this->getRooms();
-    }
-
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        foreach ($this->rooms as $room) {
-            Chatroom::updateOrCreate($room);
-        }
-    }
-
-    private function getRooms(): array
-    {
-        return [
+        Chatroom::upsert([
             [
                 'name' => 'General',
             ],
-            [
-                'name' => 'Trivia',
-            ],
-        ];
+        ], ['name'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

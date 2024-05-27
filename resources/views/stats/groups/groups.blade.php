@@ -38,13 +38,13 @@
                             <td>
                                 <a
                                     href="{{ route('group', ['id' => $group->id]) }}"
-                                    style="color:{{ $group->color }};"
+                                    style="color: {{ $group->color }}"
                                 >
-                                        <i class="{{ $group->icon }}"></i>
-                                        {{ $group->name }}
+                                    <i class="{{ $group->icon }}"></i>
+                                    {{ $group->name }}
                                 </a>
                             </td>
-                            <td>{{ $group->users()->withTrashed()->count() }}</td>
+                            <td>{{ $group->users_count }}</td>
                         </tr>
                     @endforeach
                 </tbody>

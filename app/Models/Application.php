@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,19 +21,33 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Application.
+ *
+ * @property int                             $id
+ * @property string                          $type
+ * @property string                          $email
+ * @property string|null                     $referrer
+ * @property int                             $status
+ * @property \Illuminate\Support\Carbon|null $moderated_at
+ * @property int|null                        $moderated_by
+ * @property int|null                        $accepted_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Application extends Model
 {
     use Auditable;
     use HasFactory;
 
-    public const PENDING = 0;
-    public const APPROVED = 1;
-    public const REJECTED = 2;
+    final public const PENDING = 0;
+    final public const APPROVED = 1;
+    final public const REJECTED = 2;
 
     /**
-     * The Attributes That Are Mass Assignable.
+     * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'status',
@@ -38,9 +55,17 @@ class Application extends Model
         'moderated_at',
     ];
 
-    protected $casts = [
-        'moderated_at' => 'datetime',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'moderated_at' => 'datetime',
+        ];
+    }
 
     /**
      * The attributes that aren't mass assignable.
@@ -56,6 +81,8 @@ class Application extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -64,6 +91,8 @@ class Application extends Model
 
     /**
      * Application Has Been Moderated By.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -72,6 +101,8 @@ class Application extends Model
 
     /**
      * A Application Has Many Image Proofs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ApplicationImageProof>
      */
     public function imageProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -80,6 +111,8 @@ class Application extends Model
 
     /**
      * A Application Has Many URL Proofs.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ApplicationUrlProof>
      */
     public function urlProofs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

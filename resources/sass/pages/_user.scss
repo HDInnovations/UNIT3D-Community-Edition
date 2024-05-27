@@ -20,7 +20,9 @@
 
 .profile__avatar {
     grid-area: avatar;
-    align-self: start;
+    align-self: start;  border-radius: 10%;
+    width: 180px;
+    height: 180px;
 }
 
 .profile__registration {
@@ -33,4 +35,23 @@
 
 .profile__about {
     grid-area: about;
+}
+
+.twoStep__qrCode {
+    width: fit-content;
+    padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: var(--panel-box-shadow);
+}
+
+.twoStep__recoveryCodes {
+    margin-top: 1rem;
+    width: fit-content;
+    padding: 1rem 1rem 1rem 1rem;
+    background-color: white;
+    border-radius: 0.25rem;
+    box-shadow: var(--panel-box-shadow);
+    font-family: monospace;
+    color: #0f0f0f;
 }

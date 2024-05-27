@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,12 +20,11 @@ use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Seedbox;
 use App\Models\Torrent;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoHighspeedTagTest
- */
 class AutoHighspeedTag extends Command
 {
     /**
@@ -41,12 +43,15 @@ class AutoHighspeedTag extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $seedboxIps = Seedbox::all()
             ->pluck('ip')
-            ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP));
+            ->filter(fn ($ip) => filter_var($ip, FILTER_VALIDATE_IP))
+            ->map(fn ($ip) => inet_pton($ip));
 
         Torrent::withoutGlobalScope(ApprovedScope::class)
             ->leftJoinSub(
@@ -54,12 +59,13 @@ class AutoHighspeedTag extends Command
                     ->where('active', '=', 1)
                     ->distinct()
                     ->select('torrent_id')
-                    ->whereRaw("INET6_NTOA(ip) IN ('".$seedboxIps->implode("','")."')"),
+                    ->whereIn('ip', $seedboxIps),
                 'highspeed_torrents',
                 fn ($join) => $join->on('torrents.id', '=', 'highspeed_torrents.torrent_id')
             )
             ->update([
-                'highspeed' => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN 1 ELSE 0 END'),
+                'highspeed'  => DB::raw('CASE WHEN highspeed_torrents.torrent_id IS NOT NULL THEN 1 ELSE 0 END'),
+                'updated_at' => DB::raw('updated_at'),
             ]);
 
         $this->comment('Automated High Speed Torrents Command Complete');

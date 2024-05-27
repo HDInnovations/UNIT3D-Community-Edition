@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -31,7 +34,7 @@ class RequestFillController extends Controller
      */
     public function store(StoreRequestFillRequest $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
     {
-        $torrent = Torrent::find(basename($request->torrent_id));
+        $torrent = Torrent::find(basename((string) $request->torrent_id));
 
         if ($torrent === null) {
             return to_route('requests.show', ['torrentRequest' => $torrentRequest])
@@ -50,7 +53,7 @@ class RequestFillController extends Controller
         $requester = $torrentRequest->user;
 
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
-            $requester->notify(new NewRequestFill('torrent', $sender, $torrentRequest));
+            $requester->notify(new NewRequestFill($torrentRequest));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])

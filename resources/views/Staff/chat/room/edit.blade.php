@@ -42,8 +42,8 @@
                         required
                         type="text"
                         value="{{ $chatroom->name }}"
-                    >
-                    <label class="form__label form__label--floating" for="chatroom_name">
+                    />
+                    <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
                 </p>

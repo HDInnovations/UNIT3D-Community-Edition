@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,19 +17,16 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\BanUser;
 use App\Models\Ban;
 use App\Models\Group;
 use App\Models\User;
+use App\Notifications\UserBan;
 use App\Rules\EmailBlacklist;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Todo\Unit\Console\Commands\AutoBanDisposableUsersTest
- */
 class AutoBanDisposableUsers extends Command
 {
     /**
@@ -46,9 +46,9 @@ class AutoBanDisposableUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
@@ -78,16 +78,16 @@ class AutoBanDisposableUsers extends Command
                     $user->save();
 
                     // Log The Ban To Ban Log
-                    $domain = substr(strrchr($user->email, '@'), 1);
+                    $domain = substr(strrchr((string) $user->email, '@'), 1);
                     $logban = new Ban();
                     $logban->owned_by = $user->id;
-                    $logban->created_by = 1;
+                    $logban->created_by = User::SYSTEM_USER_ID;
                     $logban->ban_reason = 'Detected disposable email, '.$domain.' not allowed.';
                     $logban->unban_reason = '';
                     $logban->save();
 
                     // Send Email
-                    Mail::to($user->email)->send(new BanUser($user->email, $logban));
+                    $user->notify(new UserBan($logban));
                 }
 
                 cache()->forget('user:'.$user->passkey);

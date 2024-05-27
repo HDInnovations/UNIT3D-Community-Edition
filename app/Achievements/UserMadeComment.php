@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,13 +20,17 @@ use Assada\Achievements\Achievement;
 
 class UserMadeComment extends Achievement
 {
-    /*
-     * The achievement name
+    /**
+     * The achievement name.
+     *
+     * @var string
      */
     public $name = 'FirstComment';
 
-    /*
-     * A small description for the achievement
+    /**
+     * A small description for the achievement.
+     *
+     * @var string
      */
     public $description = 'Congratulations! You have made your first comment!';
 }

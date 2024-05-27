@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,7 +35,7 @@ test('rules', function (): void {
         'exchange' => [
             'bail',
             'required',
-            'exists:bon_exchange,id',
+            'exists:bon_exchanges,id',
         ],
     ], $actual);
 });

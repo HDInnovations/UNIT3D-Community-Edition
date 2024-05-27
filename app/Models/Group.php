@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,10 +20,57 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Group.
+ *
+ * @property int      $id
+ * @property string   $name
+ * @property string   $slug
+ * @property int      $position
+ * @property int      $level
+ * @property int|null $download_slots
+ * @property string   $description
+ * @property string   $color
+ * @property string   $icon
+ * @property string   $effect
+ * @property int      $is_internal
+ * @property int      $is_editor
+ * @property int      $is_owner
+ * @property int      $is_admin
+ * @property int      $is_modo
+ * @property int      $is_trusted
+ * @property int      $is_immune
+ * @property int      $is_freeleech
+ * @property int      $is_double_upload
+ * @property int      $is_refundable
+ * @property int      $can_upload
+ * @property int      $is_incognito
+ * @property int      $autogroup
+ * @property bool     $system_required
+ * @property int      $min_uploaded
+ * @property int      $min_seedsize
+ * @property int      $min_avg_seedtime
+ * @property string   $min_ratio
+ * @property int      $min_age
+ * @property int      $min_uploads
+ */
 class Group extends Model
 {
     use Auditable;
     use HasFactory;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'system_required' => 'boolean',
+            'min_ratio'       => 'decimal:2',
+        ];
+    }
 
     /**
      * The attributes that aren't mass assignable.
@@ -38,6 +88,8 @@ class Group extends Model
 
     /**
      * Has Many Users.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -46,21 +98,11 @@ class Group extends Model
 
     /**
      * Has Many Permissions.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Permission::class);
-    }
-
-    /**
-     * Get the Group allowed answer as bool.
-     */
-    public function isAllowed($object, int $groupId): bool
-    {
-        if (\is_array($object) && \is_array($object['default_groups']) && \array_key_exists($groupId, $object['default_groups'])) {
-            return $object['default_groups'][$groupId] == 1;
-        }
-
-        return true;
+        return $this->hasMany(ForumPermission::class);
     }
 }

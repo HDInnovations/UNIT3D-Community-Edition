@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,18 +20,24 @@ use Assada\Achievements\Achievement;
 
 class UserMadeTenComments extends Achievement
 {
-    /*
-     * The achievement name
+    /**
+     * The achievement name.
+     *
+     * @var string
      */
     public $name = '10Comments';
 
-    /*
-     * A small description for the achievement
+    /**
+     * A small description for the achievement.
+     *
+     * @var string
      */
     public $description = 'Wow! You have already made 10 comments!';
 
-    /*
-     * The amount of "points" this user need to obtain in order to complete this achievement
+    /**
+     * The amount of "points" this user need to obtain in order to complete this achievement.
+     *
+     * @var int
      */
     public $points = 10;
 }

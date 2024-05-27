@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,7 +32,7 @@ return new class () extends Migration {
             $table->string('info_hash')->index('info_hash');
             $table->string('file_name');
             $table->integer('num_file');
-            $table->float('size', 10, 0);
+            $table->float('size');
             $table->text('nfo')->nullable();
             $table->integer('leechers')->default(0);
             $table->integer('seeders')->default(0);

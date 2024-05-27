@@ -2,7 +2,10 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.received_messages.index', ['user' => $user]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('users.received_messages.index', ['user' => $user]) }}"
+            class="breadcrumb__link"
+        >
             {{ __('pm.messages') }}
         </a>
     </li>
@@ -58,20 +61,31 @@
                                 <x-user_tag :user="$pm->sender" :anon="false" />
                             </td>
                             <td>
-                                <a href="{{ route('users.received_messages.show', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}">
+                                <a
+                                    href="{{ route('users.received_messages.show', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}"
+                                >
                                     {{ $pm->subject }}
                                 </a>
                             </td>
                             <td>
-                                <time datetime="{{ $pm->created_at }}" title="{{ $pm->created_at }}">
+                                <time
+                                    datetime="{{ $pm->created_at }}"
+                                    title="{{ $pm->created_at }}"
+                                >
                                     {{ $pm->created_at->diffForHumans() }}
                                 </time>
                             </td>
                             <td>
                                 @if ($pm->read == 0)
-                                    <i class="{{ \config('other.font-awesome') }} fa-times text-red" title="{{ __('pm.unread') }}"></i>
+                                    <i
+                                        class="{{ \config('other.font-awesome') }} fa-times text-red"
+                                        title="{{ __('pm.unread') }}"
+                                    ></i>
                                 @else
-                                    <i class="{{ \config('other.font-awesome') }} fa-check text-green" title="{{ __('pm.read') }}"></i>
+                                    <i
+                                        class="{{ \config('other.font-awesome') }} fa-check text-green"
+                                        title="{{ __('pm.read') }}"
+                                    ></i>
                                 @endif
                             </td>
                             <td>
@@ -80,13 +94,10 @@
                                         <form
                                             action="{{ route('users.received_messages.destroy', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}"
                                             method="POST"
-                                            x-data
                                         >
                                             @csrf
                                             @method('DELETE')
-                                            <button
-                                                class="form__button form__button--text"
-                                            >
+                                            <button class="form__button form__button--text">
                                                 {{ __('common.delete') }}
                                             </button>
                                         </form>
@@ -106,7 +117,10 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.actions') }}</h2>
         <div class="panel__body">
-            <form action="{{ route('users.received_messages.mass_update', ['user' => $user]) }}" method="POST">
+            <form
+                action="{{ route('users.received_messages.mass_update', ['user' => $user]) }}"
+                method="POST"
+            >
                 <p class="form__group form__group--horizontal">
                     @csrf
                     @method('PATCH')
@@ -116,22 +130,17 @@
                     </button>
                 </p>
             </form>
-            <form method="POST" action="{{ route('users.received_messages.mass_destroy', ['user' => $user]) }}" x-data>
+            <form
+                method="POST"
+                action="{{ route('users.received_messages.mass_destroy', ['user' => $user]) }}"
+                x-data="confirmation"
+            >
                 @csrf
                 @method('DELETE')
                 <p class="form__group form__group--horizontal">
                     <button
-                        x-on:click.prevent="Swal.fire({
-                            title: 'Are you sure?',
-                            text: 'Are you sure you want to delete all private messages?',
-                            icon: 'warning',
-                            showConfirmButton: true,
-                            showCancelButton: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $root.submit();
-                            }
-                        })"
+                        x-on:click.prevent="confirmAction"
+                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all private messages?') }}"
                         class="form__button form__button--filled form__button--centered"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-trash"></i>
@@ -140,5 +149,5 @@
                 </p>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

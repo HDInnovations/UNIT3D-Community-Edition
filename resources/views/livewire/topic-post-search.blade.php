@@ -8,7 +8,7 @@
                         id="search"
                         class="form__text"
                         type="text"
-                        wire:model="search"
+                        wire:model.live="search"
                         placeholder=" "
                     />
                     <label for="search" class="form__label form__label--floating">
@@ -26,26 +26,33 @@
             @if ($topic->approved)
                 <li class="topic-tag topic-tag--approved">{{ __('forum.approved') }}</li>
             @endif
+
             @if ($topic->denied)
                 <li class="topic-tag topic-tag--denied">{{ __('forum.denied') }}</li>
             @endif
+
             @if ($topic->solved)
                 <li class="topic-tag topic-tag--solved">{{ __('forum.solved') }}</li>
             @endif
+
             @if ($topic->invalid)
                 <li class="topic-tag topic-tag--invalid">{{ __('forum.invalid') }}</li>
             @endif
+
             @if ($topic->bug)
                 <li class="topic-tag topic-tag--bug">{{ __('forum.bug') }}</li>
             @endif
+
             @if ($topic->suggestion)
                 <li class="topic-tag topic-tag--suggestion">{{ __('forum.suggestion') }}</li>
             @endif
+
             @if ($topic->implemented)
                 <li class="topic-tag topic-tag--implemented">{{ __('forum.implemented') }}</li>
             @endif
         </ul>
     @endif
+
     {{ $posts->links('partials.pagination') }}
     <div class="panel__body">
         @if ($posts->count() > 0)

@@ -32,13 +32,13 @@
         </header>
         <table class="data-table articles-table">
             <thead>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th>{{ __('common.comments') }}</th>
-                <th>{{ __('common.action') }}</th>
-            </tr>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Date</th>
+                    <th>{{ __('common.comments') }}</th>
+                    <th>{{ __('common.action') }}</th>
+                </tr>
             </thead>
             <tbody>
                 @foreach ($articles as $article)
@@ -54,7 +54,10 @@
                             </a>
                         </td>
                         <td>
-                            <time datetime="{{ $article->created_at }}">
+                            <time
+                                datetime="{{ $article->created_at }}"
+                                title="{{ $article->created_at }}"
+                            >
                                 {{ $article->created_at }}
                             </time>
                         </td>
@@ -81,23 +84,15 @@
                                     <form
                                         action="{{ route('staff.articles.destroy', ['article' => $article]) }}"
                                         method="POST"
-                                        x-data
+                                        x-data="confirmation"
                                     >
                                         @csrf
                                         @method('DELETE')
-                                        <button    
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this article: ${atob('{{ base64_encode($article->title) }}')}?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
-                                            class="form__button form__button--text">
+                                        <button
+                                            x-on:click.prevent="confirmAction"
+                                            class="form__button form__button--text"
+                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this article: ' . $article->title . '?') }}"
+                                        >
                                             {{ __('common.delete') }}
                                         </button>
                                     </form>

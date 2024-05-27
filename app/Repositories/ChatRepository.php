@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -97,7 +100,7 @@ class ChatRepository
 
     public function message($userId, $roomId, $message, $receiver = null, $bot = null)
     {
-        if ($this->user->find($userId)->censor) {
+        if ($this->user->find($userId)->settings?->censor) {
             $message = $this->censorMessage($message);
         }
 
@@ -122,7 +125,7 @@ class ChatRepository
     {
         $user = $this->user->find($receiver);
 
-        if ($user->censor) {
+        if ($user->settings?->censor) {
             $message = $this->censorMessage($message);
         }
 
@@ -150,7 +153,7 @@ class ChatRepository
 
     public function privateMessage($userId, $roomId, $message, $receiver = null, $bot = null, $ignore = null)
     {
-        if ($this->user->find($userId)->censor) {
+        if ($this->user->find($userId)->settings?->censor) {
             $message = $this->censorMessage($message);
         }
 
@@ -207,6 +210,7 @@ class ChatRepository
             'receiver.chatStatus',
         ])->where(function ($query) use ($roomId): void {
             $query->where('chatroom_id', '=', $roomId);
+            $query->where('chatroom_id', '!=', 0);
         })
             ->latest('id')
             ->limit(config('chat.message_limit'))
@@ -227,6 +231,7 @@ class ChatRepository
         ])->where(function ($query) use ($senderId, $systemUserId): void {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $senderId]);
         })->where('bot_id', '=', $botId)
+            ->where('chatroom_id', '=', 0)
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();
@@ -244,6 +249,7 @@ class ChatRepository
         ])->where(function ($query) use ($senderId, $targetId): void {
             $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $targetId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$targetId, $senderId]);
         })
+            ->where('chatroom_id', '=', 0)
             ->latest('id')
             ->limit(config('chat.message_limit'))
             ->get();
@@ -337,13 +343,13 @@ class ChatRepository
     {
         foreach (config('censor.redact') as $word) {
             if (preg_match(sprintf('/\b%s(?=[.,]|$|\s)/mi', $word), (string) $message)) {
-                $message = str_replace($word, sprintf("<span class='censor'>%s</span>", $word), $message);
+                $message = str_replace($word, sprintf("<span class='censor'>%s</span>", $word), (string) $message);
             }
         }
 
         foreach (config('censor.replace') as $word => $rword) {
             if (Str::contains($message, $word)) {
-                $message = str_replace($word, $rword, $message);
+                $message = str_replace($word, $rword, (string) $message);
             }
         }
 

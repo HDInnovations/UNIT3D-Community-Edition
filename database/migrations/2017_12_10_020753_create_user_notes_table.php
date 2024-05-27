@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,7 +27,7 @@ return new class () extends Migration {
             $table->increments('id');
             $table->integer('user_id')->index();
             $table->integer('staff_id')->index();
-            $table->text('message', 65535);
+            $table->text('message');
             $table->timestamps();
         });
     }

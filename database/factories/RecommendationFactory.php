@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,6 +21,7 @@ use App\Models\Tv;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Recommendation;
 
+/** @extends Factory<Recommendation> */
 class RecommendationFactory extends Factory
 {
     /**

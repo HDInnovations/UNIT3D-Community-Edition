@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,10 +16,11 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
+use App\Models\ForumCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Forum;
 
+/** @extends Factory<Forum> */
 class ForumFactory extends Factory
 {
     /**
@@ -30,17 +34,17 @@ class ForumFactory extends Factory
     public function definition(): array
     {
         return [
-            'position'                => $this->faker->randomNumber(),
-            'num_topic'               => $this->faker->randomNumber(),
-            'num_post'                => $this->faker->randomNumber(),
-            'last_topic_id'           => $this->faker->randomDigitNotNull(),
-            'last_topic_name'         => $this->faker->word(),
-            'last_post_user_id'       => User::factory(),
-            'last_post_user_username' => $this->faker->word(),
-            'name'                    => $this->faker->name(),
-            'slug'                    => $this->faker->slug(),
-            'description'             => $this->faker->text(),
-            'parent_id'               => $this->faker->randomDigitNotNull(),
+            'position'             => $this->faker->randomNumber(),
+            'num_topic'            => $this->faker->randomNumber(),
+            'num_post'             => $this->faker->randomNumber(),
+            'last_topic_id'        => null,
+            'last_post_id'         => null,
+            'last_post_user_id'    => null,
+            'last_post_created_at' => $this->faker->dateTime,
+            'name'                 => $this->faker->name(),
+            'slug'                 => $this->faker->slug(),
+            'description'          => $this->faker->text(),
+            'forum_category_id'    => ForumCategory::factory(),
         ];
     }
 }

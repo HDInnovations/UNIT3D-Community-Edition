@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,7 @@ use App\Models\Application;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ApplicationUrlProof;
 
+/** @extends Factory<ApplicationUrlProof> */
 class ApplicationUrlProofFactory extends Factory
 {
     /**

@@ -33,10 +33,15 @@
     padding: 7px 5px;
     font-size: 16px;
     flex-grow: 1;
+    font-weight: normal;
 }
 
 .panel__heading--centered {
     text-align: center;
+}
+
+.panel__header-link {
+    color: var(--panel-head-fg);
 }
 
 .panel__actions {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,8 +21,7 @@ use App\Http\Requests\Staff\StoreGroupRequest;
 use App\Http\Requests\Staff\UpdateGroupRequest;
 use App\Models\Forum;
 use App\Models\Group;
-use App\Models\Permission;
-use App\Models\User;
+use App\Models\ForumPermission;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Str;
 
@@ -54,15 +56,16 @@ class GroupController extends Controller
         $group = Group::create(['slug' => Str::slug($request->name)] + $request->validated());
 
         foreach (Forum::pluck('id') as $collection) {
-            Permission::create([
+            ForumPermission::create([
                 'forum_id'    => $collection,
                 'group_id'    => $group->id,
-                'show_forum'  => 0,
-                'read_topic'  => 0,
-                'reply_topic' => 0,
-                'start_topic' => 0,
+                'read_topic'  => false,
+                'reply_topic' => false,
+                'start_topic' => false,
             ]);
         }
+
+        Unit3dAnnounce::addGroup($group);
 
         return to_route('staff.groups.index')
             ->withSuccess('Group Was Created Successfully!');
@@ -87,9 +90,7 @@ class GroupController extends Controller
 
         cache()->forget('group:'.$group->id);
 
-        foreach (User::whereBelongsTo($group)->get() as $user) {
-            Unit3dAnnounce::addUser($user);
-        }
+        Unit3dAnnounce::addGroup($group);
 
         return to_route('staff.groups.index')
             ->withSuccess('Group Was Updated Successfully!');

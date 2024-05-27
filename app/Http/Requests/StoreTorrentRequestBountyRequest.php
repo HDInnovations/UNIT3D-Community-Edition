@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -28,6 +31,8 @@ class StoreTorrentRequestBountyRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
      */
     public function rules(Request $request): array
     {
@@ -35,6 +40,7 @@ class StoreTorrentRequestBountyRequest extends FormRequest
             'seedbonus' => [
                 'required',
                 'numeric',
+                'integer',
                 'min:100',
                 'max:'.$request->user()->seedbonus,
             ],

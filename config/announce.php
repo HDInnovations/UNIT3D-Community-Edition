@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -68,31 +70,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Interval
-    |--------------------------------------------------------------------------
-    |
-    | Site Announce Interval
-    |
-    */
-
-    'interval' => '(60 * 45)',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Min Interval
-    |--------------------------------------------------------------------------
-    |
-    | Site Min Announce Interval
-    |
-    */
-
-    'min_interval' => [
-        'enabled' => (bool) env('CHECK_ANNOUNCE_INTERVAL', true),
-
-        'interval' => (int) env('MIN_ANNOUNCE_INTERVAL', 60 * 10),
-    ],
-    /*
-    |--------------------------------------------------------------------------
     | Rate Limit
     |--------------------------------------------------------------------------
     |
@@ -123,7 +100,6 @@ return [
     | Amount Of Time until the next connectable check
     |
     */
-
     'connectable_check_interval' => 60 * 30,
 
     /*
@@ -139,6 +115,18 @@ return [
     */
 
     'slots_system' => [
-        'enabled' => false,
+        'enabled' => true,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Logging
+    |--------------------------------------------------------------------------
+    |
+    | Log all torrent announces and show in staff dashboard
+    | Used mainly for debugging purposes - Will generate significant amounts of data
+    |
+    */
+
+    'log_announces' => false,
 ];

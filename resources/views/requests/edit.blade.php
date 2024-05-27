@@ -11,7 +11,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('requests.show', ['torrentRequest' => $torrentRequest]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('requests.show', ['torrentRequest' => $torrentRequest]) }}"
+            class="breadcrumb__link"
+        >
             {{ $torrentRequest->name }}
         </a>
     </li>
@@ -35,7 +38,11 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('request.edit-request') }}</h2>
             <div class="panel__body">
-                <form class="form" method="POST" action="{{ route('requests.update', ['torrentRequest' => $torrentRequest]) }}">
+                <form
+                    class="form"
+                    method="POST"
+                    action="{{ route('requests.update', ['torrentRequest' => $torrentRequest]) }}"
+                >
                     @csrf
                     @method('PATCH')
                     <p class="form__group">
@@ -46,21 +53,20 @@
                             required
                             type="text"
                             value="{{ $torrentRequest->name ?: old('name') }}"
-                        >
+                        />
                         <label class="form__label form__label--floating" for="title">
                             {{ __('request.title') }}
                         </label>
                     </p>
                     <p class="form__group">
-                        <select
-                            id="category_id"
-                            class="form__select"
-                            name="category_id"
-                            required
-                        >
+                        <select id="category_id" class="form__select" name="category_id" required>
                             <option hidden selected disabled value=""></option>
                             @foreach ($categories as $category)
-                                <option class="form__option" value="{{ $category->id }}" @selected($torrentRequest->category_id == $category->id)>
+                                <option
+                                    class="form__option"
+                                    value="{{ $category->id }}"
+                                    @selected($torrentRequest->category_id == $category->id)
+                                >
                                     {{ $category->name }}
                                 </option>
                             @endforeach
@@ -70,15 +76,14 @@
                         </label>
                     </p>
                     <p class="form__group">
-                        <select
-                            id="type_id"
-                            class="form__select"
-                            name="type_id"
-                            required
-                        >
+                        <select id="type_id" class="form__select" name="type_id" required>
                             <option hidden disabled selected value=""></option>
                             @foreach ($types as $type)
-                                <option value="{{ $type->id }}" @selected(old('type_id')==$type->id) @selected($torrentRequest->type_id == $type->id)>
+                                <option
+                                    value="{{ $type->id }}"
+                                    @selected(old('type_id') == $type->id)
+                                    @selected($torrentRequest->type_id == $type->id)
+                                >
                                     {{ $type->name }}
                                 </option>
                             @endforeach
@@ -96,7 +101,10 @@
                         >
                             <option hidden disabled selected value=""></option>
                             @foreach ($resolutions as $resolution)
-                                <option value="{{ $resolution->id }}" @selected($torrentRequest->resolution_id == $resolution->id)>
+                                <option
+                                    value="{{ $resolution->id }}"
+                                    @selected($torrentRequest->resolution_id == $resolution->id)
+                                >
                                     {{ $resolution->name }}
                                 </option>
                             @endforeach
@@ -117,8 +125,10 @@
                                 required
                                 type="text"
                                 value="{{ $torrentRequest->tmdb ?: old('tmdb') }}"
-                            >
-                            <label class="form__label form__label--floating" for="autotmdb">TMDB ID</label>
+                            />
+                            <label class="form__label form__label--floating" for="autotmdb">
+                                TMDB ID
+                            </label>
                             <output name="apimatch" id="apimatch" for="torrent"></output>
                         </p>
                         <p class="form__group">
@@ -132,8 +142,10 @@
                                 required
                                 type="text"
                                 value="{{ $torrentRequest->imdb ?: old('imdb') }}"
-                            >
-                            <label class="form__label form__label--floating" for="autoimdb">IMDB ID</label>
+                            />
+                            <label class="form__label form__label--floating" for="autoimdb">
+                                IMDB ID
+                            </label>
                         </p>
                         <p class="form__group">
                             <input type="hidden" name="tvdb" value="0" />
@@ -145,9 +157,11 @@
                                 pattern="[0-9]*"
                                 placeholder=" "
                                 type="text"
-                                value="{{ $torrentRequest->tvdb ?: (old('tvdb') ?? '0') }}"
-                            >
-                            <label class="form__label form__label--floating" for="autotvdb">TVDB ID</label>
+                                value="{{ $torrentRequest->tvdb ?: old('tvdb') ?? '0' }}"
+                            />
+                            <label class="form__label form__label--floating" for="autotvdb">
+                                TVDB ID
+                            </label>
                         </p>
                         <p class="form__group">
                             <input type="hidden" name="mal" value="0" />
@@ -159,9 +173,11 @@
                                 pattern="[0-9]*"
                                 placeholder=" "
                                 type="text"
-                                value="{{ $torrentRequest->mal ?: (old('mal') ?? '0') }}"
-                            >
-                            <label class="form__label form__label--floating" for="automal">MAL ID ({{ __('torrent.required-anime') }})</label>
+                                value="{{ $torrentRequest->mal ?: old('mal') ?? '0' }}"
+                            />
+                            <label class="form__label form__label--floating" for="automal">
+                                MAL ID ({{ __('torrent.required-anime') }})
+                            </label>
                         </p>
                         <p class="form__group">
                             <input
@@ -172,9 +188,9 @@
                                 pattern="[0-9]*"
                                 placeholder=" "
                                 type="text"
-                                value="{{ $torrentRequest->igdb ?: (old('igdb') ?? '0') }}"
-                            >
-                            <label class="form__label form__label--floating" for="name">
+                                value="{{ $torrentRequest->igdb ?: old('igdb') ?? '0' }}"
+                            />
+                            <label class="form__label form__label--floating" for="igdb">
                                 IGDB ID ({{ __('request.required') }} For Games)
                             </label>
                         </p>
@@ -186,7 +202,7 @@
                         'content' => $torrentRequest->description
                     ])
                     <p class="form__group">
-                        <input type="hidden" name="anon" value="0">
+                        <input type="hidden" name="anon" value="0" />
                         <input
                             type="checkbox"
                             class="form__checkbox"
@@ -194,7 +210,7 @@
                             name="anon"
                             value="1"
                             @checked($torrentRequest->anon)
-                        >
+                        />
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
                     <p class="form__group">

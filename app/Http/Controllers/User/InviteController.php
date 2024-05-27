@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -49,7 +52,7 @@ class InviteController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        if (! config('other.invite-only')) {
+        if (!config('other.invite-only')) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-disabled'));
         }
@@ -59,9 +62,14 @@ class InviteController extends Controller
                 ->withErrors(trans('user.invites-banned'));
         }
 
-        if (config('other.invites_restriced') && ! \in_array($user->group->name, config('other.invite_groups'), true)) {
+        if (config('other.invites_restriced') && !\in_array($user->group->name, config('other.invite_groups'), true)) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-disabled-group'));
+        }
+
+        if ($user->two_factor_confirmed_at === null) {
+            return to_route('home.index')
+                ->withErrors('Two-factor authentication must be enabled to send invites');
         }
 
         return view('user.invite.create', ['user' => $user]);
@@ -76,7 +84,7 @@ class InviteController extends Controller
     {
         abort_unless($request->user()->is($user) && $user->can_invite, 403);
 
-        if (config('other.invites_restriced') && ! \in_array($user->group->name, config('other.invite_groups'), true)) {
+        if (config('other.invites_restriced') && !\in_array($user->group->name, config('other.invite_groups'), true)) {
             return to_route('home.index')
                 ->withErrors(trans('user.invites-disabled-group'));
         }
@@ -84,6 +92,11 @@ class InviteController extends Controller
         if ($user->invites <= 0) {
             return to_route('users.invites.create', ['user' => $user])
                 ->withErrors(trans('user.not-enough-invites'));
+        }
+
+        if ($user->two_factor_confirmed_at === null) {
+            return to_route('home.index')
+                ->withErrors('Two-factor authentication must be enabled to send invites');
         }
 
         $request->validate([

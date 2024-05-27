@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,7 +42,9 @@ class InternalController extends Controller
     public function edit(Internal $internal): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.internals.edit', [
-            'internal' => $internal,
+            'internal' => $internal->load([
+                'users' => fn ($query) => $query->with('group')->orderByPivot('position', 'asc'),
+            ]),
         ]);
     }
 

@@ -11,13 +11,16 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forums.categories.show', ['id' => $forum->category->id]) }}" class="breadcrumb__link">
-            {{ $forum->category->name }}
+        <a
+            href="{{ route('forums.categories.show', ['id' => $topic->forum->category->id]) }}"
+            class="breadcrumb__link"
+        >
+            {{ $topic->forum->category->name }}
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('forums.show', ['id' => $forum->id]) }}" class="breadcrumb__link">
-            {{ $forum->name }}
+        <a href="{{ route('forums.show', ['id' => $topic->forum->id]) }}" class="breadcrumb__link">
+            {{ $topic->forum->name }}
         </a>
     </li>
     <li class="breadcrumb--active">
@@ -34,14 +37,14 @@
 @section('main')
     @livewire('topic-post-search', ['topic' => $topic])
     @if ($topic->state === 'close' && auth()->user()->group->is_modo)
-        <p>This topic is closed, but you can still reply due to you being {{ auth()->user()->group->name }}.</p>
+        <p>
+            This topic is closed, but you can still reply due to you being
+            {{ auth()->user()->group->name }}.
+        </p>
     @endif
-    @if (($topic->state === 'open' && $forum->getPermission()->reply_topic) || auth()->user()->group->is_modo)
-        <form
-            id="forum_reply_form"
-            method="POST"
-            action="{{ route('posts.store') }}"
-        >
+
+    @if (($topic->state === 'open' && $topic->forum->getPermission()?->reply_topic) || auth()->user()->group->is_modo)
+        <form id="forum_reply_form" method="POST" action="{{ route('posts.store') }}">
             @csrf
             <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
             @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post') ])
@@ -60,32 +63,49 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('stat.stats') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('forum.author') }}</dt>
-            <dd>
-                <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                    {{ $topic->first_post_user_username }}
-                </a>
-            </dd>
-            <dt>{{ __('forum.created-at') }}</dt>
-            <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>
-            <dt>{{ __('forum.replies') }}</dt>
-            <dd>{{ $topic->num_post - 1 }}</dd>
-            <dt>{{ __('forum.views') }}</dt>
-            <dd>{{ $topic->views }}</dd>
+            <div class="key-value__group">
+                <dt>{{ __('forum.author') }}</dt>
+                <dd>
+                    @if ($topic->user === null)
+                        {{ __('common.unknown') }}
+                    @else
+                        <a href="{{ route('users.show', ['user' => $topic->user]) }}">
+                            {{ $topic->user->username }}
+                        </a>
+                    @endif
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.created-at') }}</dt>
+                <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.replies') }}</dt>
+                <dd>{{ $topic->num_post - 1 }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.views') }}</dt>
+                <dd>{{ $topic->views }}</dd>
+            </div>
         </dl>
         <div class="panel__body">
-            @if($subscription === null)
+            @if ($subscription === null)
                 <form class="form" action="{{ route('subscriptions.store') }}" method="POST">
                     @csrf
                     <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
                     <p class="form__group form__group--horizontal">
                         <button class="form__button form__button--filled form__button--centered">
-                            <i class="{{ config('other.font-awesome') }} fa-bell"></i> {{ __('forum.subscribe') }}
+                            <i class="{{ config('other.font-awesome') }} fa-bell"></i>
+                            {{ __('forum.subscribe') }}
                         </button>
                     </p>
                 </form>
             @else
-                <form class="form" action="{{ route('subscriptions.destroy', ['id' => $subscription->id]) }}" method="POST">
+                <form
+                    class="form"
+                    action="{{ route('subscriptions.destroy', ['subscription' => $subscription]) }}"
+                    method="POST"
+                >
                     @csrf
                     <input type="hidden" name="topic_id" value="{{ $topic->id }}" />
                     <p class="form__group form__group--horizontal">
@@ -103,19 +123,31 @@
             <h2 class="panel__heading">{{ __('forum.topic') }} {{ __('user.settings') }}</h2>
             <div class="panel__body">
                 @if ($topic->state === 'close')
-                    <form class="form" action="{{ route('topics.open', ['id' => $topic->id]) }}" method="POST">
+                    <form
+                        class="form"
+                        action="{{ route('topics.open', ['id' => $topic->id]) }}"
+                        method="POST"
+                    >
                         @csrf
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled form__button--centered">
+                            <button
+                                class="form__button form__button--filled form__button--centered"
+                            >
                                 {{ __('forum.open') }}
                             </button>
                         </p>
                     </form>
                 @else
-                    <form class="form" action="{{ route('topics.close', ['id' => $topic->id]) }}" method="POST">
+                    <form
+                        class="form"
+                        action="{{ route('topics.close', ['id' => $topic->id]) }}"
+                        method="POST"
+                    >
                         @csrf
                         <p class="form__group form__group--horizontal">
-                            <button class="form__button form__button--filled form__button--centered">
+                            <button
+                                class="form__button form__button--filled form__button--centered"
+                            >
                                 {{ __('common.close') }}
                             </button>
                         </p>
@@ -132,42 +164,50 @@
                     </p>
                 </div>
                 @if (auth()->user()->group->is_modo)
-                    <form class="form" action="{{ route('topics.destroy', ['id' => $topic->id]) }}" method="POST" x-data>
+                    <form
+                        class="form"
+                        action="{{ route('topics.destroy', ['id' => $topic->id]) }}"
+                        method="POST"
+                        x-data="confirmation"
+                    >
                         @csrf
                         @method('DELETE')
                         <p class="form__group form__group--horizontal">
                             <button
                                 class="form__button form__button--filled form__button--centered"
-                                x-on:click.prevent="Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: `Are you sure you want to delete this topic: ${atob('{{ base64_encode($topic->name) }}')}?`,
-                                    icon: 'warning',
-                                    showConfirmButton: true,
-                                    showCancelButton: true,
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $root.submit();
-                                    }
-                                })"
+                                x-on:click.prevent="confirmAction"
+                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this topic: ' . $topic->name . '?') }}"
                             >
                                 {{ __('common.delete') }}
                             </button>
                         </p>
                     </form>
-                    @if ($topic->pinned === 0)
-                        <form class="form" action="{{ route('topics.pin', ['id' => $topic->id]) }}" method="POST">
+                    @if (! $topic->pinned)
+                        <form
+                            class="form"
+                            action="{{ route('topics.pin', ['id' => $topic->id]) }}"
+                            method="POST"
+                        >
                             @csrf
                             <p class="form__group form__group--horizontal">
-                                <button class="form__button form__button--filled form__button--centered">
+                                <button
+                                    class="form__button form__button--filled form__button--centered"
+                                >
                                     {{ __('forum.pin') }}
                                 </button>
                             </p>
                         </form>
                     @else
-                        <form class="form" action="{{ route('topics.unpin', ['id' => $topic->id]) }}" method="POST">
+                        <form
+                            class="form"
+                            action="{{ route('topics.unpin', ['id' => $topic->id]) }}"
+                            method="POST"
+                        >
                             @csrf
                             <p class="form__group form__group--horizontal">
-                                <button class="form__button form__button--filled form__button--centered">
+                                <button
+                                    class="form__button form__button--filled form__button--centered"
+                                >
                                     {{ __('forum.unpin') }}
                                 </button>
                             </p>
@@ -177,99 +217,106 @@
             </div>
         </section>
     @endif
+
     @if (auth()->user()->group->is_modo)
         <section class="panelV2" x-data>
             <h2 class="panel__heading">{{ __('forum.label-system') }}</h2>
             <div class="panel__body">
-                <form class="form" action="{{ route('topics.approve', ['id' => $topic->id]) }}" method="POST">
+                <form
+                    class="form"
+                    action="{{ route('topics.labels', ['topic' => $topic]) }}"
+                    method="POST"
+                >
                     @csrf
+                    @method('PATCH')
                     <p class="form__group">
+                        <input type="hidden" name="approved" value="0" />
                         <input
                             id="approved-label"
                             class="form__checkbox"
+                            name="approved"
                             type="checkbox"
-                            @checked($topic->approved === 1)
-                            x-on:change="$el.form.submit()"
-                        >
+                            value="1"
+                            @checked($topic->approved)
+                        />
                         <label for="approved-label">{{ __('forum.approved') }}</label>
                     </p>
-                </form>
-                <form class="form" action="{{ route('topics.deny', ['id' => $topic->id]) }}" method="POST">
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="denied" value="0" />
                         <input
                             id="denied-label"
                             class="form__checkbox"
+                            name="denied"
                             type="checkbox"
-                            @checked($topic->denied === 1)
-                            x-on:change="$el.form.submit()"
-                        >
+                            value="1"
+                            @checked($topic->denied)
+                        />
                         <label for="denied-label">{{ __('forum.denied') }}</label>
                     </p>
-                </form>
-                <form class="form" action="{{ route('topics.solve', ['id' => $topic->id]) }}" method="POST">
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="solved" value="0" />
                         <input
                             id="solved-label"
                             class="form__checkbox"
+                            name="solved"
                             type="checkbox"
-                            @checked($topic->solved === 1)
-                            x-on:change="$el.form.submit()"
-                        >
+                            value="1"
+                            @checked($topic->solved)
+                        />
                         <label for="solved-label">{{ __('forum.solved') }}</label>
                     </p>
-                </form>
-                <form class="form" action="{{ route('topics.invalid', ['id' => $topic->id]) }}" method="POST">
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="invalid" value="0" />
                         <input
                             id="invalid-label"
                             class="form__checkbox"
+                            name="invalid"
                             type="checkbox"
-                            @checked($topic->invalid === 1)
-                            x-on:change="$el.form.submit()"
-                        >
+                            value="1"
+                            @checked($topic->invalid)
+                        />
                         <label for="invalid-label">{{ __('forum.invalid') }}</label>
                     </p>
-                </form>
-                <form class="form" action="{{ route('topics.bug', ['id' => $topic->id]) }}" method="POST">
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="bug" value="0" />
                         <input
                             id="bug-label"
                             class="form__checkbox"
+                            name="bug"
                             type="checkbox"
-                            @checked($topic->bug === 1)
-                            x-on:change="$el.form.submit()"
-                        >
+                            value="1"
+                            @checked($topic->bug)
+                        />
                         <label for="bug-label">{{ __('forum.bug') }}</label>
                     </p>
-                </form>
-                <form class="form" action="{{ route('topics.suggest', ['id' => $topic->id]) }}" method="POST">
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="suggestion" value="0" />
                         <input
                             id="suggestion-label"
                             class="form__checkbox"
+                            name="suggestion"
                             type="checkbox"
-                            @checked($topic->suggestion === 1)
-                            x-on:change="$el.form.submit()"
-                        >
+                            value="1"
+                            @checked($topic->suggestion)
+                        />
                         <label for="suggestion-label">{{ __('forum.suggestion') }}</label>
                     </p>
-                </form>
-                <form class="form" action="{{ route('topics.implement', ['id' => $topic->id]) }}" method="POST">
-                    @csrf
                     <p class="form__group">
+                        <input type="hidden" name="implemented" value="0" />
                         <input
                             id="implemented-label"
                             class="form__checkbox"
+                            name="implemented"
                             type="checkbox"
-                            @checked($topic->implemented === 1)
-                            x-on:change="$el.form.submit()"
-                        >
+                            value="1"
+                            @checked($topic->implemented)
+                        />
                         <label for="implemented-label">{{ __('forum.implemented') }}</label>
+                    </p>
+                    <p class="form__group">
+                        <button class="form__button form__button--filled">
+                            {{ __('common.save') }}
+                        </button>
                     </p>
                 </form>
             </div>

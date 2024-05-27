@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('torrent.torrents') }} {{ config('other.title') }}">
+    <meta name="description" content="{{ __('torrent.torrents') }} {{ config('other.title') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -22,7 +22,7 @@
     </li>
     <li class="nav-tabV2">
         <a class="nav-tab__link" href="{{ route('top10.index') }}">
-            Top 10
+            {{ __('common.top-10') }}
         </a>
     </li>
     <li class="nav-tabV2">

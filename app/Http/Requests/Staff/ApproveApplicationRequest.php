@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,12 +25,16 @@ class ApproveApplicationRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\In|string>|string>
      */
     public function rules(): array
     {
         return [
-            'status' => Rule::in(Application::APPROVED),
-            'email'  => [
+            'status' => [
+                Rule::in([Application::APPROVED]),
+            ],
+            'email' => [
                 'required',
                 'string',
                 'email',
@@ -36,7 +43,9 @@ class ApproveApplicationRequest extends FormRequest
                 'unique:users',
                 Rule::when(config('email-blacklist.enabled'), fn () => new EmailBlacklist()),
             ],
-            'approve' => 'required',
+            'approve' => [
+                'required',
+            ],
         ];
     }
 }

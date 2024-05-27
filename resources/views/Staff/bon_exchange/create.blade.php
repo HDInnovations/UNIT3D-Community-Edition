@@ -20,7 +20,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.add') }}
-            {{ trans_choice('common.a-an-art',false) }}
+            {{ trans_choice('common.a-an-art', false) }}
             {{ __('bon.bon') }} {{ __('bon.exchange') }}
         </h2>
         <div class="panel__body">
@@ -40,8 +40,10 @@
                         class="form__text"
                         value="{{ old('description') }}"
                         required
-                    >
-                    <label class="form__label form__label--floating" for="description">{{ __('common.name') }}</label>
+                    />
+                    <label class="form__label form__label--floating" for="description">
+                        {{ __('common.name') }}
+                    </label>
                 </p>
                 <p class="form__group">
                     <input
@@ -53,7 +55,7 @@
                         pattern="[0-9]*"
                         value="{{ old('value') }}"
                         required
-                    >
+                    />
                     <label class="form__label form__label--floating" for="value">
                         {{ __('value') }}
                     </label>
@@ -68,18 +70,13 @@
                         pattern="[0-9]*"
                         value="{{ old('cost') }}"
                         required
-                    >
+                    />
                     <label class="form__label form__label--floating" for="cost">
                         {{ __('bon.points') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <select
-                        name="type"
-                        id="type"
-                        class="form__select"
-                        required
-                    >
+                    <select name="type" id="type" class="form__select" required>
                         <option hidden selected disabled value=""></option>
                         <option class="form__option" value="upload">
                             {{ __('common.add') }} {{ __('common.upload') }}
@@ -94,7 +91,7 @@
                             {{ __('user.invites') }}
                         </option>
                     </select>
-                    <label class="form__label form__label--floating" for="autocat">
+                    <label class="form__label form__label--floating" for="type">
                         {{ __('common.type') }}
                     </label>
                 </p>

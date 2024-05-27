@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,6 +23,7 @@ use App\Services\Tmdb\Client\TV;
 use App\Services\Tmdb\TMDBScraper;
 use Exception;
 use Illuminate\Console\Command;
+use Throwable;
 
 class DemoSeed extends Command
 {
@@ -39,8 +43,10 @@ class DemoSeed extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $this->alert('Demo Seeder v2.0 (Author: Poppabear)');
         $this->warn('*** This process could take a few minutes ***');
@@ -74,7 +80,7 @@ class DemoSeed extends Command
                     $year = 2021;
 
                     if (\array_key_exists('release_date', $movie)) {
-                        $year = (int) substr($movie['release_date'], 0, 4);
+                        $year = (int) substr((string) $movie['release_date'], 0, 4);
                     }
 
                     $freeleech = ['0', '25', '50', '75', '100'];
@@ -248,14 +254,10 @@ Menu
                 } catch (Exception $exception) {
                     $abort = true;
 
-                    $this->warn($exception);
+                    $this->warn($exception->getMessage());
 
                     break;
                 }
-            }
-
-            if ($abort) {
-                break;
             }
         }
 
@@ -283,7 +285,7 @@ Menu
                     $year = 2021;
 
                     if (\array_key_exists('first_air_date', $tv)) {
-                        $year = (int) substr($tv['first_air_date'], 0, 4);
+                        $year = (int) substr((string) $tv['first_air_date'], 0, 4);
                     }
 
                     $freeleech = ['0', '25', '50', '75', '100'];
@@ -457,7 +459,7 @@ Menu
                 } catch (Exception $exception) {
                     $abort = true;
 
-                    $this->warn($exception);
+                    $this->warn($exception->getMessage());
 
                     break;
                 }
@@ -477,22 +479,22 @@ Menu
         }
     }
 
-    private function fetchMovie($id)
+    private function fetchMovie($id): mixed
     {
         sleep(2);
         $tmdbScraper = new TMDBScraper();
         $tmdbScraper->movie($id);
 
-        return (new Movie($id))->getData();
+        return (new Movie($id))->data;
     }
 
-    private function fetchTv($id)
+    private function fetchTv($id): mixed
     {
         sleep(2);
         $tmdbScraper = new TMDBScraper();
         $tmdbScraper->tv($id);
 
-        return (new TV($id))->getData();
+        return (new TV($id))->data;
     }
 
     private function movie_ids(): array

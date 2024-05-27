@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -90,11 +93,11 @@ class ModerationController extends Controller
                 // Announce To Shoutbox
                 if ($torrent->anon === 0) {
                     $this->chatRepository->systemMessage(
-                        sprintf('User [url=%s/users/', config('app.url')).$torrent->user->username.']'.$torrent->user->username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                        sprintf('User [url=%s/users/', config('app.url')).$torrent->user->username.']'.$torrent->user->username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now!'
                     );
                 } else {
                     $this->chatRepository->systemMessage(
-                        sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now! :slight_smile:'
+                        sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', config('app.url')).$id.']'.$torrent->name.'[/url], grab it now!'
                     );
                 }
 
@@ -117,6 +120,8 @@ class ModerationController extends Controller
                     'message'     => "Greetings, \n\nYour upload ".$torrent->name." has been rejected. Please see below the message from the staff member.\n\n".$request->message,
                 ]);
 
+                cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
                 Unit3dAnnounce::addTorrent($torrent);
 
                 return to_route('staff.moderation.index')
@@ -135,6 +140,8 @@ class ModerationController extends Controller
                     'subject'     => 'Your upload, '.$torrent->name.' ,has been postponed by '.$staff->username,
                     'message'     => "Greetings, \n\nYour upload, ".$torrent->name." ,has been postponed. Please see below the message from the staff member.\n\n".$request->message,
                 ]);
+
+                cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
                 Unit3dAnnounce::addTorrent($torrent);
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,16 +28,30 @@ class CacheUserProvider extends EloquentUserProvider
         parent::__construct($hasher, User::class);
     }
 
+    /**
+     * @return User|\Illuminate\Contracts\Auth\Authenticatable|void|null
+     */
     public function retrieveById($identifier)
     {
+        if (!$identifier || $identifier <= 0 || !is_numeric($identifier)) {
+            return;
+        }
+
         return CacheUser::user($identifier);
     }
 
+    /**
+     * @return User|\Illuminate\Contracts\Auth\Authenticatable|void|null
+     */
     public function retrieveByToken($identifier, $token)
     {
+        if (!$identifier || $identifier <= 0 || !is_numeric($identifier)) {
+            return;
+        }
+
         $model = CacheUser::user($identifier);
 
-        if (! $model) {
+        if (!$model) {
             return;
         }
 

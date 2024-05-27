@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,7 +16,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Enums\UserGroups;
+use App\Enums\UserGroup;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\User;
@@ -41,10 +44,10 @@ class PrivacySettingController extends Controller
         $validGroups = Group::query()
             ->where('is_modo', '=', '0')
             ->where('is_admin', '=', '0')
-            ->where('id', '!=', UserGroups::VALIDATING)
-            ->where('id', '!=', UserGroups::PRUNED)
-            ->where('id', '!=', UserGroups::BANNED)
-            ->where('id', '!=', UserGroups::DISABLED)
+            ->where('id', '!=', UserGroup::VALIDATING->value)
+            ->where('id', '!=', UserGroup::PRUNED->value)
+            ->where('id', '!=', UserGroup::BANNED->value)
+            ->where('id', '!=', UserGroup::DISABLED->value)
             ->pluck('id');
 
         $request->validate([
@@ -131,12 +134,11 @@ class PrivacySettingController extends Controller
         $privacy->json_rank_groups = array_map('intval', $request->json_rank_groups ?? []);
         $privacy->json_request_groups = array_map('intval', $request->json_request_groups ?? []);
         $privacy->json_other_groups = array_map('intval', $request->json_other_groups ?? []);
+        $privacy->private_profile = $request->private_profile;
+        $privacy->hidden = $request->hidden;
         $privacy->save();
 
-        $user->update([
-            'private_profile' => $request->private_profile,
-            'hidden'          => $request->hidden,
-        ]);
+        cache()->forget('user-privacy:by-user-id:'.$user->id);
 
         return to_route('users.privacy_settings.edit', ['user' => $user])
             ->withSuccess('Your privacy settings have been successfully saved.');
@@ -154,10 +156,10 @@ class PrivacySettingController extends Controller
             'groups' => Group::query()
                 ->where('is_modo', '=', '0')
                 ->where('is_admin', '=', '0')
-                ->where('id', '!=', UserGroups::VALIDATING)
-                ->where('id', '!=', UserGroups::PRUNED)
-                ->where('id', '!=', UserGroups::BANNED)
-                ->where('id', '!=', UserGroups::DISABLED)
+                ->where('id', '!=', UserGroup::VALIDATING->value)
+                ->where('id', '!=', UserGroup::PRUNED->value)
+                ->where('id', '!=', UserGroup::BANNED->value)
+                ->where('id', '!=', UserGroup::DISABLED->value)
                 ->latest('level')
                 ->get(),
         ]);

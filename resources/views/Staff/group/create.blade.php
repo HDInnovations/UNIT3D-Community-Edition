@@ -19,243 +19,296 @@
 @section('page', 'page__groups--create')
 
 @section('main')
-    <section class="panelV2">
+    <section class="panelV2" x-data="{ autogroup: false }">
         <h2 class="panel__heading">Add New Group</h2>
         <div class="panel__body">
             <form class="form" method="POST" action="{{ route('staff.groups.store') }}">
                 @csrf
                 <p class="form__group">
-                    <input
-                        class="form__text"
-                        type="text"
-                        name="name"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating">
+                    <input id="name" class="form__text" type="text" name="name" placeholder=" " />
+                    <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <input
+                        id="description"
+                        class="form__text"
+                        type="text"
+                        name="description"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="description">
+                        {{ __('common.description') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="position"
                         class="form__text"
                         type="text"
                         name="position"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>
                 </p>
                 <p class="form__group">
-                    <input
-                        class="form__text"
-                        type="text"
-                        name="level"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating">
-                        Level
-                    </label>
+                    <input id="level" class="form__text" type="text" name="level" placeholder=" " />
+                    <label class="form__label form__label--floating" for="level">Level</label>
                 </p>
                 <p class="form__group">
                     <input
+                        id="download_slots"
                         class="form__text"
                         type="text"
                         name="download_slots"
                         placeholder=" "
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="download_slots">
                         DL Slots
                     </label>
                 </p>
                 <p class="form__group">
-                    <input
-                        class="form__text"
-                        type="text"
-                        name="color"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating">
+                    <input id="color" class="form__text" type="text" name="color" placeholder=" " />
+                    <label class="form__label form__label--floating" for="color">
                         Color (e.g. #ff0000)
                     </label>
                 </p>
                 <p class="form__group">
-                    <input
-                        class="form__text"
-                        type="text"
-                        name="icon"
-                        placeholder=" "
-                    />
-                    <label class="form__label form__label--floating">
+                    <input id="icon" class="form__text" type="text" name="icon" placeholder=" " />
+                    <label class="form__label form__label--floating" for="icon">
                         FontAwesome Icon (e.g. fas fa-user)
                     </label>
                 </p>
                 <p class="form__group">
                     <input
+                        id="effect"
                         class="form__text"
                         type="text"
                         name="effect"
                         value="none"
                         placeholder="GIF Effect"
                     />
-                    <label class="form__label form__label--floating">
+                    <label class="form__label form__label--floating" for="effect">
                         Effect (e.g. url(/img/sparkels.gif))
                     </label>
                 </p>
                 <p class="form__group">
-                    <input name="is_internal" type="hidden" value="0">
+                    <input name="is_internal" type="hidden" value="0" />
                     <input
                         id="is_internal"
                         class="form__checkbox"
                         name="is_internal"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_internal">
-                        Internal
-                    </label>
+                    />
+                    <label class="form__label" for="is_internal">Internal</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_modo" type="hidden" value="0">
+                    <input name="is_editor" type="hidden" value="0" />
+                    <input
+                        id="is_editor"
+                        class="form__checkbox"
+                        name="is_editor"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="is_editor">Editor</label>
+                </p>
+                <p class="form__group">
+                    <input name="is_modo" type="hidden" value="0" />
                     <input
                         id="is_modo"
                         class="form__checkbox"
                         name="is_modo"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_modo">
-                        Modo
-                    </label>
+                    />
+                    <label class="form__label" for="is_modo">Modo</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_admin" type="hidden" value="0">
+                    <input name="is_admin" type="hidden" value="0" />
                     <input
                         id="is_admin"
                         class="form__checkbox"
                         name="is_admin"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_admin">
-                        Admin
-                    </label>
+                    />
+                    <label class="form__label" for="is_admin">Admin</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_owner" type="hidden" value="0">
+                    <input name="is_owner" type="hidden" value="0" />
                     <input
                         id="is_owner"
                         class="form__checkbox"
                         name="is_owner"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_owner">
-                        Owner
-                    </label>
+                    />
+                    <label class="form__label" for="is_owner">Owner</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_trusted" type="hidden" value="0">
+                    <input name="is_trusted" type="hidden" value="0" />
                     <input
                         id="is_trusted"
                         class="form__checkbox"
                         name="is_trusted"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_trusted">
-                        Trusted
-                    </label>
+                    />
+                    <label class="form__label" for="is_trusted">Trusted</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_immune" type="hidden" value="0">
+                    <input name="is_immune" type="hidden" value="0" />
                     <input
                         id="is_immune"
                         class="form__checkbox"
                         name="is_immune"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_immune">
-                        Immune
-                    </label>
+                    />
+                    <label class="form__label" for="is_immune">Immune</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_freeleech" type="hidden" value="0">
+                    <input name="is_freeleech" type="hidden" value="0" />
                     <input
                         id="is_freeleech"
                         class="form__checkbox"
                         name="is_freeleech"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_freeleech">
-                        Freeleech
-                    </label>
+                    />
+                    <label class="form__label" for="is_freeleech">Freeleech</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_double_upload" type="hidden" value="0">
+                    <input name="is_double_upload" type="hidden" value="0" />
                     <input
                         id="is_double_upload"
                         class="form__checkbox"
                         name="is_double_upload"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_double_upload">
-                        Double Upload
-                    </label>
+                    />
+                    <label class="form__label" for="is_double_upload">Double Upload</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_refundable" type="hidden" value="0">
+                    <input name="is_refundable" type="hidden" value="0" />
                     <input
-                            id="is_refundable"
-                            class="form__checkbox"
-                            name="is_refundable"
-                            type="checkbox"
-                            value="1"
-                    >
-                    <label class="form__label" for="is_refundable">
-                        Refundable Download
-                    </label>
+                        id="is_refundable"
+                        class="form__checkbox"
+                        name="is_refundable"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="is_refundable">Refundable Download</label>
                 </p>
                 <p class="form__group">
-                    <input name="is_incognito" type="hidden" value="0">
+                    <input name="is_incognito" type="hidden" value="0" />
                     <input
                         id="is_incognito"
                         class="form__checkbox"
                         name="is_incognito"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="is_incognito">
-                        Incognito
-                    </label>
+                    />
+                    <label class="form__label" for="is_incognito">Incognito</label>
                 </p>
                 <p class="form__group">
-                    <input name="can_upload" type="hidden" value="0">
+                    <input name="can_upload" type="hidden" value="0" />
                     <input
                         id="can_upload"
                         class="form__checkbox"
                         name="can_upload"
                         type="checkbox"
                         value="1"
-                    >
-                    <label class="form__label" for="can_upload">
-                        Upload
-                    </label>
+                    />
+                    <label class="form__label" for="can_upload">Upload</label>
                 </p>
                 <p class="form__group">
-                    <input name="autogroup" type="hidden" value="0">
+                    <input name="autogroup" type="hidden" value="0" />
                     <input
                         id="autogroup"
                         class="form__checkbox"
                         name="autogroup"
                         type="checkbox"
+                        x-model="autogroup"
                         value="1"
-                    >
-                    <label class="form__label" for="autogroup">
-                        Autogroup
+                    />
+                    <label class="form__label" for="autogroup">Autogroup</label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_uploaded"
+                        class="form__text"
+                        type="text"
+                        name="min_uploaded"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_uploaded">
+                        Minimum upload required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_ratio"
+                        class="form__text"
+                        type="text"
+                        name="min_ratio"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_ratio">
+                        Minimum ratio required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_age"
+                        class="form__text"
+                        type="text"
+                        name="min_age"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_age">
+                        Minimum age required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_avg_seedtime"
+                        class="form__text"
+                        type="text"
+                        name="min_avg_seedtime"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_avg_seedtime">
+                        Minimum average seedtime required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_seedsize"
+                        class="form__text"
+                        type="text"
+                        name="min_seedsize"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_seedsize">
+                        Minimum seedsize required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_uploads"
+                        class="form__text"
+                        type="text"
+                        name="min_uploads"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_uploads">
+                        Minimum uploads required
                     </label>
                 </p>
                 <p class="form__group">

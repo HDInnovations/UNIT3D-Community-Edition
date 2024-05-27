@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,8 +39,8 @@ class BackupPassword
         $this->password = config('backup.security.password');
 
         // If no password is set, just return the backup-path
-        if (! $this->password) {
-            return $this->path = $path;
+        if (!$this->password) {
+            return;
         }
 
         consoleOutput()->info('Applying password and encryption to zip using ZipArchive...');

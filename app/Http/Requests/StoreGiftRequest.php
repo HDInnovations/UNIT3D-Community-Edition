@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,26 +35,28 @@ class StoreGiftRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
      */
     public function rules(Request $request): array
     {
         $user = $request->user();
 
         return [
-            'receiver_username' => [
+            'recipient_username' => [
                 'required',
                 Rule::exists('users', 'username')->whereNot('username', $user->username),
             ],
-            'cost' => [
+            'bon' => [
                 'required',
                 'numeric',
                 'min:1',
                 'max:'.$user->seedbonus,
             ],
-            'comment' => [
+            'message' => [
                 'required',
                 'string',
-                'max:255'
+                'max:255',
             ],
         ];
     }

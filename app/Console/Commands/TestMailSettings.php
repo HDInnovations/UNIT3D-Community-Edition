@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,10 +19,9 @@ namespace App\Console\Commands;
 use App\Mail\TestEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Todo\Unit\Console\Commands\TestMailSettingsTest
- */
 class TestMailSettings extends Command
 {
     /**
@@ -27,7 +29,7 @@ class TestMailSettings extends Command
      *
      * @var string
      */
-    protected $signature = 'test:email';
+    protected $signature = 'test:email {--force}';
 
     /**
      * The console command description.
@@ -38,23 +40,26 @@ class TestMailSettings extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $owner = config('other.email');
 
         $this->info('Sending Test Email To '.$owner);
-        sleep(5);
 
-        try {
-            Mail::to($owner)->send(new TestEmail());
-        } catch (\Exception) {
-            $this->error('Failed!');
-            $this->alert('Email failed to send. Please review your mail configs in the .env file.');
+        if ($this->option('force') || $this->confirm('Do you wish to continue?', true)) {
+            try {
+                Mail::to($owner)->send(new TestEmail());
+            } catch (Exception) {
+                $this->error('Failed!');
+                $this->alert('Email failed to send. Please review your mail configs in the .env file.');
 
-            exit(1);
+                exit(1);
+            }
+
+            $this->alert('Email Was Successfully Sent!');
         }
-
-        $this->alert('Email Was Successfully Sent!');
     }
 }

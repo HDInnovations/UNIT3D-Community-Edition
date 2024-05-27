@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -57,11 +60,11 @@ class TorrentBuffController extends Controller
 
         // Announce To IRC
         if (config('irc-bot.enabled')) {
-            $appname = config('app.name');
-            $ircAnnounceBot = new IRCAnnounceBot();
-            $ircAnnounceBot->message(config('irc-bot.channel'), '['.$appname.'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!');
-            $ircAnnounceBot->message(config('irc-bot.channel'), '[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']');
-            $ircAnnounceBot->message(config('irc-bot.channel'), sprintf('[Link: %s]', $torrentUrl));
+            (new IRCAnnounceBot())
+                ->to(config('irc-bot.channel'))
+                ->say('['.config('app.name').'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!')
+                ->say('[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']')
+                ->say(sprintf('[Link: %s]', $torrentUrl));
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -77,7 +80,7 @@ class TorrentBuffController extends Controller
 
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->sticky = $torrent->sticky == 0 ? '1' : '0';
+        $torrent->sticky = !$torrent->sticky;
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -102,23 +105,25 @@ class TorrentBuffController extends Controller
 
         if ($request->freeleech != 0) {
             if ($request->fl_until !== null) {
-                $torrent->fl_until = Carbon::now()->addDays($request->fl_until);
+                $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days. :stopwatch:', $torrentUrl, $torrent->name, $request->freeleech)
+                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days.', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $request->freeleech)
+                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             }
         } elseif ($torrent->free != 0) {
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech! :poop:', $torrentUrl, $torrent->name, $torrent->free)
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech!', $torrentUrl, $torrent->name, $torrent->free)
             );
         }
 
         $torrent->free = $request->freeleech;
         $torrent->save();
+
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::addTorrent($torrent);
 
@@ -137,22 +142,22 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         if ($torrent->featured == 0) {
-            $torrent->free = '100';
-            $torrent->doubleup = '1';
-            $torrent->featured = '1';
+            $torrent->featured = true;
             $torrent->save();
 
-            Unit3dAnnounce::addTorrent($torrent);
+            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
 
             $featured = new FeaturedTorrent();
             $featured->user_id = $user->id;
             $featured->torrent_id = $torrent->id;
             $featured->save();
 
+            cache()->forget('featured-torrent-ids');
+
             $torrentUrl = href_torrent($torrent);
             $profileUrl = href_profile($user);
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can! :fire:', $torrentUrl, $torrent->name, $profileUrl, $user->username)
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
@@ -175,20 +180,20 @@ class TorrentBuffController extends Controller
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->free = '0';
-        $torrent->doubleup = '0';
-        $torrent->featured = '0';
+        $torrent->featured = false;
         $torrent->save();
 
-        Unit3dAnnounce::addTorrent($torrent);
+        Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
         $appurl = config('app.url');
 
         $this->chatRepository->systemMessage(
-            sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
+            sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
         );
 
         $featured_torrent->delete();
+
+        cache()->forget('featured-torrent-ids');
 
         return to_route('torrents.show', ['id' => $torrent->id])
             ->withSuccess('Revoked featured from Torrent!');
@@ -205,28 +210,30 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
-        if ($torrent->doubleup == 0) {
-            $torrent->doubleup = '1';
+        if (!$torrent->doubleup) {
+            $torrent->doubleup = true;
             $du_until = $request->input('du_until');
 
             if ($du_until !== null) {
-                $torrent->du_until = Carbon::now()->addDays($request->input('du_until'));
+                $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days. :stopwatch:', $torrentUrl, $torrent->name)
+                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days.', $torrentUrl, $torrent->name)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can! :fire:', $torrentUrl, $torrent->name)
+                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can!', $torrentUrl, $torrent->name)
                 );
             }
         } else {
-            $torrent->doubleup = '0';
+            $torrent->doubleup = false;
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload! :poop:', $torrentUrl, $torrent->name)
+                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload!', $torrentUrl, $torrent->name)
             );
         }
 
         $torrent->save();
+
+        cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 
         Unit3dAnnounce::addTorrent($torrent);
 
@@ -244,7 +251,7 @@ class TorrentBuffController extends Controller
 
         $activeToken = cache()->get('freeleech_token:'.$user->id.':'.$torrent->id);
 
-        if ($user->fl_tokens >= 1 && ! $activeToken) {
+        if ($user->fl_tokens >= 1 && !$activeToken) {
             $freeleechToken = new FreeleechToken();
             $freeleechToken->user_id = $user->id;
             $freeleechToken->torrent_id = $torrent->id;
@@ -268,7 +275,7 @@ class TorrentBuffController extends Controller
     /**
      * Set Torrents Refudable Status.
      */
-    public function setRefundable(Request $request, $id)
+    public function setRefundable(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
@@ -276,17 +283,17 @@ class TorrentBuffController extends Controller
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent_url = href_torrent($torrent);
 
-        if ($torrent->refundable == 0) {
-            $torrent->refundable = 1;
+        if (!$torrent->refundable) {
+            $torrent->refundable = true;
 
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can! :fire:', $torrent_url, $torrent->name)
+                sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can!', $torrent_url, $torrent->name)
             );
         } else {
             $torrent->refundable = 0;
 
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable! :poop:', $torrent_url, $torrent->name)
+                sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable!', $torrent_url, $torrent->name)
             );
         }
 

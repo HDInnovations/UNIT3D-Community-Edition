@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,26 +21,9 @@ use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
 {
-    private $categories;
-
-    public function __construct()
-    {
-        $this->categories = $this->getCategories();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->categories as $category) {
-            Category::updateOrCreate($category);
-        }
-    }
-
-    private function getCategories(): array
-    {
-        return [
+        Category::upsert([
             [
                 'id'          => 1,
                 'name'        => 'Movies',
@@ -64,45 +50,6 @@ class CategoriesTableSeeder extends Seeder
                 'music_meta'  => 0,
                 'no_meta'     => 0,
             ],
-            [
-                'id'          => 3,
-                'name'        => 'Music',
-                'position'    => 2,
-                'icon'        => config('other.font-awesome').' fa-music',
-                'num_torrent' => 0,
-                'image'       => null,
-                'movie_meta'  => 0,
-                'tv_meta'     => 0,
-                'game_meta'   => 0,
-                'music_meta'  => 1,
-                'no_meta'     => 0,
-            ],
-            [
-                'id'          => 4,
-                'name'        => 'Game',
-                'position'    => 3,
-                'icon'        => config('other.font-awesome').' fa-gamepad',
-                'num_torrent' => 0,
-                'image'       => null,
-                'movie_meta'  => 0,
-                'tv_meta'     => 0,
-                'game_meta'   => 1,
-                'music_meta'  => 0,
-                'no_meta'     => 0,
-            ],
-            [
-                'id'          => 5,
-                'name'        => 'Application',
-                'position'    => 4,
-                'icon'        => config('other.font-awesome').' fa-compact-disc',
-                'num_torrent' => 0,
-                'image'       => null,
-                'movie_meta'  => 0,
-                'tv_meta'     => 0,
-                'game_meta'   => 0,
-                'music_meta'  => 0,
-                'no_meta'     => 1,
-            ],
-        ];
+        ], ['id'], []);
     }
 }

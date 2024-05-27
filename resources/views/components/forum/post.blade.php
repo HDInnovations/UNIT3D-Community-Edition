@@ -1,3 +1,7 @@
+@props([
+    'post',
+])
+
 <article class="post" id="post-{{ $post->id }}" x-data>
     <header class="post__header">
         <time
@@ -10,47 +14,54 @@
         @if (! Route::is('topics.show'))
             <span class="post__topic">
                 {{ __('forum.in') }}
-                <a href="{{ route('topics.show', ['id' => $post->topic->id]) }}">{{ $post->topic->name }}</a>
+                <a href="{{ route('topics.show', ['id' => $post->topic->id]) }}">
+                    {{ $post->topic->name }}
+                </a>
             </span>
         @endif
-        @if($post->tips_sum_cost > 0)
+
+        @if ($post->tips_sum_bon > 0)
             <dl class="post__tip-stats">
                 <dt>{{ __('torrent.bon-tipped') }}</dt>
-                <dd>{{ $post->tips_sum_cost ?? 0 }}</dd>
+                <dd>{{ $post->tips_sum_bon ?? 0 }}</dd>
             </dl>
         @endif
+
         <menu class="post__toolbar">
             <li class="post__toolbar-item">
                 <form
                     class="post__tip"
                     role="form"
                     method="POST"
-                    action="{{ route('users.tips.store', ['user' => auth()->user()]) }}"
+                    action="{{ route('users.post_tips.store', ['user' => auth()->user()]) }}"
                 >
                     @csrf
-                    <input type="hidden" name="recipient" value="{{ $post->user->id }}">
-                    <input type="hidden" name="post" value="{{ $post->id }}">
+                    <input type="hidden" name="post_id" value="{{ $post->id }}" />
                     <input
                         class="post__tip-input"
                         inputmode="numeric"
                         list="quick-tip-values"
-                        name="tip"
+                        name="bon"
                         pattern="[0-9]*"
                         placeholder="0"
                         type="text"
                         value="0"
+                    />
+                    <button
+                        class="post__tip-button"
+                        type="submit"
+                        title="{{ __('forum.tip-this-post') }}"
                     >
-                    <button class="post__tip-button" type="submit" title="{{ __('forum.tip-this-post') }}">
                         Tip
                     </button>
                     <datalist id="quick-tip-values">
-                        <option value="10">
-                        <option value="20">
-                        <option value="50">
-                        <option value="100">
-                        <option value="200">
-                        <option value="500">
-                        <option value="1000">
+                        <option value="1000"></option>
+                        <option value="2000"></option>
+                        <option value="5000"></option>
+                        <option value="10000"></option>
+                        <option value="20000"></option>
+                        <option value="50000"></option>
+                        <option value="100000"></option>
                     </datalist>
                 </form>
             </li>
@@ -77,10 +88,15 @@
                         x-on:click="
                             document.getElementById('forum_reply_form').style.display = 'block';
                             input = document.getElementById('bbcode-content');
-                            input.value += '[quote={{ \htmlspecialchars('@'.$post->user->username) }}]';
+                            input.value += '[quote={{ \htmlspecialchars('@' . $post->user->username) }}]';
                             input.value += (() => {
                                 var text = document.createElement('textarea');
-                                text.innerHTML = decodeURIComponent(atob($refs.content.dataset.base64Bbcode).split('').map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+                                text.innerHTML = decodeURIComponent(
+                                    atob($refs.content.dataset.base64Bbcode)
+                                        .split('')
+                                        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+                                        .join('')
+                                );
                                 return text.value;
                             })();
                             input.value += '[/quote]';
@@ -92,6 +108,7 @@
                     </button>
                 </li>
             @endif
+
             @if (auth()->user()->group->is_modo || ($post->user->id === auth()->id() && $post->topic->state === 'open'))
                 <li class="post__toolbar-item">
                     <a
@@ -108,7 +125,7 @@
                         role="form"
                         method="POST"
                         action="{{ route('posts.destroy', ['id' => $post->id]) }}"
-                        x-data
+                        x-data="confirmation"
                     >
                         @csrf
                         @method('DELETE')
@@ -116,17 +133,8 @@
                             class="post__delete-button"
                             type="submit"
                             title="{{ __('common.delete') }}"
-                            x-on:click.prevent="Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: 'Are you sure you want to delete this post?',
-                                    icon: 'warning',
-                                    showConfirmButton: true,
-                                    showCancelButton: true,
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        $root.submit();
-                                    }
-                                })"
+                            x-on:click.prevent="confirmAction"
+                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this post?') }}"
                         >
                             <i class="{{ \config('other.font-awesome') }} fa-trash"></i>
                         </button>
@@ -139,22 +147,26 @@
         <figure class="post__figure">
             <img
                 class="post__avatar"
-                src="{{ url($post->user->image === null ? 'img/profile.png' : 'files/img/'.$post->user->image) }}"
+                src="{{ url($post->user->image === null ? 'img/profile.png' : 'files/img/' . $post->user->image) }}"
                 alt=""
-            >
+            />
         </figure>
-        <x-user_tag
-            class="post__author"
-            :anon="false"
-            :user="$post->user"
-        >
+        <x-user_tag class="post__author" :anon="false" :user="$post->user">
             <x-slot:appended-icons>
                 @if ($post->user->isOnline())
-                    <i class="{{ config('other.font-awesome') }} fa-circle text-green" title="Online"></i>
+                    <i
+                        class="{{ config('other.font-awesome') }} fa-circle text-green"
+                        title="Online"
+                    ></i>
                 @else
-                    <i class="{{ config('other.font-awesome') }} fa-circle text-red" title="Offline"></i>
+                    <i
+                        class="{{ config('other.font-awesome') }} fa-circle text-red"
+                        title="Offline"
+                    ></i>
                 @endif
-                <a href="{{ route('users.sent_messages.create', ['user' => $post->user, 'username' => $post->user->username]) }}">
+                <a
+                    href="{{ route('users.sent_messages.create', ['user' => auth()->user(), 'username' => $post->user->username]) }}"
+                >
                     <i class="{{ config('other.font-awesome') }} fa-envelope text-info"></i>
                 </a>
             </x-slot>
@@ -164,6 +176,7 @@
                 {{ $post->user->title }}
             </p>
         @endif
+
         <dl class="post__author-join">
             <dt>Joined</dt>
             <dd>
@@ -173,13 +186,13 @@
                     title="{{ $post->user->created_at }}"
                 >
                     {{ date('d M Y', $post->user->created_at?->getTimestamp() ?? '') }}
-            </time>
+                </time>
             </dd>
         </dl>
         <dl class="post__author-topics">
             <dt>
                 <a href="{{ route('users.topics.index', ['user' => $post->user]) }}">
-                {{ __('forum.topics') }}
+                    {{ __('forum.topics') }}
                 </a>
             </dt>
             <dd>{{ $post->author_topics_count ?? '0' }}</dd>

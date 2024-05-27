@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +37,7 @@ class EmailBlacklistUpdater
         if (cache()->get($key) === null) {
             try {
                 $domains = Http::get($url)->json();
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $domains = [];
             }
         } else {

@@ -1,8 +1,7 @@
 name: Bug Report
 description: File a bug report
 title: "[Bug]"
-labels: Bug
-assignees: HDVinnie
+labels: Bug,Fund
 body:
   - type: markdown
     attributes:
@@ -67,13 +66,3 @@ body:
       render: shell
     validations:
       required: false
-  - type: dropdown
-    id: supporter
-    attributes:
-      label: Are you a UNIT3D sponsor?
-      description: GitHub sponsors get priority review, fixing and responses. Are you not? [Become one!](https://github.com/sponsors/HDVinnie)
-      options:
-        - Yes, with my username
-        - No, don't give priority to this
-    validations:
-      required: true

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -31,30 +34,45 @@ class TorrentZipController extends Controller
         //  Extend The Maximum Execution Time
         set_time_limit(1200);
 
+        // Extend The Maximum Memory Limit
+        ini_set('memory_limit', '1024M');
+
         // Authorized User
         abort_unless($request->user()->is($user), 403);
+
+        // Get Users History Or Peers
+        if ($request->boolean('type') === true) {
+            $torrents = Torrent::whereRelation('peers', 'user_id', '=', $user->id)
+                ->whereRelation('peers', 'active', '=', true)
+                ->whereRelation('peers', 'visible', '=', true)
+                ->get();
+
+            $zipFileName = $user->username.'-peers'.'.zip';
+        } else {
+            $torrents = Torrent::whereRelation('history', 'user_id', '=', $user->id)->get();
+
+            $zipFileName = $user->username.'-history'.'.zip';
+        }
+
+        if ($torrents->isEmpty()) {
+            return redirect()->back()->withErrors('No Torrents Found');
+        }
 
         // Define Dir For Zip
         $zipPath = getcwd().'/files/tmp_zip/';
 
         // Check Directory exists
-        if (! File::isDirectory($zipPath)) {
+        if (!File::isDirectory($zipPath)) {
             File::makeDirectory($zipPath, 0755, true, true);
         }
-
-        // Zip File Name
-        $zipFileName = $user->username.'.zip';
 
         // Create ZipArchive Obj
         $zipArchive = new ZipArchive();
 
-        // Get Users History
-        $historyTorrents = Torrent::whereRelation('history', 'user_id', '=', $user->id)->get();
-
         if ($zipArchive->open($zipPath.$zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE) === true) {
             $announceUrl = route('announce', ['passkey' => $user->passkey]);
 
-            foreach ($historyTorrents as $torrent) {
+            foreach ($torrents as $torrent) {
                 if (file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
                     $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
 

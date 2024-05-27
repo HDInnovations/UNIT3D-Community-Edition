@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,6 +16,7 @@
 
 namespace App\Traits;
 
+use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 
@@ -24,14 +28,13 @@ trait GroupedLastScope
      * Each group is composed of one or more columns that make a unique combination to return the
      * last entry for.
      *
-     * @param array|null $fields A list of fields that's considered as a unique entry by the query.
+     * @param Builder<Torrent>   $query
+     * @param array<string>|null $fields A list of fields that's considered as a unique entry by the query.
      */
-    public function scopeLastPerGroup(Builder $query, ?array $fields = null): Builder
+    public function scopeLastPerGroup(Builder $query, ?array $fields = null): void
     {
-        return $query->whereIn('id', function (QueryBuilder $query) use ($fields) {
-            return $query->from('torrents')
-                ->selectRaw('max(`id`)')
-                ->groupBy($fields);
-        });
+        $query->whereIn('id', fn (QueryBuilder $query) => $query->from('torrents')
+            ->selectRaw('max(`id`)')
+            ->groupBy($fields));
     }
 }

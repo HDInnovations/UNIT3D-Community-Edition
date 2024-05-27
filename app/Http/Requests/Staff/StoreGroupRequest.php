@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,6 +18,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StoreGroupRequest extends FormRequest
 {
@@ -28,8 +32,10 @@ class StoreGroupRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
         return [
             'name' => [
@@ -49,6 +55,9 @@ class StoreGroupRequest extends FormRequest
                 'nullable',
                 'integer',
             ],
+            'description' => [
+                'nullable',
+            ],
             'color' => [
                 'required',
             ],
@@ -59,6 +68,10 @@ class StoreGroupRequest extends FormRequest
                 'sometimes',
             ],
             'is_internal' => [
+                'required',
+                'boolean',
+            ],
+            'is_editor' => [
                 'required',
                 'boolean',
             ],
@@ -101,6 +114,48 @@ class StoreGroupRequest extends FormRequest
             'autogroup' => [
                 'required',
                 'boolean',
+            ],
+            'min_uploaded' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
+            ],
+            'min_ratio' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'min:0',
+                    'max:99.99',
+                ], 'prohibited'),
+            ],
+            'min_age' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
+            ],
+            'min_avg_seedtime' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
+            ],
+            'min_seedsize' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
+            ],
+            'min_uploads' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'prohibited'),
             ],
         ];
     }

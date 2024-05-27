@@ -1,9 +1,17 @@
-@if($this->isBookmarked)
-    <button wire:click="destroy({{ $torrent->id }})" class="form__standard-icon-button" title="Unbookmark">
+<button
+    @if ($this->isBookmarked)
+        wire:click="destroy({{ $torrent->id }})"
+        class="form__standard-icon-button"
+        title="Unbookmark"
+    @else
+        wire:click="store({{ $torrent->id }})"
+        class="form__standard-icon-button"
+        title="Bookmark"
+    @endif
+>
+    @if ($this->isBookmarked)
         <i class="{{ config('other.font-awesome') }} fa-bookmark-slash"></i>
-    </button>
-@else
-    <button wire:click="store({{ $torrent->id }})" class="form__standard-icon-button" title="Bookmark">
+    @else
         <i class="{{ config('other.font-awesome') }} fa-bookmark"></i>
-    </button>
-@endif
+    @endif
+</button>

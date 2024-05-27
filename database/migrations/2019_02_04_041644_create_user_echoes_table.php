@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,8 +25,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('user_echoes', function (Blueprint $table): void {
-            $table->integer('id', true)->signed();
-            $table->integer('user_id')->signed()->index();
+            $table->integer('id', true);
+            $table->integer('user_id')->index();
             $table->boolean('room_id')->nullable()->index();
             $table->boolean('target_id')->nullable()->index();
             $table->boolean('bot_id')->nullable()->index();

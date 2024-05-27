@@ -23,25 +23,45 @@
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.wishlist') }}</h2>
-            <div class="panel__actions">
+            <div class="panel__actions" x-data="{ meta: 'movie' }">
+                <div class="panel__action">
+                    <div class="form__group">
+                        <select
+                            id="meta"
+                            class="form__select"
+                            form="wishlistForm"
+                            name="meta"
+                            x-model="meta"
+                            required
+                        >
+                            <option selected value="movie">{{ __('mediahub.movie') }}</option>
+                            <option value="tv">TV</option>
+                        </select>
+                        <label class="form__label form__label--floating" for="model">
+                            {{ __('mediahub.movie') }}/TV
+                        </label>
+                    </div>
+                </div>
+                <div class="panel__action">
+                    <div class="form__group">
+                        <input
+                            id="tmdb"
+                            class="form__text"
+                            form="wishlistForm"
+                            x-bind:name="meta === 'movie' ? 'movie_id' : 'tv_id'"
+                            type="text"
+                            required
+                        />
+                        <label class="form__label form__label--floating" for="tmdb">TMDB ID</label>
+                    </div>
+                </div>
                 <form
+                    id="wishlistForm"
                     class="form form--horizontal panel__action"
                     action="{{ route('users.wishes.store', ['user' => $user]) }}"
                     method="POST"
                 >
                     @csrf
-                    <div class="form__group">
-                        <input
-                            id="tmdb"
-                            class="form__text"
-                            name="tmdb"
-                            required
-                            type="text"
-                        />
-                        <label class="form__label form__label--floating">
-                            TMDB ID
-                        </label>
-                    </div>
                     <button class="form__button form__button--text">
                         {{ __('common.add') }}
                     </button>
@@ -53,7 +73,7 @@
                 <thead>
                     <tr>
                         <th>{{ __('torrent.title') }}</th>
-                        <th>TMDB</th>
+                        <th>{{ __('torrent.torrents') }}</th>
                         <th>{{ __('common.status') }}</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>
@@ -69,15 +89,41 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('torrents.index', ['tmdbId' => $wish->tmdb]) }}" target="_blank">
-                                    Torrents
+                                <a
+                                    href="{{ route('torrents.index', ['tmdbId' => $wish->movie_id ?? $wish->tv_id, 'view' => 'group']) }}"
+                                >
+                                    @if ($wish->movie_id !== null)
+                                        Torrents ({{ $wish->movie_torrents_count }})
+                                    @elseif ($wish->tv_id !== null)
+                                        Torrents ({{ $wish->tv_torrents_count }})
+                                    @endif
                                 </a>
                             </td>
                             <td>
-                                @if ($wish->source === null)
-                                    <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                                @else
-                                    <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                @if ($wish->movie_id !== null)
+                                    @if ($wish->movie_torrents_count === 0)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-times text-red"
+                                            title="Not yet uploaded"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                            title="Already uploaded"
+                                        ></i>
+                                    @endif
+                                @elseif ($wish->tv_id !== null)
+                                    @if ($wish->tv_torrents_count === 0)
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-times text-red"
+                                            title="Not yet uploaded"
+                                        ></i>
+                                    @else
+                                        <i
+                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                            title="Already uploaded"
+                                        ></i>
+                                    @endif
                                 @endif
                             </td>
                             <td>
@@ -86,22 +132,13 @@
                                         <form
                                             action="{{ route('users.wishes.destroy', ['user' => $user, 'wish' => $wish]) }}"
                                             method="POST"
-                                            x-data
+                                            x-data="confirmation"
                                         >
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to delete this wish: ${atob('{{ base64_encode($wish->title) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this wish: ' . $wish->title . '?') }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}

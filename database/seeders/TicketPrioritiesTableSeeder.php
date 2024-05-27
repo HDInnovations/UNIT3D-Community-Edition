@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,32 +18,13 @@ namespace Database\Seeders;
 
 use App\Models\TicketPriority;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TicketPrioritiesTableSeeder extends Seeder
 {
-    private array $priorities;
-
-    public function __construct()
-    {
-        $this->priorities = $this->getTicketPriorities();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     final public function run(): void
     {
-        foreach ($this->priorities as $priority) {
-            TicketPriority::updateOrCreate($priority);
-        }
-    }
-
-    /**
-     * @return array[]
-     */
-    private function getTicketPriorities(): array
-    {
-        return [
+        TicketPriority::upsert([
             [
                 'name'     => 'Low',
                 'position' => 0,
@@ -53,6 +37,6 @@ class TicketPrioritiesTableSeeder extends Seeder
                 'name'     => 'High',
                 'position' => 2,
             ],
-        ];
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

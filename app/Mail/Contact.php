@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -25,7 +28,7 @@ class Contact extends Mailable
     /**
      * Contact Constructor.
      */
-    public function __construct(public array $input)
+    public function __construct(public string|\Illuminate\Support\Stringable $email)
     {
     }
 
@@ -35,7 +38,7 @@ class Contact extends Mailable
     public function build(): static
     {
         return $this->markdown('emails.contact')
-            ->from($this->input['email'], config('other.title'))
+            ->from($this->email, config('other.title'))
             ->subject('New contact mail');
     }
 }

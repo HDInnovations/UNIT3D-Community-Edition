@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -37,7 +40,7 @@ class MediaInfo
 
     public function parse($string): array
     {
-        $string = trim($string);
+        $string = trim((string) $string);
         $string = str_replace("\xc2\xa0", ' ', $string);
         $lines = preg_split("/\r\n|\n|\r/", $string);
 
@@ -70,7 +73,7 @@ class MediaInfo
         foreach ($sections as $key => $section) {
             $keySection = strtolower(explode(' ', $key)[0]);
 
-            if (! empty($section)) {
+            if (!empty($section)) {
                 if ($keySection === 'general') {
                     $output[$keySection] = $this->parseProperty($section, $keySection);
                 } else {
@@ -89,7 +92,7 @@ class MediaInfo
         foreach ($sections as $info) {
             $property = null;
             $value = null;
-            $info = explode(':', $info, 2);
+            $info = explode(':', (string) $info, 2);
 
             if (\count($info) >= 2) {
                 $property = strtolower(trim($info[0]));
@@ -97,7 +100,7 @@ class MediaInfo
             }
 
             if ($property && $value) {
-                switch (strtolower($section)) {
+                switch (strtolower((string) $section)) {
                     case 'general':
                         switch ($property) {
                             case 'complete name':
@@ -316,7 +319,7 @@ class MediaInfo
 
     public static function stripPath($string): string
     {
-        $string = str_replace('\\', '/', $string);
+        $string = str_replace('\\', '/', (string) $string);
         $pathParts = pathinfo($string);
 
         return $pathParts['basename'];
@@ -324,10 +327,10 @@ class MediaInfo
 
     private function parseFileSize($string): float
     {
-        $number = (float) str_replace(' ', '', $string);
-        preg_match('/[KMGTPEZ]/i', $string, $size);
+        $number = (float) str_replace(' ', '', (string) $string);
+        preg_match('/[KMGTPEZ]/i', (string) $string, $size);
 
-        if (! empty($size[0])) {
+        if (!empty($size[0])) {
             $number = $this->computerSize($number, $size[0].'b');
         }
 
@@ -336,17 +339,17 @@ class MediaInfo
 
     private function parseBitRate($string): string
     {
-        return str_replace([' ', 'kbps'], ['', ' kbps'], strtolower($string));
+        return str_replace([' ', 'kbps'], ['', ' kbps'], strtolower((string) $string));
     }
 
     private function parseWidthHeight($string): string
     {
-        return str_replace(['pixels', ' '], null, strtolower($string));
+        return str_replace(['pixels', ' '], ' ', strtolower((string) $string));
     }
 
-    private function parseAudioChannels($string): array|string
+    private function parseAudioChannels($string): string
     {
-        return str_ireplace(array_keys(self::REPLACE), self::REPLACE, $string);
+        return str_ireplace(array_keys(self::REPLACE), self::REPLACE, (string) $string);
     }
 
     private function formatOutput($data): array
@@ -363,7 +366,7 @@ class MediaInfo
     private function computerSize($number, $size): float
     {
         $bytes = (float) $number;
-        $size = strtolower($size);
+        $size = strtolower((string) $size);
 
         if (isset(self::FACTORS[$size])) {
             return (float) number_format($bytes * (1_024 ** self::FACTORS[$size]), 2, '.', '');

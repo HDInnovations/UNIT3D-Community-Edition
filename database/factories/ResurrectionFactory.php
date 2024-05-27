@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,17 +16,18 @@
 
 namespace Database\Factories;
 
+use App\Models\Resurrection;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Graveyard;
 
+/** @extends Factory<Resurrection> */
 class ResurrectionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      */
-    protected $model = Graveyard::class;
+    protected $model = Resurrection::class;
 
     /**
      * Define the model's default state.

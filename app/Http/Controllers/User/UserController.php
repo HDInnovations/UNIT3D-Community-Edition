@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,9 +21,12 @@ use App\Models\BonTransactions;
 use App\Models\Invite;
 use App\Models\Peer;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
 /**
@@ -31,9 +37,10 @@ class UserController extends Controller
     /**
      * Show A User.
      */
-    public function show(User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function show(Request $request, User $user): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user->load([
+            'application',
             'privacy',
             'userban' => ['banneduser', 'staffuser'],
             'tickets' => fn ($query) => $query->orderByRaw('ISNULL(closed_at) desc')->orderByDesc('id'),
@@ -86,7 +93,7 @@ class UserController extends Controller
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
                 ->select('agent', 'port')
-                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers')
+                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers, MAX(connectable) as connectable')
                 ->groupBy(['ip', 'port', 'agent'])
                 ->where('active', '=', true)
                 ->get(),
@@ -100,7 +107,8 @@ class UserController extends Controller
                 ->selectRaw('SUM(active = 0) as inactive')
                 ->where('user_id', '=', $user->id)
                 ->first(),
-            'watch' => $user->watchlist,
+            'watch'        => $user->watchlist,
+            'externalUser' => $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : null,
         ]);
     }
 
@@ -123,15 +131,19 @@ class UserController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        if ($request->hasFile('image') && $request->file('image')->getError() === 0) {
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
 
-            if (! \in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
+            abort_if(\is_array($image), 400);
+
+            abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
+
+            if (!\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
                 return to_route('users.show', ['user' => $user])
                     ->withErrors('Only .jpg, .bmp, .png, .tiff, and .gif are allowed.');
             }
 
-            if (! preg_match('#image/*#', (string) $image->getMimeType())) {
+            if (!preg_match('#image/*#', (string) $image->getMimeType())) {
                 return to_route('users.show', ['user' => $user])
                     ->withErrors('Incorrect mime type.');
             }
@@ -147,14 +159,21 @@ class UserController extends Controller
             if ($image->getClientOriginalExtension() !== 'gif') {
                 Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
             } else {
-                $request->validate([
-                    'image' => 'dimensions:ratio=1/1',
-                ]);
+                Validator::make($request->all(), [
+                    'image' => 'required|dimensions:ratio=1/1',
+                ], [
+                    'image.dimensions' => 'Only square avatars are accepted.',
+                ])->validate();
 
                 $image->move(public_path('/files/img/'), $filename);
             }
 
-            $user->image = $user->username.'.'.$image->getClientOriginalExtension();
+            $avatar = $user->username.'.'.$image->getClientOriginalExtension();
+
+            if ($user->image !== $avatar) {
+                $oldAvatar = $user->image;
+                $user->image = $avatar;
+            }
         }
 
         // Define data
@@ -167,6 +186,11 @@ class UserController extends Controller
         $user->about = $request->input('about');
         $user->signature = $request->input('signature');
         $user->save();
+
+        // Remove avatar's old file format
+        if (isset($oldAvatar)) {
+            File::delete(public_path('/files/img/').$oldAvatar);
+        }
 
         return to_route('users.show', ['user' => $user])
             ->withSuccess('Your Account Was Updated Successfully!');

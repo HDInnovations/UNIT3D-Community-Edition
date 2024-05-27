@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,5 +18,5 @@ namespace App\Interfaces;
 
 interface ByteUnitsInterface
 {
-    public function bytesFromUnit(string $units): int;
+    public function bytesFromUnit(string $units): int|string;
 }

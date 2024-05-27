@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,24 +16,19 @@
 
 namespace App\Helpers;
 
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Stringable;
+
 class TorrentTools
 {
     /**
-     * Name of the file to be saved.
-     */
-    public static string $fileName = '';
-
-    /**
-     * Representative table of the decoded torrent.
-     */
-    public static array $decodedTorrent = [];
-
-    /**
      * Moves and decodes the torrent.
+     *
+     * @return array<mixed>>
      */
-    public static function normalizeTorrent($torrentFile)
+    public static function normalizeTorrent(UploadedFile $torrentFile)
     {
-        $result = Bencode::bdecode_file($torrentFile);
+        $result = Bencode::bdecode_file($torrentFile->getRealPath());
 
         // Whitelisted keys
         $result = array_intersect_key($result, [
@@ -51,7 +49,7 @@ class TorrentTools
         $result['info']['private'] = 1;
 
         if (config('torrent.created_by_append') && \array_key_exists('created by', $result)) {
-            $result['created by'] = trim($result['created by'], '. ').'. '.config('torrent.created_by', '');
+            $result['created by'] = trim((string) $result['created by'], '. ').'. '.config('torrent.created_by', '');
         } else {
             $result['created by'] = config('torrent.created_by', '');
         }
@@ -66,43 +64,18 @@ class TorrentTools
     }
 
     /**
-     * Calculate the number of files in the torrent.
-     */
-    public static function getFileCount($decodedTorrent): int
-    {
-        // Multiple file torrent ?
-        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
-            return is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
-        }
-
-        return 1;
-    }
-
-    /**
-     * Returns the size of the torrent files.
-     */
-    public static function getTorrentSize($decodedTorrent): mixed
-    {
-        $size = 0;
-
-        if (\array_key_exists('files', $decodedTorrent['info']) && (is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0)) {
-            foreach ($decodedTorrent['info']['files'] as $file) {
-                $dir = '';
-                $size += $file['length'];
-                $count = is_countable($file['path']) ? \count($file['path']) : 0;
-            }
-        } else {
-            $size = $decodedTorrent['info']['length'];
-            //$files[0] = $decodedTorrent['info']['name.utf-8'];
-        }
-
-        return $size;
-    }
-
-    /**
      * Returns the torrent file list.
+     *
+     * @param array<mixed> $decodedTorrent
+     * @return array<
+     *     int,
+     *     array{
+     *         name: string,
+     *         size: int,
+     *     }
+     * >
      */
-    public static function getTorrentFiles($decodedTorrent): array
+    public static function getTorrentFiles(array $decodedTorrent): array
     {
         $files = [];
 
@@ -133,8 +106,11 @@ class TorrentTools
 
     /**
      * Returns file and folder names from the torrent.
+     *
+     * @param  array<mixed>  $decodedTorrent
+     * @return array<string>
      */
-    public static function getFilenameArray($decodedTorrent): array
+    public static function getFilenameArray(array $decodedTorrent): array
     {
         $filenames = [];
 
@@ -143,7 +119,7 @@ class TorrentTools
                 $count = is_countable($file['path']) ? \count($file['path']) : 0;
 
                 for ($i = 0; $i < $count; $i++) {
-                    if (! \in_array($file['path'][$i], $filenames)) {
+                    if (!\in_array($file['path'][$i], $filenames)) {
                         $filenames[] = $file['path'][$i];
                     }
                 }
@@ -156,30 +132,14 @@ class TorrentTools
     }
 
     /**
-     * Returns the sha1 (hash) of the torrent.
-     */
-    public static function getTorrentHash($decodedTorrent): string
-    {
-        return sha1(Bencode::bencode($decodedTorrent['info']));
-    }
-
-    /**
-     * Returns the number of the torrent file.
-     */
-    public static function getTorrentFileCount($decodedTorrent): int
-    {
-        if (\array_key_exists('files', $decodedTorrent['info'])) {
-            return is_countable($decodedTorrent['info']['files']) ? \count($decodedTorrent['info']['files']) : 0;
-        }
-
-        return 1;
-    }
-
-    /**
      * Returns the NFO.
      */
-    public static function getNfo($inputFile): bool|string|null
+    public static function getNfo(?UploadedFile $inputFile): bool|string|null
     {
+        if ($inputFile === null) {
+            return null;
+        }
+
         $fileName = uniqid('', true).'.nfo';
         $inputFile->move(getcwd().'/files/tmp/', $fileName);
 
@@ -216,10 +176,14 @@ class TorrentTools
     /**
      * Anonymize A Torrent Media Info.
      */
-    public static function anonymizeMediainfo($mediainfo): array|string|null
+    public static function anonymizeMediainfo(string|Stringable|null $mediainfo): ?string
     {
         if ($mediainfo === null) {
             return null;
+        }
+
+        if ($mediainfo instanceof Stringable) {
+            $mediainfo = $mediainfo->toString();
         }
 
         $completeNameI = strpos($mediainfo, 'Complete name');
@@ -242,9 +206,18 @@ class TorrentTools
 
     /**
      * Parse Torrent Keywords.
+     *
+     * @return array<string>
      */
-    public static function parseKeywords($text): array
+    public static function parseKeywords(string|Stringable $text): array
     {
-        return array_filter(array_unique(array_map('trim', explode(',', $text))));
+        if ($text instanceof Stringable) {
+            $text = $text->toString();
+        }
+
+        $keywords = array_filter(array_map('trim', explode(',', $text)));
+
+        // unique keywords only (case insensitive)
+        return array_values(array_intersect_key($keywords, array_unique(array_map('strtolower', $keywords))));
     }
 }

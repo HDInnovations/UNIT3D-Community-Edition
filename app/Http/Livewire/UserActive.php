@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,6 +18,9 @@ namespace App\Http\Livewire;
 
 use App\Models\Peer;
 use App\Models\User;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -23,51 +29,49 @@ use Livewire\WithPagination;
  */
 class UserActive extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
+    #[Url(history: true)]
     public string $name = '';
 
+    #[Url(history: true)]
     public string $ip = '';
 
+    #[Url(history: true)]
     public string $port = '';
 
+    #[Url(history: true)]
     public string $client = '';
 
+    #[Url(history: true)]
     public string $seeding = 'any';
 
+    #[Url(history: true)]
     public string $active = 'include';
 
+    #[Url(history: true)]
+    public string $visible = 'any';
+
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    public $showMorePrecision = false;
+    #[Url(history: true)]
+    public bool $showMorePrecision = false;
 
-    protected $queryString = [
-        'perPage'           => ['except' => 50],
-        'name'              => ['except' => ''],
-        'ip'                => ['except' => ''],
-        'port'              => ['except' => ''],
-        'client'            => ['excpet' => ''],
-        'seeding'           => ['except' => 'any'],
-        'active'            => ['except' => 'any'],
-        'sortField'         => ['except' => 'created_at'],
-        'sortDirection'     => ['except' => 'desc'],
-        'showMorePrecision' => ['except' => false],
-    ];
-
-    final public function mount($userId): void
+    final public function mount(int $userId): void
     {
         $this->user = User::find($userId);
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -75,7 +79,11 @@ class UserActive extends Component
         $this->resetPage();
     }
 
-    final public function getActivesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     */
+    #[Computed]
+    final public function actives(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
@@ -92,6 +100,8 @@ class UserActive extends Component
                 'peers.torrent_id',
                 'peers.user_id',
                 'peers.active',
+                'peers.visible',
+                'peers.connectable',
                 'torrents.name',
                 'torrents.size',
                 'torrents.seeders',
@@ -113,6 +123,8 @@ class UserActive extends Component
             ->when($this->seeding === 'exclude', fn ($query) => $query->where('seeder', '=', 0))
             ->when($this->active === 'include', fn ($query) => $query->where('active', '=', 1))
             ->when($this->active === 'exclude', fn ($query) => $query->where('active', '=', 0))
+            ->when($this->visible === 'include', fn ($query) => $query->where('visible', '=', 1))
+            ->when($this->visible === 'exclude', fn ($query) => $query->where('visible', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
@@ -122,16 +134,5 @@ class UserActive extends Component
         return view('livewire.user-active', [
             'actives' => $this->actives,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,12 +19,12 @@ namespace App\Console\Commands;
 use App\Models\FeaturedTorrent;
 use App\Models\Torrent;
 use App\Repositories\ChatRepository;
+use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoRemoveFeaturedTorrentTest
- */
 class AutoRemoveFeaturedTorrent extends Command
 {
     /**
@@ -48,8 +51,10 @@ class AutoRemoveFeaturedTorrent extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $current = Carbon::now();
         $featuredTorrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())->get();
@@ -59,22 +64,24 @@ class AutoRemoveFeaturedTorrent extends Command
             $torrent = Torrent::where('featured', '=', 1)->find($featuredTorrent->torrent_id);
 
             if (isset($torrent)) {
-                $torrent->free = 0;
-                $torrent->doubleup = 0;
-                $torrent->featured = 0;
+                $torrent->featured = false;
                 $torrent->save();
 
                 // Auto Announce Featured Expired
                 $appurl = config('app.url');
 
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured. :poop:', $appurl, $torrent->id, $torrent->name)
+                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
                 );
+
+                Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
             }
 
             // Delete The Record From DB
             $featuredTorrent->delete();
         }
+
+        cache()->forget('featured-torrent-ids');
 
         $this->comment('Automated Removal Featured Torrents Command Complete');
     }

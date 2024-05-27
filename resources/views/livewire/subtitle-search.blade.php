@@ -6,7 +6,7 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th class="torrents-icon"></th>
+                            <th class="category__icon"></th>
                             <th wire:click="sortBy('title')" role="columnheader button">
                                 {{ __('torrent.torrent') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'title'])
@@ -39,36 +39,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($subtitles as $subtitle)
+                        @foreach ($subtitles as $subtitle)
                             <tr>
                                 <td>
                                     @if ($subtitle->torrent->category->image === null)
-                                            <i
-                                                class="{{ $subtitle->torrent->category->icon }} torrent-icon"
-                                                title="{{ $subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
-                                            ></i>
-                                        @else
-                                            <img
-                                                src="{{ url('files/img/' . $subtitle->torrent->category->image) }}"
-                                                title="{{$subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
-                                                alt="{{ $subtitle->torrent->category->name }}"
-                                            >
+                                        <i
+                                            class="{{ $subtitle->torrent->category->icon }} category__icon"
+                                            title="{{ $subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
+                                        ></i>
+                                    @else
+                                        <img
+                                            src="{{ url('files/img/' . $subtitle->torrent->category->image) }}"
+                                            title="{{ $subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
+                                            alt="{{ $subtitle->torrent->category->name }}"
+                                        />
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ route('torrents.show', ['id' => $subtitle->torrent->id]) }}">
+                                    <a
+                                        href="{{ route('torrents.show', ['id' => $subtitle->torrent->id]) }}"
+                                    >
                                         {{ $subtitle->torrent->name }}
                                     </a>
                                 </td>
                                 <td>
                                     {{ $subtitle->language->name }}
-                                    <i class="{{ config("other.font-awesome") }} fa-closed-captioning" title="{{ $subtitle->note }}"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-closed-captioning"
+                                        title="{{ $subtitle->note }}"
+                                    ></i>
                                 </td>
                                 <td>{{ $subtitle->extension }}</td>
                                 <td>{{ $subtitle->getSize() }}</td>
                                 <td>{{ $subtitle->downloads }}</td>
                                 <td>
-                                    <time datetime="{{ $subtitle->created_at }}" title="{{ $subtitle->created_at }}">
+                                    <time
+                                        datetime="{{ $subtitle->created_at }}"
+                                        title="{{ $subtitle->created_at }}"
+                                    >
                                         {{ $subtitle->created_at->diffForHumans() }}
                                     </time>
                                 </td>
@@ -103,11 +111,11 @@
                     <p class="form__group">
                         <input
                             id="search"
-                            wire:model="search"
+                            wire:model.live="search"
                             type="search"
                             class="form__text"
                             placeholder=" "
-                        >
+                        />
                         <label for="search" class="form__label form__label--floating">
                             {{ __('torrent.name') }}
                         </label>
@@ -116,7 +124,7 @@
                         <select
                             id="language_id"
                             class="form__select"
-                            wire:model="language"   
+                            wire:model.live="language"
                             x-data="{ language: '' }"
                             x-model="language"
                             x-bind:class="language === '' ? 'form__select--default' : ''"
@@ -143,8 +151,8 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $category->id }}"
-                                                wire:model="categories"
-                                            >
+                                                wire:model.live="categories"
+                                            />
                                             {{ $category->name }}
                                         </label>
                                     </p>
@@ -155,11 +163,11 @@
                     <p class="form__group">
                         <input
                             id="username"
-                            wire:model="username"
+                            wire:model.live="username"
                             type="search"
                             class="form__text"
                             placeholder=" "
-                        >
+                        />
                         <label for="username" class="form__label form__label--floating">
                             {{ __('subtitle.uploader') }}
                         </label>
@@ -168,14 +176,14 @@
                         <select
                             id="quantity"
                             class="form__select"
-                            wire:model="perPage"
+                            wire:model.live="perPage"
                             required
                         >
                             <option>25</option>
                             <option>50</option>
                             <option>100</option>
                         </select>
-                        <label class="form__label form__label--floating">
+                        <label class="form__label form__label--floating" for="quantity">
                             {{ __('common.quantity') }}
                         </label>
                     </p>

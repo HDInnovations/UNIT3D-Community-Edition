@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,14 +19,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Keyword.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property int         $torrent_id
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ */
 class Keyword extends Model
 {
     use HasFactory;
 
     /**
-     * The Attributes That Are Mass Assignable.
+     * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
@@ -38,6 +50,8 @@ class Keyword extends Model
 
     /**
      * Belongs To Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

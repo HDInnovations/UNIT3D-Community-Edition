@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,23 +17,14 @@
 namespace App\Console\Commands;
 
 use App\Models\Torrent;
-use App\Repositories\ChatRepository;
+use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoRemoveTimedTorrentBuffs
- */
 class AutoRemoveTimedTorrentBuffs extends Command
 {
-    /**
-     * AutoRemoveTimedTorrentBuffs Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-        parent::__construct();
-    }
-
     /**
      * The name and signature of the console command.
      *
@@ -47,39 +41,31 @@ class AutoRemoveTimedTorrentBuffs extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
-        $appurl = config('app.url');
-
         $flTorrents = Torrent::whereNotNull('fl_until')->where('fl_until', '<', Carbon::now()->toDateTimeString())->get();
 
         foreach ($flTorrents as $torrent) {
-            if (isset($torrent)) {
-                $torrent->free = 0;
-                $torrent->fl_until = null;
-                $torrent->save();
+            $torrent->free = 0;
+            $torrent->fl_until = null;
+            $torrent->save();
 
-                // Announce To Chat
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed freeleech buff has expired.', $appurl, $torrent->id, $torrent->name)
-                );
-            }
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+            Unit3dAnnounce::addTorrent($torrent);
         }
 
         $duTorrents = Torrent::whereNotNull('du_until')->where('du_until', '<', Carbon::now()->toDateTimeString())->get();
 
         foreach ($duTorrents as $torrent) {
-            if (isset($torrent)) {
-                $torrent->doubleup = 0;
-                $torrent->du_until = null;
-                $torrent->save();
+            $torrent->doubleup = false;
+            $torrent->du_until = null;
+            $torrent->save();
 
-                // Announce To Chat
-                $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] timed double upload buff has expired.', $appurl, $torrent->id, $torrent->name)
-                );
-            }
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+            Unit3dAnnounce::addTorrent($torrent);
         }
 
         $this->comment('Automated Removal Of Expired Torrent Buffs Command Complete');

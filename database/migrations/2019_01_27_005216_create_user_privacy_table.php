@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,8 +25,8 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::create('user_privacy', function (Blueprint $table): void {
-            $table->integer('id', true)->signed();
-            $table->integer('user_id')->signed()->unique();
+            $table->integer('id', true);
+            $table->integer('user_id')->unique();
             $table->boolean('show_achievement')->index()->default(1);
             $table->boolean('show_bon')->index()->default(1);
             $table->boolean('show_comment')->index()->default(1);

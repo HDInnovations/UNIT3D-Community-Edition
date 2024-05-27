@@ -7,9 +7,7 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">
-            Torrent Regions
-        </a>
+        <a href="{{ route('staff.regions.index') }}" class="breadcrumb__link">Torrent Regions</a>
     </li>
     <li class="breadcrumb--active">
         {{ __('common.new-adj') }}
@@ -22,20 +20,10 @@
     <section class="panelV2">
         <h2 class="panel__heading">Add A Torrent Region</h2>
         <div class="panel__body">
-            <form
-                class="form"
-                method="POST"
-                action="{{ route('staff.regions.store') }}"
-            >
+            <form class="form" method="POST" action="{{ route('staff.regions.store') }}">
                 @csrf
                 <p class="form__group">
-                    <input
-                        id="name"
-                        class="form__text"
-                        name="name"
-                        required
-                        type="text"
-                    >
+                    <input id="name" class="form__text" name="name" required type="text" />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -49,8 +37,8 @@
                         pattern="[0-9]*"
                         type="text"
                         required
-                    >
-                    <label class="form__label form__label--floating" for="name">
+                    />
+                    <label class="form__label form__label--floating" for="position">
                         {{ __('common.position') }}
                     </label>
                 </p>

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,10 +32,8 @@ class MessageSent implements ShouldBroadcastNow
 
     /**
      * Message details.
-     *
-     * @var Message
      */
-    public $message;
+    public ChatMessageResource $message;
 
     /**
      * Create a new event instance.

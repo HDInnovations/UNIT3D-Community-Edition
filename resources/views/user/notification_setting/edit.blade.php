@@ -1,7 +1,9 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - {{ __('user.notification') }} - {{ __('common.members') }} - {{ config('other.title') }}
+    <title>
+        {{ $user->username }} - {{ __('user.notification') }} - {{ __('common.members') }} -
+        {{ config('other.title') }}
     </title>
 @endsection
 
@@ -12,7 +14,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('users.general_settings.edit', ['user' => $user]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
+            class="breadcrumb__link"
+        >
             {{ __('user.settings') }}
         </a>
     </li>
@@ -338,7 +343,7 @@
                 <div class="form__group--short-horizontal">
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">{{ __('user.follow') }}</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -355,7 +360,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">{{ __('bon.bon') }}</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -372,7 +377,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">{{ __('user.followers') }}</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -389,7 +394,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">{{ __('forum.forums') }}</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -406,7 +411,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">{{ __('request.requests') }}</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -423,7 +428,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">{{ __('common.subscriptions') }}</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -440,7 +445,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">{{ __('torrent.torrents') }}</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -457,7 +462,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Mentions</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -482,7 +487,7 @@
                             type="checkbox"
                             value="1"
                             name="block_notifications"
-                            @checked($user->block_notifications)
+                            @checked($user->notification?->block_notifications)
                         />
                         Block all notifications.
                     </label>

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,14 +19,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\FailedLoginAttempt.
+ *
+ * @property int                             $id
+ * @property int|null                        $user_id
+ * @property string                          $username
+ * @property string                          $ip_address
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class FailedLoginAttempt extends Model
 {
     use HasFactory;
 
     /**
-     * The Attributes That Are Mass Assignable.
+     * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'user_id',
@@ -31,17 +44,10 @@ class FailedLoginAttempt extends Model
         'ip_address',
     ];
 
-    public static function record($user, $username, $ip): mixed
-    {
-        return static::create([
-            'user_id'    => $user?->id,
-            'username'   => $username,
-            'ip_address' => $ip,
-        ]);
-    }
-
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

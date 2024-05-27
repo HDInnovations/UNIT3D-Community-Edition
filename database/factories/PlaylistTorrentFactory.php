@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,6 +21,7 @@ use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\PlaylistTorrent;
 
+/** @extends Factory<PlaylistTorrent> */
 class PlaylistTorrentFactory extends Factory
 {
     /**

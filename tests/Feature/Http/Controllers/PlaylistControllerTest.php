@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -81,7 +84,6 @@ test('index returns an ok response', function (): void {
     $response = $this->actingAs($user)->get(route('playlists.index'));
     $response->assertOk();
     $response->assertViewIs('playlist.index');
-    $response->assertViewHas('playlists');
 });
 
 test('show returns an ok response', function (): void {

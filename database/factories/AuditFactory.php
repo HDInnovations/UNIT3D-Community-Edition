@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Audit;
 use JsonException;
 
+/** @extends Factory<Audit> */
 class AuditFactory extends Factory
 {
     /**

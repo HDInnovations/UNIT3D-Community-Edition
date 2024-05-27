@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -21,13 +24,15 @@ class DestroyDistributorRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\Rules\Exists|string>>
      */
     public function rules(Distributor $distributor): array
     {
         return [
             'distributor_id' => [
                 'required',
-                Rule::exists('distributors', 'id')->whereNot('id', $distributor->id),
+                Rule::exists('distributors', 'id')->whereNot('id', (string) $distributor->id),
             ],
         ];
     }

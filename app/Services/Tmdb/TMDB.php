@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,7 +18,10 @@ namespace App\Services\Tmdb;
 
 class TMDB
 {
-    public function image($type, $array): ?string
+    /**
+     * @param array<mixed> $array
+     */
+    public function image(string $type, array $array): ?string
     {
         if (isset($array[$type.'_path'])) {
             return 'https://image.tmdb.org/t/p/original'.$array[$type.'_path'];
@@ -24,7 +30,10 @@ class TMDB
         return null;
     }
 
-    public function trailer($array): ?string
+    /**
+     * @param array<mixed> $array
+     */
+    public function trailer(array $array): ?string
     {
         if (isset($array['videos']['results'])) {
             return 'https://www.youtube.com/embed/'.$array['videos']['results'][0]['key'];
@@ -33,49 +42,23 @@ class TMDB
         return null;
     }
 
-    public function ifHasItems($type, $array)
+    /**
+     * @param array<mixed> $array
+     */
+    public function ifHasItems(string $type, array $array): mixed
     {
         return $array[$type][0] ?? null;
     }
 
-    public function ifExists($type, $array)
+    /**
+     * @param array<mixed> $array
+     */
+    public function ifExists(string $type, array $array): mixed
     {
-        if (isset($array[$type]) && ! empty($array[$type])) {
+        if (isset($array[$type]) && !empty($array[$type])) {
             return $array[$type];
         }
 
-        return;
-    }
-
-    public function cast_array($cast): array
-    {
-        return [
-            'character' => $cast['character'],
-            'credit_id' => $cast['credit_id'],
-            'gender'    => $cast['gender'],
-            'name'      => $cast['name'],
-            'order'     => $cast['order'],
-            'still'     => $this->image('profile', $cast),
-        ];
-    }
-
-    public function person_array($person): array
-    {
-        return [
-            'id'                   => $this->ifExists('id', $person),
-            'birthday'             => $this->ifExists('birthday', $person),
-            'known_for_department' => $this->ifExists('known_for_department', $person),
-            'deathday'             => $this->ifExists('deathday', $person),
-            'name'                 => $this->ifExists('name', $person),
-            //"also_known_as" => $person['also_known_as'] ?? null,
-            'gender'         => $this->ifExists('gender', $person),
-            'biography'      => $this->ifExists('biography', $person),
-            'popularity'     => $this->ifExists('popularity', $person),
-            'place_of_birth' => $this->ifExists('place_of_birth', $person),
-            'still'          => $this->image('profile', $person),
-            'adult'          => $this->ifExists('adult', $person),
-            'imdb_id'        => $this->ifExists('imdb_id', $person),
-            'homepage'       => $this->ifExists('homepage', $person),
-        ];
+        return null;
     }
 }

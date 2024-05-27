@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -73,10 +76,15 @@ class SubtitleController extends Controller
     {
         $user = $request->user();
         $subtitleFile = $request->file('subtitle_file');
+
+        abort_if(\is_array($subtitleFile), 400);
+
         $filename = uniqid('', true).'.'.$subtitleFile->getClientOriginalExtension();
 
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($request->integer('torrent_id'));
+
         $subtitle = Subtitle::create([
-            'title'        => Torrent::findOrFail($request->integer('torrent_id'))->name,
+            'title'        => $torrent->name,
             'file_name'    => $filename,
             'file_size'    => $subtitleFile->getSize(),
             'extension'    => '.'.$subtitleFile->getClientOriginalExtension(),
@@ -89,45 +97,45 @@ class SubtitleController extends Controller
         ] + $request->safe()->except('subtitle_file'));
 
         // Save Subtitle
-        Storage::disk('subtitles')->put($filename, file_get_contents($subtitleFile));
+        Storage::disk('subtitles')->putFileAs('', $subtitleFile, $filename);
 
         // Announce To Shoutbox
-        if (! $subtitle->anon) {
+        if (!$subtitle->anon) {
             $this->chatRepository->systemMessage(
                 sprintf(
                     '[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]',
                     href_profile($user),
                     $user->username,
                     $subtitle->language->name,
-                    href_torrent($subtitle->torrent),
+                    href_torrent($torrent),
                     $subtitle->torrent->name
                 )
             );
+
+            // Achievements
+            $user->unlock(new UserUploadedFirstSubtitle());
+            $user->addProgress(new UserUploaded25Subtitles(), 1);
+            $user->addProgress(new UserUploaded50Subtitles(), 1);
+            $user->addProgress(new UserUploaded100Subtitles(), 1);
+            $user->addProgress(new UserUploaded200Subtitles(), 1);
+            $user->addProgress(new UserUploaded300Subtitles(), 1);
+            $user->addProgress(new UserUploaded400Subtitles(), 1);
+            $user->addProgress(new UserUploaded500Subtitles(), 1);
+            $user->addProgress(new UserUploaded600Subtitles(), 1);
+            $user->addProgress(new UserUploaded700Subtitles(), 1);
+            $user->addProgress(new UserUploaded800Subtitles(), 1);
+            $user->addProgress(new UserUploaded900Subtitles(), 1);
+            $user->addProgress(new UserUploaded1000Subtitles(), 1);
         } else {
             $this->chatRepository->systemMessage(
                 sprintf(
                     'An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]',
                     $subtitle->language->name,
-                    href_torrent($subtitle->torrent),
+                    href_torrent($torrent),
                     $subtitle->torrent->name
                 )
             );
         }
-
-        // Achievements
-        $user->unlock(new UserUploadedFirstSubtitle());
-        $user->addProgress(new UserUploaded25Subtitles(), 1);
-        $user->addProgress(new UserUploaded50Subtitles(), 1);
-        $user->addProgress(new UserUploaded100Subtitles(), 1);
-        $user->addProgress(new UserUploaded200Subtitles(), 1);
-        $user->addProgress(new UserUploaded300Subtitles(), 1);
-        $user->addProgress(new UserUploaded400Subtitles(), 1);
-        $user->addProgress(new UserUploaded500Subtitles(), 1);
-        $user->addProgress(new UserUploaded600Subtitles(), 1);
-        $user->addProgress(new UserUploaded700Subtitles(), 1);
-        $user->addProgress(new UserUploaded800Subtitles(), 1);
-        $user->addProgress(new UserUploaded900Subtitles(), 1);
-        $user->addProgress(new UserUploaded1000Subtitles(), 1);
 
         return to_route('torrents.show', ['id' => $request->input('torrent_id')])
             ->withSuccess('Subtitle Successfully Added');

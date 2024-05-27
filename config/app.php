@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -216,6 +218,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
     ],
 
@@ -231,10 +234,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'CacheUser'     => App\Helpers\CacheUser::class,
-        'CookieConsent' => BrianFaust\CookieConsent\Facades\CookieConsent::class,
-        'Image'         => Intervention\Image\Facades\Image::class,
-        'Irc'           => App\Bots\IRCAnnounceBot::class,
-        'Redis'         => Illuminate\Support\Facades\Redis::class,
+        'CacheUser' => App\Helpers\CacheUser::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
+        'Irc'       => App\Bots\IRCAnnounceBot::class,
+        'Redis'     => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 ];

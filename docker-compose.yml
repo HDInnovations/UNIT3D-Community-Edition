@@ -1,12 +1,31 @@
 version: '3'
 services:
+    nginx:
+        image: 'nginx:latest'
+        ports:
+            - '${HTTP_PORT:-8000}:80'
+            - '${SSL_PORT:-443}:443'
+        environment:
+            - SSL_PORT=${SSL_PORT:-443}
+            - APP_SERVICE=${APP_SERVICE:-laravel.test}
+            - SERVER_NAME=${SERVER_NAME:-localhost}
+            - SSL_DOMAIN=${SSL_DOMAIN:-localhost}
+            - SSL_ALT_NAME=${SSL_ALT_NAME:-DNS:localhost}
+        volumes:
+            - 'sail-nginx:/etc/nginx/certs'
+            - './vendor/ryoluo/sail-ssl/nginx/templates:/etc/nginx/templates'
+            - './vendor/ryoluo/sail-ssl/nginx/generate-ssl-cert.sh:/docker-entrypoint.d/99-generate-ssl-cert.sh'
+        depends_on:
+            - ${APP_SERVICE:-laravel.test}
+        networks:
+            - sail
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.2
+            context: ./vendor/laravel/sail/runtimes/8.3
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
-        image: sail-8.2/app
+        image: sail-8.3/app
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
@@ -64,10 +83,19 @@ services:
                 - ping
             retries: 3
             timeout: 5s
+    mailpit:
+        image: 'axllent/mailpit:latest'
+        ports:
+            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
 volumes:
+    sail-nginx:
+        driver: local
     sail-mysql:
         driver: local
     sail-redis:

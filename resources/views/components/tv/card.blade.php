@@ -1,28 +1,40 @@
+@props([
+    'media',
+    'personalFreeleech',
+])
+
 <article class="torrent-search--grouped__result">
-    <header class="torrent-search--grouped__header" >
-        @if (auth()->user()->show_poster == 1)
+    <header class="torrent-search--grouped__header">
+        @if (auth()->user()->settings?->show_poster)
             <a
                 href="{{ route('torrents.similar', ['category_id' => $media->category_id, 'tmdb' => $media->id]) }}"
                 class="torrent-search--grouped__poster"
             >
                 <img
                     src="{{ isset($media->poster) ? tmdb_image('poster_small', $media->poster) : 'https://via.placeholder.com/90x135' }}"
-                    alt="{{ __('torrent.poster') }}"
+                    alt="{{ __('torrent.similar') }}"
                     loading="lazy"
-                >
+                />
             </a>
         @endif
+
         <h2 class="torrent-search--grouped__title-name">
-            <a href="{{ route('torrents.similar', ['category_id' => $media->category_id, 'tmdb' => $media->id]) }}">
-                {{ $media->name ?? '' }} (<time>{{ substr($media->first_air_date ?? '', 0, 4) ?? '' }}</time>)
+            <a
+                href="{{ route('torrents.similar', ['category_id' => $media->category_id, 'tmdb' => $media->id]) }}"
+            >
+                {{ $media->name ?? '' }} (
+                <time class="torrent-search--grouped__title-year">
+                    {{ substr($media->first_air_date ?? '', 0, 4) ?? '' }}
+                </time>
+                )
             </a>
         </h2>
         <address class="torrent-search--grouped__directors">
-            @if($media->creators->isNotEmpty())
+            @if ($media->creators->isNotEmpty())
                 <span class="torrent-search-grouped__directors-by">by</span>
-                @foreach($media->creators as $creator)
+                @foreach ($media->creators as $creator)
                     <a
-                        href="{{ route('mediahub.persons.show', ['id' => $creator->id, 'occupationId' => App\Enums\Occupations::CREATOR->value]) }}"
+                        href="{{ route('mediahub.persons.show', ['id' => $creator->id, 'occupationId' => App\Enums\Occupation::CREATOR->value]) }}"
                         class="torrent-search--grouped__director"
                     >
                         {{ $creator->name }}
@@ -63,6 +75,7 @@
                                             {{ $type }}
                                         </th>
                                     @endif
+
                                     @include('components.partials._torrent-group-row')
                                 </tr>
                             @endforeach
@@ -71,6 +84,7 @@
                 </table>
             </details>
         @endif
+
         @if ($media->torrents->has('Specials'))
             <details
                 class="torrent-search--grouped__dropdown"
@@ -101,6 +115,7 @@
                                                     {{ $type }}
                                                 </th>
                                             @endif
+
                                             @include('components.partials._torrent-group-row')
                                         </tr>
                                     @endforeach
@@ -111,7 +126,8 @@
                 @endforeach
             </details>
         @endif
-        @foreach($media->torrents['Seasons'] ?? [] as $seasonName => $season)
+
+        @foreach ($media->torrents['Seasons'] ?? [] as $seasonName => $season)
             <details
                 class="torrent-search--grouped__dropdown"
                 @if ($loop->last)
@@ -125,7 +141,7 @@
                         <table class="torrent-search--grouped__torrents">
                             @foreach ($season['Season Pack'] as $type => $torrents)
                                 <tbody>
-                                    @foreach($torrents as $torrent)
+                                    @foreach ($torrents as $torrent)
                                         <tr>
                                             @if ($loop->first)
                                                 <th
@@ -136,6 +152,7 @@
                                                     {{ $type }}
                                                 </th>
                                             @endif
+
                                             @include('components.partials._torrent-group-row')
                                         </tr>
                                     @endforeach
@@ -144,6 +161,7 @@
                         </table>
                     </details>
                 @endif
+
                 @foreach ($season['Episodes'] ?? [] as $episodeName => $episode)
                     <details
                         class="torrent-search--grouped__dropdown"
@@ -155,7 +173,7 @@
                         <table class="torrent-search--grouped__torrents">
                             @foreach ($episode as $type => $torrents)
                                 <tbody>
-                                    @foreach($torrents as $torrent)
+                                    @foreach ($torrents as $torrent)
                                         <tr>
                                             @if ($loop->first)
                                                 <th
@@ -166,6 +184,7 @@
                                                     {{ $type }}
                                                 </th>
                                             @endif
+
                                             @include('components.partials._torrent-group-row')
                                         </tr>
                                     @endforeach

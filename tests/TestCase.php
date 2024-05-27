@@ -1,73 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
 namespace Tests;
 
-use AllowDynamicProperties;
-use JMac\Testing\Traits\AdditionalAssertions;
-use App\Console\Kernel;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\RefreshDatabaseState;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use JMac\Testing\Traits\AdditionalAssertions;
 
-#[AllowDynamicProperties] abstract class TestCase extends BaseTestCase
+abstract class TestCase extends BaseTestCase
 {
     use AdditionalAssertions;
     use CreatesApplication;
-    use RefreshDatabase;
+    use LazilyRefreshDatabase;
 
-    /**
-     * @inheritdoc
-     */
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->artisan('config:clear');
-
-        $this->artisan('route:clear');
-
-        $this->artisan('cache:clear');
 
         // For LARAVEL_START used in sub-footer
         if (!\defined('LARAVEL_START')) {
             \define('LARAVEL_START', microtime(true));
         }
-    }
-
-    /**
-     * Overrides the method in the default trait.
-     *
-     * @see https://alexvanderbist.com/posts/2019/how-migrations-might-be-slowing-down-your-laravel-tests
-     */
-    protected function refreshTestDatabase(): void
-    {
-        if (!RefreshDatabaseState::$migrated) {
-            if (config('database.pristine-db-file')) {
-                // If a flat file is defined, load it.
-
-                $this->artisan('db:load --quiet');
-
-                $this->artisan('migrate');
-            } else {
-                // Otherwise, proceed using default strategy.
-
-                $this->artisan('migrate:fresh', [
-                    '--drop-views' => $this->shouldDropViews(),
-                    '--drop-types' => $this->shouldDropTypes(),
-                ]);
-            }
-
-            $this->app[Kernel::class]->setArtisan(null);
-
-            RefreshDatabaseState::$migrated = true;
-        }
-
-        $connectionsNotToTransact = ['sqlite', 'pgsql', 'sqlsrv'];
-
-        $this->connectionsToTransact = array_keys(
-            array_diff_key(config('database.connections'), array_flip($connectionsNotToTransact))
-        );
-
-        $this->beginDatabaseTransaction();
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,6 +17,8 @@
 namespace App\Http\Livewire;
 
 use App\Models\Tv;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,19 +26,21 @@ class TvSearch extends Component
 {
     use WithPagination;
 
-    public $search;
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
-    }
+    #[Url(history: true)]
+    public string $search;
 
     final public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    final public function getShowsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Tv>
+     */
+    #[Computed]
+    final public function shows(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Tv::with(['networks', 'genres'])
             ->withCount('seasons')

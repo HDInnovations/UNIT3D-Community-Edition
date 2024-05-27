@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,7 +30,7 @@ class SetLanguage
     private function setLocale(string $locale): void
     {
         // Check if is allowed and set default locale if not
-        if (! Language::allowed($locale)) {
+        if (!Language::allowed($locale)) {
             $locale = config('app.locale');
         }
 
@@ -64,8 +67,8 @@ class SetLanguage
     {
         $user = auth()->user();
 
-        if ($user->locale) {
-            $this->setLocale($user->locale);
+        if ($user->settings?->locale) {
+            $this->setLocale($user->settings->locale);
         } else {
             $this->setDefaultLocale();
         }

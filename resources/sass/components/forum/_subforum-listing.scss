@@ -45,6 +45,7 @@
 
 .subforum-listing__description {
     font-size: 14px;
+    margin: 0;
 }
 
 .subforum-listing__figure {
@@ -69,6 +70,11 @@
 .subforum-listing__topic-stats dt,
 .subforum-listing__post-stats dt {
     font-weight: normal;
+}
+
+.subforum-listing__topic-stats dd,
+.subforum-listing__post-stats dd {
+    margin: 0;
 }
 
 .subforum-listing__topic-stats {
@@ -104,6 +110,7 @@
     grid-area: author;
     margin: 0 0 0 0.5ch;
     font-size: 14px;
+    font-style: normal;
 }
 
 .subforum-listing__latest-author::before {

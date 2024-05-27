@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,6 +17,7 @@ return [
     'assign'             => 'Zuweisen',
     'assigned-staff'     => 'Zugewiesenes Team-Mitglied',
     'assigned-success'   => 'Helpdesk Ticket wurde erfolgreich zugewiesen!',
+    'attachment-limit'   => '(max. 1MB pro Bild)',
     'attachments'        => 'Anhänge',
     'attachments-save'   => 'Anhänge speichern',
     'body'               => 'Inhalt',

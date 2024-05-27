@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,17 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Resurrection.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $torrent_id
+ * @property int                             $seedtime
+ * @property bool                            $rewarded
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Resurrection extends Model
 {
     use Auditable;
@@ -30,7 +44,21 @@ class Resurrection extends Model
     protected $guarded = [];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'rewarded' => 'boolean',
+        ];
+    }
+
+    /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -39,6 +67,8 @@ class Resurrection extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

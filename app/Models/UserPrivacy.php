@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,53 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\UserPrivacy.
+ *
+ * @property int   $id
+ * @property int   $user_id
+ * @property int   $private_profile
+ * @property bool  $hidden
+ * @property int   $show_achievement
+ * @property int   $show_bon
+ * @property int   $show_comment
+ * @property int   $show_download
+ * @property int   $show_follower
+ * @property int   $show_online
+ * @property int   $show_peer
+ * @property int   $show_post
+ * @property int   $show_profile
+ * @property int   $show_profile_about
+ * @property int   $show_profile_achievement
+ * @property int   $show_profile_badge
+ * @property int   $show_profile_follower
+ * @property int   $show_profile_title
+ * @property int   $show_profile_bon_extra
+ * @property int   $show_profile_comment_extra
+ * @property int   $show_profile_forum_extra
+ * @property int   $show_profile_request_extra
+ * @property int   $show_profile_torrent_count
+ * @property int   $show_profile_torrent_extra
+ * @property int   $show_profile_torrent_ratio
+ * @property int   $show_profile_torrent_seed
+ * @property int   $show_profile_warning
+ * @property int   $show_rank
+ * @property int   $show_requested
+ * @property int   $show_topic
+ * @property int   $show_upload
+ * @property int   $show_wishlist
+ * @property array $json_profile_groups
+ * @property array $json_torrent_groups
+ * @property array $json_forum_groups
+ * @property array $json_bon_groups
+ * @property array $json_comment_groups
+ * @property array $json_wishlist_groups
+ * @property array $json_follower_groups
+ * @property array $json_achievement_groups
+ * @property array $json_rank_groups
+ * @property array $json_request_groups
+ * @property array $json_other_groups
+ */
 class UserPrivacy extends Model
 {
     use HasFactory;
@@ -35,26 +85,32 @@ class UserPrivacy extends Model
     protected $table = 'user_privacy';
 
     /**
-     * The Attributes That Should Be Cast To Native Values.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'json_profile_groups'     => 'array',
-        'json_torrent_groups'     => 'array',
-        'json_forum_groups'       => 'array',
-        'json_bon_groups'         => 'array',
-        'json_comment_groups'     => 'array',
-        'json_wishlist_groups'    => 'array',
-        'json_follower_groups'    => 'array',
-        'json_achievement_groups' => 'array',
-        'json_rank_groups'        => 'array',
-        'json_request_groups'     => 'array',
-        'json_other_groups'       => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'hidden'                  => 'bool',
+            'json_profile_groups'     => 'array',
+            'json_torrent_groups'     => 'array',
+            'json_forum_groups'       => 'array',
+            'json_bon_groups'         => 'array',
+            'json_comment_groups'     => 'array',
+            'json_wishlist_groups'    => 'array',
+            'json_follower_groups'    => 'array',
+            'json_achievement_groups' => 'array',
+            'json_rank_groups'        => 'array',
+            'json_request_groups'     => 'array',
+            'json_other_groups'       => 'array',
+        ];
+    }
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -66,6 +122,8 @@ class UserPrivacy extends Model
 
     /**
      * Get the Expected groups for form validation.
+     *
+     * @return array{}
      */
     public function getExpectedGroupsAttribute(): array
     {
@@ -74,6 +132,8 @@ class UserPrivacy extends Model
 
     /**
      * Get the Expected fields for form validation.
+     *
+     * @return array{}
      */
     public function getExpectedFieldsAttribute(): array
     {

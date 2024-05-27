@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,16 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Note.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $staff_id
+ * @property string                          $message
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Note extends Model
 {
     use Auditable;
@@ -38,6 +51,8 @@ class Note extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function noteduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -49,6 +64,8 @@ class Note extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

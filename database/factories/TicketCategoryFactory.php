@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\TicketCategory;
 
+/** @extends Factory<TicketCategory> */
 class TicketCategoryFactory extends Factory
 {
     /**

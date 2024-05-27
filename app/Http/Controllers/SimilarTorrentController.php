@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -44,7 +47,6 @@ class SimilarTorrentController extends Controller
                     'companies'
                 ])
                     ->find($tmdbId);
-                $trailer = ( new \App\Services\Tmdb\Client\Movie($tmdbId))->get_trailer();
                 $tmdb = $tmdbId;
 
                 break;
@@ -60,7 +62,6 @@ class SimilarTorrentController extends Controller
                     'networks'
                 ])
                     ->find($tmdbId);
-                $trailer = ( new \App\Services\Tmdb\Client\TV($tmdbId))->get_trailer();
                 $tmdb = $tmdbId;
 
                 break;
@@ -80,15 +81,12 @@ class SimilarTorrentController extends Controller
                 ])
                     ->find($tmdbId);
                 $link = collect($meta->videos)->take(1)->pluck('video_id');
-                $trailer = isset($link[0]) ? 'https://www.youtube.com/embed/'.$link[0] : '/img/no-video.png';
                 $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
                 $igdb = $tmdbId;
 
                 break;
             default:
                 abort(404, 'No Similar Torrents Found');
-
-                break;
         }
 
         $personalFreeleech = cache()->get('personal_freeleech:'.auth()->id());
@@ -96,7 +94,6 @@ class SimilarTorrentController extends Controller
         return view('torrent.similar', [
             'meta'               => $meta,
             'personal_freeleech' => $personalFreeleech,
-            'trailer'            => $trailer,
             'platforms'          => $platforms ?? null,
             'category'           => $category,
             'tmdb'               => $tmdb ?? null,
@@ -120,7 +117,12 @@ class SimilarTorrentController extends Controller
                 /** @var Carbon $lastUpdated */
                 $lastUpdated = cache()->get($cacheKey);
 
-                abort_if($lastUpdated !== null && $lastUpdated->addDay()->isFuture() && ! $request->user()->group->is_modo, 403);
+                abort_if(
+                    $lastUpdated !== null
+                    && $lastUpdated->addDay()->isFuture()
+                    && !($request->user()->group->is_modo || $request->user()->group->is_editor),
+                    403
+                );
 
                 cache()->put($cacheKey, now(), now()->addDay());
 
@@ -133,7 +135,12 @@ class SimilarTorrentController extends Controller
                 /** @var Carbon $lastUpdated */
                 $lastUpdated = cache()->get($cacheKey);
 
-                abort_if($lastUpdated !== null && $lastUpdated->addDay()->isFuture() && ! $request->user()->group->is_modo, 403);
+                abort_if(
+                    $lastUpdated !== null
+                    && $lastUpdated->addDay()->isFuture()
+                    && !($request->user()->group->is_modo || $request->user()->group->is_editor),
+                    403
+                );
 
                 cache()->put($cacheKey, now(), now()->addDay());
 

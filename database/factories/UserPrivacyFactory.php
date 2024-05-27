@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserPrivacy;
 
+/** @extends Factory<UserPrivacy> */
 class UserPrivacyFactory extends Factory
 {
     /**
@@ -31,6 +35,8 @@ class UserPrivacyFactory extends Factory
     {
         return [
             'user_id'                    => User::factory(),
+            'hidden'                     => $this->faker->boolean(),
+            'private_profile'            => $this->faker->boolean(),
             'show_achievement'           => $this->faker->boolean(),
             'show_bon'                   => $this->faker->boolean(),
             'show_comment'               => $this->faker->boolean(),

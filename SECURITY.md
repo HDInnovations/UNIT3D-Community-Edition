@@ -4,7 +4,9 @@
 
  Version     | Status                   | PHP Version Required
 :------------|:-------------------------|:------------
- 6.x.x       |  Active Support :rocket: | >= 8.1
+ 8.x.x       |  Active Support :rocket: | >= 8.3 
+ 7.x.x       |  End Of Life :skull: | >= 8.2 
+ 6.x.x       |  End Of Life :skull: | >= 8.1
  5.x.x       |  End Of Life :skull: | >= 8.0
  4.x.x       |  End Of Life :skull: | >= 7.4
  3.x.x       |  End Of Life :skull: | >= 7.4
@@ -14,6 +16,6 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in unit3d-community-edition please disclose it via [our huntr page](https://huntr.dev/repos/hdinnovations/unit3d-community-edition/). Information about bounties, CVEs, response times and past reports are all there..
+Please email us at hdinnovations@protonmail.com
 
 Thank you for improving the security of unit3d-community-edition.

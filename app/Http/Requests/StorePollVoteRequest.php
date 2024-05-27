@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,6 +16,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Poll;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -32,16 +36,19 @@ class StorePollVoteRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<int, \Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Exists|string>>
      */
     public function rules(Request $request): array
     {
+        /** @var Poll $poll */
         $poll = $request->route('poll');
 
         return [
             'options' => [
                 'required',
                 'array',
-                Rule::when(! $poll->multiple_choice, 'max:1'),
+                Rule::when(!$poll->multiple_choice, 'max:1'),
                 'min:1',
             ],
             'options.*' => [
@@ -53,6 +60,8 @@ class StorePollVoteRequest extends FormRequest
 
     /**
      * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
      */
     public function messages(): array
     {

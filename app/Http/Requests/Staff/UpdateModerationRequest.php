@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,17 +33,19 @@ class UpdateModerationRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<int, \Illuminate\Validation\Rules\In|\Illuminate\Validation\Rules\RequiredIf|string>>
      */
     public function rules(Request $request): array
     {
         return [
             'old_status' => [
                 'required',
-                Rule::in(Torrent::PENDING, Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED),
+                Rule::in([Torrent::PENDING, Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED]),
             ],
             'status' => [
                 'required',
-                Rule::in(Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED),
+                Rule::in([Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED]),
             ],
             'message' => [
                 Rule::requiredIf(\in_array($request->integer('status'), [Torrent::REJECTED, Torrent::POSTPONED])),

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,6 +16,8 @@
 
 namespace App\Listeners;
 
+use App\Models\User;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Carbon;
 
 class LoginListener
@@ -20,10 +25,12 @@ class LoginListener
     /**
      * Handle the event.
      */
-    public function handle($event): void
+    public function handle(Login $event): void
     {
         // Update Login Timestamp
-        $event->user->last_login = Carbon::now();
-        $event->user->save();
+        if ($event->user instanceof User) {
+            $event->user->last_login = Carbon::now();
+            $event->user->save();
+        }
     }
 }

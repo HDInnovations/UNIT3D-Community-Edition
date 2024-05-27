@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,11 +30,6 @@ use Exception;
 class MassActionController extends Controller
 {
     /**
-     * @var int
-     */
-    private const SENDER_ID = 1;
-
-    /**
      * Mass PM Form.
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -46,14 +44,14 @@ class MassActionController extends Controller
      */
     public function store(StoreMassActionRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
-        $users = User::whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->pluck('id');
+        $users = User::whereNotIn(
+            'group_id',
+            Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned'])
+        )
+            ->pluck('id');
 
         foreach ($users as $userId) {
-            ProcessMassPM::dispatch(self::SENDER_ID, $userId, $request->subject, $request->message);
+            ProcessMassPM::dispatch(User::SYSTEM_USER_ID, $userId, $request->subject, $request->message);
         }
 
         return to_route('staff.mass-pm.create')
@@ -72,13 +70,14 @@ class MassActionController extends Controller
 
         foreach (User::where('group_id', '=', $validatingGroup[0])->get() as $user) {
             $user->update([
-                'group_id'     => $memberGroup[0],
-                'active'       => 1,
-                'can_upload'   => 1,
-                'can_download' => 1,
-                'can_request'  => 1,
-                'can_comment'  => 1,
-                'can_invite'   => 1,
+                'group_id'          => $memberGroup[0],
+                'active'            => 1,
+                'can_upload'        => 1,
+                'can_download'      => 1,
+                'can_request'       => 1,
+                'can_comment'       => 1,
+                'can_invite'        => 1,
+                'email_verified_at' => now(),
             ]);
 
             Unit3dAnnounce::addUser($user);

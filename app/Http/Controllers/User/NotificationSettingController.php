@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,7 +16,7 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Enums\UserGroups;
+use App\Enums\UserGroup;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\User;
@@ -41,10 +44,10 @@ class NotificationSettingController extends Controller
         $validGroups = Group::query()
             ->where('is_modo', '=', '0')
             ->where('is_admin', '=', '0')
-            ->where('id', '!=', UserGroups::VALIDATING)
-            ->where('id', '!=', UserGroups::PRUNED)
-            ->where('id', '!=', UserGroups::BANNED)
-            ->where('id', '!=', UserGroups::DISABLED)
+            ->where('id', '!=', UserGroup::VALIDATING->value)
+            ->where('id', '!=', UserGroup::PRUNED->value)
+            ->where('id', '!=', UserGroup::BANNED->value)
+            ->where('id', '!=', UserGroup::DISABLED->value)
             ->pluck('id');
 
         $request->validate([
@@ -117,11 +120,10 @@ class NotificationSettingController extends Controller
         $notification->json_subscription_groups = array_map('intval', $request->json_subscription_groups ?? []);
         $notification->json_torrent_groups = array_map('intval', $request->json_torrent_groups ?? []);
         $notification->json_mention_groups = array_map('intval', $request->json_mention_groups ?? []);
+        $notification->block_notifications = $request->block_notifications;
         $notification->save();
 
-        $user->update([
-            'block_notifications' => $request->block_notifications,
-        ]);
+        cache()->forget('user-notification:by-user-id:'.$user->id);
 
         return to_route('users.notification_settings.edit', ['user' => $user])
             ->withSuccess('Your notification settings have been successfully saved.');
@@ -139,10 +141,10 @@ class NotificationSettingController extends Controller
             'groups' => Group::query()
                 ->where('is_modo', '=', '0')
                 ->where('is_admin', '=', '0')
-                ->where('id', '!=', UserGroups::VALIDATING)
-                ->where('id', '!=', UserGroups::PRUNED)
-                ->where('id', '!=', UserGroups::BANNED)
-                ->where('id', '!=', UserGroups::DISABLED)
+                ->where('id', '!=', UserGroup::VALIDATING->value)
+                ->where('id', '!=', UserGroup::PRUNED->value)
+                ->where('id', '!=', UserGroup::BANNED->value)
+                ->where('id', '!=', UserGroup::DISABLED->value)
                 ->latest('level')
                 ->get(),
         ]);

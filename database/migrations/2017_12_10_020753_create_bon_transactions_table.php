@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,7 +30,7 @@ return new class () extends Migration {
             $table->integer('sender')->unsigned()->default(0);
             $table->integer('receiver')->unsigned()->default(0);
             $table->integer('torrent_id')->nullable();
-            $table->text('comment', 65535);
+            $table->text('comment');
             $table->timestamp('date_actioned')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
     }

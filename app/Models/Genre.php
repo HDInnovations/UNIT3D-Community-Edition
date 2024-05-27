@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Genre.
+ *
+ * @property int    $id
+ * @property string $name
+ */
 class Genre extends Model
 {
     use HasFactory;
@@ -24,13 +33,17 @@ class Genre extends Model
 
     public $timestamps = false;
 
-    public $table = 'genres';
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class);

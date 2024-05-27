@@ -42,7 +42,7 @@
                         required
                         type="text"
                         value="{{ $distributor->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -54,5 +54,5 @@
                 </p>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

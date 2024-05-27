@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,10 +17,13 @@ return [
     'create'              => '建立',
     'create-private-feed' => '建立私有RSS流',
     'create-public-feed'  => '建立公开RSS流',
+    'created'             => '私有RSS流已创建',
     'delete'              => '删除',
+    'deleted'             => 'RSS流已删除！',
     'edit'                => '编辑',
     'edit-private-feed'   => '编辑私有RSS流',
     'edit-public-feed'    => '编辑公开RSS流',
+    'error'               => '无法处理请求',
     'feed'                => '订阅',
     'feeds'               => '订阅',
     'name'                => '名称',
@@ -27,4 +32,5 @@ return [
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS流',
     'type'                => '规格',
+    'updated'             => '私有RSS流已更新',
 ];

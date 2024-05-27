@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,7 +35,7 @@ return new class () extends Migration {
             $table->string('last_post_user_username')->nullable();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
-            $table->text('description', 65535)->nullable();
+            $table->text('description')->nullable();
             $table->integer('parent_id')->nullable();
             $table->timestamps();
         });

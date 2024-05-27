@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,6 +33,7 @@ test('rules', function (): void {
         'name' => [
             'required',
             'string',
+            'max:255',
             'unique:blacklist_clients',
         ],
         'reason' => [

@@ -1,11 +1,17 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ __('staff.seedboxes') }} - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ __('staff.seedboxes') }} - {{ __('staff.staff-dashboard') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('staff.seedboxes') }} - {{ __('staff.staff-dashboard') }}">
+    <meta
+        name="description"
+        content="{{ __('staff.seedboxes') }} - {{ __('staff.staff-dashboard') }}"
+    />
 @endsection
 
 @section('breadcrumbs')
@@ -27,63 +33,57 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>{{ __('common.no') }}</th>
-                    <th>{{ __('common.user') }}</th>
-                    <th>{{ __('common.ip') }}</th>
-                    <th>{{ __('user.created-on') }}</th>
-                    <th>{{ __('common.action') }}</th>
-                </tr>
+                    <tr>
+                        <th>{{ __('common.no') }}</th>
+                        <th>{{ __('common.user') }}</th>
+                        <th>{{ __('common.ip') }}</th>
+                        <th>{{ __('user.created-on') }}</th>
+                        <th>{{ __('common.action') }}</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @forelse ($seedboxes as $seedbox)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>
-                            <x-user_tag :anon="false" :user="$seedbox->user" />
-                        </td>
-                        <td>{{ $seedbox->ip }}</td>
-                        <td>
-                            <time datetime="{{ $seedbox->created_at }}" title="{{ $seedbox->created_at }}">
-                                {{ $seedbox->created_at->diffForHumans() }}
-                            </time>
-                        </td>
-                        <td>
-                            <menu class="data-table__actions">
-                                <li class="data-table__action">
-                                    <form
-                                        action="{{ route('staff.seedboxes.destroy', ['seedbox' => $seedbox]) }}"
-                                        method="POST"
-                                        x-data
-                                    >
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                            x-on:click.prevent="Swal.fire({
-                                                title: 'Are you sure?',
-                                                text: `Are you sure you want to delete this seedbox: ${atob('{{ base64_encode($seedbox->ip) }}')} (owned by ${atob('{{ base64_encode($seedbox->user->username) }}')})?`,
-                                                icon: 'warning',
-                                                showConfirmButton: true,
-                                                showCancelButton: true,
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    $root.submit();
-                                                }
-                                            })"
-                                            class="form__button form__button--text"
+                    @forelse ($seedboxes as $seedbox)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <x-user_tag :anon="false" :user="$seedbox->user" />
+                            </td>
+                            <td>{{ $seedbox->ip }}</td>
+                            <td>
+                                <time
+                                    datetime="{{ $seedbox->created_at }}"
+                                    title="{{ $seedbox->created_at }}"
+                                >
+                                    {{ $seedbox->created_at->diffForHumans() }}
+                                </time>
+                            </td>
+                            <td>
+                                <menu class="data-table__actions">
+                                    <li class="data-table__action">
+                                        <form
+                                            action="{{ route('staff.seedboxes.destroy', ['seedbox' => $seedbox]) }}"
+                                            method="POST"
+                                            x-data="confirmation"
                                         >
-                                            {{ __('common.delete') }}
-                                        </button>
-                                    </form>
-                                </li>
-                            </menu>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5">No seedboxes</td>
-                    </tr>
-                @endforelse
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this seedbox: ' . $seedbox->ip . '? (owned by ' . $seedbox->user->username . ')') }}"
+                                                class="form__button form__button--text"
+                                            >
+                                                {{ __('common.delete') }}
+                                            </button>
+                                        </form>
+                                    </li>
+                                </menu>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5">No seedboxes</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

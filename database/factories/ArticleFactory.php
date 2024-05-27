@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Article;
 
+/** @extends Factory<Article> */
 class ArticleFactory extends Factory
 {
     /**
@@ -31,7 +35,7 @@ class ArticleFactory extends Factory
     {
         return [
             'title'   => $this->faker->sentence(),
-            'image'   => $this->faker->image(),
+            'image'   => null,
             'content' => $this->faker->text(),
             'user_id' => User::factory(),
         ];

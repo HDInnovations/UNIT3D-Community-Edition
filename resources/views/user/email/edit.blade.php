@@ -1,7 +1,10 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - Security - {{ __('common.members') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ $user->username }} - Security - {{ __('common.members') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('breadcrumbs')
@@ -11,7 +14,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('users.general_settings.edit', ['user' => $user]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
+            class="breadcrumb__link"
+        >
             {{ __('user.settings') }}
         </a>
     </li>
@@ -44,17 +50,13 @@
                         readonly
                         type="email"
                         value="{{ $user->email }}"
-                    >
-                    <label class="form__label form__label--floating" for="current_email">Current Email</label>
+                    />
+                    <label class="form__label form__label--floating" for="current_email">
+                        Current Email
+                    </label>
                 </p>
                 <p class="form__group">
-                    <input
-                        id="email"
-                        class="form__text"
-                        name="email"
-                        required
-                        type="email"
-                    >
+                    <input id="email" class="form__text" name="email" required type="email" />
                     <label class="form__label form__label--floating" for="email">New Email</label>
                 </p>
                 <p class="form__group">
@@ -63,6 +65,62 @@
                     </button>
                 </p>
             </form>
+        </div>
+    </section>
+@endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('user.email-updates') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('common.created_at') }}</th>
+                        <th>{{ __('user.deleted-on') }}</th>
+                        <th>{{ __('common.status') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($emailUpdates as $emailUpdate)
+                        <tr>
+                            <td>
+                                <time
+                                    datetime="{{ $emailUpdate->created_at }}"
+                                    title="{{ $emailUpdate->created_at }}"
+                                >
+                                    {{ $emailUpdate->created_at->format('Y-m-d') }}
+                                </time>
+                            </td>
+                            <td>
+                                <time
+                                    datetime="{{ $emailUpdate->deleted_at }}"
+                                    title="{{ $emailUpdate->deleted_at }}"
+                                >
+                                    {{ $emailUpdate->deleted_at?->format('Y-m-d') ?? 'Currently in use' }}
+                                </time>
+                            </td>
+                            <td>
+                                @if ($loop->first)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                    {{ __('common.active') }}
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                    {{ __('stat.disabled') }}
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3">No email update history</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </section>
 @endsection

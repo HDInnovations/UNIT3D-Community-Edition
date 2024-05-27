@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Network.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property string|null $description
+ * @property string|null $logo
+ * @property string|null $homepage
+ * @property string|null $headquarters
+ * @property string|null $origin_country
+ */
 class Network extends Model
 {
     use HasFactory;
@@ -24,13 +38,17 @@ class Network extends Model
 
     public $timestamps = false;
 
-    public $table = 'networks';
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Tv::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class);

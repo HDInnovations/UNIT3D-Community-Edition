@@ -24,7 +24,10 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.invites') }}</h2>
             <div class="panel__actions">
-                <form class="panel__action" action="{{ route('users.invites.create', ['user' => $user]) }}">
+                <form
+                    class="panel__action"
+                    action="{{ route('users.invites.create', ['user' => $user]) }}"
+                >
                     <button class="form__button form__button--text">
                         {{ __('user.send-invite') }}
                     </button>
@@ -41,6 +44,7 @@
                             <th>{{ __('user.code') }}</th>
                             <th>{{ __('common.message') }}</th>
                         @endif
+
                         <th>{{ __('user.created-on') }}</th>
                         <th>{{ __('user.expires-on') }}</th>
                         <th>{{ __('user.accepted-by') }}</th>
@@ -50,7 +54,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($invites as $invite)
+                    @forelse ($invites as $invite)
                         <tr>
                             <td>
                                 <x-user_tag :user="$invite->sender" :anon="false" />
@@ -60,8 +64,23 @@
                                 <td>{{ $invite->code }}</td>
                                 <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
                             @endif
-                            <td>{{ $invite->created_at }}</td>
-                            <td>{{ $invite->expires_on }}</td>
+
+                            <td>
+                                <time
+                                    datetime="{{ $invite->created_at }}"
+                                    title="{{ $invite->created_at }}"
+                                >
+                                    {{ $invite->created_at }}
+                                </time>
+                            </td>
+                            <td>
+                                <time
+                                    datetime="{{ $invite->expires_on }}"
+                                    title="{{ $invite->expires_on }}"
+                                >
+                                    {{ $invite->expires_on }}
+                                </time>
+                            </td>
                             <td>
                                 @if ($invite->accepted_by !== null && $invite->accepted_by !== 1)
                                     <x-user_tag :user="$invite->receiver" :anon="false" />
@@ -69,29 +88,34 @@
                                     N/A
                                 @endif
                             </td>
-                            <td>{{ $invite->accepted_at ?? 'N/A' }}</td>
-                            <td>{{ $invite->deleted_at ?? 'N/A' }}</td>
+                            <td>
+                                <time
+                                    datetime="{{ $invite->accepted_at }}"
+                                    title="{{ $invite->accepted_at }}"
+                                >
+                                    {{ $invite->accepted_at ?? 'N/A' }}
+                                </time>
+                            </td>
+                            <td>
+                                <time
+                                    datetime="{{ $invite->deleted_at }}"
+                                    title="{{ $invite->deleted_at }}"
+                                >
+                                    {{ $invite->deleted_at ?? 'N/A' }}
+                                </time>
+                            </td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <form
                                             action="{{ route('users.invites.send', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
-                                            x-data
+                                            x-data="confirmation"
                                         >
                                             @csrf
                                             <button
-                                                x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to resend the email to: ${atob('{{ base64_encode($invite->email) }}')}?`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to resend the email to: ' . $invite->email . '?') }}"
                                                 class="form__button form__button--text"
                                                 @disabled($invite->accepted_at !== null || $invite->expires_on < now())
                                             >
@@ -103,22 +127,13 @@
                                         <form
                                             action="{{ route('users.invites.destroy', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
-                                            x-data
+                                            x-data="confirmation"
                                         >
                                             @csrf
                                             @method('DELETE')
                                             <button
-                                                x-on:click.prevent="Swal.fire({
-                                                    title: 'Are you sure?',
-                                                    text: `Are you sure you want to retract the invite to: ${atob('{{ base64_encode($invite->email) }}')}? This will forfeit the invite.`,
-                                                    icon: 'warning',
-                                                    showConfirmButton: true,
-                                                    showCancelButton: true,
-                                                }).then((result) => {
-                                                    if (result.isConfirmed) {
-                                                        $root.submit();
-                                                    }
-                                                })"
+                                                x-on:click.prevent="confirmAction"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to retract the invite to: ' . $invite->email . '?') }}"
                                                 class="form__button form__button--text"
                                                 @disabled($invite->accepted_at !== null || $invite->expires_on < now() || $invite->deleted_at !== null)
                                             >
@@ -131,7 +146,9 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8">No Invitees</td>
+                            <td colspan="{{ auth()->user()->group->is_modo ? 10 : 8 }}">
+                                No Invitees
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

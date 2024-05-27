@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,7 +33,7 @@ class Bencode
         $result = '';
 
         while ($pos < $len && $s[$pos] != 'e') {
-            if (is_numeric($s[$pos]) || $s[$pos] = '-') {
+            if (is_numeric($s[$pos]) || $s[$pos] === '-') {
                 $result .= $s[$pos];
             } else {
                 // We have an invalid character in the string.
@@ -75,7 +78,7 @@ class Bencode
 
         $pos++;
 
-        if (! safe_int($lengthStr)) {
+        if (!safe_int($lengthStr)) {
             return;
         }
 
@@ -168,20 +171,7 @@ class Bencode
     {
         if (\is_array($d)) {
             $ret = 'l';
-            $isDict = false;
-
-            if (! isset($d['isDct'])) {
-                foreach (array_keys($d) as $key) {
-                    if (! \is_int($key)) {
-                        $isDict = true;
-
-                        break;
-                    }
-                }
-            } else {
-                $isDict = (bool) $d['isDct'];
-                unset($d['isDct']);
-            }
+            $isDict = !array_is_list($d);
 
             if ($isDict) {
                 $ret = 'd';
@@ -224,7 +214,7 @@ class Bencode
 
     public static function get_infohash($t): string
     {
-        return sha1(self::bencode($t['info']), true);
+        return sha1((string) self::bencode($t['info']), true);
     }
 
     public static function get_meta($t): array

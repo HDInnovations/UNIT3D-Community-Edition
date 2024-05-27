@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,18 +22,47 @@ use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Subtitle.
+ *
+ * @property int                             $id
+ * @property string                          $title
+ * @property string                          $file_name
+ * @property int                             $file_size
+ * @property int                             $language_id
+ * @property string                          $extension
+ * @property string|null                     $note
+ * @property int|null                        $downloads
+ * @property int                             $verified
+ * @property int                             $user_id
+ * @property int                             $torrent_id
+ * @property int                             $anon
+ * @property int                             $status
+ * @property \Illuminate\Support\Carbon|null $moderated_at
+ * @property int|null                        $moderated_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Subtitle extends Model
 {
     use Auditable;
     use HasFactory;
 
-    public const APPROVED = 1;
+    final public const APPROVED = 1;
 
     protected $guarded = [];
 
-    protected $casts = [
-        'moderated_at' => 'datetime',
-    ];
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'moderated_at' => 'datetime',
+        ];
+    }
 
     protected static function booted(): void
     {
@@ -39,6 +71,8 @@ class Subtitle extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -50,6 +84,8 @@ class Subtitle extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -58,6 +94,8 @@ class Subtitle extends Model
 
     /**
      * Belongs To A Media Language.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<MediaLanguage, self>
      */
     public function language(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

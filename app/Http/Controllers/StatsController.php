@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -21,6 +24,7 @@ use App\Models\Peer;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Exception;
@@ -30,7 +34,7 @@ use Exception;
  */
 class StatsController extends Controller
 {
-    public \Illuminate\Support\Carbon $carbon;
+    public Carbon $carbon;
 
     /**
      * StatsController Constructor.
@@ -69,9 +73,6 @@ class StatsController extends Controller
         );
 
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
 
         return view('stats.index', [
             'all_user' => cache()->remember(
@@ -82,22 +83,22 @@ class StatsController extends Controller
             'active_user' => cache()->remember(
                 'active_user',
                 $this->carbon,
-                fn () => User::whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])->count()
+                fn () => User::whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))->count()
             ),
             'disabled_user' => cache()->remember(
                 'disabled_user',
                 $this->carbon,
-                fn () => User::where('group_id', '=', $disabledGroup[0])->count()
+                fn () => User::whereRelation('group', 'slug', '=', 'disabled')->count()
             ),
             'pruned_user' => cache()->remember(
                 'pruned_user',
                 $this->carbon,
-                fn () => User::onlyTrashed()->where('group_id', '=', $prunedGroup[0])->count()
+                fn () => User::onlyTrashed()->whereRelation('group', 'slug', '=', 'pruned')->count()
             ),
             'banned_user' => cache()->remember(
                 'banned_user',
                 $this->carbon,
-                fn () => User::where('group_id', '=', $bannedGroup[0])->count()
+                fn () => User::whereRelation('group', 'slug', '=', 'banned')->count()
             ),
             'num_torrent'       => $numTorrent,
             'categories'        => Category::withCount('torrents')->orderBy('position')->get(),
@@ -123,14 +124,9 @@ class StatsController extends Controller
      */
     public function uploaded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
-
         return view('stats.users.uploaded', [
             'uploaded' => User::orderByDesc('uploaded')
-                ->whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])
+                ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                 ->take(100)
                 ->get(),
         ]);
@@ -143,14 +139,9 @@ class StatsController extends Controller
      */
     public function downloaded(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
-
         return view('stats.users.downloaded', [
             'downloaded' => User::orderByDesc('downloaded')
-                ->whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])
+                ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                 ->take(100)
                 ->get(),
         ]);
@@ -213,14 +204,9 @@ class StatsController extends Controller
      */
     public function bankers(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
-        $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::where('slug', '=', 'validating')->pluck('id'));
-        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
-        $prunedGroup = cache()->rememberForever('pruned_group', fn () => Group::where('slug', '=', 'pruned')->pluck('id'));
-
         return view('stats.users.bankers', [
             'bankers' => User::orderByDesc('seedbonus')
-                ->whereIntegerNotInRaw('group_id', [$validatingGroup[0], $bannedGroup[0], $disabledGroup[0], $prunedGroup[0]])
+                ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                 ->take(100)
                 ->get(),
         ]);
@@ -247,6 +233,19 @@ class StatsController extends Controller
         return view('stats.users.seedsize', [
             'users' => User::withSum('seedingTorrents as seedsize', 'size')
                 ->orderByDesc('seedsize')
+                ->take(100)
+                ->get(),
+        ]);
+    }
+
+    /**
+     * Show Extra-Stats Users.
+     */
+    public function uploadSnatches(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        return view('stats.users.upload-snatches', [
+            'users' => User::withCount('uploadSnatches')
+                ->orderByDesc('upload_snatches_count')
                 ->take(100)
                 ->get(),
         ]);
@@ -325,7 +324,7 @@ class StatsController extends Controller
     public function groups(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.groups.groups', [
-            'groups' => Group::orderBy('position')->get(),
+            'groups' => Group::orderBy('position')->withCount(['users' => fn ($query) => $query->withTrashed()])->get(),
         ]);
     }
 
@@ -334,11 +333,27 @@ class StatsController extends Controller
      */
     public function group(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $group = Group::findOrFail($id);
-
         return view('stats.groups.group', [
-            'users' => User::withTrashed()->where('group_id', '=', $group->id)->latest()->paginate(100),
-            'group' => $group,
+            'group' => Group::findOrFail($id),
+            'users' => User::with(['group'])->withTrashed()->where('group_id', '=', $id)->latest()->paginate(100),
+        ]);
+    }
+
+    /**
+     * Show Group Requirements.
+     */
+    public function groupsRequirements(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    {
+        $user = auth()->user();
+
+        return view('stats.groups.groups-requirements', [
+            'current'           => Carbon::now(),
+            'user'              => $user,
+            'user_avg_seedtime' => DB::table('history')->where('user_id', '=', $user->id)->avg('seedtime'),
+            'user_account_age'  => Carbon::now()->diffInSeconds($user->created_at),
+            'user_seed_size'    => $user->seedingTorrents()->sum('size'),
+            'user_uploads'      => $user->torrents()->count(),
+            'groups'            => Group::orderBy('position')->where('is_modo', '=', 0)->get(),
         ]);
     }
 
@@ -357,14 +372,8 @@ class StatsController extends Controller
      */
     public function clients(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = [];
-
-        if (cache()->has('stats:clients')) {
-            $clients = cache()->get('stats:clients');
-        }
-
         return view('stats.clients.clients', [
-            'clients' => $clients,
+            'clients' => cache()->get('stats:clients') ?? [],
         ]);
     }
 
@@ -374,16 +383,16 @@ class StatsController extends Controller
     public function themes(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('stats.themes.index', [
-            'siteThemes' => User::select(DB::raw('style, count(*) as value'))
+            'siteThemes' => UserSetting::select(DB::raw('style, count(*) as value'))
                 ->groupBy('style')
                 ->orderByDesc('value')
                 ->get(),
-            'customThemes' => User::where('custom_css', '!=', '')
+            'customThemes' => UserSetting::where('custom_css', '!=', '')
                 ->select(DB::raw('custom_css, count(*) as value'))
                 ->groupBy('custom_css')
                 ->orderByDesc('value')
                 ->get(),
-            'standaloneThemes' => User::whereNotNull('standalone_css')
+            'standaloneThemes' => UserSetting::whereNotNull('standalone_css')
                 ->select(DB::raw('standalone_css, count(*) as value'))
                 ->groupBy('standalone_css')
                 ->orderByDesc('value')

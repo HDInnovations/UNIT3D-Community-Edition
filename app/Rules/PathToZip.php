@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,18 +16,16 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Closure;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Str;
 
-class PathToZip implements Rule
+class PathToZip implements ValidationRule
 {
-    public function passes($attribute, $value): bool
+    public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        return Str::endsWith($value, '.zip');
-    }
-
-    public function message(): string
-    {
-        return 'It must be a zip file';
+        if (!Str::endsWith($value, '.zip')) {
+            $fail('It must be a zip file');
+        }
     }
 }

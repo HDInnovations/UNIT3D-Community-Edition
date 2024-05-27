@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,37 +18,21 @@ namespace Database\Seeders;
 
 use App\Models\Article;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ArticlesTableSeeder extends Seeder
 {
-    private $articles;
-
-    public function __construct()
-    {
-        $this->articles = $this->getArticles();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->articles as $article) {
-            Article::updateOrCreate($article);
-        }
-    }
-
-    private function getArticles(): array
-    {
-        return [
+        Article::upsert([
             [
                 'id'         => 1,
                 'title'      => 'Welcome To '.config('other.title').' .',
-                'content'    => 'Welcome to '.config('other.title').'. Powered By '.config('unit3d.powered-by').'.',
+                'content'    => 'Welcome to '.config('other.title').'. '.config('unit3d.powered-by').'.',
                 'user_id'    => 3,
                 'created_at' => '2017-02-28 17:22:37',
                 'updated_at' => '2017-04-21 12:21:06',
             ],
-        ];
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

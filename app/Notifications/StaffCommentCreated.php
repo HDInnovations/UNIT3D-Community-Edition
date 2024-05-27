@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -31,8 +34,10 @@ class StaffCommentCreated extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
@@ -40,18 +45,20 @@ class StaffCommentCreated extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail($notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
             ->subject('A comment was added (Staff)')
             ->line('A comment was added')
-            ->action('View Ticket', route('tickets.show', ['ticket' => $this->comment->ticket]));
+            ->action('View Ticket', route('tickets.show', ['ticket' => $this->comment->commentable_id]));
     }
 
     /**
      * Get the array representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return [];
     }

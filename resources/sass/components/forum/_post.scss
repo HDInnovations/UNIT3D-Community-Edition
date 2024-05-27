@@ -143,6 +143,7 @@
     border-width: 0 0 2px 0;
     border-style: solid;
     border-color: var(--post-toolbar-bg);
+    color: var(--post-toolbar-fg);
     width: 72px;
     background-color: transparent;
     text-align: right;
@@ -195,6 +196,8 @@
 .post__author-title {
     font-size: 13px;
     text-align: center;
+    word-break: normal;
+    overflow-wrap: anywhere;
 }
 
 .post__author-join,
@@ -204,6 +207,12 @@
     justify-content: space-between;
     font-size: 13px;
     margin-bottom: 0;
+}
+
+.post__author-join dd,
+.post__author-topics dd,
+.post__author-posts dd {
+    margin: 0;
 }
 
 .post__author-join dt,
@@ -240,4 +249,44 @@
 
 .post__signature {
     text-align: center;
+
+    img {
+        max-height: 200px;
+        max-width: 300px;
+    }
+}
+
+.post__like-animation {
+    -webkit-animation: fa-beat 1s infinite linear;
+    animation: fa-beat 1s infinite linear;
+}
+
+@-webkit-keyframes post__like-animation {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes post__like-animation {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
 }

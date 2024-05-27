@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Season.
+ *
+ * @property int         $id
+ * @property int         $tv_id
+ * @property int         $season_number
+ * @property string|null $name
+ * @property string|null $overview
+ * @property string|null $poster
+ * @property string|null $air_date
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ */
 class Season extends Model
 {
     use HasFactory;
@@ -24,21 +40,27 @@ class Season extends Model
 
     public $timestamps = false;
 
-    public $table = 'seasons';
-
     /**
      * Has Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class, 'tv_id', 'tv_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
+     */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Tv::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Episode>
+     */
     public function episodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Episode::class)

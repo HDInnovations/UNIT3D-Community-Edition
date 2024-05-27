@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,6 +22,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use stdClass;
 
+/**
+ * App\Models\Rss.
+ *
+ * @property int                             $id
+ * @property int                             $position
+ * @property string                          $name
+ * @property int                             $user_id
+ * @property int                             $is_private
+ * @property int                             $is_torrent
+ * @property array                           $json_torrent
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class Rss extends Model
 {
     use Auditable;
@@ -33,22 +50,18 @@ class Rss extends Model
     protected $table = 'rss';
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * Get the attributes that should be cast.
      *
-     * @var bool
+     * @return array<string, string>
      */
-    public $timestamps = true;
-
-    /**
-     * The Attributes That Should Be Cast To Native Types.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'name'            => 'string',
-        'json_torrent'    => 'array',
-        'expected_fields' => 'array',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'name'            => 'string',
+            'json_torrent'    => 'array',
+            'expected_fields' => 'array',
+        ];
+    }
 
     /**
      * The attributes that aren't mass assignable.
@@ -59,6 +72,8 @@ class Rss extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -70,6 +85,8 @@ class Rss extends Model
 
     /**
      * Belongs To A Staff Member.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -94,6 +111,8 @@ class Rss extends Model
 
     /**
      * Get the RSS feeds expected fields for form validation.
+     *
+     * @return array<string, null>
      */
     public function getExpectedFieldsAttribute(): array
     {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,73 +16,124 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Category;
 use App\Models\Torrent;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Throwable;
 
+/**
+ * @property \Illuminate\Database\Eloquent\Collection<int, Torrent> $works
+ * @property array<string, string>                                  $metaTypes
+ */
 class Top10 extends Component
 {
-    final public function getTorrentsDayProperty()
-    {
-        $matches = Cache::remember('top10DayMatches', 3_600, fn () => DB::select('SELECT torrent_id, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 DAY) GROUP BY torrent_id ORDER BY count(*) DESC LIMIT 10'));
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
-        return Cache::remember('top10DayTorrents', 3_600, fn () => Torrent::with(['user:id,username,group_id' => ['group:id,name,color,icon,effect'], 'category', 'type', 'resolution'])
-            ->whereIntegerInRaw('id', collect($matches)->pluck('torrent_id')->toArray())
-            ->get());
+    #[Url(history: true)]
+    #[Validate('in:movie_meta,tv_meta')]
+    public string $metaType = 'movie_meta';
+
+    #[Url(history: true)]
+    #[Validate('in:day,week,month,year,all,custom')]
+    public string $interval = 'day';
+
+    #[Url(history: true)]
+    #[Validate('sometimes|date_format:Y-m-d')]
+    public string $from = '';
+
+    #[Url(history: true)]
+    #[Validate('sometimes|date_format:Y-m-d')]
+    public string $until = '';
+
+    public function updatingFrom(string &$value): void
+    {
+        try {
+            $value = Carbon::parse($value)->format('Y-m-d');
+        } catch (Throwable) {
+            $value = now()->subDay()->format('Y-m-d');
+        }
     }
 
-    final public function getTorrentsWeekProperty()
+    public function updatingUntil(string &$value): void
     {
-        $matches = Cache::remember('top10WeekMatches', 3_600, fn () => DB::select('SELECT torrent_id, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 WEEK) GROUP BY torrent_id ORDER BY count(*) DESC LIMIT 10'));
-
-        return Cache::remember('top10WeekTorrents', 3_600, fn () => Torrent::with(['user:id,username,group_id' => ['group:id,name,color,icon,effect'], 'category', 'type', 'resolution'])
-            ->whereIntegerInRaw('id', collect($matches)->pluck('torrent_id')->toArray())
-            ->get());
+        try {
+            $value = Carbon::parse($value)->format('Y-m-d');
+        } catch (Throwable) {
+            $value = now()->format('Y-m-d');
+        }
     }
 
-    final public function getTorrentsMonthProperty()
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Torrent>
+     */
+    #[Computed]
+    final public function works(): Collection
     {
-        $matches = Cache::remember('top10MonthMatches', 3_600, fn () => DB::select('SELECT torrent_id, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 MONTH) GROUP BY torrent_id ORDER BY count(*) DESC LIMIT 10'));
+        $this->validate();
 
-        return Cache::remember('top10MonthTorrents', 3_600, fn () => Torrent::with(['user:id,username,group_id' => ['group:id,name,color,icon,effect'], 'category', 'type', 'resolution'])
-            ->whereIntegerInRaw('id', collect($matches)->pluck('torrent_id')->toArray())
-            ->get());
+        return cache()->remember(
+            'top10-'.$this->interval.'-'.($this->from ?? '').'-'.($this->until ?? '').'-'.$this->metaType,
+            3600,
+            fn () => Torrent::query()
+                ->when(
+                    $this->metaType === 'tv_meta',
+                    fn ($query) => $query->with('tv'),
+                    fn ($query) => $query->with('movie'),
+                )
+                ->select([
+                    'tmdb',
+                    DB::raw('MIN(category_id) as category_id'),
+                    DB::raw('COUNT(*) as download_count'),
+                ])
+                ->join('history', 'history.torrent_id', '=', 'torrents.id')
+                ->where('tmdb', '!=', 0)
+                ->when($this->interval === 'day', fn ($query) => $query->whereBetween('history.completed_at', [now()->subDay(), now()]))
+                ->when($this->interval === 'week', fn ($query) => $query->whereBetween('history.completed_at', [now()->subWeek(), now()]))
+                ->when($this->interval === 'month', fn ($query) => $query->whereBetween('history.completed_at', [now()->subMonth(), now()]))
+                ->when($this->interval === 'year', fn ($query) => $query->whereBetween('history.completed_at', [now()->subYear(), now()]))
+                ->when($this->interval === 'all', fn ($query) => $query->whereNotNull('history.completed_at'))
+                ->when($this->interval === 'custom', fn ($query) => $query->whereBetween('history.completed_at', [$this->from ?: now(), $this->until ?: now()]))
+                ->whereIn('torrents.category_id', Category::select('id')->where($this->metaType, '=', true))
+                // Small torrents screw the stats since users download them only to farm bon.
+                ->where('torrents.size', '>', 1024 * 1024 * 1024)
+                ->groupBy('tmdb')
+                ->orderByRaw('COUNT(*) DESC')
+                ->limit(250)
+                ->get('tmdb')
+        );
     }
 
-    final public function getTorrentsYearProperty()
+    /**
+     * @return array<string, string>
+     */
+    #[Computed]
+    final public function metaTypes(): array
     {
-        $matches = Cache::remember('top10YearMatches', 3_600, fn () => DB::select('SELECT torrent_id, count(*) FROM history WHERE completed_at >= DATE_ADD(CURRENT_TIMESTAMP, INTERVAL -1 YEAR) GROUP BY torrent_id ORDER BY count(*) DESC LIMIT 10'));
+        $metaTypes = [];
 
-        return Cache::remember('top10YearTorrents', 3_600, fn () => Torrent::with(['user:id,username,group_id' => ['group:id,name,color,icon,effect'], 'category', 'type', 'resolution'])
-            ->whereIntegerInRaw('id', collect($matches)->pluck('torrent_id')->toArray())
-            ->get());
-    }
+        if (Category::where('movie_meta', '=', true)->exists()) {
+            $metaTypes[__('mediahub.movie')] = 'movie_meta';
+        }
 
-    final public function getTorrentsAllProperty()
-    {
-        $matches = Cache::remember('top10AllMatches', 3_600, fn () => DB::select('SELECT torrent_id, count(*) FROM history GROUP BY torrent_id ORDER BY count(*) DESC LIMIT 10'));
+        if (Category::where('tv_meta', '=', true)->exists()) {
+            $metaTypes[__('mediahub.show')] = 'tv_meta';
+        }
 
-        return Cache::remember('top10AllTorrents', 3_600, fn () => Torrent::with(['user:id,username,group_id' => ['group:id,name,color,icon,effect'], 'category', 'type', 'resolution'])
-            ->whereIntegerInRaw('id', collect($matches)->pluck('torrent_id')->toArray())
-            ->get());
-    }
-
-    final public function getPersonalFreeleechProperty()
-    {
-        return cache()->get('personal_freeleech:'.auth()->id());
+        return $metaTypes;
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.top10', [
-            'user'              => auth()->user(),
-            'torrentsDay'       => $this->torrentsDay,
-            'torrentsWeek'      => $this->torrentsWeek,
-            'torrentsMonth'     => $this->torrentsMonth,
-            'torrentsYear'      => $this->torrentsYear,
-            'torrentsAll'       => $this->torrentsAll,
-            'personalFreeleech' => $this->personalFreeleech,
+            'user'      => auth()->user(),
+            'works'     => $this->works,
+            'metaTypes' => $this->metaTypes,
         ]);
     }
 }

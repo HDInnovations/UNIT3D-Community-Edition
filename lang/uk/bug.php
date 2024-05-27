@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,7 +19,7 @@ return [
     'enter-description'      => 'Опишіть проблему якомога краще',
     'enter-email'            => 'Введіть свою електронну пошту',
     'enter-title'            => 'Виберіть належну назву',
-    'enter-username'         => 'Введіть своє ім я користувача',
+    'enter-username'         => 'Введіть своє ім\'я користувача',
     'high'                   => 'Високий',
     'low'                    => 'Низький',
     'priority'               => 'Пріоритет',

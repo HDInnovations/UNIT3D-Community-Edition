@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,23 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Report.
+ *
+ * @property int                             $id
+ * @property string                          $type
+ * @property int                             $reporter_id
+ * @property int|null                        $staff_id
+ * @property string                          $title
+ * @property string                          $message
+ * @property int                             $solved
+ * @property string|null                     $verdict
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null                        $reported_user
+ * @property int|null                        $torrent_id
+ * @property int|null                        $request_id
+ */
 class Report extends Model
 {
     use Auditable;
@@ -31,6 +51,8 @@ class Report extends Model
 
     /**
      * Belongs To A Request.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, self>
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -39,6 +61,8 @@ class Report extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -47,6 +71,8 @@ class Report extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function reporter(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -58,6 +84,8 @@ class Report extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function reported(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -69,6 +97,8 @@ class Report extends Model
 
     /**
      * Belongs To A Staff Member.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

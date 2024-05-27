@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -21,7 +23,7 @@ return [
     |
     */
 
-    'powered-by' => 'Powered By UNIT3D Community Edition v6.5.0',
+    'powered-by' => 'Powered By UNIT3D Community Edition v8.1.3',
 
     /*
     |--------------------------------------------------------------------------
@@ -32,7 +34,7 @@ return [
     |
     */
 
-    'codebase' => 'UNIT3D Community Edition (Nex-Gen Torrent Tracker)',
+    'codebase' => 'UNIT3D Community Edition',
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +45,7 @@ return [
     |
     */
 
-    'version' => 'v6.5.0',
+    'version' => 'v8.1.3',
 
     /*
     |--------------------------------------------------------------------------

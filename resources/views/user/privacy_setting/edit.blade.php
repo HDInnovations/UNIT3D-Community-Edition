@@ -1,7 +1,10 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $user->username }} - Privacy - {{ __('common.members') }} - {{ config('other.title') }}</title>
+    <title>
+        {{ $user->username }} - Privacy - {{ __('common.members') }} -
+        {{ config('other.title') }}
+    </title>
 @endsection
 
 @section('breadcrumbs')
@@ -11,7 +14,10 @@
         </a>
     </li>
     <li class="breadcrumbV2">
-        <a href="{{ route('users.general_settings.edit', ['user' => $user]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('users.general_settings.edit', ['user' => $user]) }}"
+            class="breadcrumb__link"
+        >
             {{ __('user.settings') }}
         </a>
     </li>
@@ -360,7 +366,7 @@
                 <div class="form__group--short-horizontal">
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Profile</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -377,7 +383,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Achievements</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -394,7 +400,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Followers</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -411,7 +417,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Forums</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -428,7 +434,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Requests</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -445,7 +451,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Torrents</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -462,7 +468,7 @@
                     </fieldset>
                     <fieldset class="form__fieldset">
                         <legend class="form__legend">Other</legend>
-                        @foreach($groups as $group)
+                        @foreach ($groups as $group)
                             <p class="form__group">
                                 <label class="form__label">
                                     <input
@@ -486,7 +492,7 @@
                             type="checkbox"
                             value="1"
                             name="hidden"
-                            @checked($user->hidden)
+                            @checked($user->privacy?->hidden)
                         />
                         {{ __('user.become-hidden') }}
                     </label>
@@ -499,7 +505,7 @@
                             type="checkbox"
                             value="1"
                             name="private_profile"
-                            @checked($user->private_profile)
+                            @checked($user->privacy?->private_profile)
                         />
                         {{ __('user.go-private') }}
                     </label>

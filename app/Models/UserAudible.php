@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,19 +19,33 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\UserAudible.
+ *
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int|null                        $room_id
+ * @property int|null                        $target_id
+ * @property int|null                        $bot_id
+ * @property int                             $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class UserAudible extends Model
 {
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
+     * The attributes that aren't mass assignable.
      *
-     * @var bool
+     * @var string[]
      */
-    public $timestamps = true;
+    protected $guarded = [];
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -37,6 +54,8 @@ class UserAudible extends Model
 
     /**
      * Belongs To A Chatroom.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, self>
      */
     public function room(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -45,6 +64,8 @@ class UserAudible extends Model
 
     /**
      * Belongs To A Target.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function target(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -53,6 +74,8 @@ class UserAudible extends Model
 
     /**
      * Belongs To A Bot.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, self>
      */
     public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

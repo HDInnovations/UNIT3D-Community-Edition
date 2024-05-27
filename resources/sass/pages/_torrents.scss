@@ -447,8 +447,10 @@
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
-.torrent-search--grouped__title-name time {
+.torrent-search--grouped__title-year {
   color: inherit;
+  margin-left: -0.5ch;
+  margin-right: -0.5ch;
 }
 
 .torrent-search--grouped__plot {
@@ -465,11 +467,11 @@
   grid-area: directors;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   margin: 0;
-  padding: 5px 0 0 5px;
+  padding: 5px 0 0 10px;
   font-size: 12px;
   color: var(--torrent-group-text);
   align-self: end;
-  padding-left: 10px;
+  font-style: normal;
 }
 
 .torrent-search--grouped__director {
@@ -504,7 +506,7 @@
 .torrent-search--grouped__genre:hover {
   backdrop-filter: brightness(var(--torrent-group-hover-brightness-emphasis));
   transition: backdrop-filter 0.1s;
-  color: var(--torrent-group-text) !important;
+  color: var(--torrent-group-text);
 }
 
 .torrent-search--grouped__dropdown {
@@ -571,9 +573,10 @@
 .torrent-search--grouped__torrents {
   width: 100%;
   table-layout: fixed;
-  border-width: 3px 0 !important;
-  border-style: solid !important;
-  border-color: var(--torrent-group-header-bg) !important;
+  border-width: 3px 0;
+  border-style: solid;
+  border-color: var(--torrent-group-header-bg);
+  border-collapse: collapse;
 }
 
 .torrent-search--grouped__torrents tbody:nth-child(odd) {
@@ -587,7 +590,7 @@
 .torrent-search--grouped__header
   + section
   > .torrent-search--grouped__torrents:first-child {
-  border-width: 0 !important;
+  border-width: 0;
 }
 
 /* Buttons in table */
@@ -605,7 +608,7 @@ a.torrent-search--grouped__edit {
 .torrent-search--grouped__download a:hover,
 .torrent-search--grouped__bookmark button:hover,
 a.torrent-search--grouped__edit:hover {
-  color: inherit !important;
+  color: inherit;
   filter: brightness(calc(1 / var(--torrent-group-hover-brightness-emphasis)));
 }
 
@@ -620,7 +623,7 @@ td.torrent-search--grouped__seeders,
 td.torrent-search--grouped__leechers,
 td.torrent-search--grouped__completed,
 td.torrent-search--grouped__age {
-  background-color: initial !important;
+  background-color: initial;
   font-size: 13px;
   font-weight: normal;
   padding: 2px 4px;
@@ -677,6 +680,7 @@ h3.torrent-search--grouped__name {
   font-family: inherit;
   display: inline;
   font-size: 13px;
+  font-weight: normal;
 }
 
 h3.torrent-search--grouped__name a {
@@ -866,9 +870,13 @@ td.torrent-search--grouped__age time {
 
 .torrent-search--poster__results {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 12px 24px;
   grid-auto-flow: dense;
+}
+
+.torrent-search--poster__result {
+  max-width: 300px;
 }
 
 .torrent-search--poster__poster {
@@ -893,6 +901,7 @@ td.torrent-search--grouped__age time {
   font-weight: bold;
   margin: 0;
   padding: 0;
+  line-height: 1.1;
 }
 
 .torrent-search--poster__release-date {
@@ -900,4 +909,13 @@ td.torrent-search--grouped__age time {
   font-weight: normal;
   margin: 0;
   padding: 0;
+  line-height: 1.1;
+}
+
+/* Category Icon
+---------------------------------------------------------------------------- */
+
+.category__icon {
+  color: #325d88;
+  font-size: 32px;
 }

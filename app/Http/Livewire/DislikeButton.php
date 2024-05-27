@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,13 +18,14 @@ namespace App\Http\Livewire;
 
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\User;
 use Livewire\Component;
 
 class DislikeButton extends Component
 {
     public Post $post;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
     public int $dislikesCount;
 
@@ -35,7 +39,7 @@ class DislikeButton extends Component
     final public function store(): void
     {
         if ($this->user->id === $this->post->user_id) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Cannot Dislike Your Own Post!']);
+            $this->dispatch('error', type: 'error', message: 'You Cannot Dislike Your Own Post!');
 
             return;
         }
@@ -43,7 +47,7 @@ class DislikeButton extends Component
         $exist = Like::where('user_id', '=', $this->user->id)->where('post_id', '=', $this->post->id)->first();
 
         if ($exist) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'You Have Already Liked Or Disliked This Post!']);
+            $this->dispatch('error', type: 'error', message: 'You Have Already Liked Or Disliked This Post!');
 
             return;
         }
@@ -51,12 +55,12 @@ class DislikeButton extends Component
         $new = new Like();
         $new->user_id = $this->user->id;
         $new->post_id = $this->post->id;
-        $new->dislike = 1;
+        $new->dislike = true;
         $new->save();
 
         $this->dislikesCount += 1;
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Your Dislike Was Successfully Applied!']);
+        $this->dispatch('success', type: 'success', message: 'Your Dislike Was Successfully Applied!');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

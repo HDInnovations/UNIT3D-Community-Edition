@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,27 +23,33 @@ use Livewire\Component;
 class BookmarkButton extends Component
 {
     public Torrent $torrent;
+
     public User $user;
+
     public bool $isBookmarked;
+
+    public int $bookmarksCount;
 
     final public function store(): void
     {
         if ($this->user->bookmarks()->where('torrent_id', '=', $this->torrent->id)->exists()) {
-            $this->dispatchBrowserEvent('error', ['type' => 'error',  'message' => 'Torrent Has Already Been Bookmarked!']);
+            $this->dispatch('error', type: 'error', message: 'Torrent Has Already Been Bookmarked!');
 
             return;
         }
 
         $this->user->bookmarks()->attach($this->torrent->id);
         $this->isBookmarked = true;
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Bookmarked Successfully!']);
+        $this->bookmarksCount++;
+        $this->dispatch('success', type: 'success', message: 'Torrent Has Been Bookmarked Successfully!');
     }
 
     final public function destroy(): void
     {
         $this->user->bookmarks()->detach($this->torrent->id);
         $this->isBookmarked = false;
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Torrent Has Been Unbookmarked Successfully!']);
+        $this->bookmarksCount--;
+        $this->dispatch('success', type: 'success', message: 'Torrent Has Been Unbookmarked Successfully!');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

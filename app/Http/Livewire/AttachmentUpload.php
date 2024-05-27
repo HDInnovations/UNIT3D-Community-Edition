@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,6 +18,9 @@ namespace App\Http\Livewire;
 
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
+use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -22,10 +28,11 @@ class AttachmentUpload extends Component
 {
     use WithFileUploads;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
     public ?int $ticket = null;
 
+    #[Validate('image|max:1024')]
     public $attachment;
 
     public $storedImage;
@@ -36,11 +43,9 @@ class AttachmentUpload extends Component
         $this->ticket = $id;
     }
 
-    final public function upload(): void
+    final public function updatedAttachment(): void
     {
-        $this->validate([
-            'attachment' => 'image|max:1024', // 1MB Max
-        ]);
+        $this->validate();
 
         $fileName = uniqid('', true).'.'.$this->attachment->getClientOriginalExtension();
 
@@ -54,10 +59,14 @@ class AttachmentUpload extends Component
         $attachment->file_extension = $this->attachment->getMimeType();
         $attachment->save();
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Ticket Attachment Uploaded Successfully!']);
+        $this->dispatch('success', type: 'success', message: 'Ticket Attachment Uploaded Successfully!');
     }
 
-    final public function getAttachmentsProperty(): \Illuminate\Database\Eloquent\Collection
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, TicketAttachment>
+     */
+    #[Computed]
+    final public function attachments(): \Illuminate\Database\Eloquent\Collection
     {
         return Ticket::find($this->ticket)->attachments;
     }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,6 +22,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Subtitle;
 
+/** @extends Factory<Subtitle> */
 class SubtitleFactory extends Factory
 {
     /**

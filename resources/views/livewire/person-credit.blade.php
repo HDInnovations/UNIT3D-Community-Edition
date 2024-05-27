@@ -1,12 +1,12 @@
-<section class="panelV2" x-data="{ tab: @entangle('occupationId') }">
+<section class="panelV2" x-data="{ tab: @entangle('occupationId').live }">
     <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
     <menu class="panel__tabs">
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::CREATOR->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::CREATOR->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::CREATOR->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::CREATOR->value }}"
             x-show="{{ $createdCount }} > 0"
         >
             Creator ({{ $createdCount }})
@@ -14,9 +14,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::DIRECTOR->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::DIRECTOR->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::DIRECTOR->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::DIRECTOR->value }}"
             x-show="{{ $directedCount }} > 0"
         >
             Director ({{ $directedCount }})
@@ -24,9 +24,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::WRITER->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::WRITER->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::WRITER->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::WRITER->value }}"
             x-show="{{ $writtenCount }} > 0"
         >
             Writer ({{ $writtenCount }})
@@ -34,9 +34,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::PRODUCER->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::PRODUCER->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::PRODUCER->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::PRODUCER->value }}"
             x-show="{{ $producedCount }} > 0"
         >
             Producer ({{ $producedCount }})
@@ -44,9 +44,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::COMPOSER->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::COMPOSER->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::COMPOSER->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::COMPOSER->value }}"
             x-show="{{ $composedCount }} > 0"
         >
             Composer ({{ $composedCount }})
@@ -54,9 +54,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::CINEMATOGRAPHER->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::CINEMATOGRAPHER->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::CINEMATOGRAPHER->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::CINEMATOGRAPHER->value }}"
             x-show="{{ $cinematographedCount }} > 0"
         >
             Cinematographer ({{ $cinematographedCount }})
@@ -64,9 +64,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::EDITOR->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::EDITOR->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::EDITOR->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::EDITOR->value }}"
             x-show="{{ $editedCount }} > 0"
         >
             Editor ({{ $editedCount }})
@@ -74,9 +74,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::PRODUCTION_DESIGNER->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::PRODUCTION_DESIGNER->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::PRODUCTION_DESIGNER->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::PRODUCTION_DESIGNER->value }}"
             x-show="{{ $productionDesignedCount }} > 0"
         >
             Production Designer ({{ $productionDesignedCount }})
@@ -84,9 +84,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::ART_DIRECTOR->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::ART_DIRECTOR->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::ART_DIRECTOR->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::ART_DIRECTOR->value }}"
             x-show="{{ $artDirectedCount }} > 0"
         >
             Art Director ({{ $artDirectedCount }})
@@ -94,9 +94,9 @@
         <li
             class="panel__tab"
             role="tab"
-            x-bind:class="tab === {{ App\Enums\Occupations::ACTOR->value }} && 'panel__tab--active'"
+            x-bind:class="tab === {{ App\Enums\Occupation::ACTOR->value }} && 'panel__tab--active'"
             x-cloak
-            x-on:click="tab = {{ App\Enums\Occupations::ACTOR->value }}"
+            x-on:click="tab = {{ App\Enums\Occupation::ACTOR->value }}"
             x-show="{{ $actedCount }} > 0"
         >
             Actor ({{ $actedCount }})
@@ -104,12 +104,14 @@
     </menu>
     <div class="panel__body">
         @forelse ($medias as $media)
-            @switch ($media->meta)
+            @switch($media->meta)
                 @case('movie')
                     <x-movie.card :media="$media" :personalFreeleech="$personalFreeleech" />
+
                     @break
                 @case('tv')
                     <x-tv.card :media="$media" :personalFreeleech="$personalFreeleech" />
+
                     @break
             @endswitch
         @empty

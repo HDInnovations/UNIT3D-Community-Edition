@@ -1,11 +1,11 @@
 @extends('layout.default')
 
 @section('title')
-    <title>{{ $forum->name }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
+    <title>{{ $category->name }} - {{ __('forum.forums') }} - {{ config('other.title') }}</title>
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('forum.display-forum') }}">
+    <meta name="description" content="{{ __('forum.display-forum') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -15,7 +15,7 @@
         </a>
     </li>
     <li class="breadcrumb--active">
-        {{ $forum->name }}
+        {{ $category->name }}
     </li>
 @endsection
 
@@ -26,5 +26,5 @@
 @section('page', 'page__forum--category')
 
 @section('main')
-    @livewire('forum-category-topic-search', ['category' => $forum])
+    @livewire('forum-category-topic-search', ['category' => $category])
 @endsection

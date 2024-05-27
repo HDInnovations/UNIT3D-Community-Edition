@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,46 +19,48 @@ namespace App\Http\Livewire;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\User;
+use App\Traits\LivewireSort;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UserUploads extends Component
 {
+    use LivewireSort;
     use WithPagination;
 
-    public ?\Illuminate\Contracts\Auth\Authenticatable $user = null;
+    public ?User $user = null;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
+    #[Url(history: true)]
     public string $name = '';
 
+    #[Url(history: true)]
     public string $personalRelease = 'any';
 
+    /**
+     * @var string[]
+     */
+    #[Url(history: true)]
     public array $status = [];
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    public $showMorePrecision = false;
+    #[Url(history: true)]
+    public bool $showMorePrecision = false;
 
-    protected $queryString = [
-        'perPage'         => ['except' => ''],
-        'name'            => ['except' => ''],
-        'personalRelease' => ['except' => 'any'],
-        'sortField'       => ['except' => 'created_at'],
-        'sortDirection'   => ['except' => 'desc'],
-        'status'          => ['except' => []],
-    ];
-
-    final public function mount($userId): void
+    final public function mount(int $userId): void
     {
         $this->user = User::find($userId);
-    }
-
-    final public function updatedPage(): void
-    {
-        $this->emit('paginationChanged');
     }
 
     final public function updatingSearch(): void
@@ -63,11 +68,15 @@ class UserUploads extends Component
         $this->resetPage();
     }
 
-    final public function getUploadsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     */
+    #[Computed]
+    final public function uploads(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Torrent::query()
             ->withCount('thanks')
-            ->withSum('tips', 'cost')
+            ->withSum('tips', 'bon')
             ->withoutGlobalScope(ApprovedScope::class)
             ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances
             ->where('user_id', '=', $this->user->id)
@@ -76,7 +85,7 @@ class UserUploads extends Component
                 fn ($query) => $query
                     ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
-            ->when(! empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
+            ->when(!empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->when($this->personalRelease === 'include', fn ($query) => $query->where('personal_release', '=', 1))
             ->when($this->personalRelease === 'exclude', fn ($query) => $query->where('personal_release', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
@@ -88,16 +97,5 @@ class UserUploads extends Component
         return view('livewire.user-uploads', [
             'uploads' => $this->uploads,
         ]);
-    }
-
-    final public function sortBy($field): void
-    {
-        if ($this->sortField === $field) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortDirection = 'asc';
-        }
-
-        $this->sortField = $field;
     }
 }

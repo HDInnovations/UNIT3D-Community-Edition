@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,6 +16,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use ArgumentCountError;
@@ -23,54 +27,28 @@ trait Auditable
 {
     public static function bootAuditable(): void
     {
-        static::created(function ($model): void {
+        static::created(function (Model $model): void {
             self::registerCreate($model);
         });
 
-        static::updated(function ($model): void {
+        static::updated(function (Model $model): void {
             self::registerUpdate($model);
         });
 
-        static::deleted(function ($model): void {
+        static::deleted(function (Model $model): void {
             self::registerDelete($model);
         });
     }
 
     /**
-     * Strips specified data keys from the audit.
-     */
-    protected static function strip($model, $data): array
-    {
-        // Initialize an instance of $model
-        $instance = new $model();
-        // Convert the data to an array
-        $data = (array) $data;
-        // Start stripping
-        $globalDiscards = (empty(config('audit.global_discards'))) ? [] : config('audit.global_discards');
-        $modelDiscards = (empty($instance->discarded)) ? [] : $instance->discarded;
-
-        foreach (array_keys($data) as $key) {
-            // Check the model-specific discards
-            if (\in_array($key, $modelDiscards, true)) {
-                unset($data[$key]);
-            }
-
-            // Check global discards
-            if (! empty($globalDiscards) && \in_array($key, $globalDiscards, true)) {
-                unset($data[$key]);
-            }
-        }
-
-        // Return
-        return $data;
-    }
-
-    /**
      * Generates the data to store.
+     *
+     * @param mixed[] $old
+     * @param mixed[] $new
      *
      * @throws JsonException
      */
-    protected static function generate($action, array $old = [], array $new = []): false|string
+    protected static function generate(string $action, array $old = [], array $new = []): false|string
     {
         $data = [];
 
@@ -125,12 +103,42 @@ trait Auditable
     }
 
     /**
+     * Strips specified data keys from the audit.
+     *
+     * @param  mixed[] $data
+     * @return mixed[]
+     */
+    protected static function strip(Model $model, array $data): array
+    {
+        // Initialize an instance of $model
+        $instance = new $model();
+        // Start stripping
+        $globalDiscards = (empty(config('audit.global_discards'))) ? [] : config('audit.global_discards');
+        $modelDiscards = (empty($instance->discarded)) ? [] : $instance->discarded;
+
+        foreach (array_keys($data) as $key) {
+            // Check the model-specific discards
+            if (\in_array($key, $modelDiscards, true)) {
+                unset($data[$key]);
+            }
+
+            // Check global discards
+            if (!empty($globalDiscards) && \in_array($key, $globalDiscards, true)) {
+                unset($data[$key]);
+            }
+        }
+
+        // Return
+        return $data;
+    }
+
+    /**
      * Gets the current user ID, or null if guest.
      */
-    public static function getUserId()
+    public static function getUserId(): ?int
     {
         if (auth()->guest()) {
-            return;
+            return null;
         }
 
         return auth()->user()->id;
@@ -141,7 +149,7 @@ trait Auditable
      *
      * @throws JsonException
      */
-    protected static function registerCreate($model): void
+    protected static function registerCreate(Model $model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -149,7 +157,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('create', [], self::strip($model, $model->getAttributes()));
 
-        if (null !== $userId && ! empty($data)) {
+        if (null !== $userId && !empty($data)) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
@@ -169,7 +177,7 @@ trait Auditable
      *
      * @throws JsonException
      */
-    protected static function registerUpdate($model): void
+    protected static function registerUpdate(Model $model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -177,7 +185,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('update', self::strip($model, $model->getOriginal()), self::strip($model, $model->getChanges()));
 
-        if (null !== $userId && ! empty(json_decode($data, true, 512, JSON_THROW_ON_ERROR))) {
+        if (null !== $userId && false !== $data && !empty(json_decode($data, true, 512, JSON_THROW_ON_ERROR))) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([
@@ -197,7 +205,7 @@ trait Auditable
      *
      * @throws JsonException
      */
-    protected static function registerDelete($model): void
+    protected static function registerDelete(Model $model): void
     {
         // Get auth (if any)
         $userId = self::getUserId();
@@ -205,7 +213,7 @@ trait Auditable
         // Generate the JSON to store
         $data = self::generate('delete', self::strip($model, $model->getAttributes()));
 
-        if (null !== $userId && ! empty($data)) {
+        if (null !== $userId && !empty($data)) {
             // Store record
             $now = Carbon::now()->format('Y-m-d H:i:s');
             DB::table('audits')->insert([

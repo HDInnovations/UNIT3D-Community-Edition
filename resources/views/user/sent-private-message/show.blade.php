@@ -2,7 +2,10 @@
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
-        <a href="{{ route('users.sent_messages.index', ['user' => $user]) }}" class="breadcrumb__link">
+        <a
+            href="{{ route('users.sent_messages.index', ['user' => $user]) }}"
+            class="breadcrumb__link"
+        >
             {{ __('pm.messages') }}
         </a>
     </li>
@@ -27,7 +30,10 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('pm.reply') }}</h2>
         <div class="panel__body">
-            <form method="POST" action="{{ route('users.sent_messages.update', ['user' => $user, 'sentPrivateMessage' => $privateMessage]) }}">
+            <form
+                method="POST"
+                action="{{ route('users.sent_messages.update', ['user' => $user, 'sentPrivateMessage' => $privateMessage]) }}"
+            >
                 @csrf
                 @method('PATCH')
                 @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
@@ -45,20 +51,29 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('pm.from') }}</dt>
-            <dd>
-                <x-user_tag :user="$privateMessage->sender" :anon="false" />
-            </dd>
-            <dt>{{ __('pm.to') }}</dt>
-            <dd>
-                <x-user_tag :user="$privateMessage->receiver" :anon="false" />
-            </dd>
-            <dt>{{ __('pm.sent') }}</dt>
-            <dd>
-                <time datetime="{{ $privateMessage->created_at }}" title="{{ $privateMessage->created_at }}">
-                    {{ $privateMessage->created_at->diffForHumans() }}
-                </time>
-            </dd>
+            <div class="key-value__group">
+                <dt>{{ __('pm.from') }}</dt>
+                <dd>
+                    <x-user_tag :user="$privateMessage->sender" :anon="false" />
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('pm.to') }}</dt>
+                <dd>
+                    <x-user_tag :user="$privateMessage->receiver" :anon="false" />
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('pm.sent') }}</dt>
+                <dd>
+                    <time
+                        datetime="{{ $privateMessage->created_at }}"
+                        title="{{ $privateMessage->created_at }}"
+                    >
+                        {{ $privateMessage->created_at->diffForHumans() }}
+                    </time>
+                </dd>
+            </div>
         </dl>
     </section>
 @endsection

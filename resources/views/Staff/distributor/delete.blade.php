@@ -31,12 +31,13 @@
                 class="form"
                 method="POST"
                 action="{{ route('staff.distributors.destroy', ['distributor' => $distributor]) }}"
-                x-data
+                x-data="confirmation"
             >
                 @csrf
                 @method('DELETE')
                 <p class="form__group">
-                    An existing torrent on site may already use this distributor. Would you like to change it?
+                    An existing torrent on site may already use this distributor. Would you like to
+                    change it?
                 </p>
                 <p class="form__group">
                     <select
@@ -60,17 +61,8 @@
                 </p>
                 <p class="form__group">
                     <button
-                        x-on:click.prevent="Swal.fire({
-                            title: 'Are you sure?',
-                            text: `Are you sure you want to delete this distributor: ${atob('{{ base64_encode($distributor->name) }}')}?`,
-                            icon: 'warning',
-                            showConfirmButton: true,
-                            showCancelButton: true,
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $root.submit();
-                            }
-                        })"
+                        x-on:click.prevent="confirmAction"
+                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this distributor: ' . $distributor->name . '?') }}"
                         class="form__button form__button--filled"
                     >
                         {{ __('common.delete') }}
@@ -78,5 +70,5 @@
                 </p>
             </form>
         </div>
-    </div>
+    </section>
 @endsection

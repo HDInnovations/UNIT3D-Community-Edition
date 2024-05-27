@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,12 +31,14 @@ return [
     'add'                  => 'Add',
     'added'                => 'Added',
     'amount'               => 'Amount',
+    'and'                  => 'and',
     'anonymous'            => 'Anonymous',
     'article'              => 'Article',
     'ascending'            => 'Ascending',
     'author'               => 'Author',
     'balance'              => 'Balance',
     'blacklist'            => 'Client Blacklist',
+    'bookmarked'           => 'Bookmarked',
     'buffer'               => 'Buffer',
     'bug'                  => 'Report a Bug',
     'but'                  => 'But',
@@ -122,6 +126,7 @@ return [
     'members'              => 'Members',
     'message'              => 'Message',
     'minute'               => 'Minute',
+    'missing'              => 'Missing',
     'moderated-by'         => 'Moderated by',
     'moderation'           => 'Moderation',
     'moderation-approve'   => 'Approve',
@@ -181,6 +186,7 @@ return [
     'search-results'       => 'Search Results',
     'search-results-desc'  => 'Please see your results below',
     'second'               => 'Second',
+    'send'                 => 'Send',
     'select'               => 'Select',
     'similar'              => 'Similar',
     'something-went-wrong' => 'Something Went Wrong!',
@@ -192,10 +198,12 @@ return [
     'stats'                => 'Stats',
     'status'               => 'Status',
     'sticked'              => 'Sticked',
+    'subject'              => 'Subject',
     'submit'               => 'Submit',
     'subscriptions'        => 'Subscriptions',
     'subtitle'             => 'Subtitle',
     'subtitles'            => 'Subtitles',
+    'support'              => 'Support',
     'system-message'       => 'THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY!',
     'teams'                => 'Teams',
     'terms'                => 'Terms of Use',
@@ -204,6 +212,7 @@ return [
     'times'                => 'Times',
     'title'                => 'Title',
     'top-bountied'         => 'Top Bountied',
+    'top-10'               => 'Top 10',
     'topics'               => 'Topics',
     'tracker-codes'        => 'Tracker Codes',
     'type'                 => 'Type',
@@ -223,6 +232,7 @@ return [
     'view'                 => 'View',
     'view-all'             => 'View All',
     'warnings'             => 'Warnings',
+    'wished'               => 'Wished',
     'year'                 => 'Year',
     'yes'                  => 'Yes',
     'your'                 => 'Your',

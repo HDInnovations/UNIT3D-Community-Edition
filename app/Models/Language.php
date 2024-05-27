@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,12 +16,8 @@
 
 namespace App\Models;
 
-use App\Traits\Auditable;
-
 class Language
 {
-    use Auditable;
-
     /**
      * Get single flags view.
      */
@@ -47,7 +46,7 @@ class Language
             return strtolower(substr(self::getLongCode($locale), 3));
         }
 
-        return strtolower(substr($locale, 3));
+        return strtolower(substr((string) $locale, 3));
     }
 
     /**
@@ -61,10 +60,12 @@ class Language
     /**
      * Return true if $code is an allowed lang.
      * Get all allowed languages.
+     *
+     * @return ($locale is null ? array<string, string> : bool)
      */
-    public static function allowed($locale = null): bool|array
+    public static function allowed(?string $locale = null): bool|array
     {
-        if ($locale) {
+        if ($locale !== null) {
             return \array_key_exists($locale, self::allowed());
         }
 
@@ -77,6 +78,9 @@ class Language
 
     /**
      * Add names to an array of language codes as [$code => $language].
+     *
+     * @param  array<string>         $codes
+     * @return array<string, string>
      */
     public static function names(array $codes): array
     {
@@ -106,6 +110,9 @@ class Language
 
     /**
      * Add names to an array of language codes as [$language => $code].
+     *
+     * @param  array<string>         $langs
+     * @return array<string, string>
      */
     public static function codes(array $langs): array
     {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,6 +18,7 @@ namespace App\Http\Livewire;
 
 use App\Helpers\Bbcode;
 use Livewire\Component;
+use voku\helper\AntiXSS;
 
 class BbcodeInput extends Component
 {
@@ -35,13 +39,13 @@ class BbcodeInput extends Component
         $this->name = $name;
         $this->label = $label;
         $this->isRequired = $required;
-        $this->contentBbcode = $content === null ? (old($name) ?? '') : htmlspecialchars_decode($content);
+        $this->contentBbcode = $content === null ? (old($name) ?? '') : htmlspecialchars_decode((string) $content);
     }
 
     final public function updatedIsPreviewEnabled(): void
     {
         if ($this->isPreviewEnabled) {
-            $this->contentHtml = (new Bbcode())->parse($this->contentBbcode);
+            $this->contentHtml = (new Bbcode())->parse(htmlspecialchars((new AntiXSS())->xss_clean($this->contentBbcode), ENT_NOQUOTES));
         }
     }
 

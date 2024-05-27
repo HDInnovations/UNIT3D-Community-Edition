@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserNotification;
 
+/** @extends Factory<UserNotification> */
 class UserNotificationFactory extends Factory
 {
     /**
@@ -31,6 +35,7 @@ class UserNotificationFactory extends Factory
     {
         return [
             'user_id'                      => User::factory(),
+            'block_notifications'          => $this->faker->boolean(),
             'show_bon_gift'                => $this->faker->boolean(),
             'show_mention_forum_post'      => $this->faker->boolean(),
             'show_mention_article_comment' => $this->faker->boolean(),

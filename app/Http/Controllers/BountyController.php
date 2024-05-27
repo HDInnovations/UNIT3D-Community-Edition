@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,13 +18,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTorrentRequestBountyRequest;
 use App\Http\Requests\UpdateTorrentRequestBountyRequest;
-use App\Models\BonTransactions;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Notifications\NewRequestBounty;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
@@ -44,22 +45,16 @@ class BountyController extends Controller
 
         $user = $request->user();
 
-        $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
+        $user->decrement('seedbonus', $request->integer('seedbonus'));
 
-        $torrentRequest->votes++;
-        $torrentRequest->bounty += $request->float('seedbonus');
-        $torrentRequest->created_at = Carbon::now();
-        $torrentRequest->save();
+        $bounty = $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
 
-        BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'request',
-            'cost'            => $request->float('seedbonus'),
-            'sender_id'       => $user->id,
-            'comment'         => sprintf('adding bonus to %s', $torrentRequest->name),
+        $torrentRequest->incrementEach([
+            'votes'  => 1,
+            'bounty' => $request->integer('seedbonus'),
+        ], [
+            'created_at' => now(),
         ]);
-
-        $user->decrement('seedbonus', $request->float('seedbonus'));
 
         if ($request->boolean('anon') == 0) {
             $this->chatRepository->systemMessage(
@@ -83,11 +78,10 @@ class BountyController extends Controller
             );
         }
 
-        $sender = $request->boolean('anon') ? 'Anonymous' : $request->user()->username;
         $requester = $torrentRequest->user;
 
         if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
-            $requester->notify(new NewRequestBounty('torrent', $sender, $request->float('seedbonus'), $torrentRequest));
+            $requester->notify(new NewRequestBounty($bounty));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])

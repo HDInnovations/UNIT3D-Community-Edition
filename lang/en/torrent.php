@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -71,7 +73,7 @@ return [
     'featured-until'           => 'This is a Featured Torrent Until',
     'file'                     => 'File',
     'filters'                  => 'Filters',
-    'fl-tokens-left'           => 'You have <strong><i class="fal fa-star"></i>:tokens</strong> left',
+    'fl-tokens-left'           => 'You have :tokens tokens left',
     'freeleech'                => 'Freeleech',
     'freeleech-token'          => 'Freeleech Token',
     'general'                  => 'General',

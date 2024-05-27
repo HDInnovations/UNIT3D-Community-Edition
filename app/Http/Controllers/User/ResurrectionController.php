@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -68,7 +71,7 @@ class ResurrectionController extends Controller
         Resurrection::create([
             'user_id'    => $user->id,
             'torrent_id' => $torrent->id,
-            'seedtime'   => config('graveyard.time') + $history?->seedtime ?? 0,
+            'seedtime'   => config('graveyard.time') + ($history?->seedtime ?? 0),
         ]);
 
         return to_route('torrents.show', ['id' => $torrent->id])

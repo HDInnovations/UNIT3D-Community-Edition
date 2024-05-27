@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,7 +19,11 @@ namespace App\Http\Livewire;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Carbon;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -28,33 +35,35 @@ use Livewire\WithPagination;
  */
 class UserWarnings extends Component
 {
+    use LivewireSort;
+    use LivewireSort;
     use WithPagination;
 
     public User $user;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
     public string $warningTab = 'automated';
 
+    #[Url(history: true)]
+    #[Validate('required|filled|max:255')]
     public string $message = '';
 
+    #[Url(history: true)]
     public int $perPage = 10;
 
-    public string $sortField = 'created_at';
+    #[Url(history: true)]
+    public ?string $sortField = null;
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    protected $queryString = [
-        'warningTab' => ['except' => 'automated'],
-    ];
-
-    protected $rules = [
-        'message' => [
-            'required',
-            'filled',
-            'max:255',
-        ],
-    ];
-
-    final public function getWarningsProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
+     */
+    #[Computed]
+    final public function warnings(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return $this->user
             ->userwarning()
@@ -66,20 +75,28 @@ class UserWarnings extends Component
             ->when($this->warningTab === 'automated', fn ($query) => $query->whereNotNull('torrent'))
             ->when($this->warningTab === 'manual', fn ($query) => $query->whereNull('torrent'))
             ->when($this->warningTab === 'deleted', fn ($query) => $query->onlyTrashed())
+            ->when(
+                $this->sortField === null,
+                fn ($query) => $query->orderByDesc('active')->orderByDesc('created_at'),
+                fn ($query) => $query->orderBy($this->sortField, $this->sortDirection),
+            )
             ->paginate($this->perPage);
     }
 
-    final public function getAutomatedWarningsCountProperty(): int
+    #[Computed]
+    final public function automatedWarningsCount(): int
     {
         return $this->user->userwarning()->whereNotNull('torrent')->count();
     }
 
-    final public function getManualWarningsCountProperty(): int
+    #[Computed]
+    final public function manualWarningsCount(): int
     {
         return $this->user->userwarning()->whereNull('torrent')->count();
     }
 
-    final public function getDeletedWarningsCountProperty(): int
+    #[Computed]
+    final public function deletedWarningsCount(): int
     {
         return $this->user->userwarning()->onlyTrashed()->count();
     }
@@ -111,7 +128,7 @@ class UserWarnings extends Component
 
         $this->message = '';
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning issued successfully!']);
+        $this->dispatch('success', type: 'success', message: 'Warning issued successfully!');
     }
 
     /**
@@ -135,7 +152,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to deactivate your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Deactivated']);
+        $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Deactivated');
     }
 
     /**
@@ -150,7 +167,7 @@ class UserWarnings extends Component
             'active'     => true,
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Reactivated']);
+        $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Reactivated');
     }
 
     /**
@@ -177,7 +194,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to deactivate all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'All Warnings Were Successfully Deactivated']);
+        $this->dispatch('success', type: 'success', message: 'All Warnings Were Successfully Deactivated');
     }
 
     /**
@@ -204,7 +221,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Deleted']);
+        $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Deleted');
     }
 
     /**
@@ -231,7 +248,7 @@ class UserWarnings extends Component
             'message'     => $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
         ]);
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'All Warnings Were Successfully Deleted']);
+        $this->dispatch('success', type: 'success', message: 'All Warnings Were Successfully Deleted');
     }
 
     /**
@@ -243,7 +260,7 @@ class UserWarnings extends Component
 
         Warning::withTrashed()->findOrFail($id)->restore();
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success', 'message' => 'Warning Was Successfully Restored']);
+        $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Restored');
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

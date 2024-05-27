@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -23,7 +26,7 @@
 */
 
 $app = new Illuminate\Foundation\Application(
-    realpath(__DIR__.'/../')
+    \dirname(__DIR__)
 );
 
 /*
@@ -39,17 +42,17 @@ $app = new Illuminate\Foundation\Application(
 
 $app->singleton(
     'Illuminate\Contracts\Http\Kernel',
-    \App\Http\Kernel::class
+    App\Http\Kernel::class
 );
 
 $app->singleton(
     'Illuminate\Contracts\Console\Kernel',
-    \App\Console\Kernel::class
+    App\Console\Kernel::class
 );
 
 $app->singleton(
     'Illuminate\Contracts\Debug\ExceptionHandler',
-    \App\Exceptions\Handler::class
+    App\Exceptions\Handler::class
 );
 
 /*

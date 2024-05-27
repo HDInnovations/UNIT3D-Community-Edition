@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,9 +17,11 @@
 namespace App\Console\Commands;
 
 use App\Models\History;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class AutoRefundDownload extends Command
 {
@@ -37,9 +42,9 @@ class AutoRefundDownload extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle()
+    final public function handle(): void
     {
         $now = Carbon::now();
         $MIN_SEEDTIME = config('hitrun.seedtime');
@@ -55,16 +60,16 @@ class AutoRefundDownload extends Command
             ->where('history.seeder', '=', 1)
             ->where('history.seedtime', '>=', $MIN_SEEDTIME)
             ->where('history.seedtime', '<=', $FULL_REFUND_SEEDTIME + $MIN_SEEDTIME + $COMMAND_RUN_PERIOD)
-            ->where('history.created_at', '>=', $now->copy()->subSeconds($MIN_SEEDTIME))
+            ->where('history.created_at', '<=', $now->copy()->subSeconds($MIN_SEEDTIME))
             ->whereColumn('torrents.user_id', '!=', 'history.user_id')
-            ->when(! config('other.refundable'), fn ($query) => $query->where(
+            ->when(!config('other.refundable'), fn ($query) => $query->where(
                 fn ($query) => $query
                     ->where('groups.is_refundable', '=', 1)
                     ->orWhere('torrents.refundable', '=', 1)
             ))
             ->update([
                 'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size - history.refunded_download)'),
-                'users.downloaded'          => DB::raw('users.downloaded - @delta'),
+                'users.downloaded'          => DB::raw('GREATEST(0, users.downloaded - @delta)'),
                 'history.updated_at'        => DB::raw('history.updated_at'),
             ]);
 

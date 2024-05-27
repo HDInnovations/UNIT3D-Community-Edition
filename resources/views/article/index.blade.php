@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="{{ __('articles.meta-articles') }}">
+    <meta name="description" content="{{ __('articles.meta-articles') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -37,17 +37,21 @@
                 </time>
                 <img
                     class="article-preview__image"
-                    src="{{ url($article->image ? 'files/img/'.$article->image : 'img/missing-image.png') }}"
+                    src="{{ url($article->image ? 'files/img/' . $article->image : 'img/missing-image.png') }}"
                     alt=""
-                >
+                />
             </header>
             <p class="article-preview__content">
                 @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content, 500, '...'), 150))
             </p>
-            <a href="{{ route('articles.show', ['article' => $article]) }}" class="article-preview__read-more">
+            <a
+                href="{{ route('articles.show', ['article' => $article]) }}"
+                class="article-preview__read-more"
+            >
                 {{ __('articles.read-more') }}
             </a>
         </article>
     @endforeach
+
     {{ $articles->links('partials.pagination') }}
 @endsection

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,14 @@ use App\Helpers\StringHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\TorrentFile.
+ *
+ * @property int    $id
+ * @property string $name
+ * @property int    $size
+ * @property int    $torrent_id
+ */
 class TorrentFile extends Model
 {
     use HasFactory;
@@ -37,6 +48,8 @@ class TorrentFile extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

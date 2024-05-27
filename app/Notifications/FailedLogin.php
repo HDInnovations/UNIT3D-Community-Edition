@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,22 +29,26 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * FailedLogin Constructor.
      */
-    public function __construct(public $ip)
+    public function __construct(public string $ip)
     {
     }
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @return array<int, string>
      */
-    public function via($notifiable): array
+    public function via(object $notifiable): array
     {
         return ['mail'];
     }
 
     /**
      * Get the database representation of the notification.
+     *
+     * @return array<string, mixed>
      */
-    public function toArray($notifiable): array
+    public function toArray(object $notifiable): array
     {
         return ['ip' => $this->ip, 'time' => Carbon::now()];
     }
@@ -49,8 +56,8 @@ class FailedLogin extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail($notifiable): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage())->error()->subject(trans('email.fail-login-subject'))->greeting(trans('email.fail-login-greeting'))->line(trans('email.fail-login-line1'))->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => Carbon::now()]));
+        return (new MailMessage())->error()->subject(trans('email.fail-login-subject'))->greeting(trans('email.fail-login-greeting'))->line(trans('email.fail-login-line1'))->line(trans('email.fail-login-line2', ['ip' => $this->ip, 'host' => gethostbyaddr($this->ip), 'time' => Carbon::now()->__toString()]));
     }
 }

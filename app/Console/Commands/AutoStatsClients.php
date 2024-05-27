@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,8 +17,10 @@
 namespace App\Console\Commands;
 
 use App\Models\Peer;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Throwable;
 
 class AutoStatsClients extends Command
 {
@@ -35,25 +40,26 @@ class AutoStatsClients extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $clients = Peer::selectRaw('agent, count(*) as count')
             ->fromSub(
-                fn ($sub) => $sub
+                Peer::query()
                     ->select(['agent', 'user_id'])
-                    ->from('peers')
-                    ->groupBy('agent', 'user_id'),
+                    ->groupBy('agent', 'user_id')
+                    ->where('active', '=', true),
                 'distinct_agent_user'
             )
             ->groupBy('agent')
             ->orderBy('agent')
-            ->get()
-            ->mapWithKeys(fn ($item, $key) => [$item['agent'] => $item['count']])
+            ->pluck('count', 'agent')
             ->toArray();
 
-        if (! empty($clients)) {
-            cache()->put('stats:clients', $clients, Carbon::now()->addMinutes(1440));
+        if (!empty($clients)) {
+            cache()->put('stats:clients', $clients, Carbon::now()->addDay());
         }
 
         $this->comment('Automated Client Stats Completed.');

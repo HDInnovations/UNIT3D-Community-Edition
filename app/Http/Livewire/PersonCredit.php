@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,42 +16,45 @@
 
 namespace App\Http\Livewire;
 
-use App\Enums\Occupations;
+use App\Enums\Occupation;
+use App\Models\Category;
 use App\Models\Person;
 use App\Models\Torrent;
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class PersonCredit extends Component
 {
     public Person $person;
 
-    public ?int $occupationId = null;
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
-    public $queryString = [
-        'occupationId',
-    ];
+    #[Url(history: true)]
+    public ?int $occupationId = null;
 
     final public function mount(): void
     {
         $this->occupationId ??= match (true) {
-            0 < $this->createdCount            => Occupations::CREATOR->value,
-            0 < $this->directedCount           => Occupations::DIRECTOR->value,
-            0 < $this->writtenCount            => Occupations::WRITER->value,
-            0 < $this->producedCount           => Occupations::PRODUCER->value,
-            0 < $this->composedCount           => Occupations::COMPOSER->value,
-            0 < $this->cinematographedCount    => Occupations::CINEMATOGRAPHER->value,
-            0 < $this->editedCount             => Occupations::EDITOR->value,
-            0 < $this->productionDesignedCount => Occupations::PRODUCTION_DESIGNER->value,
-            0 < $this->artDirectedCount        => Occupations::ART_DIRECTOR->value,
-            0 < $this->actedCount              => Occupations::ACTOR->value,
+            0 < $this->createdCount            => Occupation::CREATOR->value,
+            0 < $this->directedCount           => Occupation::DIRECTOR->value,
+            0 < $this->writtenCount            => Occupation::WRITER->value,
+            0 < $this->producedCount           => Occupation::PRODUCER->value,
+            0 < $this->composedCount           => Occupation::COMPOSER->value,
+            0 < $this->cinematographedCount    => Occupation::CINEMATOGRAPHER->value,
+            0 < $this->editedCount             => Occupation::EDITOR->value,
+            0 < $this->productionDesignedCount => Occupation::PRODUCTION_DESIGNER->value,
+            0 < $this->artDirectedCount        => Occupation::ART_DIRECTOR->value,
+            0 < $this->actedCount              => Occupation::ACTOR->value,
             default                            => null,
         };
     }
 
-    final public function getPersonalFreeleechProperty()
+    #[Computed]
+    final public function personalFreeleech(): bool
     {
-        return cache()->get('personal_freeleech:'.auth()->user()->id);
+        return cache()->get('personal_freeleech:'.auth()->user()->id) ?? false;
     }
 
     /*
@@ -56,60 +62,74 @@ class PersonCredit extends Component
      */
     public function updatingOccupation(&$value): void
     {
-        $value = Occupations::from($value);
+        $value = Occupation::from($value);
     }
 
-    public function getDirectedCountProperty(): int
+    #[Computed]
+    public function directedCount(): int
     {
         return $this->person->directedMovies()->count() + $this->person->directedTv()->count();
     }
 
-    public function getCreatedCountProperty(): int
+    #[Computed]
+    public function createdCount(): int
     {
         return $this->person->createdTv()->count();
     }
 
-    public function getWrittenCountProperty(): int
+    #[Computed]
+    public function writtenCount(): int
     {
         return $this->person->writtenMovies()->count() + $this->person->writtenTv()->count();
     }
 
-    public function getProducedCountProperty(): int
+    #[Computed]
+    public function producedCount(): int
     {
         return $this->person->producedMovies()->count() + $this->person->producedTv()->count();
     }
 
-    public function getComposedCountProperty(): int
+    #[Computed]
+    public function composedCount(): int
     {
         return $this->person->composedMovies()->count() + $this->person->composedTv()->count();
     }
 
-    public function getCinematographedCountProperty(): int
+    #[Computed]
+    public function cinematographedCount(): int
     {
         return $this->person->cinematographedMovies()->count() + $this->person->cinematographedTv()->count();
     }
 
-    public function getEditedCountProperty(): int
+    #[Computed]
+    public function editedCount(): int
     {
         return $this->person->editedMovies()->count() + $this->person->editedTv()->count();
     }
 
-    public function getProductionDesignedCountProperty(): int
+    #[Computed]
+    public function productionDesignedCount(): int
     {
         return $this->person->productionDesignedMovies()->count() + $this->person->productionDesignedTv()->count();
     }
 
-    public function getArtDirectedCountProperty(): int
+    #[Computed]
+    public function artDirectedCount(): int
     {
         return $this->person->artDirectedMovies()->count() + $this->person->artDirectedTv()->count();
     }
 
-    public function getActedCountProperty(): int
+    #[Computed]
+    public function actedCount(): int
     {
         return $this->person->actedMovies()->count() + $this->person->actedTv()->count();
     }
 
-    final public function getMediasProperty(): \Illuminate\Support\Collection
+    /**
+     * @return \Illuminate\Support\Collection<int, Torrent>
+     */
+    #[Computed]
+    final public function medias(): \Illuminate\Support\Collection
     {
         if ($this->occupationId === null) {
             return collect();
@@ -167,16 +187,30 @@ class PersonCredit extends Component
                 'resolution_id',
                 'personal_release',
             ])
+            ->selectRaw(
+                "CASE
+                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                END as meta"
+            )
             ->where(
                 fn ($query) => $query
-                    ->whereIntegerInRaw('movie_id', $movieIds)
-                    ->orWhereIntegerInRaw('tv_id', $tvIds)
+                    ->where(
+                        fn ($query) => $query
+                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereIntegerInRaw('tmdb', $movieIds)
+                    )
+                    ->orWhere(
+                        fn ($query) => $query
+                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereIntegerInRaw('tmdb', $tvIds)
+                    )
             )
             ->get()
-            ->groupBy(fn (Torrent $torrent) => $torrent->movie_id ? 'movie' : 'tv')
+            ->groupBy('meta')
             ->map(fn ($movieOrTv, $key) => match ($key) {
                 'movie' => $movieOrTv
-                    ->groupBy('movie_id')
+                    ->groupBy('tmdb')
                     ->map(
                         function ($movie) {
                             $category_id = $movie->first()->category_id;
@@ -199,7 +233,9 @@ class PersonCredit extends Component
                         }
                     ),
                 'tv' => $movieOrTv
-                    ->groupBy('tv_id')
+                    ->groupBy([
+                        fn ($torrent) => $torrent->tmdb,
+                    ])
                     ->map(
                         function ($tv) {
                             $category_id = $tv->first()->category_id;
@@ -221,6 +257,7 @@ class PersonCredit extends Component
                                         ),
                                     'Specials' => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
+                                        ->sortKeys(SORT_NATURAL)
                                         ->map(
                                             fn ($episode) => $episode
                                                 ->sortBy('type.position')
@@ -274,14 +311,17 @@ class PersonCredit extends Component
                                                                         ->values()
                                                                 )
                                                         ),
+                                                    default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
                                                 })
                                         ),
+                                    default => abort(500, 'Group found that isn\'t one of: Complete Pack, Specials, Seasons'),
                                 });
                             $tv->put('category_id', $category_id);
 
                             return $tv;
                         }
                     ),
+                default => abort(500, 'Group found that isn\'t one of: movie, tv'),
             });
 
         $medias = collect();

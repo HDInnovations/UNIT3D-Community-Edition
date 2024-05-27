@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -21,6 +23,7 @@ return [
     'application-referrer'     => 'Referrer',
     'article-content'          => 'Content',
     'bans-log'                 => 'Bans Log',
+    'blocked-ips'              => 'Blocked IPs',
     'blocks'                   => 'Blocks',
     'bon-exchange'             => 'BON Exchange',
     'bot'                      => 'Bot',
@@ -40,6 +43,7 @@ return [
     'link'                     => 'Link',
     'links'                    => 'Links',
     'logs'                     => 'Logs',
+    'mass-email'               => 'Mass Email',
     'mass-pm'                  => 'Mass PM',
     'mass-validate-users'      => 'Mass Validate Users',
     'media-languages-desc'     => '(Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)',
@@ -48,6 +52,7 @@ return [
     'notes'                    => 'Notes',
     'page'                     => 'Page',
     'pages'                    => 'Pages',
+    'passkeys'                 => 'Passkeys',
     'please-moderate'          => 'Please Moderate This Torrent!',
     'polls'                    => 'Polls',
     'reports-log'              => 'Reports Log',

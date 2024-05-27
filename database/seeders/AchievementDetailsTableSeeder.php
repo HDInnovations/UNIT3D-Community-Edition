@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,29 +18,13 @@ namespace Database\Seeders;
 
 use Assada\Achievements\Model\AchievementDetails as AchievementDetail;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class AchievementDetailsTableSeeder extends Seeder
 {
-    private $achievementDetails;
-
-    public function __construct()
-    {
-        $this->achievementDetails = $this->getAchievementDetails();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     public function run(): void
     {
-        foreach ($this->achievementDetails as $ad) {
-            AchievementDetail::updateOrCreate($ad);
-        }
-    }
-
-    private function getAchievementDetails(): array
-    {
-        return [
+        AchievementDetail::upsert([
             [
                 'id'          => 2,
                 'name'        => 'FirstComment',
@@ -438,6 +425,6 @@ class AchievementDetailsTableSeeder extends Seeder
                 'created_at'  => '2017-08-28 23:55:56',
                 'updated_at'  => '2017-08-28 23:55:56',
             ],
-        ];
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    @if (auth()->user()->isAllowed($user,'follower','show_follower'))
+    @if (auth()->user()->isAllowed($user, 'follower', 'show_follower'))
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.followers') }}</h2>
             <div class="data-table-wrapper">
@@ -38,9 +38,9 @@
                                 <td>
                                     <img
                                         src="{{ url($follower->image === null ? 'img/profile.png' : 'files/img/' . $follower->image) }}"
-                                        alt="{{ $follower->username }}"
+                                        alt=""
                                         class="user-search__avatar"
-                                    >
+                                    />
                                 </td>
                                 <td>
                                     <x-user_tag :anon="false" :user="$follower" />

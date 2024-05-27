@@ -5,7 +5,7 @@
 @endsection
 
 @section('meta')
-    <meta name="description" content="Commands - {{ __('staff.staff-dashboard') }}">
+    <meta name="description" content="Commands - {{ __('staff.staff-dashboard') }}" />
 @endsection
 
 @section('breadcrumbs')
@@ -14,20 +14,28 @@
             {{ __('staff.staff-dashboard') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Commands
-    </li>
+    <li class="breadcrumb--active">Commands</li>
 @endsection
 
 @section('page', 'page__commands--index')
 
 @section('main')
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+    <div
+        style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+        "
+    >
         <section class="panelV2">
             <h2 class="panel__heading">Maintenance Mode</h2>
             <div class="panel__body">
-                <p class="form__group form__group--horizontal">
-                    <form role="form" method="POST" action="{{ url('/dashboard/commands/maintance-enable') }}">
+                <div class="form__group form__group--horizontal">
+                    <form
+                        role="form"
+                        method="POST"
+                        action="{{ url('/dashboard/commands/maintance-enable') }}"
+                    >
                         @csrf
                         <button
                             class="form__button form__button--text"
@@ -36,9 +44,13 @@
                             Enable Maintenance Mode
                         </button>
                     </form>
-                </p>
-                <p class="form__group form__group--horizontal">
-                    <form role="form" method="POST" action="{{ url('/dashboard/commands/maintance-disable') }}">
+                </div>
+                <div class="form__group form__group--horizontal">
+                    <form
+                        role="form"
+                        method="POST"
+                        action="{{ url('/dashboard/commands/maintance-disable') }}"
+                    >
                         @csrf
                         <button
                             class="form__button form__button--text"
@@ -47,13 +59,13 @@
                             Disable Maintenance Mode
                         </button>
                     </form>
-                </p>
+                </div>
             </div>
         </section>
         <section class="panelV2">
             <h2 class="panel__heading">Caching</h2>
             <div class="panel__body">
-                <p class="form__group form__group--horizontal">
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ url('/dashboard/commands/clear-cache') }}">
                         @csrf
                         <button
@@ -63,8 +75,8 @@
                             Clear cache
                         </button>
                     </form>
-                </p>
-                <p class="form__group form__group--horizontal">
+                </div>
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ url('/dashboard/commands/clear-view-cache') }}">
                         @csrf
                         <button
@@ -74,9 +86,12 @@
                             Clear view cache
                         </button>
                     </form>
-                </p>
-                <p class="form__group form__group--horizontal">
-                    <form method="POST" action="{{ url('/dashboard/commands/clear-route-cache') }}">
+                </div>
+                <div class="form__group form__group--horizontal">
+                    <form
+                        method="POST"
+                        action="{{ url('/dashboard/commands/clear-route-cache') }}"
+                    >
                         @csrf
                         <button
                             class="form__button form__button--text"
@@ -85,9 +100,12 @@
                             Clear route cache
                         </button>
                     </form>
-                </p>
-                <p class="form__group form__group--horizontal">
-                    <form method="POST" action="{{ url('/dashboard/commands/clear-config-cache') }}">
+                </div>
+                <div class="form__group form__group--horizontal">
+                    <form
+                        method="POST"
+                        action="{{ url('/dashboard/commands/clear-config-cache') }}"
+                    >
                         @csrf
                         <button
                             class="form__button form__button--text"
@@ -96,8 +114,8 @@
                             Clear config cache
                         </button>
                     </form>
-                </p>
-                <p class="form__group form__group--horizontal">
+                </div>
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ url('/dashboard/commands/clear-all-cache') }}">
                         @csrf
                         <button
@@ -107,8 +125,8 @@
                             Clear all cache
                         </button>
                     </form>
-                </p>
-                <p class="form__group form__group--horizontal">
+                </div>
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ url('/dashboard/commands/set-all-cache') }}">
                         @csrf
                         <button
@@ -118,13 +136,13 @@
                             Set all cache
                         </button>
                     </form>
-                </p>
+                </div>
             </div>
         </section>
         <section class="panelV2">
             <h2 class="panel__heading">Email</h2>
             <div class="panel__body">
-                <p class="form__group form__group--horizontal">
+                <div class="form__group form__group--horizontal">
                     <form method="POST" action="{{ url('/dashboard/commands/test-email') }}">
                         @csrf
                         <button
@@ -134,7 +152,7 @@
                             Send test email
                         </button>
                     </form>
-                </p>
+                </div>
             </div>
         </section>
     </div>

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,7 +30,7 @@ class ProcessBackup implements ShouldQueue
 
     public int $timeout = 0;
 
-    public function __construct(protected $option = '')
+    public function __construct(protected string $option = '')
     {
     }
 
@@ -43,7 +46,7 @@ class ProcessBackup implements ShouldQueue
             $backupJob->dontBackupDatabases();
         }
 
-        if (! empty($this->option)) {
+        if (!empty($this->option)) {
             $prefix = str_replace('_', '-', $this->option).'-';
 
             $backupJob->setFilename($prefix.date('Y-m-d-H-i-s').'.zip');

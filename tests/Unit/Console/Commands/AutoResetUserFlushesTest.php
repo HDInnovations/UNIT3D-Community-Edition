@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -12,7 +14,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoResetUserFlushes
+ * @see App\Console\Commands\AutoResetUserFlushes
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:reset_user_flushes')

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,6 +35,8 @@ class StorePlaylistTorrentRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\Rules\Exists|\Illuminate\Validation\Rules\Unique|string>>
      */
     public function rules(Request $request): array
     {

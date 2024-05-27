@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +25,7 @@ return new class () extends Migration {
     {
         Schema::create('comments', function (Blueprint $table): void {
             $table->integer('id', true);
-            $table->text('content', 65535);
+            $table->text('content');
             $table->smallInteger('anon')->default(0);
             $table->bigInteger('torrent_id')->unsigned()->nullable()->index('fk_comments_torrents_1');
             $table->integer('article_id')->nullable()->index('fk_comments_articles_1');

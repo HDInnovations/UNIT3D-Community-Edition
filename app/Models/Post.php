@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,11 +23,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\Post.
+ *
+ * @property int                             $id
+ * @property string                          $content
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $user_id
+ * @property int                             $topic_id
+ */
 class Post extends Model
 {
     use Auditable;
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'content',
         'topic_id',
@@ -33,6 +51,8 @@ class Post extends Model
 
     /**
      * Belongs To A Topic.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
      */
     public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -41,6 +61,8 @@ class Post extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -52,6 +74,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Likes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -60,6 +84,8 @@ class Post extends Model
 
     /**
      * A Post Has Many Dislikes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
      */
     public function dislikes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -67,15 +93,19 @@ class Post extends Model
     }
 
     /**
-     * A Post Has Many Tips.
+     * Has Many Tips.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
      */
     public function tips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(BonTransactions::class);
+        return $this->hasMany(PostTip::class);
     }
 
     /**
      * A Post Author Has Many Posts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
      */
     public function authorPosts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -84,6 +114,8 @@ class Post extends Model
 
     /**
      * A Post Author Has Many Topics.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
      */
     public function authorTopics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -91,11 +123,43 @@ class Post extends Model
     }
 
     /**
+     * Only include posts a user is authorized to.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder<self> $query
+     * @return \Illuminate\Database\Eloquent\Builder<self>
+     */
+    public function scopeAuthorized(
+        \Illuminate\Database\Eloquent\Builder $query,
+        ?bool $canReadTopic = null,
+        ?bool $canReplyTopic = null,
+        ?bool $canStartTopic = null,
+    ): \Illuminate\Database\Eloquent\Builder {
+        return $query->whereNotIn(
+            'topic_id',
+            Topic::query()
+                ->whereRelation(
+                    'forumPermissions',
+                    fn ($query) => $query
+                        ->where('group_id', '=', auth()->user()->group_id)
+                        ->where(
+                            fn ($query) => $query
+                                ->whereRaw('1 = 0')
+                                ->when($canReadTopic !== null, fn ($query) => $query->orWhere('read_topic', '!=', $canReadTopic))
+                                ->when($canReplyTopic !== null, fn ($query) => $query->orWhere('reply_topic', '!=', $canReplyTopic))
+                                ->when($canStartTopic !== null, fn ($query) => $query->orWhere('start_topic', '!=', $canStartTopic))
+                        )
+                )
+                ->when($canReplyTopic && !auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
+                ->select('id')
+        );
+    }
+
+    /**
      * Set The Posts Content After Its Been Purified.
      */
     public function setContentAttribute(?string $value): void
     {
-        $this->attributes['content'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['content'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -106,33 +170,5 @@ class Post extends Model
         $bbcode = new Bbcode();
 
         return (new Linkify())->linky($bbcode->parse($this->content));
-    }
-
-    /**
-     * Post Trimming.t.
-     */
-    public function getBrief(int $length = 100, bool $ellipses = true, bool $stripHtml = false): string
-    {
-        $input = $this->content;
-        //strip tags, if desired
-        if ($stripHtml) {
-            $input = strip_tags($input);
-        }
-
-        //no need to trim, already shorter than trim length
-        if (\strlen((string) $input) <= $length) {
-            return $input;
-        }
-
-        //find last space within length
-        $lastSpace = strrpos(substr($input, 0, $length), ' ');
-        $trimmedText = substr($input, 0, $lastSpace);
-
-        //add ellipses (...)
-        if ($ellipses) {
-            $trimmedText .= '...';
-        }
-
-        return $trimmedText;
     }
 }

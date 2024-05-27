@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,27 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DateTimeInterface;
 
+/**
+ * App\Models\History.
+ *
+ * @property int    $id
+ * @property int    $user_id
+ * @property int    $torrent_id
+ * @property string $agent
+ * @property int    $uploaded
+ * @property int    $actual_uploaded
+ * @property int    $client_uploaded
+ * @property int    $downloaded
+ * @property int    $refunded_download
+ * @property int    $actual_downloaded
+ * @property int    $client_downloaded
+ * @property int    $seeder
+ * @property int    $active
+ * @property int    $seedtime
+ * @property int    $immune
+ * @property bool   $hitrun
+ * @property bool   $prewarn
+ */
 class History extends Model
 {
     use HasFactory;
@@ -36,16 +60,23 @@ class History extends Model
     protected $guarded = [];
 
     /**
-     * The Attributes That Should Be Mutated To Dates.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array<string, string>
      */
-    protected $casts = [
-        'completed_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'completed_at' => 'datetime',
+            'hitrun'       => 'boolean',
+            'prewarn'      => 'boolean',
+        ];
+    }
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -57,6 +88,8 @@ class History extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

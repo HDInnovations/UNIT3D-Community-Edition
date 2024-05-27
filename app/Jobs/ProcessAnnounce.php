@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -7,13 +10,17 @@
  *
  * @project    UNIT3D Community Edition
  *
- * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  * @credits    Rhilip <https://github.com/Rhilip> Roardom <roardom@protonmail.com>
  */
 
 namespace App\Jobs;
 
+use App\DTO\AnnounceQueryDTO;
+use App\DTO\AnnounceTorrentDTO;
+use App\DTO\AnnounceUserDTO;
+use App\Models\FeaturedTorrent;
 use App\Models\FreeleechToken;
 use App\Models\Peer;
 use App\Models\PersonalFreeleech;
@@ -36,55 +43,55 @@ class ProcessAnnounce implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(protected $queries, protected $user, protected $group, protected $torrent)
-    {
+    public function __construct(
+        public AnnounceQueryDTO $queries,
+        public AnnounceUserDTO $user,
+        public AnnounceTorrentDTO $torrent,
+        public bool $visible,
+    ) {
     }
 
     /**
      * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
      */
     public function middleware(): array
     {
-        return [(new WithoutOverlapping($this->user->id.':'.$this->torrent->id))->releaseAfter(30)];
+        return [new WithoutOverlapping($this->user->id.':'.$this->torrent->id)];
     }
 
     /**
      * Execute the job.
-     *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
-     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public function handle(): void
     {
         // Set Variables
-        $realUploaded = $this->queries['uploaded'];
-        $realDownloaded = $this->queries['downloaded'];
-        $event = $this->queries['event'];
-        $peerId = base64_decode($this->queries['peer_id']);
-        $ipAddress = base64_decode($this->queries['ip-address']);
+        $event = $this->queries->event;
 
-        // Get The Current Peer
-        $peer = $this->torrent->peers
-            ->where('peer_id', '=', $peerId)
+        $peer = Peer::query()
+            ->select(['active', 'left', 'uploaded', 'downloaded'])
             ->where('user_id', '=', $this->user->id)
+            ->where('torrent_id', '=', $this->torrent->id)
+            ->where('peer_id', '=', $this->queries->getPeerId())
             ->first();
 
-        $uploaded = max($realUploaded - ($peer?->uploaded ?? 0), 0);
-        $downloaded = max($realDownloaded - ($peer?->downloaded ?? 0), 0);
+        $isNewPeer = $peer === null;
 
-        // If no Peer record found then create one
-        if ($peer === null) {
-            if ($this->queries['uploaded'] > 0 || $this->queries['downloaded'] > 0) {
+        // Calculate the change in upload/download compared to the last announce
+        $uploadedDelta = max($this->queries->uploaded - ($peer?->uploaded ?? 0), 0);
+        $downloadedDelta = max($this->queries->downloaded - ($peer?->downloaded ?? 0), 0);
+
+        // If no peer record found then set deltas to 0 and change to `started` event
+        if ($isNewPeer) {
+            if ($this->queries->uploaded > 0 || $this->queries->downloaded > 0) {
                 $event = 'started';
-                $uploaded = 0;
-                $downloaded = 0;
+                $uploadedDelta = 0;
+                $downloadedDelta = 0;
             }
-
-            $peer = new Peer();
         }
 
-        // Modification of Upload and Download (Check cache but in case redis data was lost hit DB)
+        // Check if user currently has a personal freeleech
         $personalFreeleech = cache()->rememberForever(
             'personal_freeleech:'.$this->user->id,
             fn () => PersonalFreeleech::query()
@@ -92,6 +99,7 @@ class ProcessAnnounce implements ShouldQueue
                 ->exists()
         );
 
+        // Check if user has a freeleech token on this torrent
         $freeleechToken = cache()->rememberForever(
             'freeleech_token:'.$this->user->id.':'.$this->torrent->id,
             fn () => FreeleechToken::query()
@@ -100,144 +108,178 @@ class ProcessAnnounce implements ShouldQueue
                 ->exists(),
         );
 
-        if ($personalFreeleech ||
-            $this->group->is_freeleech == 1 ||
-            $freeleechToken ||
-            config('other.freeleech') == 1) {
-            $modDownloaded = 0;
-        } elseif ($this->torrent->free >= 1) {
-            // FL value in DB are from 0% to 100%.
-            // Divide it by 100 and multiply it with "downloaded" to get discount download.
-            $fl_discount = $downloaded * $this->torrent->free / 100;
-            $modDownloaded = $downloaded - $fl_discount;
+        // Check if the torrent is featured
+        $isFeatured = \in_array(
+            $this->torrent->id,
+            cache()->rememberForever(
+                'featured-torrent-ids',
+                fn () => FeaturedTorrent::select('torrent_id')->pluck('torrent_id')->toArray(),
+            ),
+            true
+        );
+
+        // Calculate credited Download
+        if (
+            $personalFreeleech
+            || $this->user->group->isFreeleech
+            || $freeleechToken
+            || $isFeatured
+            || config('other.freeleech')
+        ) {
+            $creditedDownloadedDelta = 0;
+        } elseif ($this->torrent->percentFree >= 1) {
+            // Freeleech values in the database are from 0 to 100
+            // 0 means 0% of the bytes are freeleech, i.e. 100% of the bytes are counted.
+            // 100 means 100% of the bytes are freeleech, i.e. 0% of the bytes are counted.
+            // This means we have to subtract the value stored in the database from 100 before multiplying.
+            // Also make sure that 100% is the highest value of freeleech possible
+            // in order to not subtract download from an account.
+            $creditedDownloadedDelta = $downloadedDelta * (100 - min(100, $this->torrent->percentFree)) / 100;
         } else {
-            $modDownloaded = $downloaded;
+            $creditedDownloadedDelta = $downloadedDelta;
         }
 
-        if ($this->torrent->doubleup == 1 ||
-            $this->group->is_double_upload == 1 ||
-            config('other.doubleup') == 1) {
-            $modUploaded = $uploaded * 2;
+        // Calculate credited upload
+        if (
+            $this->torrent->isDoubleUpload
+            || $this->user->group->isDoubleUpload
+            || $isFeatured
+            || config('other.doubleup')
+        ) {
+            $creditedUploadedDelta = $uploadedDelta * 2;
         } else {
-            $modUploaded = $uploaded;
+            $creditedUploadedDelta = $uploadedDelta;
         }
 
-        // Common Parts Extracted From Switch
-        $peer->peer_id = $peerId;
-        $peer->ip = $ipAddress;
-        $peer->port = $this->queries['port'];
-        $peer->agent = $this->queries['user-agent'];
-        $peer->uploaded = $realUploaded;
-        $peer->downloaded = $realDownloaded;
-        $peer->seeder = $this->queries['left'] == 0;
-        $peer->left = $this->queries['left'];
-        $peer->torrent_id = $this->torrent->id;
-        $peer->user_id = $this->user->id;
-        $peer->updateConnectableStateIfNeeded();
-        $peer->updated_at = now();
-
-        switch ($event) {
-            case 'started':
-                $peer->active = true;
-
-                break;
-            case 'completed':
-                $peer->active = true;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-                // End User Update
-
-                // Torrent Completed Update
-                $this->torrent->times_completed += 1;
-
-                break;
-            case 'stopped':
-                $peer->active = false;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-                // End User Update
-                break;
-            default:
-                $peer->active = true;
-
-                // User Update
-                if ($modUploaded > 0 || $modDownloaded > 0) {
-                    $this->user->update([
-                        'uploaded'   => DB::raw('uploaded + '.(int) $modUploaded),
-                        'downloaded' => DB::raw('downloaded + '.(int) $modDownloaded),
-                    ]);
-                }
-                // End User Update
+        // User Updates
+        if (($creditedUploadedDelta > 0 || $creditedDownloadedDelta > 0) && $event !== 'started') {
+            DB::table('users')->where('id', '=', $this->user->id)->update([
+                'uploaded'   => DB::raw('uploaded + '.(int) $creditedUploadedDelta),
+                'downloaded' => DB::raw('downloaded + '.(int) $creditedDownloadedDelta),
+            ]);
         }
 
+        // Peer updates
+
+        /**
+         * Peer batch upsert.
+         *
+         * @see \App\Console\Commands\AutoUpsertPeers
+         */
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':peers:batch',
-            serialize($peer->only([
-                'peer_id',
-                'ip',
-                'port',
-                'agent',
-                'uploaded',
-                'downloaded',
-                'left',
-                'seeder',
-                'torrent_id',
-                'user_id',
-                'connectable',
-                'active'
-            ]))
+            serialize([
+                'peer_id'     => $this->queries->getPeerId(),
+                'ip'          => $this->queries->getIp(),
+                'port'        => $this->queries->port,
+                'agent'       => $this->queries->getAgent(),
+                'uploaded'    => $this->queries->uploaded,
+                'downloaded'  => $this->queries->downloaded,
+                'left'        => $this->queries->left,
+                'seeder'      => $this->queries->left === 0,
+                'torrent_id'  => $this->torrent->id,
+                'user_id'     => $this->user->id,
+                'active'      => $event !== 'stopped',
+                'visible'     => $this->visible,
+                'connectable' => $this->getConnectableStatus(),
+            ]),
         ]);
 
+        // History updates
+
+        /**
+         * History batch upsert.
+         *
+         * @see \App\Console\Commands\AutoUpsertHistories
+         */
         Redis::connection('announce')->command('RPUSH', [
             config('cache.prefix').':histories:batch',
             serialize([
                 'user_id'           => $this->user->id,
                 'torrent_id'        => $this->torrent->id,
-                'agent'             => $this->queries['user-agent'],
-                'uploaded'          => $event === 'started' ? 0 : $modUploaded,
-                'actual_uploaded'   => $event === 'started' ? 0 : $uploaded,
-                'client_uploaded'   => $realUploaded,
-                'downloaded'        => $event === 'started' ? 0 : $modDownloaded,
-                'actual_downloaded' => $event === 'started' ? 0 : $downloaded,
-                'client_downloaded' => $realDownloaded,
-                'seeder'            => $this->queries['left'] == 0,
+                'agent'             => $this->queries->getAgent(),
+                'uploaded'          => $event === 'started' ? 0 : $creditedUploadedDelta,
+                'actual_uploaded'   => $event === 'started' ? 0 : $uploadedDelta,
+                'client_uploaded'   => $this->queries->uploaded,
+                'downloaded'        => $event === 'started' ? 0 : $creditedDownloadedDelta,
+                'actual_downloaded' => $event === 'started' ? 0 : $downloadedDelta,
+                'client_downloaded' => $this->queries->downloaded,
+                'seeder'            => $this->queries->left === 0,
                 'active'            => $event !== 'stopped',
                 'seedtime'          => 0,
-                'immune'            => $this->group->is_immune,
+                'immune'            => $this->user->group->isImmune,
                 'completed_at'      => $event === 'completed' ? now() : null,
             ])
         ]);
 
-        $otherSeeders = $this
-            ->torrent
-            ->peers
-            ->where('left', '=', 0)
-            ->where('active', '=', true)
-            ->where('peer_id', '!=', $peerId)
-            ->count();
-        $otherLeechers = $this
-            ->torrent
-            ->peers
-            ->where('left', '>', 0)
-            ->where('active', '=', true)
-            ->where('peer_id', '!=', $peerId)
-            ->count();
+        if (config('announce.log_announces')) {
+            /**
+             * Announce batch upsert.
+             *
+             * @see \App\Console\Commands\AutoUpsertAnnounces
+             */
+            Redis::connection('announce')->command('RPUSH', [
+                config('cache.prefix').':announces:batch',
+                serialize([
+                    'user_id'    => $this->user->id,
+                    'torrent_id' => $this->torrent->id,
+                    'uploaded'   => $this->queries->uploaded,
+                    'downloaded' => $this->queries->downloaded,
+                    'left'       => $this->queries->left,
+                    'corrupt'    => $this->queries->corrupt,
+                    'peer_id'    => $this->queries->getPeerId(),
+                    'port'       => $this->queries->port,
+                    'numwant'    => $this->queries->numwant,
+                    'event'      => $this->queries->event,
+                    'key'        => $this->queries->key,
+                ])
+            ]);
+        }
+    }
 
-        $this->torrent->seeders = $otherSeeders + (int) ($this->queries['left'] == 0 && $this->queries['event'] !== 'stopped');
-        $this->torrent->leechers = $otherLeechers + (int) ($this->queries['left'] > 0 && $this->queries['event'] !== 'stopped');
+    /**
+     * Check if peer is connectable.
+     *
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    private function getConnectableStatus(): bool
+    {
+        if (!config('announce.connectable_check')) {
+            return false;
+        }
 
-        $this->torrent->save();
+        $ip = $this->queries->getIp();
+
+        // Pack
+        $ip = inet_ntop(pack('A'.\strlen($ip), $ip));
+
+        if ($ip === false) {
+            return false;
+        }
+
+        // IPv6 Check
+        if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            $ip = '['.$ip.']';
+        }
+
+        $key = $ip.'-'.$this->queries->port.'-'.$this->queries->getAgent();
+
+        // Check cache
+        if (cache()->has('peers:connectable-timer:'.$key)) {
+            return cache()->get('peers:connectable:'.$key) === true;
+        }
+
+        // Connect
+        $connection = @fsockopen($ip, $this->queries->port, $_, $_, 1);
+
+        if ($connectable = \is_resource($connection)) {
+            fclose($connection);
+        }
+
+        cache()->put('peers:connectable:'.$key, $connectable, config('announce.connectable_check_interval'));
+        cache()->remember('peers:connectable-timer:'.$key, config('announce.connectable_check_interval'), fn () => true);
+
+        return $connectable;
     }
 }

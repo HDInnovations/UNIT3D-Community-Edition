@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -12,7 +14,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoWarning
+ * @see App\Console\Commands\AutoWarning
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:warning')

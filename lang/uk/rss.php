@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,18 +15,22 @@
 
 return [
     'create'              => 'Створити',
-    'create-private-feed' => 'Створити власний канал RSS',
+    'create-private-feed' => 'Створити приватний RSS-канал',
     'create-public-feed'  => 'Створити загальнодоступний RSS-канал',
+    'created'             => 'Приватний RSS-канал створено',
     'delete'              => 'Видалити',
+    'deleted'             => 'RSS-канал видалено!',
     'edit'                => 'Редагувати',
-    'edit-private-feed'   => 'Редагувати власний канал RSS',
-    'edit-public-feed'    => 'Редагувати загальнодоступний канал RSS',
-    'feed'                => 'Потік',
+    'edit-private-feed'   => 'Редагувати приватний RSS-канал',
+    'edit-public-feed'    => 'Редагувати загальнодоступний RSS-канал',
+    'error'               => 'Неможливо завершити дію',
+    'feed'                => 'Канал',
     'feeds'               => 'Канали',
-    'name'                => 'Ім я',
+    'name'                => 'Назва',
     'public'              => 'Публічний',
     'private'             => 'Приватний',
     'rss'                 => 'RSS',
     'rss-feed'            => 'RSS-канал',
     'type'                => 'Тип',
+    'updated'             => 'Приватний RSS-канал оновлено',
 ];

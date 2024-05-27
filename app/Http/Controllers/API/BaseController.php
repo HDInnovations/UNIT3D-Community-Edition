@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -35,7 +38,7 @@ class BaseController extends Controller
             'message' => $error,
         ];
 
-        if (! empty($errorMessages)) {
+        if (!empty($errorMessages)) {
             $response['data'] = $errorMessages;
         }
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,38 +18,19 @@ namespace App\Helpers;
 
 class StringHelper
 {
-    final public const KIB = 1_024;
+    private const array units = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB'];
 
-    final public const MIB = 1_024 * 1_024;
+    private const array secondsPer = [
+        'year'   => 3600 * 24 * 365,
+        'month'  => 3600 * 24 * 30,
+        'week'   => 3600 * 24 * 7,
+        'day'    => 3600 * 24,
+        'hour'   => 3600,
+        'minute' => 60,
+        'second' => 1,
+    ];
 
-    final public const GIB = 1_024 * 1_024 * 1_024;
-
-    final public const TIB = 1_024 * 1_024 * 1_024 * 1_024;
-
-    final public const PIB = 1_024 * 1_024 * 1_024 * 1_024 * 1_024;
-
-    /**
-     * @var string
-     */
-    private const CHARACTERS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-';
-
-    /**
-     * @var string[]
-     */
-    private const ENDS = ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th'];
-
-    public static function generateRandomString($length = 20): string
-    {
-        $string = '';
-
-        for ($i = 0; $i < $length; $i++) {
-            $string .= self::CHARACTERS[random_int(0, \strlen(self::CHARACTERS) - 1)];
-        }
-
-        return $string;
-    }
-
-    public static function formatBytes($bytes = 0, $precision = 2): string
+    public static function formatBytes(int|float $bytes = 0, int $precision = 2): string
     {
         $minus = false;
 
@@ -55,157 +39,36 @@ class StringHelper
             $bytes *= -1;
         }
 
-        $suffix = 'B';
-        $value = $bytes;
-
-        if ($bytes >= self::PIB) {
-            $suffix = 'PiB';
-            $value = $bytes / self::PIB;
-        } elseif ($bytes >= self::TIB) {
-            $suffix = 'TiB';
-            $value = $bytes / self::TIB;
-        } elseif ($bytes >= self::GIB) {
-            $suffix = 'GiB';
-            $value = $bytes / self::GIB;
-        } elseif ($bytes >= self::MIB) {
-            $suffix = 'MiB';
-            $value = $bytes / self::MIB;
-        } elseif ($bytes >= self::KIB) {
-            $suffix = 'KiB';
-            $value = $bytes / self::KIB;
+        for ($i = 0; ($bytes / 1024) > 0.9 && ($i < \count(self::units) - 1); $i++) {
+            $bytes /= 1024;
         }
 
-        $result = round($value, $precision);
+        $result = round($bytes, $precision);
 
         if ($minus) {
             $result *= -1;
         }
 
-        return $result."\u{a0}".$suffix;
+        return $result."\u{a0}".self::units[$i];
     }
 
-    /**
-     * @method timeRemaining
-     */
-    public static function timeRemaining(int $seconds): string
-    {
-        $minutes = 0;
-        $hours = 0;
-        $days = 0;
-        $weeks = 0;
-        $months = 0;
-        $years = 0;
-
-        $seconds = config('hitrun.seedtime') - $seconds;
-
-        if ($seconds == 0) {
-            return 'N/A';
-        }
-
-        while ($seconds >= 31_536_000) {
-            $years++;
-            $seconds -= 31_536_000;
-        }
-
-        while ($seconds >= 2_592_000) {
-            $months++;
-            $seconds -= 2_592_000;
-        }
-
-        while ($seconds >= 604_800) {
-            $weeks++;
-            $seconds -= 604_800;
-        }
-
-        while ($seconds >= 86_400) {
-            $days++;
-            $seconds -= 86_400;
-        }
-
-        while ($seconds >= 3_600) {
-            $hours++;
-            $seconds -= 3_600;
-        }
-
-        while ($seconds >= 60) {
-            $minutes++;
-            $seconds -= 60;
-        }
-
-        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
-
-        return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
-    }
-
-    /**
-     * @method timeElapsed
-     */
     public static function timeElapsed(int $seconds): string
     {
-        $minutes = 0;
-        $hours = 0;
-        $days = 0;
-        $weeks = 0;
-        $months = 0;
-        $years = 0;
-
         if ($seconds == 0) {
             return 'N/A';
         }
 
-        while ($seconds >= 31_536_000) {
-            $years++;
-            $seconds -= 31_536_000;
+        $units = [];
+
+        foreach (self::secondsPer as $unit => $secondsPer) {
+            $magnitude = intdiv($seconds, $secondsPer);
+
+            if ($magnitude > 0) {
+                $units[] = $magnitude.trans('common.abbrev-'.$unit.'s');
+                $seconds -= $magnitude * $secondsPer;
+            }
         }
 
-        while ($seconds >= 2_592_000) {
-            $months++;
-            $seconds -= 2_592_000;
-        }
-
-        while ($seconds >= 604_800) {
-            $weeks++;
-            $seconds -= 604_800;
-        }
-
-        while ($seconds >= 86_400) {
-            $days++;
-            $seconds -= 86_400;
-        }
-
-        while ($seconds >= 3_600) {
-            $hours++;
-            $seconds -= 3_600;
-        }
-
-        while ($seconds >= 60) {
-            $minutes++;
-            $seconds -= 60;
-        }
-
-        $years = ($years === 0) ? '' : $years.trans('common.abbrev-years');
-        $months = ($months === 0) ? '' : $months.trans('common.abbrev-months');
-        $weeks = ($weeks === 0) ? '' : $weeks.trans('common.abbrev-weeks');
-        $days = ($days === 0) ? '' : $days.trans('common.abbrev-days');
-        $hours = ($hours === 0) ? '' : $hours.trans('common.abbrev-hours');
-        $minutes = ($minutes === 0) ? '' : $minutes.trans('common.abbrev-minutes');
-        $seconds = ($seconds == 0) ? '' : $seconds.trans('common.abbrev-seconds');
-
-        return $years.$months.$weeks.$days.$hours.$minutes.$seconds;
-    }
-
-    public static function ordinal($number): string
-    {
-        if ((($number % 100) >= 11) && (($number % 100) <= 13)) {
-            return $number.'th';
-        }
-
-        return $number.self::ENDS[$number % 10];
+        return implode($units);
     }
 }

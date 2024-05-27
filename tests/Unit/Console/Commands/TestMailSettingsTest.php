@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -12,10 +14,12 @@
  */
 
 /**
- * @see \App\Console\Commands\TestMailSettings
+ * @see App\Console\Commands\TestMailSettings
  */
 it('runs successfully', function (): void {
-    $this->artisan('test:email')
+    $this->artisan('test:email', [
+        '--force' => true,
+    ])
         ->assertExitCode(0)
         ->run();
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,29 +18,13 @@ namespace Database\Seeders;
 
 use App\Models\ChatStatus;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ChatStatusSeeder extends Seeder
 {
-    private $statuses;
-
-    public function __construct()
-    {
-        $this->statuses = $this->getStatuses();
-    }
-
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        foreach ($this->statuses as $status) {
-            ChatStatus::updateOrCreate($status);
-        }
-    }
-
-    private function getStatuses(): array
-    {
-        return [
+        ChatStatus::upsert([
             [
                 'name'  => 'Online',
                 'color' => '#2ECC40',
@@ -58,6 +45,6 @@ class ChatStatusSeeder extends Seeder
                 'color' => '#AAAAAA',
                 'icon'  => config('other.font-awesome').' fa-comment-slash',
             ],
-        ];
+        ], ['name'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

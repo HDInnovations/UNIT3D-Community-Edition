@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,15 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+/**
+ * App\Models\PlaylistTorrent.
+ *
+ * @property int      $id
+ * @property int|null $position
+ * @property int      $playlist_id
+ * @property int      $torrent_id
+ * @property int      $tmdb_id
+ */
 class PlaylistTorrent extends Pivot
 {
     use Auditable;
@@ -36,12 +48,19 @@ class PlaylistTorrent extends Pivot
      */
     public $incrementing = true;
 
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
     protected $guarded = [];
 
     protected $table = 'playlist_torrents';
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -50,6 +69,8 @@ class PlaylistTorrent extends Pivot
 
     /**
      * Belongs To A Playlist.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Playlist, self>
      */
     public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

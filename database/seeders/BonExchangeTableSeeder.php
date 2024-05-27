@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,30 +22,13 @@ use Illuminate\Database\Seeder;
 
 class BonExchangeTableSeeder extends Seeder
 {
-    private $bonExchanges;
-
-    public function __construct(private ByteUnits $byteUnits)
+    public function run(ByteUnits $byteUnits): void
     {
-        $this->bonExchanges = $this->getBonExchanges();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
-    public function run(): void
-    {
-        foreach ($this->bonExchanges as $be) {
-            BonExchange::updateOrCreate($be);
-        }
-    }
-
-    private function getBonExchanges(): array
-    {
-        return [
+        BonExchange::upsert([
             [
                 'id'                 => 1,
                 'description'        => '2 GiB Upload',
-                'value'              => $this->byteUnits->bytesFromUnit('2GiB'),
+                'value'              => $byteUnits->bytesFromUnit('2GiB'),
                 'cost'               => 500,
                 'upload'             => 1,
                 'download'           => 0,
@@ -52,7 +38,7 @@ class BonExchangeTableSeeder extends Seeder
             [
                 'id'                 => 2,
                 'description'        => '10 GiB Upload',
-                'value'              => $this->byteUnits->bytesFromUnit('10GiB'),
+                'value'              => $byteUnits->bytesFromUnit('10GiB'),
                 'cost'               => 1000,
                 'upload'             => 1,
                 'download'           => 0,
@@ -62,7 +48,7 @@ class BonExchangeTableSeeder extends Seeder
             [
                 'id'                 => 3,
                 'description'        => '25 GiB Upload',
-                'value'              => $this->byteUnits->bytesFromUnit('25GiB'),
+                'value'              => $byteUnits->bytesFromUnit('25GiB'),
                 'cost'               => 2000,
                 'upload'             => 1,
                 'download'           => 0,
@@ -72,7 +58,7 @@ class BonExchangeTableSeeder extends Seeder
             [
                 'id'                 => 4,
                 'description'        => '100 GiB Upload',
-                'value'              => $this->byteUnits->bytesFromUnit('100GiB'),
+                'value'              => $byteUnits->bytesFromUnit('100GiB'),
                 'cost'               => 5000,
                 'upload'             => 1,
                 'download'           => 0,
@@ -99,6 +85,6 @@ class BonExchangeTableSeeder extends Seeder
                 'personal_freeleech' => 1,
                 'invite'             => 0,
             ],
-        ];
+        ], ['id'], []);
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,7 +23,7 @@ trait UsersOnlineTrait
      */
     public function isOnline(): bool
     {
-        if (! $this->last_action) {
+        if (!$this->last_action) {
             return false;
         }
 

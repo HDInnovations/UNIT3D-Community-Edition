@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,37 +23,34 @@ use Symfony\Component\Process\Process;
 
 trait ConsoleTools
 {
-    /**
-     * @var SymfonyStyle
-     */
-    protected $io;
+    protected SymfonyStyle $io;
 
-    private function cyan($line): void
+    private function cyan(string $line): void
     {
         $this->io->writeln(sprintf('<fg=cyan>%s</>', $line));
     }
 
-    private function white($line): void
+    private function white(string $line): void
     {
         $this->io->writeln(PHP_EOL.$line);
     }
 
-    private function magenta($line): void
+    private function magenta(string $line): void
     {
         $this->io->writeln(sprintf('<fg=magenta>%s</>', $line));
     }
 
-    private function green($line): void
+    private function green(string $line): void
     {
         $this->io->writeln(sprintf('<fg=green>%s</>', $line));
     }
 
-    private function red($line): void
+    private function red(string $line): void
     {
         $this->io->writeln(sprintf('<fg=red>%s</>', $line));
     }
 
-    private function blue($line): void
+    private function blue(string $line): void
     {
         $this->io->writeln(sprintf('<fg=blue>%s</>', $line));
     }
@@ -60,48 +60,48 @@ trait ConsoleTools
         $this->green('<fg=white>[</>Done<fg=white>]</>');
     }
 
-    private function header($line): void
+    private function header(string $line): void
     {
         $this->blue(str_repeat('=', 50));
         $this->io->write($line);
         $this->blue(str_repeat('=', 50));
     }
 
-    private function alertSuccess($line): void
+    private function alertSuccess(string $line): void
     {
         $this->io->writeln(sprintf('<fg=white>[</><fg=green> !! %s !! </><fg=white>]</>', $line));
     }
 
-    private function alertDanger($line): void
+    private function alertDanger(string $line): void
     {
         $this->io->writeln(sprintf('<fg=white>[</><fg=red> !! %s !! </><fg=white>]</>', $line));
     }
 
-    private function alertInfo($line): void
+    private function alertInfo(string $line): void
     {
         $this->io->writeln(sprintf('<fg=white>[</><fg=cyan> !! %s !! </><fg=white>]</>', $line));
     }
 
-    private function alertWarning($line): void
+    private function alertWarning(string $line): void
     {
         $this->io->writeln(sprintf('<fg=white>[</><fg=yellow> !! %s !! </><fg=white>]</>', $line));
     }
 
-    private function commands(array $commands, $silent = false): void
+    private function commands(array $commands, bool $silent = false): void
     {
         foreach ($commands as $command) {
             $process = $this->process($command, $silent);
 
-            if (! $silent) {
+            if (!$silent) {
                 echo "\n\n";
                 $this->warn($process->getOutput());
             }
         }
     }
 
-    private function process($command, $silent = false): Process
+    private function process(string $command, bool $silent = false): Process
     {
-        if (! $silent) {
+        if (!$silent) {
             $this->cyan($command);
             $bar = $this->progressStart();
         }
@@ -117,22 +117,21 @@ trait ConsoleTools
                 $this->red(sprintf("'%s' timed out.!", $command));
             }
 
-            if (! $silent) {
+            if (!$silent) {
                 $bar->advance();
             }
 
             usleep(200_000);
         }
 
-        if (! $silent) {
+        if (!$silent) {
             $this->progressStop($bar);
         }
 
         $process->stop();
 
-        if (! $process->isSuccessful()) {
+        if (!$process->isSuccessful()) {
             $this->red($process->getErrorOutput());
-            //die();
         }
 
         return $process;
@@ -144,7 +143,6 @@ trait ConsoleTools
         $bar->setBarCharacter('<fg=magenta>=</>');
         $bar->setFormat('[%bar%] (<fg=cyan>%message%</>)');
         $bar->setMessage('Please Wait ...');
-        //$bar->setRedrawFrequency(20); todo: may be useful for platforms like CentOS
         $bar->start();
 
         return $bar;

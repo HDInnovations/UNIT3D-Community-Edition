@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,32 +18,13 @@ namespace Database\Seeders;
 
 use App\Models\TicketCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TicketCategoriesTableSeeder extends Seeder
 {
-    private array $categories;
-
-    public function __construct()
-    {
-        $this->categories = $this->getTicketCategories();
-    }
-
-    /**
-     * Auto generated seed file.
-     */
     final public function run(): void
     {
-        foreach ($this->categories as $category) {
-            TicketCategory::updateOrCreate($category);
-        }
-    }
-
-    /**
-     * @return array[]
-     */
-    private function getTicketCategories(): array
-    {
-        return [
+        TicketCategory::upsert([
             [
                 'name'     => 'Accounts',
                 'position' => 0,
@@ -85,6 +69,6 @@ class TicketCategoriesTableSeeder extends Seeder
                 'name'     => 'Other',
                 'position' => 10,
             ],
-        ];
+        ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }
 }

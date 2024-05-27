@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,7 +23,7 @@ class EncryptCookies extends Middleware
     /**
      * The names of the cookies that should not be encrypted.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $except = [
     ];

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,17 +27,21 @@ test('index returns an ok response', function (): void {
     $response->assertViewHas('users');
     $response->assertViewHas('groups');
     $response->assertViewHas('articles');
-    $response->assertViewHas('newest');
-    $response->assertViewHas('seeded');
-    $response->assertViewHas('dying');
-    $response->assertViewHas('leeched');
-    $response->assertViewHas('dead');
     $response->assertViewHas('topics');
     $response->assertViewHas('posts');
     $response->assertViewHas('featured');
     $response->assertViewHas('poll');
     $response->assertViewHas('uploaders');
-    $response->assertViewHas('past_uploaders');
+    $response->assertViewHas('downloaders');
+    $response->assertViewHas('uploaded');
+    $response->assertViewHas('downloaded');
+    $response->assertViewHas('seeders');
+    $response->assertViewHas('seedtimes');
+    $response->assertViewHas('served');
+    $response->assertViewHas('commenters');
+    $response->assertViewHas('posters');
+    $response->assertViewHas('thankers');
+    $response->assertViewHas('personals');
     $response->assertViewHas('freeleech_tokens');
     $response->assertViewHas('bookmarks');
 });

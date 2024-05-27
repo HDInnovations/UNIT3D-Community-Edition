@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,8 +16,22 @@
 
 namespace App\Helpers;
 
+use App\Models\WhitelistedImageUrl;
+
 class Bbcode
 {
+    /**
+     * @var array<
+     *     string,
+     *     array{
+     *         openBbcode: string,
+     *         closeBbcode: string,
+     *         openHtml: string,
+     *         closeHtml: string,
+     *         block: boolean
+     *     }
+     * > $parsers.
+     */
     private array $parsers = [
         'h1' => [
             'openBbcode'  => '/^\[h1\]/i',
@@ -89,7 +106,7 @@ class Bbcode
         'size' => [
             'openBbcode'  => '/^\[size=(\d+)\]/i',
             'closeBbcode' => '[/size]',
-            'openHtml'    => '<span style="font-size: clamp(10px, $1, 100px);">',
+            'openHtml'    => '<span style="font-size: clamp(10px, $1px, 100px);">',
             'closeHtml'   => '</span>',
             'block'       => false,
         ],
@@ -141,13 +158,6 @@ class Bbcode
             'openHtml'    => '<blockquote><i class="fas fa-quote-left"></i> <cite>Quoting $1:</cite><p>',
             'closeHtml'   => '</p></blockquote>',
             'block'       => true,
-        ],
-        'namedlink' => [
-            'openBbcode'  => '/^\[url=(.*?)\]/i',
-            'closeBbcode' => '[/url]',
-            'openHtml'    => '<a href="$1">',
-            'closeHtml'   => '</a>',
-            'block'       => false,
         ],
         'orderedlistnumerical' => [
             'openBbcode'  => '/^\[list=1\]/i',
@@ -233,6 +243,13 @@ class Bbcode
             'closeHtml'   => '</tr>',
             'block'       => true,
         ],
+        'table-header' => [
+            'openBbcode'  => '/^\[th\]/i',
+            'closeBbcode' => '[/th]',
+            'openHtml'    => '<th>',
+            'closeHtml'   => '</th>',
+            'block'       => true,
+        ],
         'table-data' => [
             'openBbcode'  => '/^\[td\]/i',
             'closeBbcode' => '[/td]',
@@ -259,64 +276,78 @@ class Bbcode
     /**
      * Parses the BBCode string.
      */
-    public function parse($source, $replaceLineBreaks = true): string
+    public function parse(?string $source, bool $replaceLineBreaks = true): string
     {
         // Replace all void elements since they don't have closing tags
-        $source = str_replace('[*]', '<li>', $source);
+        $source = str_replace('[*]', '<li>', (string) $source);
         $source = preg_replace_callback(
-            '/\[url\](.*?)\[\/url\]/i',
-            fn ($matches) => '<a href="'.htmlspecialchars($matches[1]).'">'.htmlspecialchars($matches[1]).'</a>',
+            '/\[url](.*?)\[\/url]/i',
+            fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.$this->sanitizeUrl($matches[1]).'</a>',
             $source
         );
         $source = preg_replace_callback(
-            '/\[img\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[1]).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
-            $source
+            '/\[url=(.*?)](.*?)\[\/url]/i',
+            fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.e($matches[2]).'</a>',
+            $source ?? ''
         );
         $source = preg_replace_callback(
-            '/\[img width=(\d+)\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
-            $source
+            '/\[img](.*?)\[\/img]/i',
+            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[1], isImage: true).'" loading="lazy" class="img-responsive" style="display: inline !important;">',
+            $source ?? ''
         );
         $source = preg_replace_callback(
-            '/\[img=(\d+)(?:x\d+)?\](.*?)\[\/img\]/i',
-            fn ($matches) => '<img src="'.htmlspecialchars($matches[2]).'" loading="lazy" width="'.$matches[1].'px">',
-            $source
-        );
-
-        // Youtube elements need to be replaced like this because the content inside the two tags
-        // has to be moved into an html attribute
-        $source = preg_replace_callback(
-            '/\[youtube\](.*?)\[\/youtube\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source
+            '/\[img width=(\d+)](.*?)\[\/img]/i',
+            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
+            $source ?? ''
         );
         $source = preg_replace_callback(
-            '/\[video\](.*?)\[\/video\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source
-        );
-        $source = preg_replace_callback(
-            '/\[video="youtube"\](.*?)\[\/video\]/i',
-            fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.htmlspecialchars($matches[1]).'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
-            $source
+            '/\[img=(\d+)(?:x\d+)?](.*?)\[\/img]/i',
+            fn ($matches) => '<img src="'.$this->sanitizeUrl($matches[2], isImage: true).'" loading="lazy" width="'.$matches[1].'px">',
+            $source ?? ''
         );
 
-        // Common comparison syntax used in other torrent management systems is quite specific
+        // YouTube video elements need to be replaced like this because the content inside the two tags
+        // has to be moved into an HTML attribute
+        $source = preg_replace_callback(
+            '/\[youtube]([a-z0-9_-]{11})\[\/youtube]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            $source ?? ''
+        );
+        $source = preg_replace_callback(
+            '/\[video]([a-z0-9_-]{11})\[\/video]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            $source ?? ''
+        );
+        $source = preg_replace_callback(
+            '/\[video="youtube"]([a-z0-9_-]{11})\[\/video]/i',
+            static fn ($matches) => '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/'.$matches[1].'?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+            $source ?? ''
+        );
+
+        // Common comparison syntax used in other torrent management systems is quite specific,
         // so it must be done here instead
         $source = preg_replace_callback(
-            '/\[comparison=(.*?)\]\s*(.*?)\s*\[\/comparison\]/is',
+            '/\[comparison=(.*?)]\s*(.*?)\s*\[\/comparison]/is',
             function ($matches) {
                 $comparates = preg_split('/\s*,\s*/', $matches[1]);
                 $urls = preg_split('/\s*(?:,|\s)\s*/', $matches[2]);
-                $validatedUrls = collect($urls)->filter(fn ($url) => filter_var($url, FILTER_VALIDATE_URL));
+
+                if ($comparates === false || $urls === false) {
+                    return 'Broken comparison';
+                }
+
+                $validatedUrls = collect($urls)->map(fn ($url) => $this->sanitizeUrl($url, isImage: true));
                 $chunkedUrls = $validatedUrls->chunk(\count($comparates));
                 $html = view('partials.comparison', ['comparates' => $comparates, 'urls' => $chunkedUrls])->render();
                 $html = preg_replace('/\s+/', ' ', $html);
 
+                if (!\is_string($html)) {
+                    return 'Broken html';
+                }
+
                 return $html;
             },
-            $source
+            $source ?? ''
         );
 
         // Stack of unclosed elements
@@ -326,9 +357,9 @@ class Bbcode
         $index = 0;
 
         // Don't loop more than the length of the source
-        while ($index < \strlen($source)) {
+        while ($index < \strlen((string) $source)) {
             // Get the next occurrence of `[`
-            $index = strpos($source, '[', $index);
+            $index = strpos((string) $source, '[', $index);
 
             // Break if there are no more occurrences of `[`
             if ($index === false) {
@@ -336,37 +367,37 @@ class Bbcode
             }
 
             // Break if `[` is the last character of the source
-            if ($index + 1 >= \strlen($source)) {
+            if ($index + 1 >= \strlen((string) $source)) {
                 break;
             }
 
             // Is the potential tag opening or closing?
-            if ($source[$index + 1] === '/' && ! empty($openedElements)) {
+            if ($source[$index + 1] === '/' && !empty($openedElements)) {
                 $name = array_pop($openedElements);
                 $el = $this->parsers[$name];
-                $tag = substr($source, $index, \strlen($el['closeBbcode']));
+                $tag = substr((string) $source, $index, \strlen((string) $el['closeBbcode']));
 
                 // Replace bbcode tag with html tag if found tag matches expected tag,
                 // otherwise return the expected element's to the stack
-                if (strcasecmp($tag, $el['closeBbcode']) === 0) {
-                    $source = substr_replace($source, $el['closeHtml'], $index, \strlen($el['closeBbcode']));
+                if (strcasecmp($tag, (string) $el['closeBbcode']) === 0) {
+                    $source = substr_replace((string) $source, (string) $el['closeHtml'], $index, \strlen((string) $el['closeBbcode']));
 
                     if ($replaceLineBreaks === true && $el['block'] === true) {
-                        $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen($el['closeHtml']) - 1);
+                        $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen((string) $el['closeHtml']) - 1);
                     }
                 } else {
                     $openedElements[] = $name;
                 }
             } else {
-                $remainingText = substr($source, $index);
+                $remainingText = substr((string) $source, $index);
 
                 // Find match between found bbcode tag and valid elements
                 foreach ($this->parsers as $name => $el) {
                     // The opening bbcode tag uses the regex `^` character to make
                     // sure only the beginning of $remainingText is matched
                     if (preg_match($el['openBbcode'], $remainingText, $matches) === 1) {
-                        $replacement = preg_replace($el['openBbcode'], $el['openHtml'], $matches[0]);
-                        $source = substr_replace($source, $replacement, $index, \strlen($matches[0]));
+                        $replacement = (string) preg_replace($el['openBbcode'], (string) $el['openHtml'], $matches[0]);
+                        $source = substr_replace((string) $source, $replacement, $index, \strlen($matches[0]));
 
                         if ($replaceLineBreaks === true && $el['block'] === true) {
                             $this->handleBlockElementSpacing($source, $index, $index, $index + \strlen($replacement) - 1);
@@ -382,13 +413,13 @@ class Bbcode
             $index++;
         }
 
-        while (! empty($openedElements)) {
+        while (!empty($openedElements)) {
             $source .= $this->parsers[array_pop($openedElements)]['closeHtml'];
         }
 
         if ($replaceLineBreaks) {
             // Replace line breaks
-            $source = str_replace(["\r\n", "\n"], '<br>', $source);
+            $source = str_replace(["\r\n", "\n"], '<br>', (string) $source);
         }
 
         return $source;
@@ -406,13 +437,12 @@ class Bbcode
      * [/list]
      * ```
      *
-     * @param  String $source        Reference to the source text content currently being converted from bbcode to html.
-     * @param  int    $index         Reference to the current index of `$source` that the parser must keep track of.
-     * @param  int    $tagStartIndex The index of the first character of the tag being parsed inside of `$source`. Should be the `[` character.
-     * @param  int    $tagStopIndex  The index of the last character of the tag being parsed inside of `$source`. Should be the `]` character.
-     * @return void
+     * @param string $source        Reference to the source text content currently being converted from bbcode to html.
+     * @param int    $index         Reference to the current index of `$source` that the parser must keep track of.
+     * @param int    $tagStartIndex The index of the first character of the tag being parsed inside `$source`. Should be the `[` character.
+     * @param int    $tagStopIndex  The index of the last character of the tag being parsed inside `$source`. Should be the `]` character.
      */
-    private function handleBlockElementSpacing(String &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
+    private function handleBlockElementSpacing(string &$source, int &$index, int $tagStartIndex, int $tagStopIndex): void
     {
         // Remove two line breaks (if they exist) instead of one, since a
         // line break after a block element is positioned on the line after
@@ -443,5 +473,48 @@ class Bbcode
             $source = substr_replace($source, '', $tagStartIndex - 1, 1);
             $index -= 1;
         }
+    }
+
+    private function sanitizeUrl(string $url, ?bool $isImage = null): string
+    {
+        // Do NOT add `javascript`, `data` or `vbscript` here
+        // or else you will allow an XSS vulnerability!
+        $protocolWhitelist = [
+            'http',
+            'https',
+            'irc',
+            'ftp',
+            'sftp',
+            'magnet',
+        ];
+
+        if (str_starts_with($url, '/')) {
+            $url = config('app.url').'/'.ltrim($url, '/');
+        } elseif (!\in_array(parse_url($url, PHP_URL_SCHEME), $protocolWhitelist)) {
+            $url = 'https://'.$url;
+        }
+
+        if (false === filter_var($url, FILTER_VALIDATE_URL)) {
+            return 'Broken link';
+        }
+
+        if ($isImage) {
+            $whitelistedImageUrls = cache()->rememberForever(
+                'whitelisted-image-urls',
+                fn () => WhitelistedImageUrl::query()->pluck('pattern'),
+            );
+
+            $isWhitelisted = $whitelistedImageUrls->contains(function (string $pattern) use ($url) {
+                $pattern = str_replace(['\*\*', '\*'], ['.*', '[^\/]*'], preg_quote($pattern, '/'));
+
+                return preg_match('/^'.$pattern.'$/i', $url);
+            });
+
+            if (!$isWhitelisted) {
+                $url = 'https://wsrv.nl/?n=-1&url='.urlencode($url);
+            }
+        }
+
+        return htmlspecialchars($url, ENT_QUOTES | ENT_HTML5);
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,7 +20,6 @@ use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
-use App\Models\BonTransactions;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Notifications\NewRequestFillApprove;
@@ -45,25 +47,17 @@ class ApprovedRequestFillController extends Controller
         abort_unless(($request->user()->id === $torrentRequest->user_id || $request->user()->group->is_modo) && $torrentRequest->approved_by === null, 403);
 
         $approver = $request->user();
-        $filler = $torrentRequest->filler;
+        $filler = $torrentRequest->filler()->sole();
 
         $torrentRequest->update([
             'approved_by'   => $approver->id,
             'approved_when' => Carbon::now(),
         ]);
 
-        BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'request',
-            'cost'            => $torrentRequest->bounty,
-            'receiver_id'     => $torrentRequest->filled_by,
-            'comment'         => sprintf('%s has filled %s and has been awarded %s BONUS.', $filler->username, $torrentRequest->name, $torrentRequest->bounty),
-        ]);
-
-        $filler->increment('seedbonus', $torrentRequest->bounty);
+        $filler->increment('seedbonus', (float) $torrentRequest->bounty);
 
         // Achievements
-        if (! $torrentRequest->filled_anon) {
+        if (!$torrentRequest->filled_anon) {
             $filler->addProgress(new UserFilled25Requests(), 1);
             $filler->addProgress(new UserFilled50Requests(), 1);
             $filler->addProgress(new UserFilled75Requests(), 1);
@@ -82,7 +76,7 @@ class ApprovedRequestFillController extends Controller
         }
 
         if ($filler->acceptsNotification($approver, $filler, 'request', 'show_request_fill_approve')) {
-            $filler->notify(new NewRequestFillApprove('torrent', $approver->username, $torrentRequest));
+            $filler->notify(new NewRequestFillApprove($torrentRequest));
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
@@ -94,7 +88,7 @@ class ApprovedRequestFillController extends Controller
      */
     public function destroy(Request $request, TorrentRequest $torrentRequest): \Illuminate\Http\RedirectResponse
     {
-        abort_unless($request->user()->group->is_modo, 403);
+        abort_unless((bool) $request->user()->group->is_modo, 403);
 
         $filler = $torrentRequest->filler;
 
@@ -104,17 +98,9 @@ class ApprovedRequestFillController extends Controller
         ]);
 
         // TODO: Change database column to signed from unsigned to handle negative bon.
-        $refunded = min($torrentRequest->bounty, $filler->seedbonus);
+        $refunded = min($torrentRequest->bounty, (float) $filler->seedbonus);
 
-        BonTransactions::create([
-            'bon_exchange_id' => 0,
-            'name'            => 'request',
-            'cost'            => $refunded,
-            'sender_id'       => $torrentRequest->filled_by,
-            'comment'         => sprintf('%s has had %s unfilled and has forfeited %s BONUS.', $filler->username, $torrentRequest->name, $refunded),
-        ]);
-
-        $filler->decrement('seedbonus', $refunded);
+        $filler->decrement('seedbonus', (float) $refunded);
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->withSuccess(trans('request.request-reset'));

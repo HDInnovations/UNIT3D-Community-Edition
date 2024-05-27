@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,6 +21,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * App\Models\TorrentRequestClaim.
+ *
+ * @property int                             $id
+ * @property int                             $request_id
+ * @property int                             $user_id
+ * @property int                             $anon
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ */
 class TorrentRequestClaim extends Model
 {
     use Auditable;
@@ -37,11 +50,19 @@ class TorrentRequestClaim extends Model
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    /**
+     * Belongs To A User.
+     *
+     * @return BelongsTo<User, self>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsTo<TorrentRequest, self>
+     */
     public function request(): BelongsTo
     {
         return $this->belongsTo(TorrentRequest::class);

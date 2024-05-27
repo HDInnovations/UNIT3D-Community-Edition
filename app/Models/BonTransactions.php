@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\BonTransactions.
+ *
+ * @property int      $id
+ * @property int      $bon_exchange_id
+ * @property string   $name
+ * @property string   $cost
+ * @property int|null $sender_id
+ * @property int|null $receiver_id
+ * @property int|null $torrent_id
+ * @property int|null $post_id
+ * @property string   $comment
+ * @property string   $created_at
+ */
 class BonTransactions extends Model
 {
     use HasFactory;
@@ -42,7 +59,21 @@ class BonTransactions extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'cost' => 'decimal:2',
+        ];
+    }
+
+    /**
      * Belongs To A Sender.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -54,6 +85,8 @@ class BonTransactions extends Model
 
     /**
      * Belongs To A Receiver.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -65,6 +98,8 @@ class BonTransactions extends Model
 
     /**
      * Belongs To BonExchange.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BonExchange, self>
      */
     public function exchange(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -72,21 +107,5 @@ class BonTransactions extends Model
             'value' => 0,
             'cost'  => 0,
         ]);
-    }
-
-    /**
-     * Belongs to Torrent.
-     */
-    public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Torrent::class);
-    }
-
-    /**
-     * Belongs to Post.
-     */
-    public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Post::class);
     }
 }

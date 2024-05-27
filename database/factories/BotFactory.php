@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Bot;
 
+/** @extends Factory<Bot> */
 class BotFactory extends Factory
 {
     /**
@@ -40,11 +44,8 @@ class BotFactory extends Factory
             'help'         => $this->faker->text(),
             'active'       => $this->faker->boolean(),
             'is_protected' => $this->faker->boolean(),
-            'is_triviabot' => $this->faker->boolean(),
             'is_nerdbot'   => $this->faker->boolean(),
             'is_systembot' => $this->faker->boolean(),
-            'is_casinobot' => $this->faker->boolean(),
-            'is_betbot'    => $this->faker->boolean(),
             'uploaded'     => $this->faker->randomNumber(),
             'downloaded'   => $this->faker->randomNumber(),
             'fl_tokens'    => $this->faker->randomNumber(),

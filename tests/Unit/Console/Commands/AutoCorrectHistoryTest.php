@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -12,7 +14,7 @@
  */
 
 /**
- * @see \App\Console\Commands\AutoCorrectHistory
+ * @see App\Console\Commands\AutoCorrectHistory
  */
 it('runs successfully', function (): void {
     $this->artisan('auto:correct_history')

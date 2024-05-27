@@ -10,9 +10,7 @@
             {{ __('stat.stats') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        Clients
-    </li>
+    <li class="breadcrumb--active">Clients</li>
 @endsection
 
 @section('page', 'page__stats--clients')

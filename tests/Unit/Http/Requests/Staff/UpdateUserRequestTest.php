@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -53,10 +56,6 @@ test('rules', function (): void {
         'group_id' => [
             'required',
             'exists:groups,id',
-        ],
-        'internal_id' => [
-            'nullable',
-            'exists:internals,id',
         ],
         'seedbonus' => [
             'required',

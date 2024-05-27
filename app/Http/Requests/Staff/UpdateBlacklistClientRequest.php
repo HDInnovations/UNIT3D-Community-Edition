@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,6 +17,8 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateBlacklistClientRequest extends FormRequest
 {
@@ -27,14 +32,20 @@ class UpdateBlacklistClientRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\Rules\Unique|string>>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
         return [
             'name' => [
                 'required',
                 'string',
                 'max:255',
+                Rule::unique('blacklist_clients')->ignore($request->route('blacklistClient')),
+            ],
+            'peer_id_prefix' => [
+                Rule::unique('blacklist_clients')->ignore($request->route('blacklistClient')),
             ],
             'reason' => [
                 'required',

@@ -1,0 +1,85 @@
+/**
+ * Usage
+ *
+ * <p class="form__group">
+ *     <select id="select" class="form__select" x-data="{ selected: '' }" x-model="selected" x-bind:class="selected === '' ? 'form__select--default' : ''">
+ *         <option hidden="" disabled selected value=""></option>
+ *         <option></option>
+ *     </select>
+ *     <label class="form__label form__label--floating" for="select"></label>
+ *     @error('error')
+ *         <span class="form__hint">{{ $error }}</span>
+ *     @enderror
+ * </p>
+ */
+
+.form__select {
+    background-color: inherit;
+    background: var(--select-icon);
+    background-size: 16px;
+    background-position: calc(100% - 4px) center;
+    background-repeat: no-repeat;
+    border: var(--select-border);
+    border-radius: var(--select-border-radius);
+    color: var(--select-fg);
+    font-size: 14px;
+    font-weight: normal;
+    height: 40px;
+    max-width: 100%;
+    outline: none;
+    padding: var(--select-padding);
+    width: 100%;
+    appearance: none;
+
+    @media screen and (prefers-reduced-motion: no-preference) {
+        transition: border-color 600ms cubic-bezier(0.25, 0.8, 0.25, 1), height 600ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    &:hover {
+        border: var(--select-border-hover);
+        padding: var(--select-padding-hover);
+    }
+
+    &:focus,
+    &:focus:hover {
+        border: var(--select-border-active);
+        padding: var(--select-padding-active);
+
+        & + .form__label--floating {
+            top: -5px;
+            font-size: 11px;
+            color: var(--label-fg-active);
+            border-radius: 0;
+            padding: 0 4px;
+        }
+    }
+
+    &:valid:not(.form__select--default),
+    &:focus:placeholder-shown {
+        & + .form__label--floating {
+            top: -5px;
+            font-size: 11px;
+            border-radius: 0;
+            padding: 0 4px;
+        }
+    }
+
+    &:invalid:focus,
+    &:user-invalid {
+        border: var(--select-border-error);
+
+        & + .form__label--floating {
+            color: var(--label-fg-error);
+        }
+
+        & ~ .form__hint {
+            color: var(--label-fg-error);
+            font-size: 12px;
+            margin-left: 16px;
+        }
+    }
+
+    option {
+        background-color: var(--option-bg);
+    }
+}

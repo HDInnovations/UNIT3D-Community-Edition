@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,11 +20,10 @@ use App\Models\Movie;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Tv;
+use Exception;
 use Illuminate\Console\Command;
+use Throwable;
 
-/**
- * @see \Tests\Todo\Unit\Console\Commands\FetchReleaseYearsTest
- */
 class FetchReleaseYears extends Command
 {
     /**
@@ -40,8 +42,10 @@ class FetchReleaseYears extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $appurl = config('app.url');
 
@@ -51,25 +55,14 @@ class FetchReleaseYears extends Command
             ->whereNull('release_year')
             ->get();
 
-        $withyear = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->whereNotNull('release_year')
-            ->count();
-
-        $withoutyear = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->whereNull('release_year')
-            ->count();
-
-        $this->alert(sprintf('%s Torrents Already Have A Release Year Value!', $withyear));
-        $this->alert(sprintf('%s Torrents Are Missing A Release Year Value!', $withoutyear));
-
         foreach ($torrents as $torrent) {
             $meta = null;
 
             if ($torrent->category->tv_meta && $torrent->tv_id) {
                 $meta = Tv::find($torrent->tmdb);
 
-                if (isset($meta->first_air_date) && substr($meta->first_air_date, 0, 4) > '1900') {
-                    $torrent->release_year = substr($meta->first_air_date, 0, 4);
+                if (isset($meta->first_air_date) && substr((string) $meta->first_air_date, 0, 4) > '1900') {
+                    $torrent->release_year = substr((string) $meta->first_air_date, 0, 4);
                     $torrent->save();
                     $this->info(sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
                 } else {
@@ -80,8 +73,8 @@ class FetchReleaseYears extends Command
             if ($torrent->category->movie_meta && $torrent->movie_id) {
                 $meta = Movie::find($torrent->tmdb);
 
-                if (isset($meta->release_date) && substr($meta->release_date, 0, 4) > '1900') {
-                    $torrent->release_year = substr($meta->release_date, 0, 4);
+                if (isset($meta->release_date) && substr((string) $meta->release_date, 0, 4) > '1900') {
+                    $torrent->release_year = substr((string) $meta->release_date, 0, 4);
                     $torrent->save();
                     $this->info(sprintf('(%s) Release Year Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
                 } else {

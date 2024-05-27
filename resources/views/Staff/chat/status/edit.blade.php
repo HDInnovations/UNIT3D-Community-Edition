@@ -24,7 +24,8 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
-            {{ __('common.edit') }} {{ __('staff.chat') }} {{ __('staff.status') }}: {{ $chatstatus->name }}
+            {{ __('common.edit') }} {{ __('staff.chat') }} {{ __('staff.status') }}:
+            {{ $chatstatus->name }}
         </h2>
         <div class="panel__body">
             <form
@@ -42,7 +43,7 @@
                         required
                         type="text"
                         value="{{ $chatstatus->name }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('common.name') }}
                     </label>
@@ -55,7 +56,7 @@
                         required
                         type="text"
                         value="{{ $chatstatus->color }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="color">
                         {{ __('common.color') }} (e.g. #ff0000)
                     </label>
@@ -69,7 +70,7 @@
                         required
                         type="text"
                         value="{{ $chatstatus->icon }}"
-                    >
+                    />
                     <label class="form__label form__label--floating" for="icon">
                         Font Awesome icon code (e.g. fas fa-comment-smile)
                     </label>

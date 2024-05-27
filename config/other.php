@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -121,7 +123,7 @@ return [
     | Exempt these groups from the invite restrictions
     */
     'invite-only'   => true,
-    'invite_expire' => '14',
+    'invite_expire' => 14,
 
     'invites_restriced' => false,
     'invite_groups'     => [
@@ -145,7 +147,7 @@ return [
     |--------------------------------------------------------------------------
     | Default Site Style
     |--------------------------------------------------------------------------
-    | 0 = Light Theme
+    | 0 = Classic Light Theme
     | 1 = Galactic Theme
     | 2 = Dark Blue Theme
     | 3 = Dark Green Theme
@@ -154,8 +156,12 @@ return [
     | 6 = Dark Red Theme
     | 7 = Dark Teal Theme
     | 8 = Dark Yellow Theme
+    | 9 = Cosmic Void
+    | 10 = Nord
+    | 11 = Revel
+    | 12 = Material Design v3 Light
     */
-    'default_style' => 0,
+    'default_style' => 12,
 
     /*
     |--------------------------------------------------------------------------
@@ -218,4 +224,21 @@ return [
     | The ID value of staff forum area. Should be the main / parent ID.
     */
     'staff-forum-id' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Thanks system
+    |--------------------------------------------------------------------------
+    | Allows users to press a button to thank the uploader of a torrent.
+    */
+    'thanks-system' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Enable the thanks system
+        |--------------------------------------------------------------------------
+        | True = Enabled
+        | False = Disabled
+        */
+        'is-enabled' => true,
+    ],
 ];

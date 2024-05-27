@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,6 +17,8 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class UpdateForumRequest extends FormRequest
 {
@@ -27,45 +32,69 @@ class UpdateForumRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\Rules\In|string>>
      */
     public function rules(): array
     {
         return [
-            'name' => [
+            'forum.name' => [
                 'required',
             ],
-            'position' => [
+            'forum.position' => [
                 'required',
             ],
-            'description' => [
+            'forum.slug' => [
                 'required',
             ],
-            'parent_id' => [
+            'forum.description' => [
+                'required',
+            ],
+            'forum.forum_category_id' => [
+                'required',
+                'exists:forum_categories,id',
+            ],
+            'forum.default_topic_state_filter' => [
                 'sometimes',
                 'nullable',
-                'integer',
+                Rule::in(['close', 'open', null]),
             ],
             'permissions' => [
+                'required',
                 'array',
             ],
             'permissions.*' => [
+                'required',
+                'array:group_id,read_topic,reply_topic,start_topic',
+            ],
+            'permissions.*.group_id' => [
+                'required',
                 'exists:groups,id',
             ],
-            'permissions.*.show_forum' => [
-                'boolean',
-            ],
             'permissions.*.read_topic' => [
+                'required',
                 'boolean',
             ],
             'permissions.*.reply_topic' => [
+                'required',
                 'boolean',
             ],
             'permissions.*.start_topic' => [
+                'required',
                 'boolean',
             ],
-            'forum_type' => [
-                'in:category,forum',
-            ],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $data = $this->toArray();
+
+        data_set($data, 'forum.slug', Str::slug($this->input('forum.name')));
+
+        $this->merge($data);
     }
 }

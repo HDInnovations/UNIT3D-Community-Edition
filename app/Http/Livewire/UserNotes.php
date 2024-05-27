@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,6 +18,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Note;
 use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -24,22 +29,51 @@ class UserNotes extends Component
 
     public User $user;
 
+    #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
     public string $message = '';
 
+    /**
+     * @var array<int, string>
+     */
+    public array $messages = [];
+
+    #[Url(history: true)]
     public int $perPage = 25;
 
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
+    #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    protected $rules = [
+    /**
+     * @var array<mixed>
+     */
+    protected array $rules = [
         'message' => [
             'required',
             'filled',
         ],
+        'messages' => [
+            'array',
+        ],
+        'messages.*' => [
+            'required',
+            'filled',
+        ]
     ];
 
-    final public function getNotesProperty(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function mount(): void
+    {
+        $this->messages = Note::where('user_id', '=', $this->user->id)->pluck('message', 'id')->toArray();
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
+     */
+    #[Computed]
+    final public function notes(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Note::query()
             ->with('staffuser', 'staffuser.group')
@@ -54,11 +88,14 @@ class UserNotes extends Component
         ]);
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     final public function store(): void
     {
         abort_unless(auth()->user()->group->is_modo, 403);
 
-        $this->validate();
+        $this->validateOnly('message');
 
         Note::create([
             'user_id'  => $this->user->id,
@@ -68,7 +105,26 @@ class UserNotes extends Component
 
         $this->message = '';
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been posted!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been posted!');
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    final public function update(int $id): void
+    {
+        abort_unless(auth()->user()->group->is_modo, 403);
+
+        $this->validateOnly('messages');
+        $this->validateOnly('messages.*');
+
+        Note::whereKey($id)->update([
+            'staff_id'   => auth()->id(),
+            'message'    => $this->messages[$id],
+            'updated_at' => now(),
+        ]);
+
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been updated!');
     }
 
     final public function destroy(int $id): void
@@ -77,6 +133,6 @@ class UserNotes extends Component
 
         Note::findOrFail($id)->delete();
 
-        $this->dispatchBrowserEvent('success', ['type' => 'success',  'message' => 'Note has successfully been deleted!']);
+        $this->dispatch('success', type: 'success', message: 'Note has successfully been deleted!');
     }
 }

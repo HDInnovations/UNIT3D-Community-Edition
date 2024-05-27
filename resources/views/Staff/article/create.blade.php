@@ -34,29 +34,20 @@
             >
                 @csrf
                 <p class="form__group">
-                    <input
-                        type="text"
-                        name="title"
-                        id="title"
-                        class="form__text"
-                        required
-                    >
+                    <input type="text" name="title" id="title" class="form__text" required />
                     <label class="form__label form__label--floating" for="title">
                         {{ __('common.title') }}
                     </label>
                 </p>
                 <p class="form__group">
                     <label for="image" class="form__label">{{ __('common.image') }}</label>
-                    <input
-                        class="form__file"
-                        type="file"
-                        name="image"
-                        id="image"
-                    >
+                    <input class="form__file" type="file" name="image" id="image" />
                 </p>
                 @livewire('bbcode-input', ['name' => 'content', 'label' => __('content'), 'required' => true ])
                 <p class="form__group">
-                    <button class="form__button form__button--filled">{{ __('common.submit') }}
+                    <button class="form__button form__button--filled">
+                        {{ __('common.submit') }}
+                    </button>
                 </p>
             </form>
         </div>

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Collection.
+ *
+ * @property int         $id
+ * @property string      $name
+ * @property string      $name_sort
+ * @property string|null $parts
+ * @property string|null $overview
+ * @property string|null $poster
+ * @property string|null $backdrop
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ */
 class Collection extends Model
 {
     use HasFactory;
@@ -24,13 +40,17 @@ class Collection extends Model
 
     public $timestamps = false;
 
-    protected $table = 'collection';
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Movie::class);

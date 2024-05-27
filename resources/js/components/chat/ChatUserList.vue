@@ -1,60 +1,58 @@
 <template>
-  <div class="messages">
-    <ul class="list-group">
-      <li class="sent" v-for="user in users">
-        <div class="button-holder">
-          <div class="button-center">
-            <div class="text-left">
-              <a v-if="user.id !== 1" target="_blank" :href="`/users/${user.username}`">
-                <img
-                    class="chat-user-image"
-                    :style="
-                                        user &&
-                                        user.hasOwnProperty('chat_status') &&
-                                        user.chat_status.hasOwnProperty('color')
-                                            ? `border: 3px solid ${user.chat_status.color};`
-                                            : ``
-                                    "
-                    :src="user.image ? `/files/img/${user.image}` : '/img/profile.png'"
-                    alt=""
-                />
-              </a>
-              <h4 class="list-group-item-heading">
-                                <span class="badge-user text-bold" :style="userStyles(user)">
-                                    <i :class="user.group.icon"> </i>
-
-                                    <a :style="groupColor(user)" @click="pmUser(user)">
-                                        {{ user.username }}
-                                    </a>
-                                </span>
-              </h4>
-              <div :class="user.id === 1 ? 'system text-bright' : 'text-bright'"></div>
-            </div>
-          </div>
-        </div>
+  <section class="chatroom__users">
+    <h2 class="chatroom-users__heading">Users</h2>
+    <ul class="chatroom-users__list">
+      <li
+        class="chatroom-users__list-item"
+        v-for="user in users"
+      >
+        <span
+          class="chatroom-users__user user-tag"
+          :style="user.group?.effect && `backgroundImage: ${user.group.effect }`"
+        >
+            <a
+              class="chatroom-users__user-link user-tag__link"
+              :class="user.group?.icon"
+              :href="`/users/${user.username}`"
+              :style="`color: ${user.group?.color }`"
+              :title="user.group?.name"
+            >
+              {{ user.username }}
+            </a>
+        </span>
+        <menu class="chatroom-users__buttons" v-if="$parent.auth.id !== user.id">
+          <li>
+            <button
+              class="chatroom-users__button"
+              title="Gift user bon (/gift <username> <amount> <message>)"
+              @click.prevent="$parent.forceGift(user.username)"
+            >
+              <i
+                class="fas fa-gift"
+              ></i>
+            </button>
+          </li>
+          <li>
+            <button
+              class="chatroom-users__button"
+              title="Send chat PM (/msg <username> <message>)"
+              @click.prevent="$parent.forceMessage(user.username)"
+            >
+              <i
+                class="fas fa-envelope"
+              ></i>
+            </button>
+          </li>
+        </menu>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 <script>
-import pmMethods from './mixins/pmMethods';
 
 export default {
   props: {
     users: { required: true },
-  },
-  mixins: [pmMethods],
-  methods: {
-    userStyles(user) {
-      return user && user.group && user.group.hasOwnProperty('color')
-          ? `cursor: pointer; color: ${user.group.color}; background-image: ${user.group.effect};`
-          : `cursor: pointer;`;
-    },
-    groupColor(user) {
-      return user && user.group && user.group.hasOwnProperty('color')
-          ? `color: ${user.group.color};`
-          : `cursor: pointer;`;
-    },
   },
 };
 </script>

@@ -29,144 +29,240 @@
         <div class="data-table-wrapper">
             <table class="data-table">
                 <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>{{ __('common.name') }}</th>
-                    <th>{{ __('common.position') }}</th>
-                    <th>Level</th>
-                    <th>DL Slots</th>
-                    <th>Color</th>
-                    <th>Icon</th>
-                    <th>Effect</th>
-                    <th>Internal</th>
-                    <th>Modo</th>
-                    <th>Admin</th>
-                    <th>Owner</th>
-                    <th>Trusted</th>
-                    <th>Immune</th>
-                    <th>Freeleech</th>
-                    <th>Double Upload</th>
-                    <th>Refundable</th>
-                    <th>Incognito</th>
-                    <th>Upload</th>
-                    <th>Autogroup</th>
-                </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.position') }}</th>
+                        <th>Level</th>
+                        <th>DL Slots</th>
+                        <th>Color</th>
+                        <th>Icon</th>
+                        <th>Effect</th>
+                        <th>Internal</th>
+                        <th>Editor</th>
+                        <th>Modo</th>
+                        <th>Admin</th>
+                        <th>Owner</th>
+                        <th>Trusted</th>
+                        <th>Immune</th>
+                        <th>Freeleech</th>
+                        <th>Double Upload</th>
+                        <th>Refundable</th>
+                        <th>Incognito</th>
+                        <th>Upload</th>
+                        <th>Autogroup</th>
+                        <th>Min Upload</th>
+                        <th>Min Ratio</th>
+                        <th>Min Age</th>
+                        <th>Min Avg Seedtime</th>
+                        <th>Min Seedsize</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach ($groups as $group)
-                    <tr>
-                        <td>{{ $group->id }}</td>
-                        <td>
-                            <a href="{{ route('staff.groups.edit', ['group' => $group]) }}">
-                                {{ $group->name }}
-                            </a>
-                        </td>
-                        <td>{{ $group->position }}</td>
-                        <td>{{ $group->level }}</td>
-                        <td>{{ $group->download_slots ?? 'Unlimited' }}</td>
-                        <td>
-                            <i class="{{ config('other.font-awesome') }} fa-circle" style="color: {{ $group->color }};"></i>
-                            {{ $group->color }}
-                        </td>
-                        <td>
-                            <i class="{{ $group->icon }}"></i>
-                            [{{ $group->icon }}]
-                        </td>
-                        <td>
-                            @if ($group->effect !== '' && $group->effect !== 'none')
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_internal)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_modo)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_admin)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_owner)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_trusted)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_immune)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_freeleech)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_double_upload)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_refundable)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->is_incognito)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($group->can_upload)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                            @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                            @endif
-                        </td>
-                        <td>
+                    @foreach ($groups as $group)
+                        <tr>
+                            <td>{{ $group->id }}</td>
+                            <td>
+                                <a href="{{ route('staff.groups.edit', ['group' => $group]) }}">
+                                    {{ $group->name }}
+                                </a>
+                            </td>
+                            <td>{{ $group->position }}</td>
+                            <td>{{ $group->level }}</td>
+                            <td>{{ $group->download_slots ?? 'Unlimited' }}</td>
+                            <td>
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-circle"
+                                    style="color: {{ $group->color }}"
+                                ></i>
+                                {{ $group->color }}
+                            </td>
+                            <td>
+                                <i class="{{ $group->icon }}"></i>
+                                [{{ $group->icon }}]
+                            </td>
+                            <td>
+                                @if ($group->effect !== '' && $group->effect !== 'none')
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_internal)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_editor)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_modo)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_admin)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_owner)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_trusted)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_immune)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_freeleech)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_double_upload)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_refundable)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_incognito)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->can_upload)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->autogroup)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+
                             @if ($group->autogroup)
-                                <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_uploaded ?? 0) }}
+                                </td>
+                                <td>{{ $group->min_ratio }}</td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::timeElapsed($group->min_age ?? 0) }}
+                                </td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::timeElapsed($group->min_avg_seedtime ?? 0) }}
+                                </td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize ?? 0) }}
+                                </td>
+                                <td>{{ $group->min_uploads }}</td>
                             @else
-                                <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             @endif
-                        </td>
-                    </tr>
-                @endforeach
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
-    </div>
+    </section>
 @endsection

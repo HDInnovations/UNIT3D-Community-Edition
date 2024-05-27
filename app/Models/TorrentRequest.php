@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,28 +18,45 @@ namespace App\Models;
 
 use App\Helpers\Bbcode;
 use App\Helpers\Linkify;
-use App\Notifications\NewComment;
 use App\Traits\Auditable;
 use App\Traits\TorrentFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\TorrentRequest.
+ *
+ * @property int                             $id
+ * @property string                          $name
+ * @property int                             $category_id
+ * @property int|null                        $imdb
+ * @property int|null                        $tvdb
+ * @property int|null                        $tmdb
+ * @property int|null                        $mal
+ * @property int                             $igdb
+ * @property string                          $description
+ * @property int                             $user_id
+ * @property string                          $bounty
+ * @property int                             $votes
+ * @property int|null                        $claimed
+ * @property int                             $anon
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null                        $filled_by
+ * @property int|null                        $torrent_id
+ * @property \Illuminate\Support\Carbon|null $filled_when
+ * @property int                             $filled_anon
+ * @property int|null                        $approved_by
+ * @property \Illuminate\Support\Carbon|null $approved_when
+ * @property int                             $type_id
+ * @property int|null                        $resolution_id
+ */
 class TorrentRequest extends Model
 {
     use Auditable;
     use HasFactory;
     use TorrentFilter;
-
-    /**
-     * The Attributes That Should Be Mutated To Dates.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'filled_when'   => 'datetime',
-        'approved_when' => 'datetime',
-    ];
 
     /**
      * The Database Table Used By The Model.
@@ -53,7 +73,25 @@ class TorrentRequest extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'filled_when'   => 'datetime',
+            'approved_when' => 'datetime',
+            'tmdb'          => 'integer',
+            'igdb'          => 'integer',
+            'bounty'        => 'decimal:2',
+        ];
+    }
+
+    /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -65,6 +103,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function approver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -76,6 +116,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function filler(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -87,6 +129,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A Category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, self>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -95,6 +139,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A Type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, self>
      */
     public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -103,6 +149,8 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A Resolution.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, self>
      */
     public function resolution(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -111,12 +159,17 @@ class TorrentRequest extends Model
 
     /**
      * Belongs To A Torrent.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
@@ -124,6 +177,8 @@ class TorrentRequest extends Model
 
     /**
      * Has Many BON Bounties.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty>
      */
     public function bounties(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -132,6 +187,8 @@ class TorrentRequest extends Model
 
     /**
      * Has One Torrent Request Claim.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<TorrentRequestClaim>
      */
     public function claim(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -143,7 +200,7 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute(?string $value): void
     {
-        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['description'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -154,21 +211,5 @@ class TorrentRequest extends Model
         $bbcode = new Bbcode();
 
         return (new Linkify())->linky($bbcode->parse($this->description));
-    }
-
-    /**
-     * Notify Requester When A New Action Is Taken.
-     */
-    public function notifyRequester($type, $payload): bool
-    {
-        $user = User::with('notification')->findOrFail($this->user_id);
-
-        if ($user->acceptsNotification(auth()->user(), $user, 'request', 'show_request_comment')) {
-            $user->notify(new NewComment('request', $payload));
-
-            return true;
-        }
-
-        return true;
     }
 }

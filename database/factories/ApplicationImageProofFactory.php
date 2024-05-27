@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,6 +20,7 @@ use App\Models\Application;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ApplicationImageProof;
 
+/** @extends Factory<ApplicationImageProof> */
 class ApplicationImageProofFactory extends Factory
 {
     /**
@@ -31,7 +35,7 @@ class ApplicationImageProofFactory extends Factory
     {
         return [
             'application_id' => Application::factory(),
-            'image'          => $this->faker->image(),
+            'image'          => $this->faker->imageUrl(),
         ];
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -11,7 +14,7 @@
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Enums\UserGroups;
+use App\Enums\UserGroup;
 use App\Http\Controllers\Staff\ChatBotController;
 use App\Http\Requests\Staff\UpdateChatBotRequest;
 use App\Models\Bot;
@@ -44,7 +47,7 @@ test('destroy aborts with a 403', function (): void {
     $this->seed(GroupsTableSeeder::class);
 
     $user = User::factory()->create([
-        'group_id' => UserGroups::USER,
+        'group_id' => UserGroup::USER->value,
     ]);
 
     $bot = Bot::factory()->create();
@@ -115,11 +118,8 @@ test('update returns an ok response', function (): void {
         'help'         => $bot->help,
         'active'       => true,
         'is_protected' => $bot->is_protected,
-        'is_triviabot' => $bot->is_triviabot,
         'is_nerdbot'   => $bot->is_nerdbot,
         'is_systembot' => $bot->is_systembot,
-        'is_casinobot' => $bot->is_casinobot,
-        'is_betbot'    => $bot->is_betbot,
         'uploaded'     => $bot->uploaded,
         'downloaded'   => $bot->downloaded,
         'fl_tokens'    => $bot->fl_tokens,

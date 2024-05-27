@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -62,7 +65,7 @@ class RssController extends Controller
         $rss->name = $request->name;
         $rss->user_id = $request->user()->id;
         $rss->json_torrent = array_merge($rss->expected_fields, $request->validated());
-        $rss->is_private = 0;
+        $rss->is_private = false;
         $rss->position = $request->position;
         $rss->save();
 

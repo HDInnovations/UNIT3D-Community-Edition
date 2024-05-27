@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -50,6 +53,6 @@ class SendDeleteUserMail implements ShouldQueue
             $this->delay(min(30 * $this->attempts(), 300));
         }
 
-        Mail::to($this->user)->send(new DeleteUser($this->user));
+        Mail::to($this->user)->send(new DeleteUser($this->user->email));
     }
 }

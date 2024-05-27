@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -665,7 +667,6 @@ return [
             ],
 
             'allow' => [
-                'fonts.googleapis.com',
                 'gitcdn.xyz',
                 'github.io',
                 "*.github.io",

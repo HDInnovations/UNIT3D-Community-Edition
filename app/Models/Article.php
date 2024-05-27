@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,6 +23,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use voku\helper\AntiXSS;
 
+/**
+ * App\Models\Article.
+ *
+ * @property int                             $id
+ * @property string                          $title
+ * @property string|null                     $image
+ * @property string                          $content
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int                             $user_id
+ */
 class Article extends Model
 {
     use Auditable;
@@ -34,6 +48,8 @@ class Article extends Model
 
     /**
      * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -43,37 +59,12 @@ class Article extends Model
         ]);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');
-    }
-
-    /**
-     * Article Trimming.
-     */
-    public function getBrief(int $length = 20, bool $ellipses = true, bool $stripHtml = false): string
-    {
-        $input = $this->content;
-        //strip tags, if desired
-        if ($stripHtml) {
-            $input = strip_tags($input);
-        }
-
-        //no need to trim, already shorter than trim length
-        if (\strlen((string) $input) <= $length) {
-            return $input;
-        }
-
-        //find last space within length
-        $lastSpace = strrpos(substr($input, 0, $length), ' ');
-        $trimmedText = substr($input, 0, $lastSpace);
-
-        //add ellipses (...)
-        if ($ellipses) {
-            $trimmedText .= '...';
-        }
-
-        return $trimmedText;
     }
 
     /**
@@ -81,7 +72,7 @@ class Article extends Model
      */
     public function setContentAttribute(?string $value): void
     {
-        $this->attributes['content'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['content'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

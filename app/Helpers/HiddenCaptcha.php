@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,6 +19,7 @@ namespace App\Helpers;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
+use Exception;
 
 class HiddenCaptcha
 {
@@ -51,12 +55,12 @@ class HiddenCaptcha
         $formData = $validator->getData();
 
         // Check post values
-        if (! isset($formData['_captcha']) || ! ($token = self::getToken($formData['_captcha']))) {
+        if (!isset($formData['_captcha']) || !($token = self::getToken($formData['_captcha'])) || !\is_array($token)) {
             return false;
         }
 
         // Hidden "must be empty" field check
-        if (! \array_key_exists($token['must_be_empty'], $formData) || ! empty($formData[$token['must_be_empty']])) {
+        if (!\array_key_exists($token['must_be_empty'], $formData) || !empty($formData[$token['must_be_empty']])) {
             return false;
         }
 
@@ -75,25 +79,27 @@ class HiddenCaptcha
         // Check if the random field value is similar to the token value
         $randomField = $formData[$token['random_field_name']];
 
-        return ctype_digit($randomField) && $token['timestamp'] == $randomField;
+        return ctype_digit((string) $randomField) && $token['timestamp'] == $randomField;
     }
 
     /**
      * Get and check the token values.
+     *
+     * @return bool|array<string, mixed>
      */
-    private static function getToken(string $captcha): string|bool|array
+    private static function getToken(string $captcha): bool|array
     {
         // Get the token values
         try {
             $token = Crypt::decrypt($captcha);
-        } catch (\Exception) {
+        } catch (Exception) {
             return false;
         }
 
         $token = @unserialize($token);
 
         // Token is null or unserializable
-        if (! $token || ! \is_array($token) || empty($token)) {
+        if (!$token || !\is_array($token)) {
             return false;
         }
 

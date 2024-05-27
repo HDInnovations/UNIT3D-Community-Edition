@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,30 +35,35 @@ class UpdateTorrentRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
+     *
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Unique|string>|string>
      */
     public function rules(Request $request): array
     {
         $category = Category::findOrFail($request->integer('category_id'));
 
+        /** @var string $torrentId */
+        $torrentId = $request->route('id');
+
         return [
             'name' => [
                 'required',
-                Rule::unique('torrents')->whereNot('id', $request->route('id')),
+                Rule::unique('torrents')->whereNot('id', $torrentId),
                 'max:255',
             ],
             'description' => [
                 'required',
-                'max:4294967296'
+                'max:2097152'
             ],
             'mediainfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967296',
+                'max:2097152',
             ],
             'bdinfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967296',
+                'max:2097152',
             ],
             'category_id' => [
                 'required',
@@ -67,7 +75,7 @@ class UpdateTorrentRequest extends FormRequest
             ],
             'resolution_id' => [
                 Rule::when($category->movie_meta || $category->tv_meta, 'required'),
-                Rule::when(! $category->movie_meta && ! $category->tv_meta, 'nullable'),
+                Rule::when(!$category->movie_meta && !$category->tv_meta, 'nullable'),
                 'exists:resolutions,id',
             ],
             'region_id' => [
@@ -80,38 +88,45 @@ class UpdateTorrentRequest extends FormRequest
             ],
             'imdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'tvdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'tmdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'mal' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'igdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'season_number' => [
                 Rule::when($category->tv_meta, 'required'),
-                Rule::when(! $category->tv_meta, 'nullable'),
-                'numeric',
+                Rule::when(!$category->tv_meta, 'nullable'),
+                'decimal:0',
+                'min:0',
             ],
             'episode_number' => [
                 Rule::when($category->tv_meta, 'required'),
-                Rule::when(! $category->tv_meta, 'nullable'),
-                'numeric',
+                Rule::when(!$category->tv_meta, 'nullable'),
+                'decimal:0',
+                'min:0',
             ],
             'anon' => [
                 'required',
                 'boolean',
-                Rule::when(Torrent::withoutGlobalScope(ApprovedScope::class)->find($request->route('id'))->user_id !== $request->user()->id && ! $request->user()->group->is_modo, 'exclude'),
+                Rule::when(Torrent::withoutGlobalScope(ApprovedScope::class)->find($request->route('id'))->user_id !== $request->user()->id && !$request->user()->group->is_modo, 'exclude'),
             ],
             'stream' => [
                 'required',
@@ -128,17 +143,17 @@ class UpdateTorrentRequest extends FormRequest
             'internal' => [
                 'sometimes',
                 'boolean',
-                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
             ],
             'free' => [
                 'sometimes',
                 'between:0,100',
-                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
             ],
             'refundable' => [
                 'sometimes',
                 'boolean',
-                Rule::when(! $request->user()->group->is_modo && ! $request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
             ],
         ];
     }

@@ -1,5 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
 namespace Tests\Feature\Http\Controllers\Staff;
 
 use Illuminate\Database\Eloquent\Collection;
@@ -93,6 +107,7 @@ final class GroupControllerTest extends TestCase
             'is_owner'         => $group->is_owner,
             'is_admin'         => $group->is_admin,
             'is_modo'          => $group->is_modo,
+            'is_editor'        => $group->is_editor,
             'is_trusted'       => $group->is_trusted,
             'is_immune'        => $group->is_immune,
             'is_freeleech'     => $group->is_freeleech,
@@ -126,6 +141,7 @@ final class GroupControllerTest extends TestCase
             'is_owner'         => $group->is_owner,
             'is_admin'         => $group->is_admin,
             'is_modo'          => $group->is_modo,
+            'is_editor'        => $group->is_editor,
             'is_trusted'       => $group->is_trusted,
             'is_immune'        => $group->is_immune,
             'is_freeleech'     => $group->is_freeleech,
@@ -134,6 +150,7 @@ final class GroupControllerTest extends TestCase
             'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,
+            'system_required'  => $group->system_required,
         ]);
 
         $response->assertRedirect(route('staff.groups.index'));
