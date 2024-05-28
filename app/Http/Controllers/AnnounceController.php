@@ -65,6 +65,12 @@ final class AnnounceController extends Controller
         6699,
     ];
 
+    // Port Whitelist
+    private const WHITE_PORTS = [
+        // Port used by SOCKS5 connections
+        1080
+    ];
+
     private const HEADERS = [
         'Content-Type'  => 'text/plain; charset=utf-8',
         'Cache-Control' => 'private, no-cache, no-store, must-revalidate, max-age=0',
@@ -279,9 +285,11 @@ final class AnnounceController extends Controller
             !ctype_digit($queries['port'])
             // Block system-reserved ports since 99.9% of the time they're fake and thus not connectable
             // Some clients will send port of 0 on 'stopped' events. Let them through as they won't receive peers anyway.
-            || ($queries['port'] < 1024 && $queries['event'] !== 'stopped')
-            || $queries['port'] > 0xFFFF
-            || \in_array($queries['port'], self::BLACK_PORTS, true)
+            // Allow port 1080 for SOCKS5 connections.
+            || (!\in_array($queries['port'], self::WHITE_PORTS, true) 
+            && ($queries['port'] < 1024 && $queries['event'] !== 'stopped')
+                || $queries['port'] > 0xFFFF
+                || \in_array($queries['port'], self::BLACK_PORTS, true))
         ) {
             throw new TrackerException(135, [':port' => $queries['port']]);
         }
