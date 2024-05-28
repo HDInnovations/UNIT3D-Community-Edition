@@ -115,7 +115,7 @@ class StoreTorrentRequest extends FormRequest
             'bdinfo' => [
                 'nullable',
                 'sometimes',
-                'max:4294967295',
+                'max:2097152',
             ],
             'category_id' => [
                 'required',
