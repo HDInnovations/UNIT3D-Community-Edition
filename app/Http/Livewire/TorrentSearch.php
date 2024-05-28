@@ -17,10 +17,13 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use App\Models\History;
 use App\Models\Movie;
+use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
@@ -38,6 +41,7 @@ class TorrentSearch extends Component
     use TorrentMeta;
     use WithPagination;
 
+    // Search Filters
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
     #[Url(history: true)]
@@ -217,6 +221,40 @@ class TorrentSearch extends Component
     #[Url(history: true)]
     public string $view = 'list';
 
+    // Bulk Actions
+
+    /**
+     * @var array<int, bool>
+     */
+    public array $checked = [];
+
+    public bool $selectPage = false;
+
+    public string $reason;
+
+    public int $category;
+
+    public int $freeleech;
+
+    public bool $doubleupload;
+
+    protected $listeners = [
+        'destroy'            => 'delete',
+        'updateFreeleech'    => 'freeleech',
+        'updateDoubleUpload' => 'doubleupload',
+        'updateCategory'     => 'category',
+    ];
+
+    final public function updatedSelectPage(bool $value): void
+    {
+        $this->checked = $value ? $this->torrents->pluck('id')->toArray() : [];
+    }
+
+    final public function updatedChecked(): void
+    {
+        $this->selectPage = false;
+    }
+
     final public function updating(string $field, mixed &$value): void
     {
         $this->castLivewireProperties($field, $value);
@@ -316,7 +354,7 @@ class TorrentSearch extends Component
             'leechers',
             'times_completed',
             'created_at',
-            'bumped_at'
+            'bumped_at',
         ])) {
             $this->reset('sortField');
         }
@@ -492,7 +530,7 @@ class TorrentSearch extends Component
                                         ->sortBy([
                                             ['resolution.position', 'asc'],
                                             ['internal', 'desc'],
-                                            ['size', 'desc']
+                                            ['size', 'desc'],
                                         ])
                                         ->values()
                                 );
@@ -520,7 +558,7 @@ class TorrentSearch extends Component
                                                 ->sortBy([
                                                     ['resolution.position', 'asc'],
                                                     ['internal', 'desc'],
-                                                    ['size', 'desc']
+                                                    ['size', 'desc'],
                                                 ])
                                                 ->values()
                                         ),
@@ -537,7 +575,7 @@ class TorrentSearch extends Component
                                                         ->sortBy([
                                                             ['resolution.position', 'asc'],
                                                             ['internal', 'desc'],
-                                                            ['size', 'desc']
+                                                            ['size', 'desc'],
                                                         ])
                                                         ->values()
                                                 )
@@ -558,7 +596,7 @@ class TorrentSearch extends Component
                                                                 ->sortBy([
                                                                     ['resolution.position', 'asc'],
                                                                     ['internal', 'desc'],
-                                                                    ['size', 'desc']
+                                                                    ['size', 'desc'],
                                                                 ])
                                                                 ->values()
                                                         ),
@@ -575,7 +613,7 @@ class TorrentSearch extends Component
                                                                         ->sortBy([
                                                                             ['resolution.position', 'asc'],
                                                                             ['internal', 'desc'],
-                                                                            ['size', 'desc']
+                                                                            ['size', 'desc'],
                                                                         ])
                                                                         ->values()
                                                                 )
@@ -670,6 +708,186 @@ class TorrentSearch extends Component
         });
 
         return $groups;
+    }
+
+    final public function freeleech(): void
+    {
+        if (!auth()->user()->group->is_owner) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
+        $torrents = Torrent::whereKey($this->checked)->get();
+
+        $torrents->each(function ($torrent): void {
+            $torrent->update([
+                'free' => $this->freeleech,
+            ]);
+
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+        });
+
+        $this->checked = [];
+        $this->selectPage = false;
+
+        $this->dispatch(
+            'swal:modal',
+            type: 'success',
+            message: 'Success!',
+            text: 'The torrents you selected now have '.$this->freeleech.'% Freeleech.',
+        );
+    }
+
+    final public function doubleupload(): void
+    {
+        if (!auth()->user()->group->is_owner) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
+        $torrents = Torrent::whereKey($this->checked)->get();
+
+        $torrents->each(fn ($torrent) => $torrent->update([
+            'doubleup' => $this->doubleupload,
+        ]));
+
+        $this->checked = [];
+        $this->selectPage = false;
+
+        $this->dispatch(
+            'swal:modal',
+            type: 'success',
+            message: 'Success!',
+            text: $this->doubleupload ? 'The torrents you selected are now Double Upload.' : 'The torrents you selected are no longer Double Upload.',
+        );
+    }
+
+    final public function category(): void
+    {
+        if (!auth()->user()->group->is_owner) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
+        $torrents = Torrent::whereKey($this->checked)->get();
+
+        $torrents->each(fn ($torrent) => $torrent->update([
+            'category_id' => $this->category,
+        ]));
+
+        $this->checked = [];
+        $this->selectPage = false;
+
+        $category = Category::find($this->category);
+
+        $this->dispatch(
+            'swal:modal',
+            type: 'success',
+            message: 'Success!',
+            text: 'The torrents you selected are now in the '.$category->name.' category.',
+        );
+    }
+
+    final public function delete(): void
+    {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
+        $torrents = Torrent::whereKey($this->checked)->get();
+        $names = [];
+        $users = [];
+
+        foreach ($torrents as $torrent) {
+            $names[] = $torrent->name;
+
+            foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
+                if (!\in_array($pm->user_id, $users)) {
+                    $users[] = $pm->user_id;
+                }
+            }
+
+            // Reset Requests
+            $torrent->requests()->update([
+                'torrent_id' => null,
+            ]);
+
+            //Remove Torrent related info
+            cache()->forget(sprintf('torrent:%s', $torrent->info_hash));
+
+            $torrent->comments()->delete();
+            $torrent->peers()->delete();
+            $torrent->history()->delete();
+            $torrent->hitrun()->delete();
+            $torrent->files()->delete();
+            $torrent->playlists()->detach();
+            $torrent->subtitles()->delete();
+            $torrent->resurrections()->delete();
+            $torrent->featured()->delete();
+
+            $freeleechTokens = $torrent->freeleechTokens();
+
+            foreach ($freeleechTokens->get() as $freeleechToken) {
+                cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
+            }
+
+            $freeleechTokens->delete();
+
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
+            Unit3dAnnounce::removeTorrent($torrent);
+
+            $torrent->delete();
+        }
+
+        foreach ($users as $user) {
+            $pmuser = new PrivateMessage();
+            $pmuser->sender_id = User::SYSTEM_USER_ID;
+            $pmuser->receiver_id = $user;
+            $pmuser->subject = 'Bulk Torrents Deleted! ';
+            $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
+            [list]
+                [*]'.implode(' [*]', $names).'
+            [/list]
+            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                                    [b]Removal Reason: [/b] '.$this->reason.'
+                                    [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
+            $pmuser->save();
+        }
+
+        $this->checked = [];
+        $this->selectPage = false;
+
+        $this->dispatch(
+            'swal:modal',
+            type: 'success',
+            message: 'Torrents Deleted Successfully!',
+            text: 'A personal message has been sent to all users that have downloaded these torrents.',
+        );
+    }
+
+    final public function alertConfirm(): void
+    {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
+        $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
+        $names = $torrents;
+        $this->dispatch(
+            'swal:confirm',
+            type: 'warning',
+            message: 'Are you sure?',
+            body: 'You are about to apply changes to following torrents!'.nl2br("\n")
+            .nl2br(implode("\n", $names)),
+        );
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
