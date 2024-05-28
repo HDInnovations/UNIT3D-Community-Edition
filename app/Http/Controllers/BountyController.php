@@ -49,12 +49,11 @@ class BountyController extends Controller
 
         $bounty = $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
 
-        $torrentRequest->incrementEach([
-            'votes'  => 1,
-            'bounty' => $request->integer('seedbonus'),
-        ], [
-            'created_at' => now(),
-        ]);
+        $torrentRequest->increment('bounty', $request->integer('seedbonus'));
+
+        $torrentRequest->votes++;
+        $torrentRequest->created_at = now();
+        $torrentRequest->save();
 
         if ($request->boolean('anon') == 0) {
             $this->chatRepository->systemMessage(
