@@ -17,50 +17,21 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Language;
+use App\Http\Requests\UpdateGeneralSettingRequest;
 use App\Models\User;
 use App\Models\UserSetting;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class GeneralSettingController extends Controller
 {
     /**
      * Update user general settings.
      */
-    public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UpdateGeneralSettingRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->is($user), 403);
 
-        $settings = $user->settings;
-
-        if ($settings === null) {
-            $settings = new UserSetting();
-            $settings->user_id = $user->id;
-        }
-
-        $request->validate([
-            'censor'         => 'required|boolean',
-            'chat_hidden'    => 'required|boolean',
-            'locale'         => ['required', Rule::in(array_keys(Language::allowed()))],
-            'style'          => 'required|numeric',
-            'custom_css'     => 'nullable|url',
-            'standalone_css' => 'nullable|url',
-            'torrent_layout' => ['required', Rule::in([0, 1, 2, 3])],
-            'show_poster'    => 'required|boolean',
-        ]);
-
-        // General Settings
-        $settings->censor = $request->censor;
-        $settings->chat_hidden = $request->chat_hidden;
-        $settings->locale = $request->input('locale');
-        $settings->style = $request->style;
-        $settings->custom_css = $request->custom_css;
-        $settings->standalone_css = $request->standalone_css;
-        $settings->torrent_layout = $request->torrent_layout;
-        $settings->show_poster = $request->show_poster;
-
-        $settings->save();
+        UserSetting::upsert($request->validated() + ['user_id' => $user->id], ['user_id']);
 
         cache()->forget('user-settings:by-user-id:'.$user->id);
 
