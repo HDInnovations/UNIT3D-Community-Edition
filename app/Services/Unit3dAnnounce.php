@@ -253,14 +253,14 @@ class Unit3dAnnounce
     public static function addBlacklistedAgent(BlacklistClient $blacklistedAgent): bool
     {
         return self::put('blacklisted-agents', [
-            'name' => $blacklistedAgent->name,
+            'peer_id_prefix' => $blacklistedAgent->name,
         ]);
     }
 
     public static function removeBlacklistedAgent(BlacklistClient $blacklistedClient): bool
     {
         return self::delete('blacklisted-agents', [
-            'name' => $blacklistedClient->name,
+            'peer_id_prefix' => $blacklistedClient->name,
         ]);
     }
 
