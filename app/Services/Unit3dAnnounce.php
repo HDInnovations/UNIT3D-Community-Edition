@@ -23,6 +23,9 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\ViewErrorBag;
 use Throwable;
 
 class Unit3dAnnounce
@@ -377,6 +380,8 @@ class Unit3dAnnounce
                     'path'   => $path,
                     'data'   => $data,
                 ]);
+
+                Session::flash('errors', (new ViewErrorBag())->put('test', (new MessageBag(['External tracker returned error']))));
             }
 
             return $isSuccess;
@@ -421,6 +426,8 @@ class Unit3dAnnounce
                     'path'   => $path,
                     'data'   => $data,
                 ]);
+
+                Session::flash('errors', (new ViewErrorBag())->put('test', (new MessageBag(['External tracker returned error']))));
             }
 
             return $isSuccess;
