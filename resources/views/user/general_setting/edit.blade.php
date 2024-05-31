@@ -40,7 +40,7 @@
                             <option
                                 class="form__option"
                                 value="{{ $code }}"
-                                @selected($user->settings?->locale === $code)
+                                @selected(($user->settings === null && $code === config('app.locale')) || $user->settings?->locale === $code)
                             >
                                 {{ $name }}
                             </option>
@@ -55,7 +55,7 @@
                             <option
                                 class="form__option"
                                 value="0"
-                                @selected($user->settings?->style === 0)
+                                @selected($user->settings === null || $user->settings?->style === 0)
                             >
                                 Light
                             </option>
@@ -228,7 +228,7 @@
                             <option
                                 class="form__option"
                                 value="0"
-                                @selected($user->settings?->torrent_layout === 0)
+                                @selected($user->settings === null || $user->settings?->torrent_layout === 0)
                             >
                                 Torrent list
                             </option>
