@@ -20,7 +20,6 @@ use App\Models\Category;
 use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\Tv;
-use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
@@ -675,7 +674,7 @@ class TorrentSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.torrent-search', [
-            'user'              => User::with(['group'])->findOrFail(auth()->id()),
+            'user'              => auth()->user()->load('group'),
             'personalFreeleech' => $this->personalFreeleech,
             'torrents'          => match ($this->view) {
                 'group'  => $this->groupedTorrents,
