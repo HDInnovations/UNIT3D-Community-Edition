@@ -1038,21 +1038,13 @@
                 </table>
                 <div class="panel__body torrent-search--poster__results">
                     @forelse ($torrents as $group)
-                        @switch($group->meta)
-                            @case('movie')
-                                <x-movie.poster
-                                    :categoryId="$group->category_id"
-                                    :movie="$group->movie"
-                                    :tmdb="$group->tmdb"
-                                />
+                        @switch(true)
+                            @case((bool) $group->movie_id)
+                                <x-movie.poster :media="$group" />
 
                                 @break
-                            @case('tv')
-                                <x-tv.poster
-                                    :categoryId="$group->category_id"
-                                    :tv="$group->tv"
-                                    :tmdb="$group->tmdb"
-                                />
+                            @case((bool) $group->tv_id)
+                                <x-tv.poster :media="$group" />
 
                                 @break
                         @endswitch

@@ -353,12 +353,12 @@ class TorrentController extends BaseController
 
         $tmdbScraper = new TMDBScraper();
 
-        if ($torrent->category->tv_meta && $torrent->tmdb) {
-            $tmdbScraper->tv($torrent->tmdb);
+        if ($torrent->category->tv_meta && $torrent->tv_id) {
+            $tmdbScraper->tv($torrent->tv_id);
         }
 
-        if ($torrent->category->movie_meta && $torrent->tmdb) {
-            $tmdbScraper->movie($torrent->tmdb);
+        if ($torrent->category->movie_meta && $torrent->movie_id) {
+            $tmdbScraper->movie($torrent->movie_id);
         }
 
         // Torrent Keywords System
@@ -465,14 +465,14 @@ class TorrentController extends BaseController
 
         $torrent->meta = null;
 
-        if ($torrent->category->tv_meta && $torrent->tmdb) {
+        if ($torrent->category->tv_meta && $torrent->tv_id) {
             $torrent->meta = Tv::with(['genres'])
-                ->find($torrent->tmdb);
+                ->find($torrent->tv_id);
         }
 
-        if ($torrent->category->movie_meta && $torrent->tmdb) {
+        if ($torrent->category->movie_meta && $torrent->movie_id) {
             $torrent->meta = Movie::with(['genres'])
-                ->find($torrent->tmdb);
+                ->find($torrent->movie_id);
         }
 
         if ($torrent->category->game_meta && $torrent->igdb) {

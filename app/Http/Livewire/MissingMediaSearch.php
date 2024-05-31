@@ -55,7 +55,7 @@ class MissingMediaSearch extends Component
     #[Computed]
     final public function medias(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])
+        return Movie::with(['torrents:id,resolution_id,type_id' => ['resolution:id,position,name']])
             ->when($this->name, fn ($query) => $query->where('title', 'LIKE', '%'.$this->name.'%'))
             ->when($this->year, fn ($query) => $query->where('release_date', 'LIKE', '%'.$this->year.'%'))
             ->withCount(['requests' => fn ($query) => $query->whereNull('torrent_id')->whereNull('claimed')])

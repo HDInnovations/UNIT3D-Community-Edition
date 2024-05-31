@@ -37,7 +37,7 @@ class SimilarTorrentController extends Controller
 
         switch (true) {
             case $category->movie_meta:
-                $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tmdb', '=', $tmdbId)->exists();
+                $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('movie_id', '=', $tmdbId)->exists();
 
                 abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
 
@@ -51,7 +51,7 @@ class SimilarTorrentController extends Controller
 
                 break;
             case $category->tv_meta:
-                $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tmdb', '=', $tmdbId)->exists();
+                $hasTorrents = Torrent::query()->where('category_id', '=', $categoryId)->where('tv_id', '=', $tmdbId)->exists();
 
                 abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
 

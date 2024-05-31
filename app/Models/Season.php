@@ -47,9 +47,7 @@ class Season extends Model
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereHas('category', function ($q): void {
-            $q->where('tv_meta', '=', true);
-        });
+        return $this->hasMany(Torrent::class, 'tv_id', 'tv_id');
     }
 
     /**

@@ -164,16 +164,8 @@ trait TorrentFilter
         $query
             ->where(
                 fn ($query) => $query
-                    ->where(
-                        fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
-                            ->whereIn('tmdb', DB::table('genre_movie')->select('movie_id')->whereIn('genre_id', $genres))
-                    )
-                    ->orWhere(
-                        fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
-                            ->whereIn('tmdb', DB::table('genre_tv')->select('tv_id')->whereIn('genre_id', $genres))
-                    )
+                    ->whereIn('movie_id', DB::table('genre_movie')->select('movie_id')->whereIn('genre_id', $genres))
+                    ->orWhereIn('tv_id', DB::table('genre_tv')->select('tv_id')->whereIn('genre_id', $genres))
             );
     }
 
@@ -198,9 +190,9 @@ trait TorrentFilter
     /**
      * @param Builder<Torrent|TorrentRequest> $query
      */
-    public function scopeOfTmdb(Builder $query, int $tvdbId): void
+    public function scopeOfTmdb(Builder $query, int $tmdbId): Builder
     {
-        $query->where('tmdb', '=', $tvdbId);
+        return $query->where(fn (Builder $query) => $query->where('movie_id', '=', $tmdbId)->orWhere('tv_id', '=', $tmdbId));
     }
 
     /**

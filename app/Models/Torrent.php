@@ -51,7 +51,8 @@ use voku\helper\AntiXSS;
  * @property int                                                                        $user_id
  * @property int                                                                        $imdb
  * @property int                                                                        $tvdb
- * @property int                                                                        $tmdb
+ * @property int                                                                        $tv_id
+ * @property int                                                                        $movie_id
  * @property int                                                                        $mal
  * @property int                                                                        $igdb
  * @property int|null                                                                   $season_number
@@ -100,7 +101,8 @@ class Torrent extends Model
     protected function casts(): array
     {
         return [
-            'tmdb'         => 'integer',
+            'tv_id'        => 'integer',
+            'movie_id'     => 'integer',
             'igdb'         => 'integer',
             'bumped_at'    => 'datetime',
             'fl_until'     => 'datetime',
@@ -202,7 +204,7 @@ class Torrent extends Model
      */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Movie::class, 'tmdb');
+        return $this->belongsTo(Movie::class);
     }
 
     /**
@@ -212,7 +214,7 @@ class Torrent extends Model
      */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Tv::class, 'tmdb');
+        return $this->belongsTo(Tv::class);
     }
 
     /**
