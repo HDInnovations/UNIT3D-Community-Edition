@@ -85,6 +85,13 @@ class UserPrivacy extends Model
     protected $table = 'user_privacy';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -114,41 +121,6 @@ class UserPrivacy extends Model
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
-    }
-
-    /**
-     * Get the Expected groups for form validation.
-     *
-     * @return array{}
-     */
-    public function getExpectedGroupsAttribute(): array
-    {
-        return [];
-    }
-
-    /**
-     * Get the Expected fields for form validation.
-     *
-     * @return array{}
-     */
-    public function getExpectedFieldsAttribute(): array
-    {
-        return [];
-    }
-
-    /**
-     * Set the base vars on object creation without touching boot.
-     */
-    public function setDefaultValues(string $type = 'default'): void
-    {
-        foreach ($this->casts as $k => $v) {
-            if ($v == 'array') {
-                $this->$k = $this->expected_groups;
-            }
-        }
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
