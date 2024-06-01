@@ -46,6 +46,10 @@ class UpdateGeneralSettingRequest extends FormRequest
                 'required',
                 Rule::in([0, 1, 2, 3]),
             ],
+            'torrent_sort_field' => [
+                'required',
+                Rule::in(['created_at', 'bumped_at']),
+            ],
             'show_poster' => [
                 'required',
                 'boolean',

@@ -259,6 +259,32 @@
                         </label>
                     </p>
                     <p class="form__group">
+                        <select
+                            id="torrent_sort_field"
+                            class="form__select"
+                            name="torrent_sort_field"
+                            required
+                        >
+                            <option
+                                class="form__option"
+                                value="bumped_at"
+                                @selected($user->settings === null || $user->settings?->torrent_sort_field === 'bumped_at')
+                            >
+                                Most recently bumped
+                            </option>
+                            <option
+                                class="form__option"
+                                value="created_at"
+                                @selected($user->settings?->torrent_sort_field === 'created_at')
+                            >
+                                Most recently uploaded
+                            </option>
+                        </select>
+                        <label class="form__label form__label--floating" for="torrent_sort_field">
+                            Default torrent sort field
+                        </label>
+                    </p>
+                    <p class="form__group">
                         <label class="form__label">
                             <input type="hidden" name="show_poster" value="0" />
                             <input
