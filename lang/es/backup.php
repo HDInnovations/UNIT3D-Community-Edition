@@ -44,7 +44,7 @@ return [
     'delete_cancel_message'          => 'El archivo de copia de seguridad NO ha sido eliminado.',
     'create_confirmation_title'      => 'Proceso de copia de seguridad iniciado',
     'create_confirmation_message'    => 'Por favor, espera unos minutos para que se complete, luego actualiza la página.',
-    'create_error_title'             => 'Error de copia de seguridad',
+    'create_error_title'             => 'Error al realizar la copia de seguridad',
     'create_error_message'           => 'El archivo de copia de seguridad NO pudo ser creado.',
     'create_warning_title'           => 'Error desconocido',
     'create_warning_message'         => 'Es posible que tu copia de seguridad NO haya sido creada. Por favor, revisa los archivos de registro para más detalles.',
