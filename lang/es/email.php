@@ -29,7 +29,7 @@ return [
     'fail-login-greeting' => '¡Falló el Inicio de Sesión!',
     'fail-login-line1'    => 'Se detectó un intento fallido de inicio de sesión en tu cuenta.',
     'fail-login-line2'    => 'Esta solicitud se originó desde :ip ( :host ) a las :time',
-    'fail-login-subject'  => 'Notificación de Inicio de Sesión Fallido',
+    'fail-login-subject'  => 'Notificación de Inicio de Sesión fallido',
     'footer-link'         => 'Si tienes problemas para hacer clic en el botón :actionText, copia y pega la URL a continuación en tu navegador web:',
     'invite-header'       => 'Invitación a',
     'invite-invited'      => 'Has sido invitado a',
@@ -55,5 +55,5 @@ return [
     'username-reminder'   => 'Recientemente nos enviaste una solicitud para recordar tu nombre de usuario en nuestra aplicación. Tu nombre de usuario es',
     'username-sent'       => '¡Tu nombre de usuario ha sido enviado a tu dirección de correo electrónico!',
     'disabled-header'     => 'Su cuenta ha sido deshabilitada',
-    'pruned-header'       => 'Su cuenta ha sido eliminada',
+    'pruned-header'       => 'Su cuenta ha sido eliminada por inactividad',
 ];
