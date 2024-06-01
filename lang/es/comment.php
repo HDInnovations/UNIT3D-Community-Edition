@@ -14,8 +14,10 @@ declare(strict_types=1);
  */
 
 return [
-    'articles'      => 'Artículos',
-    'meta-articles' => 'Artículos y noticias sobre el rastreador y la comunidad',
-    'published-at'  => 'Publicado el ',
-    'read-more'     => 'Leer más',
+    'added'          => '¡Tu comentario ha sido añadido!',
+    'deleted'        => 'El comentario ha sido eliminado.',
+    'edited'         => 'El comentario ha sido editado.',
+    'rights-revoked' => '¡Se te han revocado los derechos de comentar!',
+    'slow-down'      => 'Despacio - ¡Demasiados comentarios!',
+    'torrent-status' => 'El torrent necesita ser moderado antes de que puedas comentarlo.',
 ];
