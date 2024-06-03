@@ -88,7 +88,7 @@
             @break
     @endswitch
 
-    @if (isset(auth()->user()->custom_css))
+    @if (isset(auth()->user()->settings?->custom_css))
         <link rel="stylesheet" href="{{ auth()->user()->settings?->custom_css }}" />
     @endif
 @else
