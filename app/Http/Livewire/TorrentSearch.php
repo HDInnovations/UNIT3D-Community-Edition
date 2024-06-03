@@ -24,6 +24,7 @@ use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -207,7 +208,7 @@ class TorrentSearch extends Component
     #[Url(history: true)]
     public int $perPage = 25;
 
-    #[Url(history: true)]
+    #[Url(except: 'bumped_at')]
     public string $sortField = 'bumped_at';
 
     #[Url(history: true)]
@@ -215,6 +216,13 @@ class TorrentSearch extends Component
 
     #[Url(history: true)]
     public string $view = 'list';
+
+    final public function mount(Request $request): void
+    {
+        if ($request->missing('sortField')) {
+            $this->sortField = auth()->user()->settings?->torrent_sort_field ?? 'bumped_at';
+        }
+    }
 
     final public function updating(string $field, mixed &$value): void
     {
