@@ -990,22 +990,24 @@
                 </table>
                 <div class="panel__body torrent-search--grouped__results">
                     @forelse ($torrents as $group)
-                        @switch($group->meta)
-                            @case('movie')
-                                <x-movie.card
-                                    :media="$group"
-                                    :personalFreeleech="$personalFreeleech"
-                                />
+                        @isset($group->id)
+                            @switch($group->meta)
+                                @case('movie')
+                                    <x-movie.card
+                                        :media="$group"
+                                        :personalFreeleech="$personalFreeleech"
+                                    />
 
-                                @break
-                            @case('tv')
-                                <x-tv.card
-                                    :media="$group"
-                                    :personalFreeleech="$personalFreeleech"
-                                />
+                                    @break
+                                @case('tv')
+                                    <x-tv.card
+                                        :media="$group"
+                                        :personalFreeleech="$personalFreeleech"
+                                    />
 
-                                @break
-                        @endswitch
+                                    @break
+                            @endswitch
+                        @endisset
                     @empty
                         {{ __('common.no-result') }}
                     @endforelse
