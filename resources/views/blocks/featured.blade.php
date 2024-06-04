@@ -1,20 +1,48 @@
 @if ($featured->isNotEmpty())
-    <section class="panelV2 blocks__featured">
-        <h2 class="panel__heading">
-            <i class="{{ config('other.font-awesome') }} fa-star"></i>
-            {{ __('blocks.featured-torrents') }}
-        </h2>
-        <div x-data>
+    <section class="panelV2 blocks__featured" x-data>
+        <header class="panel__header">
+            <h2 class="panel__heading">
+                <i class="{{ config('other.font-awesome') }} fa-star"></i>
+                {{ __('blocks.featured-torrents') }}
+            </h2>
+            <div class="panel__actions">
+                <div class="panel__action">
+                    <button
+                        class="form__standard-icon-button"
+                        x-on:click="
+                            $refs.featured.scrollLeft == 16
+                                ? ($refs.featured.scrollLeft = $refs.featured.scrollWidth)
+                                : ($refs.featured.scrollLeft -= ($refs.featured.children[0].offsetWidth + 16) / 2 + 2)
+                        "
+                    >
+                        <i class="{{ \config('other.font-awesome') }} fa-angle-left"></i>
+                    </button>
+                </div>
+                <div class="panel__action">
+                    <button
+                        class="form__standard-icon-button"
+                        x-on:click="
+                            $refs.featured.scrollLeft == $refs.featured.scrollWidth - $refs.featured.offsetWidth - 16
+                                ? ($refs.featured.scrollLeft = 0)
+                                : ($refs.featured.scrollLeft += ($refs.featured.children[0].offsetWidth + 16) / 2 + 2)
+                        "
+                    >
+                        <i class="{{ \config('other.font-awesome') }} fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <div>
             <ul
                 class="featured-carousel"
                 x-ref="featured"
                 x-init="
                     setInterval(function () {
-                        $el.parentNode.matches(':hover')
-                            ? null
-                            : $el.scrollLeft == $el.scrollWidth - $el.offsetWidth - 16
-                              ? ($el.scrollLeft = 0)
-                              : ($el.scrollLeft += ($el.children[0].offsetWidth + 16) / 2 + 2);
+                        if (! $root.matches(':hover')) {
+                            $el.scrollLeft == $el.scrollWidth - $el.offsetWidth - 16
+                                ? ($el.scrollLeft = 0)
+                                : ($el.scrollLeft += ($el.children[0].offsetWidth + 16) / 2 + 2);
+                        }
                     }, 5000)
                 "
             >
@@ -59,28 +87,6 @@
                     </li>
                 @endforeach
             </ul>
-            <nav class="featured-carousel__nav">
-                <button
-                    class="featured-carousel__previous"
-                    x-on:click="
-                        $refs.featured.scrollLeft == 16
-                            ? ($refs.featured.scrollLeft = $refs.featured.scrollWidth)
-                            : ($refs.featured.scrollLeft -= ($refs.featured.children[0].offsetWidth + 16) / 2 + 2)
-                    "
-                >
-                    <i class="{{ \config('other.font-awesome') }} fa-angle-left"></i>
-                </button>
-                <button
-                    class="featured-carousel__next"
-                    x-on:click="
-                        $refs.featured.scrollLeft == $refs.featured.scrollWidth - $refs.featured.offsetWidth - 16
-                            ? ($refs.featured.scrollLeft = 0)
-                            : ($refs.featured.scrollLeft += ($refs.featured.children[0].offsetWidth + 16) / 2 + 2)
-                    "
-                >
-                    <i class="{{ \config('other.font-awesome') }} fa-angle-right"></i>
-                </button>
-            </nav>
         </div>
     </section>
 @endif

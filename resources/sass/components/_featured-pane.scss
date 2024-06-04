@@ -34,28 +34,13 @@
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    padding: 16px;
+    padding: 16px 16px 0 16px;
 }
 
 .featured-carousel__featured-until,
 .featured-carousel__featured-by {
     text-align: center;
     font-size: 11.5px;
+    margin: 0;
 }
 
-.featured-carousel__nav {
-    display: flex;
-}
-
-.featured-carousel__next,
-.featured-carousel__previous {
-    flex-grow: 1;
-    background-color: var(--panel-head-bg);
-    padding: 10px;
-    border: none;
-}
-
-.featured-carousel__next:hover,
-.featured-carousel__previous:hover {
-    background-color: #777;
-}
