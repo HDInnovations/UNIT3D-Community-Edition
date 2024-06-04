@@ -86,7 +86,6 @@ class QuickSearchDropdown extends Component
                     ->get(),
                 'persons' => Person::query()
                     ->select(['id', 'still', 'name'])
-                    ->whereNotNull('still')
                     ->where('name', 'LIKE', $search)
                     ->oldest('name')
                     ->take(10)
