@@ -214,13 +214,22 @@ class TorrentSearch extends Component
     #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    #[Url(history: true)]
+    #[Url(except: 'list')]
     public string $view = 'list';
 
     final public function mount(Request $request): void
     {
         if ($request->missing('sortField')) {
             $this->sortField = auth()->user()->settings?->torrent_sort_field ?? 'bumped_at';
+        }
+
+        if ($request->missing('view')) {
+            $this->view = match (auth()->user()->settings?->torrent_layout) {
+                1       => 'card',
+                2       => 'group',
+                3       => 'poster',
+                default => 'list',
+            };
         }
     }
 
