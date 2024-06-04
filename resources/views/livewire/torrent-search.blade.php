@@ -7,7 +7,11 @@
                     <button
                         class="form__button form__button--outlined form__button--centered"
                         x-on:click="toggle"
-                        x-text="isToggledOn() ? '{{ __('common.search-hide') }}' : '{{ __('common.search-advanced') }}'"
+                        x-text="
+                            isToggledOn()
+                                ? '{{ __('common.search-hide') }}'
+                                : '{{ __('common.search-advanced') }}'
+                        "
                     ></button>
                 </div>
             </div>
@@ -20,7 +24,9 @@
                         wire:model.live="name"
                         class="form__text"
                         placeholder=" "
-                        autofocus
+                        @if (auth()->user()->settings?->torrent_search_autofocus)
+                            autofocus
+                        @endif
                     />
                     <label class="form__label form__label--floating" for="name">
                         {{ __('torrent.name') }}

@@ -50,6 +50,10 @@ class UpdateGeneralSettingRequest extends FormRequest
                 'required',
                 Rule::in(['created_at', 'bumped_at']),
             ],
+            'torrent_search_autofocus' => [
+                'required',
+                'boolean',
+            ],
             'show_poster' => [
                 'required',
                 'boolean',
