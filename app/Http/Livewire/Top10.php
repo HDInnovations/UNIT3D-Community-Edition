@@ -128,6 +128,16 @@ class Top10 extends Component
         return $metaTypes;
     }
 
+    final public function placeholder(): string
+    {
+        return <<<'HTML'
+        <section class="panelV2">
+            <h2 class="panel__heading">Top Titles</h2>
+            <div class="panel__body">Loading...</div>
+        </section>
+        HTML;
+    }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.top10', [

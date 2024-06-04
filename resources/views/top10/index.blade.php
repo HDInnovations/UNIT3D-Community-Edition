@@ -44,5 +44,5 @@
 @endsection
 
 @section('main')
-    @livewire('top10')
+    <livewire:top-10 lazy />
 @endsection
