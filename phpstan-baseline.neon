@@ -416,41 +416,6 @@ parameters:
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$movie_meta\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$num_torrent\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$torrents_count\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:\\$tv_meta\\.$#"
-			count: 6
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method App\\\\Models\\\\Category\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\>\\:\\:save\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
@@ -896,37 +861,7 @@ parameters:
 			path: app/Http/Livewire/PasswordStrength.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$category_id\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$category_id\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonCredit\\:\\:updatingOccupation\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Movie\\:\\:\\$torrents is not writable\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonCredit.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Tv\\:\\:\\$torrents is not writable\\.$#"
 			count: 1
 			path: app/Http/Livewire/PersonCredit.php
 
@@ -939,36 +874,6 @@ parameters:
 			message: "#^Possibly invalid array key type \\(array\\|string\\)\\.$#"
 			count: 2
 			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Movie\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$torrents\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$category_id\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$meta\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\:\\:\\$torrents\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentSearch.php
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:ofName\\(\\)\\.$#"

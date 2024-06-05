@@ -132,7 +132,7 @@ class TorrentController extends BaseController
         Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
-        $category = Category::withCount('torrents')->findOrFail($request->input('category_id'));
+        $category = Category::withCount('torrents')->findOrFail($request->integer('category_id'));
 
         // Create the torrent (DB)
         $torrent = app()->make(Torrent::class);
@@ -463,21 +463,18 @@ class TorrentController extends BaseController
             ")
             ->findOrFail($id);
 
-        $torrent->meta = null;
+        $torrent->setAttribute('meta', null);
 
         if ($torrent->category->tv_meta && $torrent->tmdb) {
-            $torrent->meta = Tv::with(['genres'])
-                ->find($torrent->tmdb);
+            $torrent->setAttribute('meta', Tv::with(['genres'])->find($torrent->tmdb));
         }
 
         if ($torrent->category->movie_meta && $torrent->tmdb) {
-            $torrent->meta = Movie::with(['genres'])
-                ->find($torrent->tmdb);
+            $torrent->setAttribute('meta', Movie::with(['genres'])->find($torrent->tmdb));
         }
 
         if ($torrent->category->game_meta && $torrent->igdb) {
-            $torrent->meta = Game::with([ 'genres' => ['name']])
-                ->find($torrent->igdb);
+            $torrent->setAttribute('meta', Game::with([ 'genres' => ['name']])->find($torrent->igdb));
         }
 
         TorrentResource::withoutWrapping();

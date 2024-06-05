@@ -329,9 +329,9 @@ class PersonCredit extends Component
         foreach ($movies as $movie) {
             if ($torrents->has('movie') && $torrents['movie']->has($movie->id)) {
                 $media = $movie;
-                $media->meta = 'movie';
-                $media->torrents = $torrents['movie'][$movie->id];
-                $media->category_id = $media->torrents->pop();
+                $media->setAttribute('meta', 'movie');
+                $media->setRelation('torrents', $torrents['movie'][$movie->id]);
+                $media->setAttribute('category_id', $media->torrents->pop());
                 $medias->add($media);
             }
         }
@@ -339,9 +339,9 @@ class PersonCredit extends Component
         foreach ($tv as $show) {
             if ($torrents->has('tv') && $torrents['tv']->has($show->id)) {
                 $media = $show;
-                $media->meta = 'tv';
-                $media->torrents = $torrents['tv'][$show->id];
-                $media->category_id = $media->torrents->pop();
+                $media->setAttribute('meta', 'tv');
+                $media->setRelation('torrents', $torrents['tv'][$show->id]);
+                $media->setAttribute('category_id', $media->torrents->pop());
                 $medias->add($media);
             }
         }
