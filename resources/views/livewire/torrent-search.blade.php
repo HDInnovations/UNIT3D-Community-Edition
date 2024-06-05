@@ -990,7 +990,7 @@
                 </table>
                 <div class="panel__body torrent-search--grouped__results">
                     @forelse ($torrents as $group)
-                        @isset($group->id)
+                        @isset($group, $group->id)
                             @switch($group->meta)
                                 @case('movie')
                                     <x-movie.card

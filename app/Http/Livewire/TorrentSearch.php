@@ -610,23 +610,31 @@ class TorrentSearch extends Component
             });
 
         $medias = $groups->through(function ($group) use ($torrents, $movies, $tv) {
-            $media = collect(['meta' => 'no']);
-
             switch ($group->meta) {
                 case 'movie':
-                    $media = $movies[$group->tmdb] ?? collect();
-                    $media->meta = 'movie';
-                    $media->torrents = $torrents['movie'][$group->tmdb] ?? collect();
-                    $media->category_id = $media->torrents->pop();
+                    if ($movies->has($group->tmdb)) {
+                        $media = $movies[$group->tmdb];
+                        $media->setAttribute('meta', 'movie');
+                        $media->setRelation('torrents', $torrents['movie'][$group->tmdb] ?? collect());
+                        $media->setAttribute('category_id', $media->torrents->pop());
+                    } else {
+                        $media = null;
+                    }
 
                     break;
                 case 'tv':
-                    $media = $tv[$group->tmdb] ?? collect();
-                    $media->meta = 'tv';
-                    $media->torrents = $torrents['tv'][$group->tmdb] ?? collect();
-                    $media->category_id = $media->torrents->pop();
+                    if ($tv->has($group->tmdb)) {
+                        $media = $tv[$group->tmdb];
+                        $media->setAttribute('meta', 'tv');
+                        $media->setRelation('torrents', $torrents['tv'][$group->tmdb] ?? collect());
+                        $media->setAttribute('category_id', $media->torrents->pop());
+                    } else {
+                        $media = null;
+                    }
 
                     break;
+                default:
+                    $media = null;
             }
 
             return $media;
