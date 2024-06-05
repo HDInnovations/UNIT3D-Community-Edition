@@ -284,19 +284,34 @@
                             Default torrent sort field
                         </label>
                     </p>
-                    <p class="form__group">
-                        <label class="form__label">
-                            <input type="hidden" name="show_poster" value="0" />
-                            <input
-                                class="form__checkbox"
-                                type="checkbox"
-                                name="show_poster"
-                                value="1"
-                                @checked($user->settings?->show_poster)
-                            />
-                            Show Posters On Torrent List View
-                        </label>
-                    </p>
+                    <div>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input type="hidden" name="show_poster" value="0" />
+                                <input
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    name="show_poster"
+                                    value="1"
+                                    @checked($user->settings?->show_poster)
+                                />
+                                Show Posters On Torrent List View
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <label class="form__label">
+                                <input type="hidden" name="torrent_search_autofocus" value="0" />
+                                <input
+                                    class="form__checkbox"
+                                    type="checkbox"
+                                    name="torrent_search_autofocus"
+                                    value="1"
+                                    @checked($user->settings?->torrent_search_autofocus)
+                                />
+                                Autofocus torrent search on page load
+                            </label>
+                        </p>
+                    </div>
                 </fieldset>
                 <p class="form__group">
                     <button class="form__button form__button--filled">
