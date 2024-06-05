@@ -75,32 +75,62 @@
                     </p>
                 </div>
                 <div class="form__group--short-horizontal">
-                    <p class="form__group">
-                        <input
-                            id="startYear"
-                            wire:model.live="startYear"
-                            class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            placeholder=" "
-                        />
-                        <label class="form__label form__label--floating" for="startYear">
-                            {{ __('torrent.start-year') }}
-                        </label>
-                    </p>
-                    <p class="form__group">
-                        <input
-                            id="endYear"
-                            wire:model.live="endYear"
-                            class="form__text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            placeholder=" "
-                        />
-                        <label class="form__label form__label--floating" for="endYear">
-                            {{ __('torrent.end-year') }}
-                        </label>
-                    </p>
+                    <div class="form__group--short-horizontal">
+                        <p class="form__group">
+                            <input
+                                id="startYear"
+                                wire:model.live="startYear"
+                                class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="startYear">
+                                {{ __('torrent.start-year') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                id="endYear"
+                                wire:model.live="endYear"
+                                class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="endYear">
+                                {{ __('torrent.end-year') }}
+                            </label>
+                        </p>
+                    </div>
+                    <div class="form__group--short-horizontal">
+                        <p class="form__group">
+                            <input
+                                id="episodeNumber"
+                                wire:model.live="episodeNumber"
+                                class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="episodeNumber">
+                                {{ __('torrent.episode-number') }}
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                id="seasonNumber"
+                                wire:model.live="seasonNumber"
+                                class="form__text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                placeholder=" "
+                            />
+                            <label class="form__label form__label--floating" for="seasonNumber">
+                                {{ __('torrent.season-number') }}
+                            </label>
+                        </p>
+                    </div>
                     <div class="form__group--short-horizontal">
                         <p class="form__group">
                             <input
