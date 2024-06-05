@@ -73,6 +73,12 @@ class TorrentSearch extends Component
     #[Url(history: true)]
     public int $maxSizeMultiplier = 1;
 
+    #[Url(history: true)]
+    public ?int $episodeNumber = null;
+
+    #[Url(history: true)]
+    public ?int $seasonNumber = null;
+
     /**
      * @var string[]
      */
@@ -287,6 +293,8 @@ class TorrentSearch extends Component
             ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
             ->when($this->tvdbId !== null, fn ($query) => $query->ofTvdb($this->tvdbId))
             ->when($this->malId !== null, fn ($query) => $query->ofMal($this->malId))
+            ->when($this->episodeNumber !== null, fn ($query) => $query->ofEpisode($this->episodeNumber))
+            ->when($this->seasonNumber !== null, fn ($query) => $query->ofSeason($this->seasonNumber))
             ->when($this->playlistId !== null, fn ($query) => $query->ofPlaylist($this->playlistId))
             ->when($this->collectionId !== null, fn ($query) => $query->ofCollection($this->collectionId))
             ->when($this->companyId !== null, fn ($query) => $query->ofCompany($this->companyId))
