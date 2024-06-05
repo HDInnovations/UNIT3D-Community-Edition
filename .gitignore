@@ -6,8 +6,10 @@
 /public/files
 !.gitkeep
 /public/sounds
+/public/storage
 /public/vendor
 /storage/backups
+/storage/debugbar
 /storage/gitupdate
 /storage/*.key
 .env
