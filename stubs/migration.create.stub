@@ -22,7 +22,7 @@ return new class () extends Migration {
     public function up(): viod
     {
         Schema::create('{{ table }}', function (Blueprint $table): void {
-            $table->increments('id');
+            $table->unsignedInteger('id');
             $table->timestamps();
         });
     }
