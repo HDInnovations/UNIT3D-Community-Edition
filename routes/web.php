@@ -456,22 +456,15 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Inbox
-        Route::prefix('inbox')->name('received_messages.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'index'])->name('index');
-            Route::get('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'show'])->name('show');
-            Route::patch('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'update'])->name('update');
-            Route::delete('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'destroy'])->name('destroy');
-            Route::patch('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massUpdate'])->name('mass_update');
-            Route::delete('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massDestroy'])->name('mass_destroy');
-        });
-
-        // Outbox
-        Route::prefix('outbox')->name('sent_messages.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\SentPrivateMessageController::class, 'index'])->name('index');
-            Route::get('/create', [App\Http\Controllers\User\SentPrivateMessageController::class, 'create'])->name('create');
-            Route::get('/{sentPrivateMessage}', [App\Http\Controllers\User\SentPrivateMessageController::class, 'show'])->name('show');
-            Route::post('/', [App\Http\Controllers\User\SentPrivateMessageController::class, 'store'])->name('store');
-            Route::patch('/{sentPrivateMessage}', [App\Http\Controllers\User\SentPrivateMessageController::class, 'update'])->name('update');
+        Route::prefix('conversations')->name('conversations.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\ConversationController::class, 'index'])->name('index');
+            Route::get('/create', [App\Http\Controllers\User\ConversationController::class, 'create'])->name('create');
+            Route::get('/{conversation}', [App\Http\Controllers\User\ConversationController::class, 'show'])->name('show');
+            Route::post('/', [App\Http\Controllers\User\ConversationController::class, 'store'])->name('store');
+            Route::patch('/{conversation}', [App\Http\Controllers\User\ConversationController::class, 'update'])->name('update');
+            Route::delete('/{conversation}', [App\Http\Controllers\User\ConversationController::class, 'destroy'])->name('destroy');
+            Route::patch('/', [App\Http\Controllers\User\ConversationController::class, 'massUpdate'])->name('mass_update');
+            Route::delete('/', [App\Http\Controllers\User\ConversationController::class, 'massDestroy'])->name('mass_destroy');
         });
 
         // Invites

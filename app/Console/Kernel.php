@@ -50,6 +50,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:disable_inactive_users')->daily();
         $schedule->command('auto:softdelete_disabled_users')->daily();
         $schedule->command('auto:recycle_claimed_torrent_requests')->daily();
+        $schedule->command('auto:delete_unparticipated_conversations')->daily();
         $schedule->command('auto:correct_history')->daily();
         $schedule->command('auto:sync_peers')->everyFiveMinutes();
         $schedule->command('auto:email-blacklist-update')->weekends();
