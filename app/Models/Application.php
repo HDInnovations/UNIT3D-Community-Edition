@@ -45,17 +45,6 @@ class Application extends Model
     final public const REJECTED = 2;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'status',
-        'moderated_by',
-        'moderated_at',
-    ];
-
-    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
