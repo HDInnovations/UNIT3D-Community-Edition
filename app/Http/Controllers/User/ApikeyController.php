@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,12 +45,10 @@ class ApikeyController extends Controller
             $user->apikeys()->create(['content' => $user->api_token]);
 
             if ($changedByStaff) {
-                PrivateMessage::create([
-                    'sender_id'   => 1,
-                    'receiver_id' => $user->id,
-                    'subject'     => 'ATTENTION - Your API key has been reset',
-                    'message'     => "Your API key has been reset by staff. You will need to update your API key in all your scripts to continue using the API.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
-                ]);
+                $user->sendSystemNotification(
+                    subject: 'ATTENTION - Your API key has been reset',
+                    message: "Your API key has been reset by staff. You will need to update your API key in all your scripts to continue using the API.\n\nFor more information, please create a helpdesk ticket.",
+                );
             }
         });
 

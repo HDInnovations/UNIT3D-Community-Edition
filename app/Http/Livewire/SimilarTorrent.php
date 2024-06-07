@@ -19,7 +19,6 @@ namespace App\Http\Livewire;
 use App\Models\Category;
 use App\Models\History;
 use App\Models\Movie;
-use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
@@ -221,18 +220,16 @@ class SimilarTorrent extends Component
         }
 
         foreach ($users as $user) {
-            $pmuser = new PrivateMessage();
-            $pmuser->sender_id = User::SYSTEM_USER_ID;
-            $pmuser->receiver_id = $user;
-            $pmuser->subject = 'Bulk Torrents Deleted - '.$title.'! ';
-            $pmuser->message = '[b]Attention: [/b] The following torrents have been removed from our site.
+            User::sendSystemNotificationTo(
+                userId: $user,
+                subject: 'Bulk Torrents Deleted - '.$title.'! ',
+                message: '[b]Attention: [/b] The following torrents have been removed from our site.
             [list]
                 [*]'.implode(' [*]', $names).'
             [/list]
             Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-                                    [b]Removal Reason: [/b] '.$this->reason.'
-                                    [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-            $pmuser->save();
+                                    [b]Removal Reason: [/b] '.$this->reason,
+            );
         }
 
         $this->checked = [];

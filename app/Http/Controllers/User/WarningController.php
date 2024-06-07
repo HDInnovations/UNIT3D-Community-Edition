@@ -45,12 +45,10 @@ class WarningController extends Controller
             'active'     => '1',
         ]);
 
-        PrivateMessage::create([
-            'sender_id'   => User::SYSTEM_USER_ID,
-            'receiver_id' => $user->id,
-            'subject'     => 'Received warning',
-            'message'     => 'You have received a [b]warning[/b]. Reason: '.$request->string('message'),
-        ]);
+        $user->sendSystemNotification(
+            subject: 'Received warning',
+            message: 'You have received a [b]warning[/b]. Reason: '.$request->string('message'),
+        );
 
         return to_route('users.show', ['user' => $user])
             ->withSuccess('Warning issued successfully!');

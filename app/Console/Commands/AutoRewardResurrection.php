@@ -18,7 +18,6 @@ namespace App\Console\Commands;
 
 use App\Models\Resurrection;
 use App\Models\History;
-use App\Models\PrivateMessage;
 use App\Models\Torrent;
 use App\Models\User;
 use App\Repositories\ChatRepository;
@@ -100,13 +99,10 @@ class AutoRewardResurrection extends Command
                 Unit3dAnnounce::addTorrent($torrent);
 
                 // Send Private Message
-                $pm = new PrivateMessage();
-                $pm->sender_id = 1;
-                $pm->receiver_id = $user->id;
-                $pm->subject = 'Successful Graveyard Resurrection';
-                $pm->message = sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!
-                [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-                $pm->save();
+                $user->sendSystemNotification(
+                    subject: 'Successful Graveyard Resurrection',
+                    message: sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!',
+                );
             }
         }
 

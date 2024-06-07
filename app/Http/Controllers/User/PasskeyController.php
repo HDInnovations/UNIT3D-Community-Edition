@@ -18,7 +18,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Passkey;
-use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
@@ -64,12 +63,10 @@ class PasskeyController extends Controller
             $user->passkeys()->create(['content' => $user->passkey]);
 
             if ($changedByStaff) {
-                PrivateMessage::create([
-                    'sender_id'   => 1,
-                    'receiver_id' => $user->id,
-                    'subject'     => 'ATTENTION - Your passkey has been reset',
-                    'message'     => "Your passkey has been reset by staff. You will need to update your passkey in all your torrent clients to continue seeding.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
-                ]);
+                $user->sendSystemNotification(
+                    subject: 'ATTENTION - Your passkey has been reset',
+                    message: "Your passkey has been reset by staff. You will need to update your passkey in all your torrent clients to continue seeding.\n\nFor more information, please create a helpdesk ticket.",
+                );
             }
         });
 

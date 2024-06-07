@@ -82,6 +82,8 @@ class ReceivedPrivateMessageController extends Controller
             ],
         ]);
 
+        abort_if($receivedPrivateMessage->sender_id === User::SYSTEM_USER_ID, 403, 'You can not reply to the system user.');
+
         PrivateMessage::create([
             'sender_id'   => $user->id,
             'receiver_id' => $receivedPrivateMessage->sender_id,

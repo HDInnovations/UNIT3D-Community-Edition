@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\PersonalFreeleech;
-use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Exception;
@@ -53,12 +52,11 @@ class AutoRemovePersonalFreeleech extends Command
 
         foreach ($personalFreeleech as $pfl) {
             // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = User::SYSTEM_USER_ID;
-            $pm->receiver_id = $pfl->user_id;
-            $pm->subject = 'Personal 24 Hour Freeleech Expired';
-            $pm->message = 'Your [b]Personal 24 Hour Freeleech[/b] has expired! Feel free to reenable it in the BON Store! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-            $pm->save();
+            User::sendSystemNotificationTo(
+                userId: $pfl->user_id,
+                subject: 'Personal 24 Hour Freeleech Expired',
+                message: 'Your [b]Personal 24 Hour Freeleech[/b] has expired! Feel free to reenable it in the BON Store!',
+            );
 
             // Delete The Record From DB
             $pfl->delete();

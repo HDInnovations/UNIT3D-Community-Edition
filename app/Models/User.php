@@ -919,6 +919,26 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(EmailUpdate::class);
     }
 
+    public function sendSystemNotification(string $subject, string $message): void
+    {
+        PrivateMessage::create([
+            'sender_id'   => self::SYSTEM_USER_ID,
+            'receiver_id' => $this->id,
+            'subject'     => $subject,
+            'message'     => $message,
+        ]);
+    }
+
+    public static function sendSystemNotificationTo(int $userId, string $subject, string $message): void
+    {
+        PrivateMessage::create([
+            'sender_id'   => self::SYSTEM_USER_ID,
+            'receiver_id' => $userId,
+            'subject'     => $subject,
+            'message'     => $message,
+        ]);
+    }
+
     /**
      * Get the Users accepts notification as bool.
      */

@@ -30,19 +30,23 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('pm.reply') }}</h2>
         <div class="panel__body">
-            <form
-                method="POST"
-                action="{{ route('users.received_messages.update', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}"
-            >
-                @csrf
-                @method('PATCH')
-                @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
-                <p class="form__group">
-                    <button class="form__button form__button--filled">
-                        {{ __('pm.reply') }}
-                    </button>
-                </p>
-            </form>
+            @if ($pm->sender_id === \App\Models\User::SYSTEM_USER_ID)
+                You can not reply to the system user.
+            @else
+                <form
+                    method="POST"
+                    action="{{ route('users.received_messages.update', ['user' => $user, 'receivedPrivateMessage' => $pm]) }}"
+                >
+                    @csrf
+                    @method('PATCH')
+                    @livewire('bbcode-input', ['name' => 'message', 'label' => __('pm.reply'), 'required' => true])
+                    <p class="form__group">
+                        <button class="form__button form__button--filled">
+                            {{ __('pm.reply') }}
+                        </button>
+                    </p>
+                </form>
+            @endif
         </div>
     </section>
 @endsection
