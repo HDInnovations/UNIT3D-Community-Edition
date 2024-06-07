@@ -18,7 +18,6 @@ namespace App\Actions\Fortify;
 
 use App\Models\Group;
 use App\Models\Invite;
-use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Rules\EmailBlacklist;
@@ -120,12 +119,10 @@ class CreateNewUser implements CreatesNewUsers
         );
 
         // Send Welcome PM
-        PrivateMessage::create([
-            'sender_id'   => 1,
-            'receiver_id' => $user->id,
-            'subject'     => config('welcomepm.subject'),
-            'message'     => config('welcomepm.message'),
-        ]);
+        $user->sendSystemNotification(
+            subject: config('welcomepm.subject'),
+            message: config('welcomepm.message'),
+        );
 
         return $user;
     }

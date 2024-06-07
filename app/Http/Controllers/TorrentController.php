@@ -29,7 +29,6 @@ use App\Models\FeaturedTorrent;
 use App\Models\History;
 use App\Models\Keyword;
 use App\Models\Movie;
-use App\Models\PrivateMessage;
 use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Scopes\ApprovedScope;
@@ -290,20 +289,13 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || ($user->id === $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay())), 403);
 
-        $pms = [];
-
         foreach (History::where('torrent_id', '=', $torrent->id)->pluck('user_id') as $user_id) {
-            $pms[] = [
-                'sender_id'   => User::SYSTEM_USER_ID,
-                'receiver_id' => $user_id,
-                'subject'     => 'Torrent Deleted! - '.$torrent->name,
-                'message'     => '[b]Attention:[/b] Torrent '.$torrent->name." has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.\n\n[b]Removal Reason:[/b] ".$request->message."\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
-                'created_at'  => now(),
-                'updated_at'  => now(),
-            ];
+            User::sendSystemNotificationTo(
+                userId: $user_id,
+                subject: 'Torrent Deleted! - '.$torrent->name,
+                message: '[b]Attention:[/b] Torrent '.$torrent->name." has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.\n\n[b]Removal Reason:[/b] ".$request->message,
+            );
         }
-
-        PrivateMessage::insert($pms);
 
         // Reset Requests
         $torrent->requests()->update([

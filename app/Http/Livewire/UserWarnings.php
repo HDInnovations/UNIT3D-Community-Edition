@@ -119,12 +119,10 @@ class UserWarnings extends Component
             'active'     => '1',
         ]);
 
-        PrivateMessage::create([
-            'sender_id'   => User::SYSTEM_USER_ID,
-            'receiver_id' => $this->user->id,
-            'subject'     => 'Received warning',
-            'message'     => 'You have received a [b]warning[/b]. Reason: '.$this->message,
-        ]);
+        $this->user->sendSystemNotification(
+            subject: 'Received warning',
+            message: 'You have received a [b]warning[/b]. Reason: '.$this->message,
+        );
 
         $this->message = '';
 
