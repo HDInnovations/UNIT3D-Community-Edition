@@ -3,7 +3,7 @@
 @section('breadcrumbs')
     <li class="breadcrumbV2">
         <a
-            href="{{ route('users.received_messages.index', ['user' => $user]) }}"
+            href="{{ route('users.conversations.index', ['user' => $user]) }}"
             class="breadcrumb__link"
         >
             {{ __('pm.messages') }}
@@ -14,11 +14,7 @@
     </li>
 @endsection
 
-@section('nav-tabs')
-    @include('partials.pmmenu')
-@endsection
-
-@section('page', 'page__pm--send')
+@section('page', 'page__conversations--create')
 
 @section('main')
     <section class="panelV2">
@@ -27,7 +23,7 @@
             <form
                 class="form"
                 method="POST"
-                action="{{ route('users.sent_messages.store', ['user' => $user]) }}"
+                action="{{ route('users.conversations.store', ['user' => $user]) }}"
             >
                 @csrf
                 <p class="form__group">
@@ -46,7 +42,7 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    <input id="subject" class="form__text" name="subject" required />
+                    <input id="subject" class="form__text" name="conversation[subject]" required />
                     <label for="subject" class="form__label form__label--floating">
                         {{ __('pm.enter-subject') }}
                     </label>

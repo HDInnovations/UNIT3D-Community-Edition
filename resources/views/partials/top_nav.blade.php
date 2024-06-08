@@ -366,15 +366,16 @@
 
             <li>
                 @php
-                    $pm = DB::table('private_messages')
-                        ->where('receiver_id', '=', auth()->id())
-                        ->where('read', '=', '0')
+                    $pm = DB::table('participants')
+                        ->where('user_id', '=', auth()->id())
+                        ->where('read', '=', false)
+                        ->whereNull('deleted_at')
                         ->exists()
                 @endphp
 
                 <a
                     class="top-nav--right__icon-link"
-                    href="{{ route('users.received_messages.index', ['user' => auth()->user()]) }}"
+                    href="{{ route('users.conversations.index', ['user' => auth()->user()]) }}"
                     title="{{ __('pm.inbox') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-envelope"></i>

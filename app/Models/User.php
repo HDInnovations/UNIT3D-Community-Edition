@@ -921,22 +921,48 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendSystemNotification(string $subject, string $message): void
     {
+        $conversation = Conversation::create(['subject' => $subject]);
+
+        $conversation->users()->sync([$this->id]);
+
         PrivateMessage::create([
-            'sender_id'   => self::SYSTEM_USER_ID,
-            'receiver_id' => $this->id,
-            'subject'     => $subject,
-            'message'     => $message,
+            'conversation_id' => $conversation->id,
+            'user_id'         => $this->id,
+            'message'         => $message
         ]);
     }
 
     public static function sendSystemNotificationTo(int $userId, string $subject, string $message): void
     {
+        $conversation = Conversation::create(['subject' => $subject]);
+
+        $conversation->users()->sync([$userId]);
+
         PrivateMessage::create([
-            'sender_id'   => self::SYSTEM_USER_ID,
-            'receiver_id' => $userId,
-            'subject'     => $subject,
-            'message'     => $message,
+            'conversation_id' => $conversation->id,
+            'user_id'         => $userId,
+            'message'         => $message
         ]);
+    }
+
+    /**
+     * Has many conversations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Conversation>
+     */
+    public function conversations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Conversation::class, 'participants');
+    }
+
+    /**
+     * Has many participants.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Participant>
+     */
+    public function participations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Participant::class);
     }
 
     /**

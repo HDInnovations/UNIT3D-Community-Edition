@@ -127,7 +127,7 @@
                                 ></i>
                             @endif
                             <a
-                                href="{{ route('users.sent_messages.create', ['user' => auth()->user(), 'username' => $user->username]) }}"
+                                href="{{ route('users.conversations.create', ['user' => auth()->user(), 'username' => $user->username]) }}"
                             >
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-envelope text-info"
