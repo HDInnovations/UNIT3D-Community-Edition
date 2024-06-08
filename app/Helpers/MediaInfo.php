@@ -16,6 +16,59 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
+/**
+ * @phpstan-type General array{
+ *     'file_name'?: string,
+ *     'format'?: string,
+ *     'duration'?: string,
+ *     'file_size'?: string,
+ *     'bit_rate'?: string
+ * }
+ * @phpstan-type Video array{
+ *     'format'?: string,
+ *     'format_version'?: string,
+ *     'codec'?: string,
+ *     'width'?: string,
+ *     'height'?: string,
+ *     'stream_size'?: string,
+ *     'writing_library'?: string,
+ *     'framerate_mode'?: string,
+ *     'frame_rate'?: string,
+ *     'aspect_ratio'?: string,
+ *     'bit_rate'?: string,
+ *     'bit_rate_mode'?: string,
+ *     'bit_rate_nominal'?: string,
+ *     'bit_pixel_frame'?: string,
+ *     'bit_depth'?: string,
+ *     'encoding_settings'?: string,
+ *     'language'?: string,
+ *     'format_profile'?: string,
+ *     'color_primaries'?: string,
+ *     'title'?: string,
+ *     'scan_type'?: string,
+ *     'transfer_characteristics'?: string,
+ *     'hdr_format'?: string,
+ * }
+ * @phpstan-type Audio array{
+ *     'codec'?: string,
+ *     'format'?: string,
+ *     'bit_rate'?: string,
+ *     'channels'?: string,
+ *     'title'?: string,
+ *     'language'?: string,
+ *     'format_profile'?: string,
+ *     'stream_size'?: string,
+ * }
+ * @phpstan-type Text array{
+ *     'codec'?: string,
+ *     'format'?: string,
+ *     'title'?: string,
+ *     'language'?: string,
+ *     'default'?: string,
+ *     'forced'?: string,
+ * }
+ * @phpstan-type Menu array{}
+ */
 class MediaInfo
 {
     private const REGEX_SECTION = "/^(?:(?:general|video|audio|text|menu)(?:\s\#\d+?)*)$/i";
@@ -38,24 +91,34 @@ class MediaInfo
      */
     private const FACTORS = ['b' => 0, 'kb' => 1, 'mb' => 2, 'gb' => 3, 'tb' => 4, 'pb' => 5, 'eb' => 6, 'zb' => 7, 'yb' => 8];
 
-    public function parse($string): array
+    /**
+     * @return array{
+     *     general: ?General,
+     *     video: ?non-empty-list<Video>,
+     *     audio: ?non-empty-list<Audio>,
+     *     text: ?non-empty-list<Text>
+     * }
+     */
+    public function parse(string $string): array
     {
-        $string = trim((string) $string);
+        $string = trim($string);
         $string = str_replace("\xc2\xa0", ' ', $string);
         $lines = preg_split("/\r\n|\n|\r/", $string);
 
         $output = [];
 
-        foreach ($lines as $line) {
-            $line = trim($line); // removed strtolower, unnecessary with the i-switch in the regexp (caseless) and adds problems with values; added it in the required places instead.
+        if (\is_array($lines)) {
+            foreach ($lines as $line) {
+                $line = trim($line); // removed strtolower, unnecessary with the i-switch in the regexp (caseless) and adds problems with values; added it in the required places instead.
 
-            if (preg_match(self::REGEX_SECTION, $line)) {
-                $section = $line;
-                $output[$section] = [];
-            }
+                if (preg_match(self::REGEX_SECTION, $line)) {
+                    $section = $line;
+                    $output[$section] = [];
+                }
 
-            if (isset($section)) {
-                $output[$section][] = $line;
+                if (isset($section)) {
+                    $output[$section][] = $line;
+                }
             }
         }
 
@@ -66,26 +129,55 @@ class MediaInfo
         return $this->formatOutput($output);
     }
 
+    /**
+     * @param array<string, list<string>> $sections
+     * @return array{
+     *     'general'?: General,
+     *     'video'?: list<Video>,
+     *     'audio'?: list<Audio>,
+     *     'text'?: list<Text>,
+     * }
+     */
     private function parseSections(array $sections): array
     {
         $output = [];
 
         foreach ($sections as $key => $section) {
-            $keySection = strtolower(explode(' ', $key)[0]);
+            $keySection = strtolower(explode(' ', $key, 2)[0]);
 
             if (!empty($section)) {
                 if ($keySection === 'general') {
                     $output[$keySection] = $this->parseProperty($section, $keySection);
-                } else {
+                } elseif (\in_array($keySection, ['video', 'audio', 'text'], true)) {
                     $output[$keySection][] = $this->parseProperty($section, $keySection);
                 }
             }
         }
 
+        /**
+         * @phpstan-ignore-next-line
+         * PHPstan tries to combine the numeric keys of the lists with the
+         * string keys of the General type as an "OR" and makes a big mess of
+         * the type. E.g. given the type it suggests it should be, it thinks
+         * that the 'video' key should have the possibility of having an array
+         * with a `file_name` key, even though the `file_name` key is only
+         * possible if the parent key is `general` and that the 'video' key
+         * should only have a list.
+         */
         return $output;
     }
 
-    private function parseProperty($sections, $section): array
+    /**
+     * @param list<string>                     $sections
+     * @param 'general'|'video'|'audio'|'text' $section
+     * @return (
+     *      $section is 'general' ? General
+     *   : ($section is 'video'   ? Video
+     *   : ($section is 'audio'   ? Audio
+     *   : Text
+     * )))
+     */
+    private function parseProperty(array $sections, string $section): array
     {
         $output = [];
 
@@ -100,7 +192,7 @@ class MediaInfo
             }
 
             if ($property && $value) {
-                switch (strtolower((string) $section)) {
+                switch ($section) {
                     case 'general':
                         switch ($property) {
                             case 'complete name':
@@ -317,18 +409,17 @@ class MediaInfo
         return $output;
     }
 
-    public static function stripPath($string): string
+    public static function stripPath(string $string): string
     {
-        $string = str_replace('\\', '/', (string) $string);
-        $pathParts = pathinfo($string);
+        $string = str_replace('\\', '/', $string);
 
-        return $pathParts['basename'];
+        return pathinfo($string, PATHINFO_BASENAME);
     }
 
-    private function parseFileSize($string): float
+    private function parseFileSize(string $string): float
     {
-        $number = (float) str_replace(' ', '', (string) $string);
-        preg_match('/[KMGTPEZ]/i', (string) $string, $size);
+        $number = (float) str_replace(' ', '', $string);
+        preg_match('/[KMGTPEZ]/i', $string, $size);
 
         if (!empty($size[0])) {
             $number = $this->computerSize($number, $size[0].'b');
@@ -337,22 +428,36 @@ class MediaInfo
         return $number;
     }
 
-    private function parseBitRate($string): string
+    private function parseBitRate(string $string): string
     {
-        return str_replace([' ', 'kbps'], ['', ' kbps'], strtolower((string) $string));
+        return str_replace([' ', 'kbps'], ['', ' kbps'], strtolower($string));
     }
 
-    private function parseWidthHeight($string): string
+    private function parseWidthHeight(string $string): string
     {
-        return str_replace(['pixels', ' '], ' ', strtolower((string) $string));
+        return str_replace(['pixels', ' '], ' ', strtolower($string));
     }
 
-    private function parseAudioChannels($string): string
+    private function parseAudioChannels(string $string): string
     {
-        return str_ireplace(array_keys(self::REPLACE), self::REPLACE, (string) $string);
+        return str_ireplace(array_keys(self::REPLACE), self::REPLACE, $string);
     }
 
-    private function formatOutput($data): array
+    /**
+     * @param array{
+     *      'general'?: General,
+     *      'video'?: list<Video>,
+     *      'audio'?: list<Audio>,
+     *      'text'?: list<Text>,
+     * } $data
+     * @return array{
+     *     general: ?General,
+     *     video: ?non-empty-list<Video>,
+     *     audio: ?non-empty-list<Audio>,
+     *     text: ?non-empty-list<Text>,
+     * }
+     */
+    private function formatOutput(array $data): array
     {
         $output = [];
         $output['general'] = empty($data['general']) ? null : $data['general'];
@@ -363,10 +468,10 @@ class MediaInfo
         return $output;
     }
 
-    private function computerSize($number, $size): float
+    private function computerSize(float $number, string $size): float
     {
-        $bytes = (float) $number;
-        $size = strtolower((string) $size);
+        $bytes = $number;
+        $size = strtolower($size);
 
         if (isset(self::FACTORS[$size])) {
             return (float) number_format($bytes * (1_024 ** self::FACTORS[$size]), 2, '.', '');
