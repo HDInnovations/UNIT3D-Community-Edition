@@ -64,6 +64,7 @@ class TorrentResource extends JsonResource
                 'seeders'          => $this->seeders,
                 'leechers'         => $this->leechers,
                 'times_completed'  => $this->times_completed,
+                'status'           => route('users.peers.index', ['id' => $this->id, 'seeding' => auth('api')->user()->seeding]),
                 'tmdb_id'          => $this->tmdb,
                 'imdb_id'          => $this->imdb,
                 'tvdb_id'          => $this->tvdb,
