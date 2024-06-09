@@ -409,10 +409,14 @@
     @endif
 
     @if ($torrent->seeders <= 2 &&
-    /* $history is used inside the resurrection code below and assumes is set if torrent->seeders are equal to 0 */
-    null !== ($history = $user->history->where('torrent_id', $torrent->id)->first()) &&
-    $history->seeder == 0 &&
-    $history->active == 1)
+        /* $history is used inside the resurrection code below and assumes is set if torrent->seeders are equal to 0 */
+        null !==
+            ($history = $user
+                ->history()
+                ->where('torrent_id', $torrent->id)
+                ->first()) &&
+        $history->seeder == 0 &&
+        $history->active == 1)
         <li class="form__group form__group--short-horizontal">
             <form
                 action="{{ route('reseed', ['id' => $torrent->id]) }}"
