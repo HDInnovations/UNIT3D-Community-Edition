@@ -39,18 +39,11 @@ class BotFactory extends Factory
             'color'        => $this->faker->word(),
             'icon'         => $this->faker->word(),
             'emoji'        => $this->faker->emoji(),
-            'info'         => $this->faker->word(),
-            'about'        => $this->faker->word(),
             'help'         => $this->faker->text(),
             'active'       => $this->faker->boolean(),
             'is_protected' => $this->faker->boolean(),
             'is_nerdbot'   => $this->faker->boolean(),
             'is_systembot' => $this->faker->boolean(),
-            'uploaded'     => $this->faker->randomNumber(),
-            'downloaded'   => $this->faker->randomNumber(),
-            'fl_tokens'    => $this->faker->randomNumber(),
-            'seedbonus'    => $this->faker->randomFloat(),
-            'invites'      => $this->faker->randomNumber(),
         ];
     }
 }

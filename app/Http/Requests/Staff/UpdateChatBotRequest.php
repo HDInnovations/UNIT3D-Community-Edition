@@ -63,14 +63,6 @@ class UpdateChatBotRequest extends FormRequest
                 'sometimes',
                 'max:9999',
             ],
-            'info' => [
-                'sometimes',
-                'max:9999',
-            ],
-            'about' => [
-                'sometimes',
-                'max:9999',
-            ],
         ];
     }
 }

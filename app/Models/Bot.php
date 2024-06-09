@@ -30,18 +30,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $color
  * @property string|null                     $icon
  * @property string|null                     $emoji
- * @property string|null                     $info
- * @property string|null                     $about
  * @property string|null                     $help
  * @property int                             $active
  * @property int                             $is_protected
  * @property int                             $is_nerdbot
  * @property int                             $is_systembot
- * @property int                             $uploaded
- * @property int                             $downloaded
- * @property int                             $fl_tokens
- * @property string                          $seedbonus
- * @property int                             $invites
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
