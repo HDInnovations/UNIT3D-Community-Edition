@@ -21,7 +21,6 @@ use App\Http\Requests\Staff\StoreChatRoomRequest;
 use App\Http\Requests\Staff\UpdateChatRoomRequest;
 use App\Models\Chatroom;
 use App\Models\User;
-use App\Repositories\ChatRepository;
 use Exception;
 
 /**
@@ -30,19 +29,12 @@ use Exception;
 class ChatRoomController extends Controller
 {
     /**
-     * ChatController Constructor.
-     */
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
-
-    /**
      * Display All Chat Rooms.
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.chat.room.index', [
-            'chatrooms' => $this->chatRepository->rooms(),
+            'chatrooms' => Chatroom::all(),
         ]);
     }
 
@@ -93,7 +85,13 @@ class ChatRoomController extends Controller
      */
     public function destroy(Chatroom $chatroom): \Illuminate\Http\RedirectResponse
     {
-        $default = Chatroom::where('name', '=', config('chat.system_chatroom'))->sole()->id;
+        $default = Chatroom::query()
+            ->when(
+                \is_int(config('chat.system_chatroom')),
+                fn ($query) => $query->where('id', '=', config('chat.system_chatroom')),
+                fn ($query) => $query->where('name', '=', config('chat.system_chatroom')),
+            )
+            ->soleValue('id');
 
         User::whereBelongsTo($chatroom)->update(['chatroom_id' => $default]);
 
