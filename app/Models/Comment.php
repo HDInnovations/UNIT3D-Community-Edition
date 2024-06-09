@@ -23,6 +23,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 /**
  * App\Models\Comment.
@@ -43,14 +44,19 @@ class Comment extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
      *
-     * @var array<int, string>
+     * @var string[]
      */
-    protected $fillable = [
-        'content',
-        'user_id',
-        'anon',
+    protected $guarded = [];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'anon' => 'bool',
     ];
 
     /**
@@ -98,6 +104,14 @@ class Comment extends Model
     public function scopeParent(Builder $builder): void
     {
         $builder->whereNull('parent_id');
+    }
+
+    /**
+     * Set The Articles Content After Its Been Purified.
+     */
+    public function setContentAttribute(?string $value): void
+    {
+        $this->attributes['content'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
