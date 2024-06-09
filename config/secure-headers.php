@@ -122,7 +122,7 @@ return [
      */
 
     'hsts' => [
-        'enable' => true,
+        'enable' => env('HSTS_ENABLED', true),
 
         'max-age' => 31536000,
 
