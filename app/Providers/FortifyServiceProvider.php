@@ -100,6 +100,10 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->instance(RegisterViewResponse::class, new class () implements RegisterViewResponse {
             public function toResponse($request): \Illuminate\Http\RedirectResponse|\Illuminate\View\View
             {
+                if ($request->missing('code')) {
+                    return view('auth.register');
+                }
+
                 return view('auth.register', ['code' => $request->query('code')]);
             }
         });
