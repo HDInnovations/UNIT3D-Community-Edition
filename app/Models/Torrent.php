@@ -28,6 +28,7 @@ use App\Traits\GroupedLastScope;
 use App\Traits\TorrentFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use voku\helper\AntiXSS;
 
 /**
@@ -72,6 +73,7 @@ use voku\helper\AntiXSS;
  * @property \Illuminate\Support\Carbon|null                                            $created_at
  * @property \Illuminate\Support\Carbon|null                                            $updated_at
  * @property \Illuminate\Support\Carbon|null                                            $bumped_at
+ * @property \Illuminate\Support\Carbon|null                                            $deleted_at
  * @property \Illuminate\Support\Carbon|null                                            $fl_until
  * @property \Illuminate\Support\Carbon|null                                            $du_until
  * @property string|null                                                                $release_year
@@ -88,6 +90,7 @@ class Torrent extends Model
     use Auditable;
     use GroupedLastScope;
     use HasFactory;
+    use SoftDeletes;
     use TorrentFilter;
 
     protected $guarded = [];

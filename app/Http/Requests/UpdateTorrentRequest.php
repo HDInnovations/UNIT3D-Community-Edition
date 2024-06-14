@@ -48,7 +48,7 @@ class UpdateTorrentRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('torrents')->whereNot('id', $torrentId),
+                Rule::unique('torrents')->whereNot('id', $torrentId)->whereNull('deleted_at'),
                 'max:255',
             ],
             'description' => [
