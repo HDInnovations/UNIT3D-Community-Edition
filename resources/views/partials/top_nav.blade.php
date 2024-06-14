@@ -354,6 +354,7 @@
                         @php
                             $torrents_unmoderated = DB::table('torrents')
                                 ->where('status', '=', \App\Models\Torrent::PENDING)
+                                ->whereNull('deleted_at')
                                 ->exists()
                         @endphp
 

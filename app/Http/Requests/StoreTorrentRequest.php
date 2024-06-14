@@ -100,7 +100,7 @@ class StoreTorrentRequest extends FormRequest
             ],
             'name' => [
                 'required',
-                'unique:torrents',
+                Rule::unique('torrents')->whereNull('deleted_at'),
                 'max:255',
             ],
             'description' => [

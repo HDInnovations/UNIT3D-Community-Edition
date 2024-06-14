@@ -192,7 +192,7 @@ class TorrentController extends BaseController
         $v = validator($torrent->toArray(), [
             'name' => [
                 'required',
-                'unique:torrents',
+                Rule::unique('torrents')->whereNull('deleted_at'),
                 'max:255',
             ],
             'description' => [
@@ -200,7 +200,7 @@ class TorrentController extends BaseController
             ],
             'info_hash' => [
                 'required',
-                'unique:torrents',
+                Rule::unique('torrents')->whereNull('deleted_at'),
             ],
             'file_name' => [
                 'required',
