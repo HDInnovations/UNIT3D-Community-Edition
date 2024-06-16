@@ -45,9 +45,9 @@
     <section
         class="upload panelV2"
         x-data="{
-                cat: {{(int)$category_id}},
-                cats: JSON.parse(atob('{!! base64_encode(json_encode($categories)) !!}'))
-            }"
+            cat: {{ (int) $category_id }},
+            cats: JSON.parse(atob('{{ base64_encode(json_encode($categories)) }}')),
+        }"
     >
         <h2 class="upload-title panel__heading">
             <i class="{{ config('other.font-awesome') }} fa-file"></i>

@@ -23,7 +23,7 @@
             class="panelV2"
             x-data="{
                 cat: {{ (int) $category_id }},
-                cats: JSON.parse(atob('{!! base64_encode(json_encode($categories)) !!}'))
+                cats: JSON.parse(atob('{{ base64_encode(json_encode($categories)) }}')),
             }"
         >
             <h2 class="panel__heading">{{ __('request.add-request') }}</h2>
