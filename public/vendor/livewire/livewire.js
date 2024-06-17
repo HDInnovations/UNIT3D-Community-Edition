@@ -593,7 +593,7 @@
       });
       request.upload.addEventListener("progress", (e) => {
         e.detail = {};
-        e.detail.progress = Math.round(e.loaded * 100 / e.total);
+        e.detail.progress = Math.floor(e.loaded * 100 / e.total);
         this.uploadBag.first(name).progressCallback(e);
       });
       request.addEventListener("load", () => {
@@ -1765,7 +1765,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
             let carry = Promise.all([
               el2._x_hidePromise,
               ...(el2._x_hideChildren || []).map(hideAfterChildren)
-            ]).then(([i]) => i());
+            ]).then(([i]) => i?.());
             delete el2._x_hidePromise;
             delete el2._x_hideChildren;
             return carry;
@@ -2278,7 +2278,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     get raw() {
       return raw;
     },
-    version: "3.13.10",
+    version: "3.14.0",
     flushAndStopDeferringMutations,
     dontAutoEvaluateFunctions,
     disableEffectScheduling,
@@ -3220,14 +3220,14 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       handler4 = wrapHandler(handler4, (next, e) => {
         e.target === el && next(e);
       });
-    handler4 = wrapHandler(handler4, (next, e) => {
-      if (isKeyEvent(event)) {
+    if (isKeyEvent(event) || isClickEvent(event)) {
+      handler4 = wrapHandler(handler4, (next, e) => {
         if (isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers)) {
           return;
         }
-      }
-      next(e);
-    });
+        next(e);
+      });
+    }
     listenerTarget.addEventListener(event, handler4, options);
     return () => {
       listenerTarget.removeEventListener(event, handler4, options);
@@ -3250,9 +3250,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   function isKeyEvent(event) {
     return ["keydown", "keyup"].includes(event);
   }
+  function isClickEvent(event) {
+    return ["contextmenu", "click", "mouse"].some((i) => event.includes(i));
+  }
   function isListeningForASpecificKeyThatHasntBeenPressed(e, modifiers) {
     let keyModifiers = modifiers.filter((i) => {
-      return !["window", "document", "prevent", "stop", "once", "capture"].includes(i);
+      return !["window", "document", "prevent", "stop", "once", "capture", "self", "away", "outside", "passive"].includes(i);
     });
     if (keyModifiers.includes("debounce")) {
       let debounceIndex = keyModifiers.indexOf("debounce");
@@ -3276,6 +3279,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         return e[`${modifier}Key`];
       });
       if (activelyPressedKeyModifiers.length === selectedSystemKeyModifiers.length) {
+        if (isClickEvent(e.type))
+          return false;
         if (keyToModifiers(e.key).includes(keyModifiers[0]))
           return false;
       }
@@ -4802,7 +4807,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
             start: { height: current + "px" },
             end: { height: full + "px" }
           }, () => el._x_isShown = true, () => {
-            if (el.getBoundingClientRect().height == full) {
+            if (Math.abs(el.getBoundingClientRect().height - full) < 1) {
               el.style.overflow = null;
             }
           });
@@ -7463,7 +7468,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     minimum: 0.1,
     trickleSpeed: 200,
     showSpinner: false,
-    parent: "html"
+    parent: "body"
   });
   injectStyles();
   var inProgress = false;
@@ -8795,6 +8800,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
         if (isntElement(el2))
           return;
         trigger2("morph.updating", { el: el2, toEl, component, skip, childrenOnly });
+        if (el2.__livewire_replace === true)
+          el2.innerHTML = toEl.innerHTML;
+        if (el2.__livewire_replace_self === true) {
+          el2.outerHTML = toEl.outerHTML;
+          return skip();
+        }
         if (el2.__livewire_ignore === true)
           return skip();
         if (el2.__livewire_ignore_self === true)
@@ -8878,7 +8889,6 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     el.addEventListener("submit", () => {
       let componentId = directive3.expression.startsWith("$parent") ? component.parent.id : component.id;
       let cleanup3 = disableForm(el);
-      window.yo = cleanup3;
       cleanups.add(componentId, cleanup3);
     });
   }));
@@ -9593,6 +9603,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     let remaining = raw2.replace(regex, "");
     return [parsed, remaining];
   }
+
+  // js/directives/wire-replace.js
+  directive2("replace", ({ el, directive: directive3 }) => {
+    if (directive3.modifiers.includes("self")) {
+      el.__livewire_replace_self = true;
+    } else {
+      el.__livewire_replace = true;
+    }
+  });
 
   // js/directives/wire-ignore.js
   directive2("ignore", ({ el, directive: directive3 }) => {
