@@ -145,6 +145,7 @@ class Comment extends Component
         $reply = $this->comment->children()->create([
             'content'          => $this->replyState,
             'user_id'          => auth()->id(),
+            'anon'             => $this->anon,
             'commentable_id'   => $this->model->id,
             'commentable_type' => \get_class($this->model),
         ]);
