@@ -9,7 +9,7 @@
         <title>{{ config('other.title') }}: {{ $rss->name }}</title>
         <link>{{ config('app.url') }}</link>
         <description>
-            {!! __('This feed contains your secure rsskey, please do not share with anyone.') !!}
+            {{ __('This feed contains your secure rsskey, please do not share with anyone.') }}
         </description>
         <atom:link href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => $user->rsskey]) }}"
                    type="application/rss+xml" rel="self"></atom:link>

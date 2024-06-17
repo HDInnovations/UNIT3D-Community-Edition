@@ -20,10 +20,10 @@
     <section
         class="panelV2"
         x-data="{
-            cat: {{(int)$torrent->category_id}},
-            cats: JSON.parse(atob('{!! base64_encode(json_encode($categories)) !!}')),
-            type: {{ (int)$torrent->type_id }},
-            types: JSON.parse(atob('{!! base64_encode(json_encode($types)) !!}'))
+            cat: {{ (int) $torrent->category_id }},
+            cats: JSON.parse(atob('{{ base64_encode(json_encode($categories)) }}')),
+            type: {{ (int) $torrent->type_id }},
+            types: JSON.parse(atob('{{ base64_encode(json_encode($types)) }}')),
         }"
     >
         <h2 class="panel__heading">{{ __('common.edit') }}: {{ $torrent->name }}</h2>
