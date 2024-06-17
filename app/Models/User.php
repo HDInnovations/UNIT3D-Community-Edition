@@ -927,7 +927,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
         PrivateMessage::create([
             'conversation_id' => $conversation->id,
-            'user_id'         => $this->id,
+            'sender_id'       => $this->id,
             'message'         => $message
         ]);
     }
@@ -940,7 +940,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
         PrivateMessage::create([
             'conversation_id' => $conversation->id,
-            'user_id'         => $userId,
+            'sender_id'       => $userId,
             'message'         => $message
         ]);
     }

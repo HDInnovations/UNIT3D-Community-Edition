@@ -18,6 +18,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateReportRequest;
+use App\Models\Conversation;
 use App\Models\PrivateMessage;
 use App\Models\Report;
 
@@ -63,12 +64,14 @@ class ReportController extends Controller
 
         $report->update(['solved' => 1, 'staff_id' => $staff->id] + $request->validated());
 
-        // Send Private Message
+        $conversation = Conversation::create(['subject' => 'Your Report Has A New Verdict']);
+
+        $conversation->users()->sync([$staff->id, $report->reporter_id]);
+
         PrivateMessage::create([
-            'sender_id'   => $staff->id,
-            'receiver_id' => $report->reporter_id,
-            'subject'     => 'Your Report Has A New Verdict',
-            'message'     => '[b]REPORT TITLE:[/b] '.$report->title."\n\n[b]ORIGINAL MESSAGE:[/b] ".$report->message."\n\n[b]VERDICT:[/b] ".$report->verdict,
+            'conversation_id' => $conversation->id,
+            'sender_id'       => $staff->id,
+            'message'         => '[b]REPORT TITLE:[/b] '.$report->title."\n\n[b]ORIGINAL MESSAGE:[/b] ".$report->message."\n\n[b]VERDICT:[/b] ".$report->verdict,
         ]);
 
         return to_route('staff.reports.index')
