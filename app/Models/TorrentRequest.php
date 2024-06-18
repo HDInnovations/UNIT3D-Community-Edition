@@ -22,7 +22,6 @@ use App\Traits\Auditable;
 use App\Traits\TorrentFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\TorrentRequest.
@@ -193,14 +192,6 @@ class TorrentRequest extends Model
     public function claim(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(TorrentRequestClaim::class, 'request_id');
-    }
-
-    /**
-     * Set The Requests Description After Its Been Purified.
-     */
-    public function setDescriptionAttribute(?string $value): void
-    {
-        $this->attributes['description'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
