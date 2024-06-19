@@ -450,16 +450,6 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Has Many Received PM's.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage>
-     */
-    public function receivedPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(PrivateMessage::class, 'receiver_id');
-    }
-
-    /**
      * Has Many Peers.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
