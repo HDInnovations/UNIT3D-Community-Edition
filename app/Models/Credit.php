@@ -35,13 +35,6 @@ class Credit extends Model
     use HasFactory;
 
     /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = true;
-
-    /**
      * Indicates If The Model Should Be Timestamped.
      *
      * @var bool

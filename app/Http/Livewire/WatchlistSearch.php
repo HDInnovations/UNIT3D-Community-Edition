@@ -55,7 +55,7 @@ class WatchlistSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\User>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Watchlist>
      */
     #[Computed]
     final public function users(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

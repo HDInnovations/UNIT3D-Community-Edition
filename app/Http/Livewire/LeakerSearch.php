@@ -53,7 +53,7 @@ class LeakerSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
      */
     #[Computed]
     final public function leakers(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

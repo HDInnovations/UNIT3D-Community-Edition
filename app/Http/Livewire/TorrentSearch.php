@@ -80,37 +80,37 @@ class TorrentSearch extends Component
     public ?int $seasonNumber = null;
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $categories = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $types = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $resolutions = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $genres = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $regions = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $distributors = [];

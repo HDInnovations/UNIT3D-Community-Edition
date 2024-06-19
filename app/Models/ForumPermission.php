@@ -47,14 +47,14 @@ class ForumPermission extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{read_topic: 'bool', reply_topic: 'bool', start_topic: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'read_topic'  => 'boolean',
-            'reply_topic' => 'boolean',
-            'start_topic' => 'boolean',
+            'read_topic'  => 'bool',
+            'reply_topic' => 'bool',
+            'start_topic' => 'bool',
         ];
     }
 

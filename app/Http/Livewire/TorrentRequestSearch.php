@@ -42,31 +42,31 @@ class TorrentRequestSearch extends Component
     public string $requestor = '';
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $categories = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $types = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $resolutions = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $genres = [];
 
     /**
-     * @var string[]
+     * @var array<int>
      */
     #[Url(history: true)]
     public array $primaryLanguages = [];

@@ -98,21 +98,21 @@ class Torrent extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{tmdb: 'int', igdb: 'int', bumped_at: 'datetime', fl_until: 'datetime', du_until: 'datetime', doubleup: 'bool', refundable: 'bool', featured: 'bool', moderated_at: 'datetime', sticky: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'tmdb'         => 'integer',
-            'igdb'         => 'integer',
+            'tmdb'         => 'int',
+            'igdb'         => 'int',
             'bumped_at'    => 'datetime',
             'fl_until'     => 'datetime',
             'du_until'     => 'datetime',
-            'doubleup'     => 'boolean',
-            'refundable'   => 'boolean',
-            'featured'     => 'boolean',
+            'doubleup'     => 'bool',
+            'refundable'   => 'bool',
+            'featured'     => 'bool',
             'moderated_at' => 'datetime',
-            'sticky'       => 'boolean',
+            'sticky'       => 'bool',
         ];
     }
 

@@ -39,13 +39,13 @@ class Like extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{like: 'bool', dislike: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'like'    => 'boolean',
-            'dislike' => 'boolean',
+            'like'    => 'bool',
+            'dislike' => 'bool',
         ];
     }
 

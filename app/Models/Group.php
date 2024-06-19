@@ -62,12 +62,12 @@ class Group extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{system_required: 'bool', min_ratio: 'decimal:2'}
      */
     protected function casts(): array
     {
         return [
-            'system_required' => 'boolean',
+            'system_required' => 'bool',
             'min_ratio'       => 'decimal:2',
         ];
     }
