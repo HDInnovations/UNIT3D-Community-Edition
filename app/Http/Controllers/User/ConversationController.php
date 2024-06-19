@@ -91,7 +91,7 @@ class ConversationController extends Controller
             'sender_id'       => $user->id,
         ]);
 
-        $conversation->users()->sync([$user->id, $recipient->id]);
+        $conversation->users()->sync([$user->id => ['read' => true], $recipient->id]);
 
         return to_route('users.conversations.show', ['user' => $user, 'conversation' => $conversation])
             ->withSuccess(trans('pm.sent-success'));
