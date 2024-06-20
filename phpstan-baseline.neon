@@ -1039,8 +1039,3 @@ parameters:
 			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
 			count: 1
 			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
-
-		-
-			message: "#^Undefined variable\\: \\$this$#"
-			count: 1
-			path: routes/console.php
