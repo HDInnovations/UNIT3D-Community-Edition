@@ -164,7 +164,7 @@ class TorrentController extends BaseController
         $torrent->sd = $request->input('sd');
         $torrent->personal_release = $request->input('personal_release') ?? 0;
         $torrent->internal = $user->group->is_modo || $user->group->is_internal ? ($request->input('internal') ?? 0) : 0;
-        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? ($request->input('featured') ?? 0) : 0;
+        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? ($request->input('featured') ?? false) : false;
         $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? ($request->input('doubleup') ?? 0) : 0;
         $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? ($request->input('refundable') ?? 0) : 0;
         $du_until = $request->input('du_until');
@@ -183,7 +183,7 @@ class TorrentController extends BaseController
         $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
 
         // Set freeleech and doubleup if featured
-        if ($torrent->featured == 1) {
+        if ($torrent->featured === true) {
             $torrent->free = 100;
             $torrent->doubleup = true;
         }

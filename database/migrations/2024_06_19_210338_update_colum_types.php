@@ -14,23 +14,18 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace App\Actions\Fortify;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Validation\Rules\Password as Password;
-
-trait PasswordValidationRules
-{
+return new class () extends Migration {
     /**
-     * Get the validation rules used to validate passwords.
-     *
-     * @return array<int, \Illuminate\Contracts\Validation\Rule|string>
+     * Run the migrations.
      */
-    protected function passwordRules(): array
+    public function up(): void
     {
-        return [
-            'required',
-            'string',
-            Password::min(12)->mixedCase()->letters()->numbers()->uncompromised(),
-        ];
+        Schema::table('users', function (Blueprint $table): void {
+            $table->boolean('active')->default(false)->change();
+        });
     }
-}
+};

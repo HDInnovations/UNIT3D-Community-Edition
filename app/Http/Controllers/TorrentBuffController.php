@@ -141,7 +141,7 @@ class TorrentBuffController extends Controller
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        if ($torrent->featured == 0) {
+        if ($torrent->featured === false) {
             $torrent->featured = true;
             $torrent->save();
 

@@ -118,11 +118,11 @@ class Top10 extends Component
         $metaTypes = [];
 
         if (Category::where('movie_meta', '=', true)->exists()) {
-            $metaTypes[__('mediahub.movie')] = 'movie_meta';
+            $metaTypes[(string) __('mediahub.movie')] = 'movie_meta';
         }
 
         if (Category::where('tv_meta', '=', true)->exists()) {
-            $metaTypes[__('mediahub.show')] = 'tv_meta';
+            $metaTypes[(string) __('mediahub.show')] = 'tv_meta';
         }
 
         return $metaTypes;
