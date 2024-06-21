@@ -331,26 +331,6 @@ parameters:
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BbcodeInput\\:\\:mount\\(\\) has parameter \\$content with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/BbcodeInput.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BbcodeInput\\:\\:mount\\(\\) has parameter \\$label with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/BbcodeInput.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BbcodeInput\\:\\:mount\\(\\) has parameter \\$name with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/BbcodeInput.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BbcodeInput\\:\\:mount\\(\\) has parameter \\$required with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/BbcodeInput.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:ipAddresses\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/BlockIpAddress.php
