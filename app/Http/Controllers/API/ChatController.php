@@ -34,9 +34,6 @@ use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
-/**
- * @see \Tests\Feature\Http\Controllers\API\ChatControllerTest
- */
 class ChatController extends Controller
 {
     /**
@@ -101,19 +98,19 @@ class ChatController extends Controller
     }
 
     /* MESSAGES */
-    public function messages($roomId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function messages(int $roomId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chatRepository->messages($roomId));
     }
 
     /* MESSAGES */
-    public function privateMessages(Request $request, $targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function privateMessages(Request $request, int $targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chatRepository->privateMessages($request->user()->id, $targetId));
     }
 
     /* MESSAGES */
-    public function botMessages(Request $request, $botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function botMessages(Request $request, int $botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $runbot = null;
         $bot = Bot::findOrFail($botId);
@@ -181,11 +178,11 @@ class ChatController extends Controller
             $message = '/bot gift'.substr((string) $message, \strlen($trip) + 1, \strlen((string) $message));
         }
 
-        if ($target == 'system') {
+        if ($target === 'system') {
             $runbot = new SystemBot($this->chatRepository);
         }
 
-        if ($which == null) {
+        if ($which === null) {
             foreach ($bots as $bot) {
                 if ($message && str_starts_with((string) $message, '/'.$bot->command)) {
                     $which = 'echo';
@@ -194,7 +191,7 @@ class ChatController extends Controller
                 } elseif ($message && str_starts_with((string) $message, '@'.$bot->command)) {
                     $message = substr((string) $message, 1 + \strlen((string) $bot->command), \strlen((string) $message));
                     $which = 'private';
-                } elseif ($message && $receiverId == 1 && $bot->id == $botId) {
+                } elseif ($message && $receiverId === 1 && $bot->id === $botId) {
                     if (str_starts_with((string) $message, '/'.$bot->command)) {
                         $message = substr((string) $message, 1 + \strlen((string) $bot->command), \strlen((string) $message));
                     }
@@ -210,13 +207,13 @@ class ChatController extends Controller
                     $which = 'message';
                 }
 
-                if ($which != null) {
+                if ($which !== null) {
                     break;
                 }
             }
         }
 
-        if ($which != null && $which != 'skip' && !$runbot) {
+        if ($which !== null && $which !== 'skip' && !$runbot) {
             if ($bot->is_systembot) {
                 $runbot = new SystemBot($this->chatRepository);
             } elseif ($bot->is_nerdbot) {
@@ -239,7 +236,7 @@ class ChatController extends Controller
                     fn () => UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $user1Id)->get()
                 );
 
-                if ($echoes->doesntContain(fn ($echo) => $echo->target_id == $user2Id)) {
+                if ($echoes->doesntContain(fn ($echo) => $echo->target_id === $user2Id)) {
                     UserEcho::create([
                         'user_id'   => $user1Id,
                         'target_id' => $user2Id,
@@ -261,7 +258,7 @@ class ChatController extends Controller
                     fn () => UserAudible::with(['room', 'target', 'bot'])->where('user_id', '=', $user1Id)->get()
                 );
 
-                if ($audibles->doesntContain(fn ($audible) => $audible->target_id == $user2Id)) {
+                if ($audibles->doesntContain(fn ($audible) => $audible->target_id === $user2Id)) {
                     UserAudible::create([
                         'user_id'   => $user1Id,
                         'target_id' => $user2Id,
@@ -277,7 +274,7 @@ class ChatController extends Controller
             }
 
             $roomId = 0;
-            $ignore = $botId > 0 && $receiverId == 1 ? true : null;
+            $ignore = $botId > 0 && $receiverId === 1 ? true : null;
             $save = true;
             $echo = true;
             $message = $this->chatRepository->privateMessage($userId, $roomId, $message, $receiverId, null, $ignore);
@@ -298,7 +295,7 @@ class ChatController extends Controller
         return response('success');
     }
 
-    public function deleteMessage(Request $request, $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function deleteMessage(Request $request, int $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $message = Message::find($id);
 
@@ -480,7 +477,7 @@ class ChatController extends Controller
             fn () => UserEcho::with(['room', 'target', 'bot'])->where('user_id', '=', $user->id)->get(),
         );
 
-        if ($echoes->doesntContain(fn ($echo) => $echo->room_id == $room->id)) {
+        if ($echoes->doesntContain(fn ($echo) => $echo->room_id === $room->id)) {
             UserEcho::create([
                 'user_id' => $user->id,
                 'room_id' => $room->id,

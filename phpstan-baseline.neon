@@ -196,52 +196,7 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$is_nerdbot\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$is_systembot\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$user\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$user_id\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:createMessage\\(\\) should return App\\\\Http\\\\Resources\\\\ChatMessageResource\\|bool\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response but returns bool\\|Illuminate\\\\Contracts\\\\Foundation\\\\Application\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:deleteMessage\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:messages\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:privateMessages\\(\\) has parameter \\$targetId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
@@ -436,29 +391,9 @@ parameters:
 			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 2
-			path: app/Http/Controllers/TicketAssigneeController.php
-
-		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TicketController.php
-
-		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 2
-			path: app/Http/Controllers/TicketNoteController.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
-
-		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$refundable \\(bool\\) does not accept int\\.$#"
@@ -476,17 +411,7 @@ parameters:
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 4
-			path: app/Http/Controllers/User/WarningController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\ApplicationSearch\\:\\:applications\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/ApplicationSearch.php
-
-		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
 			count: 1
 			path: app/Http/Livewire/ApplicationSearch.php
 
@@ -546,11 +471,6 @@ parameters:
 			path: app/Http/Livewire/BlockIpAddress.php
 
 		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:updatingGroupBy\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/InviteLogSearch.php
@@ -581,39 +501,14 @@ parameters:
 			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 3
-			path: app/Http/Livewire/UserNotes.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserSearch.php
 
 		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 7
-			path: app/Http/Livewire/UserWarnings.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Middleware/CheckForAdmin.php
-
-		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Middleware/CheckForModo.php
-
-		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_unless expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Middleware/CheckForOwner.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Middleware\\\\SetLanguage\\:\\:setSystemLocale\\(\\) has parameter \\$request with no type specified\\.$#"
@@ -717,11 +612,16 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:delete\\(\\)\\.$#"
-			count: 2
+			count: 1
 			path: app/Repositories/ChatRepository.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/Repositories/ChatRepository.php
+
+		-
+			message: "#^Instanceof between int\\|string and App\\\\Models\\\\Chatroom will always evaluate to false\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
@@ -731,37 +631,7 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:audibles\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) has parameter \\$botId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
 			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) has parameter \\$receiver with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessages\\(\\) has parameter \\$senderId with no type specified\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
@@ -776,32 +646,7 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:censorMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:checkMessageLimits\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:config\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
 			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:deleteMessage\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:deleteMessage\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:echoes\\(\\) has parameter \\$userId with no type specified\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
@@ -816,17 +661,7 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:htmlifyMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
 			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$bot with no type specified\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
@@ -836,37 +671,7 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$receiver with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:messages\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
 			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:messages\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:ping\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:ping\\(\\) has parameter \\$type with no type specified\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
@@ -876,42 +681,7 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$bot with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$ignore with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
 			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$receiver with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessages\\(\\) has parameter \\$senderId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessages\\(\\) has parameter \\$targetId with no type specified\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
@@ -922,11 +692,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:roomFindOrFail\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:roomFindOrFail\\(\\) has parameter \\$id with no type specified\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
@@ -951,11 +716,6 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:statusFindOrFail\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
 			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:statuses\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
@@ -964,36 +724,6 @@ parameters:
 			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:systemChatroom\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:systemChatroom\\(\\) has parameter \\$room with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:systemMessage\\(\\) has parameter \\$bot with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:systemMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$message of class App\\\\Events\\\\MessageDeleted constructor expects App\\\\Models\\\\Message, App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\> given\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Property App\\\\Rules\\\\EmailBlacklist\\:\\:\\$domains type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Rules/EmailBlacklist.php
-
-		-
-			message: "#^Class Database\\\\Factories\\\\FollowFactory extends generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory but does not specify its types\\: TModel$#"
-			count: 1
-			path: database/factories/FollowFactory.php
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"

@@ -33,19 +33,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property string   $color
  * @property string   $icon
  * @property string   $effect
- * @property int      $is_internal
- * @property int      $is_editor
- * @property int      $is_owner
- * @property int      $is_admin
- * @property int      $is_modo
- * @property int      $is_trusted
- * @property int      $is_immune
- * @property int      $is_freeleech
- * @property int      $is_double_upload
- * @property int      $is_refundable
- * @property int      $can_upload
- * @property int      $is_incognito
- * @property int      $autogroup
+ * @property bool     $is_internal
+ * @property bool     $is_editor
+ * @property bool     $is_owner
+ * @property bool     $is_admin
+ * @property bool     $is_modo
+ * @property bool     $is_trusted
+ * @property bool     $is_immune
+ * @property bool     $is_freeleech
+ * @property bool     $is_double_upload
+ * @property bool     $is_refundable
+ * @property bool     $can_upload
+ * @property bool     $is_incognito
+ * @property bool     $autogroup
  * @property bool     $system_required
  * @property int      $min_uploaded
  * @property int      $min_seedsize
@@ -67,8 +67,21 @@ class Group extends Model
     protected function casts(): array
     {
         return [
-            'system_required' => 'bool',
-            'min_ratio'       => 'decimal:2',
+            'is_internal'      => 'bool',
+            'is_editor'        => 'bool',
+            'is_owner'         => 'bool',
+            'is_admin'         => 'bool',
+            'is_modo'          => 'bool',
+            'is_trusted'       => 'bool',
+            'is_immune'        => 'bool',
+            'is_freeleech'     => 'bool',
+            'is_double_upload' => 'bool',
+            'is_refundable'    => 'bool',
+            'can_upload'       => 'bool',
+            'is_incognito'     => 'bool',
+            'autogroup'        => 'bool',
+            'system_required'  => 'bool',
+            'min_ratio'        => 'decimal:2',
         ];
     }
 

@@ -14,13 +14,12 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-/* @var \Illuminate\Database\Eloquent\Factory $factory */
-
 namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/** @extends Factory<User> */
 class FollowFactory extends Factory
 {
     /**
