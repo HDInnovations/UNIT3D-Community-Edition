@@ -47,7 +47,7 @@ class ProcessMassPM implements ShouldQueue
         $conversation = Conversation::create(['subject' => $this->subject]);
 
         if ($this->senderId !== User::SYSTEM_USER_ID) {
-            $conversation->users()->sync([$this->senderId]);
+            $conversation->users()->sync([$this->senderId => ['read' => true]]);
         }
 
         if ($this->receiverId !== User::SYSTEM_USER_ID) {

@@ -31,7 +31,7 @@ class ConversationSearch extends Component
     use WithPagination;
 
     #[Url(history: true)]
-    public string $tab = 'all';
+    public string $tab = 'inbox';
 
     #[Url(history: true, except: '')]
     public ?string $subject = null;
