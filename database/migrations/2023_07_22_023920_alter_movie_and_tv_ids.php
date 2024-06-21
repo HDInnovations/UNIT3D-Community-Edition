@@ -61,16 +61,16 @@ return new class () extends Migration {
         });
 
         Schema::table('recommendations', function (Blueprint $table): void {
-            $table->unsignedInteger('movie_id')->change();
+            $table->unsignedInteger('movie_id')->nullable()->change();
             $table->foreign('movie_id')->references('id')->on('movie')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->unsignedInteger('recommendation_movie_id')->change();
+            $table->unsignedInteger('recommendation_movie_id')->nullable()->change();
             $table->foreign('recommendation_movie_id')->references('id')->on('movie')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->unsignedInteger('tv_id')->change();
+            $table->unsignedInteger('tv_id')->nullable()->change();
             $table->foreign('tv_id')->references('id')->on('tv')->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->unsignedInteger('recommendation_tv_id')->change();
+            $table->unsignedInteger('recommendation_tv_id')->nullable()->change();
             $table->foreign('recommendation_tv_id')->references('id')->on('tv')->cascadeOnUpdate()->cascadeOnDelete();
         });
 

@@ -35,7 +35,7 @@ return new class () extends Migration {
             ->delete();
 
         Schema::table('subscriptions', function (Blueprint $table): void {
-            $table->unsignedInteger('topic_id')->change();
+            $table->unsignedInteger('topic_id')->nullable()->change();
             $table->foreign('topic_id')->references('id')->on('topics')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
@@ -61,7 +61,7 @@ return new class () extends Migration {
             ]);
 
         Schema::table('forums', function (Blueprint $table): void {
-            $table->unsignedInteger('last_topic_id')->change();
+            $table->unsignedInteger('last_topic_id')->nullable()->change();
             $table->foreign('last_topic_id')->references('id')->on('topics')->cascadeOnUpdate()->nullOnDelete();
         });
 
@@ -79,7 +79,7 @@ return new class () extends Migration {
             ->delete();
 
         Schema::table('subscriptions', function (Blueprint $table): void {
-            $table->unsignedSmallInteger('forum_id')->change();
+            $table->unsignedSmallInteger('forum_id')->nullable()->change();
             $table->foreign('forum_id')->references('id')->on('forums')->cascadeOnUpdate()->cascadeOnDelete();
         });
 
@@ -116,7 +116,7 @@ return new class () extends Migration {
             ]);
 
         Schema::table('forums', function (Blueprint $table): void {
-            $table->unsignedSmallInteger('parent_id')->change();
+            $table->unsignedSmallInteger('parent_id')->nullable()->change();
             $table->foreign('parent_id')->references('id')->on('forums')->cascadeOnUpdate()->nullOnDelete();
         });
     }

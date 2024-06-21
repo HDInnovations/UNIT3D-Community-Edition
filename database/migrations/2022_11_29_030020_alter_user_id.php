@@ -515,7 +515,7 @@ return new class () extends Migration {
         });
 
         Schema::table('peers', function (Blueprint $table): void {
-            $table->unsignedInteger('user_id')->change();
+            $table->unsignedInteger('user_id')->nullable()->change();
             $table->dropIndex('fk_peers_users1_idx');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
         });
@@ -574,11 +574,11 @@ return new class () extends Migration {
             $table->dropIndex('requests_user_id_foreign');
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnUpdate();
 
-            $table->unsignedInteger('filled_by')->change();
+            $table->unsignedInteger('filled_by')->nullable()->change();
             $table->dropIndex('filled_by');
             $table->foreign('filled_by')->references('id')->on('users')->cascadeOnUpdate();
 
-            $table->unsignedInteger('approved_by')->change();
+            $table->unsignedInteger('approved_by')->nullable()->change();
             $table->dropIndex('approved_by');
             $table->foreign('approved_by')->references('id')->on('users')->cascadeOnUpdate();
         });

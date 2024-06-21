@@ -25,7 +25,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('torrents', function (Blueprint $table): void {
-            $table->binary('nfo')->change();
+            $table->binary('nfo')->nullable()->change();
         });
     }
 };

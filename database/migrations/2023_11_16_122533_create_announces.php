@@ -29,6 +29,7 @@ return new class () extends Migration {
             $table->unsignedBigInteger('downloaded');
             $table->unsignedBigInteger('left');
             $table->unsignedBigInteger('corrupt');
+            $table->binary('peer_id', length: 20, fixed: true);
             $table->unsignedSmallInteger('port');
             $table->unsignedSmallInteger('numwant');
             $table->timestamp('created_at')->useCurrent();
@@ -37,7 +38,5 @@ return new class () extends Migration {
 
             $table->index(['user_id', 'torrent_id']);
         });
-
-        DB::statement("ALTER TABLE announces ADD COLUMN peer_id BINARY(20) NOT NULL AFTER corrupt");
     }
 };
