@@ -25,14 +25,14 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('user_echoes', function (Blueprint $table): void {
-            $table->integer('room_id')->change();
-            $table->integer('bot_id')->change();
-            $table->integer('target_id')->change();
+            $table->integer('room_id')->nullable()->change();
+            $table->integer('bot_id')->nullable()->change();
+            $table->integer('target_id')->nullable()->change();
         });
         Schema::table('user_audibles', function (Blueprint $table): void {
-            $table->integer('room_id')->change();
-            $table->integer('bot_id')->change();
-            $table->integer('target_id')->change();
+            $table->integer('room_id')->nullable()->change();
+            $table->integer('bot_id')->nullable()->change();
+            $table->integer('target_id')->nullable()->change();
         });
     }
 };

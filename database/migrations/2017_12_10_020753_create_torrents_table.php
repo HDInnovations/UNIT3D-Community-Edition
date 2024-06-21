@@ -32,7 +32,7 @@ return new class () extends Migration {
             $table->string('info_hash')->index('info_hash');
             $table->string('file_name');
             $table->integer('num_file');
-            $table->float('size');
+            $table->double('size');
             $table->text('nfo')->nullable();
             $table->integer('leechers')->default(0);
             $table->integer('seeders')->default(0);

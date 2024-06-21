@@ -27,7 +27,7 @@ return new class () extends Migration {
         Schema::create('bot_transactions', function (Blueprint $table): void {
             $table->integer('id', true);
             $table->string('type')->default('')->nullable()->index();
-            $table->float('cost', 22)->default(0.00);
+            $table->double('cost')->default(0.00);
             $table->integer('user_id')->default(0)->index();
             $table->integer('bot_id')->default(0)->index();
             $table->boolean('to_user')->default(0)->index();

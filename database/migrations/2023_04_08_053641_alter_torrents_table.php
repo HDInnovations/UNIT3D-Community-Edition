@@ -25,7 +25,10 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        DB::statement("ALTER TABLE torrents ADD COLUMN info_hash2 BINARY(20) NOT NULL");
+        Schema::table('torrents', function (Blueprint $table): void {
+            $table->binary('info_hash2', length: 20, fixed: true);
+        });
+
         DB::table('torrents')->update([
             'info_hash2' => DB::raw('UNHEX(info_hash)'),
             'updated_at' => DB::raw('updated_at'),
