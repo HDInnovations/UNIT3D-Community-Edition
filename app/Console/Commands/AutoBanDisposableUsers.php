@@ -91,9 +91,11 @@ class AutoBanDisposableUsers extends Command
                 }
 
                 cache()->forget('user:'.$user->passkey);
+
                 Unit3dAnnounce::addUser($user);
             }
         });
+
         $this->comment('Automated User Banning Command Complete');
     }
 }

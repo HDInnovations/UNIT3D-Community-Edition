@@ -80,6 +80,8 @@ class MassActionController extends Controller
                 'email_verified_at' => now(),
             ]);
 
+            cache()->forget('user:'.$user->passkey);
+
             Unit3dAnnounce::addUser($user);
         }
 
