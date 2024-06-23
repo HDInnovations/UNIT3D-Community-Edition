@@ -17,6 +17,5 @@ parameters:
         - app/Helpers/MarkdownExtra
         - app/Http/Livewire/PersonCredit
         - app/Http/Livewire/TorrentSearch
-        - routes/web.php
     level: 7
     checkOctaneCompatibility: true
