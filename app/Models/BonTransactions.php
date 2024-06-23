@@ -61,7 +61,7 @@ class BonTransactions extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{cost: 'decimal:2'}
      */
     protected function casts(): array
     {

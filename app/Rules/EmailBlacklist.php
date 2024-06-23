@@ -25,6 +25,8 @@ class EmailBlacklist implements ValidationRule
 {
     /**
      * Array of blacklisted domains.
+     *
+     * @var array<string>
      */
     private array $domains = [];
 

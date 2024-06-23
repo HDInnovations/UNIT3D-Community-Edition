@@ -47,7 +47,7 @@ class Application extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{moderated_at: 'datetime'}
      */
     protected function casts(): array
     {

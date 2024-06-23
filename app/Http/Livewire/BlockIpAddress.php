@@ -74,6 +74,9 @@ class BlockIpAddress extends Component
         }
     }
 
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<BlockedIp>
+     */
     #[Computed]
     final public function ipAddresses(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {

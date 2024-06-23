@@ -46,12 +46,12 @@ class Resurrection extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{rewarded: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'rewarded' => 'boolean',
+            'rewarded' => 'bool',
         ];
     }
 

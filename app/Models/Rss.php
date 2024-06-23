@@ -52,7 +52,7 @@ class Rss extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{name: 'string', json_torrent: 'array', expected_fields: 'array'}
      */
     protected function casts(): array
     {

@@ -23,7 +23,7 @@ trait PasswordValidationRules
     /**
      * Get the validation rules used to validate passwords.
      *
-     * @return array<int, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<int, \Illuminate\Contracts\Validation\Rule|string>
      */
     protected function passwordRules(): array
     {

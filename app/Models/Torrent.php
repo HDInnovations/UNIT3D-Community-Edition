@@ -34,56 +34,56 @@ use voku\helper\AntiXSS;
 /**
  * App\Models\Torrent.
  *
- * @property string                                                                     $info_hash
- * @property int                                                                        $id
- * @property string                                                                     $name
- * @property string                                                                     $description
- * @property string|null                                                                $mediainfo
- * @property string|null                                                                $bdinfo
- * @property string                                                                     $file_name
- * @property int                                                                        $num_file
- * @property string|null                                                                $folder
- * @property float                                                                      $size
- * @property mixed|null                                                                 $nfo
- * @property int                                                                        $leechers
- * @property int                                                                        $seeders
- * @property int                                                                        $times_completed
- * @property int|null                                                                   $category_id
- * @property int                                                                        $user_id
- * @property int                                                                        $imdb
- * @property int                                                                        $tvdb
- * @property int                                                                        $tmdb
- * @property int                                                                        $mal
- * @property int                                                                        $igdb
- * @property int|null                                                                   $season_number
- * @property int|null                                                                   $episode_number
- * @property int                                                                        $stream
- * @property int                                                                        $free
- * @property bool                                                                       $doubleup
- * @property bool                                                                       $refundable
- * @property int                                                                        $highspeed
- * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\FeaturedTorrent> $featured
- * @property int                                                                        $status
- * @property \Illuminate\Support\Carbon|null                                            $moderated_at
- * @property int|null                                                                   $moderated_by
- * @property int                                                                        $anon
- * @property bool                                                                       $sticky
- * @property int                                                                        $sd
- * @property int                                                                        $internal
- * @property \Illuminate\Support\Carbon|null                                            $created_at
- * @property \Illuminate\Support\Carbon|null                                            $updated_at
- * @property \Illuminate\Support\Carbon|null                                            $bumped_at
- * @property \Illuminate\Support\Carbon|null                                            $deleted_at
- * @property \Illuminate\Support\Carbon|null                                            $fl_until
- * @property \Illuminate\Support\Carbon|null                                            $du_until
- * @property string|null                                                                $release_year
- * @property int                                                                        $type_id
- * @property int|null                                                                   $resolution_id
- * @property int|null                                                                   $distributor_id
- * @property int|null                                                                   $region_id
- * @property int                                                                        $personal_release
- * @property int|null                                                                   $balance
- * @property int|null                                                                   $balance_offset
+ * @property string                          $info_hash
+ * @property int                             $id
+ * @property string                          $name
+ * @property string                          $description
+ * @property string|null                     $mediainfo
+ * @property string|null                     $bdinfo
+ * @property string                          $file_name
+ * @property int                             $num_file
+ * @property string|null                     $folder
+ * @property float                           $size
+ * @property mixed|null                      $nfo
+ * @property int                             $leechers
+ * @property int                             $seeders
+ * @property int                             $times_completed
+ * @property int|null                        $category_id
+ * @property int                             $user_id
+ * @property int                             $imdb
+ * @property int                             $tvdb
+ * @property int                             $tmdb
+ * @property int                             $mal
+ * @property int                             $igdb
+ * @property int|null                        $season_number
+ * @property int|null                        $episode_number
+ * @property int                             $stream
+ * @property int                             $free
+ * @property bool                            $doubleup
+ * @property bool                            $refundable
+ * @property int                             $highspeed
+ * @property bool                            $featured
+ * @property int                             $status
+ * @property \Illuminate\Support\Carbon|null $moderated_at
+ * @property int|null                        $moderated_by
+ * @property int                             $anon
+ * @property bool                            $sticky
+ * @property int                             $sd
+ * @property int                             $internal
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $bumped_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $fl_until
+ * @property \Illuminate\Support\Carbon|null $du_until
+ * @property string|null                     $release_year
+ * @property int                             $type_id
+ * @property int|null                        $resolution_id
+ * @property int|null                        $distributor_id
+ * @property int|null                        $region_id
+ * @property int                             $personal_release
+ * @property int|null                        $balance
+ * @property int|null                        $balance_offset
  */
 class Torrent extends Model
 {
@@ -98,21 +98,21 @@ class Torrent extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{tmdb: 'int', igdb: 'int', bumped_at: 'datetime', fl_until: 'datetime', du_until: 'datetime', doubleup: 'bool', refundable: 'bool', featured: 'bool', moderated_at: 'datetime', sticky: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'tmdb'         => 'integer',
-            'igdb'         => 'integer',
+            'tmdb'         => 'int',
+            'igdb'         => 'int',
             'bumped_at'    => 'datetime',
             'fl_until'     => 'datetime',
             'du_until'     => 'datetime',
-            'doubleup'     => 'boolean',
-            'refundable'   => 'boolean',
-            'featured'     => 'boolean',
+            'doubleup'     => 'bool',
+            'refundable'   => 'bool',
+            'featured'     => 'bool',
             'moderated_at' => 'datetime',
-            'sticky'       => 'boolean',
+            'sticky'       => 'bool',
         ];
     }
 

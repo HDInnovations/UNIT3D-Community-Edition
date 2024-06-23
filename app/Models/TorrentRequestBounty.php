@@ -53,7 +53,7 @@ class TorrentRequestBounty extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{seedbonus: 'decimal:2'}
      */
     protected function casts(): array
     {

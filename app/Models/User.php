@@ -42,7 +42,7 @@ use voku\helper\AntiXSS;
  * @property string|null                     $two_factor_confirmed_at
  * @property string                          $passkey
  * @property int                             $group_id
- * @property int                             $active
+ * @property bool                            $active
  * @property int                             $uploaded
  * @property int                             $downloaded
  * @property string|null                     $image
@@ -111,7 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{last_login: 'datetime', last_action: 'datetime', disabled_at: 'datetime', hidden: 'bool', can_comment: 'bool', can_download: 'bool', can_request: 'bool', can_invite: 'bool', can_upload: 'bool', can_chat: 'bool', seedbonus: 'decimal:2', active: 'bool'}
      */
     protected function casts(): array
     {
@@ -119,14 +119,15 @@ class User extends Authenticatable implements MustVerifyEmail
             'last_login'   => 'datetime',
             'last_action'  => 'datetime',
             'disabled_at'  => 'datetime',
-            'hidden'       => 'boolean',
-            'can_comment'  => 'boolean',
-            'can_download' => 'boolean',
-            'can_request'  => 'boolean',
-            'can_invite'   => 'boolean',
-            'can_upload'   => 'boolean',
-            'can_chat'     => 'boolean',
+            'hidden'       => 'bool',
+            'can_comment'  => 'bool',
+            'can_download' => 'bool',
+            'can_request'  => 'bool',
+            'can_invite'   => 'bool',
+            'can_upload'   => 'bool',
+            'can_chat'     => 'bool',
             'seedbonus'    => 'decimal:2',
+            'active'       => 'bool',
         ];
     }
 

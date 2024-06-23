@@ -16,12 +16,12 @@ declare(strict_types=1);
 
 namespace App\Services\Tmdb\Client;
 
-use JsonException;
 use App\Enums\Occupation;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use DateTime;
+use Exception;
 
 class Movie
 {
@@ -199,7 +199,7 @@ class Movie
      *         results: ?array<
      *             int<0, max>,
      *             ?array{
-     *                 adult: ?boolean,
+     *                 adult: ?bool,
      *                 backdrop_path: ?string,
      *                 id: ?int,
      *                 title: ?string,
@@ -237,8 +237,7 @@ class Movie
     public TMDB $tmdb;
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws JsonException
+     * @throws \Illuminate\Http\Client\ConnectionException
      */
     public function __construct(int $id)
     {
@@ -255,7 +254,8 @@ class Movie
     }
 
     /**
-     * @return null|array{
+     * @throws Exception
+     * @return ?array{
      *     adult: bool,
      *     backdrop: ?string,
      *     budget: ?int,
@@ -284,7 +284,7 @@ class Movie
 
             if ($this->data['release_date'] !== null) {
                 $re = '/((?<namesort>.*)(?<seperator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
-                preg_match($re, (string) $this->data['title'], $matches);
+                preg_match($re, $this->data['title'], $matches);
 
                 $year = (new DateTime($this->data['release_date']))->format('Y');
 

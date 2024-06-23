@@ -54,6 +54,8 @@ class IrcMessage extends Command
 
     /**
      * Get the console command arguments.
+     *
+     * @return array<int, array<int, int|string>>
      */
     protected function getArguments(): array
     {

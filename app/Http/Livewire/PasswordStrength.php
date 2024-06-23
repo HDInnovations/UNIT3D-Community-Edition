@@ -27,6 +27,9 @@ class PasswordStrength extends Component
 
     public int $strengthScore = 0;
 
+    /**
+     * @var array<int, string>
+     */
     public array $strengthLevels = [
         1 => 'Weak',
         2 => 'Fair',
@@ -34,7 +37,7 @@ class PasswordStrength extends Component
         4 => 'Strong',
     ];
 
-    final public function updatedPassword($password): void
+    final public function updatedPassword(string $password): void
     {
         $this->strengthScore = (new Zxcvbn())->passwordStrength($password)['score'];
     }

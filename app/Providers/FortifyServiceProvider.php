@@ -125,7 +125,7 @@ class FortifyServiceProvider extends ServiceProvider
                         $user->can_comment = 1;
                         $user->can_invite = 1;
                         $user->group_id = $memberGroup[0];
-                        $user->active = 1;
+                        $user->active = true;
                     }
 
                     $user->save();
@@ -208,7 +208,7 @@ class FortifyServiceProvider extends ServiceProvider
                 // Check if user is activated
                 $validatingGroup = cache()->rememberForever('validating_group', fn () => Group::query()->where('slug', '=', 'validating')->pluck('id'));
 
-                if ($user->active == 0 || $user->group_id === $validatingGroup[0]) {
+                if ($user->active === false || $user->group_id === $validatingGroup[0]) {
                     $request->session()->invalidate();
 
                     throw ValidationException::withMessages([

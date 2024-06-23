@@ -62,14 +62,14 @@ class History extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{completed_at: 'datetime', hitrun: 'bool', prewarn: 'bool'}
      */
     protected function casts(): array
     {
         return [
             'completed_at' => 'datetime',
-            'hitrun'       => 'boolean',
-            'prewarn'      => 'boolean',
+            'hitrun'       => 'bool',
+            'prewarn'      => 'bool',
         ];
     }
 

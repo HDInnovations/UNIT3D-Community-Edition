@@ -48,13 +48,13 @@ class Warning extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{expires_on: 'datetime', active: 'bool'}
      */
     protected function casts(): array
     {
         return [
             'expires_on' => 'datetime',
-            'active'     => 'boolean',
+            'active'     => 'bool',
         ];
     }
 

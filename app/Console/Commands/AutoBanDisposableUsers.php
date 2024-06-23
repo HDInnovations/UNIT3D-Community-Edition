@@ -78,7 +78,7 @@ class AutoBanDisposableUsers extends Command
                     $user->save();
 
                     // Log The Ban To Ban Log
-                    $domain = substr(strrchr((string) $user->email, '@'), 1);
+                    $domain = substr((string) strrchr((string) $user->email, '@'), 1);
                     $logban = new Ban();
                     $logban->owned_by = $user->id;
                     $logban->created_by = User::SYSTEM_USER_ID;

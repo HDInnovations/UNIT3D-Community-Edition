@@ -50,15 +50,15 @@ class Category extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{music_meta: 'bool', game_meta: 'bool', tv_meta: 'bool', movie_meta: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'music_meta' => 'boolean',
-            'game_meta'  => 'boolean',
-            'tv_meta'    => 'boolean',
-            'movie_meta' => 'boolean',
+            'music_meta' => 'bool',
+            'game_meta'  => 'bool',
+            'tv_meta'    => 'bool',
+            'movie_meta' => 'bool',
         ];
     }
 

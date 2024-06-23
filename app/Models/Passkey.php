@@ -46,7 +46,7 @@ class Passkey extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{deleted_at: 'datetime'}
      */
     protected function casts(): array
     {

@@ -51,13 +51,16 @@ class Comment extends Model
     protected $guarded = [];
 
     /**
-     * The attributes that should be cast.
+     * Get the attributes that should be cast.
      *
-     * @var array<string, string>
+     * @return array{anon: 'bool'}
      */
-    protected $casts = [
-        'anon' => 'bool',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'anon' => 'bool',
+        ];
+    }
 
     /**
      * Belongs To A User.

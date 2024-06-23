@@ -75,15 +75,15 @@ class TorrentRequest extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{filled_when: 'datetime', approved_when: 'datetime', tmdb: 'int', igdb: 'int', bounty: 'decimal:2'}
      */
     protected function casts(): array
     {
         return [
             'filled_when'   => 'datetime',
             'approved_when' => 'datetime',
-            'tmdb'          => 'integer',
-            'igdb'          => 'integer',
+            'tmdb'          => 'int',
+            'igdb'          => 'int',
             'bounty'        => 'decimal:2',
         ];
     }

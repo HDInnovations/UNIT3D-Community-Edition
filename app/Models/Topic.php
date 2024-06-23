@@ -54,20 +54,20 @@ class Topic extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{last_post_created_at: 'datetime', pinned: 'bool', approved: 'bool', denied: 'bool', solved: 'bool', invalid: 'bool', bug: 'bool', suggestion: 'bool', implemented: 'bool'}
      */
     protected function casts(): array
     {
         return [
             'last_post_created_at' => 'datetime',
-            'pinned'               => 'boolean',
-            'approved'             => 'boolean',
-            'denied'               => 'boolean',
-            'solved'               => 'boolean',
-            'invalid'              => 'boolean',
-            'bug'                  => 'boolean',
-            'suggestion'           => 'boolean',
-            'implemented'          => 'boolean',
+            'pinned'               => 'bool',
+            'approved'             => 'bool',
+            'denied'               => 'bool',
+            'solved'               => 'bool',
+            'invalid'              => 'bool',
+            'bug'                  => 'bool',
+            'suggestion'           => 'bool',
+            'implemented'          => 'bool',
         ];
     }
 
