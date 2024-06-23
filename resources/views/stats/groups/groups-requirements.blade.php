@@ -116,7 +116,7 @@
                                                             class="{{ config('other.font-awesome') }} fa-x text-red"
                                                         ></i>
                                                         |
-                                                        {{ \App\Helpers\StringHelper::timeElapsed($group->min_age + $user_account_age) }}
+                                                        {{ \App\Helpers\StringHelper::timeElapsed($group->min_age - $user_account_age) }}
                                                     @endif
                                                 </td>
                                             </tr>
