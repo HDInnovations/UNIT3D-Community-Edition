@@ -326,21 +326,6 @@ parameters:
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:\\$listeners has no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/BackupPanel.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BlockIpAddress\\:\\:ipAddresses\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:updatingGroupBy\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
 			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
