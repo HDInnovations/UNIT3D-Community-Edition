@@ -27,9 +27,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         if (! config('announce.external_tracker.is_enabled')) {
-            $schedule->command('auto:upsert_peers')->everyFiveSeconds();
-            $schedule->command('auto:upsert_histories')->everyFiveSeconds();
-            $schedule->command('auto:upsert_announces')->everyFiveSeconds();
+            $schedule->command('auto:upsert_peers')->everyFiveSeconds()->withoutOverlapping(2);
+            $schedule->command('auto:upsert_histories')->everyFiveSeconds()->withoutOverlapping(2);
+            $schedule->command('auto:upsert_announces')->everyFiveSeconds()->withoutOverlapping(2);
             $schedule->command('auto:cache_user_leech_counts')->everyThirtyMinutes();
             $schedule->command('auto:sync_peers')->everyFiveMinutes();
             $schedule->command('auto:torrent_balance')->hourly();

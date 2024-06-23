@@ -57,7 +57,7 @@ class AutoUpsertPeers extends Command
         $peerCount = Redis::connection('announce')->command('LLEN', [$key]);
 
         for ($peersLeft = $peerCount; $peersLeft > 0; $peersLeft -= $peerPerCycle) {
-            $peers = Redis::connection('announce')->command('LPOP', [$key, $peerPerCycle]);
+            $peers = Redis::connection('announce')->command('LRANGE', [$key, 0, $peerPerCycle - 1]);
 
             if ($peers === false) {
                 break;
@@ -86,6 +86,8 @@ class AutoUpsertPeers extends Command
                     ],
                 );
             }, 5);
+
+            Redis::connection('announce')->command('LTRIM', [$key, $peerPerCycle, -1]);
         }
 
         $this->comment('Automated insert peers command complete');
