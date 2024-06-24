@@ -50,7 +50,7 @@ class AutoPreWarning extends Command
         if (config('hitrun.enabled') === true) {
             $carbon = new Carbon();
             $prewarn = History::with(['user', 'torrent'])
-                ->where('prewarn', '=', 0)
+                ->whereNull('prewarned_at')
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('actual_downloaded', '>', 0)
@@ -73,7 +73,7 @@ class AutoPreWarning extends Command
                         ->first();
 
                     if ($exsist === null) {
-                        $pre->prewarn = true;
+                        $pre->prewarned_at = now();
                         $pre->timestamps = false;
                         $pre->save();
 

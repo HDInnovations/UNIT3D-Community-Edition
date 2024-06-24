@@ -368,6 +368,14 @@
                         @include('livewire.includes._sort-icon', ['field' => 'completed_at'])
                     </th>
                     <th
+                        class="user-torrents__prewarned-header"
+                        wire:click="sortBy('prewarn')"
+                        role="columnheader button"
+                    >
+                        {{ __('torrent.prewarn') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'prewarned_at'])
+                    </th>
+                    <th
                         class="user-torrents__seeding-header"
                         wire:click="sortBy('seeding')"
                         role="columnheader button"
@@ -382,14 +390,6 @@
                         title="{{ __('torrent.leeching') }}"
                     >
                         <i class="fas fa-arrow-down"></i>
-                    </th>
-                    <th
-                        class="user-torrents__prewarned-header"
-                        wire:click="sortBy('prewarn')"
-                        role="columnheader button"
-                        title="{{ __('torrent.prewarn') }}"
-                    >
-                        <i class="fas fa-exclamation"></i>
                     </th>
                     <th
                         class="user-torrents__warned-header"
@@ -563,6 +563,14 @@
                                         {{ $history->completed_at ?? 'N/A' }}
                                     </time>
                                 </td>
+                                <td class="user-torrents__prewarned-at">
+                                    <time
+                                        datetime="{{ $history->prewarned_at }}"
+                                        title="{{ $history->prewarned_at }}"
+                                    >
+                                        {{ $history->prewarned_at ?? 'N/A' }}
+                                    </time>
+                                </td>
                             @else
                                 <td class="user-torrents__leechtime">
                                     @if ($history->leechtime === null)
@@ -606,6 +614,15 @@
                                         {{ $history->completed_at === null ? 'N/A' : \explode(' ', $history->completed_at)[0] }}
                                     </time>
                                 </td>
+
+                                <td class="user-torrents__prewarned-at">
+                                    <time
+                                        datetime="{{ $history->prewarned_at }}"
+                                        title="{{ $history->prewarned_at }}"
+                                    >
+                                        {{ $history->prewarned_at === null ? 'N/A' : \explode(' ', $history->prewarned_at)[0] }}
+                                    </time>
+                                </td>
                             @endif
                             <td class="user-torrents__seeding">
                                 @if ($history->seeding == 1)
@@ -630,19 +647,6 @@
                                     <i
                                         class="{{ config('other.font-awesome') }} text-red fa-times"
                                         title="Not {{ __('torrent.leeching') }}"
-                                    ></i>
-                                @endif
-                            </td>
-                            <td class="user-torrents__prewarned">
-                                @if ($history->prewarn == 1)
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-check text-green"
-                                        title="Prewarned"
-                                    ></i>
-                                @else
-                                    <i
-                                        class="{{ config('other.font-awesome') }} fa-times text-red"
-                                        title="Not prewarned"
                                     ></i>
                                 @endif
                             </td>

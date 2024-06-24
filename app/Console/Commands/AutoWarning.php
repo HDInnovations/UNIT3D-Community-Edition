@@ -54,7 +54,7 @@ class AutoWarning extends Command
             $carbon = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)
-                ->where('prewarn', '=', 1)
+                ->where('prewarned_at', '<=', now()->subDays(config('hitrun.prewarn')))
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('active', '=', 0)

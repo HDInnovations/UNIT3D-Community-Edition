@@ -41,9 +41,9 @@
 .user-torrents__created-at-header,
 .user-torrents__updated-at-header,
 .user-torrents__completed-at-header,
+.user-torrents__prewarned-header,
 .user-torrents__seeding-header,
 .user-torrents__leeching-header,
-.user-torrents__prewarned-header,
 .user-torrents__warned-header,
 .user-torrents__immune-header,
 .user-torrents__uploader-header,
@@ -66,13 +66,13 @@
 .user-torrents__seedtime,
 .user-torrents__created-at,
 .user-torrents__updated-at,
-.user-torrents__completed-at {
+.user-torrents__completed-at,
+.user-torrents__prewarned {
     font-size: 14px;
 }
 
 .user-torrents__seeding,
 .user-torrents__leeching,
-.user-torrents__prewarned,
 .user-torrents__warned,
 .user-torrents__immune,
 .user-torrents__uploader,
@@ -103,14 +103,12 @@
 
 .user-torrents__seeding-header,
 .user-torrents__leeching-header,
-.user-torrents__prewarned-header,
 .user-torrents__warned-header,
 .user-torrents__immune-header,
 .user-torrents__uploader-header,
 .user-torrents__status-header,
 .user-torrents__seeding,
 .user-torrents__leeching,
-.user-torrents__prewarned,
 .user-torrents__warned,
 .user-torrents__immune,
 .user-torrents__uploader,
