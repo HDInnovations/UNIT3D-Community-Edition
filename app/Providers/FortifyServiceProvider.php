@@ -68,6 +68,10 @@ class FortifyServiceProvider extends ServiceProvider
                     $user->disabled_at = null;
                     $user->save();
 
+                    cache()->forget('user:'.$user->passkey);
+
+                    Unit3dAnnounce::addUser($user);
+
                     return to_route('home.index')
                         ->withSuccess(trans('auth.welcome-restore'));
                 }
@@ -126,11 +130,12 @@ class FortifyServiceProvider extends ServiceProvider
                         $user->can_invite = 1;
                         $user->group_id = $memberGroup[0];
                         $user->active = true;
+                        $user->save();
+
+                        cache()->forget('user:'.$user->passkey);
+
+                        Unit3dAnnounce::addUser($user);
                     }
-
-                    $user->save();
-
-                    Unit3dAnnounce::addUser($user);
 
                     return to_route('login')
                         ->withSuccess(trans('auth.activation-success'));

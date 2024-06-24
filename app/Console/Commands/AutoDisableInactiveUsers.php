@@ -72,6 +72,7 @@ class AutoDisableInactiveUsers extends Command
                     $user->save();
 
                     cache()->forget('user:'.$user->passkey);
+
                     Unit3dAnnounce::addUser($user);
 
                     // Send Email
