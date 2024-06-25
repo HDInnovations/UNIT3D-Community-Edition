@@ -43,3 +43,12 @@ npm-debug.log
 _ide_helper.php
 supervisor.ini
 /.phpunit.cache/
+public/vendor/livewire/livewire.js
+public/vendor/livewire/manifest.json
+
+/caddy
+frankenphp
+frankenphp-worker.php
+/data
+config/caddy/autosave.json
+/data/
