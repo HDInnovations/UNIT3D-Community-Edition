@@ -3,6 +3,8 @@
 
 # Laravel
 # Ignore everything in the public/files directory EXCEPT the .gitkeep
+/public/vendor/livewire/livewire.js
+/public/vendor/livewire/manifest.json
 /public/files
 !.gitkeep
 /public/sounds
@@ -43,9 +45,6 @@ npm-debug.log
 _ide_helper.php
 supervisor.ini
 /.phpunit.cache/
-public/vendor/livewire/livewire.js
-public/vendor/livewire/manifest.json
-
 /caddy
 frankenphp
 frankenphp-worker.php
