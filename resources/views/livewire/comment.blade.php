@@ -123,7 +123,7 @@
     @if ($comment->isParent())
         <section class="comment__replies">
             <h5 class="sr-only">Replies</h5>
-            @if ($comment->children_exists)
+            @if (! $comment->children_exists)
                 <ul class="comment__reply-list">
                     @foreach ($comment->children as $child)
                         <livewire:comment :comment="$child" :key="$child->id" />
@@ -131,7 +131,7 @@
                 </ul>
             @endif
 
-            @if ($isReplying || $comment->children_exists)
+            @if ($isReplying || ! $comment->children_exists)
                 <form wire:submit="postReply" class="form reply-comment" x-data="toggle">
                     <p class="form__group">
                         <textarea
