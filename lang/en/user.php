@@ -183,6 +183,7 @@ return [
     'my-achievements'                => 'My Achievements',
     'my-bonus-points'                => 'My Bonus Points',
     'my-bookmarks'                   => 'My Bookmarks',
+    'my-downloads'                   => 'My Downloads',
     'my-fl-tokens'                   => 'My FL tokens',
     'my-general-settings'            => 'My General Settings',
     'my-notification'                => 'My Notification',
