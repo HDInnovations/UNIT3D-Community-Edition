@@ -133,15 +133,15 @@ class TorrentHelper
 
             (new IRCAnnounceBot())
                 ->to(config('irc-bot.channel'))
-                ->say(':['.config('app.name').'] '.($anon ? 'An anonymous user' : $username).' has uploaded '.$torrent->name.' grab it now!')
+                ->say('['.config('app.name').'] '.($anon ? 'An anonymous user' : $username).' has uploaded '.$torrent->name.' grab it now!')
                 ->say(
-                    ':[Category: '.$category->name.'] '
+                    '[Category: '.$category->name.'] '
                     .'[Type: '.$torrent->type->name.'] '
                     .'[Size: '.$torrent->getSize().'] '
                     .'[TMDB vote average: '.($meta->vote_average ?? 0).'] '
                     .'[TMDB vote count: '.($meta->vote_count ?? 0).']'
                 )
-                ->say(sprintf(':[Link: %s/torrents/', $appurl).$id.']');
+                ->say(sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
