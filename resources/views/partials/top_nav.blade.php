@@ -478,6 +478,14 @@
                     </li>
                     <li>
                         <a
+                            href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                            {{ __('user.my-downloads') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
                             href="{{ route('requests.index', ['requestor' => auth()->user()->username]) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-question"></i>
