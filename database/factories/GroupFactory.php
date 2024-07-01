@@ -41,6 +41,7 @@ class GroupFactory extends Factory
             'color'            => $this->faker->word(),
             'icon'             => $this->faker->word(),
             'effect'           => $this->faker->word(),
+            'is_uploader'      => false,
             'is_internal'      => false,
             'is_owner'         => false,
             'is_admin'         => false,

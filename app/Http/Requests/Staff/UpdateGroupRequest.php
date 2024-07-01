@@ -73,6 +73,10 @@ class UpdateGroupRequest extends FormRequest
             'effect' => [
                 'sometimes',
             ],
+            'is_uploader' => [
+                'required',
+                'boolean',
+            ],
             'is_internal' => [
                 'required',
                 'boolean',

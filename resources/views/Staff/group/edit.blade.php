@@ -135,6 +135,18 @@
                     </label>
                 </p>
                 <p class="form__group">
+                    <input name="is_uploader" type="hidden" value="0" />
+                    <input
+                        id="is_uploader"
+                        class="form__checkbox"
+                        name="is_uploader"
+                        type="checkbox"
+                        value="1"
+                        @checked($group->is_uploader)
+                    />
+                    <label class="form__label" for="is_uploader">Uploader</label>
+                </p>
+                <p class="form__group">
                     <input name="is_internal" type="hidden" value="0" />
                     <input
                         id="is_internal"

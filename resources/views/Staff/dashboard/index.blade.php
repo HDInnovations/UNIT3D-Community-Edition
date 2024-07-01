@@ -497,6 +497,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.uploader.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-upload"></i>
+                        {{ __('torrent.uploader') }} {{ __('common.stats') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.internals.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-magic"></i>
