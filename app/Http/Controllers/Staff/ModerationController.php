@@ -114,14 +114,14 @@ class ModerationController extends Controller
                     'moderated_by' => $staff->id,
                 ]);
 
-                $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.' ,has been rejected by '.$staff->username]);
+                $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.', has been rejected by '.$staff->username]);
 
-                $conversation->users()->sync([$staff->id, $torrent->user_id]);
+                $conversation->users()->sync([$staff->id => ['read' => true], $torrent->user_id]);
 
                 PrivateMessage::create([
                     'conversation_id' => $conversation->id,
                     'sender_id'       => $staff->id,
-                    'message'         => "Greetings, \n\nYour upload ".$torrent->name." has been rejected. Please see below the message from the staff member.\n\n".$request->message,
+                    'message'         => "Greetings, \n\nYour upload [url=".config('app.url')."/torrents/".$id."]".$torrent->name."[/url] has been rejected. Please see below the message from the staff member.\n\n[quote=".$staff->username."]".$request->message."[/quote]",
                 ]);
 
                 cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
@@ -138,14 +138,14 @@ class ModerationController extends Controller
                     'moderated_by' => $staff->id,
                 ]);
 
-                $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.' ,has been postponed by '.$staff->username]);
+                $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.', has been postponed by '.$staff->username]);
 
-                $conversation->users()->sync([$staff->id, $torrent->user_id]);
+                $conversation->users()->sync([$staff->id => ['read' => true], $torrent->user_id]);
 
                 PrivateMessage::create([
                     'conversation_id' => $conversation->id,
                     'sender_id'       => $staff->id,
-                    'message'         => "Greetings, \n\nYour upload, ".$torrent->name." ,has been postponed. Please see below the message from the staff member.\n\n".$request->message,
+                    'message'         => "Greetings, \n\nYour upload [url=".config('app.url')."/torrents/".$id."]".$torrent->name."[/url] has been postponed. Please see below the message from the staff member.\n\n[quote=".$staff->username."]".$request->message."[/quote]",
                 ]);
 
                 cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
