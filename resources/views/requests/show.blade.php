@@ -241,11 +241,20 @@
             </section>
         @endif
 
-        <section class="panelV2">
-            <header class="panel__header">
+        <section class="panelV2" x-data="toggle">
+            <header class="panel__header" style="cursor: pointer" x-on:click="toggle">
                 <h2 class="panel__heading">{{ __('request.voters') }}</h2>
+                <i
+                    class="{{ config('other.font-awesome') }} fa-plus-circle fa-pull-right"
+                    x-show="isToggledOff"
+                ></i>
+                <i
+                    class="{{ config('other.font-awesome') }} fa-minus-circle fa-pull-right"
+                    x-show="isToggledOn"
+                    x-cloak
+                ></i>
             </header>
-            <div class="data-table-wrapper">
+            <div class="data-table-wrapper" x-show="isToggledOn" x-cloak>
                 <table class="data-table">
                     <thead>
                         <tr>
@@ -256,23 +265,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($torrentRequest->bounties as $bounty)
+                        @foreach ($torrentRequest->bounties->groupBy('user_id') as $userBounties)
                             <tr>
                                 <td>
-                                    <x-user_tag :user="$bounty->user" :anon="$bounty->anon" />
+                                    <x-user_tag
+                                        :user="$userBounties->first()->user"
+                                        :anon="$userBounties->first()->anon"
+                                    />
                                 </td>
-                                <td>{{ $bounty->seedbonus }}</td>
+                                <td>{{ Number::format($userBounties->sum('seedbonus')) }}</td>
                                 <td>
                                     <time
-                                        datetime="{{ $bounty->created_at }}"
-                                        title="{{ $bounty->created_at }}"
+                                        datetime="{{ $userBounties->first()->created_at }}"
+                                        title="{{ $userBounties->first()->created_at }}"
                                     >
-                                        {{ $bounty->created_at->diffForHumans() }}
+                                        {{ $userBounties->first()->created_at->diffForHumans() }}
                                     </time>
                                 </td>
                                 <td>
                                     <menu class="data-table__actions">
-                                        @if ($bounty->user_id == auth()->id() || auth()->user()->group->is_modo)
+                                        @if ($userBounties->first()->user_id === auth()->id() || auth()->user()->group->is_modo)
                                             <li class="data-table__action" x-data="dialog">
                                                 <button
                                                     class="form__button form__button--text"
@@ -288,7 +300,7 @@
                                                     <form
                                                         class="dialog__form"
                                                         method="POST"
-                                                        action="{{ route('requests.bounties.update', ['torrentRequest' => $torrentRequest, 'torrentRequestBounty' => $bounty]) }}"
+                                                        action="{{ route('requests.bounties.update', ['torrentRequest' => $torrentRequest, 'torrentRequestBounty' => $userBounties->first()]) }}"
                                                         x-bind="dialogForm"
                                                     >
                                                         @csrf
@@ -300,16 +312,16 @@
                                                                 value="0"
                                                             />
                                                             <input
-                                                                id="anon_{{ $bounty->id }}"
+                                                                id="anon_{{ $userBounties->first()->id }}"
                                                                 class="form__checkbox"
                                                                 name="anon"
                                                                 type="checkbox"
                                                                 value="1"
-                                                                @checked($bounty->anon)
+                                                                @checked($userBounties->first()->anon)
                                                             />
                                                             <label
                                                                 class="form__label"
-                                                                for="anon_{{ $bounty->id }}"
+                                                                for="anon_{{ $userBounties->first()->id }}"
                                                             >
                                                                 {{ __('common.anonymous') }}?
                                                             </label>
