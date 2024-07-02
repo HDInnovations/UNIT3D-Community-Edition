@@ -15,8 +15,13 @@ declare(strict_types=1);
  */
 
 use App\Models\User;
+use Database\Seeders\ChatroomTableSeeder;
+use Database\Seeders\UsersTableSeeder;
 
 test('index returns an ok response', function (): void {
+    $this->seed(UsersTableSeeder::class);
+    $this->seed(ChatroomTableSeeder::class);
+
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->get(route('home.index'));

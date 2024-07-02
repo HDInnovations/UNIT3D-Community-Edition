@@ -43,7 +43,6 @@ class UpdateChatBotRequest extends FormRequest
             ],
             'command' => [
                 'required',
-                'alpha_dash',
                 'min:1',
                 'max:255',
             ],

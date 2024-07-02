@@ -28,7 +28,7 @@ class BotsTableSeeder extends Seeder
             [
                 'name'     => 'SystemBot',
                 'emoji'    => '1f916',
-                'command'  => 'systembot',
+                'command'  => '!systembot',
                 'position' => 1,
                 'color'    => '#f1c40f',
                 'icon'     => 'fab fa-android',
@@ -50,7 +50,7 @@ Available Bots:
             [
                 'name'     => 'NerdBot',
                 'emoji'    => '1f913',
-                'command'  => 'nerdbot',
+                'command'  => '!nerdbot',
                 'position' => 2,
                 'color'    => '#f1c40f',
                 'icon'     => 'fab fa-android',

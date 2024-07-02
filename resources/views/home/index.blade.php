@@ -4,11 +4,10 @@
 
 @section('main')
     @include('blocks.news')
+
     @if (! auth()->user()->settings?->chat_hidden)
-        <div id="vue">
-            @include('blocks.chat')
-        </div>
         @vite('resources/js/unit3d/chat.js')
+        <livewire:chatbox />
     @endif
 
     @include('blocks.featured')

@@ -37,7 +37,6 @@ test('rules', function (): void {
         ],
         'command' => [
             'required',
-            'alpha_dash',
             'min:1',
             'max:255',
         ],

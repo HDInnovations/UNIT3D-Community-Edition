@@ -4,8 +4,6 @@
  * allows your team to easily build robust real-time web applications.
  */
 import Echo from 'laravel-echo';
-import Vue from 'vue';
-import chatbox from '../components/chat/Chatbox.vue';
 
 import client from 'socket.io-client';
 
@@ -18,10 +16,5 @@ window.Echo = new Echo({
     withCredentials: true,
     transports: ['websocket'],
     enabledTransports: ['wss'],
-});
-
-new Vue({
-    el: '#vue',
-    components: { chatbox: chatbox },
 });
 

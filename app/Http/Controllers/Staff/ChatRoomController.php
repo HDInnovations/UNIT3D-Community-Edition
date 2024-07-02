@@ -86,11 +86,7 @@ class ChatRoomController extends Controller
     public function destroy(Chatroom $chatroom): \Illuminate\Http\RedirectResponse
     {
         $default = Chatroom::query()
-            ->when(
-                \is_int(config('chat.system_chatroom')),
-                fn ($query) => $query->where('id', '=', config('chat.system_chatroom')),
-                fn ($query) => $query->where('name', '=', config('chat.system_chatroom')),
-            )
+            ->where(\is_int(config('chat.system_chatroom')) ? 'id' : 'name', '=', config('chat.system_chatroom'))
             ->soleValue('id');
 
         User::whereBelongsTo($chatroom)->update(['chatroom_id' => $default]);

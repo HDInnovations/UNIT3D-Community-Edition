@@ -16,42 +16,21 @@ declare(strict_types=1);
 
 namespace App\Events;
 
+use App\Models\UserEcho;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class Chatter implements ShouldBroadcastNow
+class EchoCreated implements ShouldBroadcastNow
 {
     use Dispatchable;
     use InteractsWithSockets;
     use SerializesModels;
 
-    public $echoes;
-
-    public $message;
-
-    public $ping;
-
-    public $audibles;
-
-    /**
-     * Chatter Constructor.
-     */
-    public function __construct(public string $type, public $target, $payload)
+    public function __construct(public UserEcho $echo)
     {
-        if ($type == 'echo') {
-            $this->echoes = $payload;
-        } elseif ($type == 'audible') {
-            $this->audibles = $payload;
-        } elseif ($type == 'new.message') {
-            $this->message = $payload;
-        } elseif ($type == 'new.bot') {
-            $this->message = $payload;
-        } elseif ($type == 'new.ping') {
-            $this->ping = $payload;
-        }
     }
 
     /**
@@ -59,6 +38,6 @@ class Chatter implements ShouldBroadcastNow
      */
     public function broadcastOn(): PrivateChannel
     {
-        return new PrivateChannel('chatter.'.$this->target);
+        return new PrivateChannel('echo.created.'.$this->echo->user_id);
     }
 }
