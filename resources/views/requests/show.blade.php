@@ -245,7 +245,7 @@
             <header class="panel__header" style="cursor: pointer" x-on:click="toggle">
                 <h2 class="panel__heading">{{ __('request.voters') }}</h2>
                 @if ($torrentRequest->bounties->count() > 10)
-                    <div  x-show="isToggledOff">
+                    <div x-show="isToggledOff">
                         <i
                             class="{{ config('other.font-awesome') }} fa-plus-circle fa-pull-right"
                         ></i>
