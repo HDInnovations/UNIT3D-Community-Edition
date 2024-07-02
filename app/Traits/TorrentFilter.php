@@ -240,10 +240,12 @@ trait TorrentFilter
                 ->where('playlist_id', '=', $playlistId)
                 ->when(
                     $authenticatedUser === null,
-                    fn ($query) => $query->where('is_private', '=', false),
+                    fn ($query) => $query->whereRelation('playlist', 'is_private', '=', false),
                     fn ($query) => $query->when(
                         ! $authenticatedUser->group->is_modo,
-                        fn ($query) => $query->where(fn ($query) => $query->where('is_private', '=', false)->orWhere('user_id', '=', $authenticatedUser->id))
+                        fn ($query) => $query->where(fn ($query) => $query
+                            ->whereRelation('playlist', 'is_private', '=', false)
+                            ->orWhereRelation('playlist', 'user_id', '=', $authenticatedUser->id))
                     )
                 )
         );
