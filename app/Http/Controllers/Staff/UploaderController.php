@@ -31,10 +31,8 @@ class UploaderController extends Controller
 
         return view('Staff.uploader.index', [
             'uploaders' => User::with(['group'])
+                ->withCount('torrents as total_uploads')
                 ->where('group_id', '=', $uploaderGroup)
-                // Count total uploads for current user
-                ->withCount(['torrents as total_uploads' => fn ($query) => $query
-                ])
                 // Count recent uploads for current user
                 ->withCount(['torrents as recent_uploads' => fn ($query) => $query
                     ->where('created_at', '>', now()->subDays(60))
