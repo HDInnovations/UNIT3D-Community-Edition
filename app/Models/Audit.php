@@ -36,6 +36,11 @@ class Audit extends Model
     use HasFactory;
 
     /**
+     * @var string[]
+     */
+    public array $values = [];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

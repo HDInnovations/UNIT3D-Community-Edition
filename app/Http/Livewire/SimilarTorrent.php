@@ -61,7 +61,12 @@ class SimilarTorrent extends Component
     #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    protected $listeners = ['destroy' => 'deleteRecords'];
+    /**
+     * @var array<string>
+     */
+    protected $listeners = [
+        'destroy' => 'deleteRecords'
+    ];
 
     final public function updating(string $field, mixed &$value): void
     {

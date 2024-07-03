@@ -76,7 +76,7 @@ class UserNotification extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{json_account_groups: 'array', json_mention_groups: 'array', json_request_groups: 'array', json_torrent_groups: 'array', json_forum_groups: 'array', json_following_groups: 'array', json_subscription_groups: 'array', json_bon_groups: 'array'}
      */
     protected function casts(): array
     {

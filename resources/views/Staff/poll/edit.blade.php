@@ -30,7 +30,11 @@
                 class="form"
                 method="POST"
                 action="{{ route('staff.polls.update', ['poll' => $poll]) }}"
-                x-data="{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }"
+                x-data="{
+                    extraOptions: JSON.parse(
+                        atob('{{ base64_encode(json_encode($poll->options->select('id', 'name'))) }}')
+                    ),
+                }"
             >
                 @csrf
                 @method('PATCH')

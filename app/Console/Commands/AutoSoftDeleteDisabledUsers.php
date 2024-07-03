@@ -25,6 +25,7 @@ use App\Models\Group;
 use App\Models\History;
 use App\Models\Like;
 use App\Models\Message;
+use App\Models\Participant;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
@@ -104,10 +105,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                     'sender_id' => User::SYSTEM_USER_ID,
                 ]);
 
-                PrivateMessage::where('receiver_id', '=', $user->id)->update([
-                    'receiver_id' => User::SYSTEM_USER_ID,
-                ]);
-
+                Participant::where('user_id', '=', $user->id)->delete();
                 Message::where('user_id', '=', $user->id)->delete();
                 Like::where('user_id', '=', $user->id)->delete();
                 Thank::where('user_id', '=', $user->id)->delete();

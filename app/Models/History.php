@@ -23,23 +23,23 @@ use DateTimeInterface;
 /**
  * App\Models\History.
  *
- * @property int    $id
- * @property int    $user_id
- * @property int    $torrent_id
- * @property string $agent
- * @property int    $uploaded
- * @property int    $actual_uploaded
- * @property int    $client_uploaded
- * @property int    $downloaded
- * @property int    $refunded_download
- * @property int    $actual_downloaded
- * @property int    $client_downloaded
- * @property int    $seeder
- * @property int    $active
- * @property int    $seedtime
- * @property int    $immune
- * @property bool   $hitrun
- * @property bool   $prewarn
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property int                             $torrent_id
+ * @property string                          $agent
+ * @property int                             $uploaded
+ * @property int                             $actual_uploaded
+ * @property int                             $client_uploaded
+ * @property int                             $downloaded
+ * @property int                             $refunded_download
+ * @property int                             $actual_downloaded
+ * @property int                             $client_downloaded
+ * @property int                             $seeder
+ * @property int                             $active
+ * @property int                             $seedtime
+ * @property int                             $immune
+ * @property bool                            $hitrun
+ * @property \Illuminate\Support\Carbon|null $prewarned_at
  */
 class History extends Model
 {
@@ -62,14 +62,14 @@ class History extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{completed_at: 'datetime', hitrun: 'bool', prewarned_at: 'datetime'}
      */
     protected function casts(): array
     {
         return [
             'completed_at' => 'datetime',
-            'hitrun'       => 'boolean',
-            'prewarn'      => 'boolean',
+            'hitrun'       => 'bool',
+            'prewarned_at' => 'datetime',
         ];
     }
 

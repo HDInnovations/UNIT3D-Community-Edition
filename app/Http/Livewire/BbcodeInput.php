@@ -34,12 +34,12 @@ class BbcodeInput extends Component
 
     public string $contentHtml = '';
 
-    final public function mount($name, $label, $required = false, $content = null): void
+    final public function mount(string $name, string $label, bool $required = false, string $content = null): void
     {
         $this->name = $name;
         $this->label = $label;
         $this->isRequired = $required;
-        $this->contentBbcode = $content === null ? (old($name) ?? '') : htmlspecialchars_decode((string) $content);
+        $this->contentBbcode = $content === null ? (old($name) ?? '') : htmlspecialchars_decode($content);
     }
 
     final public function updatedIsPreviewEnabled(): void

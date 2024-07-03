@@ -54,10 +54,10 @@ return new class () extends Migration {
             ->update(['mal' => '0']);
 
         Schema::table('requests', function (Blueprint $table): void {
-            $table->integer('imdb')->unsigned()->change();
-            $table->integer('tvdb')->unsigned()->change();
-            $table->integer('tmdb')->unsigned()->change();
-            $table->integer('mal')->unsigned()->change();
+            $table->integer('imdb')->unsigned()->nullable()->change();
+            $table->integer('tvdb')->unsigned()->nullable()->change();
+            $table->integer('tmdb')->unsigned()->nullable()->change();
+            $table->integer('mal')->unsigned()->nullable()->change();
         });
     }
 };

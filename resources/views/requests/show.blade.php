@@ -241,9 +241,23 @@
             </section>
         @endif
 
-        <section class="panelV2">
-            <header class="panel__header">
+        <section class="panelV2" x-data="toggle">
+            <header class="panel__header" style="cursor: pointer" x-on:click="toggle">
                 <h2 class="panel__heading">{{ __('request.voters') }}</h2>
+                @if ($torrentRequest->bounties->count() > 10)
+                    <div x-show="isToggledOff">
+                        <i
+                            class="{{ config('other.font-awesome') }} fa-plus-circle fa-pull-right"
+                        ></i>
+                        Show More
+                    </div>
+                    <div x-show="isToggledOn" x-cloak>
+                        <i
+                            class="{{ config('other.font-awesome') }} fa-minus-circle fa-pull-right"
+                        ></i>
+                        Show Less
+                    </div>
+                @endif
             </header>
             <div class="data-table-wrapper">
                 <table class="data-table">
@@ -257,7 +271,7 @@
                     </thead>
                     <tbody>
                         @foreach ($torrentRequest->bounties as $bounty)
-                            <tr>
+                            <tr @if($loop->iteration > 10) x-show="isToggledOn" x-cloak @endif>
                                 <td>
                                     <x-user_tag :user="$bounty->user" :anon="$bounty->anon" />
                                 </td>

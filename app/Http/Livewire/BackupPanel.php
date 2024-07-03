@@ -34,6 +34,9 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BackupPanel extends Component
 {
+    /**
+     * @var array<string, string>
+     */
     protected $listeners = ['refreshBackups' => '$refresh'];
 
     /**

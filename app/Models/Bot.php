@@ -46,7 +46,7 @@ class Bot extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{name: 'string', cost: 'decimal:2'}
      */
     protected function casts(): array
     {

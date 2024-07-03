@@ -46,14 +46,14 @@ class Peer extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{active: 'bool', seeder: 'bool', connectable: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'active'      => 'boolean',
-            'seeder'      => 'boolean',
-            'connectable' => 'boolean',
+            'active'      => 'bool',
+            'seeder'      => 'bool',
+            'connectable' => 'bool',
         ];
     }
 

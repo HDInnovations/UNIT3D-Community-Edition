@@ -222,7 +222,7 @@ class IRCAnnounceBot
      */
     private function privmsg(string $receiver, string $textToBeSent): void
     {
-        $this->send("PRIVMSG {$receiver} {$textToBeSent}");
+        $this->send("PRIVMSG {$receiver} :{$textToBeSent}");
     }
 
     /**

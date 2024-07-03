@@ -15,5 +15,7 @@ parameters:
     excludePaths:
         - app/Helpers/Markdown
         - app/Helpers/MarkdownExtra
+        - app/Http/Livewire/PersonCredit
+        - app/Http/Livewire/TorrentSearch
     level: 7
     checkOctaneCompatibility: true

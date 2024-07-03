@@ -49,7 +49,7 @@ class Ticket extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{closed_at: 'datetime', reminded_at: 'datetime'}
      */
     protected function casts(): array
     {

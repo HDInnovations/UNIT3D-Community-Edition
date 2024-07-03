@@ -88,7 +88,7 @@
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>{{ __('pm.from') }}</th>
+                    <th>{{ __('user.user') }}</th>
                     <th wire:click="sortBy('subject')" role="columnheader button">
                         {{ __('pm.subject') }}
                         @include('livewire.includes._sort-icon', ['field' => 'subject'])

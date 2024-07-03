@@ -702,6 +702,12 @@ final class AnnounceController extends Controller
     {
         $message = $trackerException->getMessage();
 
+        if ($trackerException->getCode() === 151) {
+            // If the torrent status is pending, postponed, or rejected, reduce the interval to 30 seconds.
+            // This allows the uploader to start seeding sooner when the torrent is approved.
+            return 'd14:failure reason'.\strlen($message).':'.$message.'8:intervali30e12:min intervali30ee';
+        }
+
         return 'd14:failure reason'.\strlen($message).':'.$message.'8:intervali'.self::MIN.'e12:min intervali'.self::MIN.'ee';
     }
 

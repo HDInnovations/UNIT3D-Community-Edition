@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Services\Tmdb\Client;
 
-use JsonException;
 use App\Enums\Occupation;
 use App\Services\Tmdb\TMDB;
 use Illuminate\Support\Facades\Http;
@@ -25,7 +24,7 @@ use Illuminate\Support\Str;
 class TV
 {
     /**
-     * @var null|array{
+     * @var ?array{
      *     adult: ?bool,
      *     backdrop_path: ?string,
      *     created_by: ?array<
@@ -260,7 +259,7 @@ class TV
      *         results: ?array<
      *             int,
      *             ?array{
-     *                 adult: ?boolean,
+     *                 adult: ?bool,
      *                 backdrop_path: ?string,
      *                 id: ?int,
      *                 name: ?string,
@@ -298,8 +297,7 @@ class TV
     public TMDB $tmdb;
 
     /**
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws JsonException
+     * @throws \Illuminate\Http\Client\ConnectionException
      */
     public function __construct(int $id)
     {

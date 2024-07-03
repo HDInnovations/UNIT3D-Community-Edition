@@ -50,9 +50,9 @@ class GitUpdater extends Command
     protected $description = 'Executes The Commands Necessary To Update Your Website Using Git';
 
     /**
-     * @var string[]
+     * @var array<string>
      */
-    private const ADDITIONAL = [
+    private const array ADDITIONAL = [
         '.env',
         'laravel-echo-server.json',
     ];
@@ -182,6 +182,11 @@ class GitUpdater extends Command
         }
     }
 
+    /**
+     * Check for updates.
+     *
+     * @return array<string>
+     */
     private function checkForUpdates(): array
     {
         $this->header('Checking For Updates');
@@ -195,6 +200,11 @@ class GitUpdater extends Command
         return $updating;
     }
 
+    /*
+     * Manually update files that have conflicts.
+     *
+     * @param array<string> $updating
+     */
     private function manualUpdate(array $updating): void
     {
         $this->alertInfo('Manual Update');
@@ -209,11 +219,19 @@ class GitUpdater extends Command
         $this->done();
     }
 
+    /**
+     * Update a file.
+     */
     private function updateFile(string $file): void
     {
         $this->process(sprintf('git checkout origin/master -- %s', $file));
     }
 
+    /**
+     * Backup the files that will be updated.
+     *
+     * @param array<string> $paths
+     */
     private function backup(array $paths): void
     {
         $this->header('Backing Up Files');
@@ -232,6 +250,11 @@ class GitUpdater extends Command
         $this->done();
     }
 
+    /**
+     * Restore the files that were backed up.
+     *
+     * @param array<string> $paths
+     */
     private function restore(array $paths): void
     {
         $this->header('Restoring Backups');
@@ -349,7 +372,7 @@ class GitUpdater extends Command
             if (!mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && !is_dir($concurrentDirectory)) {
                 throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
-        } elseif (is_file(base_path($path)) && \dirname((string) $path) !== '.') {
+        } elseif (is_file(base_path($path)) && \dirname($path) !== '.') {
             $path = \dirname((string) $path);
 
             if (!is_dir(storage_path(sprintf('gitupdate/%s', $path))) && !mkdir($concurrentDirectory = storage_path(sprintf(
@@ -361,6 +384,11 @@ class GitUpdater extends Command
         }
     }
 
+    /**
+     * Get the paths that need to be updated.
+     *
+     * @return array<string>
+     */
     private function paths(): array
     {
         $p = $this->process('git diff master --name-only');

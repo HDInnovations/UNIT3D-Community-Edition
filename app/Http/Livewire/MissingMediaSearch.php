@@ -69,7 +69,7 @@ class MissingMediaSearch extends Component
     #[Computed]
     final public function types(): \Illuminate\Database\Eloquent\Collection
     {
-        return Type::select('id', 'position', 'name')->orderBy('position')->get();
+        return Type::select(['id', 'position', 'name'])->orderBy('position')->get();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

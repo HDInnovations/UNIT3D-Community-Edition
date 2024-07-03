@@ -69,7 +69,7 @@ class InviteLogSearch extends Component
         };
     }
 
-    final public function updatingGroupBy($value): void
+    final public function updatingGroupBy(string $value): void
     {
         $this->sortField = match ($value) {
             'user_id' => 'created_at_max',

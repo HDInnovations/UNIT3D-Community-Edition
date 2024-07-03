@@ -43,7 +43,7 @@ class UserSetting extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{censor: 'bool', chat_hidden: 'bool', torrent_filters: 'bool', show_poster: 'bool'}
      */
     protected function casts(): array
     {

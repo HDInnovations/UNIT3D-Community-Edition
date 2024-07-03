@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
 use Illuminate\Http\Request;
@@ -66,12 +65,10 @@ class WarningController extends Controller
 
         $staff = $request->user();
 
-        PrivateMessage::create([
-            'sender_id'   => $staff->id,
-            'receiver_id' => $user->id,
-            'subject'     => 'Hit and Run Warning Deleted',
-            'message'     => $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
-        ]);
+        $user->sendSystemNotification(
+            subject: 'Hit and Run Warning Deleted',
+            message: $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out!',
+        );
 
         $warning->update([
             'deleted_by' => $staff->id,
@@ -98,12 +95,10 @@ class WarningController extends Controller
 
         $user->warnings()->delete();
 
-        PrivateMessage::create([
-            'sender_id'   => $staff->id,
-            'receiver_id' => $user->id,
-            'subject'     => 'All Hit and Run Warnings Deleted',
-            'message'     => $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
-        ]);
+        $user->sendSystemNotification(
+            subject: 'All Hit and Run Warnings Deleted',
+            message: $staff->username.' has decided to delete all of your warnings. You lucked out!',
+        );
 
         return to_route('users.show', ['user' => $user])
             ->withSuccess('All Warnings Were Successfully Deleted');
