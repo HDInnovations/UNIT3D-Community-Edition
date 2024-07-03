@@ -66,7 +66,7 @@ class ReportController extends Controller
 
         $conversation = Conversation::create(['subject' => 'Your Report Has A New Verdict']);
 
-        $conversation->users()->sync([$staff->id, $report->reporter_id]);
+        $conversation->users()->sync([$staff->id => ['read' => true], $report->reporter_id]);
 
         PrivateMessage::create([
             'conversation_id' => $conversation->id,
