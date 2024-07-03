@@ -29,7 +29,6 @@
                         <th>{{ __('user.uploads') }} {{ __('stat.last60days') }}</th>
                         <th>{{ __('user.total-personal-releases') }}</th>
                         <th>{{ __('user.personal-releases') }} {{ __('stat.last60days') }}</th>
-                        <th>{{ __('common.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +41,6 @@
                             <td>{{ $uploader->recent_uploads }}</td>
                             <td>{{ $uploader->total_personal_releases }}</td>
                             <td>{{ $uploader->recent_personal_releases }}</td>
-                            <td></td>
                         </tr>
                     @endforeach
                 </tbody>
