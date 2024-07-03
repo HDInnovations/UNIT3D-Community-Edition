@@ -27,7 +27,7 @@ class UploaderController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $uploaderGroup = cache()->rememberForever('uploader_group', fn () => Group::where('is_uploader', 1)->pluck('id'));
+        $uploaderGroup = cache()->rememberForever('uploader_group', fn () => Group::where('is_uploader', '=', true)->pluck('id'));
 
         return view('Staff.uploader.index', [
             'uploaders' => User::with(['group'])
@@ -41,11 +41,11 @@ class UploaderController extends Controller
                 ])
                 // Count total personal releases for current user
                 ->withCount(['torrents as total_personal_releases' => fn ($query) => $query
-                    ->where('personal_release', 1)
+                    ->where('personal_release', '=', 1)
                 ])
                 // Count recent personal releases for current user
                 ->withCount(['torrents as recent_personal_releases' => fn ($query) => $query
-                    ->where('personal_release', 1)
+                    ->where('personal_release', '=', 1)
                     ->where('created_at', '>', now()->subDays(60))
                 ])
                 ->get(),
