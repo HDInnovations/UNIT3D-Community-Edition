@@ -63,7 +63,7 @@ class Group extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{is_iploader: 'bool', is_internal: 'bool', is_editor: 'bool', is_owner: 'bool', is_admin: 'bool', is_modo: 'bool', is_trusted: 'bool', is_immune: 'bool', is_freeleech: 'bool', is_double_upload: 'bool', is_refundable: 'bool', can_upload: 'bool', is_incognito: 'bool', autogroup: 'bool', system_required: 'bool', min_ratio: 'decimal:2'}
+     * @return array{is_uploader: 'bool', is_internal: 'bool', is_editor: 'bool', is_owner: 'bool', is_admin: 'bool', is_modo: 'bool', is_trusted: 'bool', is_immune: 'bool', is_freeleech: 'bool', is_double_upload: 'bool', is_refundable: 'bool', can_upload: 'bool', is_incognito: 'bool', autogroup: 'bool', system_required: 'bool', min_ratio: 'decimal:2'}
      */
     protected function casts(): array
     {
