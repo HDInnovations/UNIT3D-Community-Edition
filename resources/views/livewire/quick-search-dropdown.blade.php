@@ -50,7 +50,7 @@
         </div>
         <input
             class="quick-search__input"
-            wire:model.live.debounce.250ms="quicksearchText"
+            wire:model.live.debounce.100ms="quicksearchText"
             type="text"
             placeholder="{{ $quicksearchRadio }}"
             x-ref="quickSearch"
@@ -69,21 +69,21 @@
                             @case('movies')
                                 <a
                                     class="quick-search__result-link"
-                                    href="{{ route('torrents.similar', ['category_id' => $search_result->category_id, 'tmdb' => $search_result->id]) }}"
+                                    href="{{ route('torrents.similar', ['category_id' => $search_result['category_id'], 'tmdb' => $search_result['id']]) }}"
                                 >
                                     <img
                                         class="quick-search__image"
-                                        src="{{ isset($search_result->poster) ? \tmdb_image('poster_small', $search_result->poster) : 'https://via.placeholder.com/90x135' }}"
+                                        src="{{ isset($search_result['poster']) ? \tmdb_image('poster_small', $search_result['poster']) : 'https://via.placeholder.com/90x135' }}"
                                         alt=""
                                     />
                                     <h2 class="quick-search__result-text">
-                                        {{ $search_result->title }}
+                                        {{ $search_result['title'] }}
                                         <time
                                             class="quick-search__result-year"
-                                            datetime="{{ $search_result->release_date }}"
-                                            title="{{ $search_result->release_date }}"
+                                            datetime="{{ $search_result['release_date'] }}"
+                                            title="{{ $search_result['release_date'] }}"
                                         >
-                                            {{ substr($search_result->release_date, 0, 4) }}
+                                            {{ substr($search_result['release_date'], 0, 4) }}
                                         </time>
                                     </h2>
                                 </a>
@@ -92,21 +92,21 @@
                             @case('series')
                                 <a
                                     class="quick-search__result-link"
-                                    href="{{ route('torrents.similar', ['category_id' => $search_result->category_id, 'tmdb' => $search_result->id]) }}"
+                                    href="{{ route('torrents.similar', ['category_id' => $search_result['category_id'], 'tmdb' => $search_result['id']]) }}"
                                 >
                                     <img
                                         class="quick-search__image"
-                                        src="{{ isset($search_result->poster) ? \tmdb_image('poster_small', $search_result->poster) : 'https://via.placeholder.com/90x135' }}"
+                                        src="{{ isset($search_result['poster']) ? \tmdb_image('poster_small', $search_result['poster']) : 'https://via.placeholder.com/90x135' }}"
                                         alt=""
                                     />
                                     <h2 class="quick-search__result-text">
-                                        {{ $search_result->name }}
+                                        {{ $search_result['name'] }}
                                         <time
                                             class="quick-search__result-year"
-                                            datetime="{{ $search_result->first_air_date }}"
-                                            title="{{ $search_result->first_air_date }}"
+                                            datetime="{{ $search_result['first_air_date'] }}"
+                                            title="{{ $search_result['first_air_date'] }}"
                                         >
-                                            {{ substr($search_result->first_air_date, 0, 4) }}
+                                            {{ substr($search_result['first_air_date'], 0, 4) }}
                                         </time>
                                     </h2>
                                 </a>
@@ -115,15 +115,15 @@
                             @case('persons')
                                 <a
                                     class="quick-search__result-link"
-                                    href="{{ route('mediahub.persons.show', ['id' => $search_result->id]) }}"
+                                    href="{{ route('mediahub.persons.show', ['id' => $search_result['id']]) }}"
                                 >
                                     <img
                                         class="quick-search__image"
-                                        src="{{ isset($search_result->still) ? \tmdb_image('poster_small', $search_result->still) : 'https://via.placeholder.com/90x135' }}"
+                                        src="{{ isset($search_result['still']) ? \tmdb_image('poster_small', $search_result['still']) : 'https://via.placeholder.com/90x135' }}"
                                         alt=""
                                     />
                                     <h2 class="quick-search__result-text">
-                                        {{ $search_result->name }}
+                                        {{ $search_result['name'] }}
                                     </h2>
                                 </a>
 
