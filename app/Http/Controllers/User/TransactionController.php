@@ -100,6 +100,10 @@ class TransactionController extends Controller
 
                     break;
                 case $bonExchange->invite:
+                    if (config('other.invites_restriced') && !\in_array($user->group->name, config('other.invite_groups'), true)) {
+                        return back()->withErrors(trans('user.invites-disabled-group'));
+                    }
+
                     if ($user->invites >= config('other.max_unused_user_invites', 1)) {
                         return back()->withErrors('You already have the maximum amount of unused invites allowed per user.');
                     }
