@@ -82,6 +82,6 @@ class TorrentRequestBounty extends Model
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(TorrentRequest::class);
+        return $this->belongsTo(TorrentRequest::class, 'requests_id');
     }
 }
