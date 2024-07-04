@@ -64,6 +64,7 @@
                 <thead>
                     <th>ID</th>
                     <th>URL Pattern</th>
+                    <th>Example bypassed URL</th>
                     <th>{{ __('common.created_at') }}</th>
                     <th>{{ __('forum.updated-at') }}</th>
                     <th>{{ __('common.actions') }}</th>
@@ -73,6 +74,9 @@
                         <tr>
                             <td>{{ $whitelistedImageUrl->id }}</td>
                             <td>{{ $whitelistedImageUrl->pattern }}</td>
+                            <td>
+                                {{ str_replace(['**', '*'], ['my.evil.example/evil', '_evil_'], $whitelistedImageUrl->pattern) }}
+                            </td>
                             <td>
                                 <time
                                     datetime="{{ $whitelistedImageUrl->created_at }}"
@@ -197,6 +201,8 @@
                 <code>*</code>
                 wildcard will match everything except for
                 <code>/</code>
+                and
+                <code>.</code>
                 in the URL. You can also use
                 <code>**</code>
                 to match any character. You must never use
@@ -204,6 +210,19 @@
                 for matching subdomains as any user can register their own domain and link
                 <code>https://evil.example/subdomain.whitelisted-domain.example/image.png</code>
                 to bypass the proxy.
+            </p>
+            <p>
+                To match a url with a variable subdomain, make sure to manually specify the
+                <code>.</code>
+                otherwise a user can register
+                <code>https://evilimgur.com</code>
+                if you use
+                <code>https://*imgur.com/**</code>
+                (bad) instead of
+                <code>https://*.imgur.com/**</code>
+                (good) or
+                <code>https://i.imgur.com/**</code>
+                (best).
             </p>
         </div>
     </section>
