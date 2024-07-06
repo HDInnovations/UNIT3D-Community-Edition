@@ -289,7 +289,11 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getSettingsAttribute(): ?UserSetting
     {
-        $settings = cache()->rememberForever('user-settings:by-user-id:'.$this->id, fn () => $this->getRelationValue('settings'));
+        $settings = cache()->rememberForever('user-settings:by-user-id:'.$this->id, fn () => $this->getRelationValue('settings') ?? 'not found');
+
+        if ($settings === 'not found') {
+            $settings = null;
+        }
 
         $this->setRelation('settings', $settings);
 
@@ -311,7 +315,11 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getNotificationAttribute(): ?UserNotification
     {
-        $notification = cache()->rememberForever('user-notification:by-user-id:'.$this->id, fn () => $this->getRelationValue('notification'));
+        $notification = cache()->rememberForever('user-notification:by-user-id:'.$this->id, fn () => $this->getRelationValue('notification') ?? 'not found');
+
+        if ($notification === 'not found') {
+            $notification = null;
+        }
 
         $this->setRelation('notification', $notification);
 
@@ -333,7 +341,11 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getPrivacyAttribute(): ?UserPrivacy
     {
-        $privacy = cache()->rememberForever('user-privacy:by-user-id:'.$this->id, fn () => $this->getRelationValue('privacy'));
+        $privacy = cache()->rememberForever('user-privacy:by-user-id:'.$this->id, fn () => $this->getRelationValue('privacy') ?? 'not found');
+
+        if ($privacy === 'not found') {
+            $privacy = null;
+        }
 
         $this->setRelation('privacy', $privacy);
 
