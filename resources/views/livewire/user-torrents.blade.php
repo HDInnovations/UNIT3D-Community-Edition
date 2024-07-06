@@ -369,7 +369,7 @@
                     </th>
                     <th
                         class="user-torrents__prewarned-header"
-                        wire:click="sortBy('prewarn')"
+                        wire:click="sortBy('prewarned_at')"
                         role="columnheader button"
                     >
                         {{ __('torrent.prewarn') }}
