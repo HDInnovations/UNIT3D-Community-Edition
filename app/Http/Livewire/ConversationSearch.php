@@ -44,7 +44,7 @@ class ConversationSearch extends Component
 
     #[Url(history: true)]
     #[Rule('in:subject,created_at,updated_at,messages_count')]
-    public string $sortField = 'created_at';
+    public string $sortField = 'updated_at';
 
     #[Url(history: true)]
     public string $sortDirection = 'desc';
