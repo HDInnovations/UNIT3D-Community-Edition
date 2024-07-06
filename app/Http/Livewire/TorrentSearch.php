@@ -17,9 +17,14 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use App\Models\Distributor;
+use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\Region;
+use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\Tv;
+use App\Models\Type;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
@@ -83,37 +88,37 @@ class TorrentSearch extends Component
      * @var array<int>
      */
     #[Url(history: true)]
-    public array $categories = [];
+    public array $categoryIds = [];
 
     /**
      * @var array<int>
      */
     #[Url(history: true)]
-    public array $types = [];
+    public array $typeIds = [];
 
     /**
      * @var array<int>
      */
     #[Url(history: true)]
-    public array $resolutions = [];
+    public array $resolutionIds = [];
 
     /**
      * @var array<int>
      */
     #[Url(history: true)]
-    public array $genres = [];
+    public array $genreIds = [];
 
     /**
      * @var array<int>
      */
     #[Url(history: true)]
-    public array $regions = [];
+    public array $regionIds = [];
 
     /**
      * @var array<int>
      */
     #[Url(history: true)]
-    public array $distributors = [];
+    public array $distributorIds = [];
 
     #[Url(history: true)]
     public string $adult = 'any';
@@ -146,7 +151,7 @@ class TorrentSearch extends Component
      * @var string[]
      */
     #[Url(history: true)]
-    public array $primaryLanguages = [];
+    public array $primaryLanguageNames = [];
 
     /**
      * @var string[]
@@ -261,6 +266,73 @@ class TorrentSearch extends Component
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Category>
+     */
+    #[Computed(cache: true, seconds: 3600)]
+    final public function categories(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Category::query()->orderBy('position')->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Type>
+     */
+    #[Computed(cache: true, seconds: 3600)]
+    final public function types(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Type::query()->orderBy('position')->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     */
+    #[Computed(cache: true, seconds: 3600)]
+    final public function resolutions(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Resolution::query()->orderBy('position')->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Genre>
+     */
+    #[Computed(cache: true, seconds: 3600)]
+    final public function genres(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Genre::query()->orderBy('name')->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Region>
+     */
+    #[Computed(cache: true, seconds: 3600)]
+    final public function regions(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Region::query()->orderBy('position')->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Distributor>
+     */
+    #[Computed(cache: true, seconds: 3600)]
+    final public function distributors(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Distributor::query()->orderBy('name')->get();
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection<int, Movie>
+     */
+    #[Computed(cache: true, seconds: 3600)]
+    final public function primaryLanguages(): \Illuminate\Support\Collection
+    {
+        return Movie::query()
+            ->select('original_language')
+            ->distinct()
+            ->orderBy('original_language')
+            ->pluck('original_language');
+    }
+
+    /**
      * @return Closure(Builder<Torrent>): Builder<Torrent>
      */
     final public function filters(): Closure
@@ -283,12 +355,12 @@ class TorrentSearch extends Component
             ->when($this->endYear !== null, fn ($query) => $query->releasedBeforeOrIn($this->endYear))
             ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto($this->minSize * $this->minSizeMultiplier))
             ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo($this->maxSize * $this->maxSizeMultiplier))
-            ->when($this->categories !== [], fn ($query) => $query->ofCategory($this->categories))
-            ->when($this->types !== [], fn ($query) => $query->ofType($this->types))
-            ->when($this->resolutions !== [], fn ($query) => $query->ofResolution($this->resolutions))
-            ->when($this->genres !== [], fn ($query) => $query->ofGenre($this->genres))
-            ->when($this->regions !== [], fn ($query) => $query->ofRegion($this->regions))
-            ->when($this->distributors !== [], fn ($query) => $query->ofDistributor($this->distributors))
+            ->when($this->categoryIds !== [], fn ($query) => $query->ofCategory($this->categoryIds))
+            ->when($this->typeIds !== [], fn ($query) => $query->ofType($this->typeIds))
+            ->when($this->resolutionIds !== [], fn ($query) => $query->ofResolution($this->resolutionIds))
+            ->when($this->genreIds !== [], fn ($query) => $query->ofGenre($this->genreIds))
+            ->when($this->regionIds !== [], fn ($query) => $query->ofRegion($this->regionIds))
+            ->when($this->distributorIds !== [], fn ($query) => $query->ofDistributor($this->distributorIds))
             ->when($this->tmdbId !== null, fn ($query) => $query->ofTmdb($this->tmdbId))
             ->when($this->imdbId !== '', fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', $this->imdbId, $matches) ? $matches[1] : $this->imdbId)))
             ->when($this->tvdbId !== null, fn ($query) => $query->ofTvdb($this->tvdbId))
@@ -299,7 +371,7 @@ class TorrentSearch extends Component
             ->when($this->collectionId !== null, fn ($query) => $query->ofCollection($this->collectionId))
             ->when($this->companyId !== null, fn ($query) => $query->ofCompany($this->companyId))
             ->when($this->networkId !== null, fn ($query) => $query->ofNetwork($this->networkId))
-            ->when($this->primaryLanguages !== [], fn ($query) => $query->ofPrimaryLanguage($this->primaryLanguages))
+            ->when($this->primaryLanguageNames !== [], fn ($query) => $query->ofPrimaryLanguage($this->primaryLanguageNames))
             ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
             ->when($this->adult === 'include', fn ($query) => $query->ofAdult(true))
             ->when($this->adult === 'exclude', fn ($query) => $query->ofAdult(false))
@@ -707,6 +779,13 @@ class TorrentSearch extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.torrent-search', [
+            'categories'        => $this->categories,
+            'types'             => $this->types,
+            'resolutions'       => $this->resolutions,
+            'genres'            => $this->genres,
+            'primaryLanguages'  => $this->primaryLanguages,
+            'regions'           => $this->regions,
+            'distributors'      => $this->distributors,
             'user'              => auth()->user()->load('group'),
             'personalFreeleech' => $this->personalFreeleech,
             'torrents'          => match ($this->view) {

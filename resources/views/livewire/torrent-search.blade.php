@@ -218,25 +218,9 @@
                 </div>
                 <div class="form__group--short-horizontal">
                     <div class="form__group">
-                        @php
-                            $regions = cache()->remember(
-                                'regions',
-                                3_600,
-                                fn () => App\Models\Region::orderBy('position')->get()
-                            )
-                        @endphp
-
                         <div id="regions" wire:ignore></div>
                     </div>
                     <div class="form__group">
-                        @php
-                            $distributors = cache()->remember(
-                                'distributors',
-                                3_600,
-                                fn () => App\Models\Distributor::orderBy('name')->get()
-                            )
-                        @endphp
-
                         <div id="distributors" wire:ignore></div>
                     </div>
                     <p class="form__group">
@@ -364,14 +348,6 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.category') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php
-                                    $categories = cache()->remember(
-                                        'categories',
-                                        3_600,
-                                        fn () => App\Models\Category::orderBy('position')->get()
-                                    )
-                                @endphp
-
                                 @foreach ($categories as $category)
                                     <p class="form__group">
                                         <label class="form__label">
@@ -379,7 +355,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $category->id }}"
-                                                wire:model.live="categories"
+                                                wire:model.live="categoryIds"
                                             />
                                             {{ $category->name }}
                                         </label>
@@ -392,14 +368,6 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.type') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php
-                                    $types = cache()->remember(
-                                        'types',
-                                        3_600,
-                                        fn () => App\Models\Type::orderBy('position')->get()
-                                    )
-                                @endphp
-
                                 @foreach ($types as $type)
                                     <p class="form__group">
                                         <label class="form__label">
@@ -407,7 +375,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $type->id }}"
-                                                wire:model.live="types"
+                                                wire:model.live="typeIds"
                                             />
                                             {{ $type->name }}
                                         </label>
@@ -420,14 +388,6 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.resolution') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php
-                                    $resolutions = cache()->remember(
-                                        'resolutions',
-                                        3_600,
-                                        fn () => App\Models\Resolution::orderBy('position')->get()
-                                    )
-                                @endphp
-
                                 @foreach ($resolutions as $resolution)
                                     <p class="form__group">
                                         <label class="form__label">
@@ -435,7 +395,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $resolution->id }}"
-                                                wire:model.live="resolutions"
+                                                wire:model.live="resolutionIds"
                                             />
                                             {{ $resolution->name }}
                                         </label>
@@ -448,14 +408,6 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">{{ __('torrent.genre') }}</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php
-                                    $genres = cache()->remember(
-                                        'genres',
-                                        3_600,
-                                        fn () => App\Models\Genre::orderBy('name')->get()
-                                    )
-                                @endphp
-
                                 @foreach ($genres as $genre)
                                     <p class="form__group">
                                         <label class="form__label">
@@ -463,7 +415,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $genre->id }}"
-                                                wire:model.live="genres"
+                                                wire:model.live="genreIds"
                                             />
                                             {{ $genre->name }}
                                         </label>
@@ -768,17 +720,6 @@
                         <fieldset class="form__fieldset">
                             <legend class="form__legend">Primary Language</legend>
                             <div class="form__fieldset-checkbox-container">
-                                @php
-                                    $primaryLanguages = cache()->remember(
-                                        'torrent-search:languages',
-                                        3600,
-                                        fn () => \App\Models\Movie::select('original_language')
-                                            ->distinct()
-                                            ->orderBy('original_language')
-                                            ->pluck('original_language')
-                                    )
-                                @endphp
-
                                 @foreach ($primaryLanguages as $primaryLanguage)
                                     <p class="form__group">
                                         <label class="form__label">
@@ -786,7 +727,7 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="{{ $primaryLanguage }}"
-                                                wire:model.live="primaryLanguages"
+                                                wire:model.live="primaryLanguageNames"
                                             />
                                             {{ $primaryLanguage }}
                                         </label>
@@ -1125,7 +1066,7 @@
           let regions = document.querySelector('#regions')
           regions.addEventListener('change', () => {
             let data = regions.value
-            @this.set('regions', data)
+            @this.set('regionIds', data)
           })
 
           let myDistributors = [
@@ -1147,7 +1088,7 @@
           let distributors = document.querySelector('#distributors')
           distributors.addEventListener('change', () => {
             let data = distributors.value
-            @this.set('distributors', data)
+            @this.set('distributorIds', data)
           })
         })
     </script>
