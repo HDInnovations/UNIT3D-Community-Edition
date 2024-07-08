@@ -36,23 +36,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($internals as $internal)
+                    @foreach ($internalGroups as $internalGroup)
                         <tr>
-                            <td>{{ $internal->id }}</td>
+                            <td>{{ $internalGroup->id }}</td>
                             <td>
                                 <a
-                                    href="{{ route('staff.internals.edit', ['internal' => $internal]) }}"
+                                    href="{{ route('staff.internals.edit', ['internal' => $internalGroup]) }}"
                                 >
-                                    {{ $internal->name }}
+                                    {{ $internalGroup->name }}
                                 </a>
                             </td>
-                            <td>{{ $internal->icon }}</td>
-                            <td>{{ $internal->effect }}</td>
+                            <td>{{ $internalGroup->icon }}</td>
+                            <td>{{ $internalGroup->effect }}</td>
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
                                         <a
-                                            href="{{ route('staff.internals.edit', ['internal' => $internal]) }}"
+                                            href="{{ route('staff.internals.edit', ['internal' => $internalGroup]) }}"
                                             class="form__button form__button--text"
                                         >
                                             {{ __('common.edit') }}
@@ -61,14 +61,14 @@
                                     <li class="data-table__action">
                                         <form
                                             method="POST"
-                                            action="{{ route('staff.internals.destroy', ['internal' => $internal]) }}"
+                                            action="{{ route('staff.internals.destroy', ['internal' => $internalGroup]) }}"
                                             x-data="confirmation"
                                         >
                                             @csrf
                                             @method('DELETE')
                                             <button
                                                 x-on:click.prevent="confirmAction"
-                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this internal group: ' . $internal->name . '?') }}"
+                                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this internal group: ' . $internalGroup->name . '?') }}"
                                                 class="form__button form__button--text"
                                             >
                                                 {{ __('common.delete') }}
@@ -77,6 +77,42 @@
                                     </li>
                                 </menu>
                             </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('torrent.internal') }} {{ __('common.stats') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('common.name') }}</th>
+                        <th>{{ __('common.internal') }} {{ __('common.groups') }}</th>
+                        <th>{{ __('user.total-uploads') }}</th>
+                        <th>{{ __('user.uploads') }} {{ __('stat.last60days') }}</th>
+                        <th>{{ __('user.total-personal-releases') }}</th>
+                        <th>{{ __('user.personal-releases') }} {{ __('stat.last60days') }}</th>
+                        <th>{{ __('user.total-internal-releases') }}</th>
+                        <th>{{ __('user.internal-releases') }} {{ __('stat.last60days') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($internalUsers as $user)
+                        <tr>
+                            <td>
+                                <x-user_tag :anon="false" :user="$user" />
+                            </td>
+                            <td>{{ $user->internals->pluck('name')->implode(', ') }}</td>
+                            <td>{{ $user->total_uploads }}</td>
+                            <td>{{ $user->recent_uploads }}</td>
+                            <td>{{ $user->total_personal_releases }}</td>
+                            <td>{{ $user->recent_personal_releases }}</td>
+                            <td>{{ $user->total_internal_releases }}</td>
+                            <td>{{ $user->recent_internal_releases }}</td>
                         </tr>
                     @endforeach
                 </tbody>
