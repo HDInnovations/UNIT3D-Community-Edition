@@ -113,25 +113,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($groups as $group)
+                                @foreach ($groups as $i => $group)
                                     <tr>
                                         <th x-bind="rowHeader">
                                             {{ $group->name }}
                                             <input
                                                 type="hidden"
-                                                name="permissions[{{ $loop->index }}][group_id]"
+                                                name="permissions[{{ $i }}][group_id]"
                                                 value="{{ $group->id }}"
                                             />
                                         </th>
                                         <td>
                                             <input
                                                 type="hidden"
-                                                name="permissions[{{ $loop->index }}][read_topic]"
+                                                name="permissions[{{ $i }}][read_topic]"
                                                 value="0"
                                             />
                                             <input
                                                 type="checkbox"
-                                                name="permissions[{{ $loop->index }}][read_topic]"
+                                                name="permissions[{{ $i }}][read_topic]"
                                                 value="1"
                                                 checked
                                             />
@@ -139,12 +139,12 @@
                                         <td>
                                             <input
                                                 type="hidden"
-                                                name="permissions[{{ $loop->index }}][start_topic]"
+                                                name="permissions[{{ $i }}][start_topic]"
                                                 value="0"
                                             />
                                             <input
                                                 type="checkbox"
-                                                name="permissions[{{ $loop->index }}][start_topic]"
+                                                name="permissions[{{ $i }}][start_topic]"
                                                 value="1"
                                                 checked
                                             />
@@ -152,12 +152,12 @@
                                         <td>
                                             <input
                                                 type="hidden"
-                                                name="permissions[{{ $loop->index }}][reply_topic]"
+                                                name="permissions[{{ $i }}][reply_topic]"
                                                 value="0"
                                             />
                                             <input
                                                 type="checkbox"
-                                                name="permissions[{{ $loop->index }}][reply_topic]"
+                                                name="permissions[{{ $i }}][reply_topic]"
                                                 value="1"
                                                 checked
                                             />

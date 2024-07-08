@@ -95,7 +95,7 @@
         <div class="user-stat-card-container">
             @switch($this->tab)
                 @case('uploaders')
-                    @foreach ($this->uploaders as $uploader)
+                    @foreach ($this->uploaders as $i => $uploader)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -103,7 +103,7 @@
                                     :anon="$uploader->user->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">{{ $uploader->value }} Uploads</h4>
@@ -126,7 +126,7 @@
 
                     @break
                 @case('downloaders')
-                    @foreach ($this->downloaders as $downloader)
+                    @foreach ($this->downloaders as $i => $downloader)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -134,7 +134,7 @@
                                     :anon="$downloader->user->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
@@ -159,7 +159,7 @@
 
                     @break
                 @case('uploaded')
-                    @foreach ($this->uploaded as $upload)
+                    @foreach ($this->uploaded as $i => $upload)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -167,7 +167,7 @@
                                     :anon="$upload->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
@@ -193,7 +193,7 @@
 
                     @break
                 @case('downloaded')
-                    @foreach ($this->downloaded as $download)
+                    @foreach ($this->downloaded as $i => $download)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -201,7 +201,7 @@
                                     :anon="$download->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
@@ -227,7 +227,7 @@
 
                     @break
                 @case('seeders')
-                    @foreach ($this->seeders as $seeder)
+                    @foreach ($this->seeders as $i => $seeder)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -235,7 +235,7 @@
                                     :anon="$seeder->user->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">{{ $seeder->value }} Seeds</h4>
@@ -258,7 +258,7 @@
 
                     @break
                 @case('seedtime')
-                    @foreach ($this->seedtimes as $seedtime)
+                    @foreach ($this->seedtimes as $i => $seedtime)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -266,7 +266,7 @@
                                     :anon="$seedtime->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
@@ -292,7 +292,7 @@
 
                     @break
                 @case('served')
-                    @foreach ($this->served as $serve)
+                    @foreach ($this->served as $i => $serve)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -300,7 +300,7 @@
                                     :anon="$serve->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
@@ -325,7 +325,7 @@
 
                     @break
                 @case('commenters')
-                    @foreach ($this->commenters as $commenter)
+                    @foreach ($this->commenters as $i => $commenter)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -333,7 +333,7 @@
                                     :anon="$commenter->user->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
@@ -358,7 +358,7 @@
 
                     @break
                 @case('posters')
-                    @foreach ($this->posters as $poster)
+                    @foreach ($this->posters as $i => $poster)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -366,7 +366,7 @@
                                     :anon="$poster->user->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">{{ $poster->value }} Posts Made</h4>
@@ -389,7 +389,7 @@
 
                     @break
                 @case('thankers')
-                    @foreach ($this->thankers as $thanker)
+                    @foreach ($this->thankers as $i => $thanker)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -397,7 +397,7 @@
                                     :anon="$thanker->user->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">
@@ -422,7 +422,7 @@
 
                     @break
                 @case('personals')
-                    @foreach ($this->personals as $personal)
+                    @foreach ($this->personals as $i => $personal)
                         <article class="user-stat-card">
                             <h3 class="user-stat-card__username">
                                 <x-user_tag
@@ -430,7 +430,7 @@
                                     :anon="$personal->user->privacy?->private_profile"
                                 />
                                 <div title="Place" class="top-users__place">
-                                    {{ Number::ordinal($loop->iteration) }}
+                                    {{ Number::ordinal(++$i) }}
                                 </div>
                             </h3>
                             <h4 class="user-stat-card__stat">

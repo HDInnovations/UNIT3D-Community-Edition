@@ -34,9 +34,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($leechers as $user)
+                    @foreach ($leechers as $i => $user)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>
                                 <x-user_tag
                                     :user="$user->user"

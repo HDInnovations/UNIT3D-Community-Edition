@@ -44,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($apikeys as $apikey)
+                    @forelse ($apikeys as $i => $apikey)
                         <tr>
                             <td>{{ $apikey->content }}</td>
                             <td>
@@ -64,7 +64,7 @@
                                 </time>
                             </td>
                             <td>
-                                @if ($loop->first)
+                                @if ($i === 0)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

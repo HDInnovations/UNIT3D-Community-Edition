@@ -20,9 +20,9 @@
         <h2 class="panel__heading">Site Stylesheets</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
-                @forelse ($siteThemes as $siteTheme)
+                @forelse ($siteThemes as $i => $siteTheme)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ ++$i }}</td>
                         <td>
                             @switch($siteTheme->style)
                                 @case('0')
@@ -102,9 +102,9 @@
         <h2 class="panel__heading">External CSS Stylesheets (Stacks on top of above site theme)</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
-                @forelse ($customThemes as $customTheme)
+                @forelse ($customThemes as $i => $customTheme)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ ++$i }}</td>
                         <td>{{ $customTheme->custom_css }}</td>
                         <td>Used By {{ $customTheme->value }} Users</td>
                     </tr>
@@ -121,9 +121,9 @@
         <h2 class="panel__heading">Standalone CSS Stylesheets (No site theme used)</h2>
         <div class="data-table-wrapper">
             <table class="data-table">
-                @forelse ($standaloneThemes as $standaloneTheme)
+                @forelse ($standaloneThemes as $i => $standaloneTheme)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ ++$i }}</td>
                         <td>{{ $standaloneTheme->standalone_css }}</td>
                         <td>Used By {{ $standaloneTheme->value }} Users</td>
                     </tr>

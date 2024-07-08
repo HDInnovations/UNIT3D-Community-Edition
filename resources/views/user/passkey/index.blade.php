@@ -44,7 +44,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($passkeys as $passkey)
+                    @forelse ($passkeys as $i => $passkey)
                         <tr>
                             <td>{{ $passkey->content }}</td>
                             <td>
@@ -64,7 +64,7 @@
                                 </time>
                             </td>
                             <td>
-                                @if ($loop->first)
+                                @if ($i === 0)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

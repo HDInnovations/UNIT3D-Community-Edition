@@ -104,8 +104,8 @@
                     <section class="mediainfo__audio">
                         <h3>Audio</h3>
                         <dl>
-                            @foreach ($mediaInfo['audio'] as $key => $audioElement)
-                                <dt>{{ $loop->iteration }}.</dt>
+                            @foreach ($mediaInfo['audio'] as $i => $audioElement)
+                                <dt>{{ $++i }}.</dt>
                                 <dd>
                                     <img
                                         src="{{ language_flag($audioElement['language'] ?? __('common.unknown')) }}"
