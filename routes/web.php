@@ -1104,8 +1104,8 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Uploader System
-        Route::prefix('uploader')->group(function (): void {
-            Route::name('uploader.')->group(function (): void {
+        Route::prefix('uploaders')->group(function (): void {
+            Route::name('uploaders.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\UploaderController::class, 'index'])->name('index');
             });
         });
