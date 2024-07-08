@@ -27,12 +27,10 @@ class UploaderController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $uploaderGroups = cache()->rememberForever('uploader_groups', fn () => Group::where('is_uploader', '=', true)->pluck('id'));
-
         return view('Staff.uploader.index', [
             'uploaders' => User::with(['group'])
                 ->withCount('torrents as total_uploads')
-                ->whereIntegerInRaw('group_id', [$uploaderGroups])
+                ->whereIn('group_id', Group::select('id')->where('is_uploader', '=', true))
                 // Count recent uploads for current user
                 ->withCount(['torrents as recent_uploads' => fn ($query) => $query
                     ->where('created_at', '>', now()->subDays(60))
