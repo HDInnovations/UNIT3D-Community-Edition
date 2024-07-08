@@ -33,13 +33,11 @@ class InternalController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $internalGroup = cache()->rememberForever('internal_group', fn () => Group::where('is_internal', '=', true)->pluck('id'));
-
         return view('Staff.internals.index', [
             'internalGroups' => Internal::orderBy('name')->get(),
             'internalUsers'  => User::with(['group', 'internals'])
                 ->withCount('torrents as total_uploads')
-                ->where('group_id', '=', $internalGroup)
+                ->whereIn('group_id', Group::select('id')->where('is_internal', '=', true))
                 ->orWhereHas('internals')
                 // Count recent uploads for current user
                 ->withCount(['torrents as recent_uploads' => fn ($query) => $query
