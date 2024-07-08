@@ -57,6 +57,7 @@
                         <th>Min Age</th>
                         <th>Min Avg Seedtime</th>
                         <th>Min Seedsize</th>
+                        <th>Min Uploads</th>
                     </tr>
                 </thead>
                 <tbody>
