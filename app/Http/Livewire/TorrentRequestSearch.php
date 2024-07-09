@@ -127,7 +127,7 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<Category>
+     * @return \Illuminate\Database\Eloquent\Collection<int, Category>
      */
     #[Computed(seconds: 3600, cache: true)]
     final public function categories(): \Illuminate\Database\Eloquent\Collection
@@ -136,7 +136,7 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<Type>
+     * @return \Illuminate\Database\Eloquent\Collection<int, Type>
      */
     #[Computed(seconds: 3600, cache: true)]
     final public function types(): \Illuminate\Database\Eloquent\Collection
@@ -145,7 +145,7 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<Resolution>
+     * @return \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
     #[Computed(seconds: 3600, cache: true)]
     final public function resolutions(): \Illuminate\Database\Eloquent\Collection
@@ -154,7 +154,7 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<Genre>
+     * @return \Illuminate\Database\Eloquent\Collection<int, Genre>
      */
     #[Computed(seconds: 3600, cache: true)]
     final public function genres(): \Illuminate\Database\Eloquent\Collection
@@ -163,7 +163,7 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Support\Collection<Movie>
+     * @return \Illuminate\Support\Collection<int, Movie>
      */
     #[Computed(seconds: 3600, cache: true)]
     final public function primaryLanguages(): \Illuminate\Support\Collection
