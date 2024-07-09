@@ -522,7 +522,7 @@ trait TorrentFilter
 
     /**
      * @param Builder<Torrent> $query
-     * @param array<int>       $languages
+     * @param array<string>    $languages
      */
     public function scopeOfPrimaryLanguage(Builder $query, array $languages): void
     {
