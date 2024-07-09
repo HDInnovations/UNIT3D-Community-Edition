@@ -47,10 +47,10 @@ class TopicPostSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Post>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Post>
      */
     #[Computed]
-    final public function posts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function posts(): \Illuminate\Pagination\LengthAwarePaginator
     {
         $posts = Post::query()
             ->with('user', 'user.group')

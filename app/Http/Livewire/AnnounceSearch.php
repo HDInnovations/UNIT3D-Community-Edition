@@ -24,7 +24,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator<Announce> $announces
+ * @property \Illuminate\Pagination\LengthAwarePaginator<Announce> $announces
  */
 class AnnounceSearch extends Component
 {
@@ -59,10 +59,10 @@ class AnnounceSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Announce>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Announce>
      */
     #[Computed]
-    final public function announces(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function announces(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Announce::query()
             ->when($this->torrentId !== '', fn ($query) => $query->where('torrent_id', '=', $this->torrentId))

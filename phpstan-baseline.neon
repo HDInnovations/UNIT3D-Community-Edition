@@ -1391,16 +1391,6 @@ parameters:
 			path: app/Http/Controllers/User/WishController.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Announce\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/AnnounceSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Announce\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/AnnounceSearch.php
-
-		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
 			count: 13
 			path: app/Http/Livewire/AnnounceSearch.php
@@ -1411,16 +1401,6 @@ parameters:
 			path: app/Http/Livewire/AnnounceSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Apikey\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/ApikeySearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Apikey\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/ApikeySearch.php
-
-		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
 			count: 4
 			path: app/Http/Livewire/ApikeySearch.php
@@ -1429,21 +1409,6 @@ parameters:
 			message: "#^Undefined variable\\: \\$sortField$#"
 			count: 4
 			path: app/Http/Livewire/ApikeySearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/ApplicationSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/ApplicationSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ApplicationSearch\\:\\:applications\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
-			count: 1
-			path: app/Http/Livewire/ApplicationSearch.php
 
 		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
@@ -1461,17 +1426,17 @@ parameters:
 			path: app/Http/Livewire/AttachmentUpload.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Audit\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/Http/Livewire/AuditLogSearch.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Audit\\>\\:\\:links\\(\\)\\.$#"
+			message: "#^Offset 'new' does not exist on string\\.$#"
+			count: 1
+			path: app/Http/Livewire/AuditLogSearch.php
+
+		-
+			message: "#^Offset 'old' does not exist on string\\.$#"
 			count: 1
 			path: app/Http/Livewire/AuditLogSearch.php
 
@@ -1501,16 +1466,6 @@ parameters:
 			path: app/Http/Livewire/BbcodeInput.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\BlockedIp\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\BlockedIp\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
 			message: "#^Variable \\$bookmarksCount might not be defined\\.$#"
 			count: 4
 			path: app/Http/Livewire/BookmarkButton.php
@@ -1524,16 +1479,6 @@ parameters:
 			message: "#^Variable \\$torrent might not be defined\\.$#"
 			count: 2
 			path: app/Http/Livewire/BookmarkButton.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Collection\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/CollectionSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Collection\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/CollectionSearch.php
 
 		-
 			message: "#^Variable \\$comment might not be defined\\.$#"
@@ -1556,31 +1501,6 @@ parameters:
 			path: app/Http/Livewire/Comments.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Company\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Company\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Conversation\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/ConversationSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Conversation\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/ConversationSearch.php
-
-		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
 			count: 3
 			path: app/Http/Livewire/ConversationSearch.php
@@ -1599,16 +1519,6 @@ parameters:
 			message: "#^Variable \\$post might not be defined\\.$#"
 			count: 2
 			path: app/Http/Livewire/DislikeButton.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\EmailUpdate\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/EmailUpdateSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\EmailUpdate\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/EmailUpdateSearch.php
 
 		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
@@ -1631,16 +1541,6 @@ parameters:
 			path: app/Http/Livewire/FailedLoginSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\FailedLoginAttempt\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\FailedLoginAttempt\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
 			count: 4
 			path: app/Http/Livewire/FailedLoginSearch.php
@@ -1656,39 +1556,9 @@ parameters:
 			path: app/Http/Livewire/FailedLoginSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\>\\:\\:count\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
 			message: "#^Variable \\$category might not be defined\\.$#"
 			count: 1
 			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\>\\:\\:count\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/ForumTopicSearch.php
 
 		-
 			message: "#^Variable \\$forum might not be defined\\.$#"
@@ -1701,16 +1571,6 @@ parameters:
 			path: app/Http/Livewire/ForumTopicSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Gift\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Gift\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
 			count: 5
 			path: app/Http/Livewire/GiftLogSearch.php
@@ -1721,13 +1581,78 @@ parameters:
 			path: app/Http/Livewire/GiftLogSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\History\\> supplied for foreach, only iterables are supported\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$actual_downloaded_sum\\.$#"
 			count: 2
 			path: app/Http/Livewire/HistorySearch.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\History\\>\\:\\:links\\(\\)\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$actual_uploaded_sum\\.$#"
+			count: 2
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$client_downloaded_sum\\.$#"
+			count: 2
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$client_uploaded_sum\\.$#"
+			count: 2
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$created_at_min\\.$#"
+			count: 3
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$downloaded_sum\\.$#"
+			count: 2
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$hitrun_count\\.$#"
 			count: 1
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$immune_count\\.$#"
+			count: 1
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$leeching_count\\.$#"
+			count: 1
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$prewarn_count\\.$#"
+			count: 1
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$refunded_download_sum\\.$#"
+			count: 2
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$seeding_count\\.$#"
+			count: 1
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$seedtime_avg\\.$#"
+			count: 2
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$updated_at_max\\.$#"
+			count: 3
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$uploaded_sum\\.$#"
+			count: 2
 			path: app/Http/Livewire/HistorySearch.php
 
 		-
@@ -1746,12 +1671,22 @@ parameters:
 			path: app/Http/Livewire/HistorySearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Invite\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 2
+			message: "#^Access to an undefined property App\\\\Models\\\\Invite\\:\\:\\$created_at_avg\\.$#"
+			count: 3
 			path: app/Http/Livewire/InviteLogSearch.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Invite\\>\\:\\:links\\(\\)\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Invite\\:\\:\\$created_at_max\\.$#"
+			count: 3
+			path: app/Http/Livewire/InviteLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Invite\\:\\:\\$created_at_min\\.$#"
+			count: 3
+			path: app/Http/Livewire/InviteLogSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Invite\\:\\:\\$inactive_ratio\\.$#"
 			count: 1
 			path: app/Http/Livewire/InviteLogSearch.php
 
@@ -1776,17 +1711,7 @@ parameters:
 			path: app/Http/Livewire/InviteLogSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
 			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
-			count: 1
-			path: app/Http/Livewire/LaravelLogViewer.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:entries\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator does not specify its types\\: TItem$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
@@ -1801,13 +1726,8 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\History\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/LeakerSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\History\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$leak_count\\.$#"
+			count: 2
 			path: app/Http/Livewire/LeakerSearch.php
 
 		-
@@ -1836,16 +1756,6 @@ parameters:
 			path: app/Http/Livewire/LikeButton.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Movie\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Movie\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
@@ -1864,51 +1774,6 @@ parameters:
 			message: "#^Undefined variable\\: \\$sortField$#"
 			count: 2
 			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Network\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Network\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Note\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Note\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<Illuminate\\\\Notifications\\\\DatabaseNotification\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<Illuminate\\\\Notifications\\\\DatabaseNotification\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Passkey\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/PasskeySearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Passkey\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/PasskeySearch.php
 
 		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
@@ -1966,41 +1831,6 @@ parameters:
 			path: app/Http/Livewire/PersonSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Person\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Person\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Playlist\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/PlaylistSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Playlist\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/PlaylistSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Post\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Post\\>\\:\\:count\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Post\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/PostSearch.php
-
-		-
 			message: "#^Variable \\$quicksearchRadio might not be defined\\.$#"
 			count: 2
 			path: app/Http/Livewire/QuickSearchDropdown.php
@@ -2014,16 +1844,6 @@ parameters:
 			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 3
 			path: app/Http/Livewire/RandomMedia.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Rsskey\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/RsskeySearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Rsskey\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/RsskeySearch.php
 
 		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
@@ -2071,46 +1891,6 @@ parameters:
 			path: app/Http/Livewire/SmallBookmarkButton.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Forum\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Forum\\>\\:\\:count\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Forum\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\>\\:\\:count\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Subtitle\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Subtitle\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
 			count: 7
 			path: app/Http/Livewire/SubtitleSearch.php
@@ -2119,16 +1899,6 @@ parameters:
 			message: "#^Undefined variable\\: \\$sortField$#"
 			count: 7
 			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Ticket\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Ticket\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
 
 		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
@@ -2156,42 +1926,22 @@ parameters:
 			path: app/Http/Livewire/TopUsers.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Post\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Post\\>\\:\\:count\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Post\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/TopicPostSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\>\\:\\:count\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Topic\\>\\:\\:links\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\TorrentDownload\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 2
+			message: "#^Access to an undefined property App\\\\Models\\\\TorrentDownload\\:\\:\\$created_at_max\\.$#"
+			count: 3
 			path: app/Http/Livewire/TorrentDownloadSearch.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\TorrentDownload\\>\\:\\:links\\(\\)\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\TorrentDownload\\:\\:\\$created_at_min\\.$#"
+			count: 3
+			path: app/Http/Livewire/TorrentDownloadSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\TorrentDownload\\:\\:\\$distinct_torrent_count\\.$#"
+			count: 1
+			path: app/Http/Livewire/TorrentDownloadSearch.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\TorrentDownload\\:\\:\\$download_count\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentDownloadSearch.php
 
@@ -2236,12 +1986,7 @@ parameters:
 			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\TorrentRequest\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\TorrentRequest\\>\\:\\:links\\(\\)\\.$#"
+			message: "#^Parameter \\#1 \\$num of function number_format expects float, string given\\.$#"
 			count: 1
 			path: app/Http/Livewire/TorrentRequestSearch.php
 
@@ -2256,12 +2001,12 @@ parameters:
 			path: app/Http/Livewire/TorrentRequestSearch.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Tv\\> supplied for foreach, only iterables are supported\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Tv\\:\\:\\$first_aired\\.$#"
 			count: 1
 			path: app/Http/Livewire/TvSearch.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Tv\\>\\:\\:links\\(\\)\\.$#"
+			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: app/Http/Livewire/TvSearch.php
 
@@ -2286,12 +2031,37 @@ parameters:
 			path: app/Http/Livewire/TwoFactorAuthForm.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Peer\\> supplied for foreach, only iterables are supported\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Peer\\:\\:\\$leechers\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Peer\\>\\:\\:links\\(\\)\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Peer\\:\\:\\$name\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Peer\\:\\:\\$progress\\.$#"
+			count: 2
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Peer\\:\\:\\$seeders\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Peer\\:\\:\\$size\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Peer\\:\\:\\$times_completed\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function e expects BackedEnum\\|float\\|Illuminate\\\\Contracts\\\\Support\\\\DeferringDisplayableValue\\|Illuminate\\\\Contracts\\\\Support\\\\Htmlable\\|int\\|string\\|null, array\\|int\\<min, \\-1\\>\\|int\\<1, max\\>\\|string given\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
 
@@ -2309,11 +2079,6 @@ parameters:
 			message: "#^Variable \\$showMorePrecision might not be defined\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Note\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserNotes.php
 
 		-
 			message: "#^Variable \\$user might not be defined\\.$#"
@@ -2344,16 +2109,6 @@ parameters:
 			message: "#^Variable \\$user might not be defined\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\User\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\User\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
@@ -2401,16 +2156,6 @@ parameters:
 			path: app/Http/Livewire/UserTorrents.php
 
 		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Torrent\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Torrent\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
 			count: 10
 			path: app/Http/Livewire/UserUploads.php
@@ -2424,16 +2169,6 @@ parameters:
 			message: "#^Variable \\$showMorePrecision might not be defined\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Warning\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserWarnings.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Warning\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserWarnings.php
 
 		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
@@ -2471,21 +2206,6 @@ parameters:
 			path: app/Http/Livewire/UserWarnings.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$torrenttitle\\.$#"
-			count: 2
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Warning\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Warning\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/WarningLogSearch.php
@@ -2499,16 +2219,6 @@ parameters:
 			message: "#^Undefined variable\\: \\$sortField$#"
 			count: 6
 			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Argument of an invalid type Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Watchlist\\> supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Watchlist\\>\\:\\:links\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"

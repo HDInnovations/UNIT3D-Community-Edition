@@ -70,10 +70,10 @@ class UserNotes extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Note>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Note>
      */
     #[Computed]
-    final public function notes(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function notes(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Note::query()
             ->with('staffuser', 'staffuser.group')

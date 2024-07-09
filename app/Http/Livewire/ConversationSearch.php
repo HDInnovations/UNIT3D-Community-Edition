@@ -50,10 +50,10 @@ class ConversationSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Conversation>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Conversation>
      */
     #[Computed]
-    final public function conversations(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function conversations(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Conversation::query()
             ->with([

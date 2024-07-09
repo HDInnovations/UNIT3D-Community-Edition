@@ -37,10 +37,10 @@ class CompanySearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Company>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Company>
      */
     #[Computed]
-    final public function companies(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function companies(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Company::withCount('tv', 'movie')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

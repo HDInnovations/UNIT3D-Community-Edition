@@ -24,7 +24,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $gifts
+ * @property \Illuminate\Pagination\LengthAwarePaginator $gifts
  */
 class GiftLogSearch extends Component
 {
@@ -52,10 +52,10 @@ class GiftLogSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Gift>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Gift>
      */
     #[Computed]
-    final public function gifts(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function gifts(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Gift::with([
             'sender'    => fn ($query) => $query->withTrashed()->with('group'),

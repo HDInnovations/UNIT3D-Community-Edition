@@ -62,10 +62,10 @@ class WarningLogSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Warning>
      */
     #[Computed]
-    final public function warnings(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function warnings(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Warning::query()
             ->with(['warneduser.group', 'staffuser.group', 'torrenttitle'])

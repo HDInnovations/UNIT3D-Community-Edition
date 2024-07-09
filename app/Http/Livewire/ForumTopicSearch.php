@@ -68,10 +68,10 @@ class ForumTopicSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Topic>
      */
     #[Computed]
-    final public function topics(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function topics(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')

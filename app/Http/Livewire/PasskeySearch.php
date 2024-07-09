@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator<Passkey> $passkeys
+ * @property \Illuminate\Pagination\LengthAwarePaginator<Passkey> $passkeys
  */
 class PasskeySearch extends Component
 {
@@ -50,10 +50,10 @@ class PasskeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Passkey>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Passkey>
      */
     #[Computed]
-    final public function passkeys(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function passkeys(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Passkey::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),

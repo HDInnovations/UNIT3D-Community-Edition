@@ -77,10 +77,10 @@ class AuditLogSearch extends Component
 
     /**
      * @throws JsonException
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Audit>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Audit>
      */
     #[Computed]
-    final public function audits(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function audits(): \Illuminate\Pagination\LengthAwarePaginator
     {
         $audits = Audit::with('user')
             ->when($this->username, fn ($query) => $query->whereRelation('user', 'username', '=', $this->username))

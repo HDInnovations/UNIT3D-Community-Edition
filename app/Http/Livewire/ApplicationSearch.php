@@ -45,11 +45,17 @@ class ApplicationSearch extends Component
     #[Url(history: true)]
     public int $perPage = 25;
 
+    /**
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Application>
+     */
     #[Computed]
-    final public function applications(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function applications(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Application::withoutGlobalScopes()->with([
-            'user.group', 'moderated.group', 'imageProofs', 'urlProofs'
+            'user.group',
+            'moderated.group',
+            'imageProofs',
+            'urlProofs'
         ])
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
             ->when($this->status === '1', fn ($query) => $query->where('status', '=', Application::APPROVED))

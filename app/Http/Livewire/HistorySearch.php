@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $histories
+ * @property \Illuminate\Pagination\LengthAwarePaginator $histories
  */
 class HistorySearch extends Component
 {
@@ -92,10 +92,10 @@ class HistorySearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<History>
      */
     #[Computed]
-    final public function histories(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function histories(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return History::query()
             ->with('user', 'torrent:id,name')

@@ -63,8 +63,11 @@ class LaravelLogViewer extends Component
             ->sortByDesc(fn (SplFileInfo $file) => $file->getMTime())->values();
     }
 
+    /**
+     * @return \Illuminate\Pagination\LengthAwarePaginator<\Illuminate\Support\Collection<string|int, mixed>>
+     */
     #[Computed]
-    final public function entries(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function entries(): LengthAwarePaginator
     {
         $files = $this->logFiles;
         $logString = '';

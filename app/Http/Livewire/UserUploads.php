@@ -69,10 +69,10 @@ class UserUploads extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Torrent>
      */
     #[Computed]
-    final public function uploads(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function uploads(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Torrent::query()
             ->withCount('thanks')

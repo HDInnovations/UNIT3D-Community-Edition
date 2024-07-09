@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator<Apikey> $apikeys
+ * @property \Illuminate\Pagination\LengthAwarePaginator<Apikey> $apikeys
  */
 class ApikeySearch extends Component
 {
@@ -50,10 +50,10 @@ class ApikeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Apikey>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Apikey>
      */
     #[Computed]
-    final public function apikeys(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function apikeys(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Apikey::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),

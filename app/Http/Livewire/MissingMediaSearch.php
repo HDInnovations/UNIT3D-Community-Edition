@@ -50,10 +50,10 @@ class MissingMediaSearch extends Component
     public int $perPage = 50;
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Movie>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Movie>
      */
     #[Computed]
-    final public function medias(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function medias(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Movie::with(['torrents:tmdb,resolution_id,type_id' => ['resolution:id,position,name']])
             ->when($this->name, fn ($query) => $query->where('title', 'LIKE', '%'.$this->name.'%'))

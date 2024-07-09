@@ -37,10 +37,10 @@ class CollectionSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Collection>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Collection>
      */
     #[Computed]
-    final public function collections(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function collections(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Collection::withCount('movie')
             ->with('movie')
