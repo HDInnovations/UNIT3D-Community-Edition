@@ -205,14 +205,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('torrent.category') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $categories = cache()->remember(
-                                            'categories',
-                                            3_600,
-                                            fn () => App\Models\Category::orderBy('position')->get()
-                                        )
-                                    @endphp
-
                                     @foreach ($categories as $category)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -233,14 +225,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('common.type') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $types = cache()->remember(
-                                            'types',
-                                            3_600,
-                                            fn () => App\Models\Type::orderBy('position')->get()
-                                        )
-                                    @endphp
-
                                     @foreach ($types as $type)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -261,14 +245,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('common.resolution') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $resolutions = cache()->remember(
-                                            'resolutions',
-                                            3_600,
-                                            fn () => App\Models\Resolution::orderBy('position')->get()
-                                        )
-                                    @endphp
-
                                     @foreach ($resolutions as $resolution)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -289,14 +265,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('torrent.genre') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $genres = cache()->remember(
-                                            'genres',
-                                            3_600,
-                                            fn () => App\Models\Genre::orderBy('name')->get()
-                                        )
-                                    @endphp
-
                                     @foreach ($genres as $genre)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -317,17 +285,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">Primary Language</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $primaryLanguages = cache()->remember(
-                                            'torrent-search:languages',
-                                            3600,
-                                            fn () => App\Models\Movie::select('original_language')
-                                                ->distinct()
-                                                ->orderBy('original_language')
-                                                ->pluck('original_language')
-                                        )
-                                    @endphp
-
                                     @foreach ($primaryLanguages as $primaryLanguage)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -335,7 +292,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $primaryLanguage }}"
-                                                    wire:model.live="primaryLanguages"
+                                                    wire:model.live="primaryLanguageNames"
                                                 />
                                                 {{ $primaryLanguage }}
                                             </label>
