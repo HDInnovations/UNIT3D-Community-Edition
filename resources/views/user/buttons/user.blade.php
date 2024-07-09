@@ -2,7 +2,7 @@
     $isModo = auth()->user()->group->is_modo;
     $isProfileOwner = auth()
         ->user()
-        ->is($user)
+        ->is($user);
 @endphp
 
 <li class="nav-tab-menu">

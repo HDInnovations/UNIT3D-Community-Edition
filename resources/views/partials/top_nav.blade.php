@@ -118,7 +118,7 @@
                                         ->where('staff_id', '=', auth()->id())
                                         ->Where('staff_read', '=', '0');
                                 })
-                                ->exists()
+                                ->exists();
                         @endphp
 
                         @if ($tickets)
@@ -131,7 +131,7 @@
                             $ticket_unread = DB::table('tickets')
                                 ->where('user_id', '=', auth()->id())
                                 ->where('user_read', '=', '0')
-                                ->exists()
+                                ->exists();
                         @endphp
 
                         @if ($ticket_unread)
@@ -267,7 +267,7 @@
                         ->where('user_id', '=', auth()->id())
                         ->where('active', '=', 1)
                         ->count() ?? 0
-                )
+                );
             @endphp
 
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
@@ -355,7 +355,7 @@
                             $torrents_unmoderated = DB::table('torrents')
                                 ->where('status', '=', \App\Models\Torrent::PENDING)
                                 ->whereNull('deleted_at')
-                                ->exists()
+                                ->exists();
                         @endphp
 
                         @if ($torrents_unmoderated)
@@ -371,7 +371,7 @@
                         ->where('user_id', '=', auth()->id())
                         ->where('read', '=', false)
                         ->whereNull('deleted_at')
-                        ->exists()
+                        ->exists();
                 @endphp
 
                 <a
