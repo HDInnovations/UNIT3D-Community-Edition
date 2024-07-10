@@ -533,10 +533,17 @@ class TorrentController extends BaseController
                 ->when($request->filled('types'), fn ($query) => $query->ofType($request->types))
                 ->when($request->filled('resolutions'), fn ($query) => $query->ofResolution($request->resolutions))
                 ->when($request->filled('genres'), fn ($query) => $query->ofGenre($request->genres))
-                ->when($request->filled('tmdbId'), fn ($query) => $query->ofTmdb((int) $request->tmdbId))
-                ->when($request->filled('imdbId'), fn ($query) => $query->ofImdb((int) $request->imdbId))
-                ->when($request->filled('tvdbId'), fn ($query) => $query->ofTvdb((int) $request->tvdbId))
-                ->when($request->filled('malId'), fn ($query) => $query->ofMal((int) $request->malId))
+                ->when(
+                    $request->filled('tmdbId') || $request->filled('imdbId') || $request->filled('tvdbId') || $request->filled('malId'),
+                    fn ($query) => $query->where(
+                        fn ($query) => $query
+                            ->whereRaw('1=1')
+                            ->when($request->filled('tmdbId'), fn ($query) => $query->orWhere('tmdb', '=', $request->integer('tmdbId')))
+                            ->when($request->filled('imdbId'), fn ($query) => $query->orWhere('imdb', '=', $request->integer('imdbId')))
+                            ->when($request->filled('tvdbId'), fn ($query) => $query->orWhere('tvdb', '=', $request->integer('tvdbId')))
+                            ->when($request->filled('malId'), fn ($query) => $query->orWhere('mal', '=', $request->integer('malId')))
+                    )
+                )
                 ->when($request->filled('playlistId'), fn ($query) => $query->ofPlaylist((int) $request->playlistId))
                 ->when($request->filled('collectionId'), fn ($query) => $query->ofCollection((int) $request->collectionId))
                 ->when($request->filled('primaryLanguages'), fn ($query) => $query->ofPrimaryLanguage($request->primaryLanguages))
