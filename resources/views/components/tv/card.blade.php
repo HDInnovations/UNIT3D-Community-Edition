@@ -48,7 +48,7 @@
         <div class="torrent-search--grouped__genres">
             @foreach ($media->genres->take(3) as $genre)
                 <a
-                    href="{{ route('torrents.index', ['view' => 'group', 'genres' => $genre->id]) }}"
+                    href="{{ route('torrents.index', ['view' => 'group', 'genreids' => [$genre->id]]) }}"
                     class="torrent-search--grouped__genre"
                 >
                     {{ $genre->name }}

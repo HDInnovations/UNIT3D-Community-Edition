@@ -182,7 +182,7 @@
                 <dd>
                     @foreach ($show->genres as $genre)
                         <a
-                            href="{{ route('torrents.index', ['view' => 'group', 'genres' => $genre->id]) }}"
+                            href="{{ route('torrents.index', ['view' => 'group', 'genreIds' => [$genre->id]]) }}"
                         >
                             {{ $genre->name }}
                         </a>

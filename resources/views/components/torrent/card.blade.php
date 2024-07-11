@@ -91,7 +91,7 @@
                     <li class="torrent-card__genre-item">
                         <a
                             class="torrent-card__genre"
-                            href="{{ route('torrents.index', ['view' => 'group', 'genres' => [$genre->id]]) }}"
+                            href="{{ route('torrents.index', ['view' => 'group', 'genreIds' => [$genre->id]]) }}"
                         >
                             {{ $genre->name }}
                         </a>

@@ -2,7 +2,7 @@
     <li class="torrent__category">
         <a
             class="torrent__category-link"
-            href="{{ route('torrents.index', ['categories' => [$torrent->category->id]]) }}"
+            href="{{ route('torrents.index', ['categoryIds' => [$torrent->category->id]]) }}"
         >
             {{ $torrent->category->name }}
         </a>
@@ -11,7 +11,7 @@
         <li class="torrent__resolution">
             <a
                 class="torrent__resolution-link"
-                href="{{ route('torrents.index', ['resolutions' => [$torrent->category->id]]) }}"
+                href="{{ route('torrents.index', ['resolutionIds' => [$torrent->category->id]]) }}"
             >
                 {{ $torrent->resolution->name }}
             </a>
@@ -22,7 +22,7 @@
         <li class="torrent__region">
             <a
                 class="torrent__region-link"
-                href="{{ route('torrents.index', ['regions' => [$torrent->region->id]]) }}"
+                href="{{ route('torrents.index', ['regionIds' => [$torrent->region->id]]) }}"
             >
                 {{ $torrent->region->name }}
             </a>
@@ -33,7 +33,7 @@
         <li class="torrent__type">
             <a
                 class="torrent__type-link"
-                href="{{ route('torrents.index', ['types' => [$torrent->type->id]]) }}"
+                href="{{ route('torrents.index', ['typeIds' => [$torrent->type->id]]) }}"
             >
                 {{ $torrent->type->name }}
             </a>
@@ -44,7 +44,7 @@
         <li class="torrent__distributor">
             <a
                 class="torrent__distributor-link"
-                href="{{ route('torrents.index', ['distributors' => [$torrent->distributor->id]]) }}"
+                href="{{ route('torrents.index', ['distributorIds' => [$torrent->distributor->id]]) }}"
             >
                 {{ $torrent->distributor->name }}
             </a>
