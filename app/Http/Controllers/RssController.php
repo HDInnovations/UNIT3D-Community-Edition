@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\DTO\TorrentSearchFiltersDTO;
 use App\Models\Category;
 use App\Models\Genre;
 use App\Models\Group;
@@ -177,29 +178,32 @@ class RssController extends Controller
                     'type:id,name',
                     'resolution:id,name'
                 ])
-                ->when($search->search !== null, fn ($query) => $query->ofName($search->search))
-                ->when($search->description !== null, fn ($query) => $query->ofDescription($search->description)->orWhere->ofMediainfo($search->description))
-                ->when($search->uploader !== null, fn ($query) => $query->ofUploader($search->uploader, $user))
-                ->when($search->categories !== null, fn ($query) => $query->ofCategory($search->categories))
-                ->when($search->types !== null, fn ($query) => $query->ofType($search->types))
-                ->when($search->resolutions !== null, fn ($query) => $query->ofResolution($search->resolutions))
-                ->when($search->genres !== null, fn ($query) => $query->ofGenre($search->genres))
-                ->when($search->tmdb !== null, fn ($query) => $query->ofTmdb((int) $search->tmdb))
-                ->when($search->imdb !== null, fn ($query) => $query->ofImdb((int) (preg_match('/tt0*(?=(\d{7,}))/', (string) $search->imdb, $matches) ? $matches[1] : $search->imdb)))
-                ->when($search->tvdb !== null, fn ($query) => $query->ofTvdb((int) $search->tvdb))
-                ->when($search->mal !== null, fn ($query) => $query->ofMal((int) $search->mal))
-                ->when($search->freeleech !== null, fn ($query) => $query->ofFreeleech([25, 50, 75, 100]))
-                ->when($search->doubleupload !== null, fn ($query) => $query->doubleup())
-                ->when($search->featured !== null, fn ($query) => $query->featured())
-                ->when($search->stream !== null, fn ($query) => $query->streamOptimized())
-                ->when($search->sd !== null, fn ($query) => $query->sd())
-                ->when($search->highspeed !== null, fn ($query) => $query->highspeed())
-                ->when($search->bookmark !== null, fn ($query) => $query->bookmarkedBy($user))
-                ->when($search->internal !== null, fn ($query) => $query->internal())
-                ->when($search->personalrelease !== null, fn ($query) => $query->personalRelease())
-                ->when($search->alive !== null, fn ($query) => $query->alive())
-                ->when($search->dying !== null, fn ($query) => $query->dying())
-                ->when($search->dead !== null, fn ($query) => $query->dead())
+                ->where((new TorrentSearchFiltersDTO(
+                    user: $user,
+                    name: $search->search ?? '',
+                    description: $search->description ?? '',
+                    uploader: $search->uploader ?? '',
+                    categoryIds: array_map('intval', $search->categories ?? []),
+                    typeIds: array_map('intval', $search->types ?? []),
+                    resolutionIds: array_map('intval', $search->resolutions ?? []),
+                    genreIds: array_map('intval', $search->genres ?? []),
+                    tmdbId: $search->tmdb === null ? null : (int) $search->tmdb,
+                    imdbId: $search->imdb === null ? null : ((int) (preg_match('/tt0*(?=(\d{7,}))/', $search->imdb, $matches) ? $matches[1] : $search->imdb)),
+                    tvdbId: $search->tvdb === null ? null : (int) $search->tvdb,
+                    malId: $search->mal === null ? null : (int) $search->mal,
+                    free: $search->freeleech === null ? [] : [25, 50, 75, 100],
+                    doubleup: (bool) ($search->doubleupload ?? false),
+                    featured: (bool) ($search->featured ?? false),
+                    stream: (bool) ($search->stream ?? false),
+                    sd: (bool) ($search->sd ?? false),
+                    highspeed: (bool) ($search->highspeed ?? false),
+                    userBookmarked: (bool) ($search->bookmark ?? false),
+                    internal: (bool) ($search->internal ?? false),
+                    personalRelease: (bool) ($search->personalrelease ?? false),
+                    alive: (bool) ($search->alive ?? false),
+                    dying: (bool) ($search->dying ?? false),
+                    dead: (bool) ($search->dead ?? false),
+                ))->toSqlQueryBuilder())
                 ->orderByDesc('bumped_at')
                 ->take(50)
                 ->get());
