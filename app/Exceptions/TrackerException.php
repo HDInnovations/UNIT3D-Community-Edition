@@ -86,7 +86,7 @@ class TrackerException extends Exception
 
         if ($replace) {
             foreach ($replace as $key => $value) {
-                $message = str_replace($key, $value, $message);
+                $message = str_replace($key, (string) $value, $message);
             }
         }
 
