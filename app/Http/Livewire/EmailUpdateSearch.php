@@ -44,10 +44,10 @@ class EmailUpdateSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<EmailUpdate>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<EmailUpdate>
      */
     #[Computed]
-    final public function emailUpdates(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function emailUpdates(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return EmailUpdate::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),

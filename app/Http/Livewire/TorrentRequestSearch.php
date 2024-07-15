@@ -196,10 +196,10 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<TorrentRequest>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<TorrentRequest>
      */
     #[Computed]
-    final public function torrentRequests(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function torrentRequests(): \Illuminate\Pagination\LengthAwarePaginator
     {
         $user = auth()->user();
         $isRegexAllowed = $user->group->is_modo;

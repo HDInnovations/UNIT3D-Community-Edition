@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $tickets
+ * @property \Illuminate\Pagination\LengthAwarePaginator $tickets
  */
 class TicketSearch extends Component
 {
@@ -68,10 +68,10 @@ class TicketSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Ticket>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Ticket>
      */
     #[Computed]
-    final public function tickets(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function tickets(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Ticket::query()
             ->with(['user.group', 'staff.group', 'category', 'priority'])

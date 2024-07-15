@@ -70,10 +70,10 @@ class FailedLoginSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<FailedLoginAttempt>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<FailedLoginAttempt>
      */
     #[Computed]
-    final public function failedLogins(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function failedLogins(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return FailedLoginAttempt::query()
             ->with('user.group')

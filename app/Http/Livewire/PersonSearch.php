@@ -46,10 +46,10 @@ class PersonSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Person>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Person>
      */
     #[Computed]
-    final public function persons(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function persons(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Person::select(['id', 'still', 'name'])
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

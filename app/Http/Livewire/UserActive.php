@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $actives
+ * @property \Illuminate\Pagination\LengthAwarePaginator $actives
  */
 class UserActive extends Component
 {
@@ -80,10 +80,10 @@ class UserActive extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Peer>
      */
     #[Computed]
-    final public function actives(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function actives(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')

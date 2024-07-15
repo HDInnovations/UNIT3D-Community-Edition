@@ -55,10 +55,10 @@ class WatchlistSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Watchlist>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Watchlist>
      */
     #[Computed]
-    final public function users(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function users(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Watchlist::query()
             ->with(['user.group', 'author.group'])

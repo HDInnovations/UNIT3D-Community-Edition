@@ -78,10 +78,10 @@ class InviteLogSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Invite>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Invite>
      */
     #[Computed]
-    final public function invites(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function invites(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Invite::withTrashed()
             ->with(['sender.group', 'receiver.group'])
@@ -112,7 +112,7 @@ class InviteLogSearch extends Component
                             ) as inactive_count
                         "),
                         DB::raw("
-                            100.0 * 
+                            100.0 *
                             (select
                                 count(*)
                             from

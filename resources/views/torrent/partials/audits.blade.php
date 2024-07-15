@@ -25,7 +25,7 @@
             <tbody>
                 @foreach ($audits->load(['user.group']) as $audit)
                     {{-- format-ignore-start --}}
-                    @php $values = json_decode($audit->record, true) @endphp
+                    @php $values = json_decode($audit->record, true); @endphp
                     {{-- format-ignore-end --}}
                     <tr>
                         <td>
@@ -53,13 +53,13 @@
                                     >
                                         {{ $key }}:
                                         @if (is_array($value['old']))
-                                            @json($value['old'])
+                                            {{ Js::from($value['old']) }}
                                         @else
                                             {{ $value['old'] ?? 'null' }}
                                         @endif
                                         &rarr;
                                         @if (is_array($value['new']))
-                                            @json($value['new'])
+                                            {{ Js::from($value['new']) }}
                                         @else
                                             {{ $value['new'] ?? 'null' }}
                                         @endif

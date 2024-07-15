@@ -239,7 +239,7 @@
 
                     @foreach ($files = $torrent->files->sortBy(fn ($file) => (($dir = dirname($file->name)) === '.' ? chr(0xFF) : $dir."/".chr(0xFF)).basename($file->name), SORT_NATURAL)->values() as $file)
                         @php
-                            $prevNodes = explode('/', $files[$loop->index - 1]->name ?? ' ')
+                            $prevNodes = explode('/', $files[$loop->index - 1]->name ?? ' ');
                         @endphp
 
                         @foreach ($nodes = explode("/", $file->name) as $node)
@@ -302,7 +302,7 @@
                                                             $value->name,
                                                             implode('/', array_slice($nodes, 0, $depth + 1)) . '/'
                                                         )
-                                                    )
+                                                    );
                                                 @endphp
 
                                                 <span style="grid-area: count">
