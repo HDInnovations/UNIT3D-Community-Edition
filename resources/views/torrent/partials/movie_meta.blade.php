@@ -273,7 +273,7 @@
                 <article class="meta__genres">
                     <a
                         class="meta-chip"
-                        href="{{ route('torrents.index', ['view' => 'group', 'genres' => $meta->genres->pluck('id')->toArray()]) }}"
+                        href="{{ route('torrents.index', ['view' => 'group', 'genreIds' => $meta->genres->pluck('id')->toArray()]) }}"
                     >
                         <i
                             class="{{ config('other.font-awesome') }} fa-theater-masks meta-chip__icon"
@@ -287,7 +287,10 @@
             @endif
 
             <article class="meta__language">
-                <a class="meta-chip" href="#">
+                <a
+                    class="meta-chip"
+                    href="{{ $meta?->original_language === null ? '#' : route('torrents.index', ['primaryLanguageNames' => [$meta->original_language]]) }}"
+                >
                     <i class="{{ config('other.font-awesome') }} fa-language meta-chip__icon"></i>
                     <h2 class="meta-chip__name">Primary Language</h2>
                     <h3 class="meta-chip__value">
