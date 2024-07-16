@@ -45,7 +45,7 @@ class FlushController extends Controller
     public function peers(): \Illuminate\Http\RedirectResponse
     {
         $carbon = new Carbon();
-        $peers = Peer::select(['id', 'torrent_id', 'user_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
+        $peers = Peer::select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
 
         foreach ($peers as $peer) {
             $history = History::where('torrent_id', '=', $peer->torrent_id)->where('user_id', '=', $peer->user_id)->first();
@@ -56,7 +56,11 @@ class FlushController extends Controller
                 $history->save();
             }
 
-            $peer->delete();
+            Peer::query()
+                ->where('torrent_id', '=', $peer->torrent_id)
+                ->where('user_id', '=', $peer->user_id)
+                ->where('peer_id', '=', $peer->peer_id)
+                ->delete();
         }
 
         return to_route('staff.dashboard.index')
