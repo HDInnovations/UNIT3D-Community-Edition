@@ -132,7 +132,7 @@ class PeerSearch extends Component
                     ->selectRaw('SUM(peers.`left`) as `left`')
                     ->selectRaw('MIN(peers.created_at) as created_at')
                     ->selectRaw('MAX(peers.updated_at) as updated_at')
-                    ->selectRaw('COUNT(DISTINCT(peers.id)) as peer_count')
+                    ->selectRaw('COUNT(DISTINCT(peers.torrent_id, peers.user_id, peers.peer_id)) as peer_count')
                     ->selectRaw('SUM(peers.connectable = 1) as connectable_count')
                     ->selectRaw('SUM(peers.connectable = 0) as unconnectable_count')
                     ->selectRaw('SUM(peers.active = 1) as active_count')
