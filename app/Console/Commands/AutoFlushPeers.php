@@ -75,19 +75,26 @@ class AutoFlushPeers extends Command
         // Keep peers that stopped being announced without a `stopped` event
         // in case a user has internet issues and comes back online within the
         // next 2 days
-        $peers = Peer::select(['torrent_id', 'user_id', 'peer_id'])
-            ->where('updated_at', '<', $carbon->copy()->subDays(2))
-            ->where('active', '=', 0)
-            ->get();
-
-        foreach ($peers as $peer) {
-            cache()->decrement('user-leeching-count:'.$peer->user_id);
-
+        if (config('announce.external_tracker.is_enabled')) {
             Peer::query()
-                ->where('torrent_id', '=', $peer->torrent_id)
-                ->where('user_id', '=', $peer->user_id)
-                ->where('peer_id', '=', $peer->peer_id)
+                ->where('updated_at', '<', $carbon->copy()->subDays(2))
+                ->where('active', '=', 0)
                 ->delete();
+        } else {
+            $peers = Peer::select(['torrent_id', 'user_id', 'peer_id'])
+                ->where('updated_at', '<', $carbon->copy()->subDays(2))
+                ->where('active', '=', 0)
+                ->get();
+
+            foreach ($peers as $peer) {
+                cache()->decrement('user-leeching-count:'.$peer->user_id);
+
+                Peer::query()
+                    ->where('torrent_id', '=', $peer->torrent_id)
+                    ->where('user_id', '=', $peer->user_id)
+                    ->where('peer_id', '=', $peer->peer_id)
+                    ->delete();
+            }
         }
 
         $this->comment('Automated Flush Ghost Peers Command Complete');
