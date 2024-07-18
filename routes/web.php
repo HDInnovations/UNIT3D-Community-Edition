@@ -1144,7 +1144,6 @@ Route::middleware('language')->group(function (): void {
         // Wiki System
         Route::prefix('wikis')->group(function (): void {
             Route::name('wikis.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\WikiController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\WikiController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\WikiController::class, 'store'])->name('store');
                 Route::get('/{wiki}/edit', [App\Http\Controllers\Staff\WikiController::class, 'edit'])->name('edit');
