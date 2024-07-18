@@ -635,7 +635,9 @@
       unsetUploadLoading(this.component);
       let uploadItem = this.uploadBag.first(name);
       if (uploadItem) {
-        uploadItem.request.abort();
+        if (uploadItem.request) {
+          uploadItem.request.abort();
+        }
         this.uploadBag.shift(name).cancelledCallback();
         if (cancelledCallback)
           cancelledCallback();
@@ -710,7 +712,7 @@
     uploadManager.cancelUpload(name, cancelledCallback);
   }
 
-  // ../alpine/packages/alpinejs/dist/module.esm.js
+  // node_modules/alpinejs/dist/module.esm.js
   var flushPending = false;
   var flushing = false;
   var queue = [];
@@ -1011,7 +1013,7 @@
       const target = objects.find((obj) => Object.prototype.hasOwnProperty.call(obj, name)) || objects[objects.length - 1];
       const descriptor = Object.getOwnPropertyDescriptor(target, name);
       if (descriptor?.set && descriptor?.get)
-        return Reflect.set(target, name, value, thisProxy);
+        return descriptor.set.call(thisProxy, value) || true;
       return Reflect.set(target, name, value);
     }
   };
@@ -2278,7 +2280,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     get raw() {
       return raw;
     },
-    version: "3.14.0",
+    version: "3.14.1",
     flushAndStopDeferringMutations,
     dontAutoEvaluateFunctions,
     disableEffectScheduling,
@@ -4567,6 +4569,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       if (this.originalEffects.url) {
         effects.url = this.originalEffects.url;
       }
+      if (this.originalEffects.scripts) {
+        effects.scripts = this.originalEffects.scripts;
+      }
       el.setAttribute("wire:effects", JSON.stringify(effects));
     }
     addCleanup(cleanup2) {
@@ -4757,7 +4762,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }
   };
 
-  // ../alpine/packages/collapse/dist/module.esm.js
+  // node_modules/@alpinejs/collapse/dist/module.esm.js
   function src_default2(Alpine3) {
     Alpine3.directive("collapse", collapse);
     collapse.inline = (el, { modifiers }) => {
@@ -4851,7 +4856,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }
   var module_default2 = src_default2;
 
-  // ../alpine/packages/focus/dist/module.esm.js
+  // node_modules/@alpinejs/focus/dist/module.esm.js
   var candidateSelectors = ["input", "select", "textarea", "a[href]", "button", "[tabindex]:not(slot)", "audio[controls]", "video[controls]", '[contenteditable]:not([contenteditable="false"])', "details>summary:first-of-type", "details"];
   var candidateSelector = /* @__PURE__ */ candidateSelectors.join(",");
   var NoElement = typeof Element === "undefined";
@@ -5800,7 +5805,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }
   var module_default3 = src_default3;
 
-  // ../alpine/packages/persist/dist/module.esm.js
+  // node_modules/@alpinejs/persist/dist/module.esm.js
   function src_default4(Alpine3) {
     let persist = () => {
       let alias;
@@ -5862,7 +5867,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }
   var module_default4 = src_default4;
 
-  // ../alpine/packages/intersect/dist/module.esm.js
+  // node_modules/@alpinejs/intersect/dist/module.esm.js
   function src_default5(Alpine3) {
     Alpine3.directive("intersect", Alpine3.skipDuringClone((el, { value, expression, modifiers }, { evaluateLater: evaluateLater2, cleanup: cleanup2 }) => {
       let evaluate3 = evaluateLater2(expression);
@@ -5917,7 +5922,52 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   }
   var module_default5 = src_default5;
 
-  // ../alpine/packages/anchor/dist/module.esm.js
+  // node_modules/@alpinejs/resize/dist/module.esm.js
+  function src_default6(Alpine3) {
+    Alpine3.directive("resize", Alpine3.skipDuringClone((el, { value, expression, modifiers }, { evaluateLater: evaluateLater2, cleanup: cleanup2 }) => {
+      let evaluator = evaluateLater2(expression);
+      let evaluate3 = (width, height) => {
+        evaluator(() => {
+        }, { scope: { "$width": width, "$height": height } });
+      };
+      let off = modifiers.includes("document") ? onDocumentResize(evaluate3) : onElResize(el, evaluate3);
+      cleanup2(() => off());
+    }));
+  }
+  function onElResize(el, callback) {
+    let observer2 = new ResizeObserver((entries) => {
+      let [width, height] = dimensions(entries);
+      callback(width, height);
+    });
+    observer2.observe(el);
+    return () => observer2.disconnect();
+  }
+  var documentResizeObserver;
+  var documentResizeObserverCallbacks = /* @__PURE__ */ new Set();
+  function onDocumentResize(callback) {
+    documentResizeObserverCallbacks.add(callback);
+    if (!documentResizeObserver) {
+      documentResizeObserver = new ResizeObserver((entries) => {
+        let [width, height] = dimensions(entries);
+        documentResizeObserverCallbacks.forEach((i) => i(width, height));
+      });
+      documentResizeObserver.observe(document.documentElement);
+    }
+    return () => {
+      documentResizeObserverCallbacks.delete(callback);
+    };
+  }
+  function dimensions(entries) {
+    let width, height;
+    for (let entry of entries) {
+      width = entry.borderBoxSize[0].inlineSize;
+      height = entry.borderBoxSize[0].blockSize;
+    }
+    return [width, height];
+  }
+  var module_default6 = src_default6;
+
+  // node_modules/@alpinejs/anchor/dist/module.esm.js
   var min = Math.min;
   var max = Math.max;
   var round = Math.round;
@@ -7091,7 +7141,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       platform: platformWithCache
     });
   };
-  function src_default6(Alpine3) {
+  function src_default7(Alpine3) {
     Alpine3.magic("anchor", (el) => {
       if (!el._x_anchor)
         throw "Alpine: No x-anchor directive found on element using $anchor...";
@@ -7149,7 +7199,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     let unstyled = modifiers.includes("no-style");
     return { placement, offsetValue, unstyled };
   }
-  var module_default6 = src_default6;
+  var module_default7 = src_default7;
 
   // js/plugins/navigate/history.js
   var Snapshot = class {
@@ -7300,7 +7350,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return createUrlObjectFromString(linkEl.getAttribute("href"));
   }
   function createUrlObjectFromString(urlString) {
-    return new URL(urlString, document.baseURI);
+    return urlString !== null && new URL(urlString, document.baseURI);
   }
   function getUriStringFromUrlObject(urlObject) {
     return urlObject.pathname + urlObject.search + urlObject.hash;
@@ -7725,12 +7775,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       let shouldPrefetchOnHover = modifiers.includes("hover");
       shouldPrefetchOnHover && whenThisLinkIsHoveredFor(el, 60, () => {
         let destination = extractDestinationFromLink(el);
+        if (!destination)
+          return;
         prefetchHtml(destination, (html, finalDestination) => {
           storeThePrefetchedHtmlForWhenALinkIsClicked(html, destination, finalDestination);
         });
       });
       whenThisLinkIsPressed(el, (whenItIsReleased) => {
         let destination = extractDestinationFromLink(el);
+        if (!destination)
+          return;
         prefetchHtml(destination, (html, finalDestination) => {
           storeThePrefetchedHtmlForWhenALinkIsClicked(html, destination, finalDestination);
         });
@@ -7914,13 +7968,15 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     });
     Alpine3.history = { track: track2 };
   }
-  function track2(name, initialSeedValue, alwaysShow = false) {
+  function track2(name, initialSeedValue, alwaysShow = false, except = null) {
     let { has: has2, get: get3, set: set3, remove } = queryStringUtils();
     let url = new URL(window.location.href);
     let isInitiallyPresentInUrl = has2(url, name);
     let initialValue = isInitiallyPresentInUrl ? get3(url, name) : initialSeedValue;
     let initialValueMemo = JSON.stringify(initialValue);
+    let exceptValueMemo = [false, null, void 0].includes(except) ? initialSeedValue : JSON.stringify(except);
     let hasReturnedToInitialValue = (newValue) => JSON.stringify(newValue) === initialValueMemo;
+    let hasReturnedToExceptValue = (newValue) => JSON.stringify(newValue) === exceptValueMemo;
     if (alwaysShow)
       url = set3(url, name, initialValue);
     replace(url, name, { value: initialValue });
@@ -7932,6 +7988,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       if (!alwaysShow && !isInitiallyPresentInUrl && hasReturnedToInitialValue(newValue)) {
         url2 = remove(url2, name);
       } else if (newValue === void 0) {
+        url2 = remove(url2, name);
+      } else if (!alwaysShow && hasReturnedToExceptValue(newValue)) {
         url2 = remove(url2, name);
       } else {
         url2 = set3(url2, name, newValue);
@@ -8074,7 +8132,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     return data2;
   }
 
-  // ../alpine/packages/morph/dist/module.esm.js
+  // node_modules/@alpinejs/morph/dist/module.esm.js
   function morph(from, toHtml, options) {
     monkeyPatchDomSetAttributeToAllowAtSymbols();
     let fromEl;
@@ -8404,13 +8462,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     to.setAttribute("id", fromId);
     to.id = fromId;
   }
-  function src_default7(Alpine3) {
+  function src_default8(Alpine3) {
     Alpine3.morph = morph;
   }
-  var module_default7 = src_default7;
+  var module_default8 = src_default8;
 
-  // ../alpine/packages/mask/dist/module.esm.js
-  function src_default8(Alpine3) {
+  // node_modules/@alpinejs/mask/dist/module.esm.js
+  function src_default9(Alpine3) {
     Alpine3.directive("mask", (el, { value, expression }, { effect: effect3, evaluateLater: evaluateLater2, cleanup: cleanup2 }) => {
       let templateFn = () => expression;
       let lastInputValue = "";
@@ -8572,22 +8630,23 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     });
     return template;
   }
-  var module_default8 = src_default8;
+  var module_default9 = src_default9;
 
   // js/lifecycle.js
   function start2() {
     setTimeout(() => ensureLivewireScriptIsntMisplaced());
     dispatch(document, "livewire:init");
     dispatch(document, "livewire:initializing");
-    module_default.plugin(module_default7);
+    module_default.plugin(module_default8);
     module_default.plugin(history2);
     module_default.plugin(module_default5);
-    module_default.plugin(module_default2);
     module_default.plugin(module_default6);
+    module_default.plugin(module_default2);
+    module_default.plugin(module_default7);
     module_default.plugin(module_default3);
     module_default.plugin(module_default4);
     module_default.plugin(navigate_default);
-    module_default.plugin(module_default8);
+    module_default.plugin(module_default9);
     module_default.addRootSelector(() => "[wire\\:id]");
     module_default.onAttributesAdded((el, attributes) => {
       if (!Array.from(attributes).some((attribute) => matchesForLivewireDirective(attribute.name)))
@@ -9082,7 +9141,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
       if (!as)
         as = name;
       let initialValue = [false, null, void 0].includes(except) ? dataGet(component.ephemeral, name) : except;
-      let { replace: replace2, push: push2, pop } = track2(as, initialValue, alwaysShow);
+      let { replace: replace2, push: push2, pop } = track2(as, initialValue, alwaysShow, except);
       if (use === "replace") {
         let effectReference = module_default.effect(() => {
           replace2(dataGet(component.reactive, name));
