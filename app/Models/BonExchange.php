@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BonExchange extends Model
 {
+    /** @use HasFactory<\Database\Factories\BonExchangeFactory> */
     use HasFactory;
 
     /**

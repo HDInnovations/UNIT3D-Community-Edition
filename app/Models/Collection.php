@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Collection extends Model
 {
+    /** @use HasFactory<\Database\Factories\CollectionFactory> */
     use HasFactory;
 
     protected $guarded = [];

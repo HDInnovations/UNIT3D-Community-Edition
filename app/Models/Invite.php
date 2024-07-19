@@ -39,6 +39,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Invite extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\InviteFactory> */
     use HasFactory;
     use SoftDeletes;
 

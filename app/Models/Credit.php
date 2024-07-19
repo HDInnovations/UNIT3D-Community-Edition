@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Credit extends Model
 {
+    /** @use HasFactory<\Database\Factories\CreditFactory> */
     use HasFactory;
 
     /**

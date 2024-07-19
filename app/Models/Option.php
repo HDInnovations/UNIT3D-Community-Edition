@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
 class Option extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\OptionFactory> */
     use HasFactory;
 
     /**

@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Network extends Model
 {
+    /** @use HasFactory<\Database\Factories\NetworkFactory> */
     use HasFactory;
 
     protected $guarded = [];

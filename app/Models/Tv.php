@@ -56,6 +56,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tv extends Model
 {
+    /** @use HasFactory<\Database\Factories\TvFactory> */
     use HasFactory;
 
     protected $guarded = [];

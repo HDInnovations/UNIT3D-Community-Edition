@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BlockedIp extends Model
 {
+    /** @use HasFactory<\Database\Factories\BlockedIpFactory> */
     use HasFactory;
 
     /**

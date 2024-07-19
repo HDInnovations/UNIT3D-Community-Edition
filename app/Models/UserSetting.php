@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserSetting extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserSettingFactory> */
     use HasFactory;
 
     /**

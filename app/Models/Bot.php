@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\Model;
 class Bot extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\BotFactory> */
     use HasFactory;
 
     /**

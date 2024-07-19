@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
 class FreeleechToken extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\FreeleechTokenFactory> */
     use HasFactory;
 
     /**

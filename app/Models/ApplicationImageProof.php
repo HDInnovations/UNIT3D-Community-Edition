@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationImageProof extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\ApplicationImageProofFactory> */
     use HasFactory;
 
     /**

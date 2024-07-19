@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserAudible extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserAudibleFactory> */
     use HasFactory;
 
     /**

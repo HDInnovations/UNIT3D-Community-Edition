@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Season extends Model
 {
+    /** @use HasFactory<\Database\Factories\SeasonFactory> */
     use HasFactory;
 
     protected $guarded = [];

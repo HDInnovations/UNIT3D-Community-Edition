@@ -32,5 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 class TicketPriority extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\TicketPriorityFactory> */
     use HasFactory;
 }

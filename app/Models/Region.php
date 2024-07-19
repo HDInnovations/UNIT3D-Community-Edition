@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
 class Region extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\RegionFactory> */
     use HasFactory;
 
     /**

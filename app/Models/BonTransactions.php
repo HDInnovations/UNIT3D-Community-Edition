@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BonTransactions extends Model
 {
+    /** @use HasFactory<\Database\Factories\BonTransactionsFactory> */
     use HasFactory;
 
     /**

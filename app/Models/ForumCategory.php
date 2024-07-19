@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
 class ForumCategory extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\ForumCategoryFactory> */
     use HasFactory;
 
     /**

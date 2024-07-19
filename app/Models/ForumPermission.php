@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
 class ForumPermission extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\ForumPermissionFactory> */
     use HasFactory;
 
     /**

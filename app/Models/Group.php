@@ -58,6 +58,8 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\GroupFactory> */
     use HasFactory;
 
     /**

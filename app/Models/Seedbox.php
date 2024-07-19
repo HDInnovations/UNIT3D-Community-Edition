@@ -35,6 +35,8 @@ class Seedbox extends Model
 {
     use Auditable;
     use Encryptable;
+
+    /** @use HasFactory<\Database\Factories\SeedboxFactory> */
     use HasFactory;
 
     /**

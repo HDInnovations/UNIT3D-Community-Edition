@@ -78,6 +78,8 @@ use voku\helper\AntiXSS;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Achiever;
+
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use Notifiable;
     use SoftDeletes;

@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
 class ChatStatus extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\ChatStatusFactory> */
     use HasFactory;
 
     /**

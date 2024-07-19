@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
 class Bookmark extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\BookmarkFactory> */
     use HasFactory;
 
     /**

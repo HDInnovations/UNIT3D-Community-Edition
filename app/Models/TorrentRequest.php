@@ -55,6 +55,8 @@ use voku\helper\AntiXSS;
 class TorrentRequest extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\TorrentRequestFactory> */
     use HasFactory;
     use TorrentFilter;
 

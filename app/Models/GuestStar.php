@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GuestStar extends Model
 {
+    /** @use HasFactory<\Database\Factories\GuestStarFactory> */
     use HasFactory;
 
     protected $guarded = [];

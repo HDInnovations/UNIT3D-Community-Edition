@@ -36,6 +36,8 @@ use voku\helper\AntiXSS;
 class Post extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
 
     /**

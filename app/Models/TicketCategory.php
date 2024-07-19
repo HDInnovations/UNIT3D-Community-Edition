@@ -32,5 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 class TicketCategory extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\TicketCategoryFactory> */
     use HasFactory;
 }

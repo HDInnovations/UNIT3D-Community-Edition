@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Audit extends Model
 {
+    /** @use HasFactory<\Database\Factories\AuditFactory> */
     use HasFactory;
 
     /**

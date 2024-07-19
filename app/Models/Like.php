@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\LikeFactory> */
     use HasFactory;
 
     /**

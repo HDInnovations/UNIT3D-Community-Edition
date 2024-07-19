@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Warning extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\WarningFactory> */
     use HasFactory;
     use SoftDeletes;
 

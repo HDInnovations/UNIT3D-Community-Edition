@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
 class Voter extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\VoterFactory> */
     use HasFactory;
 
     protected $guarded = [];

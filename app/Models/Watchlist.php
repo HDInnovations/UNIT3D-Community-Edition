@@ -33,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
 class Watchlist extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\WatchlistFactory> */
     use HasFactory;
 
     /**

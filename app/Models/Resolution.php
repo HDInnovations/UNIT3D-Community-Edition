@@ -30,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
 class Resolution extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\ResolutionFactory> */
     use HasFactory;
 
     /**

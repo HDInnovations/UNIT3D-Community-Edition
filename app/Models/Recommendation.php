@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Recommendation extends Model
 {
+    /** @use HasFactory<\Database\Factories\RecommendationFactory> */
     use HasFactory;
 
     protected $guarded = [];

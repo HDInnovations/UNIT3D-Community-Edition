@@ -39,6 +39,8 @@ use stdClass;
 class Rss extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\RssFactory> */
     use HasFactory;
     use SoftDeletes;
 

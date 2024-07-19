@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GitUpdate extends Model
 {
+    /** @use HasFactory<\Database\Factories\GitUpdateFactory> */
     use HasFactory;
 
     protected $guarded = ['id'];

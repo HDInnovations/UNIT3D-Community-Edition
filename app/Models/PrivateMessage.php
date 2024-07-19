@@ -34,6 +34,7 @@ use voku\helper\AntiXSS;
  */
 class PrivateMessage extends Model
 {
+    /** @use HasFactory<\Database\Factories\PrivateMessageFactory> */
     use HasFactory;
 
     /**

@@ -42,6 +42,8 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\TicketFactory> */
     use HasFactory;
 
     protected $guarded = [];
