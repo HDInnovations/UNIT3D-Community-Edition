@@ -50,7 +50,7 @@ jobs:
       - name: Clear Application Cache
         run: php artisan optimize:clear
       - name: Run Larastan
-        run: ./vendor/bin/phpstan analyse -v --memory-limit=2G
+        run: ./vendor/bin/phpstan analyse -vvv --memory-limit=2G
       - name: Cache phpstan cache directory
         uses: actions/cache@v4
         with:
