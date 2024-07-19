@@ -511,6 +511,71 @@ parameters:
 			path: app/Http/Controllers/TorrentController.php
 
 		-
+			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/AttachmentUpload.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$storedImage has no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/AttachmentUpload.php
+
+		-
+			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/Http/Livewire/AuditLogSearch.php
+
+		-
+			message: "#^Cannot call method sizeInBytes\\(\\) on class\\-string\\|object\\.$#"
+			count: 1
+			path: app/Http/Livewire/BackupPanel.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:backups\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Http/Livewire/BackupPanel.php
+
+		-
+			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:logFiles\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_shift expects array, array\\<int, string\\>\\|false given\\.$#"
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: "#^Property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Http/Livewire/MissingMediaSearch.php
+
+		-
+			message: "#^Access to an undefined property MarcReichel\\\\IGDBLaravel\\\\Models\\\\Game\\:\\:\\$first_release_date\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property MarcReichel\\\\IGDBLaravel\\\\Models\\\\Game\\:\\:\\$name\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/UserSearch.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
+			count: 1
+			path: app/Http/Livewire/WarningLogSearch.php
+
+		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Http/Middleware/CheckIfBanned.php
