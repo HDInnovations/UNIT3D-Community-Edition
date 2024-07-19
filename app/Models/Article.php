@@ -37,6 +37,7 @@ use voku\helper\AntiXSS;
 class Article extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\ArticleFactory> */
     use HasFactory;
 

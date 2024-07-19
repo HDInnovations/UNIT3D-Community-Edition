@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 class Thank extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\ThankFactory> */
     use HasFactory;
 

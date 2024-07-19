@@ -41,6 +41,7 @@ use voku\helper\AntiXSS;
 class Comment extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\CommentFactory> */
     use HasFactory;
 

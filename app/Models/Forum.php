@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\Model;
 class Forum extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\ForumFactory> */
     use HasFactory;
 

@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
 class Resurrection extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\ResurrectionFactory> */
     use HasFactory;
 

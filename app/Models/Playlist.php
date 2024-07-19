@@ -41,6 +41,7 @@ use voku\helper\AntiXSS;
 class Playlist extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\PlaylistFactory> */
     use HasFactory;
 

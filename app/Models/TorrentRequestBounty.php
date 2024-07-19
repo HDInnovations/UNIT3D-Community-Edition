@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
 class TorrentRequestBounty extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\TorrentRequestBountyFactory> */
     use HasFactory;
 

@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 class Type extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\TypeFactory> */
     use HasFactory;
 

@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\SubscriptionFactory> */
     use HasFactory;
 

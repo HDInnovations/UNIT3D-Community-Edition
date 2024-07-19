@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 class PlaylistTorrent extends Pivot
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\PlaylistTorrentFactory> */
     use HasFactory;
 

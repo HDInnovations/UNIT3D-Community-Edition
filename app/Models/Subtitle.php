@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Model;
 class Subtitle extends Model
 {
     use Auditable;
+
     /** @use HasFactory<\Database\Factories\SubtitleFactory> */
     use HasFactory;
 
