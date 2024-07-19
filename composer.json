@@ -47,7 +47,7 @@
         "calebdw/larastan-livewire": "^1.0.1",
         "fakerphp/faker": "^1.23.1",
         "jasonmccreary/laravel-test-assertions": "^2.4.1",
-        "larastan/larastan": "^2.9.8",
+        "larastan/larastan": "2.9.8",
         "laravel/pint": "^1.16.2",
         "laravel/sail": "^1.30.2",
         "mockery/mockery": "^1.6.12",
