@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\CategoryFactory> */
     use HasFactory;
 
     /**

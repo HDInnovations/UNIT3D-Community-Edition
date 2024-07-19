@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class FailedLoginAttempt extends Model
 {
+    /** @use HasFactory<\Database\Factories\FailedLoginAttemptFactory> */
     use HasFactory;
 
     /**

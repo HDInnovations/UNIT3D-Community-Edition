@@ -89,6 +89,7 @@ class Torrent extends Model
 {
     use Auditable;
     use GroupedLastScope;
+    /** @use HasFactory<\Database\Factories\TorrentFactory> */
     use HasFactory;
     use SoftDeletes;
     use TorrentFilter;

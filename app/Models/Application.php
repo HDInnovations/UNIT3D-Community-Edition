@@ -38,6 +38,7 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\ApplicationFactory> */
     use HasFactory;
 
     final public const PENDING = 0;

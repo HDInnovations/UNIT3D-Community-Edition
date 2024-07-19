@@ -32,6 +32,7 @@ use Illuminate\Notifications\Notifiable;
 class Chatroom extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\ChatroomFactory> */
     use HasFactory;
     use Notifiable;
 

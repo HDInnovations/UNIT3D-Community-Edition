@@ -41,6 +41,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Peer extends Model
 {
+    /** @use HasFactory<\Database\Factories\PeerFactory> */
     use HasFactory;
 
     /**

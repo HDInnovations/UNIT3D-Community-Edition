@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 class Distributor extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\DistributorFactory> */
     use HasFactory;
 
     /**

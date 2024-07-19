@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 class FeaturedTorrent extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\FeaturedTorrentFactory> */
     use HasFactory;
 
     /**

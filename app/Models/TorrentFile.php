@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TorrentFile extends Model
 {
+    /** @use HasFactory<\Database\Factories\TorrentFileFactory> */
     use HasFactory;
 
     /**

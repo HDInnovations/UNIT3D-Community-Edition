@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class BlacklistClient extends Model
 {
+    /** @use HasFactory<\Database\Factories\BlacklistClientFactory> */
     use HasFactory;
 
     /**

@@ -34,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class TorrentRequestClaim extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\TorrentRequestClaimFactory> */
     use HasFactory;
 
     /**

@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationUrlProof extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\ApplicationUrlProofFactory> */
     use HasFactory;
 
     /**

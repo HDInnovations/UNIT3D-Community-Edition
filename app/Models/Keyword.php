@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Keyword extends Model
 {
+    /** @use HasFactory<\Database\Factories\KeywordFactory> */
     use HasFactory;
 
     /**

@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
 class Occupation extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\OccupationFactory> */
     use HasFactory;
 
     /**

@@ -35,5 +35,6 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\NotificationFactory> */
     use HasFactory;
 }

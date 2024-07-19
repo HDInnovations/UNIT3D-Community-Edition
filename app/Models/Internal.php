@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
 class Internal extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\InternalFactory> */
     use HasFactory;
 
     /**

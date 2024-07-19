@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
 class TicketAttachment extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\TicketAttachmentFactory> */
     use HasFactory;
 
     /**

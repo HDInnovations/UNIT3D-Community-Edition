@@ -33,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ban extends Model
 {
+    /** @use HasFactory<\Database\Factories\BanFactory> */
     use HasFactory;
 
     /**

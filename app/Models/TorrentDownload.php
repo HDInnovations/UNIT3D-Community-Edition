@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class TorrentDownload extends Model
 {
+    /** @use HasFactory<\Database\Factories\TorrentDownloadFactory> */
     use HasFactory;
 
     /**

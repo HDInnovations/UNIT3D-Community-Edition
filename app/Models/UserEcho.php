@@ -32,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserEcho extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserEchoFactory> */
     use HasFactory;
 
     /**

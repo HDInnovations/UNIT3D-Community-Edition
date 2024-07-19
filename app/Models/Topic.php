@@ -47,6 +47,7 @@ use Illuminate\Database\Eloquent\Model;
 class Topic extends Model
 {
     use Auditable;
+    /** @use HasFactory<\Database\Factories\TopicFactory> */
     use HasFactory;
 
     protected $guarded = [];
