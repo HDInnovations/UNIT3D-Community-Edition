@@ -1,6 +1,126 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_chat\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_comment\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_download\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_invite\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_request\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_upload\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$email\\.$#"
+			count: 2
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group_id\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Call to an undefined method TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoBanDisposableUsers.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$avg_seedtime\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_download\\.$#"
+			count: 2
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_invite\\.$#"
+			count: 2
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_request\\.$#"
+			count: 2
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$created_at\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group_id\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$ratio\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$seedsize\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$uploaded\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$uploads\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
+			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/Console/Commands/AutoGroup.php
+
+		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
@@ -166,6 +286,11 @@ parameters:
 			path: app/Helpers/Bencode.php
 
 		-
+			message: "#^Method App\\\\Helpers\\\\CacheUser\\:\\:user\\(\\) should return App\\\\Models\\\\User\\|null but returns App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\|null\\.$#"
+			count: 1
+			path: app/Helpers/CacheUser.php
+
+		-
 			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentFiles\\(\\) should return array\\<int, array\\{name\\: string, size\\: int\\}\\> but returns array\\<int\\|string, array\\{name\\: mixed, size\\: mixed\\}\\>\\.$#"
 			count: 1
 			path: app/Helpers/TorrentTools.php
@@ -276,6 +401,26 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$banned_id\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$disabled_id\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$validating_id\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
 			message: "#^Argument of an invalid type array\\<string, array\\<string, bool\\|int\\|string\\>\\>\\|bool\\|int\\|string supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/Http/Controllers/ExternalTorrentController.php
@@ -311,13 +456,38 @@ parameters:
 			path: app/Http/Controllers/ExternalTorrentController.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Article\\:\\:\\$newNews\\.$#"
+			count: 3
+			path: app/Http/Controllers/HomeController.php
+
+		-
 			message: "#^Call to an undefined static method MarcReichel\\\\IGDBLaravel\\\\Models\\\\Game\\:\\:query\\(\\)\\.$#"
+			count: 1
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: "#^Cannot call method count\\(\\) on array\\<int, App\\\\Models\\\\Post\\>\\.$#"
 			count: 1
 			path: app/Http/Controllers/HomeController.php
 
 		-
 			message: "#^Cannot call method count\\(\\) on array\\<int, App\\\\Models\\\\Topic\\>\\.$#"
 			count: 1
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: "#^Cannot call method count\\(\\) on array\\<int, App\\\\Models\\\\User\\>\\.$#"
+			count: 1
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: "#^Cannot call method isNotEmpty\\(\\) on array\\<int, App\\\\Models\\\\FeaturedTorrent\\>\\.$#"
+			count: 1
+			path: app/Http/Controllers/HomeController.php
+
+		-
+			message: "#^Method Carbon\\\\Carbon\\:\\:addDay\\(\\) invoked with 1 parameter, 0 required\\.$#"
+			count: 4
 			path: app/Http/Controllers/HomeController.php
 
 		-
@@ -626,6 +796,61 @@ parameters:
 			path: app/Http/Controllers/Staff/GroupController.php
 
 		-
+			message: "#^Access to an undefined property object\\:\\:\\$active\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$approved\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$banned\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$inactive\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$leechers\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$pending\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$postponed\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$rejected\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$seeders\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$total\\.$#"
+			count: 3
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$validating\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/HomeController.php
+
+		-
 			message: "#^Cannot call method expirationDate\\(\\) on bool\\|Spatie\\\\SslCertificate\\\\SslCertificate\\.$#"
 			count: 1
 			path: app/Http/Controllers/Staff/HomeController.php
@@ -861,6 +1086,26 @@ parameters:
 			path: app/Http/Controllers/Staff/WikiController.php
 
 		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$actual_download\\.$#"
+			count: 2
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$actual_upload\\.$#"
+			count: 2
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$credited_download\\.$#"
+			count: 2
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$credited_upload\\.$#"
+			count: 2
+			path: app/Http/Controllers/StatsController.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Peer\\:\\:\\$value\\.$#"
 			count: 1
 			path: app/Http/Controllers/StatsController.php
@@ -868,6 +1113,16 @@ parameters:
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\UserSetting\\:\\:\\$value\\.$#"
 			count: 3
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: "#^Binary operation \"\\-\" between int and float\\|int\\|string results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: "#^Binary operation \"\\-\" between int and float\\|int\\|string\\|null results in an error\\.$#"
+			count: 1
 			path: app/Http/Controllers/StatsController.php
 
 		-
@@ -888,6 +1143,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$bytes of static method App\\\\Helpers\\\\StringHelper\\:\\:formatBytes\\(\\) expects float\\|int, array\\|float\\|int given\\.$#"
 			count: 2
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: "#^Parameter \\#1 \\$bytes of static method App\\\\Helpers\\\\StringHelper\\:\\:formatBytes\\(\\) expects float\\|int, float\\|int\\|string given\\.$#"
+			count: 1
 			path: app/Http/Controllers/StatsController.php
 
 		-
@@ -947,6 +1207,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method count\\(\\) on array\\<int, App\\\\Models\\\\Playlist\\>\\.$#"
+			count: 1
+			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: "#^Cannot call method implode\\(\\) on array\\.$#"
 			count: 1
 			path: app/Http/Controllers/TorrentController.php
 
@@ -1366,6 +1631,16 @@ parameters:
 			path: app/Http/Controllers/User/UserController.php
 
 		-
+			message: "#^Parameter \\#1 \\$bytes of static method App\\\\Helpers\\\\StringHelper\\:\\:formatBytes\\(\\) expects float\\|int, float\\|int\\|string given\\.$#"
+			count: 2
+			path: app/Http/Controllers/User/UserController.php
+
+		-
+			message: "#^Parameter \\#1 \\$num of function number_format expects float, float\\|int\\|string given\\.$#"
+			count: 4
+			path: app/Http/Controllers/User/UserController.php
+
+		-
 			message: "#^Parameter \\#1 \\$value of function e expects BackedEnum\\|float\\|Illuminate\\\\Contracts\\\\Support\\\\DeferringDisplayableValue\\|Illuminate\\\\Contracts\\\\Support\\\\Htmlable\\|int\\|string\\|null, bool\\|int\\|string given\\.$#"
 			count: 4
 			path: app/Http/Controllers/User/UserController.php
@@ -1389,6 +1664,36 @@ parameters:
 			message: "#^Right side of \\|\\| is always true\\.$#"
 			count: 3
 			path: app/Http/Controllers/User/WishController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Comment\\:\\:\\$value\\.$#"
+			count: 1
+			path: app/Http/Controllers/YearlyOverviewController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$value\\.$#"
+			count: 1
+			path: app/Http/Controllers/YearlyOverviewController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Thank\\:\\:\\$value\\.$#"
+			count: 1
+			path: app/Http/Controllers/YearlyOverviewController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$download_count\\.$#"
+			count: 4
+			path: app/Http/Controllers/YearlyOverviewController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Torrent\\:\\:\\$value\\.$#"
+			count: 1
+			path: app/Http/Controllers/YearlyOverviewController.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\TorrentRequest\\:\\:\\$value\\.$#"
+			count: 2
+			path: app/Http/Controllers/YearlyOverviewController.php
 
 		-
 			message: "#^Undefined variable\\: \\$sortDirection$#"
@@ -1856,6 +2161,16 @@ parameters:
 			path: app/Http/Livewire/RsskeySearch.php
 
 		-
+			message: "#^Access to an undefined property MarcReichel\\\\IGDBLaravel\\\\Models\\\\Game\\:\\:\\$first_release_date\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
+			message: "#^Access to an undefined property MarcReichel\\\\IGDBLaravel\\\\Models\\\\Game\\:\\:\\$name\\.$#"
+			count: 1
+			path: app/Http/Livewire/SimilarTorrent.php
+
+		-
 			message: "#^Cannot call method sortBy\\(\\) on array\\<int, App\\\\Models\\\\Torrent\\>\\.$#"
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
@@ -2231,6 +2546,11 @@ parameters:
 			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/Http/Middleware/CheckIfBanned.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Middleware\\\\SetLanguage\\:\\:setSystemLocale\\(\\) has parameter \\$request with no type specified\\.$#"
 			count: 1
 			path: app/Http/Middleware/SetLanguage.php
@@ -2309,6 +2629,456 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Resources\\\\UserResource\\:\\:toArray\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: app/Http/Resources/UserResource.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Application uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Application.php
+
+		-
+			message: "#^Class App\\\\Models\\\\ApplicationImageProof uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/ApplicationImageProof.php
+
+		-
+			message: "#^Class App\\\\Models\\\\ApplicationUrlProof uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/ApplicationUrlProof.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Article uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Article.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Audit uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Audit.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Ban uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Ban.php
+
+		-
+			message: "#^Class App\\\\Models\\\\BlacklistClient uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/BlacklistClient.php
+
+		-
+			message: "#^Class App\\\\Models\\\\BlockedIp uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/BlockedIp.php
+
+		-
+			message: "#^Class App\\\\Models\\\\BonExchange uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/BonExchange.php
+
+		-
+			message: "#^Class App\\\\Models\\\\BonTransactions uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/BonTransactions.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Bookmark uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Bookmark.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Bot uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Bot.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Category uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: "#^Class App\\\\Models\\\\ChatStatus uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/ChatStatus.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Chatroom uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Chatroom.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Collection uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Collection.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Comment uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Comment.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Company uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Company.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Conversation uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Conversation.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Credit uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Credit.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Distributor uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Distributor.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Episode uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Episode.php
+
+		-
+			message: "#^Class App\\\\Models\\\\FailedLoginAttempt uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/FailedLoginAttempt.php
+
+		-
+			message: "#^Class App\\\\Models\\\\FeaturedTorrent uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/FeaturedTorrent.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Forum uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Forum.php
+
+		-
+			message: "#^Class App\\\\Models\\\\ForumCategory uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/ForumCategory.php
+
+		-
+			message: "#^Class App\\\\Models\\\\ForumPermission uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/ForumPermission.php
+
+		-
+			message: "#^Class App\\\\Models\\\\FreeleechToken uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/FreeleechToken.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Genre uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Genre.php
+
+		-
+			message: "#^Class App\\\\Models\\\\GitUpdate uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/GitUpdate.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Group uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Group.php
+
+		-
+			message: "#^Class App\\\\Models\\\\GuestStar uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/GuestStar.php
+
+		-
+			message: "#^Class App\\\\Models\\\\History uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/History.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Internal uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Internal.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Invite uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Invite.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Keyword uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Keyword.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Like uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Like.php
+
+		-
+			message: "#^Class App\\\\Models\\\\MediaLanguage uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/MediaLanguage.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Message uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Message.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Movie uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Movie.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Network uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Network.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Note uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Note.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Notification uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Notification.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Occupation uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Occupation.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Option uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Option.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Page uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Page.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Peer uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Peer.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Person uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Person.php
+
+		-
+			message: "#^Class App\\\\Models\\\\PersonalFreeleech uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/PersonalFreeleech.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Playlist uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Playlist.php
+
+		-
+			message: "#^Class App\\\\Models\\\\PlaylistTorrent uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/PlaylistTorrent.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Poll uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Poll.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Post uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Post.php
+
+		-
+			message: "#^Class App\\\\Models\\\\PrivateMessage uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/PrivateMessage.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Recommendation uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Recommendation.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Region uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Region.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Report uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Report.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Resolution uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Resolution.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Resurrection uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Resurrection.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Rss uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Rss.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Season uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Season.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Seedbox uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Seedbox.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Subscription uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Subscription.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Subtitle uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Subtitle.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Thank uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Thank.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Ticket uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Ticket.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TicketAttachment uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TicketAttachment.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TicketCategory uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TicketCategory.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TicketNote uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TicketNote.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TicketPriority uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TicketPriority.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Topic uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Topic.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Torrent uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TorrentDownload uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TorrentDownload.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TorrentFile uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TorrentFile.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TorrentRequest uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TorrentRequest.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TorrentRequestBounty uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TorrentRequestBounty.php
+
+		-
+			message: "#^Class App\\\\Models\\\\TorrentRequestClaim uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/TorrentRequestClaim.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Tv uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Tv.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Type uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Type.php
+
+		-
+			message: "#^Class App\\\\Models\\\\User uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: "#^Class App\\\\Models\\\\UserAudible uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/UserAudible.php
+
+		-
+			message: "#^Class App\\\\Models\\\\UserEcho uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/UserEcho.php
+
+		-
+			message: "#^Class App\\\\Models\\\\UserNotification uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: "#^Class App\\\\Models\\\\UserPrivacy uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: "#^Class App\\\\Models\\\\UserSetting uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/UserSetting.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Voter uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Voter.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Warning uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Warning.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Watchlist uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Watchlist.php
+
+		-
+			message: "#^Class App\\\\Models\\\\WhitelistedImageUrl uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/WhitelistedImageUrl.php
+
+		-
+			message: "#^Class App\\\\Models\\\\Wish uses generic trait Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\HasFactory but does not specify its types\\: TFactory$#"
+			count: 1
+			path: app/Models/Wish.php
 
 		-
 			message: "#^Cannot access offset 'validator' on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
@@ -2629,6 +3399,11 @@ parameters:
 			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$file_name\\.$#"
+			count: 3
+			path: database/migrations/2023_02_09_113903_clean_torrent_files.php
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$content\\.$#"
