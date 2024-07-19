@@ -70,3 +70,10 @@ jobs:
           DB_USERNAME: root
           DB_DATABASE: unit3d
           DB_PASSWORD: null
+      - name: Cache phpunit cache directory
+        uses: actions/cache@v4
+        with:
+          path: .phpunit.cache
+          key: "phpunit-cache-${{ github.run_id }}"
+          restore-keys: |
+            phpunit-cache-

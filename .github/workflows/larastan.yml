@@ -51,10 +51,10 @@ jobs:
         run: php artisan optimize:clear
       - name: Run Larastan
         run: ./vendor/bin/phpstan analyse -v --memory-limit=2G
-      - name: Cache PHPStan's Cache
+      - name: Cache phpstan cache directory
         uses: actions/cache@v4
         with:
           path: .phpstan.cache
-          key: "phpstan-result-cache-${{ github.run_id }}"
+          key: "phpstan-cache-${{ github.run_id }}"
           restore-keys: |
-              phpstan-result-cache-
+              phpstan-cache-
