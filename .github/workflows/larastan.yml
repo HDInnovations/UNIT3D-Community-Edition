@@ -50,7 +50,7 @@ jobs:
       - name: Clear Application Cache
         run: php artisan optimize:clear
       - name: "Restore result cache"
-        uses: actions/cache/restore@v3
+        uses: actions/cache/restore@v4
         with:
           path: ./tmp
           key: "result-cache-v1-${{ matrix.php-version }}-${{ github.run_id }}"
@@ -59,7 +59,7 @@ jobs:
       - name: Run Larastan
         run: ./vendor/bin/phpstan analyse -v --memory-limit=2G
       - name: "Save result cache"
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: always()
         with:
           path: ./tmp
