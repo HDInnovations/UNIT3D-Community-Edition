@@ -49,18 +49,12 @@ jobs:
         run: php artisan key:generate
       - name: Clear Application Cache
         run: php artisan optimize:clear
-      - name: "Restore result cache"
-        uses: actions/cache/restore@v4
-        with:
-          path: ./tmp
-          key: "result-cache-v1-${{ matrix.php-version }}-${{ github.run_id }}"
-          restore-keys: |
-              result-cache-v1-${{ matrix.php-version }}-
       - name: Run Larastan
         run: ./vendor/bin/phpstan analyse -v --memory-limit=2G
-      - name: "Save result cache"
-        uses: actions/cache/save@v4
-        if: always()
+      - name: Cache PHPStan's Cache
+        uses: actions/cache@v4
         with:
-          path: ./tmp
-          key: "result-cache-v1-${{ matrix.php-version }}-${{ github.run_id }}"
+          path: .phpstan.cache
+          key: "phpstan-result-cache-${{ github.run_id }}"
+          restore-keys: |
+              phpstan-result-cache-

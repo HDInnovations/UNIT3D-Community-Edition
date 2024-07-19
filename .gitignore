@@ -45,6 +45,7 @@ npm-debug.log
 _ide_helper.php
 supervisor.ini
 /.phpunit.cache/
+/.phpstan.cache/
 /caddy
 frankenphp
 frankenphp-worker.php
