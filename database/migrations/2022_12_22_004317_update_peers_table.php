@@ -40,7 +40,7 @@ return new class () extends Migration {
             $table->unsignedInteger('torrent_id')->nullable(false)->change();
             $table->unsignedInteger('user_id')->nullable(false)->change();
             $table->binary('peer_id', length: 20, fixed: true)->change();
-            $table->binary('ip', length: 16, fixed: true)->change();
+            $table->binary('ip', length: 16)->change();
         });
 
         Schema::enableForeignKeyConstraints();
