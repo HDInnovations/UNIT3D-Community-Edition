@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $id
  * @property string                          $name
  * @property string|null                     $state
- * @property bool                            $pinned
+ * @property int                             $priority
  * @property bool                            $approved
  * @property bool                            $denied
  * @property bool                            $solved
@@ -56,13 +56,13 @@ class Topic extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{last_post_created_at: 'datetime', pinned: 'bool', approved: 'bool', denied: 'bool', solved: 'bool', invalid: 'bool', bug: 'bool', suggestion: 'bool', implemented: 'bool'}
+     * @return array{last_post_created_at: 'datetime', priority: 'integer', approved: 'bool', denied: 'bool', solved: 'bool', invalid: 'bool', bug: 'bool', suggestion: 'bool', implemented: 'bool'}
      */
     protected function casts(): array
     {
         return [
             'last_post_created_at' => 'datetime',
-            'pinned'               => 'bool',
+            'priority'             => 'integer',
             'approved'             => 'bool',
             'denied'               => 'bool',
             'solved'               => 'bool',

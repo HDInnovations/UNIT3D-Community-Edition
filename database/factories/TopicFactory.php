@@ -36,7 +36,7 @@ class TopicFactory extends Factory
         return [
             'name'                 => $this->faker->name(),
             'state'                => $this->faker->word(),
-            'pinned'               => $this->faker->boolean(),
+            'priority'             => $this->faker->randomNumber(),
             'approved'             => $this->faker->boolean(),
             'denied'               => $this->faker->boolean(),
             'solved'               => $this->faker->boolean(),
