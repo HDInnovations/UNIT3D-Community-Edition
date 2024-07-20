@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup PHP 8.2
+      - name: Setup PHP 8.3
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
@@ -50,4 +50,11 @@ jobs:
       - name: Clear Application Cache
         run: php artisan optimize:clear
       - name: Run Larastan
-        run: ./vendor/bin/phpstan analyse
+        run: ./vendor/bin/phpstan analyse -vvv --memory-limit=2G
+      - name: Cache phpstan cache directory
+        uses: actions/cache@v4
+        with:
+          path: .phpstan.cache
+          key: "phpstan-cache-${{ github.run_id }}"
+          restore-keys: |
+              phpstan-cache-

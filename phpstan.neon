@@ -1,9 +1,10 @@
 includes:
     - ./vendor/larastan/larastan/extension.neon
     - ./vendor/calebdw/larastan-livewire/extension.neon
-    - ./vendor/tomasvotruba/bladestan/config/extension.neon
+    #- ./vendor/tomasvotruba/bladestan/config/extension.neon
     - ./phpstan-baseline.neon
 parameters:
+    tmpDir: .phpstan.cache
     paths:
         - app
         - bootstrap
@@ -18,5 +19,6 @@ parameters:
         - app/Helpers/MarkdownExtra
         - app/Http/Livewire/PersonCredit
         - app/Http/Livewire/TorrentSearch
+        - bootstrap/cache
     level: 7
     checkOctaneCompatibility: true
