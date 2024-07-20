@@ -74,9 +74,9 @@
                             <th>{{ __('torrent.progress') }}</th>
                             <th>{{ __('common.upload') }}</th>
                             <th>{{ __('common.download') }}</th>
+                            <th>{{ __('torrent.left') }}</th>
                             <th>{{ __('common.ip') }}</th>
                             <th>{{ __('common.port') }}</th>
-                            <th>{{ __('torrent.started') }}</th>
                             <th>{{ __('torrent.last-update') }}</th>
                             <th>{{ __('common.status') }}</th>
                             <th>Visible</th>
