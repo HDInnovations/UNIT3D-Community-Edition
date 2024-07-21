@@ -798,6 +798,7 @@
                         </li>
                     </menu>
                 @endif
+
                 <div class="data-table-wrapper torrent-search--list__results">
                     <table class="data-table">
                         <thead>
@@ -867,15 +868,15 @@
                                     {{ __('torrent.age') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                                 </th>
-                                    @if($user->group->is_modo)
-                                        <th class="torrent-search--list__action-header">
-                                            <input
-                                                type="checkbox"
-                                                wire:model.live="selectPage"
-                                                style="vertical-align: middle"
-                                            />
-                                        </th>
-                                    @endif
+                                @if ($user->group->is_modo)
+                                    <th class="torrent-search--list__action-header">
+                                        <input
+                                            type="checkbox"
+                                            wire:model.live="selectPage"
+                                            style="vertical-align: middle"
+                                        />
+                                    </th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -886,7 +887,10 @@
                                     :personalFreeleech="$personalFreeleech"
                                 />
                                 @if ($user->group->is_modo)
-                                    <tr class="torrent-search--list__action" wire:key="checkbox-torrent-{{  $torrent->id }}">
+                                    <tr
+                                        class="torrent-search--list__action"
+                                        wire:key="checkbox-torrent-{{ $torrent->id }}"
+                                    >
                                         <td
                                             colspan="0"
                                             rowspan="2"
