@@ -39,7 +39,6 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Closure;
-use MarcReichel\IGDBLaravel\Models\Game;
 
 class TorrentSearch extends Component
 {
