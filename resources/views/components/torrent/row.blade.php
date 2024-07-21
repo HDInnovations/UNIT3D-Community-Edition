@@ -142,8 +142,6 @@
                 </a>
             @endif
 
-            @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key('bookmark-torrent-'.$torrent->id))
-
             @if (config('torrent.download_check_page'))
                 <a
                     class="torrent-search--list__file form__standard-icon-button"

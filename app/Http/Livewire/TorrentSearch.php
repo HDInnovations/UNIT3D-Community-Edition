@@ -20,12 +20,15 @@ use App\DTO\TorrentSearchFiltersDTO;
 use App\Models\Category;
 use App\Models\Distributor;
 use App\Models\Genre;
+use App\Models\History;
 use App\Models\Movie;
 use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\Type;
+use App\Models\User;
+use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use App\Traits\TorrentMeta;
@@ -36,6 +39,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Closure;
+use MarcReichel\IGDBLaravel\Models\Game;
 
 class TorrentSearch extends Component
 {
@@ -229,6 +233,22 @@ class TorrentSearch extends Component
     #[Url(except: 'list')]
     public string $view = 'list';
 
+    /**
+     * @var array<int, bool>
+     */
+    public array $checked = [];
+
+    public bool $selectPage = false;
+
+    public string $reason;
+
+    /**
+     * @var array<string>
+     */
+    protected $listeners = [
+        'destroy' => 'deleteRecords'
+    ];
+
     final public function mount(Request $request): void
     {
         if ($request->missing('sortField')) {
@@ -243,6 +263,16 @@ class TorrentSearch extends Component
                 default => 'list',
             };
         }
+    }
+
+    final public function updatedSelectPage(bool $value): void
+    {
+        $this->checked = $value ? $this->torrents->pluck('id')->toArray() : [];
+    }
+
+    final public function updatedChecked(): void
+    {
+        $this->selectPage = false;
     }
 
     final public function updating(string $field, mixed &$value): void
@@ -781,6 +811,103 @@ class TorrentSearch extends Component
         });
 
         return $groups;
+    }
+
+    final public function alertConfirm(): void
+    {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
+        $torrents = Torrent::whereKey($this->checked)->pluck('name')->toArray();
+        $names = $torrents;
+        $this->dispatch(
+            'swal:confirm',
+            type: 'warning',
+            message: 'Are you sure?',
+            body: 'If deleted, you will not be able to recover the following files!'.nl2br("\n")
+            .nl2br(implode("\n", $names)),
+        );
+    }
+
+    final public function deleteRecords(): void
+    {
+        if (!auth()->user()->group->is_modo) {
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
+
+            return;
+        }
+
+        $torrents = Torrent::whereKey($this->checked)->get();
+        $names = [];
+        $users = [];
+
+        foreach ($torrents as $torrent) {
+            $names[] = $torrent->name;
+
+            foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
+                if (!\in_array($pm->user_id, $users)) {
+                    $users[] = $pm->user_id;
+                }
+            }
+
+            // Reset Requests
+            $torrent->requests()->update([
+                'torrent_id' => null,
+            ]);
+
+            //Remove Torrent related info
+            cache()->forget(sprintf('torrent:%s', $torrent->info_hash));
+
+            $torrent->comments()->delete();
+            $torrent->peers()->delete();
+            $torrent->history()->delete();
+            $torrent->hitrun()->delete();
+            $torrent->files()->delete();
+            $torrent->playlists()->detach();
+            $torrent->subtitles()->delete();
+            $torrent->resurrections()->delete();
+            $torrent->featured()->delete();
+
+            $freeleechTokens = $torrent->freeleechTokens();
+
+            foreach ($freeleechTokens->get() as $freeleechToken) {
+                cache()->forget('freeleech_token:'.$freeleechToken->user_id.':'.$torrent->id);
+            }
+
+            $freeleechTokens->delete();
+
+            cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
+
+            Unit3dAnnounce::removeTorrent($torrent);
+
+            $torrent->delete();
+        }
+
+        foreach ($users as $user) {
+            User::sendSystemNotificationTo(
+                userId: $user,
+                subject: 'Bulk Torrents Deleted! ',
+                message: '[b]Attention: [/b] The following torrents have been removed from our site.
+            [list]
+                [*]'.implode(' [*]', $names).'
+            [/list]
+            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
+                                    [b]Removal Reason: [/b] '.$this->reason,
+            );
+        }
+
+        $this->checked = [];
+        $this->selectPage = false;
+
+        $this->dispatch(
+            'swal:modal',
+            type: 'success',
+            message: 'Torrents Deleted Successfully!',
+            text: 'A personal message has been sent to all users that have downloaded these torrents.',
+        );
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

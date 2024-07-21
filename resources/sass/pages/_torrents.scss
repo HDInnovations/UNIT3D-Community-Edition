@@ -118,16 +118,16 @@
 .torrent-search--list__row {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 60px 100px 1fr 150px 60px 100px 50px 50px 50px 120px;
-  grid-template-areas: "poster format overview buttons rating size seeders leechers completed age";
+  grid-template-columns: 60px 100px 1fr 150px 60px 100px 50px 50px 50px 120px 50px;
+  grid-template-areas: "poster format overview buttons rating size seeders leechers completed age action";
 }
 
 .torrent-search--list__no-poster-headers,
 .torrent-search--list__no-poster-row {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: 100px 1fr 150px 60px 100px 50px 50px 50px 120px;
-  grid-template-areas: "format overview buttons rating size seeders leechers completed age";
+  grid-template-columns: 100px 1fr 150px 60px 100px 50px 50px 50px 120px 50px;
+  grid-template-areas: "format overview buttons rating size seeders leechers completed age action";
 }
 
 .torrent-search--list__sticky-row td {
@@ -139,7 +139,8 @@
 .torrent-search--list__seeders-header.torrent-search--list__seeders-header,
 .torrent-search--list__leechers-header.torrent-search--list__leechers-header,
 .torrent-search--list__completed-header.torrent-search--list__completed-header,
-.torrent-search--list__age-header.torrent-search--list__age-header {
+.torrent-search--list__age-header.torrent-search--list__age-header,
+.torrent-search--list__action-header.torrent-search--list__action-header {
   text-align: right;
 }
 
@@ -278,6 +279,12 @@
   color: var(--torrent-row-fg);
 }
 
+.torrent-search--list__action {
+  grid-area: action;
+  display: grid;
+  place-items: center right;
+}
+
 @media only screen and (max-width: 1200px) {
   .torrent-search--list__headers,
   .torrent-search--list__no-poster-headers {
@@ -290,7 +297,8 @@
   .torrent-search--list__seeders-header,
   .torrent-search--list__leechers-header,
   .torrent-search--list__completed-header,
-  .torrent-search--list__age-header {
+  .torrent-search--list__age-header,
+  .torrent-search--list__action-header {
     flex-grow: 1;
   }
 
@@ -304,7 +312,7 @@
   .torrent-search--list__row {
     grid-template-areas:
       "poster format format overview overview overview overview overview overview"
-      "age age size size rating seeders leechers completed buttons";
+      "age age action action size size rating seeders leechers completed buttons";
     grid-template-columns: 60px 40px 60px 30px 80px 80px 80px 80px 1fr;
     grid-template-rows: repeat(2, auto);
   }
@@ -312,7 +320,7 @@
   .torrent-search--list__no-poster-row {
     grid-template-areas:
       "format overview overview overview overview overview overview"
-      "age size rating seeders leechers completed buttons";
+      "age action size rating seeders leechers completed buttons";
     grid-template-columns: 100px 30px 80px 80px 80px 80px 1fr;
     grid-template-rows: repeat(2, auto);
   }
@@ -330,6 +338,10 @@
   .torrent-search--list__age {
     place-items: center left;
   }
+
+  .torrent-search--list__action {
+    place-items: center left;
+  }
 }
 
 @media only screen and (max-width: 767px) {
@@ -337,7 +349,7 @@
     grid-template-areas:
       "poster poster poster format format buttons buttons buttons buttons buttons buttons buttons"
       "overview overview overview overview overview overview overview overview overview overview overview overview"
-      "age age age age size size size size rating rating rating rating"
+      "age age age age action action action action size size size size rating rating rating rating"
       "seeders seeders seeders seeders leechers leechers leechers  leechers completed completed completed completed";
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: auto;
@@ -347,7 +359,7 @@
     grid-template-areas:
       "format buttons buttons"
       "overview overview overview"
-      "age size rating"
+      "age action size rating"
       "seeders leechers completed";
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
@@ -385,7 +397,8 @@
   .torrent-search--list__seeders a,
   .torrent-search--list__leechers a,
   .torrent-search--list__completed a,
-  .torrent-search--list__age {
+  .torrent-search--list__age,
+  .torrent-search--list__action {
     place-items: center center;
   }
 }

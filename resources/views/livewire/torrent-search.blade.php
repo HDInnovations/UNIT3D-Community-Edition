@@ -786,6 +786,18 @@
 
         @switch(true)
             @case($view === 'list')
+                @if ($checked && $user->group->is_modo)
+                    <menu style="list-style-type: none; padding: 0; margin: 0">
+                        <li>
+                            <button
+                                class="form__button form__button--filled"
+                                wire:click="alertConfirm()"
+                            >
+                                Delete ({{ count($checked) }})
+                            </button>
+                        </li>
+                    </menu>
+                @endif
                 <div class="data-table-wrapper torrent-search--list__results">
                     <table class="data-table">
                         <thead>
@@ -855,6 +867,15 @@
                                     {{ __('torrent.age') }}
                                     @include('livewire.includes._sort-icon', ['field' => 'created_at'])
                                 </th>
+                                    @if($user->group->is_modo)
+                                        <th class="torrent-search--list__action-header">
+                                            <input
+                                                type="checkbox"
+                                                wire:model.live="selectPage"
+                                                style="vertical-align: middle"
+                                            />
+                                        </th>
+                                    @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -864,6 +885,21 @@
                                     :torrent="$torrent"
                                     :personalFreeleech="$personalFreeleech"
                                 />
+                                @if ($user->group->is_modo)
+                                    <tr class="torrent-search--list__action" wire:key="checkbox-torrent-{{  $torrent->id }}">
+                                        <td
+                                            colspan="0"
+                                            rowspan="2"
+                                            x-on:click.self="$el.firstElementChild.click()"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                value="{{ $torrent->id }}"
+                                                wire:model.live="checked"
+                                            />
+                                        </td>
+                                    </tr>
+                                @endif
                             @empty
                                 <tr>
                                     <td colspan="10">{{ __('common.no-result') }}</td>
@@ -1092,4 +1128,43 @@
           })
         })
     </script>
+    @if ($user->group->is_modo)
+        <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+            window.addEventListener('swal:modal', event => {
+                Swal.fire({
+                    title: event.detail.message,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                })
+            })
+
+            window.addEventListener('swal:confirm', event => {
+                const { value: text } = Swal.fire({
+                    input: 'textarea',
+                    inputLabel: 'Delete Reason',
+                    inputPlaceholder: 'Type your reason here...',
+                    inputAttributes: {
+                        'aria-label': 'Type your reason here'
+                    },
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'You need to write something!'
+                        }
+                    },
+                    title: event.detail.message,
+                    html: event.detail.body,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        @this.set('reason', result.value);
+                        Livewire.dispatch('destroy')
+                    }
+                })
+            })
+        </script>
+    @endif
 </div>
