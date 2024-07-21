@@ -65,8 +65,6 @@ class DemoSeed extends Command
                 'group_id'       => random_int(1, 20),
                 'chat_status_id' => 1,
                 'image'          => null,
-                'custom_css'     => null,
-                'locale'         => 'en',
             ])->id;
 
             // random boolean
@@ -270,8 +268,6 @@ Menu
                 'group_id'       => random_int(1, 20),
                 'chat_status_id' => 1,
                 'image'          => null,
-                'custom_css'     => null,
-                'locale'         => 'en',
             ])->id;
 
             // random boolean
