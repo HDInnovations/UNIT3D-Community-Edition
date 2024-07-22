@@ -1,9 +1,9 @@
 <template>
   <section
-      id="chatbody"
-      class="panelV2 chatbox"
-      :class="this.fullscreen && `chatbox--fullscreen`"
-      audio="false"
+    id="chatbody"
+    class="panelV2 chatbox"
+    :class="this.fullscreen && `chatbox--fullscreen`"
+    audio="false"
   >
     <header class="panel__header" id="chatbox_header">
       <h2 class="panel__heading">
@@ -12,10 +12,7 @@
       </h2>
       <div class="panel__actions">
         <div class="panel__action">
-          <button
-            class="form__button form__button--text"
-            @click.prevent="startBot()"
-          >
+          <button class="form__button form__button--text" @click.prevent="startBot()">
             <i class="fa fa-robot"></i>
             {{ helpName }}
           </button>
@@ -33,13 +30,7 @@
         <div class="panel__action">
           <button
             class="form__button form__standard-icon-button form__standard-icon-button--skinny"
-            v-if="
-              room &&
-              room > 0 &&
-              bot < 1 &&
-              target < 1 &&
-              tab != 'userlist'
-            "
+            v-if="room && room > 0 && bot < 1 && target < 1 && tab != 'userlist'"
             @click.prevent="changeAudible('room', room, listening ? 0 : 1)"
             :style="`color: ${listening ? 'rgb(0,102,0)' : 'rgb(204,0,0)'}`"
           >
@@ -90,14 +81,12 @@
         </div>
         <div class="panel__action">
           <button
-              id="panel-fullscreen"
-              :class="`form__button form__standard-icon-button`"
-              title="Toggle Fullscreen"
-              @click.prevent="changeFullscreen()"
+            id="panel-fullscreen"
+            :class="`form__button form__standard-icon-button`"
+            title="Toggle Fullscreen"
+            @click.prevent="changeFullscreen()"
           >
-            <i
-              :class="this.fullscreen ? `fas fa-compress` : `fas fa-expand`"
-            ></i>
+            <i :class="this.fullscreen ? `fas fa-compress` : `fas fa-expand`"></i>
           </button>
         </div>
       </div>
@@ -167,10 +156,7 @@
         </button>
       </li>
     </menu>
-    <div
-      class="chatbox__chatroom"
-      v-if="!state.connecting"
-    >
+    <div class="chatbox__chatroom" v-if="!state.connecting">
       <chat-messages
         v-if="tab != ''"
         @pm-sent="(o) => createMessage(o.message, o.save, o.user_id, o.receiver_id, o.bot_id)"
@@ -183,19 +169,9 @@
         :users="users"
       >
       </chat-user-list>
-      <section
-        class="chatroom__whispers"
-        v-if="showWhispers"
-      >
-        <span
-          v-if="
-            target < 1 &&
-            bot < 1 &&
-            activePeer &&
-            activePeer.username != ''
-          "
-        >
-          {{ activePeer ? activePeer.username + ' is typing ...' : '*'  }}
+      <section class="chatroom__whispers" v-if="showWhispers">
+        <span v-if="target < 1 && bot < 1 && activePeer && activePeer.username != ''">
+          {{ activePeer ? activePeer.username + ' is typing ...' : '*' }}
         </span>
       </section>
       <chat-form
@@ -212,8 +188,8 @@ import ChatroomsDropdown from './ChatroomsDropdown.vue';
 import ChatMessages from './ChatMessages.vue';
 import ChatForm from './ChatForm.vue';
 import ChatUserList from './ChatUserList.vue';
-import ChatstatusesDropdown from "./ChatstatusesDropdown.vue";
-import axios from "axios"
+import ChatstatusesDropdown from './ChatstatusesDropdown.vue';
+import axios from 'axios';
 
 export default {
   props: {
@@ -547,52 +523,52 @@ export default {
         this.botId = '';
         /* Update the users bot in the database */
         axios
-            .post(`/api/chat/echoes/delete/bot`, {
-              bot_id: id,
-            })
-            .then((response) => {
-              // reassign the auth variable to the response data
-              this.auth = response.data;
-              document.getElementById('currentChatroom').value = '1';
-              this.fetchRooms();
-            });
+          .post(`/api/chat/echoes/delete/bot`, {
+            bot_id: id,
+          })
+          .then((response) => {
+            // reassign the auth variable to the response data
+            this.auth = response.data;
+            document.getElementById('currentChatroom').value = '1';
+            this.fetchRooms();
+          });
       }
     },
     toggleAudible(type, id, nv) {
       if (id != 0) {
         if (type == 'room') {
           axios
-              .post(`/api/chat/audibles/toggle/chatroom`, {
-                room_id: id,
-                nv: nv,
-              })
-              .then((response) => {
-                // reassign the auth variable to the response data
-                this.auth = response.data;
-                this.listening = nv;
-              });
+            .post(`/api/chat/audibles/toggle/chatroom`, {
+              room_id: id,
+              nv: nv,
+            })
+            .then((response) => {
+              // reassign the auth variable to the response data
+              this.auth = response.data;
+              this.listening = nv;
+            });
         } else if (type == 'target') {
           axios
-              .post(`/api/chat/audibles/toggle/target`, {
-                target_id: id,
-                nv: nv,
-              })
-              .then((response) => {
-                // reassign the auth variable to the response data
-                this.auth = response.data;
-                this.listening = nv;
-              });
+            .post(`/api/chat/audibles/toggle/target`, {
+              target_id: id,
+              nv: nv,
+            })
+            .then((response) => {
+              // reassign the auth variable to the response data
+              this.auth = response.data;
+              this.listening = nv;
+            });
         } else if (type == 'bot') {
           axios
-              .post(`/api/chat/audibles/toggle/bot`, {
-                bot_id: id,
-                nv: nv,
-              })
-              .then((response) => {
-                // reassign the auth variable to the response data
-                this.auth = response.data;
-                this.listening = nv;
-              });
+            .post(`/api/chat/audibles/toggle/bot`, {
+              bot_id: id,
+              nv: nv,
+            })
+            .then((response) => {
+              // reassign the auth variable to the response data
+              this.auth = response.data;
+              this.listening = nv;
+            });
         }
       }
     },
@@ -600,15 +576,15 @@ export default {
       if (id != 1) {
         /* Update the users chatroom in the database */
         axios
-            .post(`/api/chat/echoes/delete/chatroom`, {
-              room_id: id,
-            })
-            .then((response) => {
-              // reassign the auth variable to the response data
-              this.auth = response.data;
-              document.getElementById('currentChatroom').value = '1';
-              this.fetchRooms();
-            });
+          .post(`/api/chat/echoes/delete/chatroom`, {
+            room_id: id,
+          })
+          .then((response) => {
+            // reassign the auth variable to the response data
+            this.auth = response.data;
+            document.getElementById('currentChatroom').value = '1';
+            this.fetchRooms();
+          });
       }
     },
     leaveTarget(id) {
@@ -616,22 +592,22 @@ export default {
         this.target = 0;
         /* Update the users chatroom in the database */
         axios
-            .post(`/api/chat/echoes/delete/target`, {
-              target_id: id,
-            })
-            .then((response) => {
-              // reassign the auth variable to the response data
-              this.auth = response.data;
-              document.getElementById('currentChatroom').value = '1';
-              this.fetchRooms();
-            });
+          .post(`/api/chat/echoes/delete/target`, {
+            target_id: id,
+          })
+          .then((response) => {
+            // reassign the auth variable to the response data
+            this.auth = response.data;
+            document.getElementById('currentChatroom').value = '1';
+            this.fetchRooms();
+          });
       }
     },
     changeFullscreen() {
-      this.fullscreen = !this.fullscreen
+      this.fullscreen = !this.fullscreen;
     },
     changeWhispers() {
-      this.showWhispers = !this.showWhispers
+      this.showWhispers = !this.showWhispers;
     },
     changeStatus(status_id) {
       this.status = status_id;
@@ -639,13 +615,13 @@ export default {
       if (this.auth.chat_status.id !== status_id) {
         /* Update the users chat status in the database */
         axios
-            .post(`/api/chat/user/status`, {
-              status_id: status_id,
-            })
-            .then((response) => {
-              // reassign the auth variable to the response data
-              this.auth = response.data;
-            });
+          .post(`/api/chat/user/status`, {
+            status_id: status_id,
+          })
+          .then((response) => {
+            // reassign the auth variable to the response data
+            this.auth = response.data;
+          });
       }
     },
     changeRoom(id) {
@@ -664,16 +640,16 @@ export default {
         this.room = id;
         /* Update the users chatroom in the database */
         axios
-            .post(`/api/chat/user/chatroom`, {
-              room_id: id,
-            })
-            .then((response) => {
-              // reassign the auth variable to the response data
-              this.auth = response.data;
-              this.tab = this.auth.chatroom.name;
-              this.activeRoom = this.auth.chatroom.name;
-              this.fetchMessages();
-            });
+          .post(`/api/chat/user/chatroom`, {
+            room_id: id,
+          })
+          .then((response) => {
+            // reassign the auth variable to the response data
+            this.auth = response.data;
+            this.tab = this.auth.chatroom.name;
+            this.activeRoom = this.auth.chatroom.name;
+            this.fetchMessages();
+          });
       }
     },
     changeTarget(id) {
@@ -750,9 +726,9 @@ export default {
       if (type == 'room') {
         for (var i = 0; i < this.audibles.length; i++) {
           if (
-              this.audibles[i].room != null &&
-              parseInt(this.audibles[i].status) == 1 &&
-              parseInt(this.audibles[i].room.id) == parseInt(id)
+            this.audibles[i].room != null &&
+            parseInt(this.audibles[i].status) == 1 &&
+            parseInt(this.audibles[i].room.id) == parseInt(id)
           ) {
             if (this.activeTab == 'room' + id && audioState == 'true') {
               this.playSound();
@@ -765,9 +741,9 @@ export default {
       if (type == 'target') {
         for (var i = 0; i < this.audibles.length; i++) {
           if (
-              this.audibles[i].target != null &&
-              parseInt(this.audibles[i].status) == 1 &&
-              parseInt(this.audibles[i].target.id) == parseInt(id)
+            this.audibles[i].target != null &&
+            parseInt(this.audibles[i].status) == 1 &&
+            parseInt(this.audibles[i].target.id) == parseInt(id)
           ) {
             if (this.activeTab == 'target' + id && audioState == 'true') {
               this.playSound();
@@ -780,9 +756,9 @@ export default {
       if (type == 'bot') {
         for (var i = 0; i < this.audibles.length; i++) {
           if (
-              this.audibles[i].bot != null &&
-              parseInt(this.audibles[i].status) == 1 &&
-              parseInt(this.audibles[i].bot.id) == parseInt(id)
+            this.audibles[i].bot != null &&
+            parseInt(this.audibles[i].status) == 1 &&
+            parseInt(this.audibles[i].bot.id) == parseInt(id)
           ) {
             if (this.activeTab == 'bot' + id && audioState == 'true') {
               this.playSound();
@@ -798,9 +774,9 @@ export default {
       if (type == 'room') {
         for (var i = 0; i < this.audibles.length; i++) {
           if (
-              this.audibles[i].room != null &&
-              parseInt(this.audibles[i].status) == 1 &&
-              parseInt(this.audibles[i].room.id) == parseInt(id)
+            this.audibles[i].room != null &&
+            parseInt(this.audibles[i].status) == 1 &&
+            parseInt(this.audibles[i].room.id) == parseInt(id)
           ) {
             if (audioState == 'true') {
               this.playSound();
@@ -813,9 +789,9 @@ export default {
       if (type == 'target') {
         for (var i = 0; i < this.audibles.length; i++) {
           if (
-              this.audibles[i].target != null &&
-              parseInt(this.audibles[i].status) == 1 &&
-              parseInt(this.audibles[i].target.id) == parseInt(id)
+            this.audibles[i].target != null &&
+            parseInt(this.audibles[i].status) == 1 &&
+            parseInt(this.audibles[i].target.id) == parseInt(id)
           ) {
             if (audioState == 'true') {
               this.playSound();
@@ -828,9 +804,9 @@ export default {
       if (type == 'bot') {
         for (var i = 0; i < this.audibles.length; i++) {
           if (
-              this.audibles[i].bot != null &&
-              parseInt(this.audibles[i].status) == 1 &&
-              parseInt(this.audibles[i].bot.id) == parseInt(id)
+            this.audibles[i].bot != null &&
+            parseInt(this.audibles[i].status) == 1 &&
+            parseInt(this.audibles[i].bot.id) == parseInt(id)
           ) {
             if (audioState == 'true') {
               this.playSound();
@@ -846,9 +822,9 @@ export default {
         var match = false;
         for (var i = 0; i < this.pings.length; i++) {
           if (
-              this.pings[i].hasOwnProperty('type') &&
-              this.pings[i].type == 'room' &&
-              this.pings[i].id == id
+            this.pings[i].hasOwnProperty('type') &&
+            this.pings[i].type == 'room' &&
+            this.pings[i].id == id
           ) {
             match = true;
           }
@@ -858,9 +834,9 @@ export default {
         var match = false;
         for (var i = 0; i < this.pings.length; i++) {
           if (
-              this.pings[i].hasOwnProperty('type') &&
-              this.pings[i].type == 'target' &&
-              this.pings[i].id == id
+            this.pings[i].hasOwnProperty('type') &&
+            this.pings[i].type == 'target' &&
+            this.pings[i].id == id
           ) {
             match = true;
           }
@@ -877,7 +853,11 @@ export default {
       if (type == 'bot') {
         var match = false;
         for (var i = 0; i < this.pings.length; i++) {
-          if (this.pings[i].hasOwnProperty('type') && this.pings[i].type == 'bot' && this.pings[i].id == id) {
+          if (
+            this.pings[i].hasOwnProperty('type') &&
+            this.pings[i].type == 'bot' &&
+            this.pings[i].id == id
+          ) {
             match = true;
           }
         }
@@ -937,35 +917,38 @@ export default {
       if (regex.test(message) == true) return;
       if (this.tab == 'userlist') return;
       axios
-          .post('/api/chat/messages', {
-            user_id: user_id,
-            receiver_id: receiver_id,
-            bot_id: bot_id,
-            chatroom_id: this.room,
-            message: message,
-            save: save,
-            targeted: this.target,
-          })
-          .then((response) => {
-            if (this.activeTab.substring(0, 3) == 'bot' || this.activeTab.substring(0, 6) == 'target') {
-              this.messages.push(response.data.data);
-            }
-            if (this.messages.length > this.config.message_limit) {
-              _.each(this.messages, (m, i) => {
-                if (this.target > 0) {
-                  if (m.receiver && m.receiver > 0) {
-                    this.messages.splice(i, 1);
-                    return false;
-                  }
-                } else {
-                  if (!m.receiver || m.receiver == 0) {
-                    this.messages.splice(i, 1);
-                    return false;
-                  }
+        .post('/api/chat/messages', {
+          user_id: user_id,
+          receiver_id: receiver_id,
+          bot_id: bot_id,
+          chatroom_id: this.room,
+          message: message,
+          save: save,
+          targeted: this.target,
+        })
+        .then((response) => {
+          if (
+            this.activeTab.substring(0, 3) == 'bot' ||
+            this.activeTab.substring(0, 6) == 'target'
+          ) {
+            this.messages.push(response.data.data);
+          }
+          if (this.messages.length > this.config.message_limit) {
+            _.each(this.messages, (m, i) => {
+              if (this.target > 0) {
+                if (m.receiver && m.receiver > 0) {
+                  this.messages.splice(i, 1);
+                  return false;
                 }
-              });
-            }
-          });
+              } else {
+                if (!m.receiver || m.receiver == 0) {
+                  this.messages.splice(i, 1);
+                  return false;
+                }
+              }
+            });
+          }
+        });
     },
     listenForChatter() {
       this.chatter = window.Echo.private(`chatter.${this.auth.id}`);
@@ -1012,34 +995,34 @@ export default {
     },
     listenForEvents() {
       this.channel
-          .here((users) => {
-            this.state.connecting = false;
-            this.users = users;
-          })
-          .listen('.new.message', (e) => {
-            if (this.activeTab.substring(0, 4) != 'room') return false;
-            this.messages.push(e.message);
-            this.handleMessage('room', this.room, e.message);
-          })
-          .listen('.new.ping', (e) => {
-            this.handlePing('room', e.ping.id);
-          })
-          .listen('.edit.message', (e) => {})
-          .listen('.delete.message', (e) => {
-            if (this.target > 0 || this.bot > 0) return false;
-            let msgs = this.messages;
-            let index = msgs.findIndex((msg) => msg.id === e.message.id);
-            this.messages.splice(index, 1);
-          })
-          .listenForWhisper('typing', (e) => {
-            if (this.target > 0 || this.bot > 0) return false;
-            if (this.activePeer === false) {
-              this.activePeer = e;
-            }
-            setTimeout(() => {
-              this.activePeer = false;
-            }, 15000);
-          });
+        .here((users) => {
+          this.state.connecting = false;
+          this.users = users;
+        })
+        .listen('.new.message', (e) => {
+          if (this.activeTab.substring(0, 4) != 'room') return false;
+          this.messages.push(e.message);
+          this.handleMessage('room', this.room, e.message);
+        })
+        .listen('.new.ping', (e) => {
+          this.handlePing('room', e.ping.id);
+        })
+        .listen('.edit.message', (e) => {})
+        .listen('.delete.message', (e) => {
+          if (this.target > 0 || this.bot > 0) return false;
+          let msgs = this.messages;
+          let index = msgs.findIndex((msg) => msg.id === e.message.id);
+          this.messages.splice(index, 1);
+        })
+        .listenForWhisper('typing', (e) => {
+          if (this.target > 0 || this.bot > 0) return false;
+          if (this.activePeer === false) {
+            this.activePeer = e;
+          }
+          setTimeout(() => {
+            this.activePeer = false;
+          }, 15000);
+        });
     },
     attachAudible() {
       window.addEventListener('blur', function () {

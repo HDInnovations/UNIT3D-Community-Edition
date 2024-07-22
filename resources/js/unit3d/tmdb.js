@@ -35,7 +35,13 @@ theMovieDb.common = {
         allOptional = allOpt || false;
 
         if (args.length !== argsReq) {
-            throw 'The method requires  ' + argsReq + ' arguments and you are sending ' + args.length + '!';
+            throw (
+                'The method requires  ' +
+                argsReq +
+                ' arguments and you are sending ' +
+                args.length +
+                '!'
+            );
         }
 
         if (allOptional) {
@@ -111,7 +117,7 @@ theMovieDb.configurations = {
                 url: 'configuration' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getCountries: function (success, error) {
@@ -126,7 +132,7 @@ theMovieDb.configurations = {
                 url: 'configuration/countries' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getJobs: function (success, error) {
@@ -141,7 +147,7 @@ theMovieDb.configurations = {
                 url: 'configuration/jobs' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getLanguages: function (success, error) {
@@ -156,7 +162,7 @@ theMovieDb.configurations = {
                 url: 'configuration/languages' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getPrimaryTranslations: function (success, error) {
@@ -171,7 +177,7 @@ theMovieDb.configurations = {
                 url: 'configuration/primary_translations' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getTimezones: function (success, error) {
@@ -186,7 +192,7 @@ theMovieDb.configurations = {
                 url: 'configuration/timezones' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -204,7 +210,7 @@ theMovieDb.account = {
                 url: 'account' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getLists: function (options, success, error) {
@@ -219,7 +225,7 @@ theMovieDb.account = {
                 url: 'account/' + options.id + '/lists' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getFavoritesMovies: function (options, success, error) {
@@ -231,10 +237,14 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + '/favorite/movies' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    '/favorite/movies' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getFavoritesTvShows: function (options, success, error) {
@@ -246,10 +256,14 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + '/favorite/tv?' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    '/favorite/tv?' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     addFavorite: function (options, success, error) {
@@ -274,13 +288,17 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + '/favorite' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    '/favorite' +
+                    theMovieDb.common.generateQuery(options),
                 status: 201,
                 method: 'POST',
                 body: body,
             },
             success,
-            error
+            error,
         );
     },
     getRatedMovies: function (options, success, error) {
@@ -292,10 +310,14 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + '/rated/movies' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    '/rated/movies' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getRatedTvShows: function (options, success, error) {
@@ -307,10 +329,14 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + '/rated/tv' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    '/rated/tv' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getRatedTvEpisodes: function (options, success, error) {
@@ -322,10 +348,14 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + 'rated/tv/episodes' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    'rated/tv/episodes' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getMovieWatchlist: function (options, success, error) {
@@ -337,10 +367,14 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + '/watchlist/movies' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    '/watchlist/movies' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTvShowsWatchlist: function (options, success, error) {
@@ -352,10 +386,14 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + '/watchlist/tv' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    '/watchlist/tv' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     addToWatchlist: function (options, success, error) {
@@ -381,13 +419,17 @@ theMovieDb.account = {
 
         theMovieDb.common.client(
             {
-                url: 'account/' + options.id + '/watchlist' + theMovieDb.common.generateQuery(options),
+                url:
+                    'account/' +
+                    options.id +
+                    '/watchlist' +
+                    theMovieDb.common.generateQuery(options),
                 method: 'POST',
                 status: 201,
                 body: body,
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -405,27 +447,38 @@ theMovieDb.authentication = {
                 url: 'authentication/token/new' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     askPermissions: function (options) {
         'use strict';
 
-        window.open('https://www.themoviedb.org/authenticate/' + options.token + '?redirect_to=' + options.redirect_to);
+        window.open(
+            'https://www.themoviedb.org/authenticate/' +
+                options.token +
+                '?redirect_to=' +
+                options.redirect_to,
+        );
     },
     validateUser: function (options, success, error) {
         'use strict';
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['request_token', 'username', 'password']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'request_token',
+            'username',
+            'password',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
         theMovieDb.common.client(
             {
-                url: 'authentication/token/validate_with_login' + theMovieDb.common.generateQuery(options),
+                url:
+                    'authentication/token/validate_with_login' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     generateSession: function (options, success, error) {
@@ -440,7 +493,7 @@ theMovieDb.authentication = {
                 url: 'authentication/session/new' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     generateGuestSession: function (success, error) {
@@ -455,7 +508,7 @@ theMovieDb.authentication = {
                 url: 'authentication/guest_session/new' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -473,7 +526,7 @@ theMovieDb.certifications = {
                 url: 'certification/movie/list' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getTvList: function (success, error) {
@@ -488,7 +541,7 @@ theMovieDb.certifications = {
                 url: 'certification/tv/list' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -506,7 +559,7 @@ theMovieDb.changes = {
                 url: 'movie/changes' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getPersonChanges: function (options, success, error) {
@@ -521,7 +574,7 @@ theMovieDb.changes = {
                 url: 'person/changes' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTvChanges: function (options, success, error) {
@@ -536,7 +589,7 @@ theMovieDb.changes = {
                 url: 'tv/changes' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -554,7 +607,7 @@ theMovieDb.collections = {
                 url: 'collection/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getImages: function (options, success, error) {
@@ -566,10 +619,14 @@ theMovieDb.collections = {
 
         theMovieDb.common.client(
             {
-                url: 'collection/' + options.id + '/images' + theMovieDb.common.generateQuery(options),
+                url:
+                    'collection/' +
+                    options.id +
+                    '/images' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTranslations: function (options, success, error) {
@@ -581,10 +638,14 @@ theMovieDb.collections = {
 
         theMovieDb.common.client(
             {
-                url: 'collection/' + options.id + '/translations' + theMovieDb.common.generateQuery(options),
+                url:
+                    'collection/' +
+                    options.id +
+                    '/translations' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -602,7 +663,7 @@ theMovieDb.companies = {
                 url: 'company/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAlternativeNames: function (options, success, error) {
@@ -614,10 +675,14 @@ theMovieDb.companies = {
 
         theMovieDb.common.client(
             {
-                url: 'company/' + options.id + '/alternative_names' + theMovieDb.common.generateQuery(options),
+                url:
+                    'company/' +
+                    options.id +
+                    '/alternative_names' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -635,7 +700,7 @@ theMovieDb.credits = {
                 url: 'credit/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -653,7 +718,7 @@ theMovieDb.discover = {
                 url: 'discover/movie' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTvShows: function (options, success, error) {
@@ -668,7 +733,7 @@ theMovieDb.discover = {
                 url: 'discover/tv' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -686,7 +751,7 @@ theMovieDb.find = {
                 url: 'find/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -704,7 +769,7 @@ theMovieDb.genres = {
                 url: 'genre/movie/list' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getMovies: function (options, success, error) {
@@ -719,7 +784,7 @@ theMovieDb.genres = {
                 url: 'genre/' + options.id + '/movies' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTvList: function (options, success, error) {
@@ -734,7 +799,7 @@ theMovieDb.genres = {
                 url: 'genre/tv/list' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -749,10 +814,14 @@ theMovieDb.guestSession = {
 
         theMovieDb.common.client(
             {
-                url: 'guest_session/' + options.id + '/rated/movies' + theMovieDb.common.generateQuery(),
+                url:
+                    'guest_session/' +
+                    options.id +
+                    '/rated/movies' +
+                    theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getRatedTvShows: function (success, error) {
@@ -764,10 +833,11 @@ theMovieDb.guestSession = {
 
         theMovieDb.common.client(
             {
-                url: 'guest_session/' + options.id + '/rated/tv' + theMovieDb.common.generateQuery(),
+                url:
+                    'guest_session/' + options.id + '/rated/tv' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getRatedTvEpisodes: function (success, error) {
@@ -779,10 +849,14 @@ theMovieDb.guestSession = {
 
         theMovieDb.common.client(
             {
-                url: 'guest_session/' + options.id + '/rated/tv/episodes' + theMovieDb.common.generateQuery(),
+                url:
+                    'guest_session/' +
+                    options.id +
+                    '/rated/tv/episodes' +
+                    theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -800,7 +874,7 @@ theMovieDb.keywords = {
                 url: 'keyword/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getMovies: function (options, success, error) {
@@ -815,7 +889,7 @@ theMovieDb.keywords = {
                 url: 'keyword/' + options.id + '/movies' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -833,7 +907,7 @@ theMovieDb.lists = {
                 url: 'list/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getStatusById: function (options, success, error) {
@@ -845,10 +919,14 @@ theMovieDb.lists = {
 
         theMovieDb.common.client(
             {
-                url: 'list/' + options.id + '/item_status' + theMovieDb.common.generateQuery(options),
+                url:
+                    'list/' +
+                    options.id +
+                    '/item_status' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     addList: function (options, success, error) {
@@ -856,7 +934,11 @@ theMovieDb.lists = {
 
         let body;
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['session_id', 'name', 'description']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'session_id',
+            'name',
+            'description',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
@@ -882,7 +964,7 @@ theMovieDb.lists = {
                 body: body,
             },
             success,
-            error
+            error,
         );
     },
     addItem: function (options, success, error) {
@@ -906,7 +988,7 @@ theMovieDb.lists = {
                 body: body,
             },
             success,
-            error
+            error,
         );
     },
     removeItem: function (options, success, error) {
@@ -926,11 +1008,15 @@ theMovieDb.lists = {
             {
                 method: 'POST',
                 status: 201,
-                url: 'list/' + options.id + '/remove_item' + theMovieDb.common.generateQuery(options),
+                url:
+                    'list/' +
+                    options.id +
+                    '/remove_item' +
+                    theMovieDb.common.generateQuery(options),
                 body: body,
             },
             success,
-            error
+            error,
         );
     },
     removeList: function (options, success, error) {
@@ -947,7 +1033,7 @@ theMovieDb.lists = {
                 url: 'list/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     clearList: function (options, success, error) {
@@ -965,7 +1051,7 @@ theMovieDb.lists = {
                 url: 'list/' + options.id + '/clear' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -983,7 +1069,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAccountStates: function (options, success, error) {
@@ -995,10 +1081,14 @@ theMovieDb.movies = {
 
         theMovieDb.common.client(
             {
-                url: 'movie/' + options.id + '/account_states' + theMovieDb.common.generateQuery(options),
+                url:
+                    'movie/' +
+                    options.id +
+                    '/account_states' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAccountStatesGuest: function (options, success, error) {
@@ -1010,10 +1100,14 @@ theMovieDb.movies = {
 
         theMovieDb.common.client(
             {
-                url: 'movie/' + options.id + '/account_states' + theMovieDb.common.generateQuery(options),
+                url:
+                    'movie/' +
+                    options.id +
+                    '/account_states' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAlternativeTitles: function (options, success, error) {
@@ -1025,10 +1119,14 @@ theMovieDb.movies = {
 
         theMovieDb.common.client(
             {
-                url: 'movie/' + options.id + '/alternative_titles' + theMovieDb.common.generateQuery(options),
+                url:
+                    'movie/' +
+                    options.id +
+                    '/alternative_titles' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getChanges: function (options, success, error) {
@@ -1043,7 +1141,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/changes' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getCredits: function (options, success, error) {
@@ -1058,7 +1156,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/credits' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getExternalIds: function (options, success, error) {
@@ -1070,10 +1168,14 @@ theMovieDb.movies = {
 
         theMovieDb.common.client(
             {
-                url: 'movie/' + options.id + '/external_ids' + theMovieDb.common.generateQuery(options),
+                url:
+                    'movie/' +
+                    options.id +
+                    '/external_ids' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getImages: function (options, success, error) {
@@ -1088,7 +1190,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/images' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getKeywords: function (options, success, error) {
@@ -1103,7 +1205,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/keywords' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getReleases: function (options, success, error) {
@@ -1115,10 +1217,14 @@ theMovieDb.movies = {
 
         theMovieDb.common.client(
             {
-                url: 'movie/' + options.id + '/release_dates' + theMovieDb.common.generateQuery(options),
+                url:
+                    'movie/' +
+                    options.id +
+                    '/release_dates' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getVideos: function (options, success, error) {
@@ -1133,7 +1239,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/videos' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTranslations: function (options, success, error) {
@@ -1145,10 +1251,14 @@ theMovieDb.movies = {
 
         theMovieDb.common.client(
             {
-                url: 'movie/' + options.id + '/translations' + theMovieDb.common.generateQuery(options),
+                url:
+                    'movie/' +
+                    options.id +
+                    '/translations' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getRecommendations: function (options, success, error) {
@@ -1160,10 +1270,14 @@ theMovieDb.movies = {
 
         theMovieDb.common.client(
             {
-                url: 'movie/' + options.id + '/recommendations' + theMovieDb.common.generateQuery(options),
+                url:
+                    'movie/' +
+                    options.id +
+                    '/recommendations' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getSimilarMovies: function (options, success, error) {
@@ -1178,7 +1292,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/similar' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getReviews: function (options, success, error) {
@@ -1193,7 +1307,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/reviews' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getLists: function (options, success, error) {
@@ -1208,7 +1322,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/lists' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getLatest: function (success, error) {
@@ -1223,7 +1337,7 @@ theMovieDb.movies = {
                 url: 'movie/latest' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getUpcoming: function (options, success, error) {
@@ -1238,7 +1352,7 @@ theMovieDb.movies = {
                 url: 'movie/upcoming' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getNowPlaying: function (options, success, error) {
@@ -1253,7 +1367,7 @@ theMovieDb.movies = {
                 url: 'movie/now_playing' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getPopular: function (options, success, error) {
@@ -1268,7 +1382,7 @@ theMovieDb.movies = {
                 url: 'movie/popular' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTopRated: function (options, success, error) {
@@ -1283,7 +1397,7 @@ theMovieDb.movies = {
                 url: 'movie/top_rated' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     rate: function (options, rate, success, error) {
@@ -1303,7 +1417,7 @@ theMovieDb.movies = {
                 },
             },
             success,
-            error
+            error,
         );
     },
     rateGuest: function (options, rate, success, error) {
@@ -1323,7 +1437,7 @@ theMovieDb.movies = {
                 },
             },
             success,
-            error
+            error,
         );
     },
     removeRate: function (options, success, error) {
@@ -1340,7 +1454,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/rating' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     removeRateGuest: function (options, success, error) {
@@ -1357,7 +1471,7 @@ theMovieDb.movies = {
                 url: 'movie/' + options.id + '/rating' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -1375,7 +1489,7 @@ theMovieDb.networks = {
                 url: 'network/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAlternativeNames: function (options, success, error) {
@@ -1387,10 +1501,14 @@ theMovieDb.networks = {
 
         theMovieDb.common.client(
             {
-                url: 'network/' + options.id + '/alternative_names' + theMovieDb.common.generateQuery(options),
+                url:
+                    'network/' +
+                    options.id +
+                    '/alternative_names' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -1408,7 +1526,7 @@ theMovieDb.people = {
                 url: 'person/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getMovieCredits: function (options, success, error) {
@@ -1420,10 +1538,14 @@ theMovieDb.people = {
 
         theMovieDb.common.client(
             {
-                url: 'person/' + options.id + '/movie_credits' + theMovieDb.common.generateQuery(options),
+                url:
+                    'person/' +
+                    options.id +
+                    '/movie_credits' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTvCredits: function (options, success, error) {
@@ -1435,10 +1557,14 @@ theMovieDb.people = {
 
         theMovieDb.common.client(
             {
-                url: 'person/' + options.id + '/tv_credits' + theMovieDb.common.generateQuery(options),
+                url:
+                    'person/' +
+                    options.id +
+                    '/tv_credits' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getCredits: function (options, success, error) {
@@ -1450,10 +1576,14 @@ theMovieDb.people = {
 
         theMovieDb.common.client(
             {
-                url: 'person/' + options.id + '/combined_credits' + theMovieDb.common.generateQuery(options),
+                url:
+                    'person/' +
+                    options.id +
+                    '/combined_credits' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getExternalIds: function (options, success, error) {
@@ -1465,10 +1595,14 @@ theMovieDb.people = {
 
         theMovieDb.common.client(
             {
-                url: 'person/' + options.id + '/external_ids' + theMovieDb.common.generateQuery(options),
+                url:
+                    'person/' +
+                    options.id +
+                    '/external_ids' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getImages: function (options, success, error) {
@@ -1483,7 +1617,7 @@ theMovieDb.people = {
                 url: 'person/' + options.id + '/images' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTaggedImages: function (options, success, error) {
@@ -1495,10 +1629,14 @@ theMovieDb.people = {
 
         theMovieDb.common.client(
             {
-                url: 'person/' + options.id + '/tagged_images' + theMovieDb.common.generateQuery(options),
+                url:
+                    'person/' +
+                    options.id +
+                    '/tagged_images' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getChanges: function (options, success, error) {
@@ -1513,7 +1651,7 @@ theMovieDb.people = {
                 url: 'person/' + options.id + '/changes' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getPopular: function (options, success, error) {
@@ -1528,7 +1666,7 @@ theMovieDb.people = {
                 url: 'person/popular' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getLatest: function (success, error) {
@@ -1543,7 +1681,7 @@ theMovieDb.people = {
                 url: 'person/latest' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -1561,7 +1699,7 @@ theMovieDb.reviews = {
                 url: 'review/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -1579,7 +1717,7 @@ theMovieDb.search = {
                 url: 'search/movie' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getCollection: function (options, success, error) {
@@ -1594,7 +1732,7 @@ theMovieDb.search = {
                 url: 'search/collection' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTv: function (options, success, error) {
@@ -1609,7 +1747,7 @@ theMovieDb.search = {
                 url: 'search/tv' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getPerson: function (options, success, error) {
@@ -1624,7 +1762,7 @@ theMovieDb.search = {
                 url: 'search/person' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getCompany: function (options, success, error) {
@@ -1639,7 +1777,7 @@ theMovieDb.search = {
                 url: 'search/company' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getKeyword: function (options, success, error) {
@@ -1654,7 +1792,7 @@ theMovieDb.search = {
                 url: 'search/keyword' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getMulti: function (options, success, error) {
@@ -1669,7 +1807,7 @@ theMovieDb.search = {
                 url: 'search/multi' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -1687,7 +1825,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAccountStates: function (options, success, error) {
@@ -1699,10 +1837,14 @@ theMovieDb.tv = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/account_states' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' +
+                    options.id +
+                    '/account_states' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAccountStatesGuest: function (options, success, error) {
@@ -1714,10 +1856,14 @@ theMovieDb.tv = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/account_states' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' +
+                    options.id +
+                    '/account_states' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAlternativeTitles: function (options, success, error) {
@@ -1729,10 +1875,14 @@ theMovieDb.tv = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/alternative_titles' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' +
+                    options.id +
+                    '/alternative_titles' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getChanges: function (options, success, error) {
@@ -1747,7 +1897,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/changes' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getContentRatings: function (options, success, error) {
@@ -1759,10 +1909,14 @@ theMovieDb.tv = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/content_ratings' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' +
+                    options.id +
+                    '/content_ratings' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getCredits: function (options, success, error) {
@@ -1777,7 +1931,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/credits' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getExternalIds: function (options, success, error) {
@@ -1789,10 +1943,11 @@ theMovieDb.tv = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/external_ids' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' + options.id + '/external_ids' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getImages: function (options, success, error) {
@@ -1807,7 +1962,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/images' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getKeywords: function (options, success, error) {
@@ -1822,7 +1977,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/keywords' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getRecommendations: function (options, success, error) {
@@ -1834,10 +1989,14 @@ theMovieDb.tv = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/recommendations' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' +
+                    options.id +
+                    '/recommendations' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getReviews: function (options, success, error) {
@@ -1852,7 +2011,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/reviews' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getScreenedTheatrically: function (options, success, error) {
@@ -1864,10 +2023,14 @@ theMovieDb.tv = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/screened_theatrically' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' +
+                    options.id +
+                    '/screened_theatrically' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getSimilar: function (options, success, error) {
@@ -1882,7 +2045,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/similar' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTranslations: function (options, success, error) {
@@ -1894,10 +2057,11 @@ theMovieDb.tv = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/translations' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' + options.id + '/translations' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getVideos: function (options, success, error) {
@@ -1912,7 +2076,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/videos' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAiringToday: function (options, success, error) {
@@ -1927,7 +2091,7 @@ theMovieDb.tv = {
                 url: 'tv/airing_today' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getLatest: function (success, error) {
@@ -1942,7 +2106,7 @@ theMovieDb.tv = {
                 url: 'tv/latest' + theMovieDb.common.generateQuery(),
             },
             success,
-            error
+            error,
         );
     },
     getOnTheAir: function (options, success, error) {
@@ -1957,7 +2121,7 @@ theMovieDb.tv = {
                 url: 'tv/on_the_air' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getPopular: function (options, success, error) {
@@ -1972,7 +2136,7 @@ theMovieDb.tv = {
                 url: 'tv/popular' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getTopRated: function (options, success, error) {
@@ -1987,7 +2151,7 @@ theMovieDb.tv = {
                 url: 'tv/top_rated' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     rate: function (options, rate, success, error) {
@@ -2007,7 +2171,7 @@ theMovieDb.tv = {
                 },
             },
             success,
-            error
+            error,
         );
     },
     rateGuest: function (options, rate, success, error) {
@@ -2027,7 +2191,7 @@ theMovieDb.tv = {
                 },
             },
             success,
-            error
+            error,
         );
     },
     removeRate: function (options, success, error) {
@@ -2044,7 +2208,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/rating' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     removeRateGuest: function (options, success, error) {
@@ -2061,7 +2225,7 @@ theMovieDb.tv = {
                 url: 'tv/' + options.id + '/rating' + theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -2076,10 +2240,15 @@ theMovieDb.tvSeasons = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/' + options.id + '/season/' + options.season_number + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/' +
+                    options.id +
+                    '/season/' +
+                    options.season_number +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getChanges: function (options, success, error) {
@@ -2091,16 +2260,24 @@ theMovieDb.tvSeasons = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/season/' + options.id + '/changes' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/season/' +
+                    options.id +
+                    '/changes' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAccountStates: function (options, success, error) {
         'use strict';
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['session_id', 'season_number', 'id']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'session_id',
+            'season_number',
+            'id',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
@@ -2115,13 +2292,17 @@ theMovieDb.tvSeasons = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAccountStatesGuest: function (options, success, error) {
         'use strict';
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['guest_session_id', 'season_number', 'id']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'guest_session_id',
+            'season_number',
+            'id',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
@@ -2136,7 +2317,7 @@ theMovieDb.tvSeasons = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getCredits: function (options, success, error) {
@@ -2157,7 +2338,7 @@ theMovieDb.tvSeasons = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getExternalIds: function (options, success, error) {
@@ -2178,7 +2359,7 @@ theMovieDb.tvSeasons = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getImages: function (options, success, error) {
@@ -2199,7 +2380,7 @@ theMovieDb.tvSeasons = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getVideos: function (options, success, error) {
@@ -2220,7 +2401,7 @@ theMovieDb.tvSeasons = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };
@@ -2229,7 +2410,11 @@ theMovieDb.tvEpisodes = {
     getById: function (options, success, error) {
         'use strict';
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['episode_number', 'season_number', 'id']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'episode_number',
+            'season_number',
+            'id',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
@@ -2245,7 +2430,7 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getChanges: function (options, success, error) {
@@ -2257,10 +2442,14 @@ theMovieDb.tvEpisodes = {
 
         theMovieDb.common.client(
             {
-                url: 'tv/episode/' + options.id + '/changes' + theMovieDb.common.generateQuery(options),
+                url:
+                    'tv/episode/' +
+                    options.id +
+                    '/changes' +
+                    theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAccountStates: function (options, success, error) {
@@ -2288,7 +2477,7 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getAccountStatesGuest: function (options, success, error) {
@@ -2316,13 +2505,17 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getCredits: function (options, success, error) {
         'use strict';
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['episode_number', 'season_number', 'id']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'episode_number',
+            'season_number',
+            'id',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
@@ -2339,13 +2532,17 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getExternalIds: function (options, success, error) {
         'use strict';
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['episode_number', 'season_number', 'id']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'episode_number',
+            'season_number',
+            'id',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
@@ -2362,13 +2559,17 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getImages: function (options, success, error) {
         'use strict';
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['episode_number', 'season_number', 'id']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'episode_number',
+            'season_number',
+            'id',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
@@ -2385,13 +2586,17 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     getVideos: function (options, success, error) {
         'use strict';
 
-        theMovieDb.common.validateRequired(arguments, 3, options, ['episode_number', 'season_number', 'id']);
+        theMovieDb.common.validateRequired(arguments, 3, options, [
+            'episode_number',
+            'season_number',
+            'id',
+        ]);
 
         theMovieDb.common.validateCallbacks(success, error);
 
@@ -2408,7 +2613,7 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     rate: function (options, rate, success, error) {
@@ -2441,7 +2646,7 @@ theMovieDb.tvEpisodes = {
                 },
             },
             success,
-            error
+            error,
         );
     },
     rateGuest: function (options, rate, success, error) {
@@ -2474,7 +2679,7 @@ theMovieDb.tvEpisodes = {
                 },
             },
             success,
-            error
+            error,
         );
     },
     removeRate: function (options, success, error) {
@@ -2504,7 +2709,7 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
     removeRateGuest: function (options, success, error) {
@@ -2534,7 +2739,7 @@ theMovieDb.tvEpisodes = {
                     theMovieDb.common.generateQuery(options),
             },
             success,
-            error
+            error,
         );
     },
 };

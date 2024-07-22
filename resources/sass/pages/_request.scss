@@ -13,16 +13,18 @@
 }
 
 .request__tags li:not(:last-child)::after {
-    content: "\2022";
+    content: '\2022';
     display: inline-block;
     margin-left: 0.5ch;
 }
 
-.request__tags > li > span, .request__tags > li > time {
-    white-space: nowrap
+.request__tags > li > span,
+.request__tags > li > time {
+    white-space: nowrap;
 }
 
-.request__tags > li > span, .request__tags > li > time {
+.request__tags > li > span,
+.request__tags > li > time {
     color: var(--torrent-tag-fg);
     padding: 6px 12px;
     display: inline-block;

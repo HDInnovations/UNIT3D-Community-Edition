@@ -60,7 +60,11 @@
     text-align: center;
     top: 4px;
     left: calc(50vw - 50%);
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+    text-shadow:
+        -2px 0 black,
+        0 2px black,
+        2px 0 black,
+        0 -2px black;
     color: white;
     font-size: 18px;
 }

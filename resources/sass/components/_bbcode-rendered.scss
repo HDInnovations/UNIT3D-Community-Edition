@@ -1,489 +1,512 @@
 .bbcode-rendered.bbcode-rendered {
-  font-size: 15px;
-  line-height: 1.5;
-  word-wrap: break-word;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  color: var(--bbcode-rendered-fg-default);
-  margin: 0;
-  background-color: var(--bbcode-rendered-canvas-default);
-
-  figcaption,
-  figure {
-    display: block;
-  }
-
-  figure {
-    margin: 1em 40px;
-  }
-
-  [hidden] {
-    display: none !important;
-  }
-
-  abbr[title] {
-    border-bottom: none;
-    text-decoration: underline dotted;
-  }
-
-  b,
-  strong {
-    font-weight: 600;
-  }
-
-  dfn {
-    font-style: italic;
-  }
-
-  mark {
-    background-color: var(--bbcode-rendered-attention-subtle);
-    color: var(--bbcode-rendered-text-primary);
-  }
-
-  small {
-    font-size: 90%;
-  }
-
-  /* Subscript/Superscript */
-
-  sub,
-  sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-  }
-
-  sub {
-    bottom: -0.25em;
-  }
-
-  sup {
-    top: -0.5em;
-  }
-
-  /* Links */
-
-  a {
-    background-color: transparent;
-    color: var(--bbcode-rendered-accent-fg);
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &:active, &:hover {
-      outline-width: 0;
-    }
-  }
-
-  /* Horizontal Rules */
-
-  hr {
-    box-sizing: content-box;
-    overflow: hidden;
-    background: transparent;
-    border-bottom: 1px solid var(--bbcode-rendered-border-muted);
-    height: 0.25em;
-    padding: 0;
-    margin: 24px 0;
-    background-color: var(--bbcode-rendered-border-default);
-    border: 0;
-  }
-
-  /* Spoilers */
-
-  details {
-    padding: 0 6px;
-    margin-top: 0;
-    margin-bottom: 2px;
-    display: inline;
-    max-width: 100%;
-
-    summary {
-      cursor: pointer;
-      display: list-item;
-    }
-
-    &:not([open]) > *:not(summary) {
-      display: none !important;
-    }
-  }
-
-  /* Keyboard inputs */
-
-  kbd {
-    display: inline-block;
-    padding: 3px 5px;
-    font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-    line-height: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
     color: var(--bbcode-rendered-fg-default);
-    vertical-align: middle;
-    background-color: var(--bbcode-rendered-canvas-subtle);
-    border: solid 1px var(--bbcode-rendered-neutral-muted);
-    border-bottom-color: var(--bbcode-rendered-neutral-muted);
-    border-radius: 6px;
-    box-shadow: inset 0 -1px 0 var(--bbcode-rendered-neutral-muted);
-  }
+    margin: 0;
+    background-color: var(--bbcode-rendered-canvas-default);
 
-  /* Headings */
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin-top: 24px;
-    margin-bottom: 16px;
-    font-weight: 600;
-    line-height: 1.25;
-
-    code {
-      padding: 0 0.2em;
-      font-size: inherit;
-    }
-  }
-
-  h1 {
-    margin: 0.67em 0;
-    font-weight: 600;
-    padding-bottom: 0.3em;
-    font-size: 30px;
-    border-bottom: 1px solid var(--bbcode-rendered-border-muted);
-  }
-
-  h2 {
-    padding-bottom: 0.3em;
-    font-size: 23px;
-    border-bottom: 1px solid var(--bbcode-rendered-border-muted);
-  }
-
-  h3 {
-    font-size: 19px;
-  }
-
-  h4 {
-    font-size: 15px;
-  }
-
-  h5 {
-    font-size: 13px;
-  }
-
-  h6 {
-    font-size: 13px;
-    color: var(--bbcode-rendered-fg-muted);
-  }
-
-  /* Quoting */
-
-  blockquote {
-    margin-left: 2px;
-    margin-right: 2px;
-    padding: 0.25em 0.25em 0.25em 1em;
-    color: var(--bbcode-rendered-fg-muted);
-    border-left: 0.25em solid var(--bbcode-rendered-quote-border);
-    font-size: 15px;
-    background-color: var(--bbcode-rendered-quote-bg);
-    border-radius: 6px;
-
-    > cite {
-      font-size: 12px;
-      font-weight: bold;
+    figcaption,
+    figure {
+        display: block;
     }
 
-    > blockquote {
-      margin-left: 6px;
-      margin-right: 20px;
+    figure {
+        margin: 1em 40px;
     }
-  }
 
-  /* Clearfix */
+    [hidden] {
+        display: none !important;
+    }
 
-  &::before {
-    display: table;
-    content: "";
-  }
+    abbr[title] {
+        border-bottom: none;
+        text-decoration: underline dotted;
+    }
 
-  &::after {
-    display: table;
-    clear: both;
-    content: "";
-  }
+    b,
+    strong {
+        font-weight: 600;
+    }
 
-  /* Block Elements */
+    dfn {
+        font-style: italic;
+    }
 
-  p,
-  blockquote,
-  ul,
-  ol,
-  dl,
-  table,
-  pre,
-  .bbcode-rendered__center,
-  .bbcode-rendered__left,
-  .bbcode-rendered__right,
-  .bbcode-rendered__alert,
-  .bbcode-rendered__note {
-    margin-top: 12px;
-    margin-bottom: 12px;
-  }
+    mark {
+        background-color: var(--bbcode-rendered-attention-subtle);
+        color: var(--bbcode-rendered-text-primary);
+    }
 
-  /* Lists */
+    small {
+        font-size: 90%;
+    }
 
-  ul,
-  ol {
-    padding-left: 2em;
+    /* Subscript/Superscript */
+
+    sub,
+    sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    sup {
+        top: -0.5em;
+    }
+
+    /* Links */
+
+    a {
+        background-color: transparent;
+        color: var(--bbcode-rendered-accent-fg);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &:active,
+        &:hover {
+            outline-width: 0;
+        }
+    }
+
+    /* Horizontal Rules */
+
+    hr {
+        box-sizing: content-box;
+        overflow: hidden;
+        background: transparent;
+        border-bottom: 1px solid var(--bbcode-rendered-border-muted);
+        height: 0.25em;
+        padding: 0;
+        margin: 24px 0;
+        background-color: var(--bbcode-rendered-border-default);
+        border: 0;
+    }
+
+    /* Spoilers */
+
+    details {
+        padding: 0 6px;
+        margin-top: 0;
+        margin-bottom: 2px;
+        display: inline;
+        max-width: 100%;
+
+        summary {
+            cursor: pointer;
+            display: list-item;
+        }
+
+        &:not([open]) > *:not(summary) {
+            display: none !important;
+        }
+    }
+
+    /* Keyboard inputs */
+
+    kbd {
+        display: inline-block;
+        padding: 3px 5px;
+        font:
+            11px ui-monospace,
+            SFMono-Regular,
+            SF Mono,
+            Menlo,
+            Consolas,
+            Liberation Mono,
+            monospace;
+        line-height: 10px;
+        color: var(--bbcode-rendered-fg-default);
+        vertical-align: middle;
+        background-color: var(--bbcode-rendered-canvas-subtle);
+        border: solid 1px var(--bbcode-rendered-neutral-muted);
+        border-bottom-color: var(--bbcode-rendered-neutral-muted);
+        border-radius: 6px;
+        box-shadow: inset 0 -1px 0 var(--bbcode-rendered-neutral-muted);
+    }
+
+    /* Headings */
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 24px;
+        margin-bottom: 16px;
+        font-weight: 600;
+        line-height: 1.25;
+
+        code {
+            padding: 0 0.2em;
+            font-size: inherit;
+        }
+    }
+
+    h1 {
+        margin: 0.67em 0;
+        font-weight: 600;
+        padding-bottom: 0.3em;
+        font-size: 30px;
+        border-bottom: 1px solid var(--bbcode-rendered-border-muted);
+    }
+
+    h2 {
+        padding-bottom: 0.3em;
+        font-size: 23px;
+        border-bottom: 1px solid var(--bbcode-rendered-border-muted);
+    }
+
+    h3 {
+        font-size: 19px;
+    }
+
+    h4 {
+        font-size: 15px;
+    }
+
+    h5 {
+        font-size: 13px;
+    }
+
+    h6 {
+        font-size: 13px;
+        color: var(--bbcode-rendered-fg-muted);
+    }
+
+    /* Quoting */
+
+    blockquote {
+        margin-left: 2px;
+        margin-right: 2px;
+        padding: 0.25em 0.25em 0.25em 1em;
+        color: var(--bbcode-rendered-fg-muted);
+        border-left: 0.25em solid var(--bbcode-rendered-quote-border);
+        font-size: 15px;
+        background-color: var(--bbcode-rendered-quote-bg);
+        border-radius: 6px;
+
+        > cite {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        > blockquote {
+            margin-left: 6px;
+            margin-right: 20px;
+        }
+    }
+
+    /* Clearfix */
+
+    &::before {
+        display: table;
+        content: '';
+    }
+
+    &::after {
+        display: table;
+        clear: both;
+        content: '';
+    }
+
+    /* Block Elements */
+
+    p,
+    blockquote,
+    ul,
+    ol,
+    dl,
+    table,
+    pre,
+    .bbcode-rendered__center,
+    .bbcode-rendered__left,
+    .bbcode-rendered__right,
+    .bbcode-rendered__alert,
+    .bbcode-rendered__note {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    /* Lists */
+
+    ul,
+    ol {
+        padding-left: 2em;
+
+        ol {
+            list-style-type: lower-roman;
+        }
+
+        ul,
+        ol {
+            margin-top: 0;
+            margin-bottom: 0;
+            ol {
+                list-style-type: lower-alpha;
+            }
+        }
+    }
 
     ol {
-      list-style-type: lower-roman;
+        &[type='1'] {
+            list-style-type: decimal;
+        }
+
+        &[type='a'] {
+            list-style-type: lower-alpha;
+        }
+
+        &[type='i'] {
+            list-style-type: lower-roman;
+        }
     }
 
-    ul, ol  {
-      margin-top: 0;
-      margin-bottom: 0;
-      ol {
-        list-style-type: lower-alpha;
-      }
-    }
-  }
-
-  ol {
-    &[type="1"] {
-      list-style-type: decimal;
+    div > ol:not([type]) {
+        list-style-type: decimal;
     }
 
-    &[type="a"] {
-      list-style-type: lower-alpha;
+    li > p {
+        margin-top: 16px;
     }
 
-    &[type="i"] {
-      list-style-type: lower-roman;
+    li + li {
+        margin-top: 0.25em;
     }
-  }
 
-  div > ol:not([type]) {
-    list-style-type: decimal;
-  }
+    /* Hack for when users use `[*]` without wrapping with `[list]` (producing invalid html) */
+    & > li,
+    :not(ul):not(ol) > li {
+        list-style-position: inside;
+        list-style-type: circle;
+    }
 
-  li > p {
-    margin-top: 16px;
-  }
+    /* Definition Lists */
 
-  li + li {
-    margin-top: 0.25em;
-  }
+    dl {
+        padding: 0;
+    }
 
-  /* Hack for when users use `[*]` without wrapping with `[list]` (producing invalid html) */
-  & > li,
-  :not(ul):not(ol) > li {
-    list-style-position: inside;
-    list-style-type: circle;
-  }
+    dt {
+        padding: 0;
+        margin-top: 16px;
+        font-style: italic;
+        font-weight: 600;
+    }
 
-  /* Definition Lists */
+    dd {
+        padding: 0 16px;
+        margin-bottom: 16px;
+        margin-left: 0;
+    }
 
-  dl {
-    padding: 0;
-  }
+    /* Tables */
 
-  dt {
-    padding: 0;
-    margin-top: 16px;
-    font-style: italic;
-    font-weight: 600;
-  }
+    table {
+        border-spacing: 0;
+        border-collapse: collapse;
+        display: block;
+        width: max-content;
+        max-width: 100%;
+        overflow: auto;
 
-  dd {
-    padding: 0 16px;
-    margin-bottom: 16px;
-    margin-left: 0;
-  }
+        img {
+            background-color: transparent;
+        }
+    }
 
-  /* Tables */
+    th {
+        font-weight: 600;
+    }
 
-  table {
-    border-spacing: 0;
-    border-collapse: collapse;
-    display: block;
-    width: max-content;
-    max-width: 100%;
-    overflow: auto;
+    th,
+    td {
+        border: revert !important;
+        padding: 6px 13px;
+        background-color: var(--bbcode-rendered-canvas-default);
+        border: 1px solid var(--bbcode-rendered-border-default) !important;
+    }
+
+    tr {
+        border: revert;
+        background-color: var(--bbcode-rendered-canvas-default) !important;
+        border-top: 1px solid var(--bbcode-rendered-border-muted);
+
+        &:nth-child(2n),
+        &:nth-child(2n) td {
+            background-color: var(--bbcode-rendered-canvas-subtle);
+        }
+    }
+
+    /* Images */
 
     img {
-      background-color: transparent;
-    }
-  }
+        border-style: none;
+        max-width: 100%;
+        box-sizing: content-box;
+        background-color: var(--bbcode-rendered-canvas-default);
 
-  th {
-    font-weight: 600;
-  }
+        &[align='right'] {
+            padding-left: 20px;
+        }
 
-  th, td {
-    border: revert !important;
-    padding: 6px 13px;
-    background-color: var(--bbcode-rendered-canvas-default);
-    border: 1px solid var(--bbcode-rendered-border-default) !important;
-  }
-
-  tr {
-    border: revert;
-    background-color: var(--bbcode-rendered-canvas-default) !important;
-    border-top: 1px solid var(--bbcode-rendered-border-muted);
-
-    &:nth-child(2n),
-    &:nth-child(2n) td {
-      background-color: var(--bbcode-rendered-canvas-subtle);
-    }
-  }
-
-  /* Images */
-
-  img {
-    border-style: none;
-    max-width: 100%;
-    box-sizing: content-box;
-    background-color: var(--bbcode-rendered-canvas-default);
-
-    &[align="right"] {
-      padding-left: 20px;
+        &[align='left'] {
+            padding-right: 20px;
+        }
     }
 
-    &[align="left"] {
-      padding-right: 20px;
-    }
-  }
+    /* Code (TODO: Figure out which styles are actually needed for code/inline code/spoiler content) */
 
-  /* Code (TODO: Figure out which styles are actually needed for code/inline code/spoiler content) */
-
-  code,
-  kbd,
-  pre,
-  samp {
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-  }
-
-  pre {
-    background-color: var(--bbcode-rendered-neutral-muted);
-    color: var(--bbcode-rendered-fg-default);
-    border: revert;
-    border-radius: 6px;
-    font-size: 12px;
-    word-wrap: normal;
-    overflow: visible;
-    line-height: inherit;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    white-space: pre-wrap;
-    padding: 12px;
-  }
-
-  code {
-    padding: 0.2em 0.4em;
-    margin: 0;
-    word-break: normal;
-    overflow-wrap: anywhere;
-    white-space: normal;
-    font-size: 13px;
-    background-color: var(--bbcode-rendered-neutral-muted);
-    border-radius: 6px;
-    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
-    Liberation Mono, monospace;
-  }
-
-  del code {
-    text-decoration: inherit;
-  }
-
-  pre > code {
-    white-space: pre-wrap;
-  }
-
-  pre code {
-    display: inline;
-    padding: 0;
-    overflow: visible;
-    line-height: inherit;
-    overflow-wrap: anywhere;
-    background-color: transparent;
-    border: 0;
-  }
-
-  /* Markdown Extra footnotes */
-
-  sup {
-    > a::before {
-      content: "[";
+    code,
+    kbd,
+    pre,
+    samp {
+        font-family:
+            ui-monospace,
+            SFMono-Regular,
+            SF Mono,
+            Menlo,
+            Consolas,
+            Liberation Mono,
+            monospace;
     }
 
-    > a::after {
-      content: "]";
-    }
-  }
-
-  .footnotes {
-    font-size: 12px;
-    color: var(--bbcode-rendered-fg-muted);
-    border-top: 1px solid var(--bbcode-rendered-border-default);
-
-    ol {
-      padding-left: 16px;
-    }
-
-    li {
-      position: relative;
-
-      &:target {
+    pre {
+        background-color: var(--bbcode-rendered-neutral-muted);
         color: var(--bbcode-rendered-fg-default);
+        border: revert;
+        border-radius: 6px;
+        font-size: 12px;
+        word-wrap: normal;
+        overflow: visible;
+        line-height: inherit;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+        padding: 12px;
+    }
+
+    code {
+        padding: 0.2em 0.4em;
+        margin: 0;
+        word-break: normal;
+        overflow-wrap: anywhere;
+        white-space: normal;
+        font-size: 13px;
+        background-color: var(--bbcode-rendered-neutral-muted);
+        border-radius: 6px;
+        font-family:
+            ui-monospace,
+            SFMono-Regular,
+            SF Mono,
+            Menlo,
+            Consolas,
+            Liberation Mono,
+            monospace;
+    }
+
+    del code {
+        text-decoration: inherit;
+    }
+
+    pre > code {
+        white-space: pre-wrap;
+    }
+
+    pre code {
+        display: inline;
+        padding: 0;
+        overflow: visible;
+        line-height: inherit;
+        overflow-wrap: anywhere;
+        background-color: transparent;
+        border: 0;
+    }
+
+    /* Markdown Extra footnotes */
+
+    sup {
+        > a::before {
+            content: '[';
+        }
+
+        > a::after {
+            content: ']';
+        }
+    }
+
+    .footnotes {
+        font-size: 12px;
+        color: var(--bbcode-rendered-fg-muted);
+        border-top: 1px solid var(--bbcode-rendered-border-default);
+
+        ol {
+            padding-left: 16px;
+        }
+
+        li {
+            position: relative;
+
+            &:target {
+                color: var(--bbcode-rendered-fg-default);
+
+                &::before {
+                    position: absolute;
+                    top: -8px;
+                    right: -8px;
+                    bottom: -8px;
+                    left: -24px;
+                    pointer-events: none;
+                    content: '';
+                    border: 2px solid var(--bbcode-rendered-accent-emphasis);
+                    border-radius: 6px;
+                }
+            }
+        }
+
+        .footnote-backref {
+            font-family: monospace;
+        }
+    }
+
+    /* BBCode [alert] */
+
+    .bbcode-rendered__alert {
+        border-radius: 5px;
+        padding: 8px;
+        border: 2px solid var(--bbcode-rendered-danger-fg);
 
         &::before {
-          position: absolute;
-          top: -8px;
-          right: -8px;
-          bottom: -8px;
-          left: -24px;
-          pointer-events: none;
-          content: "";
-          border: 2px solid var(--bbcode-rendered-accent-emphasis);
-          border-radius: 6px;
+            content: 'Alert: ';
+            color: var(--bbcode-rendered-danger-fg);
+            display: inline-block;
+            padding-right: 1ch;
         }
-      }
     }
 
-    .footnote-backref {
-      font-family: monospace;
+    /* BBCode [note] */
+
+    .bbcode-rendered__note {
+        border-radius: 4px;
+        padding: 8px;
+        border: 2px solid var(--bbcode-rendered-attention-subtle);
+
+        &::before {
+            content: 'Note: ';
+            color: var(--bbcode-rendered-attention-subtle);
+            display: inline-block;
+            padding-right: 1ch;
+        }
     }
-  }
-
-  /* BBCode [alert] */
-
-  .bbcode-rendered__alert {
-    border-radius: 5px;
-    padding: 8px;
-    border: 2px solid var(--bbcode-rendered-danger-fg);
-
-    &::before {
-      content: 'Alert: ';
-      color: var(--bbcode-rendered-danger-fg);
-      display: inline-block;
-      padding-right: 1ch;
-    }
-  }
-
-  /* BBCode [note] */
-
-  .bbcode-rendered__note {
-    border-radius: 4px;
-    padding: 8px;
-    border: 2px solid var(--bbcode-rendered-attention-subtle);
-
-    &::before {
-      content: 'Note: ';
-      color: var(--bbcode-rendered-attention-subtle);
-      display: inline-block;
-      padding-right: 1ch;
-    }
-  }
 }

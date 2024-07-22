@@ -29,14 +29,14 @@
     top: -5px;
     font-size: 84px;
     color: #fff;
-    transition-duration: .5s;
-    transition-property: transform,opacity;
+    transition-duration: 0.5s;
+    transition-property: transform, opacity;
     transition-timing-function: ease;
-    opacity: .5;
+    opacity: 0.5;
 }
 
 .user-card:hover .user-card__icon {
-    opacity: .3;
+    opacity: 0.3;
     transform: scale(1.5);
 }
 

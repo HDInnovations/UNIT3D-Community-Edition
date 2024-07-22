@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     min-height: 100vh; /* Used for sticky footer */
 }
 
@@ -62,7 +63,7 @@ html, body {
 .footer__sub-footer {
     border-top: 1px solid var(--footer-hr-fg);
     display: grid;
-    grid-template: "libraries stats" auto "libraries copyright" auto / auto auto;
+    grid-template: 'libraries stats' auto 'libraries copyright' auto / auto auto;
     width: 100vw;
     max-width: 100%;
     padding: 10px;
@@ -99,7 +100,7 @@ html, body {
 
 @media only screen and (max-width: 767px) {
     .footer__sub-footer {
-        grid-template: "libraries" auto "stats" auto "copyright" auto / auto;
+        grid-template: 'libraries' auto 'stats' auto 'copyright' auto / auto;
         gap: 12px;
         justify-items: center;
     }

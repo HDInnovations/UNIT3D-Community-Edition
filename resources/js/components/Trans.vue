@@ -1,32 +1,32 @@
 <template>
-    <div id="tran">{{ result }}</div>
+  <div id="tran">{{ result }}</div>
 </template>
 <script>
 export default {
-    name: 'trans',
+  name: 'trans',
 
-    props: ['path'],
+  props: ['path'],
 
-    data() {
-        return {
-            result: '',
-        };
+  data() {
+    return {
+      result: '',
+    };
+  },
+  methods: {
+    getTranslation() {
+      axios
+        .get(`/api/lang/${this.path}`)
+        .then((response) => {
+          this.result = response.data.results;
+        })
+        .catch((error) => {
+          console.error(`Something went wrong fetching ${this.path}`);
+        });
     },
-    methods: {
-        getTranslation() {
-            axios
-                .get(`/api/lang/${this.path}`)
-                .then((response) => {
-                    this.result = response.data.results;
-                })
-                .catch((error) => {
-                    console.error(`Something went wrong fetching ${this.path}`);
-                });
-        },
-    },
+  },
 
-    created() {
-        this.getTranslation();
-    },
+  created() {
+    this.getTranslation();
+  },
 };
 </script>
