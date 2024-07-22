@@ -142,7 +142,13 @@
                 </a>
             @endif
 
-            @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key('bookmark-torrent-'.$torrent->id))
+            <button
+                class="form__standard-icon-button"
+                x-data="bookmark({{ $torrent->id }}, {{ Js::from($torrent->bookmarks_exists) }})"
+                x-bind="button"
+            >
+                <i class="{{ config('other.font-awesome') }}" x-bind="icon"></i>
+            </button>
 
             @if (config('torrent.download_check_page'))
                 <a

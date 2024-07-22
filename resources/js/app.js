@@ -153,4 +153,40 @@ Alpine.data('checkboxGrid', () => ({
     },
 }));
 
+Alpine.data("bookmark", (torrentId, bookmarked) => ({
+    torrentId: torrentId,
+    bookmarked: bookmarked,
+    button: {
+        ["x-on:click"]() {
+            this.bookmarked ? this.destroy() : this.store();
+        },
+        ["x-bind:title"]() {
+            return this.bookmarked ? "Unbookmark" : "Bookmark";
+        },
+    },
+    icon: {
+        ["x-bind:class"]() {
+            return this.bookmarked ? "fa-bookmark-slash" : "fa-bookmark";
+        },
+    },
+    store() {
+        axios.post(`/api/bookmarks/${this.torrentId}`).then((response) => {
+            this.bookmarked = Boolean(response.data);
+            this.dispatchEvent();
+        });
+    },
+    destroy() {
+        axios.delete(`/api/bookmarks/${this.torrentId}`).then((response) => {
+            this.bookmarked = Boolean(response.data);
+            this.dispatchEvent();
+        });
+    },
+    dispatchEvent() {
+        this.$dispatch('success', {
+            type: 'success',
+            message: `Torrent has been ${this.bookmarked ? 'bookmarked' : 'unbookmarked'} successfully!`,
+        })
+    }
+}));
+
 Livewire.start();
