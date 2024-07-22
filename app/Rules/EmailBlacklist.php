@@ -36,7 +36,8 @@ class EmailBlacklist implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // Load blacklisted domains
-        $this->refresh();
+        $this->domains = cache()->get(config('email-blacklist.cache-key'));
+        $this->appendCustomDomains();
 
         // Extract domain from supplied email address
         $domain = Str::after(strtolower((string) $value), '@');
@@ -44,28 +45,6 @@ class EmailBlacklist implements ValidationRule
         // Run validation check
         if (\in_array($domain, $this->domains)) {
             $fail('Email domain is not allowed. Throwaway email providers are blacklisted.');
-        }
-    }
-
-    /**
-     * Retrive the latest selection of blacklisted domains and cache them.
-     */
-    public function refresh(): void
-    {
-        $this->shouldUpdate();
-        $this->domains = cache()->get(config('email-blacklist.cache-key'));
-        $this->appendCustomDomains();
-    }
-
-    /**
-     * Should update blacklist?.
-     */
-    protected function shouldUpdate(): void
-    {
-        $autoupdate = config('email-blacklist.auto-update');
-
-        if ($autoupdate && !cache()->has(config('email-blacklist.cache-key'))) {
-            EmailBlacklistUpdater::update();
         }
     }
 
