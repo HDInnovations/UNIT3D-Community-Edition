@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Rules;
 
-use App\Helpers\EmailBlacklistUpdater;
 use Illuminate\Support\Str;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
