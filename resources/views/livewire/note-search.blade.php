@@ -50,7 +50,9 @@
                         <td>
                             <x-user_tag :anon="false" :user="$note->staffuser" />
                         </td>
-                        <td style="white-space: pre-wrap">@joypixels($note->getMessageHtml())</td>
+                        <td style="white-space: pre-wrap">
+                            @joypixels($note->getMessageHtml())
+                        </td>
                         <td>
                             <time
                                 datetime="{{ $note->created_at }}"
