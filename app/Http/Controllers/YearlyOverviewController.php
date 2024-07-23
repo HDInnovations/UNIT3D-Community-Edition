@@ -64,7 +64,7 @@ class YearlyOverviewController extends Controller
                 fn () => Torrent::with('movie')
                     ->select([
                         'tmdb',
-                        DB::raw('COUNT(h.id) as download_count'),
+                        DB::raw('COUNT(h.user_id) as download_count'),
                         DB::raw('MIN(category_id) as category_id'),
                     ])
                     ->leftJoinSub(
@@ -87,7 +87,7 @@ class YearlyOverviewController extends Controller
                 fn () => Torrent::with('movie')
                     ->select([
                         'tmdb',
-                        DB::raw('COUNT(h.id) as download_count'),
+                        DB::raw('COUNT(h.user_id) as download_count'),
                         DB::raw('MIN(category_id) as category_id'),
                     ])
                     ->leftJoinSub(
@@ -110,7 +110,7 @@ class YearlyOverviewController extends Controller
                 fn () => Torrent::with('tv')
                     ->select([
                         'tmdb',
-                        DB::raw('COUNT(h.id) as download_count'),
+                        DB::raw('COUNT(h.user_id) as download_count'),
                         DB::raw('MIN(category_id) as category_id'),
                     ])
                     ->leftJoinSub(
@@ -133,7 +133,7 @@ class YearlyOverviewController extends Controller
                 fn () => Torrent::with('tv')
                     ->select([
                         'tmdb',
-                        DB::raw('COUNT(h.id) as download_count'),
+                        DB::raw('COUNT(h.user_id) as download_count'),
                         DB::raw('MIN(category_id) as category_id'),
                     ])
                     ->leftJoinSub(

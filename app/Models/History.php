@@ -23,7 +23,6 @@ use DateTimeInterface;
 /**
  * App\Models\History.
  *
- * @property int                             $id
  * @property int                             $user_id
  * @property int                             $torrent_id
  * @property string                          $agent
