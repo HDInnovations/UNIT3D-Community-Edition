@@ -24,6 +24,7 @@ use App\Models\Peer;
 use App\Repositories\ChatRepository;
 use Illuminate\Support\Carbon;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\Staff\FlushControllerTest
@@ -48,13 +49,13 @@ class FlushController extends Controller
         $peers = Peer::select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())->get();
 
         foreach ($peers as $peer) {
-            $history = History::where('torrent_id', '=', $peer->torrent_id)->where('user_id', '=', $peer->user_id)->first();
-
-            if ($history) {
-                $history->active = false;
-                $history->timestamps = false;
-                $history->save();
-            }
+            History::query()
+                ->where('torrent_id', '=', $peer->torrent_id)
+                ->where('user_id', '=', $peer->user_id)
+                ->update([
+                    'active'     => false,
+                    'updated_at' => DB::raw('updated_at'),
+                ]);
 
             Peer::query()
                 ->where('torrent_id', '=', $peer->torrent_id)
