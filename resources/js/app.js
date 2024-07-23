@@ -158,7 +158,7 @@ Alpine.data("bookmark", (torrentId, bookmarked) => ({
     bookmarked: bookmarked,
     button: {
         ["x-on:click"]() {
-            this.bookmarked ? this.destroy() : this.store();
+            this.bookmarked ? this.deleteBookmark() : this.createBookmark();
         },
         ["x-bind:title"]() {
             return this.bookmarked ? "Unbookmark" : "Bookmark";
@@ -169,13 +169,13 @@ Alpine.data("bookmark", (torrentId, bookmarked) => ({
             return this.bookmarked ? "fa-bookmark-slash" : "fa-bookmark";
         },
     },
-    store() {
+    createBookmark() {
         axios.post(`/api/bookmarks/${this.torrentId}`).then((response) => {
             this.bookmarked = Boolean(response.data);
             this.dispatchEvent();
         });
     },
-    destroy() {
+    deleteBookmark() {
         axios.delete(`/api/bookmarks/${this.torrentId}`).then((response) => {
             this.bookmarked = Boolean(response.data);
             this.dispatchEvent();
