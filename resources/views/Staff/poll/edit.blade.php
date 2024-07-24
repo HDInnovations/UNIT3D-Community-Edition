@@ -52,6 +52,18 @@
                         {{ __('poll.title') }}
                     </label>
                 </p>
+                <p class="form__group">
+                    <input
+                        id="expires_at"
+                        class="form__text"
+                        name="expires_at"
+                        type="dateTime-local"
+                        value="{{ $poll->expires_at }}"
+                    />
+                    <label class="form__label form__label--floating" for="expires_at">
+                        {{ __('poll.close-date') }}
+                    </label>
+                </p>
                 <template x-for="(option, i) in extraOptions">
                     <p class="form__group">
                         <input
