@@ -45,6 +45,11 @@ class PollController extends Controller
                 ->withInfo(trans('poll.already-voted-result'));
         }
 
+        if ($poll->expires_at?->isPast()) {
+            return to_route('polls.votes.index', ['poll' => $poll])
+                ->withInfo(trans('poll.expired-voted-result'));
+        }
+
         return view('poll.show', ['poll' => $poll]);
     }
 }

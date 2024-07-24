@@ -115,7 +115,12 @@ class HomeController extends Controller
                     'user.group',
                 ])->get(),
             ),
-            'poll'             => cache()->remember('latest_poll', $expiresAt, fn () => Poll::latest()->first()),
+            'poll' => cache()->remember('latest_poll', $expiresAt, function () {
+                return Poll::where(function ($query): void {
+                    $query->where('expires_at', '>', now())
+                        ->orWhereNull('expires_at');
+                })->latest()->first();
+            }),
             'freeleech_tokens' => FreeleechToken::where('user_id', $user->id)->get(),
             'bookmarks'        => Bookmark::where('user_id', $user->id)->get(),
         ]);

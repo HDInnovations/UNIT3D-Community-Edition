@@ -17,6 +17,7 @@ return [
     'add-option'           => 'Add Option',
     'already-voted-error'  => 'You have already voted on this poll. Your vote has not been counted.',
     'already-voted-result' => 'You have already voted on this poll. Here are the results.',
+    'expired-voted-result' => 'This poll is expired. Here are the results.',
     'create-poll'          => 'Create Poll',
     'current'              => 'Current Poll(s)',
     'delete-option'        => 'Delete Option',
@@ -32,4 +33,5 @@ return [
     'vote-counted'         => 'Your vote has been counted.',
     'vote-now'             => 'Get Your Vote In Now!',
     'votes'                => 'Votes',
+    'close-date'           => 'Close Poll after',
 ];
