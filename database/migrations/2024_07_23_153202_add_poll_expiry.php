@@ -28,14 +28,4 @@ return new class () extends Migration {
             $table->dateTime('expires_at')->nullable()->after('multiple_choice');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('polls', function (Blueprint $table): void {
-            $table->dropColumn('expires_at');
-        });
-    }
 };
