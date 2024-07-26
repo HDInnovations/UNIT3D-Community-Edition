@@ -562,7 +562,7 @@
     </section>
 @endsection
 
-@if ($user->can_upload == 1 && $user->group->can_upload == 1)
+@if ($user->can_upload ?? $user->group->can_upload)
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">

@@ -965,7 +965,7 @@
                     <div class="key-value__group">
                         <dt>{{ __('user.can-upload') }}</dt>
                         <dd>
-                            @if ($user->can_upload == 1)
+                            @if ($user->can_upload ?? $user->group->can_upload)
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
@@ -993,7 +993,7 @@
                     <div class="key-value__group">
                         <dt>{{ __('user.can-comment') }}</dt>
                         <dd>
-                            @if ($user->can_comment == 1)
+                            @if ($user->can_comment ?? $user->group->can_comment)
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
@@ -1007,7 +1007,7 @@
                     <div class="key-value__group">
                         <dt>{{ __('user.can-request') }}</dt>
                         <dd>
-                            @if ($user->can_request == 1)
+                            @if ($user->can_request ?? $user->group->can_request)
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
@@ -1021,7 +1021,7 @@
                     <div class="key-value__group">
                         <dt>{{ __('user.can-chat') }}</dt>
                         <dd>
-                            @if ($user->can_chat == 1)
+                            @if ($user->can_chat ?? $user->group->can_chat)
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>
@@ -1035,7 +1035,7 @@
                     <div class="key-value__group">
                         <dt>{{ __('user.can-invite') }}</dt>
                         <dd>
-                            @if ($user->can_invite == 1 && $user->two_factor_confirmed_at !== null)
+                            @if (($user->can_invite ?? $user->group->can_invite) && $user->two_factor_confirmed_at !== null)
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-check text-green"
                                 ></i>

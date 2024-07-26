@@ -93,12 +93,12 @@ class UserController extends Controller
     public function permissions(Request $request, User $user): \Illuminate\Http\RedirectResponse
     {
         $user->update([
-            'can_upload'   => $request->boolean('can_upload'),
+            'can_chat'     => $request->filled('can_chat') ? $request->boolean('can_chat') : null,
+            'can_comment'  => $request->filled('can_comment') ? $request->boolean('can_comment') : null,
             'can_download' => $request->boolean('can_download'),
-            'can_comment'  => $request->boolean('can_comment'),
-            'can_invite'   => $request->boolean('can_invite'),
-            'can_request'  => $request->boolean('can_request'),
-            'can_chat'     => $request->boolean('can_chat'),
+            'can_invite'   => $request->filled('can_invite') ? $request->boolean('can_invite') : null,
+            'can_request'  => $request->filled('can_request') ? $request->boolean('can_request') : null,
+            'can_upload'   => $request->filled('can_upload') ? $request->boolean('can_upload') : null,
         ]);
 
         cache()->forget('user:'.$user->passkey);
@@ -117,12 +117,7 @@ class UserController extends Controller
         abort_if($user->group->is_modo || $request->user()->is($user), 403);
 
         $user->update([
-            'can_upload'   => false,
             'can_download' => false,
-            'can_comment'  => false,
-            'can_invite'   => false,
-            'can_request'  => false,
-            'can_chat'     => false,
             'group_id'     => UserGroup::PRUNED->value,
             'deleted_by'   => auth()->id(),
         ]);

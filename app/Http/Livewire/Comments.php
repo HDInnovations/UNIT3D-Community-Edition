@@ -112,7 +112,7 @@ class Comments extends Component
     final public function postComment(): void
     {
         // Authorization
-        abort_if(!$this->model instanceof Ticket && $this->user->can_comment === false, 403, __('comment.rights-revoked'));
+        abort_unless($this->model instanceof Ticket || ($this->user->can_comment ?? $this->user->group->can_comment), 403, __('comment.rights-revoked'));
 
         abort_if($this->model instanceof Torrent && $this->model->status !== Torrent::APPROVED, 403, __('comment.torrent-status'));
 
