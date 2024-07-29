@@ -551,6 +551,17 @@
                                             class="form__checkbox"
                                             type="checkbox"
                                             value="1"
+                                            wire:model.live="trumpable"
+                                        />
+                                        Trumpable
+                                    </label>
+                                </p>
+                                <p class="form__group">
+                                    <label class="form__label">
+                                        <input
+                                            class="form__checkbox"
+                                            type="checkbox"
+                                            value="1"
                                             wire:model.live="stream"
                                         />
                                         {{ __('torrent.stream-optimized') }}

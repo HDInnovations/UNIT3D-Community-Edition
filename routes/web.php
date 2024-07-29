@@ -245,6 +245,11 @@ Route::middleware('language')->group(function (): void {
             Route::post('/{id}/refundable', [App\Http\Controllers\TorrentBuffController::class, 'setRefundable'])->name('refundable');
         });
 
+        Route::prefix('torrent')->name('torrent.trump.')->group(function (): void {
+            Route::post('/{torrent}/trump', [App\Http\Controllers\TorrentTrumpController::class, 'store'])->name('store');
+            Route::delete('/{torrent}/trump', [App\Http\Controllers\TorrentTrumpController::class, 'destroy'])->name('destroy');
+        });
+
         // Poll System
         Route::prefix('polls')->name('polls.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\PollController::class, 'index'])->name('index');
@@ -1046,6 +1051,9 @@ Route::middleware('language')->group(function (): void {
 
         // Torrent Downloads
         Route::get('/torrent-downloads', App\Http\Livewire\TorrentDownloadSearch::class)->name('torrent_downloads.index');
+
+        // Torrent Trump Search
+        Route::get('/torrent-trump-search', App\Http\Livewire\TorrentTrumpSearch::class)->name('torrent_trumps.index');
 
         // Types
         Route::prefix('types')->group(function (): void {

@@ -88,8 +88,11 @@ class TorrentController extends Controller
                 'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                 'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
             ])
-            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $user->id)])
-            ->withExists(['freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id)])
+            ->withExists([
+                'bookmarks'       => fn ($query) => $query->where('user_id', '=', $user->id),
+                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id),
+                'trump'
+            ])
             ->findOrFail($id);
 
         $meta = null;

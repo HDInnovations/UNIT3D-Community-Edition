@@ -23,6 +23,7 @@ use App\Models\Movie;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
+use App\Models\TorrentTrump;
 use App\Models\Tv;
 use App\Models\User;
 use App\Models\Wish;
@@ -383,6 +384,14 @@ trait TorrentFilter
     public function scopePersonalRelease(Builder $query): void
     {
         $query->where('personal_release', '=', 1);
+    }
+
+    /**
+     * @param Builder<Torrent> $query
+     */
+    public function scopeTrumpable(Builder $query): void
+    {
+        $query->whereIn('id', TorrentTrump::select('torrent_id'));
     }
 
     /**
