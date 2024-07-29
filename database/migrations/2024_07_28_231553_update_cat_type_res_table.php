@@ -17,15 +17,15 @@ return new class () extends Migration {
 
         // Change primary keys to unsigned smallint
         Schema::table('categories', function (Blueprint $table): void {
-            $table->unsignedSmallInteger('id')->change();
+            $table->smallIncrements('id')->change();
         });
 
         Schema::table('types', function (Blueprint $table): void {
-            $table->unsignedSmallInteger('id')->change();
+            $table->smallIncrements('id')->change();
         });
 
         Schema::table('resolutions', function (Blueprint $table): void {
-            $table->unsignedSmallInteger('id')->change();
+            $table->smallIncrements('id')->change();
         });
 
         // Change the related torrent table columns to unsigned smallint
