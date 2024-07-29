@@ -14,7 +14,7 @@ return new class () extends Migration {
         Schema::table('torrents', function (Blueprint $table): void {
             $table->dropForeign('category_id');
         });
-        
+
         // Change primary keys to unsigned smallint
         Schema::table('categories', function (Blueprint $table): void {
             $table->unsignedSmallInteger('id')->change();
