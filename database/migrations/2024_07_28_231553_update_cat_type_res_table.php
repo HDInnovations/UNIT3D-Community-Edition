@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
+        // Drop old foreign key
+        Schema::table('torrents', function (Blueprint $table): void {
+            $table->dropForeign('category_id');
+        });
+        
         // Change primary keys to unsigned smallint
         Schema::table('categories', function (Blueprint $table): void {
             $table->unsignedSmallInteger('id')->change();
@@ -25,7 +30,6 @@ return new class () extends Migration {
 
         // Change the related torrent table columns to unsigned smallint
         Schema::table('torrents', function (Blueprint $table): void {
-            $table->dropForeign('category_id');
             $table->unsignedSmallInteger('category_id')->change();
             $table->unsignedSmallInteger('type_id')->change();
             $table->unsignedSmallInteger('resolution_id')->nullable()->change();
