@@ -47,6 +47,18 @@
                         {{ __('common.title') }}
                     </label>
                 </p>
+                <p class="form__group">
+                    <input
+                        id="expires_at"
+                        class="form__text"
+                        name="expires_at"
+                        type="date"
+                        value="{{ old('expires_at') }}"
+                    />
+                    <label class="form__label form__label--floating" for="expires_at">
+                        {{ __('poll.close-date') }}
+                    </label>
+                </p>
                 <template x-for="option in options">
                     <p class="form__group">
                         <input

@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $user_id
  * @property string                          $title
  * @property int                             $multiple_choice
+ * @property \Illuminate\Support\Carbon|null $expires_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
@@ -43,6 +44,18 @@ class Poll extends Model
      * @var string[]
      */
     protected $guarded = [];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{expires_at: 'datetime'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'expires_at' => 'datetime',
+        ];
+    }
 
     /**
      * Belongs To A User.

@@ -70,7 +70,7 @@ class PollController extends Controller
      */
     public function store(StorePoll $request): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'multiple_choice']));
+        $poll = Poll::create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'expires_at', 'multiple_choice']));
         Option::upsert(array_map(fn ($item) => ['poll_id' => $poll->id] + $item, $request->safe()->only(['options'])['options']), ['id'], []);
 
         $this->chatRepository->systemMessage(
@@ -98,7 +98,7 @@ class PollController extends Controller
      */
     public function update(UpdatePollRequest $request, Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        $poll->update($request->safe()->only(['title', 'multiple_choice']));
+        $poll->update($request->safe()->only(['title', 'expires_at', 'multiple_choice']));
 
         $poll->options()
             ->whereNotIn('id', Arr::flatten($request->safe()->only(['options.*.id'])))
