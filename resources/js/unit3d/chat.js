@@ -24,4 +24,3 @@ new Vue({
     el: '#vue',
     components: { chatbox: chatbox },
 });
-
