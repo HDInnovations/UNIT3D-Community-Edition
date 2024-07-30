@@ -154,7 +154,7 @@ Alpine.data('bookmark', (torrentId, bookmarked) => ({
     torrentId: torrentId,
     bookmarked: bookmarked,
     button: {
-        ["x-on:click"]() {
+        ['x-on:click']() {
             this.bookmarked ? this.deleteBookmark() : this.createBookmark();
         },
         ['x-bind:title']() {
