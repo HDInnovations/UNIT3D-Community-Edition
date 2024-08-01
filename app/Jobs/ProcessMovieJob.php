@@ -23,6 +23,7 @@ use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Person;
 use App\Models\Recommendation;
+use App\Models\Torrent;
 use App\Services\Tmdb\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -93,5 +94,10 @@ class ProcessMovieJob implements ShouldQueue
         // Recommendations
 
         Recommendation::upsert($movieScraper->getRecommendations(), ['recommendation_movie_id', 'movie_id']);
+
+        Torrent::query()
+            ->where('tmdb', '=', $this->id)
+            ->whereRelation('category', 'movie_meta', '=', true)
+            ->searchable();
     }
 }

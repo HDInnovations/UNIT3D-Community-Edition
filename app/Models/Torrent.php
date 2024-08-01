@@ -26,9 +26,11 @@ use App\Notifications\NewThank;
 use App\Traits\Auditable;
 use App\Traits\GroupedLastScope;
 use App\Traits\TorrentFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use voku\helper\AntiXSS;
 
 /**
@@ -92,6 +94,7 @@ class Torrent extends Model
 
     /** @use HasFactory<\Database\Factories\TorrentFactory> */
     use HasFactory;
+    use Searchable;
     use SoftDeletes;
     use TorrentFilter;
 
@@ -480,5 +483,374 @@ class Torrent extends Model
         $pfree = $user && ($user->group->is_freeleech || cache()->get('personal_freeleech:'.$user->id));
 
         return $this->free || config('other.freeleech') || $pfree;
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'id'                 => (string) $this->id,
+            'name'               => $this->name,
+            'num_file'           => $this->num_file,
+            'folder'             => $this->folder,
+            'size'               => $this->size,
+            'leechers'           => $this->leechers,
+            'seeders'            => $this->seeders,
+            'times_completed'    => $this->times_completed,
+            'created_at'         => $this->created_at?->timestamp,
+            'bumped_at'          => $this->bumped_at?->timestamp,
+            'fl_until'           => $this->fl_until?->timestamp,
+            'du_until'           => $this->du_until?->timestamp,
+            'user_id'            => $this->user_id,
+            'imdb'               => $this->imdb,
+            'tvdb'               => $this->tvdb,
+            'tmdb'               => $this->tmdb,
+            'mal'                => $this->mal,
+            'igdb'               => $this->igdb,
+            'season_number'      => $this->season_number,
+            'episode_number'     => $this->episode_number,
+            'stream'             => $this->stream,
+            'free'               => $this->free,
+            'doubleup'           => $this->doubleup,
+            'refundable'         => $this->refundable,
+            'highspeed'          => $this->highspeed,
+            'featured'           => $this->featured,
+            'status'             => $this->status,
+            'anon'               => $this->anon,
+            'sticky'             => $this->sticky,
+            'sd'                 => $this->sd,
+            'internal'           => $this->internal,
+            'release_year'       => $this->release_year,
+            'deleted_at'         => $this->deleted_at?->timestamp,
+            'distributor_id'     => $this->distributor_id,
+            'region_id'          => $this->region_id,
+            'personal_release'   => $this->personal_release,
+            'info_hash'          => bin2hex($this->info_hash),
+            'user'               => json_decode($this->json_user ?? 'null'),
+            'type'               => json_decode($this->json_type ?? 'null'),
+            'category'           => json_decode($this->json_category ?? 'null'),
+            'resolution'         => json_decode($this->json_resolution ?? 'null'),
+            'movie'              => json_decode($this->json_movie ?? 'null'),
+            'tv'                 => json_decode($this->json_tv ?? 'null'),
+            'playlists'          => json_decode($this->json_playlists ?? []),
+            'freeleech_tokens'   => json_decode($this->json_freeleech_tokens ?? []),
+            'bookmarks'          => json_decode($this->json_bookmarks ?? []),
+            'files'              => json_decode($this->json_files ?? []),
+            'keywords'           => json_decode($this->json_keywords ?? []),
+            'history_seeders'    => json_decode($this->json_history_seeders ?? []),
+            'history_leechers'   => json_decode($this->json_history_leechers ?? []),
+            'history_active'     => json_decode($this->json_history_active ?? []),
+            'history_inactive'   => json_decode($this->json_history_inactive ?? []),
+            'history_complete'   => json_decode($this->json_history_complete ?? []),
+            'history_incomplete' => json_decode($this->json_history_incomplete ?? []),
+        ];
+    }
+
+    /**
+     * Modify the query used to retrieve models when making all of the models searchable.
+     *
+     * @param  Builder<self> $query
+     * @return Builder<self>
+     */
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->selectRaw("
+            torrents.id,
+            torrents.name,
+            torrents.description,
+            torrents.mediainfo,
+            torrents.bdinfo,
+            torrents.num_file,
+            torrents.folder,
+            torrents.size,
+            torrents.leechers,
+            torrents.seeders,
+            torrents.times_completed,
+            UNIX_TIMESTAMP(torrents.created_at) AS created_at,
+            UNIX_TIMESTAMP(torrents.bumped_at) AS bumped_at,
+            UNIX_TIMESTAMP(torrents.fl_until) AS fl_until,
+            UNIX_TIMESTAMP(torrents.du_until) AS du_until,
+            torrents.user_id,
+            torrents.imdb,
+            torrents.tvdb,
+            torrents.tmdb,
+            torrents.mal,
+            torrents.igdb,
+            torrents.season_number,
+            torrents.episode_number,
+            torrents.stream,
+            torrents.free,
+            torrents.doubleup,
+            torrents.refundable,
+            torrents.highspeed,
+            torrents.featured,
+            torrents.status,
+            torrents.anon,
+            torrents.sticky,
+            torrents.sd,
+            torrents.internal,
+            torrents.release_year,
+            UNIX_TIMESTAMP(torrents.deleted_at) AS deleted_at,
+            torrents.distributor_id,
+            torrents.region_id,
+            torrents.personal_release,
+            LOWER(HEX(torrents.info_hash)) AS info_hash,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'user_id', history.user_id
+                )), JSON_ARRAY())
+                FROM history
+                WHERE torrents.id = history.torrent_id
+                    AND seeder = 1
+            ) AS json_history_seeders,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'user_id', history.user_id
+                )), JSON_ARRAY())
+                FROM history
+                WHERE torrents.id = history.torrent_id
+                    AND seeder = 0
+            ) AS json_history_leechers,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'user_id', history.user_id
+                )), JSON_ARRAY())
+                FROM history
+                WHERE torrents.id = history.torrent_id
+                    AND active = 1
+            ) AS json_history_active,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'user_id', history.user_id
+                )), JSON_ARRAY())
+                FROM history
+                WHERE torrents.id = history.torrent_id
+                    AND active = 0
+            ) AS json_history_inactive,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'user_id', history.user_id
+                )), JSON_ARRAY())
+                FROM history
+                WHERE torrents.id = history.torrent_id
+                    AND completed_at IS NOT NULL
+            ) AS json_history_complete,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'user_id', history.user_id
+                )), JSON_ARRAY())
+                FROM history
+                WHERE torrents.id = history.torrent_id
+                    AND completed_at IS NULL
+            ) AS json_history_incomplete,
+            (
+                SELECT JSON_OBJECT(
+                    'id', users.id,
+                    'username', users.username,
+                    'group', (
+                        SELECT JSON_OBJECT(
+                            'name', `groups`.name,
+                            'color', `groups`.color,
+                            'icon', `groups`.icon,
+                            'effect', `groups`.effect
+                        )
+                        FROM `groups`
+                        WHERE `groups`.id = users.group_id
+                        LIMIT 1
+                    )
+                )
+                FROM users
+                WHERE torrents.user_id = users.id
+                LIMIT 1
+            ) AS json_user,
+            (
+                SELECT JSON_OBJECT(
+                    'id', categories.id,
+                    'name', categories.name,
+                    'image', categories.image,
+                    'icon', categories.icon,
+                    'no_meta', categories.no_meta,
+                    'music_meta', categories.music_meta,
+                    'game_meta', categories.game_meta,
+                    'tv_meta', categories.tv_meta,
+                    'movie_meta', categories.movie_meta
+                )
+                FROM categories
+                WHERE torrents.category_id = categories.id
+                LIMIT 1
+            ) AS json_category,
+            (
+                SELECT JSON_OBJECT(
+                    'id', types.id,
+                    'name', types.name
+                )
+                FROM types
+                WHERE torrents.type_id = types.id
+                LIMIT 1
+            ) AS json_type,
+            (
+                SELECT JSON_OBJECT(
+                    'id', resolutions.id,
+                    'name', resolutions.name
+                )
+                FROM resolutions
+                WHERE torrents.resolution_id = resolutions.id
+                LIMIT 1
+            ) AS json_resolution,
+            (
+                SELECT JSON_OBJECT(
+                    'id', movies.id,
+                    'name', movies.title,
+                    'year', YEAR(movies.release_date),
+                    'poster', movies.poster,
+                    'original_language', movies.original_language,
+                    'adult', movies.adult,
+                    'companies', (
+                        SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                            'id', companies.id,
+                            'name', companies.name
+                        )), JSON_ARRAY())
+                        FROM companies
+                        WHERE companies.id IN (
+                            SELECT company_id
+                            FROM company_movie
+                            WHERE company_movie.movie_id = torrents.tmdb
+                        )
+                    ),
+                    'genres', (
+                        SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                            'id', genres.id,
+                            'name', genres.name
+                        )), JSON_ARRAY())
+                        FROM genres
+                        WHERE genres.id IN (
+                            SELECT genre_id
+                            FROM genre_movie
+                            WHERE genre_movie.movie_id = torrents.tmdb
+                        )
+                    ),
+                    'collection_id', (
+                        SELECT collection_movie.collection_id
+                        FROM collection_movie
+                        WHERE movies.id = collection_movie.movie_id
+                        LIMIT 1
+                    ),
+                    'wishes', (
+                        SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                            'user_id', wishes.user_id
+                        )), JSON_ARRAY())
+                        FROM wishes
+                        WHERE wishes.movie_id = movies.id
+                    )
+                )
+                FROM movies
+                WHERE torrents.tmdb = movies.id
+                    AND torrents.category_id in (
+                        SELECT id
+                        FROM categories
+                        WHERE movie_meta = 1
+                    )
+                LIMIT 1
+            ) AS json_movie,
+            (
+                SELECT JSON_OBJECT(
+                    'id', tv.id,
+                    'name', tv.name,
+                    'year', YEAR(tv.first_air_date),
+                    'poster', tv.poster,
+                    'original_language', tv.original_language,
+                    'companies', (
+                        SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                            'id', companies.id,
+                            'name', companies.name
+                        )), JSON_ARRAY())
+                        FROM companies
+                        WHERE companies.id IN (
+                            SELECT company_id
+                            FROM company_tv
+                            WHERE company_tv.tv_id = torrents.id
+                        )
+                    ),
+                    'genres', (
+                        SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                            'id', genres.id,
+                            'name', genres.name
+                        )), JSON_ARRAY())
+                        FROM genres
+                        WHERE genres.id IN (
+                            SELECT genre_id
+                            FROM genre_tv
+                            WHERE genre_tv.tv_id = torrents.tmdb
+                        )
+                    ),
+                    'networks', (
+                        SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                            'id', networks.id,
+                            'name', networks.name
+                        )), JSON_ARRAY())
+                        FROM networks
+                        WHERE networks.id IN (
+                            SELECT network_id
+                            FROM network_tv
+                            WHERE network_tv.tv_id = torrents.id
+                        )
+                    ),
+                    'wishes', (
+                        SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                            'user_id', wishes.user_id
+                        )), JSON_ARRAY())
+                        FROM wishes
+                        WHERE wishes.tv_id = tv.id
+                    )
+                )
+                FROM tv
+                WHERE torrents.tmdb = tv.id
+                    AND torrents.category_id in (
+                        SELECT id
+                        FROM categories
+                        WHERE tv_meta = 1
+                    )
+                LIMIT 1
+            ) AS json_tv,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'id', playlist_torrents.id
+                )), JSON_ARRAY())
+                FROM playlist_torrents
+                WHERE torrents.id = playlist_torrents.playlist_id
+            ) AS json_playlists,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'user_id', freeleech_tokens.user_id
+                )), JSON_ARRAY())
+                FROM freeleech_tokens
+                WHERE torrents.id = freeleech_tokens.torrent_id
+            ) AS json_freeleech_tokens,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'user_id', bookmarks.user_id
+                )), JSON_ARRAY())
+                FROM bookmarks
+                WHERE torrents.id = bookmarks.torrent_id
+            ) AS json_bookmarks,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
+                    'id', files.id,
+                    'name', files.name,
+                    'size', files.size
+                )), JSON_ARRAY())
+                FROM files
+                WHERE torrents.id = files.torrent_id
+            ) AS json_files,
+            (
+                SELECT COALESCE(JSON_ARRAYAGG(keywords.name), JSON_ARRAY())
+                FROM keywords
+                WHERE torrents.id = keywords.torrent_id
+            ) AS json_keywords
+        ");
     }
 }

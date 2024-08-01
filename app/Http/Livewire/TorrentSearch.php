@@ -35,6 +35,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Meilisearch\Endpoints\Indexes;
 use Closure;
 
 class TorrentSearch extends Component
@@ -220,6 +221,9 @@ class TorrentSearch extends Component
     #[Url(history: true)]
     public bool $incomplete = false;
 
+    #[Url(history: true, except: 'meilisearch')]
+    public ?string $driver = 'meilisearch';
+
     #[Url(history: true)]
     public int $perPage = 25;
 
@@ -339,7 +343,7 @@ class TorrentSearch extends Component
     /**
      * @return Closure(Builder<Torrent>): Builder<Torrent>
      */
-    final public function filters(): Closure
+    final public function filters(): TorrentSearchFiltersDTO
     {
         return (new TorrentSearchFiltersDTO(
             name: $this->name,
@@ -404,7 +408,7 @@ class TorrentSearch extends Component
                 $this->leeching => true,
                 default         => null,
             },
-        ))->toSqlQueryBuilder();
+        ));
     }
 
     /**
@@ -428,7 +432,13 @@ class TorrentSearch extends Component
             $this->reset('sortField');
         }
 
-        $torrents = Torrent::with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
+        // Only allow sql for now to prevent user complaints of limiting page count to 1000 results (meilisearch limitation).
+        // However, eventually we want to switch to meilisearch only to reduce server load.
+        // $isSqlAllowed = $user->group->is_modo && $this->driver === 'sql';
+        $isSqlAllowed = $this->driver !== 'sql';
+
+        $eagerLoads = fn (Builder $query) => $query
+            ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
             ->withCount([
                 'thanks',
                 'comments',
@@ -465,11 +475,34 @@ class TorrentSearch extends Component
                     WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
                     WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
                 END as meta
-            ")
-            ->where($this->filters())
-            ->latest('sticky')
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(min($this->perPage, 100));
+            ");
+
+        if ($isSqlAllowed) {
+            $torrents = Torrent::query()
+                ->where($this->filters()->toSqlQueryBuilder())
+                ->latest('sticky')
+                ->orderBy($this->sortField, $this->sortDirection);
+
+            $eagerLoads($torrents);
+            $torrents = $torrents->paginate(min($this->perPage, 100));
+        } else {
+            $torrents = Torrent::search(
+                $this->name,
+                function (Indexes $meilisearch, string $query, array $options) {
+                    $options['sort'] = [
+                        'sticky:desc',
+                        $this->sortField.':'.$this->sortDirection,
+                    ];
+                    $options['filter'] = $this->filters()->toMeilisearchFilter();
+
+                    $results = $meilisearch->search($query, $options);
+
+                    return $results;
+                }
+            )
+                ->query($eagerLoads)
+                ->paginate(min($this->perPage, 100));
+        }
 
         // See app/Traits/TorrentMeta.php
         $this->scopeMeta($torrents);

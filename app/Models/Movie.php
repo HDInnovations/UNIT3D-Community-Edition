@@ -139,4 +139,12 @@ class Movie extends Model
             $q->where('movie_meta', '-', true);
         });
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish, $this>
+     */
+    public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Wish::class);
+    }
 }

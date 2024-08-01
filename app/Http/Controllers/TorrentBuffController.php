@@ -264,6 +264,8 @@ class TorrentBuffController extends Controller
 
             cache()->put('freeleech_token:'.$user->id.':'.$torrent->id, true);
 
+            $torrent->searchable();
+
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
         }

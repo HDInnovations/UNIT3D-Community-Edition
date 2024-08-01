@@ -24,9 +24,10 @@ use Closure;
 readonly class TorrentSearchFiltersDTO
 {
     use TorrentFilter;
+    private ?User $user;
 
     public function __construct(
-        private ?User $user = null,
+        User $user = null,
         private string $name = '',
         private string $description = '',
         private string $mediainfo = '',
@@ -84,6 +85,7 @@ readonly class TorrentSearchFiltersDTO
         private ?bool $userSeeder = null,
         private ?bool $userActive = null,
     ) {
+        $this->user = $user ?? auth()->user();
     }
 
     /**
@@ -91,8 +93,9 @@ readonly class TorrentSearchFiltersDTO
      */
     final public function toSqlQueryBuilder(): Closure
     {
-        $user = $this->user ?? auth()->user();
-        $isRegexAllowed = $user->group->is_modo || $user->group->is_editor;
+        $group = $this->user->group;
+
+        $isRegexAllowed = $group->is_modo || $group->is_editor;
         $isRegex = fn ($field) => $isRegexAllowed
             && \strlen((string) $field) > 2
             && $field[0] === '/'
@@ -136,8 +139,8 @@ readonly class TorrentSearchFiltersDTO
             ->when($this->stream, fn ($query) => $query->streamOptimized())
             ->when($this->sd, fn ($query) => $query->sd())
             ->when($this->highspeed, fn ($query) => $query->highspeed())
-            ->when($this->userBookmarked, fn ($query) => $query->bookmarkedBy($user))
-            ->when($this->userWished, fn ($query) => $query->wishedBy($user))
+            ->when($this->userBookmarked, fn ($query) => $query->bookmarkedBy($this->user))
+            ->when($this->userWished, fn ($query) => $query->wishedBy($this->user))
             ->when($this->internal, fn ($query) => $query->internal())
             ->when($this->personalRelease, fn ($query) => $query->personalRelease())
             ->when($this->trumpable, fn ($query) => $query->trumpable())
@@ -145,10 +148,236 @@ readonly class TorrentSearchFiltersDTO
             ->when($this->dying, fn ($query) => $query->dying())
             ->when($this->dead, fn ($query) => $query->dead())
             ->when($this->graveyard, fn ($query) => $query->graveyard())
-            ->when($this->userDownloaded === false, fn ($query) => $query->notDownloadedBy($user))
-            ->when($this->userDownloaded === true, fn ($query) => $query->downloadedBy($user))
-            ->when($this->userSeeder === true && $this->userActive === true, fn ($query) => $query->seededBy($user))
-            ->when($this->userSeeder === false && $this->userActive === true, fn ($query) => $query->leechedBy($user))
-            ->when($this->userSeeder === false && $this->userActive === false, fn ($query) => $query->uncompletedBy($user));
+            ->when($this->userDownloaded === false, fn ($query) => $query->notDownloadedBy($this->user))
+            ->when($this->userDownloaded === true, fn ($query) => $query->downloadedBy($this->user))
+            ->when($this->userSeeder === true && $this->userActive === true, fn ($query) => $query->seededBy($this->user))
+            ->when($this->userSeeder === false && $this->userActive === true, fn ($query) => $query->leechedBy($this->user))
+            ->when($this->userSeeder === false && $this->userActive === false, fn ($query) => $query->uncompletedBy($this->user));
+    }
+
+    /**
+     * @return list<string|list<string>>
+     */
+    final public function toMeilisearchFilter(): array
+    {
+        $group = $this->user->group;
+
+        $filters = [
+            'deleted_at IS NULL',
+            'status = 1',
+        ];
+
+        if ($this->uploader !== '') {
+            $filters[] = 'user.username = '.json_encode($this->uploader);
+
+            if (!$group->is_modo) {
+                $filters[] = 'anon = 0';
+            }
+        }
+
+        if ($this->keywords !== []) {
+            $filters[] = 'keywords.name IN '.json_encode($this->keywords);
+        }
+
+        if ($this->startYear !== null) {
+            $filters[] = [
+                'movie.year >= '.$this->startYear,
+                'tv.year >= '.$this->startYear,
+            ];
+        }
+
+        if ($this->endYear !== null) {
+            $filters[] = [
+                'movie.year <= '.$this->startYear,
+                'tv.year <= '.$this->startYear,
+            ];
+        }
+
+        if ($this->minSize !== null) {
+            $filters[] = 'size >= '.$this->minSize;
+        }
+
+        if ($this->maxSize !== null) {
+            $filters[] = 'size <= '.$this->maxSize;
+        }
+
+        if ($this->seasonNumber !== null) {
+            $filters[] = 'season_number = '.$this->seasonNumber;
+        }
+
+        if ($this->episodeNumber !== null) {
+            $filters[] = 'episode_number = '.$this->episodeNumber;
+        }
+
+        if ($this->categoryIds !== []) {
+            $filters[] = 'category.id IN '.json_encode(array_map('intval', $this->categoryIds));
+        }
+
+        if ($this->typeIds !== []) {
+            $filters[] = 'type.id IN '.json_encode(array_map('intval', $this->typeIds));
+        }
+
+        if ($this->resolutionIds !== []) {
+            $filters[] = 'resolution.id IN '.json_encode(array_map('intval', $this->resolutionIds));
+        }
+
+        if ($this->genreIds !== []) {
+            $filters[] = [
+                'movie.genres.id IN '.json_encode(array_map('intval', $this->genreIds)),
+                'tv.genres.id IN '.json_encode(array_map('intval', $this->genreIds)),
+            ];
+        }
+
+        if ($this->regionIds !== []) {
+            $filters[] = 'region_id IN '.json_encode(array_map('intval', $this->regionIds));
+        }
+
+        if ($this->distributorIds !== []) {
+            $filters[] = 'distributor_id IN '.json_encode(array_map('intval', $this->distributorIds));
+        }
+
+        if ($this->adult !== null) {
+            $filters[] = 'movie.adult = '.($this->adult ? '1' : '0');
+        }
+
+        if ($this->tmdbId !== null) {
+            $filters[] = 'tmdb = '.$this->tmdbId;
+        }
+
+        if ($this->imdbId !== null) {
+            $filters[] = 'imdb = '.$this->imdbId;
+        }
+
+        if ($this->tvdbId !== null) {
+            $filters[] = 'tvdb = '.$this->tvdbId;
+        }
+
+        if ($this->malId !== null) {
+            $filters[] = 'mal = '.$this->malId;
+        }
+
+        if ($this->playlistId !== null) {
+            $filters[] = 'playlists.id = '.$this->playlistId;
+        }
+
+        if ($this->collectionId !== null) {
+            $filters[] = 'movie.collection.id = '.$this->collectionId;
+        }
+
+        if ($this->companyId !== null) {
+            $filters[] = [
+                'movie.companies.id = '.$this->companyId,
+                'tv.companies.id = '.$this->companyId,
+            ];
+        }
+
+        if ($this->networkId !== null) {
+            $filters[] = 'tv.networks.id = '.$this->networkId;
+        }
+
+        if ($this->primaryLanguageNames !== []) {
+            $filters[] = [
+                'movie.original_language IN '.json_encode(array_map('strval', $this->primaryLanguageNames)),
+                'tv.original_language IN '.json_encode(array_map('strval', $this->primaryLanguageNames)),
+            ];
+        }
+
+        if ($this->free !== []) {
+            /** @phpstan-ignore booleanNot.alwaysTrue */
+            if (!config('other.freeleech')) {
+                $filters[] = 'free IN '.json_encode(array_map('intval', $this->free));
+            }
+        }
+
+        if ($this->doubleup) {
+            $filters[] = 'doubleup = 1';
+        }
+
+        if ($this->featured) {
+            $filters[] = 'featured = 1';
+        }
+
+        if ($this->refundable) {
+            $filters[] = 'refundable = 1';
+        }
+
+        if ($this->stream) {
+            $filters[] = 'stream = 1';
+        }
+
+        if ($this->sd) {
+            $filters[] = 'sd = 1';
+        }
+
+        if ($this->highspeed) {
+            $filters[] = 'highspeed = 1';
+        }
+
+        if ($this->internal) {
+            $filters[] = 'internal = 1';
+        }
+
+        if ($this->personalRelease) {
+            $filters[] = 'personal_release = 1';
+        }
+
+        if ($this->alive) {
+            $filters[] = 'seeders > 0';
+        }
+
+        if ($this->dying) {
+            $filters[] = 'seeders = 1';
+            $filters[] = 'times_completed >= 3';
+        }
+
+        if ($this->dead) {
+            $filters[] = 'seeders = 0';
+        }
+
+        if ($this->filename !== '') {
+            $filters[] = 'files.name = '.json_encode($this->filename);
+        }
+
+        if ($this->graveyard) {
+            $filters[] = 'seeders = 0';
+            $filters[] = 'created_at < '.now()->subDays(30)->timestamp;
+        }
+
+        if ($this->userBookmarked) {
+            $filters[] = 'bookmarks.user_id = '.$this->user->id;
+        }
+
+        if ($this->userWished) {
+            $filters[] = [
+                'movie.wishes.user_id = '.$this->user->id,
+                'tv.wishes.user_id = '.$this->user->id,
+            ];
+        }
+
+        if ($this->userDownloaded === true) {
+            $filters[] = 'history_complete.user_id = '.$this->user->id;
+        }
+
+        if ($this->userDownloaded === false) {
+            $filters[] = 'history_incomplete.user_id = '.$this->user->id;
+        }
+
+        if ($this->userSeeder === false) {
+            $filters[] = 'history_leechers.user_id = '.$this->user->id;
+        }
+
+        if ($this->userSeeder === true) {
+            $filters[] = 'history_seeders.user_id = '.$this->user->id;
+        }
+
+        if ($this->userActive === true) {
+            $filters[] = 'history_active.user_id = '.$this->user->id;
+        }
+
+        if ($this->userActive === false) {
+            $filters[] = 'history_inactive.user_id = '.$this->user->id;
+        }
+
+        return $filters;
     }
 }
