@@ -924,6 +924,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(EmailUpdate::class);
     }
 
+    /**
+     * Has many torrent trumps.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTrump>
+     */
+    public function torrentTrumps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentTrump::class);
+    }
+
     public function sendSystemNotification(string $subject, string $message): void
     {
         $conversation = Conversation::create(['subject' => $subject]);

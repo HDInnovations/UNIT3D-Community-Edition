@@ -156,4 +156,12 @@
             title="{{ __('torrent.recent-bumped') }}: {{ $torrent->bumped_at }}"
         ></i>
     @endif
+
+    @if ($torrent->trump_exists)
+        <i
+            class="{{ config('other.font-awesome') }} fa-skull-crossbones torrent-icons__torrent-trump"
+            style="color: lightcoral"
+            title="This torrent is trumpable for the following reason: {{ $torrent->trump->reason }}"
+        ></i>
+    @endif
 </span>

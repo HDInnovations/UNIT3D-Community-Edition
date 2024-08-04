@@ -71,6 +71,7 @@ readonly class TorrentSearchFiltersDTO
         private bool $sd = false,
         private bool $highspeed = false,
         private bool $internal = false,
+        private bool $trumpable = false,
         private bool $personalRelease = false,
         private bool $alive = false,
         private bool $dying = false,
@@ -139,6 +140,7 @@ readonly class TorrentSearchFiltersDTO
             ->when($this->userWished, fn ($query) => $query->wishedBy($user))
             ->when($this->internal, fn ($query) => $query->internal())
             ->when($this->personalRelease, fn ($query) => $query->personalRelease())
+            ->when($this->trumpable, fn ($query) => $query->trumpable())
             ->when($this->alive, fn ($query) => $query->alive())
             ->when($this->dying, fn ($query) => $query->dying())
             ->when($this->dead, fn ($query) => $query->dead())

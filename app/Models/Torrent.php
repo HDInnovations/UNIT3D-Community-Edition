@@ -402,6 +402,16 @@ class Torrent extends Model
     }
 
     /**
+     * Trump.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<TorrentTrump>
+     */
+    public function trump(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(TorrentTrump::class);
+    }
+
+    /**
      * Set The Torrents Description After Its Been Purified.
      */
     public function setDescriptionAttribute(?string $value): void
