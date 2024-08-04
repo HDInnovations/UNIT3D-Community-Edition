@@ -1,32 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_chat\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_comment\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
 			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_download\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_invite\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_request\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_upload\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoBanDisposableUsers.php
 
@@ -67,16 +42,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_download\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_invite\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_request\\.$#"
 			count: 2
 			path: app/Console/Commands/AutoGroup.php
 

@@ -18,7 +18,7 @@
 @section('page', 'page__request--create')
 
 @section('main')
-    @if ($user->can_request)
+    @if ($user->can_request ?? $user->group->can_request)
         <section
             class="panelV2"
             x-data="{
@@ -258,7 +258,7 @@
     @endif
 @endsection
 
-@if ($user->can_request)
+@if ($user->can_request ?? $user->group->can_request)
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.info') }}</h2>

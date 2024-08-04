@@ -44,6 +44,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool     $is_freeleech
  * @property bool     $is_double_upload
  * @property bool     $is_refundable
+ * @property bool     $can_chat
+ * @property bool     $can_comment
+ * @property bool     $can_invite
+ * @property bool     $can_request
  * @property bool     $can_upload
  * @property bool     $is_incognito
  * @property bool     $autogroup
@@ -65,7 +69,28 @@ class Group extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{is_uploader: 'bool', is_internal: 'bool', is_editor: 'bool', is_owner: 'bool', is_admin: 'bool', is_modo: 'bool', is_trusted: 'bool', is_immune: 'bool', is_freeleech: 'bool', is_double_upload: 'bool', is_refundable: 'bool', can_upload: 'bool', is_incognito: 'bool', autogroup: 'bool', system_required: 'bool', min_ratio: 'decimal:2'}
+     * @return array{
+     *     is_uploader: 'bool',
+     *     is_internal: 'bool',
+     *     is_editor: 'bool',
+     *     is_owner: 'bool',
+     *     is_admin: 'bool',
+     *     is_modo: 'bool',
+     *     is_trusted: 'bool',
+     *     is_immune: 'bool',
+     *     is_freeleech: 'bool',
+     *     is_double_upload: 'bool',
+     *     is_refundable: 'bool',
+     *     can_chat: 'bool',
+     *     can_comment: 'bool',
+     *     can_invite: 'bool',
+     *     can_request: 'bool',
+     *     can_upload: 'bool',
+     *     is_incognito: 'bool',
+     *     autogroup: 'bool',
+     *     system_required: 'bool',
+     *     min_ratio: 'decimal:2',
+     * }
      */
     protected function casts(): array
     {
@@ -81,6 +106,10 @@ class Group extends Model
             'is_freeleech'     => 'bool',
             'is_double_upload' => 'bool',
             'is_refundable'    => 'bool',
+            'can_chat'         => 'bool',
+            'can_comment'      => 'bool',
+            'can_invite'       => 'bool',
+            'can_request'      => 'bool',
             'can_upload'       => 'bool',
             'is_incognito'     => 'bool',
             'autogroup'        => 'bool',
