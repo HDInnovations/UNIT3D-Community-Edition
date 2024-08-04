@@ -28,7 +28,10 @@
     @endif
 
     @if (config('other.thanks-system.is-enabled') && isset($torrent->thanks_count))
-        <i class="{{ config('other.font-awesome') }} fa-heartbeat torrent-icons__thanks">
+        <i
+            class="{{ config('other.font-awesome') }} fa-heartbeat torrent-icons__thanks"
+            title="{{ __('torrent.thanks-given') }}"
+        >
             {{ $torrent->thanks_count }}
         </i>
     @endif
@@ -37,6 +40,7 @@
         <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}#comments">
             <i
                 class="{{ config('other.font-awesome') }} fa-comment-alt-lines torrent-icons__comments"
+                title="{{ __('torrent.comments-left') }}"
             >
                 {{ $torrent->comments_count }}
             </i>
@@ -66,16 +70,16 @@
 
     @if ($torrent->featured)
         <i
-            class="{{ config('other.font-awesome') }} fa-certificate torrent-icons__featured"
-            title="{{ __('torrent.featured') }}"
+            class="{{ config('other.font-awesome') }} fa-award-simple torrent-icons__featured"
+            title="{{ __('torrent.featured') . ' - 100% ' . __('torrent.freeleech') . ' + ' . __('torrent.double-upload') }}"
         ></i>
     @endif
 
     @php
-        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech');
+        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
     @endphp
 
-    @if ($alwaysFreeleech || $torrent->free)
+    @if (! $torrent->featured && ($alwaysFreeleech || $torrent->free))
         <i
             @class([
                 'torrent-icons__freeleech ' . config('other.font-awesome'),
@@ -102,7 +106,7 @@
         ></i>
     @endif
 
-    @if (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup)
+    @if (! $torrent->featured && (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup))
         <i
             class="{{ config('other.font-awesome') }} fa-chevron-double-up torrent-icons__double-upload"
             title="{{
@@ -138,14 +142,14 @@
 
     @if ($torrent->highspeed)
         <i
-            class="{{ config('other.font-awesome') }} fa-tachometer torrent-icons__highspeed"
+            class="{{ config('other.font-awesome') }} fa-bolt-lightning torrent-icons__highspeed"
             title="{{ __('common.high-speeds') }}"
         ></i>
     @endif
 
     @if ($torrent->sd)
         <i
-            class="{{ config('other.font-awesome') }} fa-ticket torrent-icons__sd"
+            class="{{ config('other.font-awesome') }} fa-standard-definition torrent-icons__sd"
             title="{{ __('torrent.sd-content') }}"
         ></i>
     @endif
