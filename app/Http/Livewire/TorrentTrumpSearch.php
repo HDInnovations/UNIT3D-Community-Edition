@@ -43,7 +43,7 @@ class TorrentTrumpSearch extends Component
     public string $sortDirection = 'desc';
 
     #[Url(history: true)]
-    public int $perPage = 50;
+    public int $perPage = 25;
 
     /**
      * @return \Illuminate\Pagination\LengthAwarePaginator<TorrentTrump>
@@ -53,8 +53,8 @@ class TorrentTrumpSearch extends Component
     {
         return TorrentTrump::query()
             ->with([
-                'user' => fn ($query) => $query->with('group')->withTrashed(),
-                'torrent:id,name'
+                'user:id,username,group_id,deleted_at',
+                'torrent:id,name,deleted_at',
             ])
             ->when($this->torrentName !== '', fn ($query) => $query->whereRelation('torrent', 'name', 'LIKE', '%'.$this->torrentName.'%'))
             ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', '=', $this->username))

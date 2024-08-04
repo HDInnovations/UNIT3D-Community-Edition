@@ -92,14 +92,19 @@
                             <x-user_tag :user="$torrentTrump->user" :anon="false" />
                         </td>
                         <td>
-                            @if ($torrentTrump->torrent !== null)
+                            @if ($torrentTrump->torrent->trashed())
+                                <a
+                                    class="text-danger"
+                                    href="{{ route('torrents.show', ['id' => $torrentTrump->torrent->id]) }}"
+                                >
+                                    {{ $torrentTrump->torrent->name }}
+                                </a>
+                            @else
                                 <a
                                     href="{{ route('torrents.show', ['id' => $torrentTrump->torrent->id]) }}"
                                 >
-                                    {{ $torrentTrump->torrent->name ?? 'Not Found' }}
+                                    {{ $torrentTrump->torrent->name }}
                                 </a>
-                            @else
-                                Not Found
                             @endif
                         </td>
                         <td>{{ $torrentTrump->reason }}</td>

@@ -42,7 +42,7 @@ class TorrentTrump extends Model
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Torrent::class);
+        return $this->belongsTo(Torrent::class)->withTrashed();
     }
 
     /**
@@ -50,6 +50,6 @@ class TorrentTrump extends Model
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->with('group')->withTrashed();
     }
 }
