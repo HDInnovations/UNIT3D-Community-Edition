@@ -15,6 +15,11 @@
     display: flex;
     flex-direction: column;
     row-gap: 18px;
+
+    @media screen and (max-width: 576px) {
+        margin: 20px 0 0 20px;
+        padding: 0 10px;
+    }
 }
 
 .comment__list-item {
@@ -153,6 +158,10 @@
 .reply-comment {
     margin-left: 155px;
     background-color: inherit;
+
+    @media screen and (max-width: 576px) {
+        margin-left: 20px;
+    }
 }
 
 .comment__replies {
