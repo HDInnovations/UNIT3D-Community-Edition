@@ -18,7 +18,7 @@ namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TorrentTrumpRequest extends FormRequest
+class StoreTorrentTrumpRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
