@@ -16,13 +16,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Staff\TorrentTrumpRequest;
+use App\Http\Requests\Staff\StoreTorrentTrumpRequest;
 use App\Models\Torrent;
 use Illuminate\Http\Request;
 
 class TorrentTrumpController extends Controller
 {
-    public function store(TorrentTrumpRequest $request, Torrent $torrent): \Illuminate\Http\RedirectResponse
+    public function store(StoreTorrentTrumpRequest $request, Torrent $torrent): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
 

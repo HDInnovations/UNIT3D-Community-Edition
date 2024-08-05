@@ -36,6 +36,7 @@ return [
     'categories'               => 'Categories',
     'category'                 => 'Category',
     'client'                   => 'Client',
+    'comments-left'            => 'Comments Left',
     'commited'                 => 'Commited',
     'completed'                => 'Completed',
     'completed_at'             => 'Completed at',
