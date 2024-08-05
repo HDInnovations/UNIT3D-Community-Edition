@@ -501,21 +501,6 @@ parameters:
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Call to method input\\(\\) on an unknown class App\\\\Http\\\\Requests\\\\Staff\\\\TorrentTrumpRequest\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentTrumpController.php
-
-		-
-			message: "#^Call to method user\\(\\) on an unknown class App\\\\Http\\\\Requests\\\\Staff\\\\TorrentTrumpRequest\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentTrumpController.php
-
-		-
-			message: "#^Parameter \\$request of method App\\\\Http\\\\Controllers\\\\TorrentTrumpController\\:\\:store\\(\\) has invalid type App\\\\Http\\\\Requests\\\\Staff\\\\TorrentTrumpRequest\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentTrumpController.php
-
-		-
 			message: "#^Left side of && is always false\\.$#"
 			count: 2
 			path: app/Http/Controllers/User/InviteController.php
