@@ -190,11 +190,11 @@
                 method="POST"
                 action="{{ route('staff.users.update_permissions', ['user' => $user]) }}"
                 x-data="{
-                    override_can_comment: {{ Js::from($user->can_comment !== null) }}
-                    override_can_chat:  {{ Js::from(r->can_chat !== null) }}
-                    override_can_invite: {{ Js::from($user->can_invite !== null) }}
-                    override_can_request: {{ Js::from($user->can_request !== null) }}
-                    override_can_upload: {{ Js::from($user->can_upload !== null) }}
+                    override_can_comment: {{ Js::from($user->can_comment !== null) }},
+                    override_can_chat: {{ Js::from($user->can_chat !== null) }},
+                    override_can_invite: {{ Js::from($user->can_invite !== null) }},
+                    override_can_request: {{ Js::from($user->can_request !== null) }},
+                    override_can_upload: {{ Js::from($user->can_upload !== null) }},
                 }"
             >
                 @csrf
