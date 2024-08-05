@@ -1,5 +1,5 @@
 includes:
-    - ./vendor/larastan/larastan/extension.neon
+    - ./vendor/calebdw/larastan/extension.neon
     - ./vendor/calebdw/larastan-livewire/extension.neon
     #- ./vendor/tomasvotruba/bladestan/config/extension.neon
     - ./phpstan-baseline.neon
