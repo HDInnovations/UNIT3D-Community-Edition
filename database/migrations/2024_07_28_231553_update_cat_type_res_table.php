@@ -30,8 +30,8 @@ return new class () extends Migration {
 
         // Change the related torrent table columns to unsigned smallint
         Schema::table('torrents', function (Blueprint $table): void {
-            $table->unsignedSmallInteger('category_id')->change();
-            $table->unsignedSmallInteger('type_id')->change();
+            $table->unsignedSmallInteger('category_id')->nullable()->change();
+            $table->unsignedSmallInteger('type_id')->nullable()->change();
             $table->unsignedSmallInteger('resolution_id')->nullable()->change();
         });
 
