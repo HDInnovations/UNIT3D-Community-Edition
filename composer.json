@@ -44,10 +44,10 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13.5",
         "brianium/paratest": "v7.4.0",
+        "calebdw/larastan": "2.10.5",
         "calebdw/larastan-livewire": "^1.0.1",
         "fakerphp/faker": "^1.23.1",
         "jasonmccreary/laravel-test-assertions": "^2.4.1",
-        "calebdw/larastan" :"^2.10.3",
         "laravel/pint": "^1.17.1",
         "laravel/sail": "^1.31.0",
         "mockery/mockery": "^1.6.12",
