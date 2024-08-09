@@ -95,7 +95,7 @@ class TransactionController extends Controller
 
                     $user->sendSystemNotification(
                         subject: trans('bon.pm-subject'),
-                        message: sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]!',
+                        message: \sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]!',
                     );
 
                     break;

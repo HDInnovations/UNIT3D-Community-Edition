@@ -54,8 +54,8 @@ class HomeController extends Controller
         return view('Staff.dashboard.index', [
             'users' => cache()->remember('dashboard_users', 300, fn () => DB::table('users')
                 ->selectRaw('count(*) as total')
-                ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
-                ->selectRaw(sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
+                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
+                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
                 ->first()),
             'torrents' => cache()->remember('dashboard_torrents', 300, fn () => DB::table('torrents')
                 ->selectRaw('count(*) as total')
