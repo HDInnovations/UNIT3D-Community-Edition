@@ -34,7 +34,7 @@ class Conversation extends Model
     /**
      * Has many private messages.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage, $this>
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -44,7 +44,7 @@ class Conversation extends Model
     /**
      * Has many users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -54,7 +54,7 @@ class Conversation extends Model
     /**
      * Has many participants.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Participant>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Participant, $this>
      */
     public function participants(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

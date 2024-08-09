@@ -42,7 +42,7 @@ class Collection extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
@@ -50,7 +50,7 @@ class Collection extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie, $this>
      */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

@@ -43,7 +43,7 @@ class Recommendation extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, $this>
      */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -51,7 +51,7 @@ class Recommendation extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, $this>
      */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

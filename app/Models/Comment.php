@@ -67,7 +67,7 @@ class Comment extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -78,7 +78,7 @@ class Comment extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, $this>
      */
     public function commentable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
@@ -86,7 +86,7 @@ class Comment extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self, $this>
      */
     public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

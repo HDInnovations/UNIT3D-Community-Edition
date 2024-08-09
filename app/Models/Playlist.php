@@ -50,7 +50,7 @@ class Playlist extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -63,7 +63,7 @@ class Playlist extends Model
     /**
      * Has Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -71,7 +71,7 @@ class Playlist extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {

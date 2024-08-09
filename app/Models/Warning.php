@@ -63,7 +63,7 @@ class Warning extends Model
     /**
      * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
      */
     public function torrenttitle(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -73,7 +73,7 @@ class Warning extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function warneduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -86,7 +86,7 @@ class Warning extends Model
     /**
      * Belongs To A USer.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -99,7 +99,7 @@ class Warning extends Model
     /**
      * Belongs To A USer.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function deletedBy(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

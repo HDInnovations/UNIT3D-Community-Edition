@@ -50,7 +50,7 @@ class Episode extends Model
     protected string $orderDirection = 'ASC';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, $this>
      */
     public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

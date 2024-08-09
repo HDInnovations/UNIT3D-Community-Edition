@@ -50,7 +50,7 @@ class GuestStar extends Model
     public $table = 'people';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Episode>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Episode, $this>
      */
     public function episode(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
