@@ -49,6 +49,10 @@ class ChatController extends Controller
     /* STATUSES */
     public function statuses(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
+        /**
+         * @phpstan-ignore-next-line Laravel automatically converts models to json
+         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
+         */
         return response($this->chatRepository->statuses());
     }
 
@@ -101,19 +105,19 @@ class ChatController extends Controller
     }
 
     /* MESSAGES */
-    public function messages($roomId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function messages(int $roomId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chatRepository->messages($roomId));
     }
 
     /* MESSAGES */
-    public function privateMessages(Request $request, $targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function privateMessages(Request $request, int $targetId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return ChatMessageResource::collection($this->chatRepository->privateMessages($request->user()->id, $targetId));
     }
 
     /* MESSAGES */
-    public function botMessages(Request $request, $botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+    public function botMessages(Request $request, int $botId): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         $runbot = null;
         $bot = Bot::findOrFail($botId);
@@ -298,7 +302,7 @@ class ChatController extends Controller
         return response('success');
     }
 
-    public function deleteMessage(Request $request, $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function deleteMessage(Request $request, int $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
         $message = Message::find($id);
 
