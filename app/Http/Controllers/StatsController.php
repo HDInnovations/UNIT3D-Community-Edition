@@ -372,8 +372,26 @@ class StatsController extends Controller
      */
     public function clients(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $clients = cache()->get('stats:clients') ?? [];
+
+        $groupedClients = [];
+
+        foreach ($clients as $client) {
+            $prefix = preg_split('/\/| /', $client['agent'], 2)[0] ?? $client['agent'];
+
+            if (\array_key_exists($prefix, $groupedClients)) {
+                $groupedClients[$prefix]['user_count'] += $client['user_count'];
+                $groupedClients[$prefix]['peer_count'] += $client['peer_count'];
+            } else {
+                $groupedClients[$prefix]['user_count'] = $client['user_count'];
+                $groupedClients[$prefix]['peer_count'] = $client['peer_count'];
+            }
+
+            $groupedClients[$prefix]['clients'][] = $client;
+        }
+
         return view('stats.clients.clients', [
-            'clients' => cache()->get('stats:clients') ?? [],
+            'clients' => $groupedClients,
         ]);
     }
 

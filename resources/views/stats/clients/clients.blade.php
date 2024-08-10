@@ -24,16 +24,57 @@
                     <tr>
                         <th>Client</th>
                         <th>{{ __('common.users') }}</th>
+                        <th>{{ __('torrent.peers') }}</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($clients as $client => $count)
-                        <tr>
-                            <td>{{ $client }}</td>
-                            <td>Used by {{ $count }} users(s)</td>
-                        </tr>
+                @if (auth()->user()->group->is_modo)
+                    @foreach ($clients as $prefix => $group)
+                        <tbody x-data="toggle">
+                            <tr x-on:click="toggle" style="cursor: pointer">
+                                <td>
+                                    <a
+                                        href="{{ route('staff.peers.index', ['agent' => $prefix]) }}"
+                                        x-on:click.stop
+                                    >
+                                        {{ $prefix }}
+                                    </a>
+                                </td>
+                                <td>{{ $group['user_count'] }}</td>
+                                <td>{{ $group['peer_count'] }}</td>
+                            </tr>
+                            @foreach ($group['clients'] as $client)
+                                <tr x-cloak x-show="isToggledOn">
+                                    <td style="padding: 0 0 0 24px">
+                                        <a
+                                            href="{{ route('staff.peers.index', ['agent' => $prefix]) }}"
+                                        >
+                                            {{ $client['agent'] }}
+                                        </a>
+                                    </td>
+                                    <td>{{ $client['user_count'] }}</td>
+                                    <td>{{ $client['peer_count'] }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
                     @endforeach
-                </tbody>
+                @else
+                    @foreach ($clients as $prefix => $group)
+                        <tbody x-data="toggle">
+                            <tr x-on:click="toggle" style="cursor: pointer">
+                                <td>{{ $prefix }}</td>
+                                <td>{{ $group['user_count'] }}</td>
+                                <td>{{ $group['peer_count'] }}</td>
+                            </tr>
+                            @foreach ($group['clients'] as $client)
+                                <tr x-cloak x-show="isToggledOn">
+                                    <td style="padding: 0 0 0 24px">{{ $client['agent'] }}</td>
+                                    <td>{{ $client['user_count'] }}</td>
+                                    <td>{{ $client['peer_count'] }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    @endforeach
+                @endif
             </table>
         </div>
     </section>
