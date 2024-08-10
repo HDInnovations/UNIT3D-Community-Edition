@@ -44,7 +44,7 @@ class Season extends Model
     /**
      * Has Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -54,7 +54,7 @@ class Season extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, $this>
      */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -62,7 +62,7 @@ class Season extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Episode>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Episode, $this>
      */
     public function episodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

@@ -48,7 +48,7 @@ class Wish extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -58,7 +58,7 @@ class Wish extends Model
     /**
      * Has many torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function movieTorrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -69,7 +69,7 @@ class Wish extends Model
     /**
      * Has many torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function tvTorrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

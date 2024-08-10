@@ -33,7 +33,7 @@ class Participant extends Model
     /**
      * Belongs to a user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -43,7 +43,7 @@ class Participant extends Model
     /**
      * Belongs to a user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Conversation, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Conversation, $this>
      */
     public function conversation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -53,7 +53,7 @@ class Participant extends Model
     /**
      * Has many messages in the conversation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage, $this>
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

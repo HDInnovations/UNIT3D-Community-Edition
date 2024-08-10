@@ -80,7 +80,7 @@ class SystemBot
         $output = implode(' ', $note);
         $v = validator(['receiver' => $receiver, 'amount' => $amount, 'note' => $output], [
             'receiver' => 'required|string|exists:users,username',
-            'amount'   => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
+            'amount'   => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'     => 'required|string',
         ]);
 
@@ -110,7 +110,7 @@ class SystemBot
             $recipientUrl = href_profile($recipient);
 
             $this->chatRepository->systemMessage(
-                sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $value, $recipientUrl, $recipient->username)
+                \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $value, $recipientUrl, $recipient->username)
             );
 
             return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';

@@ -146,7 +146,7 @@ class TorrentHelper
                     .'[TMDB vote average: '.($meta->vote_average ?? 0).'] '
                     .'[TMDB vote count: '.($meta->vote_count ?? 0).']'
                 )
-                ->say(sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                ->say(\sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);

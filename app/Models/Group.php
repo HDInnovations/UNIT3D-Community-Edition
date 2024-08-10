@@ -135,7 +135,7 @@ class Group extends Model
     /**
      * Has Many Users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User, $this>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -145,7 +145,7 @@ class Group extends Model
     /**
      * Has Many Permissions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission, $this>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

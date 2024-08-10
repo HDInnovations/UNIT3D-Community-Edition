@@ -141,7 +141,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, $this>
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -167,7 +167,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Internal Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Internal>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Internal, $this>
      */
     public function internals(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -179,7 +179,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Chatroom.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, $this>
      */
     public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -189,7 +189,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Chat Status.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ChatStatus, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ChatStatus, $this>
      */
     public function chatStatus(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -199,7 +199,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To Many Bookmarks.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function bookmarks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -209,7 +209,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To Many Seeding Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function seedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -221,7 +221,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To Many Leeching Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function leechingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -233,7 +233,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs to many followers.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
      */
     public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -245,7 +245,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs to many connectable seeding torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function connectableSeedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -257,7 +257,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs to many followees.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
      */
     public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -269,7 +269,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Messages.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Message>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Message, $this>
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -279,7 +279,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has One Settings Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserSetting>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserSetting, $this>
      */
     public function settings(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -305,7 +305,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has One Privacy Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserPrivacy>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserPrivacy, $this>
      */
     public function privacy(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -331,7 +331,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has One Notifications Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserNotification>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserNotification, $this>
      */
     public function notification(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -357,7 +357,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has One Watchlist Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Watchlist>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Watchlist, $this>
      */
     public function watchlist(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -367,7 +367,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many RSS Feeds.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rss>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rss, $this>
      */
     public function rss(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -377,7 +377,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Echo Settings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserEcho>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserEcho, $this>
      */
     public function echoes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -387,7 +387,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Audible Settings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserAudible>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserAudible, $this>
      */
     public function audibles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -397,7 +397,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Thanks Given.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Thank>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Thank, $this>
      */
     public function thanksGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -407,7 +407,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Wish's.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish, $this>
      */
     public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -417,7 +417,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Thanks Received.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Thank>
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Thank, Torrent, $this>
      */
     public function thanksReceived(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -427,7 +427,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Polls.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Poll>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Poll, $this>
      */
     public function polls(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -437,7 +437,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -447,7 +447,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Playlist>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Playlist, $this>
      */
     public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -457,7 +457,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Sent PM's.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage, $this>
      */
     public function sentPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -467,7 +467,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Peers.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer, $this>
      */
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -477,7 +477,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Articles.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Article>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Article, $this>
      */
     public function articles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -487,7 +487,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic, $this>
      */
     public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -497,7 +497,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Posts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post, $this>
      */
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -507,7 +507,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Comments.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -517,7 +517,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -527,7 +527,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Approved Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function ApprovedRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -537,7 +537,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Filled Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function filledRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -547,7 +547,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Torrent Request BON Bounties.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty, $this>
      */
     public function requestBounty(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -557,7 +557,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Moderated Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function moderated(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -567,7 +567,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Notes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note, $this>
      */
     public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -577,7 +577,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Reports.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report, $this>
      */
     public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -587,7 +587,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Solved Many Reports.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report, $this>
      */
     public function solvedReports(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -597,7 +597,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Torrent History.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<History>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<History, $this>
      */
     public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -607,7 +607,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Bans.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban, $this>
      */
     public function userban(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -617,7 +617,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Given Many Bans.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban, $this>
      */
     public function staffban(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -627,7 +627,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Given Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
      */
     public function staffwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -637,7 +637,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Deleted Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
      */
     public function staffdeletedwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -647,7 +647,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
      */
     public function userwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -657,7 +657,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Given Many Invites.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite, $this>
      */
     public function sentInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -667,7 +667,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Received Many Invites.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite, $this>
      */
     public function receivedInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -677,7 +677,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Featured Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FeaturedTorrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FeaturedTorrent, $this>
      */
     public function featuredTorrent(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -687,7 +687,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Post Likes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like, $this>
      */
     public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -697,7 +697,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Subscriptions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription, $this>
      */
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -707,7 +707,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Resurrections.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection, $this>
      */
     public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -717,7 +717,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Subscribed topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Forum>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Forum, $this>
      */
     public function subscribedForums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -727,7 +727,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Subscribed topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Topic>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Topic, $this>
      */
     public function subscribedTopics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -737,7 +737,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Permissions through Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission, $this>
      */
     public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -747,7 +747,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many free leech tokens.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken, $this>
      */
     public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -757,7 +757,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
      */
     public function warnings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -767,7 +767,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Tickets.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ticket>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ticket, $this>
      */
     public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -777,7 +777,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Personal Freeleeches.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PersonalFreeleech>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PersonalFreeleech, $this>
      */
     public function personalFreeleeches(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -787,7 +787,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many failed logins.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FailedLoginAttempt>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FailedLoginAttempt, $this>
      */
     public function failedLogins(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -797,7 +797,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many upload snatches.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<History>
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<History, Torrent, $this>
      */
     public function uploadSnatches(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -807,7 +807,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent gifts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift, $this>
      */
     public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -817,7 +817,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many received gifts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift, $this>
      */
     public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -827,7 +827,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip, $this>
      */
     public function sentPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -837,7 +837,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many received tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip, $this>
      */
     public function receivedPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -847,7 +847,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip, $this>
      */
     public function sentTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -857,7 +857,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many received tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip, $this>
      */
     public function receivedTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -867,7 +867,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many seedboxes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Seedbox>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Seedbox, $this>
      */
     public function seedboxes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -877,7 +877,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has one application.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough<Application>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough<Application, Invite, $this>
      */
     public function application(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
     {
@@ -887,7 +887,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many passkeys.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Passkey>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Passkey, $this>
      */
     public function passkeys(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -897,7 +897,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many rsskeys.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rsskey>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rsskey, $this>
      */
     public function rsskeys(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -907,7 +907,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many apikeys.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Apikey>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Apikey, $this>
      */
     public function apikeys(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -917,7 +917,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many email updates.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<EmailUpdate>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<EmailUpdate, $this>
      */
     public function emailUpdates(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -927,7 +927,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many torrent trumps.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTrump>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTrump, $this>
      */
     public function torrentTrumps(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -963,7 +963,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many conversations.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Conversation>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Conversation, $this>
      */
     public function conversations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -973,7 +973,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many participants.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Participant>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Participant, $this>
      */
     public function participations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

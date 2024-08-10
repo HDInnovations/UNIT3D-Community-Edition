@@ -74,7 +74,7 @@ class BonTransactions extends Model
     /**
      * Belongs To A Sender.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -87,7 +87,7 @@ class BonTransactions extends Model
     /**
      * Belongs To A Receiver.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -100,7 +100,7 @@ class BonTransactions extends Model
     /**
      * Belongs To BonExchange.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BonExchange, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BonExchange, $this>
      */
     public function exchange(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

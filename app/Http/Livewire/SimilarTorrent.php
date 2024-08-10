@@ -197,7 +197,7 @@ class SimilarTorrent extends Component
             ]);
 
             //Remove Torrent related info
-            cache()->forget(sprintf('torrent:%s', $torrent->info_hash));
+            cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
 
             $torrent->comments()->delete();
             $torrent->peers()->delete();

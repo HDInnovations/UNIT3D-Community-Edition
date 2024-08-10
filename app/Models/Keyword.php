@@ -52,7 +52,7 @@ class Keyword extends Model
     /**
      * Belongs To Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

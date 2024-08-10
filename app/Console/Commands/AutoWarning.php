@@ -77,7 +77,7 @@ class AutoWarning extends Command
                         $warning->user_id = $hr->user->id;
                         $warning->warned_by = User::SYSTEM_USER_ID;
                         $warning->torrent = $hr->torrent->id;
-                        $warning->reason = sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
+                        $warning->reason = \sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
                         $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
                         $warning->active = true;
                         $warning->save();
