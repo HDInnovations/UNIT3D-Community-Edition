@@ -192,6 +192,7 @@ return [
     'something-went-wrong' => 'Something Went Wrong!',
     'sort'                 => 'Sort',
     'special'              => 'Special',
+    'extras'               => 'Extras',
     'sponsor'              => 'Become a Sponsor',
     'staff'                => 'Staff',
     'staff-tools'          => 'Staff Tools',

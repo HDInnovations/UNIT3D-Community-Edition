@@ -181,6 +181,7 @@ return [
     'search'                   => 'Search',
     'search-by-name'           => 'Search By Name',
     'season-number'            => 'Season Number',
+    'season'                   => 'Season',
     'seed-time'                => 'Seed Time',
     'seeder'                   => 'Seeder',
     'seeders'                  => 'Seeders',
