@@ -532,6 +532,16 @@
                         {{ __('user.invites') }}
                     </a>
                 </li>
+                <li
+                    class="{{ Route::is('users.invite_tree.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
+                    <a
+                        class="{{ Route::is('users.invite_tree.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.invite_tree.index', ['user' => $user]) }}"
+                    >
+                        {{ __('user.invite-tree') }}
+                    </a>
+                </li>
             @endif
         </ul>
     </li>
