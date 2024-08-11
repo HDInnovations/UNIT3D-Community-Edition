@@ -406,26 +406,6 @@ parameters:
 			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$actual_download\\.$#"
-			count: 2
-			path: app/Http/Controllers/StatsController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$actual_upload\\.$#"
-			count: 2
-			path: app/Http/Controllers/StatsController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$credited_download\\.$#"
-			count: 2
-			path: app/Http/Controllers/StatsController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$credited_upload\\.$#"
-			count: 2
-			path: app/Http/Controllers/StatsController.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
