@@ -54,62 +54,114 @@
                 </tr>
             </thead>
         </table>
-        @foreach ($torrents->sortBy('type.position')->values()->groupBy('type.name') as $type => $torrents)
-            <section class="panelV2" x-data>
-                <h2 class="panel__heading">{{ $type }}</h2>
-                <div class="data-table-wrapper">
-                    <table class="data-table">
-                        @foreach ($torrents->sortBy('resolution.position')->values()->groupBy('resolution.name') as $resolution => $torrents)
-                            <tbody>
-                                <tr>
-                                    <th colspan="100">{{ $resolution }}</th>
-                                </tr>
-                                @foreach ($torrents as $torrent)
-                                    @if ($user->group->is_modo)
-                                        <tr>
-                                            <td
-                                                colspan="0"
-                                                rowspan="2"
-                                                x-on:click.self="$el.firstElementChild.click()"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    value="{{ $torrent->id }}"
-                                                    wire:model.live="checked"
-                                                />
-                                            </td>
-                                        </tr>
-                                    @endif
+        @if ($category->tv_meta)
+            @foreach ($torrents->sortByDesc('season_number')->groupBy('season_number') as $season => $torrents)
+                <section x-data="{ show_season: true }">
+                    <header x-on:click="show_season = !show_season" style="cursor: pointer">
+                        <h2 class="panel__grouping">
+                            <i
+                                x-bind:class="show_season ? 'fas fa-caret-down' : 'fas fa-caret-right'"
+                            ></i>
+                            {{ $season !== 0 ? __('torrent.season') . ' ' . str_pad($season, 2, '0', STR_PAD_LEFT) : __('common.extras') }}
+                        </h2>
+                    </header>
+                    @foreach ($torrents->sortBy('type.position')->values()->groupBy('type.name') as $type => $torrents)
+                        <section class="panelV2" x-show="show_season">
+                            <h2 class="panel__heading">{{ $type }}</h2>
+                            <div class="data-table-wrapper">
+                                <table class="data-table">
+                                    @foreach ($torrents->sortBy('resolution.position')->values()->groupBy('resolution.name') as $resolution => $torrents)
+                                        <tbody>
+                                            <tr>
+                                                <th colspan="100">{{ $resolution }}</th>
+                                            </tr>
+                                            @foreach ($torrents as $torrent)
+                                                @if ($user->group->is_modo)
+                                                    <tr>
+                                                        <td
+                                                            colspan="0"
+                                                            rowspan="2"
+                                                            x-on:click.self="$el.firstElementChild.click()"
+                                                        >
+                                                            <input
+                                                                type="checkbox"
+                                                                value="{{ $torrent->id }}"
+                                                                wire:model.live="checked"
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                @endif
 
-                                    <x-torrent.row
-                                        :torrent="$torrent"
-                                        :meta="$work"
-                                        :personal_freeleech="$personalFreeleech"
-                                    />
-                                @endforeach
-                            </tbody>
-                        @endforeach
-                    </table>
-                </div>
-            </section>
-        @endforeach
+                                                <x-torrent.row
+                                                    :torrent="$torrent"
+                                                    :meta="$work"
+                                                    :personal_freeleech="$personalFreeleech"
+                                                />
+                                            @endforeach
+                                        </tbody>
+                                    @endforeach
+                                </table>
+                            </div>
+                        </section>
+                    @endforeach
+                </section>
+            @endforeach
+        @else
+            @foreach ($torrents->sortBy('type.position')->values()->groupBy('type.name') as $type => $torrents)
+                <section class="panelV2" x-data>
+                    <h2 class="panel__heading">{{ $type }}</h2>
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            @foreach ($torrents->sortBy('resolution.position')->values()->groupBy('resolution.name') as $resolution => $torrents)
+                                <tbody>
+                                    <tr>
+                                        <th colspan="100">{{ $resolution }}</th>
+                                    </tr>
+                                    @foreach ($torrents as $torrent)
+                                        @if ($user->group->is_modo)
+                                            <tr>
+                                                <td
+                                                    colspan="0"
+                                                    rowspan="2"
+                                                    x-on:click.self="$el.firstElementChild.click()"
+                                                >
+                                                    <input
+                                                        type="checkbox"
+                                                        value="{{ $torrent->id }}"
+                                                        wire:model.live="checked"
+                                                    />
+                                                </td>
+                                            </tr>
+                                        @endif
+
+                                        <x-torrent.row
+                                            :torrent="$torrent"
+                                            :meta="$work"
+                                            :personal_freeleech="$personalFreeleech"
+                                        />
+                                    @endforeach
+                                </tbody>
+                            @endforeach
+                        </table>
+                    </div>
+                </section>
+            @endforeach
+        @endif
     </div>
 
-    <section class="panelV2">
-        <header class="panel__header">
-            <h2 class="panel__heading">{{ __('request.requests') }}</h2>
-            <div class="panel__actions">
-                <div class="panel__action">
-                    <a
-                        href="{{ route('requests.create') }}"
-                        class="form__button form__button--text"
-                    >
-                        {{ __('request.add-request') }}
-                    </a>
-                </div>
-            </div>
+    <section x-data="{ show_requests: true }">
+        <header x-on:click="show_requests = !show_requests" style="cursor: pointer">
+            <h2 class="panel__grouping">
+                <i x-bind:class="show_requests ? 'fas fa-caret-down' : 'fas fa-caret-right'"></i>
+                {{ __('request.requests') }}
+            </h2>
         </header>
-        <div class="data-table-wrapper">
+        <div class="data-table-wrapper" x-show="show_requests">
+            <div class="panel__actions">
+                <a href="{{ route('requests.create') }}" class="form__button form__button--text">
+                    {{ __('request.add-request') }}
+                </a>
+            </div>
             <table class="data-table">
                 <tbody>
                     @forelse ($torrentRequests as $torrentRequest)
