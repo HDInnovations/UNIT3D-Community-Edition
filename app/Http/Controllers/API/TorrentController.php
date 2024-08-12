@@ -588,6 +588,7 @@ class TorrentController extends BaseController
                             ($request->input('sortField') ?: $this->sortField).':'.($request->input('sortDirection') ?? $this->sortDirection),
                         ];
                         $options['filter'] = $filters->toMeilisearchFilter();
+                        $options['matchingStrategy'] = 'all';
 
                         $results = $meilisearch->search($query, $options);
 

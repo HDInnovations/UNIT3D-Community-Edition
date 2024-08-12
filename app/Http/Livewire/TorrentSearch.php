@@ -494,6 +494,7 @@ class TorrentSearch extends Component
                         $this->sortField.':'.$this->sortDirection,
                     ];
                     $options['filter'] = $this->filters()->toMeilisearchFilter();
+                    $options['matchingStrategy'] = 'all';
 
                     $results = $meilisearch->search($query, $options);
 

@@ -189,6 +189,7 @@ class RssController extends Controller
                             'bumped_at:desc',
                         ];
                         $options['filter'] = $filters->toMeilisearchFilter();
+                        $options['matchingStrategy'] = 'all';
 
                         $results = $meilisearch->search($query, $options);
 
