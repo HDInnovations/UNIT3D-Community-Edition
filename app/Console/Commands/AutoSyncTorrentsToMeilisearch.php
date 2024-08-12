@@ -49,7 +49,7 @@ class AutoSyncTorrentsToMeilisearch extends Command
             Torrent::removeAllFromSearch();
         }
 
-        Torrent::query()->searchable();
+        Torrent::query()->selectRaw(Torrent::SEARCHABLE)->searchable();
 
         $this->comment('Synced all torrents to Meilisearch in '.(now()->diffInMilliseconds($start) / 1000).' seconds.');
     }
