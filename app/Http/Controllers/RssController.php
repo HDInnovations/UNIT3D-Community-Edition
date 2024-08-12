@@ -183,7 +183,7 @@ class RssController extends Controller
                 );
 
                 $torrents = Torrent::search(
-                    '',
+                    $search->search ?? '',
                     function (Indexes $meilisearch, string $query, array $options) use ($filters) {
                         $options['sort'] = [
                             'bumped_at:desc',
