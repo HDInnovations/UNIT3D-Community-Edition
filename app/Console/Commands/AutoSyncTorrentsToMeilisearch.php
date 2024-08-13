@@ -47,9 +47,19 @@ class AutoSyncTorrentsToMeilisearch extends Command
 
         if ($this->option('wipe')) {
             Torrent::removeAllFromSearch();
-        }
+            Torrent::query()->selectRaw(Torrent::SEARCHABLE)->searchable();
+        } else {
+            // Reindex torrents that were updated since the start of the most
+            // recently finished 15-minute period (since this cron job runs
+            // every 15 minutes, but might be delayed by a few seconds/minutes
+            // each time)
+            $since = now()->startOfHour()->addMinutes(15 * (intdiv(now()->diffInMinutes(now()->startOfHour()), 15) - 1));
 
-        Torrent::query()->selectRaw(Torrent::SEARCHABLE)->searchable();
+            Torrent::query()
+                ->selectRaw(Torrent::SEARCHABLE)
+                ->where('updated_at', '>', $since)
+                ->searchable();
+        }
 
         $this->comment('Synced all torrents to Meilisearch in '.(now()->diffInMilliseconds($start) / 1000).' seconds.');
     }
