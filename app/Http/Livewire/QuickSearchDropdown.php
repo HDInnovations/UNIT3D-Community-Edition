@@ -36,12 +36,16 @@ class QuickSearchDropdown extends Component
             'status = 1',
         ];
 
+        $searchById = false;
+
         if (preg_match('/^(\d+)$/', $this->quicksearchText, $matches)) {
             $filters[] = 'tmdb = '.$matches[1];
+            $searchById = true;
         }
 
         if (preg_match('/tt0*(?=(\d{7,}))/', $this->quicksearchText, $matches)) {
             $filters[] = 'imdb = '.$matches[1];
+            $searchById = true;
         }
 
         $searchResults = [];
@@ -52,7 +56,7 @@ class QuickSearchDropdown extends Component
                 $filters[] = 'movie.name IS NOT NULL';
 
                 $searchResults = Torrent::search(
-                    $this->quicksearchText,
+                    $searchById ? '' : $this->quicksearchText,
                     function (Indexes $meilisearch, string $query, array $options) use ($filters) {
                         $options['filter'] = $filters;
                         $options['distinct'] = 'movie.id';
@@ -68,7 +72,7 @@ class QuickSearchDropdown extends Component
                 $filters[] = 'tv.name IS NOT NULL';
 
                 $searchResults = Torrent::search(
-                    $this->quicksearchText,
+                    $searchById ? '' : $this->quicksearchText,
                     function (Indexes $meilisearch, string $query, array $options) use ($filters) {
                         $options['filter'] = $filters;
                         $options['distinct'] = 'tv.id';
