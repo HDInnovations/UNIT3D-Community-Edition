@@ -76,7 +76,6 @@ use voku\helper\AntiXSS;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $fl_until
  * @property \Illuminate\Support\Carbon|null $du_until
- * @property string|null                     $release_year
  * @property int                             $type_id
  * @property int|null                        $resolution_id
  * @property int|null                        $distributor_id

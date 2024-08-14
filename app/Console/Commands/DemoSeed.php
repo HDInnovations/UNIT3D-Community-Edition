@@ -75,12 +75,6 @@ class DemoSeed extends Command
                 $this->info('Creating Movie Torrents for Account ID #'.$uid);
 
                 try {
-                    $year = 2021;
-
-                    if (\array_key_exists('release_date', $movie)) {
-                        $year = (int) substr((string) $movie['release_date'], 0, 4);
-                    }
-
                     $freeleech = ['0', '25', '50', '75', '100'];
                     $selected = random_int(0, \count($freeleech) - 1);
 
@@ -97,7 +91,6 @@ class DemoSeed extends Command
                         'free'           => $freeleech[$selected],
                         'featured'       => false,
                         'sticky'         => 0,
-                        'release_year'   => $year,
                         'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
@@ -278,12 +271,6 @@ Menu
                 $this->info('Creating TV Torrents for Account ID #'.$uid);
 
                 try {
-                    $year = 2021;
-
-                    if (\array_key_exists('first_air_date', $tv)) {
-                        $year = (int) substr((string) $tv['first_air_date'], 0, 4);
-                    }
-
                     $freeleech = ['0', '25', '50', '75', '100'];
                     $selected = random_int(0, \count($freeleech) - 1);
 
@@ -300,7 +287,6 @@ Menu
                         'free'           => $freeleech[$selected],
                         'featured'       => false,
                         'sticky'         => 0,
-                        'release_year'   => $year,
                         'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska

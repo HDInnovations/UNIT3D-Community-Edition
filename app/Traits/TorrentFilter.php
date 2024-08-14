@@ -102,7 +102,10 @@ trait TorrentFilter
      */
     public function scopeReleasedAfterOrIn(Builder $query, int $year): void
     {
-        $query->where('release_year', '>=', $year);
+        $query->where(function ($query) use ($year): void {
+            $query->whereIn('tmdb', Movie::select('id')->whereYear('release_date', '>=', $year))
+                ->orWhereIn('tmdb', Tv::select('id')->whereYear('first_air_date', '>=', $year));
+        });
     }
 
     /**
@@ -110,7 +113,10 @@ trait TorrentFilter
      */
     public function scopeReleasedBeforeOrIn(Builder $query, int $year): void
     {
-        $query->where('release_year', '<=', $year);
+        $query->where(function ($query) use ($year): void {
+            $query->whereIn('tmdb', Movie::select('id')->whereYear('release_date', '<=', $year))
+                ->orWhereIn('tmdb', Tv::select('id')->whereYear('first_air_date', '<=', $year));
+        });
     }
 
     /**
