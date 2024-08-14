@@ -53,7 +53,7 @@ class QuickSearchDropdown extends Component
         switch ($this->quicksearchRadio) {
             case 'movies':
                 $filters[] = 'category.movie_meta = 1';
-                $filters[] = 'movie.name IS NOT NULL';
+                $filters[] = 'movie.name EXISTS';
 
                 $searchResults = Torrent::search(
                     $searchById ? '' : $this->quicksearchText,
@@ -69,7 +69,7 @@ class QuickSearchDropdown extends Component
                 break;
             case 'series':
                 $filters[] = 'category.tv_meta = 1';
-                $filters[] = 'tv.name IS NOT NULL';
+                $filters[] = 'tv.name EXISTS';
 
                 $searchResults = Torrent::search(
                     $searchById ? '' : $this->quicksearchText,
