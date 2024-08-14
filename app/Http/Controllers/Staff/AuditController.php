@@ -30,7 +30,19 @@ class AuditController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('Staff.audit.index');
+        $staffActivities = Audit::with('user')
+            ->whereHas('user.group', function ($query): void {
+                $query->where('is_modo', true);
+            })
+            ->where('action', '!=', 'create') // Exclude audits with action 'create'
+            ->select('user_id')
+            ->selectRaw('COUNT(*) as total_actions')
+            ->selectRaw('SUM(CASE WHEN created_at > NOW() - INTERVAL 60 DAY THEN 1 ELSE 0 END) as last_60_days')
+            ->selectRaw('SUM(CASE WHEN created_at > NOW() - INTERVAL 30 DAY THEN 1 ELSE 0 END) as last_30_days')
+            ->groupBy('user_id')
+            ->get();
+
+        return view('Staff.audit.index', ['staffActivities' => $staffActivities]);
     }
 
     /**
