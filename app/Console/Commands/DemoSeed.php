@@ -81,7 +81,7 @@ class DemoSeed extends Command
                     Torrent::factory()->create([
                         'user_id'        => $uid,
                         'tmdb'           => $id,
-                        'name'           => $movie['title'].' ('.$year.')',
+                        'name'           => $movie['title'],
                         'description'    => $movie['overview'],
                         'category_id'    => 1,
                         'type_id'        => random_int(1, 6),
@@ -277,7 +277,7 @@ Menu
                     Torrent::factory()->create([
                         'user_id'        => $uid,
                         'tmdb'           => $id,
-                        'name'           => $tv['name'].' ('.$year.')',
+                        'name'           => $tv['name'],
                         'description'    => $tv['overview'],
                         'category_id'    => 2,
                         'type_id'        => random_int(1, 6),
