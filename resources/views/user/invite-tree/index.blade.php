@@ -84,7 +84,7 @@
                                     {{ App\Helpers\StringHelper::formatBytes($invite->receiver->seeding_torrents_sum_size ?? 0) }}
                                 </td>
                                 <td style="text-align: right">
-                                    {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($invite->receiver->history_sum_seedtime ?? 0)), 0, 2)) }}
+                                    {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($invite->receiver->history_avg_seedtime ?? 0)), 0, 2)) }}
                                 </td>
                             @else
                                 <td>{{ __('common.hidden') }}</td>
@@ -110,11 +110,11 @@
                                         N/A
                                     @else
                                         <time
-                                            class="{{ $user->last_action }}"
-                                            datetime="{{ $user->last_action }}"
-                                            title="{{ $user->last_action }}"
+                                            class="{{ $invite->receiver->last_action }}"
+                                            datetime="{{ $invite->receiver->last_action }}"
+                                            title="{{ $invite->receiver->last_action }}"
                                         >
-                                            {{ $user->last_action->diffForHumans() }}
+                                            {{ $invite->receiver->last_action->diffForHumans() }}
                                         </time>
                                     @endif
                                 </td>
@@ -274,19 +274,19 @@
                     <tr>
                         <th>{{ __('torrent.seedtime') }}</th>
                         <td style="text-align: right">
-                            {{ App\Helpers\StringHelper::formatBytes($total_seedsize / ($invites->count() ?: 1)) }}
+                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($average_seedtime / ($invites->count() ?: 1))), 0, 2)) }}
                         </td>
                         <td style="text-align: right">
-                            {{ App\Helpers\StringHelper::formatBytes($total_seedsize ?? 0) }}
+                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($total_seedtime ?? 0)), 0, 2)) }}
                         </td>
                     </tr>
                     <tr>
                         <th>{{ __('torrent.seedsize') }}</th>
                         <td style="text-align: right">
-                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($total_seedtime / ($invites->count() ?: 1))), 0, 2)) }}
+                            {{ App\Helpers\StringHelper::formatBytes($total_seedsize / ($invites->count() ?: 1)) }}
                         </td>
                         <td style="text-align: right">
-                            {{ \implode(' ', \array_slice(\explode(' ', App\Helpers\StringHelper::timeElapsed($total_seedtime ?? 0)), 0, 2)) }}
+                            {{ App\Helpers\StringHelper::formatBytes($total_seedsize ?? 0) }}
                         </td>
                     </tr>
                 </tbody>

@@ -94,6 +94,7 @@ class InviteTreeController extends Controller
                 'receiver' => fn ($query) => $query
                     ->withTrashed()
                     ->with('group')
+                    ->withAvg('history', 'seedtime')
                     ->withSum('history', 'seedtime')
                     ->withSum('seedingTorrents', 'size')
                     ->withCount([
@@ -117,11 +118,15 @@ class InviteTreeController extends Controller
                 ->sum('receiver.downloaded'),
             'average_ratio' => $invites
                 ->filter(fn ($invite) => $request->user()->isAllowed($invite->receiver, 'profile', 'show_profile_torrent_ratio'))
+                ->filter(fn ($invite) => $invite->receiver->downloaded > 0)
                 ->map(fn ($invite) => $invite->receiver->ratio)
                 ->average(),
             'total_seedtime' => $invites
                 ->filter(fn ($invite) => $request->user()->isAllowed($invite->receiver, 'profile', 'show_profile_torrent_seed'))
                 ->sum('receiver.history_sum_seedtime'),
+            'average_seedtime' => $invites
+                ->filter(fn ($invite) => $request->user()->isAllowed($invite->receiver, 'profile', 'show_profile_torrent_seed'))
+                ->avg('receiver.history_avg_seedtime'),
             'total_seedsize' => $invites
                 ->filter(fn ($invite) => $request->user()->isAllowed($invite->receiver, 'profile', 'show_profile_torrent_seed'))
                 ->sum('receiver.seeding_torrents_sum_size'),
