@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -51,14 +54,6 @@ test('rules', function (): void {
             'required',
         ],
         'help' => [
-            'sometimes',
-            'max:9999',
-        ],
-        'info' => [
-            'sometimes',
-            'max:9999',
-        ],
-        'about' => [
             'sometimes',
             'max:9999',
         ],

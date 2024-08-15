@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -51,7 +54,7 @@ class NewPostTip extends Notification implements ShouldQueue
         return [
             'title' => $this->tip->sender->username.' Has Tipped You '.$this->tip->bon.' BON For A Forum Post',
             'body'  => $this->tip->sender->username.' has tipped one of your Forum posts in '.$this->tip->post->topic->name,
-            'url'   => sprintf('/forums/topics/%s/posts/%s', $this->tip->post->topic_id, $this->tip->post_id),
+            'url'   => \sprintf('/forums/topics/%s/posts/%s', $this->tip->post->topic_id, $this->tip->post_id),
         ];
     }
 }

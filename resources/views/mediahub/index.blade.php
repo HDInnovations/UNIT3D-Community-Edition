@@ -21,7 +21,7 @@
             <ul class="mediahub-card__list">
                 <li class="mediahub-card__list-item">
                     <a
-                        href="{{ route('torrents.index', ['view' => 'group', 'categories' => $tvCategoryIds]) }}"
+                        href="{{ route('torrents.index', ['view' => 'group', 'categoryIds' => $tvCategoryIds]) }}"
                         class="mediahub-card"
                     >
                         <h2 class="mediahub-card__heading">{{ __('mediahub.shows') }} Hub</h2>
@@ -32,7 +32,7 @@
                 </li>
                 <li class="mediahub-card__list-item">
                     <a
-                        href="{{ route('torrents.index', ['view' => 'group', 'categories' => $movieCategoryIds]) }}"
+                        href="{{ route('torrents.index', ['view' => 'group', 'categoryIds' => $movieCategoryIds]) }}"
                         class="mediahub-card"
                     >
                         <h2 class="mediahub-card__heading">{{ __('mediahub.movies') }} Hub</h2>

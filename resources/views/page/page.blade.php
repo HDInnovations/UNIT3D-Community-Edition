@@ -24,18 +24,22 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('common.created_at') }}</dt>
-            <dd>
-                <time datetime="{{ $page->created_at }}" title="{{ $page->created_at }}">
-                    {{ $page->created_at }}
-                </time>
-            </dd>
-            <dt>{{ __('torrent.updated_at') }}</dt>
-            <dd>
-                <time datetime="{{ $page->updated_at }}" title="{{ $page->updated_at }}">
-                    {{ $page->updated_at }}
-                </time>
-            </dd>
+            <div class="key-value__group">
+                <dt>{{ __('common.created_at') }}</dt>
+                <dd>
+                    <time datetime="{{ $page->created_at }}" title="{{ $page->created_at }}">
+                        {{ $page->created_at }}
+                    </time>
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.updated_at') }}</dt>
+                <dd>
+                    <time datetime="{{ $page->updated_at }}" title="{{ $page->updated_at }}">
+                        {{ $page->updated_at }}
+                    </time>
+                </dd>
+            </div>
         </dl>
     </section>
 @endsection

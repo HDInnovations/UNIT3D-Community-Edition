@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -99,7 +102,7 @@ class SubtitleController extends Controller
         // Announce To Shoutbox
         if (!$subtitle->anon) {
             $this->chatRepository->systemMessage(
-                sprintf(
+                \sprintf(
                     '[url=%s]%s[/url] has uploaded a new %s subtitle for [url=%s]%s[/url]',
                     href_profile($user),
                     $user->username,
@@ -125,7 +128,7 @@ class SubtitleController extends Controller
             $user->addProgress(new UserUploaded1000Subtitles(), 1);
         } else {
             $this->chatRepository->systemMessage(
-                sprintf(
+                \sprintf(
                     'An anonymous user has uploaded a new %s subtitle for [url=%s]%s[/url]',
                     $subtitle->language->name,
                     href_torrent($torrent),

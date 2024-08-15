@@ -38,6 +38,7 @@
                         <th>Color</th>
                         <th>Icon</th>
                         <th>Effect</th>
+                        <th>Uploader</th>
                         <th>Internal</th>
                         <th>Editor</th>
                         <th>Modo</th>
@@ -49,6 +50,10 @@
                         <th>Double Upload</th>
                         <th>Refundable</th>
                         <th>Incognito</th>
+                        <th>Chat</th>
+                        <th>Comment</th>
+                        <th>Invite</th>
+                        <th>Request</th>
                         <th>Upload</th>
                         <th>Autogroup</th>
                         <th>Min Upload</th>
@@ -56,6 +61,7 @@
                         <th>Min Age</th>
                         <th>Min Avg Seedtime</th>
                         <th>Min Seedsize</th>
+                        <th>Min Uploads</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,6 +89,17 @@
                             </td>
                             <td>
                                 @if ($group->effect !== '' && $group->effect !== 'none')
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->is_uploader)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>
@@ -214,6 +231,50 @@
                                 @endif
                             </td>
                             <td>
+                                @if ($group->can_chat)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->can_comment)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->can_invite)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($group->can_request)
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-check text-green"
+                                    ></i>
+                                @else
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-times text-red"
+                                    ></i>
+                                @endif
+                            </td>
+                            <td>
                                 @if ($group->can_upload)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
@@ -250,7 +311,9 @@
                                 <td>
                                     {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize ?? 0) }}
                                 </td>
+                                <td>{{ $group->min_uploads }}</td>
                             @else
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

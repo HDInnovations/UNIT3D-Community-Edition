@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -52,7 +55,7 @@ class FollowController extends Controller
         }
 
         return to_route('users.show', ['user' => $user])
-            ->withSuccess(sprintf(trans('user.follow-user'), $user->username));
+            ->withSuccess(\sprintf(trans('user.follow-user'), $user->username));
     }
 
     /**
@@ -67,6 +70,6 @@ class FollowController extends Controller
         }
 
         return to_route('users.show', ['user' => $user])
-            ->withSuccess(sprintf(trans('user.follow-revoked'), $user->username));
+            ->withSuccess(\sprintf(trans('user.follow-revoked'), $user->username));
     }
 }

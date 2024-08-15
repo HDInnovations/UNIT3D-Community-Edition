@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,6 +42,8 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\TicketFactory> */
     use HasFactory;
 
     protected $guarded = [];
@@ -46,7 +51,7 @@ class Ticket extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{closed_at: 'datetime', reminded_at: 'datetime'}
      */
     protected function casts(): array
     {
@@ -101,7 +106,7 @@ class Ticket extends Model
     /**
      * Belongs To A User (Created).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -114,7 +119,7 @@ class Ticket extends Model
     /**
      * Belongs To A Staff User (Assigned).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -124,7 +129,7 @@ class Ticket extends Model
     /**
      * Belongs To A Ticket Priority.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TicketPriority, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TicketPriority, $this>
      */
     public function priority(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -134,7 +139,7 @@ class Ticket extends Model
     /**
      * Belongs To A Ticket Category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TicketCategory, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TicketCategory, $this>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -144,7 +149,7 @@ class Ticket extends Model
     /**
      * Has Many Ticket Attachments.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TicketAttachment>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TicketAttachment, $this>
      */
     public function attachments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -152,7 +157,7 @@ class Ticket extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
@@ -162,7 +167,7 @@ class Ticket extends Model
     /**
      * Has Many Ticket Notes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TicketNote>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TicketNote, $this>
      */
     public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

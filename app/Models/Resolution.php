@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,6 +30,8 @@ use Illuminate\Database\Eloquent\Model;
 class Resolution extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\ResolutionFactory> */
     use HasFactory;
 
     /**
@@ -46,7 +51,7 @@ class Resolution extends Model
     /**
      * Has Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -56,7 +61,7 @@ class Resolution extends Model
     /**
      * Has Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

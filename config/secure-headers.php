@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -120,7 +122,7 @@ return [
      */
 
     'hsts' => [
-        'enable' => true,
+        'enable' => env('HSTS_ENABLED', true),
 
         'max-age' => 31536000,
 

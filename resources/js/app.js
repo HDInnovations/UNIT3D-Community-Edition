@@ -33,10 +33,7 @@ import Swal from 'sweetalert2';
 window.Swal = Swal;
 
 // Vite
-import.meta.glob([
-    '/public/img/pipes/**',
-    '/resources/sass/vendor/webfonts/font-awesome/**',
-]);
+import.meta.glob(['/public/img/pipes/**', '/resources/sass/vendor/webfonts/font-awesome/**']);
 
 // Livewire + AlpineJS
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm.js';
@@ -45,7 +42,7 @@ Alpine.data('dialog', () => ({
     showDialog: {
         ['x-on:click.stop']() {
             this.$refs.dialog.showModal();
-        }
+        },
     },
     dialogElement: {
         ['x-ref']: 'dialog',
@@ -57,15 +54,15 @@ Alpine.data('dialog', () => ({
             if (closest === null || closest === this.$event.target) {
                 this.$refs.dialog.close();
             }
-        }
-    }
+        },
+    },
 }));
 
 Alpine.data('dialogLivewire', () => ({
     showDialog: {
         ['x-on:click.stop']() {
             this.$refs.dialog.showModal();
-        }
+        },
     },
     dialogElement: {
         ['x-ref']: 'dialog',
@@ -84,13 +81,13 @@ Alpine.data('dialogLivewire', () => ({
             if (closest === null || closest === this.$event.target) {
                 this.$refs.dialog.close();
             }
-        }
+        },
     },
     submitDialogForm: {
         ['x-on:click']() {
             this.$refs.dialog.close();
-        }
-    }
+        },
+    },
 }));
 
 Alpine.data('toggle', () => ({
@@ -102,22 +99,22 @@ Alpine.data('toggle', () => ({
         return this.toggleState === false;
     },
     toggle() {
-        this.toggleState = !this.toggleState
+        this.toggleState = !this.toggleState;
     },
     toggleOn() {
         this.toggleState = true;
     },
     toggleOff() {
         this.toggleState = false;
-    }
-}))
+    },
+}));
 
 Alpine.data('checkboxGrid', () => ({
     columnHeader: {
         ['x-on:click']() {
             let cellIndex = this.$el.cellIndex + 1;
             let cells = this.$root.querySelectorAll(
-              `tbody tr td:nth-child(${cellIndex}) > input[type="checkbox"]`,
+                `tbody tr td:nth-child(${cellIndex}) > input[type="checkbox"]`,
             );
 
             if (Array.from(cells).some((el) => el.checked)) {
@@ -136,7 +133,7 @@ Alpine.data('checkboxGrid', () => ({
         ['x-on:click']() {
             let rowIndex = this.$el.parentElement.sectionRowIndex + 1;
             let cells = this.$root.querySelectorAll(
-              `tbody tr:nth-child(${rowIndex}) td > input[type="checkbox"]`,
+                `tbody tr:nth-child(${rowIndex}) td > input[type="checkbox"]`,
             );
 
             if (Array.from(cells).some((el) => el.checked)) {
@@ -150,6 +147,42 @@ Alpine.data('checkboxGrid', () => ({
                 cursor: 'pointer',
             };
         },
+    },
+}));
+
+Alpine.data('bookmark', (torrentId, bookmarked) => ({
+    torrentId: torrentId,
+    bookmarked: bookmarked,
+    button: {
+        ['x-on:click']() {
+            this.bookmarked ? this.deleteBookmark() : this.createBookmark();
+        },
+        ['x-bind:title']() {
+            return this.bookmarked ? 'Unbookmark' : 'Bookmark';
+        },
+    },
+    icon: {
+        ['x-bind:class']() {
+            return this.bookmarked ? 'fa-bookmark-slash' : 'fa-bookmark';
+        },
+    },
+    createBookmark() {
+        axios.post(`/api/bookmarks/${this.torrentId}`).then((response) => {
+            this.bookmarked = Boolean(response.data);
+            this.dispatchEvent();
+        });
+    },
+    deleteBookmark() {
+        axios.delete(`/api/bookmarks/${this.torrentId}`).then((response) => {
+            this.bookmarked = Boolean(response.data);
+            this.dispatchEvent();
+        });
+    },
+    dispatchEvent() {
+        this.$dispatch('success', {
+            type: 'success',
+            message: `Torrent has been ${this.bookmarked ? 'bookmarked' : 'unbookmarked'} successfully!`,
+        });
     },
 }));
 

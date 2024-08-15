@@ -13,19 +13,7 @@
 
 @section('nav-tabs')
     <li class="nav-tabV2">
-        <a
-            class="nav-tab__link"
-            href="{{
-                route('torrents.index', [
-                    'view' => match (auth()->user()->torrent_layout) {
-                        1 => 'card',
-                        2 => 'group',
-                        3 => 'poster',
-                        default => 'list',
-                    },
-                ])
-            }}"
-        >
+        <a class="nav-tab__link" href="{{ route('torrents.index') }}">
             {{ __('torrent.search') }}
         </a>
     </li>

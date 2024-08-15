@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,22 +42,6 @@ class TopTorrents extends Component
     final public function torrents(): \Illuminate\Support\Collection
     {
         $torrents = Torrent::query()
-            ->select([
-                'id',
-                'name',
-                'user_id',
-                'category_id',
-                'type_id',
-                'resolution_id',
-                'tmdb',
-                'igdb',
-                'size',
-                'anon',
-                'seeders',
-                'leechers',
-                'times_completed',
-                'created_at'
-            ])
             ->with(['user.group', 'category', 'type', 'resolution'])
             ->withExists([
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $this->user->id),

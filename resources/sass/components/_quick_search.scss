@@ -30,7 +30,8 @@
 
 .quick-search:active .quick-search__inputs,
 .quick-search:focus-within .quick-search__inputs {
-    border-radius: var(--quick-search-border-radius) var(--quick-search-border-radius) 0 0;
+    border-radius: var(--quick-search-border-radius)
+        var(--quick-search-border-radius) 0 0;
     border-bottom: 1px solid transparent;
 }
 
@@ -114,7 +115,8 @@
     left: 0;
     top: 100%;
     width: 100%;
-    border-radius: 0 0 var(--quick-search-border-radius) var(--quick-search-border-radius);
+    border-radius: 0 0 var(--quick-search-border-radius)
+        var(--quick-search-border-radius);
     border-bottom: var(--quick-search-border);
     border-left: var(--quick-search-border);
     border-right: var(--quick-search-border);

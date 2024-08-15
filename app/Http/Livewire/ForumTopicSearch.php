@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -65,10 +68,10 @@ class ForumTopicSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Topic>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Topic>
      */
     #[Computed]
-    final public function topics(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function topics(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Topic::query()
             ->select('topics.*')
@@ -118,7 +121,7 @@ class ForumTopicSearch extends Component
                 fn ($query) => $query
                     ->whereDoesntHave('reads', fn ($query) => $query->whereBelongsTo(auth()->user()))
             )
-            ->orderByDesc('pinned')
+            ->orderByDesc('priority')
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(25);
     }

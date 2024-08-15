@@ -3,7 +3,8 @@
 
     --achievement-fg: inherit;
     --achievement-bg: #272727;
-    --achievement-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    --achievement-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
     --achievement-progress-bg: #8fbcbb;
 
     --alert-bg: #292929;
@@ -15,7 +16,8 @@
     --article-card-fg: #aaa;
     --article-card-head-fg: #aaa;
     --article-card-time-fg: #aaa;
-    --article-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+    --article-box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
 
     --bbcode-input-header-bg: #222;
     --bbcode-input-body-bg: #222;
@@ -92,6 +94,9 @@
     --fieldset-border-radius: 5px;
     --fieldset-border: 1px solid #555;
 
+    --footer-bg: #0000001d;
+    --footer-hr-fg: #303030;
+
     --icon-button-bg: inherit;
     --icon-button-border: none;
     --icon-button-border-radius: 9999px;
@@ -127,25 +132,25 @@
     --legend-border: none;
     --legend-border-radius: 0;
 
-    --mediahub-card-bg: #1A1A1A;
+    --mediahub-card-bg: #1a1a1a;
     --mediahub-card-fg: #ddd;
     --mediahub-card-hover-fg: #fff;
     --mediahub-card-border: none;
     --mediahub-card-border-radius: 0;
     --mediahub-card-box-shadow: none;
 
-    --meta-backdrop-filter:  brightness(30%);
-    --meta-dropdown-backdrop-filter:  brightness(2) blur(10px);
+    --meta-backdrop-filter: brightness(30%);
+    --meta-dropdown-backdrop-filter: brightness(2) blur(10px);
     --meta-dropdown-bg: #4449;
-    --meta-dropdown-backdrop-filter-hover:  brightness(2) blur(10px);
-    --meta-dropdown-hover-bg: rgba(255,255,255,0.1);
+    --meta-dropdown-backdrop-filter-hover: brightness(2) blur(10px);
+    --meta-dropdown-hover-bg: rgba(255, 255, 255, 0.1);
     --meta-dropdown-fg: #bbb;
     --meta-dropdown-hover-fg: #ccc;
     --meta-description-fg: #ddd;
     --meta-id-tag-fg: #eee;
     --meta-id-tag-bg: transparent;
     --meta-id-tag-hover-fg: #fff;
-    --meta-id-tag-hover-bg: rgba(255,255,255,0.1);
+    --meta-id-tag-hover-bg: rgba(255, 255, 255, 0.1);
     --meta-chips-heading-fg: #bbb;
     --meta-chip-icon-fg: #1f1f1f;
     --meta-chip-icon-hover-bg: #bbb;
@@ -153,8 +158,8 @@
     --meta-chip-name-fg: #e2e2e2;
     --meta-chip-value-fg: #aaa;
     --meta-chip-value-hover-fg: #ccc;
-    --meta-chip-backdrop-filter-hover:  brightness(2) blur(10px);
-    --meta-chip-hover-bg: rgba(255,255,255,0.1);
+    --meta-chip-backdrop-filter-hover: brightness(2) blur(10px);
+    --meta-chip-hover-bg: rgba(255, 255, 255, 0.1);
 
     --meter-fg: #333;
     --meter-bg: #505050;
@@ -180,6 +185,16 @@
     --panel-border-radius: 0;
     --panel-head-bg: #19191b;
     --panel-head-fg: #fff;
+    --panel-group-fg: #fff;
+
+    --playlist-card-bg: #111;
+    --playlist-card-border: none;
+    --playlist-card-border-radius: 8px;
+    --playlist-card-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --playlist-card-fg: #bbb;
+    --playlist-card-missing-image-bg: #272727;
+    --playlist-card-missing-image-fg: #b5b5b5;
 
     --post-bg: #2b2b2b;
     --post-fg: #ccc;
@@ -227,7 +242,8 @@
     --secondary-nav-tab-menu-fg: inherit;
     --secondary-nav-tab-menu-border: none;
     --secondary-nav-tab-menu-border-radius: 6px;
-    --secondary-nav-tab-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --secondary-nav-tab-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
 
     --select-border: 1px solid #555;
     --select-border-active: 2px solid #2195f3;
@@ -263,7 +279,8 @@
     --top-nav-dropdown-menu-bg: #3c3c3c;
     --top-nav-dropdown-menu-border: none;
     --top-nav-dropdown-menu-border-radius: 6px;
-    --top-nav-dropdown-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
+    --top-nav-dropdown-menu-box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14),
+        0 5px 22px 4px rgba(0, 0, 0, 0.12), 0 7px 8px -4px rgba(0, 0, 0, 0.2);
     --top-nav-dropdown-menu-item-fg: #bbb;
     --top-nav-dropdown-menu-item-bg: transparent;
     --top-nav-dropdown-menu-item-hover-fg: inherit;
@@ -320,7 +337,7 @@
     --torrent-tag-fg: #eee;
     --torrent-tag-bg: transparent;
     --torrent-tag-hover-fg: #fff;
-    --torrent-tag-hover-bg: rgba(255,255,255,0.1);
+    --torrent-tag-hover-bg: rgba(255, 255, 255, 0.1);
 
     --user-stat-card-bg: #1a1a1a;
     --user-stat-card-fg: #ddd;

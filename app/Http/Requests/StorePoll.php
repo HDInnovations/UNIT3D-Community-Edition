@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,6 +42,11 @@ class StorePoll extends FormRequest
             'title' => [
                 'required',
                 'min:10'
+            ],
+            'expires_at' => [
+                'sometimes',
+                'nullable',
+                'date',
             ],
             'multiple_choice' => [
                 'required',

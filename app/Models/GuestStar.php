@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -37,6 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GuestStar extends Model
 {
+    /** @use HasFactory<\Database\Factories\GuestStarFactory> */
     use HasFactory;
 
     protected $guarded = [];
@@ -46,7 +50,7 @@ class GuestStar extends Model
     public $table = 'people';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Episode>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Episode, $this>
      */
     public function episode(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

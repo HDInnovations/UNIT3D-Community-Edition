@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -48,9 +51,9 @@ return new class () extends Migration {
                 'actual_uploaded'   => $records->sum('actual_uploaded'),
             ]);
 
-            foreach ($records->where('id', '!=', $merged->id) as $record) {
-                $record->delete();
-            }
+            DB::table('history')
+                ->whereIn('id', $records->where('id', '!=', $merged->id)->pluck('id'))
+                ->delete();
         }
 
         Schema::table('history', function (Blueprint $table): void {

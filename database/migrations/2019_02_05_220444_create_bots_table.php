@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -43,7 +46,7 @@ return new class () extends Migration {
             $table->bigInteger('uploaded')->unsigned()->default(0);
             $table->bigInteger('downloaded')->unsigned()->default(0);
             $table->integer('fl_tokens')->unsigned()->default(0);
-            $table->float('seedbonus', 12)->unsigned()->default(0.00);
+            $table->double('seedbonus')->unsigned()->default(0.00);
             $table->integer('invites')->unsigned()->default(0);
             $table->timestamps();
         });

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -47,7 +50,7 @@ class HistoryFactory extends Factory
             'seedtime'          => $this->faker->randomNumber(),
             'immune'            => $this->faker->boolean(),
             'hitrun'            => $this->faker->boolean(),
-            'prewarn'           => $this->faker->boolean(),
+            'prewarned_at'      => $this->faker->dateTime(),
             'completed_at'      => $this->faker->dateTime(),
         ];
     }

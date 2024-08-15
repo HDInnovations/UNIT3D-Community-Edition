@@ -24,33 +24,45 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.info') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('common.name') }}</dt>
-            <dd class>{{ $torrent->name }}</dd>
-            <dt>{{ __('torrent.size') }} :</dt>
-            <dd class="text-blue">
-                {{ $torrent->getSize() }}
-                <i class="{{ config('other.font-awesome') }} fa-database"></i>
-            </dd>
-            <dt>{{ __('torrent.released') }}</dt>
-            <dd class="text-blue">
-                {{ $torrent->created_at->diffForHumans() }}
-                <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i>
-            </dd>
-            <dt>{{ __('torrent.seeders') }}</dt>
-            <dd class="text-green">
-                {{ $torrent->seeders }}
-                <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-            </dd>
-            <dt>{{ __('torrent.leechers') }}</dt>
-            <dd class="text-red">
-                {{ $torrent->leechers }}
-                <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-            </dd>
-            <dt>{{ __('torrent.completed') }}</dt>
-            <dd class="text-orange">
-                {{ $torrent->times_completed }}
-                <i class="{{ config('other.font-awesome') }} fa-check-square"></i>
-            </dd>
+            <div class="key-value__group">
+                <dt>{{ __('common.name') }}</dt>
+                <dd class>{{ $torrent->name }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.size') }} :</dt>
+                <dd class="text-blue">
+                    {{ $torrent->getSize() }}
+                    <i class="{{ config('other.font-awesome') }} fa-database"></i>
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.released') }}</dt>
+                <dd class="text-blue">
+                    {{ $torrent->created_at->diffForHumans() }}
+                    <i class="{{ config('other.font-awesome') }} fa-fw fa-clock"></i>
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.seeders') }}</dt>
+                <dd class="text-green">
+                    {{ $torrent->seeders }}
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.leechers') }}</dt>
+                <dd class="text-red">
+                    {{ $torrent->leechers }}
+                    <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.completed') }}</dt>
+                <dd class="text-orange">
+                    {{ $torrent->times_completed }}
+                    <i class="{{ config('other.font-awesome') }} fa-check-square"></i>
+                </dd>
+            </div>
         </dl>
     </section>
 @endsection
@@ -66,56 +78,62 @@
             @endif
         </div>
         <dl class="key-value">
-            <dt>
-                {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }}
-                {{ config('other.ratio') }} :
-            </dt>
-            <dd>
-                @if ($user->ratio < config('other.ratio'))
-                    <span class="text-red">
-                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
-                        {{ strtoupper(__('torrent.failed')) }}
-                    </span>
-                @else
-                    <span class="text-green">
-                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
-                        {{ strtoupper(__('torrent.passed')) }}
-                    </span>
-                @endif
-            </dd>
-            <dt>{{ __('torrent.download-rights-active') }}</dt>
-            <dd>
-                @if ($user->can_download == 0 && $torrent->user_id != $user->id)
-                    <span class="text-red">
-                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
-                        {{ strtoupper(__('torrent.failed')) }}
-                    </span>
-                @else
-                    <span class="text-green">
-                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
-                        {{ strtoupper(__('torrent.passed')) }}
-                    </span>
-                @endif
-            </dd>
-            <dt>{{ __('torrent.moderation') }}</dt>
-            <dd>
-                @if ($torrent->status === \App\Models\Torrent::REJECTED)
-                    <span class="text-red">
-                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
-                        {{ strtoupper(__('torrent.rejected')) }}
-                    </span>
-                @elseif ($torrent->status === \App\Models\Torrent::PENDING)
-                    <span class="text-orange">
-                        <i class="{{ config('other.font-awesome') }} fa-times"></i>
-                        {{ strtoupper(__('torrent.pending')) }}
-                    </span>
-                @else
-                    <span class="text-green">
-                        <i class="{{ config('other.font-awesome') }} fa-check"></i>
-                        {{ strtoupper(__('torrent.approved')) }}
-                    </span>
-                @endif
-            </dd>
+            <div class="key-value__group">
+                <dt>
+                    {{ __('common.ratio') }} {{ strtolower(__('torrent.greater-than')) }}
+                    {{ config('other.ratio') }} :
+                </dt>
+                <dd>
+                    @if ($user->ratio < config('other.ratio'))
+                        <span class="text-red">
+                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                            {{ strtoupper(__('torrent.failed')) }}
+                        </span>
+                    @else
+                        <span class="text-green">
+                            <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                            {{ strtoupper(__('torrent.passed')) }}
+                        </span>
+                    @endif
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.download-rights-active') }}</dt>
+                <dd>
+                    @if ($user->can_download == 0 && $torrent->user_id != $user->id)
+                        <span class="text-red">
+                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                            {{ strtoupper(__('torrent.failed')) }}
+                        </span>
+                    @else
+                        <span class="text-green">
+                            <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                            {{ strtoupper(__('torrent.passed')) }}
+                        </span>
+                    @endif
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.moderation') }}</dt>
+                <dd>
+                    @if ($torrent->status === \App\Models\Torrent::REJECTED)
+                        <span class="text-red">
+                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                            {{ strtoupper(__('torrent.rejected')) }}
+                        </span>
+                    @elseif ($torrent->status === \App\Models\Torrent::PENDING)
+                        <span class="text-orange">
+                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                            {{ strtoupper(__('torrent.pending')) }}
+                        </span>
+                    @else
+                        <span class="text-green">
+                            <i class="{{ config('other.font-awesome') }} fa-check"></i>
+                            {{ strtoupper(__('torrent.approved')) }}
+                        </span>
+                    @endif
+                </dd>
+            </div>
         </dl>
         <div class="panel__body">
             @if ($user->ratio < config('other.ratio') ||

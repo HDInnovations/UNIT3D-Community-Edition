@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -64,7 +67,7 @@ class SystemBot
      */
     public function getHelp(): string
     {
-        return $this->replaceVars($this->bot->help);
+        return $this->replaceVars($this->bot->help ?? '');
     }
 
     /**
@@ -77,7 +80,7 @@ class SystemBot
         $output = implode(' ', $note);
         $v = validator(['receiver' => $receiver, 'amount' => $amount, 'note' => $output], [
             'receiver' => 'required|string|exists:users,username',
-            'amount'   => sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
+            'amount'   => \sprintf('required|numeric|min:1|max:%s', $this->target->seedbonus),
             'note'     => 'required|string',
         ]);
 
@@ -89,11 +92,8 @@ class SystemBot
             }
 
             $value = $amount;
-            $recipient->seedbonus += $value;
-            $recipient->save();
-
-            $this->target->seedbonus -= $value;
-            $this->target->save();
+            $recipient->increment('seedbonus', $value);
+            $this->target->decrement('seedbonus', $value);
 
             $gift = Gift::create([
                 'sender_id'    => $this->target->id,
@@ -110,7 +110,7 @@ class SystemBot
             $recipientUrl = href_profile($recipient);
 
             $this->chatRepository->systemMessage(
-                sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $value, $recipientUrl, $recipient->username)
+                \sprintf('[url=%s]%s[/url] has gifted %s BON to [url=%s]%s[/url]', $profileUrl, $this->target->username, $value, $recipientUrl, $recipient->username)
             );
 
             return 'Your gift to '.$recipient->username.' for '.$amount.' BON has been sent!';

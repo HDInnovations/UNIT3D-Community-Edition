@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,6 +36,7 @@ return [
     'categories'               => 'Categories',
     'category'                 => 'Category',
     'client'                   => 'Client',
+    'comments-left'            => 'Comments Left',
     'commited'                 => 'Commited',
     'completed'                => 'Completed',
     'completed_at'             => 'Completed at',
@@ -178,6 +181,7 @@ return [
     'search'                   => 'Search',
     'search-by-name'           => 'Search By Name',
     'season-number'            => 'Season Number',
+    'season'                   => 'Season',
     'seed-time'                => 'Seed Time',
     'seeder'                   => 'Seeder',
     'seeders'                  => 'Seeders',

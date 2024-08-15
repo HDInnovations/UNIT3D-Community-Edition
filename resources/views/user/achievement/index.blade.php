@@ -81,10 +81,16 @@
         <section class="panelV2 achievement__statistics">
             <h2 class="panel__heading">{{ __('user.statistics') }}</h2>
             <dl class="key-value">
-                <dt>{{ __('user.unlocked-achievements') }}:</dt>
-                <dd>{{ auth()->user()->unlockedAchievements()->count() }}</dd>
-                <dt>{{ __('user.locked-achievements') }}</dt>
-                <dd>{{ auth()->user()->lockedAchievements()->count() }}</dd>
+                <div class="key-value__group">
+                    <dt>{{ __('user.unlocked-achievements') }}:</dt>
+                </div>
+                <div class="key-value__group">
+                    <dd>{{ auth()->user()->unlockedAchievements()->count() }}</dd>
+                </div>
+                <div class="key-value__group">
+                    <dt>{{ __('user.locked-achievements') }}</dt>
+                    <dd>{{ auth()->user()->lockedAchievements()->count() }}</dd>
+                </div>
             </dl>
         </section>
     @endsection

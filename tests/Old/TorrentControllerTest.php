@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -45,10 +48,10 @@ final class TorrentControllerTest extends TestCase
                     'last'  => null,
                     'prev'  => null,
                     'next'  => null,
-                    'self'  => sprintf('%s/api/torrents', appurl()),
+                    'self'  => \sprintf('%s/api/torrents', appurl()),
                 ],
                 'meta' => [
-                    'path'        => sprintf('%s/api/torrents/filter', appurl()),
+                    'path'        => \sprintf('%s/api/torrents/filter', appurl()),
                     'per_page'    => 25,
                     'next_cursor' => null,
                     'prev_cursor' => null,
@@ -67,17 +70,17 @@ final class TorrentControllerTest extends TestCase
             ->assertJson([
                 'data'  => [],
                 'links' => [
-                    'first' => sprintf('%s/api/torrents?page=1', appurl()),
-                    'last'  => sprintf('%s/api/torrents?page=1', appurl()),
+                    'first' => \sprintf('%s/api/torrents?page=1', appurl()),
+                    'last'  => \sprintf('%s/api/torrents?page=1', appurl()),
                     'prev'  => null,
                     'next'  => null,
-                    'self'  => sprintf('%s/api/torrents', appurl()),
+                    'self'  => \sprintf('%s/api/torrents', appurl()),
                 ],
                 'meta' => [
                     'current_page' => 1,
                     'from'         => null,
                     'last_page'    => 1,
-                    'path'         => sprintf('%s/api/torrents', appurl()),
+                    'path'         => \sprintf('%s/api/torrents', appurl()),
                     'per_page'     => 25,
                     'to'           => null,
                     'total'        => 0,
@@ -95,7 +98,7 @@ final class TorrentControllerTest extends TestCase
             'status'  => Torrent::APPROVED,
         ]);
 
-        $response = $this->actingAs($user, 'api')->getJson(sprintf('api/torrents/%s', $torrent->id));
+        $response = $this->actingAs($user, 'api')->getJson(\sprintf('api/torrents/%s', $torrent->id));
 
         $response->assertOk()
             ->assertJson([

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,7 +19,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePoll;
 use App\Http\Requests\UpdatePollRequest;
-use App\Models\Option;
 use App\Models\Poll;
 use App\Repositories\ChatRepository;
 use Exception;
@@ -67,11 +69,12 @@ class PollController extends Controller
      */
     public function store(StorePoll $request): \Illuminate\Http\RedirectResponse
     {
-        $poll = Poll::create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'multiple_choice']));
-        Option::upsert(array_map(fn ($item) => ['poll_id' => $poll->id] + $item, $request->safe()->only(['options'])['options']), ['id'], []);
+        $poll = Poll::create(['user_id' => $request->user()->id] + $request->safe()->only(['title', 'expires_at', 'multiple_choice']));
+
+        $poll->options()->upsert($request->validated('options'), ['id'], []);
 
         $this->chatRepository->systemMessage(
-            sprintf('A new poll has been created [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
+            \sprintf('A new poll has been created [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
         );
 
         return to_route('staff.polls.index')
@@ -95,15 +98,16 @@ class PollController extends Controller
      */
     public function update(UpdatePollRequest $request, Poll $poll): \Illuminate\Http\RedirectResponse
     {
-        $poll->update($request->safe()->only(['title', 'multiple_choice']));
+        $poll->update($request->safe()->only(['title', 'expires_at', 'multiple_choice']));
 
         $poll->options()
-            ->whereNotIn('id', Arr::flatten($request->safe()->only(['options.*.id'])))
+            ->whereNotIn('id', Arr::flatten($request->validated('options.*.id')))
             ->delete();
-        Option::upsert(array_map(fn ($item) => ['poll_id' => $poll->id] + $item, $request->safe()->only(['options'])['options']), ['id'], ['name']);
+
+        $poll->options()->upsert($request->validated('options'), ['id'], ['name']);
 
         $this->chatRepository->systemMessage(
-            sprintf('A poll has been updated [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
+            \sprintf('A poll has been updated [url=%s]%s[/url] vote on it now!', href_poll($poll), $poll->title)
         );
 
         return to_route('staff.polls.index')

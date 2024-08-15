@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,13 +20,10 @@ use App\Enums\UserGroup;
 use App\Models\Group;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
+use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoGroupTest
- */
 class AutoGroup extends Command
 {
     /**
@@ -42,65 +42,61 @@ class AutoGroup extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $now = now();
-        $current = Carbon::now();
+        $timestamp = $now->timestamp;
 
         $groups = Group::query()
             ->where('autogroup', '=', 1)
-            ->orderBy('position')
+            ->orderByDesc('position')
             ->get();
 
-        $users = User::query()
+        User::query()
+            ->withSum('seedingTorrents as seedsize', 'size')
+            ->withCount('torrents as uploads')
+            ->withAvg('history as avg_seedtime', 'seedtime')
             ->whereIntegerInRaw('group_id', $groups->pluck('id'))
-            ->get();
+            ->chunkById(100, function ($users) use ($groups, $timestamp): void {
+                foreach ($users as $user) {
+                    foreach ($groups as $group) {
+                        if (
+                            ($group->min_uploaded === null || $user->uploaded >= $group->min_uploaded)
+                            && ($group->min_ratio === null || $user->ratio >= $group->min_ratio)
+                            && ($group->min_age === null || $timestamp - $user->created_at->timestamp >= $group->min_age)
+                            && ($group->min_avg_seedtime === null || $user->avg_seedtime >= $group->min_avg_seedtime)
+                            && ($group->min_seedsize === null || $user->seedsize >= $group->min_seedsize)
+                            && ($group->min_uploads === null || $user->uploads >= $group->min_uploads)
+                        ) {
+                            $user->group_id = $group->id;
 
-        foreach ($users as $user) {
-            // memoize when necessary
-            $seedsize = null;
-            $seedtime = null;
+                            // Leech ratio dropped below sites minimum
+                            if ($user->group_id === UserGroup::LEECH->value) {
+                                // Keep these as 0/1 instead of false/true
+                                // because it reduces 6% custom casting overhead
+                                $user->can_download = 0;
+                            } else {
+                                $user->can_download = 1;
+                            }
 
-            foreach ($groups as $group) {
-                $seedtime ??= DB::table('history')
-                    ->where('user_id', '=', $user->id)
-                    ->avg('seedtime') ?? 0;
+                            $user->save();
 
-                $seedsize ??= $user->seedingTorrents()->sum('size');
+                            if ($user->wasChanged()) {
+                                cache()->forget('user:'.$user->passkey);
 
-                if (
-                    //short circuit when the values are 0 or null
-                    (!$group->min_uploaded || $group->min_uploaded <= $user->uploaded)
-                    && (!$group->min_ratio || $group->min_ratio <= $user->ratio)
-                    && (!$group->min_age || $user->created_at->addSeconds($group->min_age)->isBefore($current))
-                    && (!$group->min_avg_seedtime || $group->min_avg_seedtime <= ($seedtime))
-                    && (!$group->min_seedsize || $group->min_seedsize <= ($seedsize))
-                ) {
-                    $user->group_id = $group->id;
+                                Unit3dAnnounce::addUser($user);
+                            }
 
-                    // Leech ratio dropped below sites minimum
-                    if ($user->group_id === UserGroup::LEECH->value) {
-                        $user->can_request = false;
-                        $user->can_invite = false;
-                        $user->can_download = false;
-                    } else {
-                        $user->can_request = true;
-                        $user->can_invite = true;
-                        $user->can_download = true;
-                    }
-                    $user->save();
-
-                    if ($user->wasChanged()) {
-                        cache()->forget('user:'.$user->passkey);
-
-                        Unit3dAnnounce::addUser($user);
+                            break;
+                        }
                     }
                 }
-            }
-        }
+            });
 
-        $elapsed = now()->diffInSeconds($now);
-        $this->comment('Automated User Group Command Complete ('.$elapsed.')');
+        $elapsed = $now->diffInSeconds(now());
+        $this->comment('Automated User Group Command Complete ('.$elapsed.' s)');
     }
 }

@@ -205,14 +205,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('torrent.category') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $categories = cache()->remember(
-                                            'categories',
-                                            3_600,
-                                            fn () => App\Models\Category::orderBy('position')->get()
-                                        )
-                                    @endphp
-
                                     @foreach ($categories as $category)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -220,7 +212,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $category->id }}"
-                                                    wire:model.live="categories"
+                                                    wire:model.live="categoryIds"
                                                 />
                                                 {{ $category->name }}
                                             </label>
@@ -233,14 +225,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('common.type') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $types = cache()->remember(
-                                            'types',
-                                            3_600,
-                                            fn () => App\Models\Type::orderBy('position')->get()
-                                        )
-                                    @endphp
-
                                     @foreach ($types as $type)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -248,7 +232,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $type->id }}"
-                                                    wire:model.live="types"
+                                                    wire:model.live="typeIds"
                                                 />
                                                 {{ $type->name }}
                                             </label>
@@ -261,14 +245,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('common.resolution') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $resolutions = cache()->remember(
-                                            'resolutions',
-                                            3_600,
-                                            fn () => App\Models\Resolution::orderBy('position')->get()
-                                        )
-                                    @endphp
-
                                     @foreach ($resolutions as $resolution)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -276,7 +252,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $resolution->id }}"
-                                                    wire:model.live="resolutions"
+                                                    wire:model.live="resolutionIds"
                                                 />
                                                 {{ $resolution->name }}
                                             </label>
@@ -289,14 +265,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">{{ __('torrent.genre') }}</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $genres = cache()->remember(
-                                            'genres',
-                                            3_600,
-                                            fn () => App\Models\Genre::orderBy('name')->get()
-                                        )
-                                    @endphp
-
                                     @foreach ($genres as $genre)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -304,7 +272,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $genre->id }}"
-                                                    wire:model.live="genres"
+                                                    wire:model.live="genreIds"
                                                 />
                                                 {{ $genre->name }}
                                             </label>
@@ -317,17 +285,6 @@
                             <fieldset class="form__fieldset">
                                 <legend class="form__legend">Primary Language</legend>
                                 <div class="form__fieldset-checkbox-container">
-                                    @php
-                                        $primaryLanguages = cache()->remember(
-                                            'torrent-search:languages',
-                                            3600,
-                                            fn () => App\Models\Movie::select('original_language')
-                                                ->distinct()
-                                                ->orderBy('original_language')
-                                                ->pluck('original_language')
-                                        )
-                                    @endphp
-
                                     @foreach ($primaryLanguages as $primaryLanguage)
                                         <p class="form__group">
                                             <label class="form__label">
@@ -335,7 +292,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $primaryLanguage }}"
-                                                    wire:model.live="primaryLanguages"
+                                                    wire:model.live="primaryLanguageNames"
                                                 />
                                                 {{ $primaryLanguage }}
                                             </label>
@@ -453,22 +410,38 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('stat.stats') }}</h2>
             <dl class="key-value">
-                <dt>{{ __('request.requests') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->total) }}</dd>
-                <dt>{{ __('request.filled') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->filled) }}</dd>
-                <dt>{{ __('request.unfilled') }}:</dt>
-                <dd>{{ number_format($torrentRequestStat->unfilled) }}</dd>
-                <dt>{{ __('request.total-bounty') }}:</dt>
-                <dd>{{ number_format($torrentRequestBountyStat->total) }} {{ __('bon.bon') }}</dd>
-                <dt>{{ __('request.bounty-claimed') }}:</dt>
-                <dd>
-                    {{ number_format($torrentRequestBountyStat->claimed) }} {{ __('bon.bon') }}
-                </dd>
-                <dt>{{ __('request.bounty-unclaimed') }}:</dt>
-                <dd>
-                    {{ number_format($torrentRequestBountyStat->unclaimed) }} {{ __('bon.bon') }}
-                </dd>
+                <div class="key-value__group">
+                    <dt>{{ __('request.requests') }}:</dt>
+                    <dd>{{ number_format($torrentRequestStat->total) }}</dd>
+                </div>
+                <div class="key-value__group">
+                    <dt>{{ __('request.filled') }}:</dt>
+                    <dd>{{ number_format($torrentRequestStat->filled) }}</dd>
+                </div>
+                <div class="key-value__group">
+                    <dt>{{ __('request.unfilled') }}:</dt>
+                    <dd>{{ number_format($torrentRequestStat->unfilled) }}</dd>
+                </div>
+                <div class="key-value__group">
+                    <dt>{{ __('request.total-bounty') }}:</dt>
+                    <dd>
+                        {{ number_format($torrentRequestBountyStat->total) }} {{ __('bon.bon') }}
+                    </dd>
+                </div>
+                <div class="key-value__group">
+                    <dt>{{ __('request.bounty-claimed') }}:</dt>
+                    <dd>
+                        {{ number_format($torrentRequestBountyStat->claimed) }}
+                        {{ __('bon.bon') }}
+                    </dd>
+                </div>
+                <div class="key-value__group">
+                    <dt>{{ __('request.bounty-unclaimed') }}:</dt>
+                    <dd>
+                        {{ number_format($torrentRequestBountyStat->unclaimed) }}
+                        {{ __('bon.bon') }}
+                    </dd>
+                </div>
             </dl>
         </section>
     </aside>

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -64,8 +67,8 @@ class SetLanguage
     {
         $user = auth()->user();
 
-        if ($user->locale) {
-            $this->setLocale($user->locale);
+        if ($user->settings?->locale) {
+            $this->setLocale($user->settings->locale);
         } else {
             $this->setDefaultLocale();
         }

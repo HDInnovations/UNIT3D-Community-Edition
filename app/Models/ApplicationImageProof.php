@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,12 +32,14 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationImageProof extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\ApplicationImageProofFactory> */
     use HasFactory;
 
     /**
-     * The Attributes That Are Mass Assignable.
+     * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array<int, string>
      */
     protected $fillable = [
         'application_id',
@@ -44,7 +49,7 @@ class ApplicationImageProof extends Model
     /**
      * Belongs To A Application.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Application, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Application, $this>
      */
     public function application(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

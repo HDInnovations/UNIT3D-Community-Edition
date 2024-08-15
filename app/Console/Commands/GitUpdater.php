@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,16 +17,15 @@
 namespace App\Console\Commands;
 
 use App\Console\ConsoleTools;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use RuntimeException;
+use Throwable;
 
-/**
- * @see \Tests\Todo\Unit\Console\Commands\GitUpdaterTest
- */
 class GitUpdater extends Command
 {
     use ConsoleTools;
@@ -48,17 +50,19 @@ class GitUpdater extends Command
     protected $description = 'Executes The Commands Necessary To Update Your Website Using Git';
 
     /**
-     * @var string[]
+     * @var array<string>
      */
-    private const ADDITIONAL = [
+    private const array ADDITIONAL = [
         '.env',
         'laravel-echo-server.json',
     ];
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $this->input = new ArgvInput();
         $this->output = new ConsoleOutput();
@@ -178,6 +182,11 @@ class GitUpdater extends Command
         }
     }
 
+    /**
+     * Check for updates.
+     *
+     * @return array<string>
+     */
     private function checkForUpdates(): array
     {
         $this->header('Checking For Updates');
@@ -191,13 +200,18 @@ class GitUpdater extends Command
         return $updating;
     }
 
-    private function manualUpdate($updating): void
+    /*
+     * Manually update files that have conflicts.
+     *
+     * @param array<string> $updating
+     */
+    private function manualUpdate(array $updating): void
     {
         $this->alertInfo('Manual Update');
         $this->red('Updating will cause you to LOSE any changes you might have made to the file!');
 
         foreach ($updating as $file) {
-            if ($this->io->confirm(sprintf('Update %s', $file), true)) {
+            if ($this->io->confirm(\sprintf('Update %s', $file), true)) {
                 $this->updateFile($file);
             }
         }
@@ -205,11 +219,19 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function updateFile($file): void
+    /**
+     * Update a file.
+     */
+    private function updateFile(string $file): void
     {
-        $this->process(sprintf('git checkout origin/master -- %s', $file));
+        $this->process(\sprintf('git checkout origin/master -- %s', $file));
     }
 
+    /**
+     * Backup the files that will be updated.
+     *
+     * @param array<string> $paths
+     */
     private function backup(array $paths): void
     {
         $this->header('Backing Up Files');
@@ -228,6 +250,11 @@ class GitUpdater extends Command
         $this->done();
     }
 
+    /**
+     * Restore the files that were backed up.
+     *
+     * @param array<string> $paths
+     */
     private function restore(array $paths): void
     {
         $this->header('Restoring Backups');
@@ -241,7 +268,7 @@ class GitUpdater extends Command
                 $from .= '/*';
             }
 
-            $this->process(sprintf('%s %s %s', $this->copyCommand, $from, $to));
+            $this->process(\sprintf('%s %s %s', $this->copyCommand, $from, $to));
         }
 
         $this->commands([
@@ -332,31 +359,36 @@ class GitUpdater extends Command
         $this->done();
     }
 
-    private function validatePath($path): void
+    private function validatePath(string $path): void
     {
         if (!is_file(base_path($path)) && !is_dir(base_path($path))) {
-            $this->red(sprintf("The path '%s' is invalid", $path));
+            $this->red(\sprintf("The path '%s' is invalid", $path));
         }
     }
 
-    private function createBackupPath($path): void
+    private function createBackupPath(string $path): void
     {
-        if (!is_dir(storage_path(sprintf('gitupdate/%s', $path))) && !is_file(base_path($path))) {
-            if (!mkdir($concurrentDirectory = storage_path(sprintf('gitupdate/%s', $path)), 0775, true) && !is_dir($concurrentDirectory)) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+        if (!is_dir(storage_path(\sprintf('gitupdate/%s', $path))) && !is_file(base_path($path))) {
+            if (!mkdir($concurrentDirectory = storage_path(\sprintf('gitupdate/%s', $path)), 0775, true) && !is_dir($concurrentDirectory)) {
+                throw new RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
-        } elseif (is_file(base_path($path)) && \dirname((string) $path) !== '.') {
+        } elseif (is_file(base_path($path)) && \dirname($path) !== '.') {
             $path = \dirname((string) $path);
 
-            if (!is_dir(storage_path(sprintf('gitupdate/%s', $path))) && !mkdir($concurrentDirectory = storage_path(sprintf(
+            if (!is_dir(storage_path(\sprintf('gitupdate/%s', $path))) && !mkdir($concurrentDirectory = storage_path(\sprintf(
                 'gitupdate/%s',
                 $path
             )), 0775, true) && !is_dir($concurrentDirectory)) {
-                throw new RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+                throw new RuntimeException(\sprintf('Directory "%s" was not created', $concurrentDirectory));
             }
         }
     }
 
+    /**
+     * Get the paths that need to be updated.
+     *
+     * @return array<string>
+     */
     private function paths(): array
     {
         $p = $this->process('git diff master --name-only');

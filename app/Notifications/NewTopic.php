@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -58,7 +61,7 @@ class NewTopic extends Notification implements ShouldQueue
         return [
             'title' => $this->user->username.' Has Posted In A Subscribed Forum',
             'body'  => $this->user->username.' has started a new topic in '.$this->topic->forum->name,
-            'url'   => sprintf('/forums/topics/%s', $this->topic->id),
+            'url'   => \sprintf('/forums/topics/%s', $this->topic->id),
         ];
     }
 }

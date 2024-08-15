@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -51,7 +54,7 @@ class NewUploadTip extends Notification implements ShouldQueue
         return [
             'title' => $this->tip->sender->username.' Has Tipped You '.$this->tip->bon.' BON For An Uploaded Torrent',
             'body'  => $this->tip->sender->username.' has tipped one of your Uploaded Torrents '.$this->tip->torrent->name,
-            'url'   => sprintf('/torrents/%s', $this->tip->torrent_id),
+            'url'   => \sprintf('/torrents/%s', $this->tip->torrent_id),
         ];
     }
 }

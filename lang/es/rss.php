@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,18 +15,22 @@
 
 return [
     'create'              => 'Crear',
-    'create-private-feed' => 'Crear un feed RSS privado',
-    'create-public-feed'  => 'Crear RSS público',
-    'delete'              => 'Borrar',
+    'create-private-feed' => 'Crear Feed RSS Privado',
+    'create-public-feed'  => 'Crear Feed RSS Público',
+    'created'             => 'Feed RSS privado creado',
+    'delete'              => 'Eliminar',
+    'deleted'             => '¡Feed RSS Eliminado!',
     'edit'                => 'Editar',
-    'edit-private-feed'   => 'Editar RSS privado',
-    'edit-public-feed'    => 'Editar RSS Public Feed',
-    'feed'                => 'Suscripción',
-    'feeds'               => 'Suscripción',
+    'edit-private-feed'   => 'Editar Feed RSS Privado',
+    'edit-public-feed'    => 'Editar Feed RSS Público',
+    'error'               => 'No se puede procesar la solicitud',
+    'feed'                => 'Feed',
+    'feeds'               => 'Feeds',
     'name'                => 'Nombre',
     'public'              => 'Público',
     'private'             => 'Privado',
     'rss'                 => 'RSS',
     'rss-feed'            => 'Feed RSS',
     'type'                => 'Tipo',
+    'updated'             => 'Feed RSS privado Actualizado',
 ];

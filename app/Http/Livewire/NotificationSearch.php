@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -94,12 +97,12 @@ class NotificationSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\Illuminate\Notifications\DatabaseNotification>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<\Illuminate\Notifications\DatabaseNotification>
      */
     #[Computed]
-    final public function notifications(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function notifications(): \Illuminate\Pagination\LengthAwarePaginator
     {
-        return auth()->user()?->notifications()
+        return auth()->user()->notifications()
             ->select('*')
             ->selectRaw("CASE WHEN read_at IS NULL THEN 'FALSE' ELSE 'TRUE' END as is_read")
             ->where(function ($query): void {

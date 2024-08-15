@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,7 +16,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Models\Warning;
 use App\Traits\LivewireSort;
@@ -25,10 +27,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $warnings
- * @property int                                                   $automatedWarningsCount
- * @property int                                                   $manualWarningsCount
- * @property int                                                   $deletedWarningsCount
+ * @property \Illuminate\Pagination\LengthAwarePaginator $warnings
+ * @property int                                         $automatedWarningsCount
+ * @property int                                         $manualWarningsCount
+ * @property int                                         $deletedWarningsCount
  */
 class UserWarnings extends Component
 {
@@ -57,10 +59,10 @@ class UserWarnings extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Warning>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Warning>
      */
     #[Computed]
-    final public function warnings(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function warnings(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return $this->user
             ->userwarning()
@@ -116,12 +118,10 @@ class UserWarnings extends Component
             'active'     => '1',
         ]);
 
-        PrivateMessage::create([
-            'sender_id'   => User::SYSTEM_USER_ID,
-            'receiver_id' => $this->user->id,
-            'subject'     => 'Received warning',
-            'message'     => 'You have received a [b]warning[/b]. Reason: '.$this->message,
-        ]);
+        $this->user->sendSystemNotification(
+            subject: 'Received warning',
+            message: 'You have received a [b]warning[/b]. Reason: '.$this->message,
+        );
 
         $this->message = '';
 
@@ -142,12 +142,10 @@ class UserWarnings extends Component
             'active'     => false,
         ]);
 
-        PrivateMessage::create([
-            'sender_id'   => $staff->id,
-            'receiver_id' => $this->user->id,
-            'subject'     => 'Hit and Run Warning Deleted',
-            'message'     => $staff->username.' has decided to deactivate your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
-        ]);
+        $this->user->sendSystemNotification(
+            subject: 'Hit and Run Warning Deleted',
+            message: $staff->username.' has decided to deactivate your warning for torrent '.$warning->torrent.' You lucked out!',
+        );
 
         $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Deactivated');
     }
@@ -184,12 +182,10 @@ class UserWarnings extends Component
                 'active'     => false,
             ]);
 
-        PrivateMessage::create([
-            'sender_id'   => $staff->id,
-            'receiver_id' => $this->user->id,
-            'subject'     => 'All Hit and Run Warnings Deleted',
-            'message'     => $staff->username.' has decided to deactivate all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
-        ]);
+        $this->user->sendSystemNotification(
+            subject: 'All Hit and Run Warnings Deleted',
+            message: $staff->username.' has decided to deactivate all of your warnings. You lucked out!',
+        );
 
         $this->dispatch('success', type: 'success', message: 'All Warnings Were Successfully Deactivated');
     }
@@ -211,12 +207,10 @@ class UserWarnings extends Component
 
         $warning->delete();
 
-        PrivateMessage::create([
-            'sender_id'   => $staff->id,
-            'receiver_id' => $this->user->id,
-            'subject'     => 'Hit and Run Warning Deleted',
-            'message'     => $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
-        ]);
+        $this->user->sendSystemNotification(
+            subject: 'Hit and Run Warning Deleted',
+            message: $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out!',
+        );
 
         $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Deleted');
     }
@@ -238,12 +232,10 @@ class UserWarnings extends Component
 
         $this->user->warnings()->delete();
 
-        PrivateMessage::create([
-            'sender_id'   => $staff->id,
-            'receiver_id' => $this->user->id,
-            'subject'     => 'All Hit and Run Warnings Deleted',
-            'message'     => $staff->username.' has decided to delete all of your warnings. You lucked out! [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]',
-        ]);
+        $this->user->sendSystemNotification(
+            subject: 'All Hit and Run Warnings Deleted',
+            message: $staff->username.' has decided to delete all of your warnings. You lucked out!',
+        );
 
         $this->dispatch('success', type: 'success', message: 'All Warnings Were Successfully Deleted');
     }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +37,7 @@ class PostTip extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{created_at: 'datetime'}
      */
     protected function casts(): array
     {
@@ -44,7 +47,7 @@ class PostTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -52,7 +55,7 @@ class PostTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function recipient(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -60,7 +63,7 @@ class PostTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, $this>
      */
     public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -55,66 +55,9 @@
         <div class="panel__body">{{ __('stat.nerd-stats-desc') }}. {{ __('stat.updated') }}</div>
     </section>
     <div class="stats__panels">
-        <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
-            <dl class="key-value">
-                @foreach ($categories as $category)
-                    <dt>{{ $category->name }} {{ __('common.category') }}</dt>
-                    <dd>{{ $category->torrents_count }}</dd>
-                @endforeach
-
-                <dt>HD</dt>
-                <dd>{{ $num_hd }}</dd>
-                <dt>SD</dt>
-                <dd>{{ $num_sd }}</dd>
-                <dt>{{ __('stat.total-torrents') }}</dt>
-                <dd>{{ $num_torrent }}</dd>
-                <dt>{{ __('stat.total-torrents') }} {{ __('torrent.size') }}</dt>
-                <dd>{{ App\Helpers\StringHelper::formatBytes($torrent_size, 2) }}</dd>
-            </dl>
-        </section>
-        <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">{{ __('common.users') }}</h2>
-            <dl class="key-value">
-                <dt>{{ __('stat.all') }} {{ __('common.users') }}</dt>
-                <dd>{{ $all_user }}</dd>
-                <dt>{{ __('stat.active') }} {{ __('common.users') }}</dt>
-                <dd>{{ $active_user }}</dd>
-                <dt>{{ __('stat.disabled') }} {{ __('common.users') }}</dt>
-                <dd>{{ $disabled_user }}</dd>
-                <dt>{{ __('stat.pruned') }} {{ __('common.users') }}</dt>
-                <dd>{{ $pruned_user }}</dd>
-                <dt>{{ __('stat.banned') }} {{ __('common.users') }}</dt>
-                <dd>{{ $banned_user }}</dd>
-            </dl>
-        </section>
-        <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">{{ __('torrent.peers') }}</h2>
-            <dl class="key-value">
-                <dt>{{ __('torrent.seeders') }}</dt>
-                <dd>{{ $num_seeders }}</dd>
-                <dt>{{ __('torrent.leechers') }}</dt>
-                <dd>{{ $num_leechers }}</dd>
-                <dt>Total</dt>
-                <dd>{{ $num_peers }}</dd>
-            </dl>
-        </section>
-        <section class="panelV2 panel--grid-item">
-            <h2 class="panel__heading">{{ __('stat.total-traffic') }}</h2>
-            <dl class="key-value">
-                <dt>{{ __('stat.real') }} {{ __('stat.total-upload') }}</dt>
-                <dd>{{ \App\Helpers\StringHelper::formatBytes($actual_upload, 2) }}</dd>
-                <dt>{{ __('stat.real') }} {{ __('stat.total-download') }}</dt>
-                <dd>{{ \App\Helpers\StringHelper::formatBytes($actual_download, 2) }}</dd>
-                <dt>{{ __('stat.real') }} {{ __('stat.total-traffic') }}</dt>
-                <dd>{{ \App\Helpers\StringHelper::formatBytes($actual_up_down, 2) }}</dd>
-                <dt>{{ __('stat.credited') }} {{ __('stat.total-upload') }}</dt>
-                <dd>{{ \App\Helpers\StringHelper::formatBytes($credited_upload, 2) }}</dd>
-                <dt>{{ __('stat.credited') }} {{ __('stat.total-download') }}</dt>
-                <dd>{{ \App\Helpers\StringHelper::formatBytes($credited_download, 2) }}</dd>
-                <dt>{{ __('stat.credited') }} {{ __('stat.total-traffic') }}</dt>
-                <dd>{{ \App\Helpers\StringHelper::formatBytes($credited_up_down, 2) }}</dd>
-            </dl>
-        </section>
+        <livewire:stats.torrent-stats />
+        <livewire:stats.user-stats />
+        <livewire:stats.peer-stats />
+        <livewire:stats.traffic-stats />
     </div>
 @endsection

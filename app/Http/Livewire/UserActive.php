@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator $actives
+ * @property \Illuminate\Pagination\LengthAwarePaginator $actives
  */
 class UserActive extends Component
 {
@@ -77,15 +80,14 @@ class UserActive extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Peer>
      */
     #[Computed]
-    final public function actives(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function actives(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Peer::query()
             ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
             ->select(
-                'peers.id',
                 'peers.port',
                 'peers.agent',
                 'peers.uploaded',
@@ -98,6 +100,7 @@ class UserActive extends Component
                 'peers.user_id',
                 'peers.active',
                 'peers.visible',
+                'peers.connectable',
                 'torrents.name',
                 'torrents.size',
                 'torrents.seeders',

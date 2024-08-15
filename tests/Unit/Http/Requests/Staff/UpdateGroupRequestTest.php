@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -93,6 +96,22 @@ test('rules', function (): void {
             'boolean',
         ],
         'is_incognito' => [
+            'required',
+            'boolean',
+        ],
+        'can_chat' => [
+            'required',
+            'boolean',
+        ],
+        'can_comment' => [
+            'required',
+            'boolean',
+        ],
+        'can_invite' => [
+            'required',
+            'boolean',
+        ],
+        'can_request' => [
             'required',
             'boolean',
         ],

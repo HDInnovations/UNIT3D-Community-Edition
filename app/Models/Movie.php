@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -47,12 +50,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Movie extends Model
 {
+    /** @use HasFactory<\Database\Factories\MovieFactory> */
     use HasFactory;
 
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Genre>
+     * Get the attributes that should be cast.
+     *
+     * @return array{release_date: 'datetime'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'release_date' => 'datetime',
+        ];
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Genre, $this>
      */
     public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -60,7 +76,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person, $this>
      */
     public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -68,7 +84,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit, $this>
      */
     public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -76,7 +92,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person, $this>
      */
     public function directors(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -85,7 +101,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Company>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Company, $this>
      */
     public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -93,7 +109,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Collection>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Collection, $this>
      */
     public function collection(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -101,7 +117,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Recommendation>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Recommendation, $this>
      */
     public function recommendations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -109,7 +125,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Movie, $this>
      */
     public function recommendedMovies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -117,7 +133,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -127,7 +143,7 @@ class Movie extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,7 +42,7 @@ use voku\helper\AntiXSS;
  * @property string|null                     $two_factor_confirmed_at
  * @property string                          $passkey
  * @property int                             $group_id
- * @property int                             $active
+ * @property bool                            $active
  * @property int                             $uploaded
  * @property int                             $downloaded
  * @property string|null                     $image
@@ -47,19 +50,11 @@ use voku\helper\AntiXSS;
  * @property string|null                     $about
  * @property string|null                     $signature
  * @property int                             $fl_tokens
- * @property float                           $seedbonus
+ * @property string                          $seedbonus
  * @property int                             $invites
  * @property int                             $hitandruns
  * @property string                          $rsskey
  * @property int                             $chatroom_id
- * @property int                             $censor
- * @property int                             $chat_hidden
- * @property bool                            $hidden
- * @property int                             $style
- * @property int                             $torrent_layout
- * @property int                             $torrent_filters
- * @property string|null                     $custom_css
- * @property string|null                     $standalone_css
  * @property int                             $read_rules
  * @property bool                            $can_chat
  * @property bool                            $can_comment
@@ -67,20 +62,14 @@ use voku\helper\AntiXSS;
  * @property bool                            $can_request
  * @property bool                            $can_invite
  * @property bool                            $can_upload
- * @property int                             $show_poster
- * @property int                             $peer_hidden
- * @property int                             $private_profile
- * @property int                             $block_notifications
- * @property int                             $stat_hidden
  * @property string|null                     $remember_token
  * @property string|null                     $api_token
  * @property \Illuminate\Support\Carbon|null $last_login
  * @property \Illuminate\Support\Carbon|null $last_action
- * @property string|null                     $disabled_at
+ * @property \Illuminate\Support\Carbon|null $disabled_at
  * @property int|null                        $deleted_by
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string                          $locale
  * @property int                             $chat_status_id
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property int                             $own_flushes
@@ -89,6 +78,8 @@ use voku\helper\AntiXSS;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Achiever;
+
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
@@ -122,20 +113,23 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{last_login: 'datetime', last_action: 'datetime', disabled_at: 'datetime', hidden: 'bool', can_comment: 'bool', can_download: 'bool', can_request: 'bool', can_invite: 'bool', can_upload: 'bool', can_chat: 'bool', seedbonus: 'decimal:2', active: 'bool'}
      */
     protected function casts(): array
     {
         return [
             'last_login'   => 'datetime',
             'last_action'  => 'datetime',
-            'hidden'       => 'boolean',
-            'can_comment'  => 'boolean',
-            'can_download' => 'boolean',
-            'can_request'  => 'boolean',
-            'can_invite'   => 'boolean',
-            'can_upload'   => 'boolean',
-            'can_chat'     => 'boolean',
+            'disabled_at'  => 'datetime',
+            'hidden'       => 'bool',
+            'can_comment'  => 'bool',
+            'can_download' => 'bool',
+            'can_request'  => 'bool',
+            'can_invite'   => 'bool',
+            'can_upload'   => 'bool',
+            'can_chat'     => 'bool',
+            'seedbonus'    => 'decimal:2',
+            'active'       => 'bool',
         ];
     }
 
@@ -147,7 +141,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, $this>
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -173,7 +167,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Internal Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Internal>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Internal, $this>
      */
     public function internals(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -185,7 +179,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Chatroom.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, $this>
      */
     public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -195,7 +189,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To A Chat Status.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ChatStatus, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ChatStatus, $this>
      */
     public function chatStatus(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -205,7 +199,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To Many Bookmarks.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function bookmarks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -215,7 +209,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To Many Seeding Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function seedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -227,7 +221,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs To Many Leeching Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function leechingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -239,7 +233,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs to many followers.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
      */
     public function followers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -251,7 +245,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs to many connectable seeding torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Torrent, $this>
      */
     public function connectableSeedingTorrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -263,7 +257,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Belongs to many followees.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
      */
     public function following(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -275,7 +269,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Messages.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Message>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Message, $this>
      */
     public function messages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -283,9 +277,35 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has One Settings Object.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserSetting, $this>
+     */
+    public function settings(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(UserSetting::class);
+    }
+
+    /**
+     * Get user's settings object.
+     */
+    public function getSettingsAttribute(): ?UserSetting
+    {
+        $settings = cache()->rememberForever('user-settings:by-user-id:'.$this->id, fn () => $this->getRelationValue('settings') ?? 'not found');
+
+        if ($settings === 'not found') {
+            $settings = null;
+        }
+
+        $this->setRelation('settings', $settings);
+
+        return $settings;
+    }
+
+    /**
      * Has One Privacy Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserPrivacy>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserPrivacy, $this>
      */
     public function privacy(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -293,9 +313,25 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get user's notification object.
+     */
+    public function getNotificationAttribute(): ?UserNotification
+    {
+        $notification = cache()->rememberForever('user-notification:by-user-id:'.$this->id, fn () => $this->getRelationValue('notification') ?? 'not found');
+
+        if ($notification === 'not found') {
+            $notification = null;
+        }
+
+        $this->setRelation('notification', $notification);
+
+        return $notification;
+    }
+
+    /**
      * Has One Notifications Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserNotification>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<UserNotification, $this>
      */
     public function notification(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -303,9 +339,25 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Get user's privacy object.
+     */
+    public function getPrivacyAttribute(): ?UserPrivacy
+    {
+        $privacy = cache()->rememberForever('user-privacy:by-user-id:'.$this->id, fn () => $this->getRelationValue('privacy') ?? 'not found');
+
+        if ($privacy === 'not found') {
+            $privacy = null;
+        }
+
+        $this->setRelation('privacy', $privacy);
+
+        return $privacy;
+    }
+
+    /**
      * Has One Watchlist Object.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Watchlist>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Watchlist, $this>
      */
     public function watchlist(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -315,7 +367,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many RSS Feeds.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rss>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rss, $this>
      */
     public function rss(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -325,7 +377,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Echo Settings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserEcho>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserEcho, $this>
      */
     public function echoes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -335,7 +387,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Audible Settings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserAudible>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserAudible, $this>
      */
     public function audibles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -345,7 +397,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Thanks Given.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Thank>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Thank, $this>
      */
     public function thanksGiven(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -355,7 +407,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Wish's.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish, $this>
      */
     public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -365,7 +417,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Thanks Received.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Thank>
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Thank, Torrent, $this>
      */
     public function thanksReceived(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -375,7 +427,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Polls.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Poll>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Poll, $this>
      */
     public function polls(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -385,7 +437,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -395,7 +447,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Playlist>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Playlist, $this>
      */
     public function playlists(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -405,7 +457,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Sent PM's.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage, $this>
      */
     public function sentPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -413,19 +465,9 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Has Many Received PM's.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PrivateMessage>
-     */
-    public function receivedPrivateMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(PrivateMessage::class, 'receiver_id');
-    }
-
-    /**
      * Has Many Peers.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Peer, $this>
      */
     public function peers(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -435,7 +477,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Articles.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Article>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Article, $this>
      */
     public function articles(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -445,7 +487,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic, $this>
      */
     public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -455,7 +497,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Posts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post, $this>
      */
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -465,7 +507,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Comments.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -475,7 +517,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -485,7 +527,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Approved Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function ApprovedRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -495,7 +537,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Filled Many Torrent Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function filledRequests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -505,7 +547,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Torrent Request BON Bounties.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty, $this>
      */
     public function requestBounty(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -515,7 +557,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Moderated Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function moderated(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -525,7 +567,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Notes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Note, $this>
      */
     public function notes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -535,7 +577,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Reports.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report, $this>
      */
     public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -545,7 +587,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Solved Many Reports.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report, $this>
      */
     public function solvedReports(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -555,7 +597,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Torrent History.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<History>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<History, $this>
      */
     public function history(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -565,7 +607,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Bans.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban, $this>
      */
     public function userban(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -575,7 +617,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Given Many Bans.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ban, $this>
      */
     public function staffban(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -585,7 +627,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Given Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
      */
     public function staffwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -595,7 +637,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Deleted Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
      */
     public function staffdeletedwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -605,7 +647,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
      */
     public function userwarning(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -615,7 +657,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Given Many Invites.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite, $this>
      */
     public function sentInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -625,7 +667,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Received Many Invites.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Invite, $this>
      */
     public function receivedInvites(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -635,7 +677,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Featured Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FeaturedTorrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FeaturedTorrent, $this>
      */
     public function featuredTorrent(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -645,7 +687,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Post Likes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Like, $this>
      */
     public function likes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -655,7 +697,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Subscriptions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription, $this>
      */
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -665,7 +707,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Resurrections.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection, $this>
      */
     public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -675,7 +717,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Subscribed topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Forum>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Forum, $this>
      */
     public function subscribedForums(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -685,7 +727,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Subscribed topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Topic>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Topic, $this>
      */
     public function subscribedTopics(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -695,7 +737,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Permissions through Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission, $this>
      */
     public function forumPermissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -705,7 +747,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many free leech tokens.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FreeleechToken, $this>
      */
     public function freeleechTokens(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -715,7 +757,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many warnings.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Warning, $this>
      */
     public function warnings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -725,7 +767,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Tickets.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ticket>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Ticket, $this>
      */
     public function tickets(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -735,7 +777,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has Many Personal Freeleeches.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PersonalFreeleech>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PersonalFreeleech, $this>
      */
     public function personalFreeleeches(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -745,7 +787,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many failed logins.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FailedLoginAttempt>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<FailedLoginAttempt, $this>
      */
     public function failedLogins(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -755,7 +797,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many upload snatches.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<History>
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<History, Torrent, $this>
      */
     public function uploadSnatches(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -765,7 +807,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent gifts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift, $this>
      */
     public function sentGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -775,7 +817,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many received gifts.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Gift, $this>
      */
     public function receivedGifts(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -785,7 +827,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip, $this>
      */
     public function sentPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -795,7 +837,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many received tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PostTip, $this>
      */
     public function receivedPostTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -805,7 +847,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many sent tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip, $this>
      */
     public function sentTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -815,7 +857,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many received tips.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTip, $this>
      */
     public function receivedTorrentTips(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -825,7 +867,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many seedboxes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Seedbox>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Seedbox, $this>
      */
     public function seedboxes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -835,7 +877,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has one application.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough<Application>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough<Application, Invite, $this>
      */
     public function application(): \Illuminate\Database\Eloquent\Relations\HasOneThrough
     {
@@ -845,7 +887,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many passkeys.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Passkey>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Passkey, $this>
      */
     public function passkeys(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -855,7 +897,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many rsskeys.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rsskey>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Rsskey, $this>
      */
     public function rsskeys(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -865,7 +907,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many apikeys.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Apikey>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Apikey, $this>
      */
     public function apikeys(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -875,11 +917,67 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Has many email updates.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<EmailUpdate>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<EmailUpdate, $this>
      */
     public function emailUpdates(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(EmailUpdate::class);
+    }
+
+    /**
+     * Has many torrent trumps.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTrump, $this>
+     */
+    public function torrentTrumps(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TorrentTrump::class);
+    }
+
+    public function sendSystemNotification(string $subject, string $message): void
+    {
+        $conversation = Conversation::create(['subject' => $subject]);
+
+        $conversation->users()->sync([$this->id]);
+
+        PrivateMessage::create([
+            'conversation_id' => $conversation->id,
+            'sender_id'       => self::SYSTEM_USER_ID,
+            'message'         => $message
+        ]);
+    }
+
+    public static function sendSystemNotificationTo(int $userId, string $subject, string $message): void
+    {
+        $conversation = Conversation::create(['subject' => $subject]);
+
+        $conversation->users()->sync([$userId]);
+
+        PrivateMessage::create([
+            'conversation_id' => $conversation->id,
+            'sender_id'       => self::SYSTEM_USER_ID,
+            'message'         => $message
+        ]);
+    }
+
+    /**
+     * Has many conversations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Conversation, $this>
+     */
+    public function conversations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Conversation::class, 'participants');
+    }
+
+    /**
+     * Has many participants.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Participant, $this>
+     */
+    public function participations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Participant::class);
     }
 
     /**
@@ -897,7 +995,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return true;
         }
 
-        if ($target->block_notifications == 1) {
+        if ($target->notification?->block_notifications == 1) {
             return false;
         }
 
@@ -928,7 +1026,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return true;
         }
 
-        if ($target->getAttribute('hidden')) {
+        if ($target->privacy?->getAttribute('hidden')) {
             return false;
         }
 
@@ -959,7 +1057,7 @@ class User extends Authenticatable implements MustVerifyEmail
             return true;
         }
 
-        if ($target->private_profile == 1) {
+        if ($target->privacy?->private_profile == 1) {
             return false;
         }
 
@@ -1045,7 +1143,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function setSignatureAttribute(?string $value): void
     {
-        $this->attributes['signature'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['signature'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -1063,7 +1161,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function setAboutAttribute(?string $value): void
     {
-        $this->attributes['about'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['about'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**
@@ -1085,7 +1183,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getFormattedSeedbonusAttribute(): string
     {
-        return number_format($this->seedbonus, 0, null, "\u{202F}");
+        return number_format((float) $this->seedbonus, 0, null, "\u{202F}");
     }
 
     /**

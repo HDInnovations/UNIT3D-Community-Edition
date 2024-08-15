@@ -79,7 +79,11 @@ class uploadExtensionBuilder {
             lowerTitle = title.toLowerCase();
             if (
                 !title.includes('BluRay') &&
-                !(lowerTitle.includes(' dvd ') || lowerTitle.includes(' ntsc ') || lowerTitle.includes(' pal '))
+                !(
+                    lowerTitle.includes(' dvd ') ||
+                    lowerTitle.includes(' ntsc ') ||
+                    lowerTitle.includes(' pal ')
+                )
             ) {
                 title = title.replace(/ REMUX/i, ' ');
                 title = title.replace(/( \d{3,4}[ip] )/i, ' $1 BluRay REMUX ');
@@ -96,9 +100,12 @@ class uploadExtensionBuilder {
         // 3D location fix, only when it is after the year/season/ep, not if it is before.
         title = title.replace(
             /(S\d{2}E\d{2}|S\d{2}|\d{4} .*)( 3D )(.* \d{3,4}[ip] .*)( Blu-ray|BluRay)/i,
-            '$1 $3 3D $4'
+            '$1 $3 3D $4',
         );
-        title = title.replace(/(S\d{2}E\d{2}|S\d{2}|\d{4}.*)( 3D)( \d{3,4}[ip] .*)( Blu-ray|BluRay)/i, '$1$3 3D $4');
+        title = title.replace(
+            /(S\d{2}E\d{2}|S\d{2}|\d{4}.*)( 3D)( \d{3,4}[ip] .*)( Blu-ray|BluRay)/i,
+            '$1$3 3D $4',
+        );
         // Fix for date formats
         title = title.replace(/( \d{4})( +)(\d{2})( +)(\d{2} )/, '$1-$3-$5');
         title = title.replace(/( \d{4})( +)(\d{2} )/, '$1-$3');
@@ -106,13 +113,19 @@ class uploadExtensionBuilder {
         // Fix some remux ordering
         title = title.replace(
             /( +\d{3,4}[ip] +)(.*)(UHD)?( +BluRay)(.*)(AVC|HEVC|MPEG-2|VC-1)(.*)(Hybrid)?( +REMUX)/i,
-            '$8$1$2$3$4 REMUX $5$6$7'
+            '$8$1$2$3$4 REMUX $5$6$7',
         );
-        title = title.replace(/(.*)(NTSC|PAL)?( +DVD)(.*)(Hybrid)?( +REMUX)/i, '$1$2 $5 $3 REMUX $4 ');
+        title = title.replace(
+            /(.*)(NTSC|PAL)?( +DVD)(.*)(Hybrid)?( +REMUX)/i,
+            '$1$2 $5 $3 REMUX $4 ',
+        );
         // Move the video codec to correct location in a remux.
         if (title.includes('REMUX')) {
             // Move video codec where it should be
-            title = title.replace(/(BluRay|DVD)( +REMUX +)(.*)(AVC|HEVC|MPEG-2|VC-1)/i, '$1$2 $4 $3');
+            title = title.replace(
+                /(BluRay|DVD)( +REMUX +)(.*)(AVC|HEVC|MPEG-2|VC-1)/i,
+                '$1$2 $4 $3',
+            );
         }
         // Fixing HDR ordering
         if (title.includes('HEVC') || title.includes('H.265') || title.includes('x265')) {
@@ -159,7 +172,7 @@ class uploadExtensionBuilder {
             title = title.replace(/(.*)( \d{3,4}[ip] )(.*)(Hybrid)(.+)/i, '$1 Hybrid$2$3 $5');
             title = title.replace(
                 /(.*)(S\d{2}E\d{2}|S\d{2}|\d{4})( .*)(Hybrid)(.*)( \d{3,4}[ip] )/i,
-                '$1$2$3 $5 Hybrid $6'
+                '$1$2$3 $5 Hybrid $6',
             );
         }
         // Fix extra spaces
@@ -263,7 +276,7 @@ class uploadExtensionBuilder {
                         year: release.year,
                     },
                     successCB,
-                    errorCB
+                    errorCB,
                 );
             } else if (release.type === 'TV Show') {
                 theMovieDb.search.getTv(
@@ -271,7 +284,7 @@ class uploadExtensionBuilder {
                         query: release.title,
                     },
                     successCB,
-                    errorCB
+                    errorCB,
                 );
             }
 
@@ -281,40 +294,48 @@ class uploadExtensionBuilder {
                     if (data.results && data.results.length > 0) {
                         document.getElementById('autotmdb').value = data.results[0].id;
                         document.getElementById('apimatch').value =
-                            'Found Match: ' + data.results[0].title + ' (' + data.results[0].release_date + ')';
+                            'Found Match: ' +
+                            data.results[0].title +
+                            ' (' +
+                            data.results[0].release_date +
+                            ')';
                         theMovieDb.movies.getKeywords(
                             {
                                 id: data.results[0].id,
                             },
                             success,
-                            error
+                            error,
                         );
                         theMovieDb.movies.getExternalIds(
                             {
                                 id: data.results[0].id,
                             },
                             s,
-                            e
+                            e,
                         );
                     }
                 } else if (release.type === 'TV Show') {
                     if (data.results && data.results.length > 0) {
                         document.getElementById('autotmdb').value = data.results[0].id;
                         document.getElementById('apimatch').value =
-                            'Found Match: ' + data.results[0].name + ' (' + data.results[0].first_air_date + ')';
+                            'Found Match: ' +
+                            data.results[0].name +
+                            ' (' +
+                            data.results[0].first_air_date +
+                            ')';
                         theMovieDb.tv.getKeywords(
                             {
                                 id: data.results[0].id,
                             },
                             success,
-                            error
+                            error,
                         );
                         theMovieDb.tv.getExternalIds(
                             {
                                 id: data.results[0].id,
                             },
                             s,
-                            e
+                            e,
                         );
                     }
                 }

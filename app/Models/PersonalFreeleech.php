@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -28,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
 class PersonalFreeleech extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\PersonalFreeleechFactory> */
     use HasFactory;
 
     /**

@@ -31,6 +31,7 @@
                     <tr>
                         <th>{{ __('poll.title') }}</th>
                         <th>{{ __('common.date') }}</th>
+                        <th>{{ __('forum.state') }}</th>
                         <th>{{ __('common.action') }}</th>
                     </tr>
                 </thead>
@@ -49,6 +50,13 @@
                                 >
                                     {{ date('d M Y', $poll->created_at->getTimestamp()) }}
                                 </time>
+                            </td>
+                            <td>
+                                @if ($poll->expires_at?->isPast())
+                                    {{ __('forum.closed') }}
+                                @else
+                                    {{ __('forum.open') }}
+                                @endif
                             </td>
                             <td>
                                 <menu class="data-table__actions">

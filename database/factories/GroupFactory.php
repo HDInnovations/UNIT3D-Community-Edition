@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -38,6 +41,7 @@ class GroupFactory extends Factory
             'color'            => $this->faker->word(),
             'icon'             => $this->faker->word(),
             'effect'           => $this->faker->word(),
+            'is_uploader'      => false,
             'is_internal'      => false,
             'is_owner'         => false,
             'is_admin'         => false,
@@ -48,6 +52,10 @@ class GroupFactory extends Factory
             'is_freeleech'     => $this->faker->boolean(),
             'is_double_upload' => $this->faker->boolean(),
             'is_refundable'    => $this->faker->boolean(),
+            'can_chat'         => $this->faker->boolean(),
+            'can_comment'      => $this->faker->boolean(),
+            'can_invite'       => $this->faker->boolean(),
+            'can_request'      => $this->faker->boolean(),
             'can_upload'       => $this->faker->boolean(),
             'is_incognito'     => $this->faker->boolean(),
             'autogroup'        => $this->faker->boolean(),

@@ -127,7 +127,7 @@
                                 ></i>
                             @endif
                             <a
-                                href="{{ route('users.sent_messages.create', ['user' => auth()->user(), 'username' => $user->username]) }}"
+                                href="{{ route('users.conversations.create', ['user' => auth()->user(), 'username' => $user->username]) }}"
                             >
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-envelope text-info"
@@ -152,7 +152,7 @@
                     </time>
                     <img
                         src="{{ url($user->image === null ? 'img/profile.png' : 'files/img/' . $user->image) }}"
-                        alt="{{ $user->username }}"
+                        alt=""
                         class="profile__avatar"
                     />
                     @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_title') && $user->title)
@@ -590,10 +590,14 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('common.warnings') }}</h2>
                 <dl class="key-value">
-                    <dt>{{ __('user.active-warnings') }}</dt>
-                    <dd>{{ $user->active_warnings_count ?? 0 }}</dd>
-                    <dt>{{ __('user.hit-n-runs-count') }}</dt>
-                    <dd>{{ $user->hitandruns }}</dd>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.active-warnings') }}</dt>
+                        <dd>{{ $user->active_warnings_count ?? 0 }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.hit-n-runs-count') }}</dt>
+                        <dd>{{ $user->hitandruns }}</dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -602,37 +606,43 @@
             <section class="panelV2">
                 <h2 class="panel__heading">Seed {{ __('user.statistics') }}</h2>
                 <dl class="key-value">
-                    <dt>
-                        <abbr
-                            title="{{ __('user.total-seedtime') }} ({{ __('user.all-torrents') }})"
-                        >
-                            {{ __('user.total-seedtime') }}
-                        </abbr>
-                    </dt>
-                    <dd>
-                        {{ App\Helpers\StringHelper::timeElapsed($history->seedtime_sum ?? 0) }}
-                    </dd>
-                    <dt>
-                        <abbr
-                            title="{{ __('user.avg-seedtime') }} ({{ __('user.per-torrent') }})"
-                        >
-                            {{ __('user.avg-seedtime') }}
-                        </abbr>
-                    </dt>
+                    <div class="key-value__group">
+                        <dt>
+                            <abbr
+                                title="{{ __('user.total-seedtime') }} ({{ __('user.all-torrents') }})"
+                            >
+                                {{ __('user.total-seedtime') }}
+                            </abbr>
+                        </dt>
+                        <dd>
+                            {{ App\Helpers\StringHelper::timeElapsed($history->seedtime_sum ?? 0) }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>
+                            <abbr
+                                title="{{ __('user.avg-seedtime') }} ({{ __('user.per-torrent') }})"
+                            >
+                                {{ __('user.avg-seedtime') }}
+                            </abbr>
+                        </dt>
 
-                    <dd>
-                        {{ App\Helpers\StringHelper::timeElapsed(($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0)) }}
-                    </dd>
-                    <dt>
-                        <abbr
-                            title="{{ __('user.seeding-size') }} ({{ __('user.all-torrents') }})"
-                        >
-                            {{ __('user.seeding-size') }}
-                        </abbr>
-                    </dt>
-                    <dd>
-                        {{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size'), 2) }}
-                    </dd>
+                        <dd>
+                            {{ App\Helpers\StringHelper::timeElapsed(($history->seedtime_sum ?? 0) / max(1, $history->count ?? 0)) }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>
+                            <abbr
+                                title="{{ __('user.seeding-size') }} ({{ __('user.all-torrents') }})"
+                            >
+                                {{ __('user.seeding-size') }}
+                            </abbr>
+                        </dt>
+                        <dd>
+                            {{ App\Helpers\StringHelper::formatBytes($user->seedingTorrents()->sum('size'), 2) }}
+                        </dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -642,66 +652,86 @@
                 <section class="panelV2">
                     <h2 class="panel__heading">Torrent Count</h2>
                     <dl class="key-value">
-                        <dt>
-                            <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
-                                {{ __('user.total-uploads') }}
-                            </a>
-                        </dt>
-                        <dd>{{ $user->torrents_count ?? 0 }}</dd>
-                        <dt>
-                            <a
-                                href="{{ route('users.history.index', ['user' => $user, 'downloaded' => 'include']) }}"
-                            >
-                                {{ __('user.total-downloads') }}
-                            </a>
-                        </dt>
-                        <dd>{{ $history->download_count ?? 0 }}</dd>
-                        <dt>
-                            <a
-                                href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'include']) }}"
-                            >
-                                {{ __('user.total-seeding') }}
-                            </a>
-                        </dt>
-                        <dd>{{ $peers->seeding ?? 0 }}</dd>
-                        <dt>
-                            <a
-                                href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'exclude']) }}"
-                            >
-                                {{ __('user.total-leeching') }}
-                            </a>
-                        </dt>
-                        <dd>{{ $peers->leeching ?? 0 }}</dd>
-                        <dt>
-                            <a
-                                href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}"
-                            >
-                                Total Inactive Peers
-                            </a>
-                        </dt>
-                        <dd>{{ $peers->inactive ?? 0 }}</dd>
+                        <div class="key-value__group">
+                            <dt>
+                                <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
+                                    {{ __('user.total-uploads') }}
+                                </a>
+                            </dt>
+                            <dd>{{ $user->torrents_count ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>
+                                <a
+                                    href="{{ route('users.history.index', ['user' => $user, 'downloaded' => 'include']) }}"
+                                >
+                                    {{ __('user.total-downloads') }}
+                                </a>
+                            </dt>
+                            <dd>{{ $history->download_count ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>
+                                <a
+                                    href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'include']) }}"
+                                >
+                                    {{ __('user.total-seeding') }}
+                                </a>
+                            </dt>
+                            <dd>{{ $peers->seeding ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>
+                                <a
+                                    href="{{ route('users.peers.index', ['user' => $user, 'seeding' => 'exclude']) }}"
+                                >
+                                    {{ __('user.total-leeching') }}
+                                </a>
+                            </dt>
+                            <dd>{{ $peers->leeching ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>
+                                <a
+                                    href="{{ route('users.peers.index', ['user' => $user, 'active' => 'exclude']) }}"
+                                >
+                                    Total Inactive Peers
+                                </a>
+                            </dt>
+                            <dd>{{ $peers->inactive ?? 0 }}</dd>
+                        </div>
                     </dl>
                 </section>
             @else
                 <section class="panelV2">
                     <h2 class="panel__heading">Torrent Count</h2>
                     <dl class="key-value">
-                        <dt>
-                            <a
-                                href="{{ route('torrents.index', ['uploader' => $user->username]) }}"
-                            >
-                                {{ __('user.total-uploads') }}
-                            </a>
-                        </dt>
-                        <dd>{{ $user->torrents_count ?? 0 }}</dd>
-                        <dt>{{ __('user.total-downloads') }}</dt>
-                        <dd>{{ $history->download_count ?? 0 }}</dd>
-                        <dt>{{ __('user.total-seeding') }}</dt>
-                        <dd>{{ $peers->seeding ?? 0 }}</dd>
-                        <dt>{{ __('user.total-leeching') }}</dt>
-                        <dd>{{ $peers->leeching ?? 0 }}</dd>
-                        <dt>Total Inactive Peers</dt>
-                        <dd>{{ $peers->inactive ?? 0 }}</dd>
+                        <div class="key-value__group">
+                            <dt>
+                                <a
+                                    href="{{ route('torrents.index', ['uploader' => $user->username]) }}"
+                                >
+                                    {{ __('user.total-uploads') }}
+                                </a>
+                            </dt>
+                            <dd>{{ $user->torrents_count ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.total-downloads') }}</dt>
+                            <dd>{{ $history->download_count ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.total-seeding') }}</dt>
+                            <dd>{{ $peers->seeding ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.total-leeching') }}</dt>
+                            <dd>{{ $peers->leeching ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>Total Inactive Peers</dt>
+                            <dd>{{ $peers->inactive ?? 0 }}</dd>
+                        </div>
                     </dl>
                 </section>
             @endif
@@ -711,49 +741,71 @@
             <section class="panelV2">
                 <h2 class="panel__heading">Traffic {{ __('torrent.statistics') }}</h2>
                 <dl class="key-value">
-                    <dt>{{ __('common.ratio') }}</dt>
-                    <dd>{{ $user->formatted_ratio }}</dd>
-                    <dt>Real {{ __('common.ratio') }}</dt>
-                    <dd>
-                        {{ $history->download_sum ? round(($history->upload_sum ?? 0) / $history->download_sum, 2) : "\u{221E}" }}
-                    </dd>
-                    <dt>{{ __('common.buffer') }}</dt>
-                    <dd>{{ $user->formatted_buffer }}</dd>
-                    <dt>{{ __('common.account') }} {{ __('common.upload') }} (Total)</dt>
-                    <dd>{{ $user->formatted_uploaded }}</dd>
-                    <dt>{{ __('common.account') }} {{ __('common.download') }} (Total)</dt>
-                    <dd>{{ $user->formatted_downloaded }}</dd>
-                    <dt>{{ __('torrent.torrent') }} {{ __('common.upload') }}</dt>
-                    <dd>
-                        {{ App\Helpers\StringHelper::formatBytes($history->upload_sum ?? 0, 2) }}
-                    </dd>
-                    <dt>
-                        {{ __('torrent.torrent') }} {{ __('common.upload') }}
-                        ({{ __('torrent.credited') }})
-                    </dt>
-                    <dd>
-                        {{ App\Helpers\StringHelper::formatBytes($history->credited_upload_sum ?? 0, 2) }}
-                    </dd>
-                    <dt>{{ __('torrent.torrent') }} {{ __('common.download') }}</dt>
-                    <dd>
-                        {{ App\Helpers\StringHelper::formatBytes($history->download_sum ?? 0, 2) }}
-                    </dd>
-                    <dt>
-                        {{ __('torrent.torrent') }} {{ __('common.download') }}
-                        ({{ __('torrent.credited') }})
-                    </dt>
-                    <dd>
-                        {{ App\Helpers\StringHelper::formatBytes($history->credited_download_sum ?? 0, 2) }}
-                    </dd>
-                    <dt>
-                        {{ __('torrent.torrent') }} {{ __('common.download') }}
-                        ({{ __('torrent.refunded') }})
-                    </dt>
-                    <dd>
-                        {{ App\Helpers\StringHelper::formatBytes($history->refunded_download_sum ?? 0, 2) }}
-                    </dd>
-                    <dt>{{ __('bon.bon') }} {{ __('common.upload') }}</dt>
-                    <dd>{{ App\Helpers\StringHelper::formatBytes($boughtUpload, 2) }}</dd>
+                    <div class="key-value__group">
+                        <dt>{{ __('common.ratio') }}</dt>
+                        <dd>{{ $user->formatted_ratio }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Real {{ __('common.ratio') }}</dt>
+                        <dd>
+                            {{ $history->download_sum ? round(($history->upload_sum ?? 0) / $history->download_sum, 2) : "\u{221E}" }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('common.buffer') }}</dt>
+                        <dd>{{ $user->formatted_buffer }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('common.account') }} {{ __('common.upload') }} (Total)</dt>
+                        <dd>{{ $user->formatted_uploaded }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('common.account') }} {{ __('common.download') }} (Total)</dt>
+                        <dd>{{ $user->formatted_downloaded }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('torrent.torrent') }} {{ __('common.upload') }}</dt>
+                        <dd>
+                            {{ App\Helpers\StringHelper::formatBytes($history->upload_sum ?? 0, 2) }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>
+                            {{ __('torrent.torrent') }} {{ __('common.upload') }}
+                            ({{ __('torrent.credited') }})
+                        </dt>
+                        <dd>
+                            {{ App\Helpers\StringHelper::formatBytes($history->credited_upload_sum ?? 0, 2) }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('torrent.torrent') }} {{ __('common.download') }}</dt>
+                        <dd>
+                            {{ App\Helpers\StringHelper::formatBytes($history->download_sum ?? 0, 2) }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>
+                            {{ __('torrent.torrent') }} {{ __('common.download') }}
+                            ({{ __('torrent.credited') }})
+                        </dt>
+                        <dd>
+                            {{ App\Helpers\StringHelper::formatBytes($history->credited_download_sum ?? 0, 2) }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>
+                            {{ __('torrent.torrent') }} {{ __('common.download') }}
+                            ({{ __('torrent.refunded') }})
+                        </dt>
+                        <dd>
+                            {{ App\Helpers\StringHelper::formatBytes($history->refunded_download_sum ?? 0, 2) }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('bon.bon') }} {{ __('common.upload') }}</dt>
+                        <dd>{{ App\Helpers\StringHelper::formatBytes($boughtUpload, 2) }}</dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -778,41 +830,51 @@
                 <section class="panelV2">
                     <h2 class="panel__heading">External Tracker</h2>
                     <dl class="key-value">
-                        <dt>{{ __('common.group') }}</dt>
-                        <dd>
-                            @if (null !== ($group = \App\Models\Group::find($externalUser['group_id'])))
-                                <span class="user-tag">
-                                    <a
-                                        class="user-tag__link {{ $group->icon }}"
-                                        href="{{ route('group', ['id' => $group->id]) }}"
-                                        style="color: {{ $group->color }}"
-                                        title="{{ $group->name }}"
-                                    >
-                                        {{ $group->name }}
-                                    </a>
-                                </span>
-                            @else
-                                Unrecognized group_id: {{ $externalUser['group_id'] }}
-                            @endif
-                        </dd>
-                        <dt>{{ __('user.passkey') }}</dt>
-                        <dd>
-                            <details>
-                                <summary style="cursor: pointer">
-                                    {{ __('user.show-passkey') }}
-                                </summary>
-                                <code><pre>{{ $externalUser['passkey'] }}</pre></code>
-                                <span class="text-red">{{ __('user.passkey-warning') }}</span>
-                            </details>
-                        </dd>
-                        <dt>{{ __('user.can-download') }}</dt>
-                        <dd>
-                            {{ $externalUser['can_download'] ? __('common.yes') : __('common.no') }}
-                        </dd>
-                        <dt>{{ __('user.total-seeding') }}</dt>
-                        <dd>{{ $externalUser['num_seeding'] }}</dd>
-                        <dt>{{ __('user.total-leeching') }}</dt>
-                        <dd>{{ $externalUser['num_leeching'] }}</dd>
+                        <div class="key-value__group">
+                            <dt>{{ __('common.group') }}</dt>
+                            <dd>
+                                @if (null !== ($group = \App\Models\Group::find($externalUser['group_id'])))
+                                    <span class="user-tag">
+                                        <a
+                                            class="user-tag__link {{ $group->icon }}"
+                                            href="{{ route('group', ['id' => $group->id]) }}"
+                                            style="color: {{ $group->color }}"
+                                            title="{{ $group->name }}"
+                                        >
+                                            {{ $group->name }}
+                                        </a>
+                                    </span>
+                                @else
+                                    Unrecognized group_id: {{ $externalUser['group_id'] }}
+                                @endif
+                            </dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.passkey') }}</dt>
+                            <dd>
+                                <details>
+                                    <summary style="cursor: pointer">
+                                        {{ __('user.show-passkey') }}
+                                    </summary>
+                                    <code><pre>{{ $externalUser['passkey'] }}</pre></code>
+                                    <span class="text-red">{{ __('user.passkey-warning') }}</span>
+                                </details>
+                            </dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.can-download') }}</dt>
+                            <dd>
+                                {{ $externalUser['can_download'] ? __('common.yes') : __('common.no') }}
+                            </dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.total-seeding') }}</dt>
+                            <dd>{{ $externalUser['num_seeding'] }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.total-leeching') }}</dt>
+                            <dd>{{ $externalUser['num_leeching'] }}</dd>
+                        </div>
                     </dl>
                 </section>
             @endif
@@ -824,120 +886,174 @@
                     {{ __('user.id-permissions') }}
                 </h2>
                 <dl class="key-value">
-                    <dt>{{ __('user.invited-by') }}</dt>
-                    <dd>
-                        @if ($invitedBy)
-                            <x-user_tag :user="$invitedBy->sender" :anon="false" />
-                        @else
-                            <b>{{ __('user.open-registration') }}</b>
-                        @endif
-                    </dd>
-                    <dt>{{ __('user.passkey') }}</dt>
-                    <dd>
-                        <details>
-                            <summary style="cursor: pointer">
-                                {{ __('user.show-passkey') }}
-                            </summary>
-                            <code><pre>{{ $user->passkey }}</pre></code>
-                            <span class="text-red">{{ __('user.passkey-warning') }}</span>
-                        </details>
-                    </dd>
-                    <dt>{{ __('user.user-id') }}</dt>
-                    <dd>{{ $user->id }}</dd>
-                    <dt>{{ __('common.email') }}</dt>
-                    <dd>{{ $user->email }}</dd>
-                    <dt>2FA Enabled</dt>
-                    <dd>
-                        @if ($user->two_factor_confirmed_at !== null)
-                            <i class="{{ config('other.font-awesome') }} fa-lock text-green"></i>
-                        @else
-                            <i
-                                class="{{ config('other.font-awesome') }} fa-lock-open text-red"
-                            ></i>
-                        @endif
-                    </dd>
-                    <dt>{{ __('user.last-login') }}</dt>
-                    <dd>
-                        @if ($user->last_login === null)
-                            N/A
-                        @else
-                            <time
-                                class="{{ $user->last_login }}"
-                                datetime="{{ $user->last_login }}"
-                                title="{{ $user->last_login }}"
-                            >
-                                {{ $user->last_login->diffForHumans() }}
-                            </time>
-                        @endif
-                    </dd>
-                    <dt>Last Action</dt>
-                    <dd>
-                        @if ($user->last_action === null)
-                            N/A
-                        @else
-                            <time
-                                class="{{ $user->last_action }}"
-                                datetime="{{ $user->last_action }}"
-                                title="{{ $user->last_action }}"
-                            >
-                                {{ $user->last_action->diffForHumans() }}
-                            </time>
-                        @endif
-                    </dd>
-                    <dt>{{ __('user.can-upload') }}</dt>
-                    <dd>
-                        @if ($user->can_upload == 1)
-                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                        @else
-                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                        @endif
-                    </dd>
-                    <dt>{{ __('user.can-download') }}</dt>
-                    <dd>
-                        @if ($user->can_download == 1)
-                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                        @else
-                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                        @endif
-                    </dd>
-                    <dt>{{ __('user.can-comment') }}</dt>
-                    <dd>
-                        @if ($user->can_comment == 1)
-                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                        @else
-                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                        @endif
-                    </dd>
-                    <dt>{{ __('user.can-request') }}</dt>
-                    <dd>
-                        @if ($user->can_request == 1)
-                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                        @else
-                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                        @endif
-                    </dd>
-                    <dt>{{ __('user.can-chat') }}</dt>
-                    <dd>
-                        @if ($user->can_chat == 1)
-                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                        @else
-                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                        @endif
-                    </dd>
-                    <dt>{{ __('user.can-invite') }}</dt>
-                    <dd>
-                        @if ($user->can_invite == 1 && $user->two_factor_confirmed_at !== null)
-                            <i class="{{ config('other.font-awesome') }} fa-check text-green"></i>
-                        @else
-                            <i class="{{ config('other.font-awesome') }} fa-times text-red"></i>
-                        @endif
-                    </dd>
-                    <dt>
-                        <a href="{{ route('users.invites.index', ['user' => $user]) }}">
-                            {{ __('user.invites') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $user->invites }}</dd>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.invited-by') }}</dt>
+                        <dd>
+                            @if ($invitedBy)
+                                <x-user_tag :user="$invitedBy->sender" :anon="false" />
+                            @else
+                                <b>{{ __('user.open-registration') }}</b>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.passkey') }}</dt>
+                        <dd>
+                            <details>
+                                <summary style="cursor: pointer">
+                                    {{ __('user.show-passkey') }}
+                                </summary>
+                                <code><pre>{{ $user->passkey }}</pre></code>
+                                <span class="text-red">{{ __('user.passkey-warning') }}</span>
+                            </details>
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.user-id') }}</dt>
+                        <dd>{{ $user->id }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('common.email') }}</dt>
+                        <dd>{{ $user->email }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>2FA Enabled</dt>
+                        <dd>
+                            @if ($user->two_factor_confirmed_at !== null)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-lock text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-lock-open text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.last-login') }}</dt>
+                        <dd>
+                            @if ($user->last_login === null)
+                                N/A
+                            @else
+                                <time
+                                    class="{{ $user->last_login }}"
+                                    datetime="{{ $user->last_login }}"
+                                    title="{{ $user->last_login }}"
+                                >
+                                    {{ $user->last_login->diffForHumans() }}
+                                </time>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Last Action</dt>
+                        <dd>
+                            @if ($user->last_action === null)
+                                N/A
+                            @else
+                                <time
+                                    class="{{ $user->last_action }}"
+                                    datetime="{{ $user->last_action }}"
+                                    title="{{ $user->last_action }}"
+                                >
+                                    {{ $user->last_action->diffForHumans() }}
+                                </time>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.can-upload') }}</dt>
+                        <dd>
+                            @if ($user->can_upload ?? $user->group->can_upload)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.can-download') }}</dt>
+                        <dd>
+                            @if ($user->can_download == 1)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.can-comment') }}</dt>
+                        <dd>
+                            @if ($user->can_comment ?? $user->group->can_comment)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.can-request') }}</dt>
+                        <dd>
+                            @if ($user->can_request ?? $user->group->can_request)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.can-chat') }}</dt>
+                        <dd>
+                            @if ($user->can_chat ?? $user->group->can_chat)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.can-invite') }}</dt>
+                        <dd>
+                            @if (($user->can_invite ?? $user->group->can_invite) && $user->two_factor_confirmed_at !== null)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>
+                            <a href="{{ route('users.invites.index', ['user' => $user]) }}">
+                                {{ __('user.invites') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->invites }}</dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -1022,36 +1138,50 @@
                     @endif
                 </header>
                 <dl class="key-value">
-                    <dt>
-                        <a href="{{ route('users.earnings.index', ['user' => $user]) }}">
-                            {{ __('bon.bon') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $user->formatted_seedbonus }}</dd>
-                    <dt>{{ __('user.tips-received') }}</dt>
-                    <dd>
-                        {{ \number_format($user->receivedPostTips()->sum('bon') + $user->receivedTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
-                    </dd>
-                    <dt>{{ __('user.tips-given') }}</dt>
-                    <dd>
-                        {{ \number_format($user->sentPostTips()->sum('bon') + $user->sentTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
-                    </dd>
-                    <dt>{{ __('user.gift-received') }}</dt>
-                    <dd>
-                        {{ \number_format($user->receivedGifts()->sum('bon'), 0, null, "\u{202F}") }}
-                    </dd>
-                    <dt>{{ __('user.gift-given') }}</dt>
-                    <dd>
-                        {{ \number_format($user->sentGifts()->sum('bon'), 0, null, "\u{202F}") }}
-                    </dd>
-                    <dt>{{ __('user.bounty-received') }}</dt>
-                    <dd>
-                        {{ \number_format($user->filledRequests()->sum('bounty'), 0, null, "\u{202F}") }}
-                    </dd>
-                    <dt>{{ __('user.bounty-given') }}</dt>
-                    <dd>
-                        {{ \number_format($user->requestBounty()->sum('seedbonus'), 0, null, "\u{202F}") }}
-                    </dd>
+                    <div class="key-value__group">
+                        <dt>
+                            <a href="{{ route('users.earnings.index', ['user' => $user]) }}">
+                                {{ __('bon.bon') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->formatted_seedbonus }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.tips-received') }}</dt>
+                        <dd>
+                            {{ \number_format($user->receivedPostTips()->sum('bon') + $user->receivedTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.tips-given') }}</dt>
+                        <dd>
+                            {{ \number_format($user->sentPostTips()->sum('bon') + $user->sentTorrentTips()->sum('bon'), 0, null, "\u{202F}") }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.gift-received') }}</dt>
+                        <dd>
+                            {{ \number_format($user->receivedGifts()->sum('bon'), 0, null, "\u{202F}") }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.gift-given') }}</dt>
+                        <dd>
+                            {{ \number_format($user->sentGifts()->sum('bon'), 0, null, "\u{202F}") }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.bounty-received') }}</dt>
+                        <dd>
+                            {{ \number_format($user->filledRequests()->sum('bounty'), 0, null, "\u{202F}") }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.bounty-given') }}</dt>
+                        <dd>
+                            {{ \number_format($user->requestBounty()->sum('seedbonus'), 0, null, "\u{202F}") }}
+                        </dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -1060,18 +1190,25 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.torrents') }}</h2>
                 <dl class="key-value">
-                    <dt>{{ __('common.fl_tokens') }}</dt>
-                    <dd>{{ $user->fl_tokens }}</dd>
-
+                    <div class="key-value__group">
+                        <dt>{{ __('common.fl_tokens') }}</dt>
+                        <dd>{{ $user->fl_tokens }}</dd>
+                    </div>
                     @if (config('other.thanks-system.is-enabled'))
-                        <dt>{{ __('user.thanks-received') }}</dt>
-                        <dd>{{ $user->thanksReceived()->count() }}</dd>
-                        <dt>{{ __('user.thanks-given') }}</dt>
-                        <dd>{{ $user->thanksGiven()->count() }}</dd>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.thanks-received') }}</dt>
+                            <dd>{{ $user->thanksReceived()->count() }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>{{ __('user.thanks-given') }}</dt>
+                            <dd>{{ $user->thanksGiven()->count() }}</dd>
+                        </div>
                     @endif
 
-                    <dt>{{ __('user.upload-snatches') }}</dt>
-                    <dd>{{ $user->uploadSnatches()->count() }}</dd>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.upload-snatches') }}</dt>
+                        <dd>{{ $user->uploadSnatches()->count() }}</dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -1080,18 +1217,24 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.comments') }}</h2>
                 <dl class="key-value">
-                    <dt>{{ __('user.article-comments') }}</dt>
-                    <dd>
-                        {{ $user->comments()->whereHasMorph('commentable', [App\Models\Article::class])->count() }}
-                    </dd>
-                    <dt>{{ __('user.torrent-comments') }}</dt>
-                    <dd>
-                        {{ $user->comments()->whereHasMorph('commentable', [App\Models\Torrent::class])->count() }}
-                    </dd>
-                    <dt>{{ __('user.request-comments') }}</dt>
-                    <dd>
-                        {{ $user->comments()->whereHasMorph('commentable', [App\Models\TorrentRequest::class])->count() }}
-                    </dd>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.article-comments') }}</dt>
+                        <dd>
+                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\Article::class])->count() }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.torrent-comments') }}</dt>
+                        <dd>
+                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\Torrent::class])->count() }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.request-comments') }}</dt>
+                        <dd>
+                            {{ $user->comments()->whereHasMorph('commentable', [App\Models\TorrentRequest::class])->count() }}
+                        </dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -1100,18 +1243,22 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.forums') }}</h2>
                 <dl class="key-value">
-                    <dt>
-                        <a href="{{ route('users.topics.index', ['user' => $user]) }}">
-                            {{ __('user.topics-started') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $user->topics_count }}</dd>
-                    <dt>
-                        <a href="{{ route('users.posts.index', ['user' => $user]) }}">
-                            {{ __('user.posts-posted') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $user->posts_count }}</dd>
+                    <div class="key-value__group">
+                        <dt>
+                            <a href="{{ route('users.topics.index', ['user' => $user]) }}">
+                                {{ __('user.topics-started') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->topics_count }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>
+                            <a href="{{ route('users.posts.index', ['user' => $user]) }}">
+                                {{ __('user.posts-posted') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->posts_count }}</dd>
+                    </div>
                 </dl>
             </section>
         @endif
@@ -1120,14 +1267,20 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('user.requests') }}</h2>
                 <dl class="key-value">
-                    <dt>
-                        <a href="{{ route('requests.index', ['requestor' => $user->username]) }}">
-                            {{ __('user.requested') }}
-                        </a>
-                    </dt>
-                    <dd>{{ $user->requests_count }}</dd>
-                    <dt>{{ __('user.filled-request') }}</dt>
-                    <dd>{{ $user->filled_requests_count }}</dd>
+                    <div class="key-value__group">
+                        <dt>
+                            <a
+                                href="{{ route('requests.index', ['requestor' => $user->username]) }}"
+                            >
+                                {{ __('user.requested') }}
+                            </a>
+                        </dt>
+                        <dd>{{ $user->requests_count }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('user.filled-request') }}</dt>
+                        <dd>{{ $user->filled_requests_count }}</dd>
+                    </div>
                 </dl>
             </section>
         @endif

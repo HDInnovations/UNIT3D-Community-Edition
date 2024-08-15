@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -39,23 +42,28 @@ class UpdateTorrentRequestRequest extends FormRequest
             ],
             'imdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'tvdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'tmdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'mal' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'igdb' => [
                 'required',
-                'numeric',
+                'decimal:0',
+                'min:0',
             ],
             'category_id' => [
                 'required',

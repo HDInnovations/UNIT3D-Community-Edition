@@ -63,22 +63,30 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('stat.stats') }}</h2>
         <dl class="key-value">
-            <dt>{{ __('forum.author') }}</dt>
-            <dd>
-                @if ($topic->user === null)
-                    {{ __('common.unknown') }}
-                @else
-                    <a href="{{ route('users.show', ['user' => $topic->user]) }}">
-                        {{ $topic->user->username }}
-                    </a>
-                @endif
-            </dd>
-            <dt>{{ __('forum.created-at') }}</dt>
-            <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>
-            <dt>{{ __('forum.replies') }}</dt>
-            <dd>{{ $topic->num_post - 1 }}</dd>
-            <dt>{{ __('forum.views') }}</dt>
-            <dd>{{ $topic->views }}</dd>
+            <div class="key-value__group">
+                <dt>{{ __('forum.author') }}</dt>
+                <dd>
+                    @if ($topic->user === null)
+                        {{ __('common.unknown') }}
+                    @else
+                        <a href="{{ route('users.show', ['user' => $topic->user]) }}">
+                            {{ $topic->user->username }}
+                        </a>
+                    @endif
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.created-at') }}</dt>
+                <dd>{{ date('M d Y H:m', strtotime($topic->created_at)) }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.replies') }}</dt>
+                <dd>{{ $topic->num_post - 1 }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('forum.views') }}</dt>
+                <dd>{{ $topic->views }}</dd>
+            </div>
         </dl>
         <div class="panel__body">
             @if ($subscription === null)
@@ -174,37 +182,6 @@
                             </button>
                         </p>
                     </form>
-                    @if (! $topic->pinned)
-                        <form
-                            class="form"
-                            action="{{ route('topics.pin', ['id' => $topic->id]) }}"
-                            method="POST"
-                        >
-                            @csrf
-                            <p class="form__group form__group--horizontal">
-                                <button
-                                    class="form__button form__button--filled form__button--centered"
-                                >
-                                    {{ __('forum.pin') }}
-                                </button>
-                            </p>
-                        </form>
-                    @else
-                        <form
-                            class="form"
-                            action="{{ route('topics.unpin', ['id' => $topic->id]) }}"
-                            method="POST"
-                        >
-                            @csrf
-                            <p class="form__group form__group--horizontal">
-                                <button
-                                    class="form__button form__button--filled form__button--centered"
-                                >
-                                    {{ __('forum.unpin') }}
-                                </button>
-                            </p>
-                        </form>
-                    @endif
                 @endif
             </div>
         </section>
@@ -309,6 +286,45 @@
                         <button class="form__button form__button--filled">
                             {{ __('common.save') }}
                         </button>
+                    </p>
+                </form>
+            </div>
+        </section>
+        <section class="panelV2">
+            <h2 class="panel__heading">Edit Topic Priority</h2>
+            <div class="panel__body">
+                <form
+                    class="form"
+                    action="{{ route('topics.pin', ['id' => $topic->id]) }}"
+                    method="POST"
+                >
+                    @csrf
+                    <p class="form__group form__group--horizontal">
+                        <input
+                            type="text"
+                            name="priority"
+                            id="priority"
+                            class="form__text"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            value="{{ $topic->priority }}"
+                        />
+                        <label class="form__label form__label--floating" for="season_number">
+                            Priority
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <button class="form__button form__button--filled form__button--centered">
+                            {{ __('forum.pin') }}
+                        </button>
+                        @if ($topic->priority)
+                            <button
+                                class="form__button form__button--filled form__button--centered"
+                                formaction="{{ route('topics.unpin', ['id' => $topic->id]) }}"
+                            >
+                                {{ __('forum.unpin') }}
+                            </button>
+                        @endif
                     </p>
                 </form>
             </div>

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,9 +16,11 @@
 
 namespace App\Models;
 
+use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 /**
  * App\Models\Note.
@@ -30,6 +35,8 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\NoteFactory> */
     use HasFactory;
 
     /**
@@ -49,7 +56,7 @@ class Note extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function noteduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -62,7 +69,7 @@ class Note extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -70,5 +77,21 @@ class Note extends Model
             'username' => 'System',
             'id'       => '1',
         ]);
+    }
+
+    /**
+     * Set Message After It's Been Purified.
+     */
+    public function setMessageAttribute(?string $value): void
+    {
+        $this->attributes['message'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+    }
+
+    /**
+     * Parse Message And Return Valid HTML.
+     */
+    public function getMessageHtml(): string
+    {
+        return (new Linkify())->linky($this->message);
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -13,7 +16,13 @@
 
 namespace App\Notifications;
 
+use App\Models\Article;
+use App\Models\Collection;
 use App\Models\Comment;
+use App\Models\Playlist;
+use App\Models\Ticket;
+use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -25,7 +34,7 @@ class NewCommentTag extends Notification implements ShouldQueue
     /**
      * NewCommentTag Constructor.
      */
-    public function __construct(public string $type, public Comment $comment)
+    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|Collection|Article $model, public Comment $comment)
     {
     }
 
@@ -46,98 +55,40 @@ class NewCommentTag extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        if ($this->type === 'torrent') {
-            if ($this->comment->anon == 0) {
-                return [
-                    'title' => $this->comment->user->username.' Has Tagged You',
-                    'body'  => $this->comment->user->username.' has tagged you in an comment on Torrent '.$this->comment->commentable->name,
-                    'url'   => '/torrents/'.$this->comment->commentable->id,
-                ];
-            }
+        $username = $this->comment->anon ? 'Anonymous' : $this->comment->user->username;
+        $title = $this->comment->anon ? 'You Have Been Tagged' : $username.' Has Tagged You';
 
-            return [
-                'title' => 'You Have Been Tagged',
-                'body'  => 'Anonymous has tagged you in an comment on Torrent '.$this->comment->commentable->name,
-                'url'   => '/torrents/'.$this->comment->commentable->id,
-            ];
-        }
-
-        if ($this->type === 'torrent request') {
-            if ($this->comment->anon == 0) {
-                return [
-                    'title' => $this->comment->user->username.' Has Tagged You',
-                    'body'  => $this->comment->user->username.' has tagged you in an comment on Torrent Request '.$this->comment->commentable->name,
-                    'url'   => '/requests/'.$this->comment->commentable->id,
-                ];
-            }
-
-            return [
-                'title' => 'You Have Been Tagged',
-                'body'  => 'Anonymous has tagged you in an comment on Torrent Request '.$this->comment->commentable->name,
-                'url'   => '/requests/'.$this->comment->commentable->id,
-            ];
-        }
-
-        if ($this->type === 'ticket') {
-            if ($this->comment->anon == 0) {
-                return [
-                    'title' => $this->comment->user->username.' Has Tagged You',
-                    'body'  => $this->comment->user->username.' has tagged you in an comment on Ticket '.$this->comment->commentable->subject,
-                    'url'   => '/tickets/'.$this->comment->commentable->id,
-                ];
-            }
-
-            return [
-                'title' => 'You Have Been Tagged',
-                'body'  => 'Anonymous has tagged you in an comment on Ticket '.$this->comment->commentable->subject,
-                'url'   => '/tickets/'.$this->comment->commentable->id,
-            ];
-        }
-
-        if ($this->type === 'playlist') {
-            if ($this->comment->anon == 0) {
-                return [
-                    'title' => $this->comment->user->username.' Has Tagged You',
-                    'body'  => $this->comment->user->username.' has tagged you in an comment on Playlist '.$this->comment->commentable->name,
-                    'url'   => '/playlists/'.$this->comment->commentable->id,
-                ];
-            }
-
-            return [
-                'title' => 'You Have Been Tagged',
-                'body'  => 'Anonymous has tagged you in an comment on Playlist '.$this->comment->commentable->name,
-                'url'   => '/playlists/'.$this->comment->commentable->id,
-            ];
-        }
-
-        if ($this->type === 'collection') {
-            if ($this->comment->anon == 0) {
-                return [
-                    'title' => $this->comment->user->username.' Has Tagged You',
-                    'body'  => $this->comment->user->username.' has tagged you in an comment on Collection '.$this->comment->commentable->name,
-                    'url'   => '/mediahub/collections/'.$this->comment->commentable->id,
-                ];
-            }
-
-            return [
-                'title' => 'You Have Been Tagged',
-                'body'  => 'Anonymous has tagged you in an comment on Collection '.$this->comment->commentable->name,
-                'url'   => '/mediahub/collections/'.$this->comment->commentable->id,
-            ];
-        }
-
-        if ($this->comment->anon == 0) {
-            return [
-                'title' => $this->comment->user->username.' Has Tagged You',
-                'body'  => $this->comment->user->username.' has tagged you in an comment on Article '.$this->comment->commentable->title,
-                'url'   => '/articles/'.$this->comment->commentable->id,
-            ];
-        }
-
-        return [
-            'title' => 'You Have Been Tagged',
-            'body'  => 'Anonymous has tagged you in an comment on Article '.$this->comment->commentable->title,
-            'url'   => '/articles/'.$this->comment->commentable->id,
-        ];
+        return match (true) {
+            $this->model instanceof Torrent => [
+                'title' => $title,
+                'body'  => $username.' has tagged you in an comment on Torrent '.$this->model->name,
+                'url'   => '/torrents/'.$this->model->id,
+            ],
+            $this->model instanceof TorrentRequest => [
+                'title' => $title,
+                'body'  => $username.' has tagged you in an comment on Torrent Request '.$this->model->name,
+                'url'   => '/requests/'.$this->model->id,
+            ],
+            $this->model instanceof Ticket => [
+                'title' => $title,
+                'body'  => $username.' has tagged you in an comment on Ticket '.$this->model->subject,
+                'url'   => '/tickets/'.$this->model->id,
+            ],
+            $this->model instanceof Playlist => [
+                'title' => $title,
+                'body'  => $username.' has tagged you in an comment on Playlist '.$this->model->name,
+                'url'   => '/playlists/'.$this->model->id,
+            ],
+            $this->model instanceof Collection => [
+                'title' => $title,
+                'body'  => $username.' has tagged you in an comment on Collection '.$this->model->name,
+                'url'   => '/mediahub/collections/'.$this->model->id,
+            ],
+            $this->model instanceof Article => [
+                'title' => $title,
+                'body'  => $username.' has tagged you in an comment on Article '.$this->model->title,
+                'url'   => '/articles/'.$this->model->id,
+            ],
+        };
     }
 }

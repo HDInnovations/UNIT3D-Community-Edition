@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserEcho extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserEchoFactory> */
     use HasFactory;
 
     /**
@@ -41,7 +45,7 @@ class UserEcho extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -51,7 +55,7 @@ class UserEcho extends Model
     /**
      * Belongs To A Chatroom.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, $this>
      */
     public function room(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -61,7 +65,7 @@ class UserEcho extends Model
     /**
      * Belongs To A Target.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function target(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -71,7 +75,7 @@ class UserEcho extends Model
     /**
      * Belongs To A Bot.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, $this>
      */
     public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

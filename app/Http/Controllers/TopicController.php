@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -108,7 +111,7 @@ class TopicController extends Controller
             'first_post_user_id' => $user->id,
             'last_post_user_id'  => $user->id,
             'views'              => 0,
-            'pinned'             => false,
+            'priority'           => 0,
             'forum_id'           => $forum->id,
             'num_post'           => 1,
         ]);
@@ -135,8 +138,8 @@ class TopicController extends Controller
 
         // Post To ShoutBox
         $appUrl = config('app.url');
-        $topicUrl = sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
-        $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
+        $topicUrl = \sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
+        $profileUrl = \sprintf('%s/users/%s', $appUrl, $user->username);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
@@ -148,7 +151,7 @@ class TopicController extends Controller
                 $staffer->notify(new NewTopic('staff', $user, $topic));
             }
         } else {
-            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
 
             $subscribers = User::query()
                 ->where('id', '!=', $topic->first_post_user_id)
@@ -336,10 +339,10 @@ class TopicController extends Controller
     /**
      * Pin The Topic.
      */
-    public function pin(int $id): \Illuminate\Http\RedirectResponse
+    public function pin(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->pinned = true;
+        $topic->priority = $request->integer('priority');
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
@@ -352,7 +355,7 @@ class TopicController extends Controller
     public function unpin(int $id): \Illuminate\Http\RedirectResponse
     {
         $topic = Topic::findOrFail($id);
-        $topic->pinned = false;
+        $topic->priority = 0;
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])

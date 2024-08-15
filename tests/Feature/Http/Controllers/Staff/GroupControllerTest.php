@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -100,6 +103,7 @@ final class GroupControllerTest extends TestCase
             'color'            => $group->color,
             'icon'             => $group->icon,
             'effect'           => $group->effect,
+            'is_uploader'      => $group->is_uploader,
             'is_internal'      => $group->is_internal,
             'is_owner'         => $group->is_owner,
             'is_admin'         => $group->is_admin,
@@ -110,6 +114,10 @@ final class GroupControllerTest extends TestCase
             'is_freeleech'     => $group->is_freeleech,
             'is_double_upload' => $group->is_double_upload,
             'is_refundable'    => $group->is_refundable,
+            'can_chat'         => $group->can_chat,
+            'can_comment'      => $group->can_comment,
+            'can_invite'       => $group->can_invite,
+            'can_request'      => $group->can_request,
             'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,
@@ -134,6 +142,7 @@ final class GroupControllerTest extends TestCase
             'color'            => $group->color,
             'icon'             => $group->icon,
             'effect'           => $group->effect,
+            'is_uploader'      => $group->is_uploader,
             'is_internal'      => $group->is_internal,
             'is_owner'         => $group->is_owner,
             'is_admin'         => $group->is_admin,
@@ -144,6 +153,10 @@ final class GroupControllerTest extends TestCase
             'is_freeleech'     => $group->is_freeleech,
             'is_double_upload' => $group->is_double_upload,
             'is_refundable'    => $group->is_refundable,
+            'can_chat'         => $group->can_chat,
+            'can_comment'      => $group->can_comment,
+            'can_invite'       => $group->can_invite,
+            'can_request'      => $group->can_request,
             'can_upload'       => $group->can_upload,
             'is_incognito'     => $group->is_incognito,
             'autogroup'        => $group->autogroup,

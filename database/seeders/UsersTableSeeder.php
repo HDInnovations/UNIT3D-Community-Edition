@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -33,7 +36,7 @@ class UsersTableSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
-                'active'            => 1,
+                'active'            => true,
             ],
             [
                 'username'          => 'Bot',
@@ -44,7 +47,7 @@ class UsersTableSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
-                'active'            => 1,
+                'active'            => true,
             ],
             [
                 'username'          => config('unit3d.owner-username'),
@@ -55,7 +58,7 @@ class UsersTableSeeder extends Seeder
                 'passkey'           => md5(random_bytes(60)),
                 'rsskey'            => md5(random_bytes(60)),
                 'api_token'         => Str::random(100),
-                'active'            => 1,
+                'active'            => true,
             ],
         ], ['username'], ['updated_at' => DB::raw('updated_at')]);
     }

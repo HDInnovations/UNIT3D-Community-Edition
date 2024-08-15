@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -57,14 +60,6 @@ class UpdateChatBotRequest extends FormRequest
                 'required',
             ],
             'help' => [
-                'sometimes',
-                'max:9999',
-            ],
-            'info' => [
-                'sometimes',
-                'max:9999',
-            ],
-            'about' => [
                 'sometimes',
                 'max:9999',
             ],

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -91,7 +94,7 @@ class UserTorrents extends Component
     #[Computed]
     final public function history(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $histories = History::query()
+        return History::query()
             ->join(
                 'torrents',
                 fn ($join) => $join
@@ -112,7 +115,7 @@ class UserTorrents extends Component
                 'history.completed_at',
                 'history.immune',
                 'history.hitrun',
-                'history.prewarn',
+                'history.prewarned_at',
                 'torrents.name',
                 'torrents.seeders',
                 'torrents.leechers',
@@ -153,8 +156,8 @@ class UserTorrents extends Component
             ->when($this->active === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('active', '=', 0)->orWhereNull('active')))
             ->when($this->completed === 'include', fn ($query) => $query->where('seeder', '=', 1))
             ->when($this->completed === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('seeder', '=', 0)->orWhereNull('seeder')))
-            ->when($this->prewarn === 'include', fn ($query) => $query->where('prewarn', '=', 1))
-            ->when($this->prewarn === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('prewarn', '=', 0)->orWhereNull('prewarn')))
+            ->when($this->prewarn === 'include', fn ($query) => $query->whereNotNull('prewarned_at'))
+            ->when($this->prewarn === 'exclude', fn ($query) => $query->whereNull('prewarned_at'))
             ->when($this->hitrun === 'include', fn ($query) => $query->where('hitrun', '=', 1))
             ->when($this->hitrun === 'exclude', fn ($query) => $query->where(fn ($query) => $query->where('hitrun', '=', 0)->orWhereNull('hitrun')))
             ->when($this->immune === 'include', fn ($query) => $query->where('immune', '=', 1))
@@ -166,8 +169,6 @@ class UserTorrents extends Component
             ->when(!empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-
-        return $histories->setCollection($histories->getCollection()->groupBy(fn ($history) => $history->created_at->format('Y-m')));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

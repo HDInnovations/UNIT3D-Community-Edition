@@ -25,14 +25,18 @@
         <h2 class="panel__heading">{{ $person->name }}</h2>
         <img
             src="{{ isset($person->still) ? tmdb_image('cast_big', $person->still) : 'https://via.placeholder.com/300x450' }}"
-            alt="{{ $person->name }}"
+            alt=""
             style="max-width: 100%"
         />
         <dl class="key-value">
-            <dt>{{ __('mediahub.born') }}</dt>
-            <dd>{{ $person->birthday ?? __('common.unknown') }}</dd>
-            <dt>Place of Birth</dt>
-            <dd>{{ $person->place_of_birth ?? __('common.unknown') }}</dd>
+            <div class="key-value__group">
+                <dt>{{ __('mediahub.born') }}</dt>
+                <dd>{{ $person->birthday ?? __('common.unknown') }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Place of Birth</dt>
+                <dd>{{ $person->place_of_birth ?? __('common.unknown') }}</dd>
+            </div>
         </dl>
         <div class="panel__body">{{ $person->biography ?? 'No biography' }}</div>
     </section>

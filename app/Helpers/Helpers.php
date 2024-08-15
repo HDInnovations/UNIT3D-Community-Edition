@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +25,7 @@ if (!\function_exists('href_profile')) {
     {
         $appurl = appurl();
 
-        return sprintf('%s/users/%s', $appurl, $user->username);
+        return \sprintf('%s/users/%s', $appurl, $user->username);
     }
 }
 
@@ -31,7 +34,7 @@ if (!\function_exists('href_article')) {
     {
         $appurl = appurl();
 
-        return sprintf('%s/articles/%s', $appurl, $article->id);
+        return \sprintf('%s/articles/%s', $appurl, $article->id);
     }
 }
 
@@ -40,7 +43,7 @@ if (!\function_exists('href_torrent')) {
     {
         $appurl = appurl();
 
-        return sprintf('%s/torrents/%s', $appurl, $torrent->id);
+        return \sprintf('%s/torrents/%s', $appurl, $torrent->id);
     }
 }
 
@@ -49,7 +52,7 @@ if (!\function_exists('href_request')) {
     {
         $appurl = appurl();
 
-        return sprintf('%s/requests/%s', $appurl, $torrentRequest->id);
+        return \sprintf('%s/requests/%s', $appurl, $torrentRequest->id);
     }
 }
 
@@ -58,7 +61,7 @@ if (!\function_exists('href_poll')) {
     {
         $appurl = appurl();
 
-        return sprintf('%s/polls/%s', $appurl, $poll->id);
+        return \sprintf('%s/polls/%s', $appurl, $poll->id);
     }
 }
 
@@ -67,7 +70,7 @@ if (!\function_exists('href_playlist')) {
     {
         $appurl = appurl();
 
-        return sprintf('%s/playlists/%s', $appurl, $playlist->id);
+        return \sprintf('%s/playlists/%s', $appurl, $playlist->id);
     }
 }
 
@@ -76,7 +79,7 @@ if (!\function_exists('href_collection')) {
     {
         $appurl = appurl();
 
-        return sprintf('%s/mediahub/collections/%s', $appurl, $collection->id);
+        return \sprintf('%s/mediahub/collections/%s', $appurl, $collection->id);
     }
 }
 

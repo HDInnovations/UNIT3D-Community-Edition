@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,10 +22,8 @@ use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoRecycleClaimedTorrentRequestsTest
- */
 class AutoRecycleClaimedTorrentRequests extends Command
 {
     /**
@@ -50,9 +51,9 @@ class AutoRecycleClaimedTorrentRequests extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $current = Carbon::now();
         $torrentRequests = TorrentRequest::where('claimed', '=', 1)
@@ -69,7 +70,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
             if ($requestClaim) {
                 $trUrl = href_request($torrentRequest);
                 $this->chatRepository->systemMessage(
-                    sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $torrentRequest->name)
+                    \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $torrentRequest->name)
                 );
 
                 $requestClaim->delete();

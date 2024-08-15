@@ -24,14 +24,14 @@
         <header class="panel__header">
             <h2 class="panel__heading">{{ __('user.invites') }}</h2>
             <div class="panel__actions">
-                <form
-                    class="panel__action"
-                    action="{{ route('users.invites.create', ['user' => $user]) }}"
-                >
-                    <button class="form__button form__button--text">
+                <div class="panel__action">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('users.invites.create', ['user' => $user]) }}"
+                    >
                         {{ __('user.send-invite') }}
-                    </button>
-                </form>
+                    </a>
+                </div>
             </div>
         </header>
         <div class="data-table-wrapper">

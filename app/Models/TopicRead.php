@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +37,7 @@ class TopicRead extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, $this>
      */
     public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -42,7 +45,7 @@ class TopicRead extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -50,7 +53,7 @@ class TopicRead extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, $this>
      */
     public function lastReadPost(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -69,13 +72,11 @@ class MassActionController extends Controller
             $user->update([
                 'group_id'          => $memberGroup[0],
                 'active'            => 1,
-                'can_upload'        => 1,
                 'can_download'      => 1,
-                'can_request'       => 1,
-                'can_comment'       => 1,
-                'can_invite'        => 1,
                 'email_verified_at' => now(),
             ]);
+
+            cache()->forget('user:'.$user->passkey);
 
             Unit3dAnnounce::addUser($user);
         }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,6 +25,7 @@ use App\Models\Group;
 use App\Models\History;
 use App\Models\Like;
 use App\Models\Message;
+use App\Models\Participant;
 use App\Models\Peer;
 use App\Models\Post;
 use App\Models\PrivateMessage;
@@ -33,10 +37,8 @@ use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoSoftDeleteDisabledUsersTest
- */
 class AutoSoftDeleteDisabledUsers extends Command
 {
     /**
@@ -56,9 +58,9 @@ class AutoSoftDeleteDisabledUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         if (config('pruning.user_pruning')) {
             $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
@@ -69,12 +71,7 @@ class AutoSoftDeleteDisabledUsers extends Command
 
             foreach ($users as $user) {
                 $user->update([
-                    'can_upload'   => false,
                     'can_download' => false,
-                    'can_comment'  => false,
-                    'can_invite'   => false,
-                    'can_request'  => false,
-                    'can_chat'     => false,
                     'group_id'     => UserGroup::PRUNED->value,
                     'deleted_by'   => User::SYSTEM_USER_ID,
                 ]);
@@ -103,10 +100,7 @@ class AutoSoftDeleteDisabledUsers extends Command
                     'sender_id' => User::SYSTEM_USER_ID,
                 ]);
 
-                PrivateMessage::where('receiver_id', '=', $user->id)->update([
-                    'receiver_id' => User::SYSTEM_USER_ID,
-                ]);
-
+                Participant::where('user_id', '=', $user->id)->delete();
                 Message::where('user_id', '=', $user->id)->delete();
                 Like::where('user_id', '=', $user->id)->delete();
                 Thank::where('user_id', '=', $user->id)->delete();

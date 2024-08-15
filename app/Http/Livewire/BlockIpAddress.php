@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -67,12 +70,15 @@ class BlockIpAddress extends Component
 
             $this->dispatch('success', type: 'success', message: 'IP has successfully been deleted!');
         } else {
-            $this->dispatch('error', type:  'error', message: 'Permission Denied!');
+            $this->dispatch('error', type: 'error', message: 'Permission Denied!');
         }
     }
 
+    /**
+     * @return \Illuminate\Pagination\LengthAwarePaginator<BlockedIp>
+     */
     #[Computed]
-    final public function ipAddresses(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function ipAddresses(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return BlockedIp::query()
             ->when($this->ipSearch, fn ($query) => $query->where('ip_address', 'LIKE', '%'.$this->ipSearch.'%'))

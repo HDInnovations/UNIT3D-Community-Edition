@@ -3,7 +3,7 @@
         <img
             class="meta__backdrop"
             src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/{{ $meta->artworks[0]['image_id'] }}.jpg"
-            alt="Backdrop"
+            alt=""
         />
     @endif
 
@@ -100,12 +100,12 @@
             @foreach ($meta?->involved_companies ?? [] as $company)
                 <article class="meta__company">
                     <a class="meta-chip" href="{{ $company['company']['url'] }}" target="_blank">
-                        @if (array_key_exists('logo', $company['company']))
+                        @if ($company['company']['logo'])
                             <img
                                 class="meta-chip__image"
                                 style="object-fit: scale-down"
                                 src="https://images.igdb.com/igdb/image/upload/t_logo_med/{{ $company['company']['logo']['image_id'] }}.png"
-                                alt="logo"
+                                alt=""
                             />
                         @else
                             <i
@@ -147,7 +147,7 @@
                     ></i>
                     <h2 class="meta-chip__name">Genres</h2>
                     <h3 class="meta-chip__value">
-                        {{ implode(' / ', array_map(fn ($genre) => $genre['name'], $meta->genres)) }}
+                        {{ implode(' / ', array_map(fn ($genre) => $genre['name'], $meta->genres->toArray())) }}
                     </h3>
                 </article>
             @endif

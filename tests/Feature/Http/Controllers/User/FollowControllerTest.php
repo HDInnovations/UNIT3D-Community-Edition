@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,7 +27,7 @@ test('destroy returns an ok response', function (): void {
 
     $response = $this->actingAs($user)->delete(route('users.followers.destroy', ['user' => $userToFollow]));
     $response->assertRedirect(route('users.show', ['user' => $userToFollow]))
-        ->assertSessionHas('success', sprintf('You are no longer following %s', $userToFollow->username));
+        ->assertSessionHas('success', \sprintf('You are no longer following %s', $userToFollow->username));
 
     $this->assertDatabaseMissing('follows', [
         'user_id'   => $user->id,
@@ -51,5 +54,5 @@ test('store returns an ok response', function (): void {
 
     $response = $this->actingAs($user)->post(route('users.followers.store', ['user' => $userToFollow]));
     $response->assertRedirect(route('users.show', ['user' => $userToFollow]))
-        ->assertSessionHas('success', sprintf('You are now following %s', $userToFollow->username));
+        ->assertSessionHas('success', \sprintf('You are now following %s', $userToFollow->username));
 });

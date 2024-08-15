@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -110,18 +113,11 @@ test('update returns an ok response', function (): void {
         'color'        => $bot->color,
         'icon'         => $bot->icon,
         'emoji'        => $bot->emoji,
-        'info'         => $bot->info,
-        'about'        => $bot->about,
         'help'         => $bot->help,
         'active'       => true,
         'is_protected' => $bot->is_protected,
         'is_nerdbot'   => $bot->is_nerdbot,
         'is_systembot' => $bot->is_systembot,
-        'uploaded'     => $bot->uploaded,
-        'downloaded'   => $bot->downloaded,
-        'fl_tokens'    => $bot->fl_tokens,
-        'seedbonus'    => $bot->seedbonus,
-        'invites'      => $bot->invites,
     ]);
     $response->assertRedirect(route('staff.bots.index'))->assertSessionHas('success', 'The Bot Has Been Updated');
 });

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -147,17 +150,17 @@ class RequestController extends Controller
         // Auto Shout
         if ($torrentRequest->anon == 0) {
             $this->chatRepository->systemMessage(
-                sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
+                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                sprintf('An anonymous user has created a new request [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
+                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
             );
         }
 
         $category = $torrentRequest->category;
 
-        if ($torrentRequest->tmdb != 0) {
+        if ($torrentRequest->tmdb > 0) {
             switch (true) {
                 case $category->tv_meta:
                     (new TMDBScraper())->tv($torrentRequest->tmdb);
@@ -213,7 +216,7 @@ class RequestController extends Controller
 
         $torrentRequest->update($request->validated());
 
-        if ($torrentRequest->tmdb != 0) {
+        if ($torrentRequest->tmdb > 0) {
             switch (true) {
                 case $torrentRequest->category->tv_meta:
                     (new TMDBScraper())->tv($torrentRequest->tmdb);
@@ -245,6 +248,6 @@ class RequestController extends Controller
         $torrentRequest->delete();
 
         return to_route('requests.index')
-            ->withSuccess(sprintf(trans('request.deleted'), $torrentRequest->name));
+            ->withSuccess(\sprintf(trans('request.deleted'), $torrentRequest->name));
     }
 }

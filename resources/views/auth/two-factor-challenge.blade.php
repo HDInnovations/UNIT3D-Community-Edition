@@ -8,7 +8,7 @@
         @vite('resources/sass/pages/_auth.scss')
     </head>
     <body>
-        <main x-data="{ recovery: false }">
+        <main x-data="{ recovery: false, entered: false }">
             <section class="auth-form">
                 <header class="auth-form__header">
                     <button
@@ -86,6 +86,12 @@
                             x-bind:required="!recovery"
                             type="tel"
                             value="{{ old('code') }}"
+                            x-on:input="
+                                if ($el.value.length === 6) {
+                                    $el.form.submit();
+                                    entered = true;
+                                }
+                            "
                             x-ref="code"
                         />
                     </p>
@@ -110,7 +116,13 @@
                         @hiddencaptcha
                     @endif
 
-                    <button class="auth-form__primary-button">{{ __('auth.login') }}</button>
+                    <button
+                        class="auth-form__primary-button"
+                        x-text="entered ? @js(__('auth.verifying')) : @js(__('auth.verify'))"
+                        x-bind:disabled="entered"
+                    >
+                        {{ __('auth.verify') }}
+                    </button>
                     @if (Session::has('errors'))
                         <ul class="auth-form__errors">
                             @foreach ($errors->all() as $error)

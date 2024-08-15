@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,16 +27,14 @@ use voku\helper\AntiXSS;
  *
  * @property int                             $id
  * @property int                             $sender_id
- * @property int                             $receiver_id
- * @property string                          $subject
  * @property string                          $message
- * @property int                             $read
- * @property int|null                        $related_to
+ * @property int                             $conversation_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
 class PrivateMessage extends Model
 {
+    /** @use HasFactory<\Database\Factories\PrivateMessageFactory> */
     use HasFactory;
 
     /**
@@ -46,47 +47,21 @@ class PrivateMessage extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'sender_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(User::class, 'sender_id');
     }
 
     /**
-     * Belongs To A User.
+     * Belongs To A Conversation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Conversation, $this>
      */
-    public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function conversation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'receiver_id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
-    }
-
-    /**
-     * Has a reply.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<PrivateMessage>
-     */
-    public function reply(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->HasOne(PrivateMessage::class, 'related_to');
-    }
-
-    /**
-     * Has a reply.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<PrivateMessage>
-     */
-    public function replyRecursive(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->reply()->with('replyRecursive');
+        return $this->belongsTo(Conversation::class);
     }
 
     /**

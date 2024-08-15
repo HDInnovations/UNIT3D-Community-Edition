@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -28,13 +31,12 @@ use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
 use App\Models\AutomaticTorrentFreeleech;
 use App\Models\Movie;
-use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 use App\Models\Tv;
 use App\Models\User;
-use App\Models\Wish;
 use App\Notifications\NewUpload;
+use App\Notifications\NewWishListNotice;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Carbon;
 
@@ -45,12 +47,12 @@ class TorrentHelper
         $appurl = config('app.url');
         $appname = config('app.name');
 
-        $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->find($id);
+        $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
         $torrent->status = Torrent::APPROVED;
         $torrent->moderated_at = now();
-        $torrent->moderated_by = auth()->id();
+        $torrent->moderated_by = (int) auth()->id();
 
         if (!$torrent->free) {
             $autoFreeleechs = AutomaticTorrentFreeleech::query()
@@ -74,23 +76,26 @@ class TorrentHelper
 
         $uploader = $torrent->user;
 
-        $wishes = Wish::where('tmdb', '=', $torrent->tmdb)->whereNull('source')->get();
+        switch (true) {
+            case $torrent->category->movie_meta:
+                User::query()
+                    ->whereHas('wishes', fn ($query) => $query->where('movie_id', '=', $torrent->tmdb))
+                    ->get()
+                    ->each
+                    ->notify(new NewWishListNotice($torrent));
 
-        foreach ($wishes as $wish) {
-            $wish->source = sprintf('%s/torrents/%s', $appurl, $torrent->id);
-            $wish->save();
+                break;
+            case $torrent->category->tv_meta:
+                User::query()
+                    ->whereHas('wishes', fn ($query) => $query->where('tv_id', '=', $torrent->tmdb))
+                    ->get()
+                    ->each
+                    ->notify(new NewWishListNotice($torrent));
 
-            // Send Private Message
-            $pm = new PrivateMessage();
-            $pm->sender_id = User::SYSTEM_USER_ID;
-            $pm->receiver_id = $wish->user_id;
-            $pm->subject = 'Wish List Notice!';
-            $pm->message = sprintf('The following item, %s, from your wishlist has been uploaded to %s! You can view it [url=%s/torrents/', $wish->title, $appname, $appurl).$torrent->id.'] HERE [/url]
-                            [color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]';
-            $pm->save();
+                break;
         }
 
-        if ($torrent->anon == 0) {
+        if ($torrent->anon == 0 && $uploader !== null) {
             foreach ($uploader->followers()->get() as $follower) {
                 if ($follower->acceptsNotification($uploader, $follower, 'following', 'show_following_upload')) {
                     $follower->notify(new NewUpload('follower', $torrent));
@@ -141,7 +146,7 @@ class TorrentHelper
                     .'[TMDB vote average: '.($meta->vote_average ?? 0).'] '
                     .'[TMDB vote count: '.($meta->vote_count ?? 0).']'
                 )
-                ->say(sprintf('[Link: %s/torrents/', $appurl).$id.']');
+                ->say(\sprintf('[Link: %s/torrents/', $appurl).$id.']');
         }
 
         cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);

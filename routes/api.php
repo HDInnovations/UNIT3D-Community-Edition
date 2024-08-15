@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 
@@ -38,4 +40,12 @@ Route::middleware(['auth:api', 'banned'])->prefix('torrents')->group(function ()
     Route::get('/filter', [App\Http\Controllers\API\TorrentController::class, 'filter']);
     Route::get('/{id}', [App\Http\Controllers\API\TorrentController::class, 'show'])->where('id', '[0-9]+');
     Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store']);
+});
+
+// Internal front-end web API routes
+Route::middleware(['web', 'auth', 'banned', 'verified'])->group(function (): void {
+    Route::prefix('bookmarks')->group(function (): void {
+        Route::post('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'store'])->name('api.bookmarks.store');
+        Route::delete('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'destroy'])->name('api.bookmarks.destroy');
+    });
 });

@@ -84,17 +84,17 @@
                         id="edit-comment"
                         class="form__textarea"
                         aria-describedby="edit-comment__textarea-hint"
-                        wire:model="editState.content"
+                        wire:model="editState"
                         required
                     ></textarea>
                     <label for="edit-comment" class="form__label form__label--floating">
-                        @error('editState.content')
+                        @error('editState')
                             <strong>{{ __('common.error') }}:</strong>
                         @enderror
 
                         Edit your comment...
                     </label>
-                    @error('editState.content')
+                    @error('editState')
                         <span class="form__hint" id="edit-comment__textarea-hint">
                             {{ $message }}
                         </span>
@@ -139,18 +139,18 @@
                             id="reply-comment"
                             class="form__textarea"
                             aria-describedby="reply-comment__textarea-hint"
-                            wire:model="replyState.content"
+                            wire:model="replyState"
                             required
                             x-on:focus="toggleOn"
                         ></textarea>
                         <label for="reply-comment" class="form__label form__label--floating">
-                            @error('editState.content')
+                            @error('editState')
                                 <strong>{{ __('common.error') }}:</strong>
                             @enderror
 
                             Reply to parent comment...
                         </label>
-                        @error('replyState.content')
+                        @error('replyState')
                             <span class="form__hint" id="reply-comment__textarea-hint">
                                 {{ $message }}
                             </span>

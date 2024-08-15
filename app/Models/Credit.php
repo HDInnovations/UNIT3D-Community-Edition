@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,14 +32,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Credit extends Model
 {
+    /** @use HasFactory<\Database\Factories\CreditFactory> */
     use HasFactory;
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = true;
 
     /**
      * Indicates If The Model Should Be Timestamped.
@@ -46,7 +43,7 @@ class Credit extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Occupation, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Occupation, $this>
      */
     public function occupation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -54,7 +51,7 @@ class Credit extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Person, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Person, $this>
      */
     public function person(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -62,7 +59,7 @@ class Credit extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, $this>
      */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -70,7 +67,7 @@ class Credit extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, $this>
      */
     public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

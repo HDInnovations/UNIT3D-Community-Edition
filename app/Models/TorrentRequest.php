@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +37,7 @@ use voku\helper\AntiXSS;
  * @property int                             $igdb
  * @property string                          $description
  * @property int                             $user_id
- * @property float                           $bounty
+ * @property string                          $bounty
  * @property int                             $votes
  * @property int|null                        $claimed
  * @property int                             $anon
@@ -52,6 +55,8 @@ use voku\helper\AntiXSS;
 class TorrentRequest extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\TorrentRequestFactory> */
     use HasFactory;
     use TorrentFilter;
 
@@ -72,21 +77,23 @@ class TorrentRequest extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{filled_when: 'datetime', approved_when: 'datetime', tmdb: 'int', igdb: 'int', bounty: 'decimal:2'}
      */
     protected function casts(): array
     {
         return [
             'filled_when'   => 'datetime',
             'approved_when' => 'datetime',
-            'igdb'          => 'integer',
+            'tmdb'          => 'int',
+            'igdb'          => 'int',
+            'bounty'        => 'decimal:2',
         ];
     }
 
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -99,7 +106,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function approver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -112,7 +119,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function filler(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -125,7 +132,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A Category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, $this>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -135,7 +142,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A Type.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, $this>
      */
     public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -145,7 +152,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A Resolution.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, $this>
      */
     public function resolution(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -155,7 +162,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -163,7 +170,7 @@ class TorrentRequest extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
@@ -173,7 +180,7 @@ class TorrentRequest extends Model
     /**
      * Has Many BON Bounties.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty, $this>
      */
     public function bounties(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -183,7 +190,7 @@ class TorrentRequest extends Model
     /**
      * Has One Torrent Request Claim.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<TorrentRequestClaim>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<TorrentRequestClaim, $this>
      */
     public function claim(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -195,7 +202,7 @@ class TorrentRequest extends Model
      */
     public function setDescriptionAttribute(?string $value): void
     {
-        $this->attributes['description'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+        $this->attributes['description'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
     }
 
     /**

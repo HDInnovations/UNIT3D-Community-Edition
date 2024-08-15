@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator<Rsskey> $rsskeys
+ * @property \Illuminate\Pagination\LengthAwarePaginator<Rsskey> $rsskeys
  */
 class RsskeySearch extends Component
 {
@@ -47,10 +50,10 @@ class RsskeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Rsskey>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Rsskey>
      */
     #[Computed]
-    final public function rsskeys(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function rsskeys(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Rsskey::with([
             'user' => fn ($query) => $query->withTrashed()->with('group'),

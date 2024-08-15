@@ -8,19 +8,7 @@
     </div>
     <ul class="top-nav__main-menus" x-bind:class="expanded && 'mobile'">
         <li class="top-nav--left__list-item top-nav__dropdown">
-            <a
-                class="top-nav__dropdown--nontouch"
-                href="{{
-                    route('torrents.index', [
-                        'view' => match (auth()->user()->torrent_layout) {
-                            1 => 'card',
-                            2 => 'group',
-                            3 => 'poster',
-                            default => 'list',
-                        },
-                    ])
-                }}"
-            >
+            <a class="top-nav__dropdown--nontouch" href="{{ route('torrents.index') }}">
                 <div class="top-nav--left__container">
                     {{ __('torrent.torrents') }}
                 </div>
@@ -32,18 +20,7 @@
             </a>
             <ul>
                 <li>
-                    <a
-                        href="{{
-                            route('torrents.index', [
-                                'view' => match (auth()->user()->torrent_layout) {
-                                    1 => 'card',
-                                    2 => 'group',
-                                    3 => 'poster',
-                                    default => 'list',
-                                },
-                            ])
-                        }}"
-                    >
+                    <a href="{{ route('torrents.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-download"></i>
                         {{ __('torrent.torrents') }}
                     </a>
@@ -141,7 +118,7 @@
                                         ->where('staff_id', '=', auth()->id())
                                         ->Where('staff_read', '=', '0');
                                 })
-                                ->exists()
+                                ->exists();
                         @endphp
 
                         @if ($tickets)
@@ -154,7 +131,7 @@
                             $ticket_unread = DB::table('tickets')
                                 ->where('user_id', '=', auth()->id())
                                 ->where('user_read', '=', '0')
-                                ->exists()
+                                ->exists();
                         @endphp
 
                         @if ($ticket_unread)
@@ -290,7 +267,7 @@
                         ->where('user_id', '=', auth()->id())
                         ->where('active', '=', 1)
                         ->count() ?? 0
-                )
+                );
             @endphp
 
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
@@ -345,7 +322,7 @@
             >
                 <i class="{{ auth()->user()->group->icon }}"></i>
                 {{ auth()->user()->username }}
-                @if (auth()->user()->warnings()->active()->exists())
+                @if ($warningsExists = auth()->user()->warnings()->active()->exists())
                     <i
                         class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                         title="{{ __('common.active-warning') }}"
@@ -377,7 +354,8 @@
                         @php
                             $torrents_unmoderated = DB::table('torrents')
                                 ->where('status', '=', \App\Models\Torrent::PENDING)
-                                ->exists()
+                                ->whereNull('deleted_at')
+                                ->exists();
                         @endphp
 
                         @if ($torrents_unmoderated)
@@ -389,15 +367,16 @@
 
             <li>
                 @php
-                    $pm = DB::table('private_messages')
-                        ->where('receiver_id', '=', auth()->id())
-                        ->where('read', '=', '0')
-                        ->exists()
+                    $pm = DB::table('participants')
+                        ->where('user_id', '=', auth()->id())
+                        ->where('read', '=', false)
+                        ->whereNull('deleted_at')
+                        ->exists();
                 @endphp
 
                 <a
                     class="top-nav--right__icon-link"
-                    href="{{ route('users.received_messages.index', ['user' => auth()->user()]) }}"
+                    href="{{ route('users.conversations.index', ['user' => auth()->user()]) }}"
                     title="{{ __('pm.inbox') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
@@ -425,14 +404,14 @@
                 >
                     <img
                         src="{{ url(auth()->user()->image ? 'files/img/' . auth()->user()->image : 'img/profile.png') }}"
-                        alt="{{ auth()->user()->username }}"
+                        alt="{{ __('user.my-profile') }}"
                         class="top-nav__profile-image"
                     />
                 </a>
                 <a class="top-nav__dropdown--touch" tabindex="0">
                     <img
                         src="{{ url(auth()->user()->image ? 'files/img/' . auth()->user()->image : 'img/profile.png') }}"
-                        alt="{{ auth()->user()->username }}"
+                        alt="{{ __('user.my-profile') }}"
                         class="top-nav__profile-image"
                     />
                 </a>
@@ -451,7 +430,7 @@
                             >
                                 <i class="{{ auth()->user()->group->icon }}"></i>
                                 {{ auth()->user()->username }}
-                                @if (auth()->user()->warnings()->active()->exists())
+                                @if ($warningsExists)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                         title="{{ __('common.active-warning') }}"
@@ -495,6 +474,14 @@
                         <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                             {{ __('user.my-uploads') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                            {{ __('user.my-downloads') }}
                         </a>
                     </li>
                     <li>

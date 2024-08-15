@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,7 +23,6 @@ use App\Models\TorrentRequestBounty;
 use App\Notifications\NewRequestBounty;
 use App\Repositories\ChatRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RequestControllerTest
@@ -47,14 +49,15 @@ class BountyController extends Controller
 
         $bounty = $torrentRequest->bounties()->create(['user_id' => $user->id] + $request->validated());
 
+        $torrentRequest->increment('bounty', $request->integer('seedbonus'));
+
         $torrentRequest->votes++;
-        $torrentRequest->bounty += $request->integer('seedbonus');
-        $torrentRequest->created_at = Carbon::now();
+        $torrentRequest->created_at = now();
         $torrentRequest->save();
 
         if ($request->boolean('anon') == 0) {
             $this->chatRepository->systemMessage(
-                sprintf(
+                \sprintf(
                     '[url=%s]%s[/url] has added %s BON bounty to request [url=%s]%s[/url]',
                     href_profile($user),
                     $user->username,
@@ -65,7 +68,7 @@ class BountyController extends Controller
             );
         } else {
             $this->chatRepository->systemMessage(
-                sprintf(
+                \sprintf(
                     'An anonymous user added %s BON bounty to request [url=%s]%s[/url]',
                     $request->input('seedbonus'),
                     href_request($torrentRequest),

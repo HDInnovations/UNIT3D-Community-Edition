@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,7 +18,6 @@ namespace App\Actions\Fortify;
 
 use App\Models\Group;
 use App\Models\Invite;
-use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Repositories\ChatRepository;
 use App\Rules\EmailBlacklist;
@@ -64,8 +66,10 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::when(config('captcha.enabled') === true, 'hiddencaptcha'),
             ],
             'code' => [
-                Rule::when(config('other.invite-only') === true, 'required'),
-                Rule::when(config('other.invite-only') === true, Rule::exists('invites', 'code')->whereNull('accepted_by'))
+                Rule::when(config('other.invite-only') === true, [
+                    'required',
+                    Rule::exists('invites', 'code')->whereNull('accepted_by'),
+                ]),
             ]
         ])->validate();
 
@@ -101,13 +105,13 @@ class CreateNewUser implements CreatesNewUsers
         $profileUrl = href_profile($user);
 
         $welcomeArray = [
-            sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community.',
-            sprintf("[url=%s]%s[/url], We've been expecting you.", $profileUrl, $user->username),
-            sprintf("[url=%s]%s[/url] has arrived. Party's over.", $profileUrl, $user->username),
-            sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
-            sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
-            sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
-            'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you.', $profileUrl, $user->username),
+            \sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community.',
+            \sprintf("[url=%s]%s[/url], We've been expecting you.", $profileUrl, $user->username),
+            \sprintf("[url=%s]%s[/url] has arrived. Party's over.", $profileUrl, $user->username),
+            \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
+            \sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
+            \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
+            'Welcome to '.config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you.', $profileUrl, $user->username),
         ];
 
         $this->chatRepository->systemMessage(
@@ -115,12 +119,10 @@ class CreateNewUser implements CreatesNewUsers
         );
 
         // Send Welcome PM
-        PrivateMessage::create([
-            'sender_id'   => 1,
-            'receiver_id' => $user->id,
-            'subject'     => config('welcomepm.subject'),
-            'message'     => config('welcomepm.message'),
-        ]);
+        $user->sendSystemNotification(
+            subject: config('welcomepm.subject'),
+            message: config('welcomepm.message'),
+        );
 
         return $user;
     }

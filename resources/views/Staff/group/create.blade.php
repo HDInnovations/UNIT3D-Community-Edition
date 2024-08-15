@@ -96,6 +96,17 @@
                     </label>
                 </p>
                 <p class="form__group">
+                    <input name="is_uploader" type="hidden" value="0" />
+                    <input
+                        id="is_uploader"
+                        class="form__checkbox"
+                        name="is_uploader"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="is_uploader">Uploader</label>
+                </p>
+                <p class="form__group">
                     <input name="is_internal" type="hidden" value="0" />
                     <input
                         id="is_internal"
@@ -217,6 +228,50 @@
                     <label class="form__label" for="is_incognito">Incognito</label>
                 </p>
                 <p class="form__group">
+                    <input name="can_chat" type="hidden" value="0" />
+                    <input
+                        id="can_chat"
+                        class="form__checkbox"
+                        name="can_chat"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="can_chat">Chat</label>
+                </p>
+                <p class="form__group">
+                    <input name="can_comment" type="hidden" value="0" />
+                    <input
+                        id="can_comment"
+                        class="form__checkbox"
+                        name="can_comment"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="can_comment">Comment</label>
+                </p>
+                <p class="form__group">
+                    <input name="can_invite" type="hidden" value="0" />
+                    <input
+                        id="can_invite"
+                        class="form__checkbox"
+                        name="can_invite"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="can_invite">Invite</label>
+                </p>
+                <p class="form__group">
+                    <input name="can_request" type="hidden" value="0" />
+                    <input
+                        id="can_request"
+                        class="form__checkbox"
+                        name="can_request"
+                        type="checkbox"
+                        value="1"
+                    />
+                    <label class="form__label" for="can_request">Request</label>
+                </p>
+                <p class="form__group">
                     <input name="can_upload" type="hidden" value="0" />
                     <input
                         id="can_upload"
@@ -297,6 +352,18 @@
                     />
                     <label class="form__label form__label--floating" for="min_seedsize">
                         Minimum seedsize required
+                    </label>
+                </p>
+                <p class="form__group" x-show="autogroup" x-cloak>
+                    <input
+                        id="min_uploads"
+                        class="form__text"
+                        type="text"
+                        name="min_uploads"
+                        placeholder=" "
+                    />
+                    <label class="form__label form__label--floating" for="min_uploads">
+                        Minimum uploads required
                     </label>
                 </p>
                 <p class="form__group">

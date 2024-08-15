@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -66,12 +69,12 @@ class UserUploads extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Torrent>
      */
     #[Computed]
-    final public function uploads(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function uploads(): \Illuminate\Pagination\LengthAwarePaginator
     {
-        $uploads = Torrent::query()
+        return Torrent::query()
             ->withCount('thanks')
             ->withSum('tips', 'bon')
             ->withoutGlobalScope(ApprovedScope::class)
@@ -87,8 +90,6 @@ class UserUploads extends Component
             ->when($this->personalRelease === 'exclude', fn ($query) => $query->where('personal_release', '=', 0))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
-
-        return $uploads->setCollection($uploads->getCollection()->groupBy(fn ($torrent) => $torrent->created_at->format('Y-m')));
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

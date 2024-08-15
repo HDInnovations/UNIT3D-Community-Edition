@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -190,6 +192,7 @@ return [
     'something-went-wrong' => 'Something Went Wrong!',
     'sort'                 => 'Sort',
     'special'              => 'Special',
+    'extras'               => 'Extras',
     'sponsor'              => 'Become a Sponsor',
     'staff'                => 'Staff',
     'staff-tools'          => 'Staff Tools',

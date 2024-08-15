@@ -30,7 +30,11 @@
                 class="form"
                 method="POST"
                 action="{{ route('staff.polls.update', ['poll' => $poll]) }}"
-                x-data="{ extraOptions: {!! $poll->options->map(fn ($item) => $item->only(['id', 'name'])) !!} }"
+                x-data="{
+                    extraOptions: JSON.parse(
+                        atob('{{ base64_encode(json_encode($poll->options->select('id', 'name'))) }}')
+                    ),
+                }"
             >
                 @csrf
                 @method('PATCH')
@@ -46,6 +50,18 @@
                     />
                     <label class="form__label form__label--floating" for="title">
                         {{ __('poll.title') }}
+                    </label>
+                </p>
+                <p class="form__group">
+                    <input
+                        id="expires_at"
+                        class="form__text"
+                        name="expires_at"
+                        type="dateTime-local"
+                        value="{{ $poll->expires_at }}"
+                    />
+                    <label class="form__label form__label--floating" for="expires_at">
+                        {{ __('poll.close-date') }}
                     </label>
                 </p>
                 <template x-for="(option, i) in extraOptions">

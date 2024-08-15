@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
 class ChatStatus extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\ChatStatusFactory> */
     use HasFactory;
 
     /**
@@ -42,7 +47,7 @@ class ChatStatus extends Model
     /**
      * A Status Has Many Users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<User, $this>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

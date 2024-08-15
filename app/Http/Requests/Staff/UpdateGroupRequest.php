@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -31,7 +34,7 @@ class UpdateGroupRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\ProhibitedIf|string>>
      */
     public function rules(Request $request): array
     {
@@ -69,6 +72,10 @@ class UpdateGroupRequest extends FormRequest
             ],
             'effect' => [
                 'sometimes',
+            ],
+            'is_uploader' => [
+                'required',
+                'boolean',
             ],
             'is_internal' => [
                 'required',
@@ -110,6 +117,22 @@ class UpdateGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'can_chat' => [
+                'required',
+                'boolean',
+            ],
+            'can_comment' => [
+                'required',
+                'boolean',
+            ],
+            'can_invite' => [
+                'required',
+                'boolean',
+            ],
+            'can_request' => [
+                'required',
+                'boolean',
+            ],
             'can_upload' => [
                 'required',
                 'boolean',
@@ -147,6 +170,13 @@ class UpdateGroupRequest extends FormRequest
                 ], 'nullable'),
             ],
             'min_seedsize' => [
+                Rule::when($request->boolean('autogroup'), [
+                    'sometimes',
+                    'integer',
+                    'min:0',
+                ], 'nullable'),
+            ],
+            'min_uploads' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',

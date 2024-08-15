@@ -141,7 +141,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($uploader->user->image === null ? 'img/profile.png' : 'files/img/' . $uploader->user->image) }}"
                     />
                 </article>
@@ -161,7 +161,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($requester->user->image === null ? 'img/profile.png' : 'files/img/' . $requester->user->image) }}"
                     />
                 </article>
@@ -181,7 +181,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($filler->filler->image === null ? 'img/profile.png' : 'files/img/' . $filler->filler->image) }}"
                     />
                 </article>
@@ -201,7 +201,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($commenter->user->image === null ? 'img/profile.png' : 'files/img/' . $commenter->user->image) }}"
                     />
                 </article>
@@ -221,7 +221,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($poster->user->image === null ? 'img/profile.png' : 'files/img/' . $poster->user->image) }}"
                     />
                 </article>
@@ -241,7 +241,7 @@
                     </h4>
                     <img
                         class="user-stat-card__avatar"
-                        alt="avatar"
+                        alt=""
                         src="{{ url($thanker->user->image === null ? 'img/profile.png' : 'files/img/' . $thanker->user->image) }}"
                     />
                 </article>
@@ -251,16 +251,26 @@
     <section class="panelV2">
         <h2 class="panel__heading">Overall</h2>
         <dl class="key-value">
-            <dt>New users this year</dt>
-            <dd>{{ $newUsers }}</dd>
-            <dt>Movies uploaded this year</dt>
-            <dd>{{ $movieUploads }}</dd>
-            <dt>TV Shows uploaded this year</dt>
-            <dd>{{ $tvUploads }}</dd>
-            <dt>Total torrents uploaded this year</dt>
-            <dd>{{ $totalUploads }}</dd>
-            <dt>Total torrents downloaded this year</dt>
-            <dd>{{ $totalDownloads }}</dd>
+            <div class="key-value__group">
+                <dt>New users this year</dt>
+                <dd>{{ $newUsers }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Movies uploaded this year</dt>
+                <dd>{{ $movieUploads }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>TV Shows uploaded this year</dt>
+                <dd>{{ $tvUploads }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Total torrents uploaded this year</dt>
+                <dd>{{ $totalUploads }}</dd>
+            </div>
+            <div class="key-value__group">
+                <dt>Total torrents downloaded this year</dt>
+                <dd>{{ $totalDownloads }}</dd>
+            </div>
         </dl>
     </section>
     <section class="panelV2">

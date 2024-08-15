@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -19,6 +22,7 @@ use App\Models\Movie;
 use App\Models\Playlist;
 use App\Models\Tv;
 use App\Repositories\ChatRepository;
+use App\Traits\TorrentMeta;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Exception;
@@ -28,6 +32,8 @@ use Exception;
  */
 class PlaylistController extends Controller
 {
+    use TorrentMeta;
+
     /**
      * PlaylistController Constructor.
      */
@@ -40,21 +46,7 @@ class PlaylistController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('playlist.index', [
-            'playlists' => Playlist::with([
-                'user:id,username,group_id,image',
-                'user.group'
-            ])
-                ->withCount('torrents')
-                ->where(function ($query): void {
-                    $query->where('is_private', '=', 0)
-                        ->orWhere(function ($query): void {
-                            $query->where('is_private', '=', 1)->where('user_id', '=', auth()->id());
-                        });
-                })
-                ->oldest('name')
-                ->paginate(24),
-        ]);
+        return view('playlist.index');
     }
 
     /**
@@ -89,7 +81,7 @@ class PlaylistController extends Controller
         // Announce To Shoutbox
         if (!$playlist->is_private) {
             $this->chatRepository->systemMessage(
-                sprintf('User [url=%s/', config('app.url')).$request->user()->username.'.'.$request->user()->id.']'.$request->user()->username.sprintf('[/url] has created a new playlist [url=%s/playlists/', config('app.url')).$playlist->id.']'.$playlist->name.'[/url] check it out now!'
+                \sprintf('User [url=%s/', config('app.url')).$request->user()->username.'.'.$request->user()->id.']'.$request->user()->username.\sprintf('[/url] has created a new playlist [url=%s/playlists/', config('app.url')).$playlist->id.']'.$playlist->name.'[/url] check it out now!'
             );
         }
 
@@ -104,19 +96,34 @@ class PlaylistController extends Controller
     {
         abort_if($playlist->is_private && $playlist->user_id !== $request->user()->id, 403, trans('playlist.private-error'));
 
-        $randomTorrent = $playlist->torrents()->inRandomOrder()->first();
+        $randomTorrent = $playlist->torrents()->inRandomOrder()->with('category')->first();
+
+        $torrents = $playlist->torrents()
+            ->select('*')
+            ->selectRaw("
+                CASE
+                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
+                    WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
+                    WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
+                    WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                END as meta
+            ")
+            ->with(['category', 'resolution', 'type', 'user.group'])
+            ->orderBy('name')
+            ->paginate(26);
+
+        // See app/Traits/TorrentMeta.php
+        $this->scopeMeta($torrents);
 
         return view('playlist.show', [
-            'playlist' => $playlist,
-            'meta'     => match(true) {
-                $randomTorrent?->category?->tv_meta    => Tv::with('genres', 'networks', 'seasons')->find($randomTorrent->tmdb),
-                $randomTorrent?->category?->movie_meta => Movie::with('genres', 'companies', 'collection')->find($randomTorrent->tmdb),
+            'playlist' => $playlist->load('user.group'),
+            'meta'     => match (true) {
+                $randomTorrent?->category?->tv_meta    => Tv::find($randomTorrent->tmdb),
+                $randomTorrent?->category?->movie_meta => Movie::find($randomTorrent->tmdb),
                 default                                => null,
             },
-            'torrents' => $playlist->torrents()
-                ->with(['category', 'resolution', 'type', 'user.group'])
-                ->orderBy('name')
-                ->paginate(26),
+            'torrents' => $torrents,
         ]);
     }
 

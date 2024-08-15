@@ -58,7 +58,7 @@
 
                                 <img
                                     class="comparison__image"
-                                    src="{{ $url }}"
+                                    src="{!! $url !!}"
                                     loading="lazy"
                                     x-bind:class="screen != {{ $loop->iteration }} && 'comparison__image--hidden'"
                                 />

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -51,7 +54,7 @@ class Announce extends Model
     /**
      * Belongs to a torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -61,7 +64,7 @@ class Announce extends Model
     /**
      * Belongs to a user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

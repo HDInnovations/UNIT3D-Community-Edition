@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,7 +17,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\History;
-use App\Models\User;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
@@ -50,10 +52,10 @@ class LeakerSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<History>
      */
     #[Computed]
-    final public function leakers(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function leakers(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return History::query()
             ->select([

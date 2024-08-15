@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,5 +35,7 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\NotificationFactory> */
     use HasFactory;
 }

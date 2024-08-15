@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -29,6 +32,8 @@ use Illuminate\Database\Eloquent\Model;
 class MediaLanguage extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\MediaLanguageFactory> */
     use HasFactory;
 
     /**

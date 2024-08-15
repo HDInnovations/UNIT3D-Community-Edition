@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -21,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int   $id
  * @property int   $user_id
+ * @property int   $private_profile
+ * @property bool  $hidden
  * @property int   $show_achievement
  * @property int   $show_bon
  * @property int   $show_comment
@@ -63,6 +68,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserPrivacy extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserPrivacyFactory> */
     use HasFactory;
 
     /**
@@ -80,13 +86,21 @@ class UserPrivacy extends Model
     protected $table = 'user_privacy';
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = [];
+
+    /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{hidden: 'bool', json_profile_groups: 'array', json_torrent_groups: 'array', json_forum_groups: 'array', json_bon_groups: 'array', json_comment_groups: 'array', json_wishlist_groups: 'array', json_follower_groups: 'array', json_achievement_groups: 'array', json_rank_groups: 'array', json_request_groups: 'array', json_other_groups: 'array'}
      */
     protected function casts(): array
     {
         return [
+            'hidden'                  => 'bool',
             'json_profile_groups'     => 'array',
             'json_torrent_groups'     => 'array',
             'json_forum_groups'       => 'array',
@@ -104,45 +118,10 @@ class UserPrivacy extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
-    }
-
-    /**
-     * Get the Expected groups for form validation.
-     *
-     * @return array{}
-     */
-    public function getExpectedGroupsAttribute(): array
-    {
-        return [];
-    }
-
-    /**
-     * Get the Expected fields for form validation.
-     *
-     * @return array{}
-     */
-    public function getExpectedFieldsAttribute(): array
-    {
-        return [];
-    }
-
-    /**
-     * Set the base vars on object creation without touching boot.
-     */
-    public function setDefaultValues(string $type = 'default'): void
-    {
-        foreach ($this->casts as $k => $v) {
-            if ($v == 'array') {
-                $this->$k = $this->expected_groups;
-            }
-        }
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

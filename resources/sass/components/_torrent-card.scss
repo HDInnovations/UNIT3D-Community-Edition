@@ -4,12 +4,16 @@
     width: 100%;
     border: var(--torrent-card-border);
     background-color: var(--torrent-card-bg);
-    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.20);
+    box-shadow:
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12),
+        0 5px 5px -3px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     contain: content;
     display: grid;
+    box-sizing: content-box;
     grid-template-rows: 40px 220px 40px;
-    grid-template-areas: "header header" "poster body" "footer footer";
+    grid-template-areas: 'header header' 'poster body' 'footer footer';
 }
 
 .torrent-card__header {
@@ -82,7 +86,7 @@
 }
 
 .torrent-card__genre-item:not(:last-child):after {
-    content: "\2022";
+    content: '\2022';
 }
 
 .torrent-card__genre {
@@ -104,4 +108,9 @@
     padding: 0;
     display: inline;
     font-style: normal;
+}
+
+.torrent-card__right-footer {
+    margin-top: -12px;
+    margin-bottom: -12px;
 }

@@ -2,7 +2,7 @@
     $isModo = auth()->user()->group->is_modo;
     $isProfileOwner = auth()
         ->user()
-        ->is($user)
+        ->is($user);
 @endphp
 
 <li class="nav-tab-menu">
@@ -530,6 +530,16 @@
                         href="{{ route('users.invites.index', ['user' => $user]) }}"
                     >
                         {{ __('user.invites') }}
+                    </a>
+                </li>
+                <li
+                    class="{{ Route::is('users.invite_tree.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+                >
+                    <a
+                        class="{{ Route::is('users.invite_tree.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                        href="{{ route('users.invite_tree.index', ['user' => $user]) }}"
+                    >
+                        {{ __('user.invite-tree') }}
                     </a>
                 </li>
             @endif

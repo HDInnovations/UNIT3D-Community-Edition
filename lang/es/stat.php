@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -12,22 +14,29 @@
  */
 
 return [
-    'all-time'                => 'Desde siempre',
-    'by-count'                => 'Por cantidad',
-    'by-data'                 => 'Por datos',
-    'by-volume'               => 'Por volumen',
+    'active'                  => 'Activo',
+    'all'                     => 'Todo',
+    'all-time'                => 'Todo el Tiempo',
+    'banned'                  => 'Baneado',
+    'by-count'                => 'Por Cantidad',
+    'by-data'                 => 'Por Datos',
+    'by-volume'               => 'Por Volumen',
+    'credited'                => 'Acreditado',
+    'disabled'                => 'Desactivado',
     'group'                   => 'Grupo',
     'groups'                  => 'Grupos',
     'last30days'              => 'Últimos 30 días',
     'nerd-stats'              => 'Estadísticas para nerds',
-    'nerd-stats-desc'         => 'A todos nos encantan las estadísticas. Aquí hay algunas que nos parecen importantes.',
+    'nerd-stats-desc'         => 'A todos nos encantan las estadísticas. Aquí tienes algunas que consideramos importantes',
     'languages'               => 'Idiomas',
     'place'                   => 'Lugar',
+    'pruned'                  => 'Eliminado',
+    'real'                    => 'Real',
     'registration-date'       => 'Fecha de Registro',
     'request-fulfilled'       => 'Solicitud completada',
     'request-not-fulfilled'   => 'Solicitud no completada',
     'request-pending-aproval' => 'Solicitud pendiente de aprobación',
-    'select-category'         => 'Por favor, seleccione una categoría a continuación',
+    'select-category'         => 'Por favor selecciona una categoría a continuación',
     'site-stats'              => 'Estadísticas del sitio',
     'stats'                   => 'Estadísticas',
     'stats-format'            => 'Todas las estadísticas se muestran en formato Top 100',
@@ -49,7 +58,8 @@ return [
     'total-download'          => 'Descarga total',
     'total-torrents'          => 'Torrents totales',
     'total-traffic'           => 'Tráfico total',
-    'total-upload'            => 'Subida Total',
+    'total-upload'            => 'Subida total',
+    'updated'                 => '(¡Actualizado cada 10 minutos!)',
     'users-in-group'          => 'Usuarios en el grupo',
     'users-per-group'         => 'Usuarios por grupo',
 ];

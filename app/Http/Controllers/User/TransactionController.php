@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,7 +21,6 @@ use App\Http\Requests\StoreTransactionRequest;
 use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
-use App\Models\PrivateMessage;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
@@ -91,16 +93,17 @@ class TransactionController extends Controller
 
                     Unit3dAnnounce::addPersonalFreeleech($user->id);
 
-                    PrivateMessage::create([
-                        'sender_id'   => 1,
-                        'receiver_id' => $user->id,
-                        'subject'     => trans('bon.pm-subject'),
-                        'message'     => sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]! 
-                    [color=red][b]'.trans('common.system-message').'[/b][/color]',
-                    ]);
+                    $user->sendSystemNotification(
+                        subject: trans('bon.pm-subject'),
+                        message: \sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]!',
+                    );
 
                     break;
                 case $bonExchange->invite:
+                    if (config('other.invites_restriced') && !\in_array($user->group->name, config('other.invite_groups'), true)) {
+                        return back()->withErrors(trans('user.invites-disabled-group'));
+                    }
+
                     if ($user->invites >= config('other.max_unused_user_invites', 1)) {
                         return back()->withErrors('You already have the maximum amount of unused invites allowed per user.');
                     }

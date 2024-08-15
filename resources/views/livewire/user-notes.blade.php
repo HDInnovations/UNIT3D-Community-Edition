@@ -49,6 +49,7 @@
                     <th>{{ __('common.staff') }}</th>
                     <th>{{ __('user.note') }}</th>
                     <th>{{ __('user.created-on') }}</th>
+                    <th>{{ __('torrent.updated_at') }}</th>
                     <th>{{ __('common.action') }}</th>
                 </tr>
             </thead>
@@ -58,11 +59,21 @@
                         <td>
                             <x-user_tag :anon="false" :user="$note->staffuser" />
                         </td>
-                        <td style="white-space: pre-wrap">{{ $note->message }}</td>
+                        <td style="white-space: pre-wrap">
+                            @joypixels($note->getMessageHtml())
+                        </td>
                         <td>
                             <time
                                 datetime="{{ $note->created_at }}"
                                 title="{{ $note->created_at }}"
+                            >
+                                {{ $note->created_at->diffForHumans() }}
+                            </time>
+                        </td>
+                        <td>
+                            <time
+                                datetime="{{ $note->updated_at }}"
+                                title="{{ $note->updated_at }}"
                             >
                                 {{ $note->created_at->diffForHumans() }}
                             </time>

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,42 +17,22 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Language;
+use App\Http\Requests\UpdateGeneralSettingRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class GeneralSettingController extends Controller
 {
     /**
      * Update user general settings.
      */
-    public function update(Request $request, User $user): \Illuminate\Http\RedirectResponse
+    public function update(UpdateGeneralSettingRequest $request, User $user): \Illuminate\Http\RedirectResponse
     {
         abort_unless($request->user()->is($user), 403);
 
-        $request->validate([
-            'censor'         => 'required|boolean',
-            'chat_hidden'    => 'required|boolean',
-            'locale'         => ['required', Rule::in(array_keys(Language::allowed()))],
-            'style'          => 'required|numeric',
-            'custom_css'     => 'nullable|url',
-            'standalone_css' => 'nullable|url',
-            'torrent_layout' => ['required', Rule::in([0, 1, 2, 3])],
-            'show_poster'    => 'required|boolean',
-        ]);
+        $user->settings()->upsert($request->validated(), ['user_id']);
 
-        // General Settings
-        $user->update([
-            'censor'         => $request->censor,
-            'chat_hidden'    => $request->chat_hidden,
-            'locale'         => $request->input('locale'),
-            'style'          => $request->style,
-            'custom_css'     => $request->custom_css,
-            'standalone_css' => $request->standalone_css,
-            'torrent_layout' => $request->torrent_layout,
-            'show_poster'    => $request->show_poster,
-        ]);
+        cache()->forget('user-settings:by-user-id:'.$user->id);
 
         return to_route('users.general_settings.edit', ['user' => $user])
             ->withSuccess('Your general settings have been successfully saved.');

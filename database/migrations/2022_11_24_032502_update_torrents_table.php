@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -51,10 +54,10 @@ return new class () extends Migration {
             ->update(['mal' => '0']);
 
         Schema::table('torrents', function (Blueprint $table): void {
-            $table->integer('imdb')->unsigned()->change();
-            $table->integer('tvdb')->unsigned()->change();
-            $table->integer('tmdb')->unsigned()->change();
-            $table->integer('mal')->unsigned()->change();
+            $table->integer('imdb')->unsigned()->default(0)->change();
+            $table->integer('tvdb')->unsigned()->default(0)->change();
+            $table->integer('tmdb')->unsigned()->default(0)->change();
+            $table->integer('mal')->unsigned()->default(0)->change();
         });
     }
 };

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -23,15 +26,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $id
  * @property int                             $user_id
  * @property string                          $title
- * @property string                          $tmdb
- * @property string                          $type
- * @property string|null                     $source
+ * @property int                             $movie_id
+ * @property int                             $tv_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
 class Wish extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\WishFactory> */
     use HasFactory;
 
     /**
@@ -44,13 +48,32 @@ class Wish extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(User::class)->withDefault([
-            'username' => 'System',
-            'id'       => '1',
-        ]);
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Has many torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
+     */
+    public function movieTorrents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Torrent::class, 'tmdb', 'movie_id')
+            ->whereHas('category', fn ($query) => $query->where('movie_meta', '=', true));
+    }
+
+    /**
+     * Has many torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
+     */
+    public function tvTorrents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')
+            ->whereHas('category', fn ($query) => $query->where('tv_meta', '=', true));
     }
 }

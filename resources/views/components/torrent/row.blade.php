@@ -6,8 +6,8 @@
 
 <tr
     @class([
-        'torrent-search--list__row' => auth()->user()->show_poster,
-        'torrent-search--list__no-poster-row' => ! auth()->user()->show_poster,
+        'torrent-search--list__row' => auth()->user()->settings?->show_poster,
+        'torrent-search--list__no-poster-row' => ! auth()->user()->settings?->show_poster,
         'torrent-search--list__sticky-row' => $torrent->sticky,
     ])
     data-torrent-id="{{ $torrent->id }}"
@@ -19,8 +19,9 @@
     data-category-id="{{ $torrent->category_id }}"
     data-type-id="{{ $torrent->type_id }}"
     data-resolution-id="{{ $torrent->resolution_id }}"
+    wire:key="torrent-search-row-{{ $torrent->id }}"
 >
-    @if (auth()->user()->show_poster == 1)
+    @if (auth()->user()->settings?->show_poster)
         <td class="torrent-search--list__poster">
             <a
                 href="{{ route('torrents.similar', ['category_id' => $torrent->category_id, 'tmdb' => $torrent->tmdb]) }}"
@@ -30,7 +31,7 @@
                         src="{{ isset($meta->poster) ? tmdb_image('poster_small', $meta->poster) : 'https://via.placeholder.com/90x135' }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
-                        alt="{{ __('torrent.poster') }}"
+                        alt="{{ __('torrent.similar') }}"
                     />
                 @endif
 
@@ -40,7 +41,7 @@
                         src="{{ isset($meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/' . $meta->cover['image_id'] . '.png' : 'https://via.placeholder.com/90x135' }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
-                        alt="{{ __('torrent.poster') }}"
+                        alt="{{ __('torrent.similar') }}"
                     />
                 @endif
 
@@ -49,7 +50,7 @@
                         src="https://via.placeholder.com/90x135"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
-                        alt="{{ __('torrent.poster') }}"
+                        alt="{{ __('torrent.similar') }}"
                     />
                 @endif
 
@@ -59,14 +60,14 @@
                             src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
                             class="torrent-search--list__poster-img"
                             loading="lazy"
-                            alt="{{ __('torrent.poster') }}"
+                            alt="{{ __('torrent.similar') }}"
                         />
                     @else
                         <img
                             src="https://via.placeholder.com/400x600"
                             class="torrent-search--list__poster-img"
                             loading="lazy"
-                            alt="{{ __('torrent.poster') }}"
+                            alt="{{ __('torrent.similar') }}"
                         />
                     @endif
                 @endif
@@ -141,7 +142,13 @@
                 </a>
             @endif
 
-            {{-- @livewire('small-bookmark-button', ['torrent' => $torrent, 'isBookmarked' => $torrent->bookmarks_exists, 'user' => auth()->user()], key('torrent-'.$torrent->id)) --}}
+            <button
+                class="form__standard-icon-button"
+                x-data="bookmark({{ $torrent->id }}, {{ Js::from($torrent->bookmarks_exists) }})"
+                x-bind="button"
+            >
+                <i class="{{ config('other.font-awesome') }}" x-bind="icon"></i>
+            </button>
 
             @if (config('torrent.download_check_page'))
                 <a

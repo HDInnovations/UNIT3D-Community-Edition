@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -35,7 +38,7 @@ return new class () extends Migration {
             $table->string('about', 500)->nullable();
             $table->text('signature')->nullable();
             $table->integer('fl_tokens')->unsigned()->default(0);
-            $table->float('seedbonus', 12)->unsigned()->default(0.00);
+            $table->double('seedbonus')->unsigned()->default(0.00);
             $table->integer('invites')->unsigned()->default(0);
             $table->integer('hitandruns')->unsigned()->default(0);
             $table->string('rsskey');

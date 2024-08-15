@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -12,19 +14,22 @@
  */
 
 return [
-    'add-option'      => 'Añadir opción',
-    'create-poll'     => 'Crear encuesta',
-    'current'         => 'Encuesta(s) actual(es)',
-    'delete-option'   => 'Opción de eliminar',
-    'edit-poll'       => 'Editar encuesta',
-    'multiple-choice' => 'Esta es una encuesta de opción múltiple. Selecciona tantas respuestas como quieras.',
-    'option'          => 'Opción',
-    'poll'            => 'Encuesta',
-    'polls'           => 'Encuestas',
-    'results'         => 'Resultados de la Encuesta',
-    'title'           => 'Título',
-    'total'           => 'Votos totales',
-    'vote'            => 'Votar',
-    'vote-now'        => 'Vote ahora!',
-    'votes'           => 'Votos',
+    'add-option'           => 'Añadir opción',
+    'already-voted-error'  => 'Ya has votado en esta encuesta. Tu voto no ha sido contado.',
+    'already-voted-result' => 'Ya has votado en esta encuesta. Aquí están los resultados.',
+    'create-poll'          => 'Crear encuesta',
+    'current'              => 'Encuesta(s) actual(es)',
+    'delete-option'        => 'Opción de eliminar',
+    'edit-poll'            => 'Editar encuesta',
+    'multiple-choice'      => 'Esta es una encuesta de múltiple opción. Selecciona tantas respuestas como desees.',
+    'option'               => 'Opción',
+    'poll'                 => 'Encuesta',
+    'polls'                => 'Encuestas',
+    'results'              => 'Resultados de la Encuesta',
+    'title'                => 'Título',
+    'total'                => 'Votos totales',
+    'vote'                 => 'Votar',
+    'vote-counted'         => 'Tu voto ha sido contado.',
+    'vote-now'             => '¡Vota ahora!',
+    'votes'                => 'Votos',
 ];

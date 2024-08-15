@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -242,6 +245,11 @@ Route::middleware('language')->group(function (): void {
             Route::post('/{id}/refundable', [App\Http\Controllers\TorrentBuffController::class, 'setRefundable'])->name('refundable');
         });
 
+        Route::prefix('torrent')->name('torrent.trump.')->group(function (): void {
+            Route::post('/{torrent}/trump', [App\Http\Controllers\TorrentTrumpController::class, 'store'])->name('store');
+            Route::delete('/{torrent}/trump', [App\Http\Controllers\TorrentTrumpController::class, 'destroy'])->name('destroy');
+        });
+
         // Poll System
         Route::prefix('polls')->name('polls.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\PollController::class, 'index'])->name('index');
@@ -453,22 +461,15 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Inbox
-        Route::prefix('inbox')->name('received_messages.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'index'])->name('index');
-            Route::get('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'show'])->name('show');
-            Route::patch('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'update'])->name('update');
-            Route::delete('/{receivedPrivateMessage}', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'destroy'])->name('destroy');
-            Route::patch('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massUpdate'])->name('mass_update');
-            Route::delete('/', [App\Http\Controllers\User\ReceivedPrivateMessageController::class, 'massDestroy'])->name('mass_destroy');
-        });
-
-        // Outbox
-        Route::prefix('outbox')->name('sent_messages.')->group(function (): void {
-            Route::get('/', [App\Http\Controllers\User\SentPrivateMessageController::class, 'index'])->name('index');
-            Route::get('/create', [App\Http\Controllers\User\SentPrivateMessageController::class, 'create'])->name('create');
-            Route::get('/{sentPrivateMessage}', [App\Http\Controllers\User\SentPrivateMessageController::class, 'show'])->name('show');
-            Route::post('/', [App\Http\Controllers\User\SentPrivateMessageController::class, 'store'])->name('store');
-            Route::patch('/{sentPrivateMessage}', [App\Http\Controllers\User\SentPrivateMessageController::class, 'update'])->name('update');
+        Route::prefix('conversations')->name('conversations.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\ConversationController::class, 'index'])->name('index');
+            Route::get('/create', [App\Http\Controllers\User\ConversationController::class, 'create'])->name('create');
+            Route::get('/{conversation}', [App\Http\Controllers\User\ConversationController::class, 'show'])->name('show');
+            Route::post('/', [App\Http\Controllers\User\ConversationController::class, 'store'])->name('store');
+            Route::patch('/{conversation}', [App\Http\Controllers\User\ConversationController::class, 'update'])->name('update');
+            Route::delete('/{conversation}', [App\Http\Controllers\User\ConversationController::class, 'destroy'])->name('destroy');
+            Route::patch('/', [App\Http\Controllers\User\ConversationController::class, 'massUpdate'])->name('mass_update');
+            Route::delete('/', [App\Http\Controllers\User\ConversationController::class, 'massDestroy'])->name('mass_destroy');
         });
 
         // Invites
@@ -478,6 +479,11 @@ Route::middleware('language')->group(function (): void {
             Route::post('/{sentInvite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
             Route::delete('/{sentInvite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy')->withTrashed();
             Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index')->withTrashed();
+        });
+
+        // Invite Tree
+        Route::prefix('invite-tree')->name('invite_tree.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\InviteTreeController::class, 'index'])->name('index');
         });
 
         // Notifications
@@ -1051,6 +1057,9 @@ Route::middleware('language')->group(function (): void {
         // Torrent Downloads
         Route::get('/torrent-downloads', App\Http\Livewire\TorrentDownloadSearch::class)->name('torrent_downloads.index');
 
+        // Torrent Trump Search
+        Route::get('/torrent-trump-search', App\Http\Livewire\TorrentTrumpSearch::class)->name('torrent_trumps.index');
+
         // Types
         Route::prefix('types')->group(function (): void {
             Route::name('types.')->group(function (): void {
@@ -1107,6 +1116,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Uploader System
+        Route::prefix('uploaders')->group(function (): void {
+            Route::name('uploaders.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\UploaderController::class, 'index'])->name('index');
+            });
+        });
+
         // Watchlist
         Route::prefix('watchlist')->group(function (): void {
             Route::name('watchlist.')->group(function (): void {
@@ -1141,7 +1157,6 @@ Route::middleware('language')->group(function (): void {
         // Wiki System
         Route::prefix('wikis')->group(function (): void {
             Route::name('wikis.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\WikiController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\WikiController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\Staff\WikiController::class, 'store'])->name('store');
                 Route::get('/{wiki}/edit', [App\Http\Controllers\Staff\WikiController::class, 'edit'])->name('edit');

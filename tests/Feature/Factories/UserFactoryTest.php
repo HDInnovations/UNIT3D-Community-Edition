@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -47,13 +50,6 @@ test('user factory returns correct values when created', function (): void {
             'hitandruns',
             'rsskey',
             'chatroom_id',
-            'censor',
-            'chat_hidden',
-            'hidden',
-            'style',
-            'torrent_layout',
-            'torrent_filters',
-            'custom_css',
             'read_rules',
             'can_chat',
             'can_comment',
@@ -61,18 +57,12 @@ test('user factory returns correct values when created', function (): void {
             'can_request',
             'can_invite',
             'can_upload',
-            'show_poster',
-            'peer_hidden',
-            'private_profile',
-            'block_notifications',
-            'stat_hidden',
             'remember_token',
             'api_token',
             'last_login',
             'last_action',
             //    'disabled_at',
             //    'deleted_by',
-            'locale',
             'chat_status_id',
         ]);
 });

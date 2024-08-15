@@ -61,7 +61,10 @@ body:
     id: logs
     attributes:
       label: Stack trace & logs
-      description: If you have a stack trace, you can copy it here. You may hide sensible information.
+      description: |
+          If you have a stack trace, you can copy it here. You may hide sensitive information.
+          Every error 500 will produce a stack trace found in Staff Dashboard > Laravel Log.
+          Including a stack trace when reporting an error 500 is required.
       placeholder: This is automatically formatted into code, no need for backticks.
       render: shell
     validations:

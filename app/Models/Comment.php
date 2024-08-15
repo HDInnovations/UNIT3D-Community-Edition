@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,6 +23,7 @@ use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use voku\helper\AntiXSS;
 
 /**
  * App\Models\Comment.
@@ -37,21 +41,33 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\CommentFactory> */
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
      */
-    protected $fillable = [
-        'content',
-        'user_id',
-        'anon',
-    ];
+    protected $guarded = [];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{anon: 'bool'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'anon' => 'bool',
+        ];
+    }
 
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -62,7 +78,7 @@ class Comment extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, $this>
      */
     public function commentable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
@@ -70,7 +86,7 @@ class Comment extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self, $this>
      */
     public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -96,6 +112,14 @@ class Comment extends Model
     }
 
     /**
+     * Set The Articles Content After Its Been Purified.
+     */
+    public function setContentAttribute(?string $value): void
+    {
+        $this->attributes['content'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
+    }
+
+    /**
      * Parse Content And Return Valid HTML.
      */
     public function getContentHtml(): string
@@ -113,8 +137,8 @@ class Comment extends Model
         if (empty($ticket->reminded_at) || strtotime((string) $ticket->reminded_at) < strtotime('+ 3 days')) {
             $last_comment = $ticket->comments()->latest('id')->first();
 
-            if (property_exists($last_comment, 'id') && $last_comment->id !== null && !$last_comment->user->group->is_modo && strtotime((string) $last_comment->created_at) < strtotime('- 3 days')) {
-                event(new TicketWentStale($last_comment->commentable));
+            if ($last_comment !== null && property_exists($last_comment, 'id') && $last_comment->id !== null && !$last_comment->user->group->is_modo && strtotime((string) $last_comment->created_at) < strtotime('- 3 days')) {
+                event(new TicketWentStale($ticket));
             }
         }
     }

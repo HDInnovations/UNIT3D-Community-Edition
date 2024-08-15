@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -33,12 +36,14 @@ use Illuminate\Database\Eloquent\Model;
 class TicketAttachment extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\TicketAttachmentFactory> */
     use HasFactory;
 
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -48,7 +53,7 @@ class TicketAttachment extends Model
     /**
      * Belongs To A Ticket.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Ticket, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Ticket, $this>
      */
     public function ticket(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

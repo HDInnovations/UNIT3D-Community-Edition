@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -145,7 +148,7 @@ class Season
     {
         $episodes = [];
 
-        foreach ($this->data['episodes'] as $episode) {
+        foreach ($this->data['episodes'] ?? [] as $episode) {
             $episodes[] = [
                 'id'              => $episode['id'] ?? null,
                 'tv_id'           => $this->tvId ?? null,

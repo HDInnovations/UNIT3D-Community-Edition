@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -20,10 +23,8 @@ use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoDisableInactiveUsersTest
- */
 class AutoDisableInactiveUsers extends Command
 {
     /**
@@ -43,9 +44,9 @@ class AutoDisableInactiveUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         if (config('pruning.user_pruning')) {
             $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
@@ -61,16 +62,12 @@ class AutoDisableInactiveUsers extends Command
             foreach ($users as $user) {
                 if ($user->seedingTorrents()->doesntExist()) {
                     $user->group_id = $disabledGroup[0];
-                    $user->can_upload = false;
                     $user->can_download = false;
-                    $user->can_comment = false;
-                    $user->can_invite = false;
-                    $user->can_request = false;
-                    $user->can_chat = false;
                     $user->disabled_at = Carbon::now();
                     $user->save();
 
                     cache()->forget('user:'.$user->passkey);
+
                     Unit3dAnnounce::addUser($user);
 
                     // Send Email

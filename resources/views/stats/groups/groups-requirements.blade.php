@@ -158,6 +158,25 @@
                                                     @endif
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td>Min. Uploads</td>
+                                                <td>
+                                                    {{ $group->min_uploads ?? 0 }}
+                                                </td>
+                                                <td>
+                                                    @if ($group->min_uploads <= $user_uploads)
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-check text-green"
+                                                        ></i>
+                                                    @else
+                                                        <i
+                                                            class="{{ config('other.font-awesome') }} fa-x text-red"
+                                                        ></i>
+                                                        |
+                                                        {{ $group->min_uploads - $user_uploads }}
+                                                    @endif
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 @else

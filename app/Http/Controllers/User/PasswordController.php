@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,7 +17,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\PrivateMessage;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -51,12 +53,10 @@ class PasswordController extends Controller
         ]);
 
         if ($changedByStaff) {
-            PrivateMessage::create([
-                'sender_id'   => 1,
-                'receiver_id' => $user->id,
-                'subject'     => 'ATTENTION - Your password has been changed',
-                'message'     => "Your password has been changed by staff. You will need to update your password manager with the new password.\n\nFor more information, please create a helpdesk ticket.\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
-            ]);
+            $user->sendSystemNotification(
+                subject: 'ATTENTION - Your password has been changed',
+                message: "Your password has been changed by staff. You will need to update your password manager with the new password.\n\nFor more information, please create a helpdesk ticket.",
+            );
         }
 
         return to_route('users.password.edit', ['user' => $user])

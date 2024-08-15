@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -64,7 +67,7 @@ class UserManualWarningExpire extends Notification
         return [
             'title' => 'Manual Warning Expired',
             'body'  => 'You were warned for '.$this->warning->reason.'. That warning has now expired.',
-            'url'   => sprintf('/users/%s', $this->user->username),
+            'url'   => \sprintf('/users/%s', $this->user->username),
         ];
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -18,14 +21,12 @@ use App\Models\User;
 use App\Models\Warning;
 use App\Notifications\UserWarning;
 use App\Services\Unit3dAnnounce;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\AutoWarningTest
- */
 class AutoWarning extends Command
 {
     /**
@@ -45,15 +46,15 @@ class AutoWarning extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         if (config('hitrun.enabled') === true) {
             $carbon = new Carbon();
             $hitrun = History::with(['user', 'torrent'])
                 ->where('actual_downloaded', '>', 0)
-                ->where('prewarn', '=', 1)
+                ->where('prewarned_at', '<=', now()->subDays(config('hitrun.prewarn')))
                 ->where('hitrun', '=', 0)
                 ->where('immune', '=', 0)
                 ->where('active', '=', 0)
@@ -76,28 +77,32 @@ class AutoWarning extends Command
                         $warning->user_id = $hr->user->id;
                         $warning->warned_by = User::SYSTEM_USER_ID;
                         $warning->torrent = $hr->torrent->id;
-                        $warning->reason = sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
+                        $warning->reason = \sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
                         $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
                         $warning->active = true;
                         $warning->save();
 
+                        History::query()
+                            ->where('torrent_id', '=', $hr->torrent_id)
+                            ->where('user_id', '=', $hr->user_id)
+                            ->update([
+                                'hitrun'     => true,
+                                'updated_at' => DB::raw('updated_at'),
+                            ]);
+
                         // Add +1 To Users Warnings Count In Users Table
-                        $hr->hitrun = true;
                         $hr->user->hitandruns++;
                         $hr->user->save();
-
-                        $hr->timestamps = false;
-                        $hr->save();
 
                         // Add user to usersWithWarnings array
                         $usersWithWarnings[$hr->user->id] = $hr->user;
                     }
                 }
+            }
 
-                // Send a single notification for each user with warnings
-                foreach ($usersWithWarnings as $user) {
-                    $user->notify(new UserWarning($user));
-                }
+            // Send a single notification for each user with warnings
+            foreach ($usersWithWarnings as $user) {
+                $user->notify(new UserWarning($user));
             }
 
             // Calculate User Warning Count and Disable DL Priv If Required.

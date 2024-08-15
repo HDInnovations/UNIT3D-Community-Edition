@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -16,13 +19,11 @@ namespace App\Console\Commands;
 use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
-/**
- * @see \Tests\Unit\Console\Commands\SyncPeersTest
- */
 class SyncPeers extends Command
 {
     /**
@@ -42,9 +43,9 @@ class SyncPeers extends Command
     /**
      * Execute the console command.
      *
-     * @throws Throwable
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         DB::transaction(function (): void {
             Torrent::withoutGlobalScope(ApprovedScope::class)

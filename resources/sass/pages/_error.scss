@@ -18,7 +18,9 @@
     line-height: 1;
     margin: 6px;
     padding: 8px 12px;
-    transition: color 300ms, border-color 300ms;
+    transition:
+        color 300ms,
+        border-color 300ms;
 
     &:hover {
         border-color: #444;

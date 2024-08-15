@@ -287,8 +287,17 @@ final class AnnounceController extends Controller
         }
 
         // Part.4 Get request ip and convert it to packed form
-        /** @var string $ip */
-        $ip = inet_pton($request->getClientIp());
+        $ip = $request->getClientIp();
+
+        if ($ip === null) {
+            throw new TrackerException(130, [':attribute' => 'ip']);
+        }
+
+        $ip = inet_pton($ip);
+
+        if ($ip === false) {
+            throw new TrackerException(130, [':attribute' => 'ip']);
+        }
 
         return new AnnounceQueryDTO(
             (int) $queries['port'],
@@ -299,7 +308,7 @@ final class AnnounceController extends Controller
             (int) $queries['numwant'],
             $queries['event'],
             (string) $queries['key'],
-            $request->headers->get('user-agent'),
+            $request->headers->get('user-agent') ?? '',
             (string) $queries['info_hash'],
             (string) $queries['peer_id'],
             $ip,
@@ -411,7 +420,7 @@ final class AnnounceController extends Controller
         // If we use eager loading, then laravel will use `where torrent_id in (123)` instead of `where torrent_id = ?`
         $torrent->setRelation(
             'peers',
-            Peer::select(['id', 'torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'visible', 'ip', 'port', 'updated_at'])
+            Peer::select(['torrent_id', 'peer_id', 'user_id', 'downloaded', 'uploaded', 'left', 'seeder', 'active', 'visible', 'ip', 'port', 'updated_at'])
                 ->where('torrent_id', '=', $torrent->id)
                 ->get()
         );
@@ -692,6 +701,12 @@ final class AnnounceController extends Controller
     private function generateFailedAnnounceResponse(TrackerException $trackerException): string
     {
         $message = $trackerException->getMessage();
+
+        if ($trackerException->getCode() === 151) {
+            // If the torrent status is pending, postponed, or rejected, reduce the interval to 30 seconds.
+            // This allows the uploader to start seeding sooner when the torrent is approved.
+            return 'd14:failure reason'.\strlen($message).':'.$message.'8:intervali30e12:min intervali30ee';
+        }
 
         return 'd14:failure reason'.\strlen($message).':'.$message.'8:intervali'.self::MIN.'e12:min intervali'.self::MIN.'ee';
     }

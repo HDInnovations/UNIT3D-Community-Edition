@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,10 +37,10 @@ class NetworkSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Network>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Network>
      */
     #[Computed]
-    final public function networks(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function networks(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Network::withCount('tv')
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))

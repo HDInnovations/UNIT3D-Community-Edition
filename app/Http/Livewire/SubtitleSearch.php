@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -59,10 +62,10 @@ class SubtitleSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Subtitle>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Subtitle>
      */
     #[Computed]
-    final public function subtitles(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function subtitles(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Subtitle::with(['user.group', 'torrent.category', 'language'])
             ->whereHas('torrent')

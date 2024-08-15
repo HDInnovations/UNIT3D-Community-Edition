@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -24,6 +26,7 @@ return [
     'group'                   => 'Group',
     'groups'                  => 'Groups',
     'last30days'              => 'Last 30 Days',
+    'last60days'              => 'Last 60 Days',
     'nerd-stats'              => 'Nerd Stats',
     'nerd-stats-desc'         => 'We all love stats. Here are a few that we find important',
     'languages'               => 'Languages',

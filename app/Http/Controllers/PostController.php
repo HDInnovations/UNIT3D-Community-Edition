@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -95,9 +98,9 @@ class PostController extends Controller
 
         // Post To Chatbox and Notify Subscribers
         $appUrl = config('app.url');
-        $postUrl = sprintf('%s/forums/topics/%s/posts/%s', $appUrl, $topic->id, $post->id);
-        $realUrl = sprintf('/forums/topics/%s/posts/%s', $topic->id, $post->id);
-        $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
+        $postUrl = \sprintf('%s/forums/topics/%s/posts/%s', $appUrl, $topic->id, $post->id);
+        $realUrl = \sprintf('/forums/topics/%s/posts/%s', $topic->id, $post->id);
+        $profileUrl = \sprintf('%s/users/%s', $appUrl, $user->username);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
@@ -109,7 +112,7 @@ class PostController extends Controller
                 $staffer->notify(new NewPost('staff', $user, $post));
             }
         } else {
-            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
+            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has left a reply on topic [url=%s]%s[/url]', $profileUrl, $user->username, $postUrl, $topic->name));
 
             // Notify All Subscribers Of New Reply
             if ($topic->first_post_user_id !== $user->id && $user->acceptsNotification(auth()->user(), $user, 'forum', 'show_forum_topic')) {
@@ -152,11 +155,9 @@ class PostController extends Controller
         }
 
         // User Tagged Notification
-        if ($user->id !== $post->user_id) {
-            preg_match_all('/@([\w\-]+)/', (string) $post->content, $matches);
-            $users = User::whereIn('username', $matches[1])->get();
-            Notification::send($users, new NewPostTag($post));
-        }
+        preg_match_all('/@([\w\-]+)/', (string) $post->content, $matches);
+        $users = User::whereIn('username', $matches[1])->where('id', '!=', $user->id)->get();
+        Notification::send($users, new NewPostTag($post));
 
         return redirect()->to($realUrl)
             ->withSuccess(trans('forum.reply-topic-success'));
@@ -197,7 +198,7 @@ class PostController extends Controller
         $user = $request->user();
 
         $post = Post::findOrFail($id);
-        $postUrl = sprintf('forums/topics/%s/posts/%s', $post->topic->id, $id);
+        $postUrl = \sprintf('forums/topics/%s/posts/%s', $post->topic->id, $id);
 
         abort_unless($user->group->is_modo || $user->id === $post->user_id, 403);
 

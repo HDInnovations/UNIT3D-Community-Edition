@@ -26,15 +26,7 @@
 @section('page', 'page__request--edit')
 
 @section('main')
-    @if ($user->can_request == 0)
-        <section class="panelV2">
-            <h2 class="panel__heading">
-                <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>
-                {{ __('request.no-privileges') }}!
-            </h2>
-            <p class="panel__body">{{ __('request.no-privileges-desc') }}!</p>
-        </section>
-    @else
+    @if ($user->can_request ?? $user->group->can_request)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('request.edit-request') }}</h2>
             <div class="panel__body">
@@ -220,6 +212,14 @@
                     </p>
                 </form>
             </div>
+        </section>
+    @else
+        <section class="panelV2">
+            <h2 class="panel__heading">
+                <i class="{{ config('other.font-awesome') }} fa-times text-danger"></i>
+                {{ __('request.no-privileges') }}!
+            </h2>
+            <p class="panel__body">{{ __('request.no-privileges-desc') }}!</p>
         </section>
     @endif
 @endsection

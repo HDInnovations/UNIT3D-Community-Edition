@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -37,6 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Episode extends Model
 {
+    /** @use HasFactory<\Database\Factories\EpisodeFactory> */
     use HasFactory;
 
     protected $guarded = [];
@@ -46,7 +50,7 @@ class Episode extends Model
     protected string $orderDirection = 'ASC';
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Season, $this>
      */
     public function season(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

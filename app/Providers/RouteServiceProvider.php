@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -37,6 +40,8 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
+        $this->removeIndexPhpFromUrl();
+
         $this->routes(function (): void {
             Route::prefix('api')
                 ->middleware(['chat'])
@@ -70,5 +75,18 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('announce', fn (Request $request) => Limit::perMinute(500)->by('announce'.$request->ip()));
         RateLimiter::for('chat', fn (Request $request) => Limit::perMinute(60)->by('chat'.($request->user()?->id ?? $request->ip())));
         RateLimiter::for('rss', fn (Request $request) => Limit::perMinute(30)->by('rss'.$request->ip()));
+    }
+
+    protected function removeIndexPhpFromUrl(): void
+    {
+        if (str_contains(request()->getRequestUri(), '/index.php/')) {
+            $url = str_replace('index.php/', '', request()->getRequestUri());
+
+            if ($url !== '') {
+                header("Location: {$url}", true, 301);
+
+                exit;
+            }
+        }
     }
 }

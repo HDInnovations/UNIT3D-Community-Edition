@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -15,7 +18,9 @@ namespace App\Console\Commands;
 
 use App\Models\Torrent;
 use App\Services\Tmdb\TMDBScraper;
+use Exception;
 use Illuminate\Console\Command;
+use Throwable;
 
 class FetchMeta extends Command
 {
@@ -35,8 +40,10 @@ class FetchMeta extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $this->alert('Meta Fetcher Started');
 
@@ -48,12 +55,12 @@ class FetchMeta extends Command
 
             if ($torrent->category->tv_meta) {
                 $tmdbScraper->tv($torrent->tmdb);
-                $this->info(sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
+                $this->info(\sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
             }
 
             if ($torrent->category->movie_meta) {
                 $tmdbScraper->movie($torrent->tmdb);
-                $this->info(sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
+                $this->info(\sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
             }
         }
 

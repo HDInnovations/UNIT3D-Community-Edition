@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -79,10 +82,10 @@ class UserSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<User>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<User>
      */
     #[Computed]
-    final public function users(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function users(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return User::query()
             ->with('group')

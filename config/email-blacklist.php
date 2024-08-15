@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -31,20 +33,14 @@ return [
     |         You may change the cache key for the sourced blacklist.
     |         Keep null if you want to use the default value.
     |
-    | auto-update: true|false
-    |         Specify if should automatically get source when cache is empty.
-    |         ADVICE: This may slow down the first request upon validation.
-    |         Default: true
-    |
     | append: string|null
     |         You may a string of pipe | separated domains list.
     |         Keep null if you don't want to append custom domains.
     |         Example: "example.com|example.net|foobar.com".
     |
     */
-    'enabled'     => true,
-    'source'      => 'https://cdn.jsdelivr.net/gh/andreis/disposable-email-domains@master/domains.json',
-    'cache-key'   => 'email.domains.blacklist',
-    'auto-update' => true,
-    'append'      => null,
+    'enabled'   => true,
+    'source'    => 'https://cdn.jsdelivr.net/gh/andreis/disposable-email-domains@master/domains.json',
+    'cache-key' => 'email.domains.blacklist',
+    'append'    => null,
 ];

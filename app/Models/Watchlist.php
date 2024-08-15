@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
 class Watchlist extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\WatchlistFactory> */
     use HasFactory;
 
     /**
@@ -42,7 +47,7 @@ class Watchlist extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -55,7 +60,7 @@ class Watchlist extends Model
     /**
      * Belongs To A Uploader.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -11,18 +11,18 @@
                     id="new-comment__textarea"
                     class="form__textarea"
                     aria-describedby="new-comment__textarea-hint"
-                    wire:model="newCommentState.content"
+                    wire:model="newCommentState"
                     required
                     x-on:focus="toggleOn"
                 ></textarea>
                 <label for="new-comment__textarea" class="form__label form__label--floating">
-                    @error('newCommentState.content')
+                    @error('newCommentState')
                         <strong>{{ __('common.error') }}:</strong>
                     @enderror
 
                     Add a comment...
                 </label>
-                @error('newCommentState.content')
+                @error('newCommentState')
                     <span class="form__hint" id="new-comment__textarea-hint">{{ $message }}</span>
                 @enderror
             </p>
@@ -39,7 +39,7 @@
         </form>
         <ol class="comment-list">
             @forelse ($comments as $comment)
-                <livewire:comment :comment="$comment" :key="$comment->id" />
+                <livewire:comment :model="$model" :comment="$comment" :key="$comment->id" />
             @empty
                 <li>
                     <i class="{{ config('other.font-awesome') }} fa-frown"></i>

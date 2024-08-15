@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,11 +39,10 @@ return new class () extends Migration {
             $table->boolean('seeder')->nullable(false)->change();
             $table->unsignedInteger('torrent_id')->nullable(false)->change();
             $table->unsignedInteger('user_id')->nullable(false)->change();
+            $table->binary('peer_id', length: 20, fixed: true)->change();
+            $table->binary('ip', length: 16)->change();
         });
 
         Schema::enableForeignKeyConstraints();
-
-        DB::statement('ALTER TABLE `peers` MODIFY `peer_id` BINARY(20) NOT NULL');
-        DB::statement('ALTER TABLE `peers` MODIFY `ip` VARBINARY(16) NOT NULL');
     }
 };

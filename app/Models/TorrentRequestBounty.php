@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property int                             $user_id
- * @property float                           $seedbonus
+ * @property string                          $seedbonus
  * @property int                             $requests_id
  * @property int                             $anon
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -31,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
 class TorrentRequestBounty extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\TorrentRequestBountyFactory> */
     use HasFactory;
 
     /**
@@ -48,9 +53,21 @@ class TorrentRequestBounty extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{seedbonus: 'decimal:2'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'seedbonus' => 'decimal:2',
+        ];
+    }
+
+    /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -63,10 +80,10 @@ class TorrentRequestBounty extends Model
     /**
      * Belongs To A Torrent Request.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, $this>
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(TorrentRequest::class);
+        return $this->belongsTo(TorrentRequest::class, 'requests_id');
     }
 }

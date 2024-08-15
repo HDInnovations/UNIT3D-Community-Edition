@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -17,7 +19,7 @@ return [
     'bots'       => 'Robots',
     'color'      => 'Color',
     'command'    => 'Orden',
-    'edit-bot'   => 'Editar Robot',
+    'edit-bot'   => 'Editar bot',
     'emoji-code' => 'Código emoji',
     'help'       => 'Ayuda',
     'icon'       => 'Icono',

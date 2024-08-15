@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -30,6 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Ban extends Model
 {
+    /** @use HasFactory<\Database\Factories\BanFactory> */
     use HasFactory;
 
     /**
@@ -42,7 +46,7 @@ class Ban extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function banneduser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -55,7 +59,7 @@ class Ban extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function staffuser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

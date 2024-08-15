@@ -1,5 +1,5 @@
 @php
-    echo '<?xml version="1.0" encoding="UTF-8" ?>'
+    echo '<?xml version="1.0" encoding="UTF-8" ?>';
 @endphp
 <rss version="2.0"
      xmlns:atom="http://www.w3.org/2005/Atom"
@@ -9,7 +9,7 @@
         <title>{{ config('other.title') }}: {{ $rss->name }}</title>
         <link>{{ config('app.url') }}</link>
         <description>
-            {!! __('This feed contains your secure rsskey, please do not share with anyone.') !!}
+            {{ __('This feed contains your secure rsskey, please do not share with anyone.') }}
         </description>
         <atom:link href="{{ route('rss.show.rsskey', ['id' => $rss->id, 'rsskey' => $user->rsskey]) }}"
                    type="application/rss+xml" rel="self"></atom:link>

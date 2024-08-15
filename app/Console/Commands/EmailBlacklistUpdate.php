@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,7 +17,9 @@
 namespace App\Console\Commands;
 
 use App\Helpers\EmailBlacklistUpdater;
+use Exception;
 use Illuminate\Console\Command;
+use Throwable;
 
 class EmailBlacklistUpdate extends Command
 {
@@ -34,8 +39,10 @@ class EmailBlacklistUpdate extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $count = EmailBlacklistUpdater::update();
 
@@ -51,6 +58,6 @@ class EmailBlacklistUpdate extends Command
             return;
         }
 
-        $this->info(sprintf('%s domains retrieved. Cache updated. You are good to go.', $count));
+        $this->info(\sprintf('%s domains retrieved. Cache updated. You are good to go.', $count));
     }
 }

@@ -1,4 +1,4 @@
-name: Format Blade Files
+name: Format Blade Files (Prettier)
 on: [push, pull_request]
 jobs:
   format-blade-files:

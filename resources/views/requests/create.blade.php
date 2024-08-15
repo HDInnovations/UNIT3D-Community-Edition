@@ -18,12 +18,12 @@
 @section('page', 'page__request--create')
 
 @section('main')
-    @if ($user->can_request)
+    @if ($user->can_request ?? $user->group->can_request)
         <section
             class="panelV2"
             x-data="{
                 cat: {{ (int) $category_id }},
-                cats: JSON.parse(atob('{!! base64_encode(json_encode($categories)) !!}'))
+                cats: JSON.parse(atob('{{ base64_encode(json_encode($categories)) }}')),
             }"
         >
             <h2 class="panel__heading">{{ __('request.add-request') }}</h2>
@@ -105,7 +105,7 @@
                         </label>
                     </p>
                     <div
-                        class="form__group--short-horizontal"
+                        class="form__group--horizontal"
                         x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv' || cats[cat].type === 'game'"
                     >
                         <p
@@ -127,6 +127,7 @@
                             <label class="form__label form__label--floating" for="autotmdb">
                                 TMDB ID
                             </label>
+                            <span class="form__hint">Numeric digits only.</span>
                         </p>
                         <p
                             class="form__group"
@@ -147,6 +148,7 @@
                             <label class="form__label form__label--floating" for="autoimdb">
                                 IMDB ID
                             </label>
+                            <span class="form__hint">Numeric digits only.</span>
                         </p>
                         <p class="form__group" x-show="cats[cat].type === 'tv'">
                             <input type="hidden" name="tvdb" value="0" />
@@ -164,6 +166,7 @@
                             <label class="form__label form__label--floating" for="autotvdb">
                                 TVDB ID
                             </label>
+                            <span class="form__hint">Numeric digits only.</span>
                         </p>
                         <p
                             class="form__group"
@@ -184,6 +187,9 @@
                             <label class="form__label form__label--floating" for="automal">
                                 MAL ID ({{ __('torrent.required-anime') }})
                             </label>
+                            <span class="form__hint">
+                                Numeric digits only. Required for anime. Use 0 otherwise.
+                            </span>
                         </p>
                         <p class="form__group" x-show="cats[cat].type === 'game'">
                             <input
@@ -252,7 +258,7 @@
     @endif
 @endsection
 
-@if ($user->can_request)
+@if ($user->can_request ?? $user->group->can_request)
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.info') }}</h2>

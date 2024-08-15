@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -36,6 +39,8 @@ use stdClass;
 class Rss extends Model
 {
     use Auditable;
+
+    /** @use HasFactory<\Database\Factories\RssFactory> */
     use HasFactory;
     use SoftDeletes;
 
@@ -49,7 +54,7 @@ class Rss extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array<string, string>
+     * @return array{name: 'string', json_torrent: 'array', expected_fields: 'array'}
      */
     protected function casts(): array
     {
@@ -70,7 +75,7 @@ class Rss extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -83,7 +88,7 @@ class Rss extends Model
     /**
      * Belongs To A Staff Member.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

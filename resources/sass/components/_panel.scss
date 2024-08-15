@@ -44,6 +44,10 @@
     color: var(--panel-head-fg);
 }
 
+.panel__grouping {
+    color: var(--panel-group-fg);
+}
+
 .panel__actions {
     display: flex;
     flex-direction: row;
@@ -78,11 +82,12 @@
         max-width: 90vw;
 
         &::before {
-            content: "\22EE";
+            content: '\22EE';
             cursor: pointer;
         }
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             flex-direction: column;
             align-items: stretch;
 

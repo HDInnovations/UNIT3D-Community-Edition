@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -22,10 +25,8 @@ use App\Rules\EmailBlacklist;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Console\Command;
 use Exception;
+use Throwable;
 
-/**
- * @see \Tests\Todo\Unit\Console\Commands\AutoBanDisposableUsersTest
- */
 class AutoBanDisposableUsers extends Command
 {
     /**
@@ -45,54 +46,55 @@ class AutoBanDisposableUsers extends Command
     /**
      * Execute the console command.
      *
-     * @throws Exception
+     * @throws Exception|Throwable If there is an error during the execution of the command.
      */
-    public function handle(): void
+    final public function handle(): void
     {
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        User::where('group_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup): void {
-            foreach ($users as $user) {
-                $v = validator([
-                    'email' => $user->email,
-                ], [
-                    'email' => [
-                        'required',
-                        'string',
-                        'email',
-                        'max:70',
-                        new EmailBlacklist(),
-                    ],
-                ]);
+        if (cache()->has(config('email-blacklist.cache-key'))) {
+            User::where('group_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup): void {
+                foreach ($users as $user) {
+                    $v = validator([
+                        'email' => $user->email,
+                    ], [
+                        'email' => [
+                            'required',
+                            'string',
+                            'email',
+                            'max:70',
+                            new EmailBlacklist(),
+                        ],
+                    ]);
 
-                if ($v->fails()) {
-                    // If User Is Using A Disposable Email Set The Users Group To Banned
-                    $user->group_id = $bannedGroup[0];
-                    $user->can_upload = 0;
-                    $user->can_download = 0;
-                    $user->can_comment = 0;
-                    $user->can_invite = 0;
-                    $user->can_request = 0;
-                    $user->can_chat = 0;
-                    $user->save();
+                    if ($v->fails()) {
+                        // If User Is Using A Disposable Email Set The Users Group To Banned
+                        $user->group_id = $bannedGroup[0];
+                        $user->can_download = 0;
+                        $user->save();
 
-                    // Log The Ban To Ban Log
-                    $domain = substr(strrchr((string) $user->email, '@'), 1);
-                    $logban = new Ban();
-                    $logban->owned_by = $user->id;
-                    $logban->created_by = User::SYSTEM_USER_ID;
-                    $logban->ban_reason = 'Detected disposable email, '.$domain.' not allowed.';
-                    $logban->unban_reason = '';
-                    $logban->save();
+                        // Log The Ban To Ban Log
+                        $domain = substr((string) strrchr((string) $user->email, '@'), 1);
+                        $logban = new Ban();
+                        $logban->owned_by = $user->id;
+                        $logban->created_by = User::SYSTEM_USER_ID;
+                        $logban->ban_reason = 'Detected disposable email, '.$domain.' not allowed.';
+                        $logban->unban_reason = '';
+                        $logban->save();
 
-                    // Send Email
-                    $user->notify(new UserBan($logban));
+                        // Send Email
+                        $user->notify(new UserBan($logban));
+                    }
+
+                    cache()->forget('user:'.$user->passkey);
+
+                    Unit3dAnnounce::addUser($user);
                 }
+            });
 
-                cache()->forget('user:'.$user->passkey);
-                Unit3dAnnounce::addUser($user);
-            }
-        });
-        $this->comment('Automated User Banning Command Complete');
+            $this->comment('Automated User Banning Command Complete');
+        } else {
+            $this->comment('Email Blacklist Cache Key Not Found. Skipping!');
+        }
     }
 }

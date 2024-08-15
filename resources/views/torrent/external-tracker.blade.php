@@ -74,11 +74,12 @@
                             <th>{{ __('torrent.progress') }}</th>
                             <th>{{ __('common.upload') }}</th>
                             <th>{{ __('common.download') }}</th>
+                            <th>{{ __('torrent.left') }}</th>
                             <th>{{ __('common.ip') }}</th>
                             <th>{{ __('common.port') }}</th>
-                            <th>{{ __('torrent.started') }}</th>
                             <th>{{ __('torrent.last-update') }}</th>
                             <th>{{ __('common.status') }}</th>
+                            <th>Visible</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -92,8 +93,7 @@
                                             <x-user_tag
                                                 :user="$user"
                                                 :anon="
-                                                    $user->hidden == 1
-                                                    || $user->peer_hidden == 1
+                                                    $user->privacy?->hidden
                                                     || $user->privacy?->show_peer === 0
                                                     || ($user->id == $torrent->user->id && $torrent->anon == 1)
                                                 "
@@ -108,7 +108,7 @@
                                         Torrent size not available
                                     @else
                                         @php
-                                            $progress = (100 * ($peer['downloaded'] % $torrent->size)) / $torrent->size
+                                            $progress = (100 * ($peer['downloaded'] % $torrent->size)) / $torrent->size;
                                         @endphp
 
                                         @if (0 < $progress && $progress < 1)
@@ -139,7 +139,7 @@
                                 @endif
                                 <td>
                                     @php
-                                        $updatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($peer['updated_at'])
+                                        $updatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($peer['updated_at']);
                                     @endphp
 
                                     <time datetime="{{ $updatedAt }}" title="{{ $updatedAt }}">
@@ -159,6 +159,13 @@
                                             Inactive
                                     @endif
                                 </td>
+                                <td class="{{ $peer['is_visible'] ? 'text-green' : 'text-red' }}">
+                                    @if ($peer['is_visible'])
+                                        {{ __('common.yes') }}
+                                    @else
+                                        {{ __('common.no') }}
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -169,22 +176,36 @@
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
                 <dl class="key-value">
-                    <dt>{{ __('common.moderation') }}</dt>
-                    <dd>{{ $externalTorrent['status'] }}</dd>
-                    <dt>{{ __('torrent.seeders') }}</dt>
-                    <dd>{{ $externalTorrent['seeders'] }}</dd>
-                    <dt>{{ __('torrent.leechers') }}</dt>
-                    <dd>{{ $externalTorrent['leechers'] }}</dd>
-                    <dt>{{ __('torrent.completed-times') }}</dt>
-                    <dd>{{ $externalTorrent['times_completed'] }}</dd>
-                    <dt>Download Factor</dt>
-                    <dd>{{ $externalTorrent['download_factor'] }}</dd>
-                    <dt>Upload Factor</dt>
-                    <dd>{{ $externalTorrent['upload_factor'] }}</dd>
-                    <dt>Deleted</dt>
-                    <dd>
-                        {{ $externalTorrent['is_deleted'] ? __('common.yes') : __('common.no') }}
-                    </dd>
+                    <div class="key-value__group">
+                        <dt>{{ __('common.moderation') }}</dt>
+                        <dd>{{ $externalTorrent['status'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('torrent.seeders') }}</dt>
+                        <dd>{{ $externalTorrent['seeders'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('torrent.leechers') }}</dt>
+                        <dd>{{ $externalTorrent['leechers'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>{{ __('torrent.completed-times') }}</dt>
+                        <dd>{{ $externalTorrent['times_completed'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Download Factor</dt>
+                        <dd>{{ $externalTorrent['download_factor'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Upload Factor</dt>
+                        <dd>{{ $externalTorrent['upload_factor'] }}</dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Deleted</dt>
+                        <dd>
+                            {{ $externalTorrent['is_deleted'] ? __('common.yes') : __('common.no') }}
+                        </dd>
+                    </div>
                 </dl>
             </section>
         @endsection

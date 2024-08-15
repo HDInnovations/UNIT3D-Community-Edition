@@ -1,7 +1,7 @@
 .profileV2 {
     display: grid;
     grid-template-columns: 200px minmax(min-content, auto) 1fr;
-    grid-template-areas: "avatar username ." "avatar registration ." "avatar title ." "avatar about .";
+    grid-template-areas: 'avatar username .' 'avatar registration .' 'avatar title .' 'avatar about .';
     align-items: center;
     row-gap: 1rem;
 }
@@ -9,7 +9,7 @@
 @media screen and (max-width: 500px) {
     .profileV2 {
         grid-template-columns: auto 1fr;
-        grid-template-areas: "avatar ." "username ." "registration ." "title ." "about .";
+        grid-template-areas: 'avatar .' 'username .' 'registration .' 'title .' 'about .';
     }
 }
 
@@ -20,7 +20,8 @@
 
 .profile__avatar {
     grid-area: avatar;
-    align-self: start;  border-radius: 10%;
+    align-self: start;
+    border-radius: 10%;
     width: 180px;
     height: 180px;
 }

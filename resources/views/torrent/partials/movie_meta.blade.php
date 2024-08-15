@@ -1,10 +1,6 @@
 <section class="meta">
     @if ($meta?->backdrop)
-        <img
-            class="meta__backdrop"
-            src="{{ tmdb_image('back_big', $meta->backdrop) }}"
-            alt="Backdrop"
-        />
+        <img class="meta__backdrop" src="{{ tmdb_image('back_big', $meta->backdrop) }}" alt="" />
     @endif
 
     <a
@@ -67,6 +63,22 @@
             @if ($meta?->id)
                 <li>
                     <form
+                        action="{{ route('users.wishes.store', ['user' => auth()->user()]) }}"
+                        method="post"
+                    >
+                        @csrf
+                        <input type="hidden" name="meta" value="movie" />
+                        <input type="hidden" name="movie_id" value="{{ $meta->id }}" />
+                        <button
+                            style="cursor: pointer"
+                            title="Receive notifications every time a new torrent is uploaded."
+                        >
+                            Notify of New Uploads
+                        </button>
+                    </form>
+                </li>
+                <li>
+                    <form
                         action="{{ route('torrents.similar.update', ['category' => $category, 'tmdbId' => $meta->id]) }}"
                         method="post"
                     >
@@ -78,6 +90,7 @@
                                 disabled
                                 title="This item was recently updated. Try again tomorrow."
                             @endif
+                            style="cursor: pointer"
                         >
                             Update Metadata
                         </button>
@@ -146,6 +159,7 @@
                     href="https://html.duckduckgo.com/html/?q=\{{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
                     title="Rotten Tomatoes: {{ $meta->title ?? '' }}  ({{ substr($meta->release_date ?? '', 0, 4) ?? '' }})"
                     target="_blank"
+                    rel="noreferrer"
                 >
                     <i
                         class="fad fa-tomato"
@@ -259,7 +273,7 @@
                 <article class="meta__genres">
                     <a
                         class="meta-chip"
-                        href="{{ route('torrents.index', ['view' => 'group', 'genres' => $meta->genres->pluck('id')->toArray()]) }}"
+                        href="{{ route('torrents.index', ['view' => 'group', 'genreIds' => $meta->genres->pluck('id')->toArray()]) }}"
                     >
                         <i
                             class="{{ config('other.font-awesome') }} fa-theater-masks meta-chip__icon"
@@ -273,7 +287,10 @@
             @endif
 
             <article class="meta__language">
-                <a class="meta-chip" href="#">
+                <a
+                    class="meta-chip"
+                    href="{{ $meta?->original_language === null ? '#' : route('torrents.index', ['primaryLanguageNames' => [$meta->original_language]]) }}"
+                >
                     <i class="{{ config('other.font-awesome') }} fa-language meta-chip__icon"></i>
                     <h2 class="meta-chip__name">Primary Language</h2>
                     <h3 class="meta-chip__value">
@@ -292,7 +309,7 @@
                                 class="meta-chip__image"
                                 style="object-fit: scale-down"
                                 src="{{ tmdb_image('logo_small', $company->logo) }}"
-                                alt="logo"
+                                alt=""
                             />
                         @else
                             <i

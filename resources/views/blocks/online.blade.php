@@ -9,7 +9,7 @@
                 <li>
                     <x-user_tag
                         :user="$user"
-                        :anon="$user->hidden || ! $user->isVisible($user, 'other', 'show_online')"
+                        :anon="$user->privacy?->hidden || ! $user->isVisible($user, 'other', 'show_online')"
                     >
                         @if ($user->warnings_count > 0)
                             <x-slot:appended-icons>

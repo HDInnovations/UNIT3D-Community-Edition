@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,10 +37,10 @@ class TvSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Tv>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<Tv>
      */
     #[Computed]
-    final public function shows(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    final public function shows(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Tv::with(['networks', 'genres'])
             ->withCount('seasons')

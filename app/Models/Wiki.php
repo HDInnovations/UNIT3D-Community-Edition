@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -34,7 +37,7 @@ class Wiki extends Model
     /**
      * Belongs To A Category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<WikiCategory, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<WikiCategory, $this>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -27,6 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class GitUpdate extends Model
 {
+    /** @use HasFactory<\Database\Factories\GitUpdateFactory> */
     use HasFactory;
 
     protected $guarded = ['id'];

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -14,6 +17,7 @@
 namespace App\Helpers;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Stringable;
 
 class TorrentTools
 {
@@ -24,7 +28,7 @@ class TorrentTools
      */
     public static function normalizeTorrent(UploadedFile $torrentFile)
     {
-        $result = Bencode::bdecode_file($torrentFile);
+        $result = Bencode::bdecode_file($torrentFile->getRealPath());
 
         // Whitelisted keys
         $result = array_intersect_key($result, [
@@ -172,10 +176,14 @@ class TorrentTools
     /**
      * Anonymize A Torrent Media Info.
      */
-    public static function anonymizeMediainfo(?string $mediainfo): ?string
+    public static function anonymizeMediainfo(string|Stringable|null $mediainfo): ?string
     {
         if ($mediainfo === null) {
             return null;
+        }
+
+        if ($mediainfo instanceof Stringable) {
+            $mediainfo = $mediainfo->toString();
         }
 
         $completeNameI = strpos($mediainfo, 'Complete name');
@@ -201,8 +209,12 @@ class TorrentTools
      *
      * @return array<string>
      */
-    public static function parseKeywords(string $text): array
+    public static function parseKeywords(string|Stringable $text): array
     {
+        if ($text instanceof Stringable) {
+            $text = $text->toString();
+        }
+
         $keywords = array_filter(array_map('trim', explode(',', $text)));
 
         // unique keywords only (case insensitive)

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -32,6 +35,8 @@ class Seedbox extends Model
 {
     use Auditable;
     use Encryptable;
+
+    /** @use HasFactory<\Database\Factories\SeedboxFactory> */
     use HasFactory;
 
     /**
@@ -48,7 +53,7 @@ class Seedbox extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

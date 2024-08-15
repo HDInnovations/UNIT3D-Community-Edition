@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * NOTICE OF LICENSE.
  *
@@ -74,7 +76,9 @@ return [
     'unlock'                  => 'Unlock',
     'user-icon'               => 'User Icon',
     'username'                => 'Username',
+    'verify'                  => 'Verify',
     'verify-email'            => 'Verify Email',
+    'verifying'               => 'Verifying...',
     'veteran'                 => 'Experienced With Private Trackers',
     'welcome'                 => 'Welcome Back!',
     'welcome-restore'         => 'Welcome Back! Your Account Is No Longer Disabled!',

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * NOTICE OF LICENSE.
  *
@@ -26,7 +29,6 @@ use App\Models\FeaturedTorrent;
 use App\Models\History;
 use App\Models\Keyword;
 use App\Models\Movie;
-use App\Models\PrivateMessage;
 use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Scopes\ApprovedScope;
@@ -86,8 +88,11 @@ class TorrentController extends Controller
                 'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
                 'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
             ])
-            ->withExists(['bookmarks' => fn ($query) => $query->where('user_id', '=', $user->id)])
-            ->withExists(['freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id)])
+            ->withExists([
+                'bookmarks'       => fn ($query) => $query->where('user_id', '=', $user->id),
+                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id),
+                'trump'
+            ])
             ->findOrFail($id);
 
         $meta = null;
@@ -145,7 +150,7 @@ class TorrentController extends Controller
             'platforms'          => $platforms,
             'total_tips'         => $torrent->tips()->sum('bon'),
             'user_tips'          => $torrent->tips()->where('sender_id', '=', $user->id)->sum('bon'),
-            'featured'           => $torrent->featured == 1 ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null,
+            'featured'           => $torrent->featured === true ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null,
             'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
             'last_seed_activity' => History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first(),
             'playlists'          => $user->playlists,
@@ -287,20 +292,13 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || ($user->id === $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay())), 403);
 
-        $pms = [];
-
         foreach (History::where('torrent_id', '=', $torrent->id)->pluck('user_id') as $user_id) {
-            $pms[] = [
-                'sender_id'   => User::SYSTEM_USER_ID,
-                'receiver_id' => $user_id,
-                'subject'     => 'Torrent Deleted! - '.$torrent->name,
-                'message'     => '[b]Attention:[/b] Torrent '.$torrent->name." has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.\n\n[b]Removal Reason:[/b] ".$request->message."\n\n[color=red][b]THIS IS AN AUTOMATED SYSTEM MESSAGE, PLEASE DO NOT REPLY![/b][/color]",
-                'created_at'  => now(),
-                'updated_at'  => now(),
-            ];
+            User::sendSystemNotificationTo(
+                userId: $user_id,
+                subject: 'Torrent Deleted! - '.$torrent->name,
+                message: '[b]Attention:[/b] Torrent '.$torrent->name." has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.\n\n[b]Removal Reason:[/b] ".$request->message,
+            );
         }
-
-        PrivateMessage::insert($pms);
 
         // Reset Requests
         $torrent->requests()->update([
@@ -308,7 +306,7 @@ class TorrentController extends Controller
         ]);
 
         //Remove Torrent related info
-        cache()->forget(sprintf('torrent:%s', $torrent->info_hash));
+        cache()->forget(\sprintf('torrent:%s', $torrent->info_hash));
 
         $torrent->comments()->delete();
         $torrent->peers()->delete();
@@ -344,7 +342,7 @@ class TorrentController extends Controller
     public function create(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        abort_if($user->can_upload === false || $user->group->can_upload == 0, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
+        abort_unless($user->can_upload ?? $user->group->can_upload, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
         return view('torrent.create', [
             'categories' => Category::orderBy('position')
@@ -382,7 +380,7 @@ class TorrentController extends Controller
     public function store(StoreTorrentRequest $request): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        abort_if($user->can_upload === false || $user->group->can_upload == 0, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
+        abort_unless($user->can_upload ?? $user->group->can_upload, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
         abort_if(\is_array($request->file('torrent')), 400);
 
@@ -492,17 +490,17 @@ class TorrentController extends Controller
             // Announce To Shoutbox
             if ($anon == 0) {
                 $this->chatRepository->systemMessage(
-                    sprintf('User [url=%s/users/', $appurl).$username.']'.$username.sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
+                    \sprintf('An anonymous user has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
                 );
             }
 
             if ($torrent->free >= 1) {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can!'
+                    \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been granted '.$torrent->free.'% FreeLeech! Grab It While You Can!'
                 );
             }
 
