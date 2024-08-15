@@ -37,7 +37,7 @@ class TorrentResource extends JsonResource
                     'genres' => isset($this->meta->genres) ? collect($this->meta->genres)->pluck('name')->implode(', ') : '',
                 ],
                 'name'         => $this->name,
-                'release_year' => $this->release_year,
+                'release_year' => isset($this->meta->release_date) ? $this->meta->release_date->format('Y') : (isset($this->meta->first_air_date) ? $this->meta->first_air_date->format('Y') : null),
                 'category'     => $this->category->name,
                 'type'         => $this->type->name,
                 'resolution'   => $this->when(isset($this->resolution_id), $this->resolution->name ?? ''),

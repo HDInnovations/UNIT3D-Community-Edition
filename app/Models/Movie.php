@@ -56,6 +56,18 @@ class Movie extends Model
     protected $guarded = [];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{release_date: 'datetime'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'release_date' => 'datetime',
+        ];
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Genre, $this>
      */
     public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany

@@ -66,6 +66,19 @@ class Tv extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{first_air_date: 'datetime', last_air_date: 'datetime'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'first_air_date' => 'datetime',
+            'last_air_date'  => 'datetime',
+        ];
+    }
+
+    /**
      * Has Many Torrents.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
