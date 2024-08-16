@@ -192,6 +192,7 @@ return [
     'something-went-wrong' => '¡Algo salió mal!',
     'sort'                 => 'Ordenar',
     'special'              => 'Especial',
+    'extras'               => 'Extras',
     'sponsor'              => 'Hazte Patrocinador',
     'staff'                => 'Equipo',
     'staff-tools'          => 'Herramientas del Equipo',
