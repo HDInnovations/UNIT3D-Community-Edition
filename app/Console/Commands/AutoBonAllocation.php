@@ -45,6 +45,8 @@ class AutoBonAllocation extends Command
      */
     public function handle(ByteUnits $byteUnits): void
     {
+        $now = now();
+
         $dyingTorrent = DB::table('peers')
             ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
@@ -52,7 +54,7 @@ class AutoBonAllocation extends Command
             ->where('torrents.times_completed', '>', 2)
             ->where('peers.seeder', 1)
             ->where('peers.active', 1)
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->where('peers.created_at', '<', $now->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -62,8 +64,8 @@ class AutoBonAllocation extends Command
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('peers.active', 1)
-            ->whereRaw('torrents.created_at < date_sub(now(), interval 12 month)')
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->where('torrents.created_at', '<', $now->subMonths(12))
+            ->where('peers.created_at', '<', $now->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -73,9 +75,9 @@ class AutoBonAllocation extends Command
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('peers.active', 1)
-            ->whereRaw('torrents.created_at < date_sub(now(), Interval 6 month)')
-            ->whereRaw('torrents.created_at > date_sub(now(), interval 12 month)')
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->where('torrents.created_at', '<', $now->subMonths(6))
+            ->where('torrents.created_at', '>', $now->subMonths(12))
+            ->where('peers.created_at', '<', $now->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -86,7 +88,7 @@ class AutoBonAllocation extends Command
             ->where('peers.seeder', 1)
             ->where('peers.active', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('100GiB'))
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->where('peers.created_at', '<', $now->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -98,7 +100,7 @@ class AutoBonAllocation extends Command
             ->where('peers.active', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('25GiB'))
             ->where('torrents.size', '<', $byteUnits->bytesFromUnit('100GiB'))
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->where('peers.created_at', '<', $now->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -110,7 +112,7 @@ class AutoBonAllocation extends Command
             ->where('peers.active', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('1GiB'))
             ->where('torrents.size', '<', $byteUnits->bytesFromUnit('25GiB'))
-            ->whereRaw('date_sub(peers.created_at,interval 30 minute) < now()')
+            ->where('peers.created_at', '<', $now->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
