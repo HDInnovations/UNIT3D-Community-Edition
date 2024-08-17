@@ -974,6 +974,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Password Reset Histories
+        Route::prefix('password-reset-histories')->group(function (): void {
+            Route::name('password_reset_histories.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\PasswordResetHistoryController::class, 'index'])->name('index');
+            });
+        });
+
         // Peers
         Route::prefix('peers')->group(function (): void {
             Route::name('peers.')->group(function (): void {

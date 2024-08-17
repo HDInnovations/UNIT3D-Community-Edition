@@ -925,6 +925,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has many password reset histories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<PasswordResetHistory, $this>
+     */
+    public function passwordResetHistories(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PasswordResetHistory::class);
+    }
+
+    /**
      * Has many torrent trumps.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentTrump, $this>

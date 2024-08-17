@@ -245,6 +245,7 @@ return [
     'other-privacy-online'          => 'Allow users to see you in the online users block',
     'passkey'                       => 'Passkey',
     'passkey-warning'               => 'PID is like your password, you must keep it safe!',
+    'password-resets'               => 'Password Resets',
     'pending-achievements'          => 'Pending Achievements',
     'per-torrent'                   => 'Per Torrent',
     'posts'                         => 'Posts',

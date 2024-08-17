@@ -435,6 +435,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.password_reset_histories.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('user.password-resets') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.watchlist.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-eye"></i>

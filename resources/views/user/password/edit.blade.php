@@ -73,3 +73,36 @@
         </div>
     </section>
 @endsection
+
+@section('sidebar')
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('user.password-resets') }}</h2>
+        <div class="data-table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('common.created_at') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($passwordResetHistories as $passwordResetHistory)
+                        <tr>
+                            <td>
+                                <time
+                                    datetime="{{ $passwordResetHistory->created_at }}"
+                                    title="{{ $passwordResetHistory->created_at }}"
+                                >
+                                    {{ $passwordResetHistory->created_at }}
+                                </time>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td>No password reset history</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </section>
+@endsection

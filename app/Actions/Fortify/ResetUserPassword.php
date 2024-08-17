@@ -61,5 +61,7 @@ class ResetUserPassword implements ResetsUserPasswords
 
         $user->active = true;
         $user->save();
+
+        $user->passwordResetHistories()->create();
     }
 }
