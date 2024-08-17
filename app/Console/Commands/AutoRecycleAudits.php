@@ -46,7 +46,7 @@ class AutoRecycleAudits extends Command
     final public function handle(): void
     {
         $current = Carbon::now();
-        $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle'))->toDateTimeString())->get();
+        $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle')))->get();
 
         foreach ($audits as $audit) {
             $audit->delete();

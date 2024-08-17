@@ -55,8 +55,8 @@ class AutoDisableInactiveUsers extends Command
 
             $matches = User::whereIntegerInRaw('group_id', config('pruning.group_ids'))->get();
 
-            $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age'))->toDateTimeString())
-                ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login'))->toDateTimeString())
+            $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age')))
+                ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login')))
                 ->all();
 
             foreach ($users as $user) {

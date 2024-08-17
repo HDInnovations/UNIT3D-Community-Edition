@@ -66,7 +66,7 @@ class AutoSoftDeleteDisabledUsers extends Command
             $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
             $users = User::where('group_id', '=', $disabledGroup[0])
-                ->where('disabled_at', '<', now()->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
+                ->where('disabled_at', '<', now()->copy()->subDays(config('pruning.soft_delete')))
                 ->get();
 
             foreach ($users as $user) {

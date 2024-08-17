@@ -59,7 +59,7 @@ class AutoWarning extends Command
                 ->where('immune', '=', 0)
                 ->where('active', '=', 0)
                 ->where('seedtime', '<', config('hitrun.seedtime'))
-                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
+                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace')))
                 ->get();
 
             $usersWithWarnings = [];

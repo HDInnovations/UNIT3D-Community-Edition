@@ -57,7 +57,7 @@ class AutoPreWarning extends Command
                 ->where('actual_downloaded', '>', 0)
                 ->where('active', '=', 0)
                 ->where('seedtime', '<=', config('hitrun.seedtime'))
-                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
+                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn')))
                 ->get();
 
             $usersWithPreWarnings = [];

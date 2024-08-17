@@ -64,7 +64,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
 
         foreach ($torrentRequests as $torrentRequest) {
             $requestClaim = TorrentRequestClaim::where('request_id', '=', $torrentRequest->id)
-                ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
+                ->where('created_at', '<', $current->copy()->subDays(7))
                 ->first();
 
             if ($requestClaim) {
