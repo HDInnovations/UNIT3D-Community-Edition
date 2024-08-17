@@ -19,6 +19,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -48,16 +49,20 @@ class PasswordController extends Controller
             ],
         ]);
 
-        $user->update([
-            'password' => Hash::make($request->new_password),
-        ]);
+        DB::transaction(function () use ($user, $request, $changedByStaff): void {
+            $user->update([
+                'password' => Hash::make($request->new_password),
+            ]);
 
-        if ($changedByStaff) {
-            $user->sendSystemNotification(
-                subject: 'ATTENTION - Your password has been changed',
-                message: "Your password has been changed by staff. You will need to update your password manager with the new password.\n\nFor more information, please create a helpdesk ticket.",
-            );
-        }
+            $user->passwordResetHistories()->create();
+
+            if ($changedByStaff) {
+                $user->sendSystemNotification(
+                    subject: 'ATTENTION - Your password has been changed',
+                    message: "Your password has been changed by staff. You will need to update your password manager with the new password.\n\nFor more information, please create a helpdesk ticket.",
+                );
+            }
+        });
 
         return to_route('users.password.edit', ['user' => $user])
             ->withSuccess('Your new password has been saved successfully.');
@@ -70,6 +75,9 @@ class PasswordController extends Controller
     {
         abort_unless($request->user()->is($user) || $request->user()->group->is_modo, 403);
 
-        return view('user.password.edit', ['user' => $user]);
+        return view('user.password.edit', [
+            'user'                   => $user,
+            'passwordResetHistories' => $user->passwordResetHistories()->latest()->get(),
+        ]);
     }
 }
