@@ -421,7 +421,7 @@
             <form
                 action="{{ route('reseed', ['id' => $torrent->id]) }}"
                 method="POST"
-                style="display: inline"
+                style="display: contents"
             >
                 @csrf
                 <button class="form__button form__button--outlined form__button--centered">
