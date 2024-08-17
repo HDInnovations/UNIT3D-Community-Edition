@@ -69,7 +69,7 @@ class EarningController extends Controller
 
         $legendary = $distinctSeeds
             ->clone()
-            ->whereRelation('torrent', 'created_at', '<', Carbon::now()->subYear()->toDateTimeString())
+            ->whereRelation('torrent', 'created_at', '<', Carbon::now()->subYear())
             ->count();
 
         $old = $distinctSeeds
@@ -77,8 +77,8 @@ class EarningController extends Controller
             ->whereHas(
                 'torrent',
                 fn ($query) => $query
-                    ->where('created_at', '<', Carbon::now()->subMonths(6)->toDateTimeString())
-                    ->where('created_at', '>', Carbon::now()->subYear()->toDateTimeString()),
+                    ->where('created_at', '<', Carbon::now()->subMonths(6))
+                    ->where('created_at', '>', Carbon::now()->subYear()),
             )
             ->count();
 
