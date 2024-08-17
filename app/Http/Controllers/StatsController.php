@@ -59,7 +59,7 @@ class StatsController extends Controller
     {
         return view('stats.users.uploaded', [
             'uploaded' => User::orderByDesc('uploaded')
-                ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+                ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                 ->take(100)
                 ->get(),
         ]);
@@ -74,7 +74,7 @@ class StatsController extends Controller
     {
         return view('stats.users.downloaded', [
             'downloaded' => User::orderByDesc('downloaded')
-                ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+                ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                 ->take(100)
                 ->get(),
         ]);
@@ -139,7 +139,7 @@ class StatsController extends Controller
     {
         return view('stats.users.bankers', [
             'bankers' => User::orderByDesc('seedbonus')
-                ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+                ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
                 ->take(100)
                 ->get(),
         ]);

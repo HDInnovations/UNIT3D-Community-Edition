@@ -79,7 +79,7 @@ class Top10 extends Component
 
         return cache()->remember(
             'top10-'.$this->interval.'-'.($this->from ?? '').'-'.($this->until ?? '').'-'.$this->metaType,
-            3600,
+            0, //3600,
             fn () => Torrent::query()
                 ->when(
                     $this->metaType === 'tv_meta',
@@ -99,7 +99,7 @@ class Top10 extends Component
                 ->when($this->interval === 'year', fn ($query) => $query->whereBetween('history.completed_at', [now()->subYear(), now()]))
                 ->when($this->interval === 'all', fn ($query) => $query->whereNotNull('history.completed_at'))
                 ->when($this->interval === 'custom', fn ($query) => $query->whereBetween('history.completed_at', [$this->from ?: now(), $this->until ?: now()]))
-                ->whereIn('torrents.category_id', Category::select('id')->where($this->metaType, '=', true))
+                ->whereRelation('category', $this->metaType, '=', true)
                 // Small torrents screw the stats since users download them only to farm bon.
                 ->where('torrents.size', '>', 1024 * 1024 * 1024)
                 ->groupBy('tmdb')

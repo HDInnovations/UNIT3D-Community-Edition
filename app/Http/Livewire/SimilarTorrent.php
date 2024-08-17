@@ -116,11 +116,11 @@ class SimilarTorrent extends Component
             ])
             ->when(
                 $this->category->movie_meta,
-                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('movie_meta', '=', 1)),
+                fn ($query) => $query->whereRelation('category', 'movie_meta', '=', true),
             )
             ->when(
                 $this->category->tv_meta,
-                fn ($query) => $query->whereHas('category', fn ($query) => $query->where('tv_meta', '=', 1)),
+                fn ($query) => $query->whereRelation('category', 'tv_meta', '=', true),
             )
             ->when(
                 $this->category->tv_meta || $this->category->movie_meta,

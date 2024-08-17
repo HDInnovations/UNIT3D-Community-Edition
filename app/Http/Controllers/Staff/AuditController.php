@@ -31,9 +31,7 @@ class AuditController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.audit.index', ['staffActivities' => Audit::with(['user', 'user.group'])
-            ->whereHas('user.group', function ($query): void {
-                $query->where('is_modo', true);
-            })
+            ->whereRelation('user.group', 'is_modo', '=', true)
             ->where('action', '!=', 'create') // Exclude audits with action 'create'
             ->select('user_id')
             ->selectRaw('COUNT(*) as total_actions')

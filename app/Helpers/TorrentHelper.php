@@ -79,7 +79,7 @@ class TorrentHelper
         switch (true) {
             case $torrent->category->movie_meta:
                 User::query()
-                    ->whereHas('wishes', fn ($query) => $query->where('movie_id', '=', $torrent->tmdb))
+                    ->whereRelation('wishes', 'movie_id', '=', $torrent->tmdb)
                     ->get()
                     ->each
                     ->notify(new NewWishListNotice($torrent));
@@ -87,7 +87,7 @@ class TorrentHelper
                 break;
             case $torrent->category->tv_meta:
                 User::query()
-                    ->whereHas('wishes', fn ($query) => $query->where('tv_id', '=', $torrent->tmdb))
+                    ->whereRelation('wishes', 'tv_id', '=', $torrent->tmdb)
                     ->get()
                     ->each
                     ->notify(new NewWishListNotice($torrent));
