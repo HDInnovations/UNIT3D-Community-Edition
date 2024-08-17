@@ -184,6 +184,15 @@
                     @endif
 
                     <th
+                        class="user-uploads__comments-header"
+                        wire:click="sortBy('comments_count')"
+                        role="columnheader button"
+                        title="{{ __('common.comments') }}"
+                    >
+                        <i class="fas fa-comment-alt-lines"></i>
+                        @include('livewire.includes._sort-icon', ['field' => 'comments_count'])
+                    </th>
+                    <th
                         class="user-uploads__created-at-header"
                         wire:click="sortBy('created_at')"
                         role="columnheader button"
@@ -261,6 +270,9 @@
                                 </td>
                             @endif
 
+                            <td class="user-uploads__comments">
+                                {{ $torrent->comments_count ?? 0 }}
+                            </td>
                             <td class="user-uploads__created-at">
                                 <time
                                     datetime="{{ $torrent->created_at }}"
