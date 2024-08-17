@@ -27,6 +27,9 @@
             </dl>
         @endif
 
+        <a class="post__toolbar-overflow" tabindex="0">
+            <i class="fa fas fa-ellipsis"></i>
+        </a>
         <menu class="post__toolbar">
             <li class="post__toolbar-item">
                 <form
