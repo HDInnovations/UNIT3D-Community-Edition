@@ -55,7 +55,7 @@ class Forum extends Model
     /**
      * Has Many Topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Topic, $this>
      */
     public function topics(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -65,7 +65,7 @@ class Forum extends Model
     /**
      * Returns The Category In Which The Forum Is Located.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ForumCategory, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<ForumCategory, $this>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -75,7 +75,7 @@ class Forum extends Model
     /**
      * All posts inside the forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Post>
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Post, Topic, $this>
      */
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -85,7 +85,7 @@ class Forum extends Model
     /**
      * Latest topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Topic>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Topic, $this>
      */
     public function lastRepliedTopicSlow(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
@@ -95,7 +95,7 @@ class Forum extends Model
     /**
      * Latest topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, $this>
      */
     public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -105,7 +105,7 @@ class Forum extends Model
     /**
      * Latest poster.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -115,7 +115,7 @@ class Forum extends Model
     /**
      * Has Many Subscriptions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Subscription, $this>
      */
     public function subscriptions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -125,7 +125,7 @@ class Forum extends Model
     /**
      * Has Many Permissions.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ForumPermission, $this>
      */
     public function permissions(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -135,7 +135,7 @@ class Forum extends Model
     /**
      * Belongs To Many Subscribed Users.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
      */
     public function subscribedUsers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

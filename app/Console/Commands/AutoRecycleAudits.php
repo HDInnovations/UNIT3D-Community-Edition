@@ -29,14 +29,14 @@ class AutoRecycleAudits extends Command
      *
      * @var string
      */
-    protected $signature = 'auto:recycle_activity_log';
+    protected $signature = 'auto:recycle_audits';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Recycle Activity From Log Once 30 Days Old.';
+    protected $description = 'Recycle Audits Once X Days Old.';
 
     /**
      * Execute the console command.
@@ -46,12 +46,12 @@ class AutoRecycleAudits extends Command
     final public function handle(): void
     {
         $current = Carbon::now();
-        $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle'))->toDateTimeString())->get();
+        $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle')))->get();
 
         foreach ($audits as $audit) {
             $audit->delete();
         }
 
-        $this->comment('Automated Purge Old Audits Command Complete');
+        $this->comment('Automated Audit Recycle Command Complete');
     }
 }

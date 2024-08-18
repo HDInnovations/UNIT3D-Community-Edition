@@ -47,7 +47,7 @@ class PostTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -55,7 +55,7 @@ class PostTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function recipient(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -63,7 +63,7 @@ class PostTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, $this>
      */
     public function post(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

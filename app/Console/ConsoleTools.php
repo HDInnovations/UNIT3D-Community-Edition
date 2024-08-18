@@ -27,7 +27,7 @@ trait ConsoleTools
 
     private function cyan(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=cyan>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=cyan>%s</>', $line));
     }
 
     private function white(string $line): void
@@ -37,22 +37,22 @@ trait ConsoleTools
 
     private function magenta(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=magenta>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=magenta>%s</>', $line));
     }
 
     private function green(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=green>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=green>%s</>', $line));
     }
 
     private function red(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=red>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=red>%s</>', $line));
     }
 
     private function blue(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=blue>%s</>', $line));
+        $this->io->writeln(\sprintf('<fg=blue>%s</>', $line));
     }
 
     private function done(): void
@@ -69,22 +69,22 @@ trait ConsoleTools
 
     private function alertSuccess(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=white>[</><fg=green> !! %s !! </><fg=white>]</>', $line));
+        $this->io->writeln(\sprintf('<fg=white>[</><fg=green> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertDanger(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=white>[</><fg=red> !! %s !! </><fg=white>]</>', $line));
+        $this->io->writeln(\sprintf('<fg=white>[</><fg=red> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertInfo(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=white>[</><fg=cyan> !! %s !! </><fg=white>]</>', $line));
+        $this->io->writeln(\sprintf('<fg=white>[</><fg=cyan> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function alertWarning(string $line): void
     {
-        $this->io->writeln(sprintf('<fg=white>[</><fg=yellow> !! %s !! </><fg=white>]</>', $line));
+        $this->io->writeln(\sprintf('<fg=white>[</><fg=yellow> !! %s !! </><fg=white>]</>', $line));
     }
 
     private function commands(array $commands, bool $silent = false): void
@@ -114,7 +114,7 @@ trait ConsoleTools
             try {
                 $process->checkTimeout();
             } catch (ProcessTimedOutException) {
-                $this->red(sprintf("'%s' timed out.!", $command));
+                $this->red(\sprintf("'%s' timed out.!", $command));
             }
 
             if (!$silent) {

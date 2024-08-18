@@ -62,7 +62,7 @@ class PlaylistTorrent extends Pivot
     /**
      * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -72,7 +72,7 @@ class PlaylistTorrent extends Pivot
     /**
      * Belongs To A Playlist.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Playlist, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Playlist, $this>
      */
     public function playlist(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

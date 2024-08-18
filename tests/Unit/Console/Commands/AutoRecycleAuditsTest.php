@@ -17,7 +17,7 @@ declare(strict_types=1);
  * @see App\Console\Commands\AutoRecycleAudits
  */
 it('runs successfully', function (): void {
-    $this->artisan('auto:recycle_activity_log')
+    $this->artisan('auto:recycle_audits')
         ->assertExitCode(0)
         ->run();
 

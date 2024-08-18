@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Comment;
-use App\Models\Group;
 use App\Models\History;
 use App\Models\Peer;
 use App\Models\Post;
@@ -61,7 +60,7 @@ class TopUsers extends Component
         return User::select(['id', 'group_id', 'username', 'uploaded', 'image'])
             ->with('group')
             ->where('id', '!=', User::SYSTEM_USER_ID)
-            ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+            ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
             ->orderByDesc('uploaded')
             ->take(8)
             ->get();
@@ -76,7 +75,7 @@ class TopUsers extends Component
         return User::select(['id', 'group_id', 'username', 'downloaded', 'image'])
             ->with('group')
             ->where('id', '!=', User::SYSTEM_USER_ID)
-            ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+            ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
             ->orderByDesc('downloaded')
             ->take(8)
             ->get();
@@ -108,7 +107,7 @@ class TopUsers extends Component
         return User::withSum('history as seedtime', 'seedtime')
             ->with('group')
             ->where('id', '!=', User::SYSTEM_USER_ID)
-            ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+            ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
             ->orderByDesc('seedtime')
             ->take(8)
             ->get();
@@ -123,7 +122,7 @@ class TopUsers extends Component
         return User::withCount('uploadSnatches')
             ->with('group')
             ->where('id', '!=', User::SYSTEM_USER_ID)
-            ->whereNotIn('group_id', Group::select('id')->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
+            ->whereDoesntHave('group', fn ($query) => $query->whereIn('slug', ['banned', 'validating', 'disabled', 'pruned']))
             ->orderByDesc('upload_snatches_count')
             ->take(8)
             ->get();

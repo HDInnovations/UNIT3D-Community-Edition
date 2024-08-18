@@ -481,6 +481,11 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index')->withTrashed();
         });
 
+        // Invite Tree
+        Route::prefix('invite-tree')->name('invite_tree.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\InviteTreeController::class, 'index'])->name('index');
+        });
+
         // Notifications
         Route::prefix('notifications')->name('notifications.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\User\NotificationController::class, 'index'])->name('index');
@@ -966,6 +971,13 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('passkeys')->group(function (): void {
             Route::name('passkeys.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\PasskeyController::class, 'index'])->name('index');
+            });
+        });
+
+        // Password Reset Histories
+        Route::prefix('password-reset-histories')->group(function (): void {
+            Route::name('password_reset_histories.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\PasswordResetHistoryController::class, 'index'])->name('index');
             });
         });
 

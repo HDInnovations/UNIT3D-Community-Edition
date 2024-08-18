@@ -68,55 +68,28 @@
         ></i>
     @endif
 
-    @if ($torrent->featured)
-        <i
-            class="{{ config('other.font-awesome') }} fa-award-simple torrent-icons__featured"
-            title="{{ __('torrent.featured') . ' - 100% ' . __('torrent.freeleech') . ' + ' . __('torrent.double-upload') }}"
-        ></i>
-    @endif
-
     @php
         $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
     @endphp
 
-    @if (! $torrent->featured && ($alwaysFreeleech || $torrent->free))
+    @if ($torrent->featured)
         <i
-            @class([
-                'torrent-icons__freeleech ' . config('other.font-awesome'),
-                'fa-star' => $alwaysFreeleech || (90 <= $torrent->free && $torrent->fl_until === null),
-                'fa-star-half' => ! $alwaysFreeleech && $torrent->free < 90 && $torrent->fl_until === null,
-                'fa-calendar-star' => ! $alwaysFreeleech && $torrent->fl_until !== null,
-            ])
+            class="{{ config('other.font-awesome') }} fa-award-simple torrent-icons__featured"
             title="{{
                 implode(
                     "\n",
                     array_keys(
                         [
+                            'Currently:' => true,
+                            __('torrent.featured') . ' - 100% ' . __('torrent.freeleech') . ' + ' . __('torrent.double-upload') => true,
+                            "\nAfter feature expires:" => true,
                             __('torrent.personal-freeleech') => $personalFreeleech,
                             __('torrent.freeleech-token') => $torrent->freeleech_tokens_exists,
                             __('torrent.special-freeleech') => auth()->user()->group->is_freeleech,
                             __('torrent.global-freeleech') => config('other.freeleech'),
-                            __('torrent.featured') . ' - 100%' . __('torrent.freeleech') => $torrent->featured,
                             $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
-                        ],
-                        true
-                    )
-                )
-            }}"
-        ></i>
-    @endif
-
-    @if (! $torrent->featured && (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup))
-        <i
-            class="{{ config('other.font-awesome') }} fa-chevron-double-up torrent-icons__double-upload"
-            title="{{
-                implode(
-                    "\n",
-                    array_keys(
-                        [
                             __('torrent.global-double-upload') => config('other.doubleup'),
                             __('torrent.special-double_upload') => auth()->user()->group->is_double_upload,
-                            __('torrent.featured') . ' - ' . __('torrent.double-upload') => $torrent->featured,
                             '100% ' . __('torrent.double-upload') . ($torrent->du_until !== null ? ' (expires ' . $torrent->du_until->diffForHumans() . ')' : '') => $torrent->doubleup > 0,
                         ],
                         true
@@ -124,6 +97,53 @@
                 )
             }}"
         ></i>
+    @else
+        @if ($alwaysFreeleech || $torrent->free)
+            <i
+                @class([
+                    'torrent-icons__freeleech ' . config('other.font-awesome'),
+                    'fa-star' => $alwaysFreeleech || (90 <= $torrent->free && $torrent->fl_until === null),
+                    'fa-star-half' => ! $alwaysFreeleech && $torrent->free < 90 && $torrent->fl_until === null,
+                    'fa-calendar-star' => ! $alwaysFreeleech && $torrent->fl_until !== null,
+                ])
+                title="{{
+                    implode(
+                        "\n",
+                        array_keys(
+                            [
+                                __('torrent.personal-freeleech') => $personalFreeleech,
+                                __('torrent.freeleech-token') => $torrent->freeleech_tokens_exists,
+                                __('torrent.special-freeleech') => auth()->user()->group->is_freeleech,
+                                __('torrent.global-freeleech') => config('other.freeleech'),
+                                __('torrent.featured') . ' - 100%' . __('torrent.freeleech') => $torrent->featured,
+                                $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
+                            ],
+                            true
+                        )
+                    )
+                }}"
+            ></i>
+        @endif
+
+        @if (config('other.doubleup') || auth()->user()->group->is_double_upload || $torrent->doubleup)
+            <i
+                class="{{ config('other.font-awesome') }} fa-chevron-double-up torrent-icons__double-upload"
+                title="{{
+                    implode(
+                        "\n",
+                        array_keys(
+                            [
+                                __('torrent.global-double-upload') => config('other.doubleup'),
+                                __('torrent.special-double_upload') => auth()->user()->group->is_double_upload,
+                                __('torrent.featured') . ' - ' . __('torrent.double-upload') => $torrent->featured,
+                                '100% ' . __('torrent.double-upload') . ($torrent->du_until !== null ? ' (expires ' . $torrent->du_until->diffForHumans() . ')' : '') => $torrent->doubleup > 0,
+                            ],
+                            true
+                        )
+                    )
+                }}"
+            ></i>
+        @endif
     @endif
 
     @if ($torrent->refundable || auth()->user()->group->is_refundable)

@@ -44,6 +44,10 @@
     color: var(--panel-head-fg);
 }
 
+.panel__grouping {
+    color: var(--panel-group-fg);
+}
+
 .panel__actions {
     display: flex;
     flex-direction: row;

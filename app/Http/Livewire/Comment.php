@@ -172,8 +172,8 @@ class Comment extends Component
             case $this->model instanceof Playlist:
             case $this->model instanceof TorrentRequest:
             case $this->model instanceof Torrent:
-                if ($this->user->id !== $this->model->user_id) {
-                    User::find($this->model->user_id)?->notify(new NewComment($this->model, $reply));
+                if ($this->user->id !== $this->comment->user_id) {
+                    User::find($this->comment->user_id)?->notify(new NewComment($this->model, $reply));
                 }
 
                 break;

@@ -54,7 +54,7 @@ class Message extends Model
     /**
      * Belongs To A Bot.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Bot, $this>
      */
     public function bot(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -64,7 +64,7 @@ class Message extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -74,7 +74,7 @@ class Message extends Model
     /**
      * A message belongs to a receiver.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -84,7 +84,7 @@ class Message extends Model
     /**
      * Belongs To A Chat Room.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Chatroom, $this>
      */
     public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

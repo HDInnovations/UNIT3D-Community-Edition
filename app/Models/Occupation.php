@@ -42,7 +42,7 @@ class Occupation extends Model
     public $timestamps = false;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person, $this>
      */
     public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -50,7 +50,7 @@ class Occupation extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit, $this>
      */
     public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

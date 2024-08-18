@@ -17,6 +17,7 @@ return [
     'add-option'           => 'Añadir opción',
     'already-voted-error'  => 'Ya has votado en esta encuesta. Tu voto no ha sido contado.',
     'already-voted-result' => 'Ya has votado en esta encuesta. Aquí están los resultados.',
+    'expired-voted-result' => 'Esta encuesta ha caducado. Aquí están los resultados.',
     'create-poll'          => 'Crear encuesta',
     'current'              => 'Encuesta(s) actual(es)',
     'delete-option'        => 'Opción de eliminar',
@@ -32,4 +33,5 @@ return [
     'vote-counted'         => 'Tu voto ha sido contado.',
     'vote-now'             => '¡Vota ahora!',
     'votes'                => 'Votos',
+    'close-date'           => 'Cerrar la encuesta después de',
 ];

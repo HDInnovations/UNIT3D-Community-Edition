@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a579c31f1ba56bdc01cf189e5b971d8",
+    "content-hash": "9c9aec7d2cf6ba6873ebd083258c7370",
     "packages": [
         {
             "name": "assada/laravel-achievements",
@@ -8895,16 +8895,16 @@
         },
         {
             "name": "calebdw/larastan",
-            "version": "v2.10.3",
+            "version": "v2.10.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/calebdw/larastan.git",
-                "reference": "7df707a3a884b8015d45bc5c15e097146024d9b7"
+                "reference": "00b4a5662071324c0fe52ae299f3c783af139c62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/calebdw/larastan/zipball/7df707a3a884b8015d45bc5c15e097146024d9b7",
-                "reference": "7df707a3a884b8015d45bc5c15e097146024d9b7",
+                "url": "https://api.github.com/repos/calebdw/larastan/zipball/00b4a5662071324c0fe52ae299f3c783af139c62",
+                "reference": "00b4a5662071324c0fe52ae299f3c783af139c62",
                 "shasum": ""
             },
             "require": {
@@ -8978,7 +8978,7 @@
             ],
             "support": {
                 "issues": "https://github.com/calebdw/larastan/issues",
-                "source": "https://github.com/calebdw/larastan/tree/v2.10.3"
+                "source": "https://github.com/calebdw/larastan/tree/v2.10.5"
             },
             "funding": [
                 {
@@ -8986,7 +8986,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-08-02T15:28:41+00:00"
+            "time": "2024-08-12T23:23:14+00:00"
         },
         {
             "name": "calebdw/larastan-livewire",

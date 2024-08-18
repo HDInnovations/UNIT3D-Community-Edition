@@ -473,7 +473,7 @@ class MarkdownExtra extends Markdown
                 $backLinkElements[] = [
                     'name'       => 'a',
                     'attributes' => [
-                        'href'  => sprintf('#fnref%s:%s', $number, $definitionId),
+                        'href'  => \sprintf('#fnref%s:%s', $number, $definitionId),
                         'rev'   => 'footnote',
                         'class' => 'footnote-backref',
                     ],

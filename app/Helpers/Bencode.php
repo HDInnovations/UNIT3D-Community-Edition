@@ -185,7 +185,7 @@ class Bencode
                 }
 
                 if (\is_int($value) || \is_float($value)) {
-                    $ret .= sprintf('i%de', $value);
+                    $ret .= \sprintf('i%de', $value);
                 } elseif (\is_string($value)) {
                     $ret .= \strlen($value).':'.$value;
                 } else {
@@ -201,7 +201,7 @@ class Bencode
         }
 
         if (\is_int($d) || \is_float($d)) {
-            return sprintf('i%de', $d);
+            return \sprintf('i%de', $d);
         }
     }
 

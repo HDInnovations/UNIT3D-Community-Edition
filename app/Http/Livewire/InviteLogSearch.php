@@ -35,13 +35,22 @@ class InviteLogSearch extends Component
     public string $sender = '';
 
     #[Url(history: true)]
+    public string $soundexSender = '';
+
+    #[Url(history: true)]
     public string $email = '';
+
+    #[Url(history: true)]
+    public string $soundexEmail = '';
 
     #[Url(history: true)]
     public string $code = '';
 
     #[Url(history: true)]
     public string $receiver = '';
+
+    #[Url(history: true)]
+    public string $soundexReceiver = '';
 
     #[Url(history: true)]
     public string $custom = '';
@@ -84,30 +93,58 @@ class InviteLogSearch extends Component
     final public function invites(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Invite::withTrashed()
-            ->with(['sender.group', 'receiver.group'])
-            ->when($this->sender, fn ($query) => $query->whereRelation('sender', 'username', '=', $this->sender))
+            ->with([
+                'sender'   => fn ($query) => $query->withTrashed()->with('group'),
+                'receiver' => fn ($query) => $query->withTrashed()->with('group'),
+            ])
+            ->when(
+                $this->sender || $this->soundexSender,
+                fn ($query) => $query->whereHas(
+                    'sender',
+                    fn ($query) => $query
+                        ->withTrashed()
+                        ->when($this->sender, fn ($query) => $query->where('username', 'LIKE', $this->sender))
+                        ->when($this->soundexSender, fn ($query) => $query->whereRaw('SOUNDEX(username) = SOUNDEX(?)', [$this->soundexSender]))
+                )
+            )
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
+            ->when(
+                $this->soundexEmail !== '',
+                fn ($query) => $query->when(
+                    str_contains($this->soundexEmail, '@'),
+                    fn ($query) => $query->whereRaw('SOUNDEX(email) = SOUNDEX(?)', [$this->soundexEmail]),
+                    fn ($query) => $query->whereRaw("SOUNDEX(SUBSTRING_INDEX(email, '@', 1)) = SOUNDEX(SUBSTRING_INDEX(?, '@', 1))", [$this->soundexEmail])
+                )
+            )
             ->when($this->code, fn ($query) => $query->where('code', 'LIKE', '%'.$this->code.'%'))
-            ->when($this->receiver, fn ($query) => $query->whereRelation('receiver', 'username', '=', $this->receiver))
+            ->when(
+                $this->receiver || $this->soundexReceiver,
+                fn ($query) => $query->whereHas(
+                    'receiver',
+                    fn ($query) => $query
+                        ->withTrashed()
+                        ->when($this->receiver, fn ($query) => $query->where('username', 'LIKE', $this->receiver))
+                        ->when($this->soundexReceiver, fn ($query) => $query->whereRaw('SOUNDEX(username) = SOUNDEX(?)', [$this->soundexReceiver]))
+                )
+            )
             ->when($this->custom, fn ($query) => $query->where('custom', 'LIKE', '%'.$this->custom.'%'))
             ->when(
                 $this->groupBy === 'user_id',
                 fn ($query) => $query->groupBy('user_id')
-                    ->from('invites as i1')
                     ->select([
                         'user_id',
                         DB::raw('MIN(created_at) as created_at_min'),
                         DB::raw('FROM_UNIXTIME(AVG(UNIX_TIMESTAMP(created_at))) as created_at_avg'),
                         DB::raw('MAX(created_at) as created_at_max'),
                         DB::raw('COUNT(*) as sent_count'),
-                        DB::raw('SUM(IF(accepted_by IS NULL, 0, 1)) as accepted_by_count'),
+                        DB::raw('SUM(accepted_by IS NOT NULL) as accepted_by_count'),
                         DB::raw("
                             (select
                                 count(*)
                             from
                                 users
                             where
-                                id in (select accepted_by from invites i2 where i2.user_id = i1.user_id)
+                                id in (select accepted_by from invites i2 where i2.user_id = invites.user_id)
                                 and group_id in (select id from `groups` where slug in ('banned', 'pruned', 'disabled'))
                             ) as inactive_count
                         "),
@@ -118,7 +155,7 @@ class InviteLogSearch extends Component
                             from
                                 users
                             where
-                                id in (select accepted_by from invites i2 where i2.user_id = i1.user_id)
+                                id in (select accepted_by from invites i2 where i2.user_id = invites.user_id)
                                 and group_id in (select id from `groups` where slug in ('banned', 'pruned', 'disabled'))
                             )
                             / COUNT(*) as inactive_ratio

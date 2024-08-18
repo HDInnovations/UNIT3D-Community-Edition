@@ -57,7 +57,7 @@ class AutoRemoveFeaturedTorrent extends Command
     final public function handle(): void
     {
         $current = Carbon::now();
-        $featuredTorrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())->get();
+        $featuredTorrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7))->get();
 
         foreach ($featuredTorrents as $featuredTorrent) {
             // Find The Torrent
@@ -71,7 +71,7 @@ class AutoRemoveFeaturedTorrent extends Command
                 $appurl = config('app.url');
 
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
                 );
 
                 Unit3dAnnounce::removeFeaturedTorrent($torrent->id);

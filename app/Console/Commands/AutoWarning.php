@@ -50,72 +50,74 @@ class AutoWarning extends Command
      */
     final public function handle(): void
     {
-        if (config('hitrun.enabled') === true) {
-            $carbon = new Carbon();
-            $hitrun = History::with(['user', 'torrent'])
-                ->where('actual_downloaded', '>', 0)
-                ->where('prewarned_at', '<=', now()->subDays(config('hitrun.prewarn')))
-                ->where('hitrun', '=', 0)
-                ->where('immune', '=', 0)
-                ->where('active', '=', 0)
-                ->where('seedtime', '<', config('hitrun.seedtime'))
-                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace'))->toDateTimeString())
-                ->get();
+        if (config('hitrun.enabled') !== true) {
+            return;
+        }
 
-            $usersWithWarnings = [];
+        $carbon = new Carbon();
+        $hitrun = History::with(['user', 'torrent'])
+            ->where('actual_downloaded', '>', 0)
+            ->where('prewarned_at', '<=', now()->subDays(config('hitrun.prewarn')))
+            ->where('hitrun', '=', 0)
+            ->where('immune', '=', 0)
+            ->where('active', '=', 0)
+            ->where('seedtime', '<', config('hitrun.seedtime'))
+            ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace')))
+            ->get();
 
-            foreach ($hitrun as $hr) {
-                if (!$hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
-                    $exsist = Warning::withTrashed()
-                        ->where('torrent', '=', $hr->torrent->id)
-                        ->where('user_id', '=', $hr->user->id)
-                        ->first();
+        $usersWithWarnings = [];
 
-                    // Insert Warning Into Warnings Table if doesnt already exsist
-                    if ($exsist === null) {
-                        $warning = new Warning();
-                        $warning->user_id = $hr->user->id;
-                        $warning->warned_by = User::SYSTEM_USER_ID;
-                        $warning->torrent = $hr->torrent->id;
-                        $warning->reason = sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
-                        $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
-                        $warning->active = true;
-                        $warning->save();
+        foreach ($hitrun as $hr) {
+            if (!$hr->user->group->is_immune && $hr->actual_downloaded > ($hr->torrent->size * (config('hitrun.buffer') / 100))) {
+                $exsist = Warning::withTrashed()
+                    ->where('torrent', '=', $hr->torrent->id)
+                    ->where('user_id', '=', $hr->user->id)
+                    ->first();
 
-                        History::query()
-                            ->where('torrent_id', '=', $hr->torrent_id)
-                            ->where('user_id', '=', $hr->user_id)
-                            ->update([
-                                'hitrun'     => true,
-                                'updated_at' => DB::raw('updated_at'),
-                            ]);
+                // Insert Warning Into Warnings Table if doesnt already exsist
+                if ($exsist === null) {
+                    $warning = new Warning();
+                    $warning->user_id = $hr->user->id;
+                    $warning->warned_by = User::SYSTEM_USER_ID;
+                    $warning->torrent = $hr->torrent->id;
+                    $warning->reason = \sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
+                    $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
+                    $warning->active = true;
+                    $warning->save();
 
-                        // Add +1 To Users Warnings Count In Users Table
-                        $hr->user->hitandruns++;
-                        $hr->user->save();
+                    History::query()
+                        ->where('torrent_id', '=', $hr->torrent_id)
+                        ->where('user_id', '=', $hr->user_id)
+                        ->update([
+                            'hitrun'     => true,
+                            'updated_at' => DB::raw('updated_at'),
+                        ]);
 
-                        // Add user to usersWithWarnings array
-                        $usersWithWarnings[$hr->user->id] = $hr->user;
-                    }
+                    // Add +1 To Users Warnings Count In Users Table
+                    $hr->user->hitandruns++;
+                    $hr->user->save();
+
+                    // Add user to usersWithWarnings array
+                    $usersWithWarnings[$hr->user->id] = $hr->user;
                 }
             }
+        }
 
-            // Send a single notification for each user with warnings
-            foreach ($usersWithWarnings as $user) {
-                $user->notify(new UserWarning($user));
-            }
+        // Send a single notification for each user with warnings
+        foreach ($usersWithWarnings as $user) {
+            $user->notify(new UserWarning($user));
+        }
 
-            // Calculate User Warning Count and Disable DL Priv If Required.
-            $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
+        // Calculate User Warning Count and Disable DL Priv If Required.
+        $warnings = Warning::with('warneduser')->select(DB::raw('user_id, count(*) as value'))->where('active', '=', 1)->groupBy('user_id')->having('value', '>=', config('hitrun.max_warnings'))->get();
 
-            foreach ($warnings as $warning) {
-                if ($warning->warneduser->can_download) {
-                    $warning->warneduser->can_download = 0;
-                    $warning->warneduser->save();
+        foreach ($warnings as $warning) {
+            if ($warning->warneduser->can_download) {
+                $warning->warneduser->can_download = 0;
+                $warning->warneduser->save();
 
-                    cache()->forget('user:'.$warning->warneduser->passkey);
-                    Unit3dAnnounce::addUser($warning->warneduser);
-                }
+                cache()->forget('user:'.$warning->warneduser->passkey);
+                Unit3dAnnounce::addUser($warning->warneduser);
             }
         }
 

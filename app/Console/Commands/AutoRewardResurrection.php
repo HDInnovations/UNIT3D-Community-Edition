@@ -81,7 +81,7 @@ class AutoRewardResurrection extends Command
                 $appurl = config('app.url');
 
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url].', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s/users/%s]%s[/url] has successfully resurrected [url=%s/torrents/%s]%s[/url].', $appurl, $user->username, $user->username, $appurl, $torrent->id, $torrent->name)
                 );
 
                 // Bump Torrent With FL
@@ -90,7 +90,7 @@ class AutoRewardResurrection extends Command
                 $torrent->free = 100;
                 $torrent->fl_until = Carbon::now()->addDays(3);
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top.', $torrentUrl, $torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top.', $torrentUrl, $torrent->name)
                 );
                 $torrent->save();
 
@@ -101,7 +101,7 @@ class AutoRewardResurrection extends Command
                 // Send Private Message
                 $user->sendSystemNotification(
                     subject: 'Successful Graveyard Resurrection',
-                    message: sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!',
+                    message: \sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!',
                 );
             }
         }

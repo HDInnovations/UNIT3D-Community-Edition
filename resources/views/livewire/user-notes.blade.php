@@ -75,7 +75,7 @@
                                 datetime="{{ $note->updated_at }}"
                                 title="{{ $note->updated_at }}"
                             >
-                                {{ $note->created_at->diffForHumans() }}
+                                {{ $note->updated_at->diffForHumans() }}
                             </time>
                         </td>
                         <td>

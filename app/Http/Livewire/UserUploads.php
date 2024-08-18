@@ -75,7 +75,7 @@ class UserUploads extends Component
     final public function uploads(): \Illuminate\Pagination\LengthAwarePaginator
     {
         return Torrent::query()
-            ->withCount('thanks')
+            ->withCount('thanks', 'comments')
             ->withSum('tips', 'bon')
             ->withoutGlobalScope(ApprovedScope::class)
             ->where('created_at', '>=', $this->user->created_at) // Unneeded, but increases performances

@@ -17,8 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Subtitle;
-use App\Models\Torrent;
-use App\Models\User;
 use App\Traits\LivewireSort;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -70,16 +68,12 @@ class SubtitleSearch extends Component
         return Subtitle::with(['user.group', 'torrent.category', 'language'])
             ->whereHas('torrent')
             ->when($this->search, fn ($query) => $query->where('title', 'like', '%'.$this->search.'%'))
-            ->when($this->categories, function ($query) {
-                $torrents = Torrent::whereIntegerInRaw('category_id', $this->categories)->pluck('id');
-
-                return $query->whereIntegerInRaw('torrent_id', $torrents);
-            })
+            ->when($this->categories, fn ($query) => $query->whereHas('torrent', fn ($query) => $query->whereIn('category_id', $this->categories)))
             ->when($this->language, fn ($query) => $query->where('language_id', '=', $this->language))
             ->when(
                 $this->username,
                 fn ($query) => $query
-                    ->whereIn('user_id', User::select('id')->where('username', '=', $this->username))
+                    ->whereRelation('user', 'username', '=', $this->username)
                     ->when(
                         !auth()->user()->group->is_modo,
                         fn ($query) => $query->where(fn ($query) => $query->where('anon', '=', false)->orWhere('user_id', '=', auth()->id()))

@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Group;
 use App\Models\History;
@@ -76,7 +75,7 @@ class YearlyOverviewController extends Controller
                         fn ($join) => $join->on('torrents.id', '=', 'h.torrent_id')
                     )
                     ->where('tmdb', '!=', 0)
-                    ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', true))
+                    ->whereRelation('category', 'movie_meta', '=', true)
                     ->groupBy('tmdb')
                     ->orderByDesc('download_count')
                     ->take(10)
@@ -99,7 +98,7 @@ class YearlyOverviewController extends Controller
                         fn ($join) => $join->on('torrents.id', '=', 'h.torrent_id')
                     )
                     ->where('tmdb', '!=', 0)
-                    ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', true))
+                    ->whereRelation('category', 'movie_meta', '=', true)
                     ->groupBy('tmdb')
                     ->orderBy('download_count')
                     ->take(5)
@@ -122,7 +121,7 @@ class YearlyOverviewController extends Controller
                         fn ($join) => $join->on('torrents.id', '=', 'h.torrent_id')
                     )
                     ->where('tmdb', '!=', 0)
-                    ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', true))
+                    ->whereRelation('category', 'tv_meta', '=', true)
                     ->groupBy('tmdb')
                     ->orderByDesc('download_count')
                     ->take(10)
@@ -145,7 +144,7 @@ class YearlyOverviewController extends Controller
                         fn ($join) => $join->on('torrents.id', '=', 'h.torrent_id')
                     )
                     ->where('tmdb', '!=', 0)
-                    ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', true))
+                    ->whereRelation('category', 'tv_meta', '=', true)
                     ->groupBy('tmdb')
                     ->orderBy('download_count')
                     ->take(5)
@@ -243,7 +242,7 @@ class YearlyOverviewController extends Controller
                 fn () => Torrent::query()
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
-                    ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', true))
+                    ->whereRelation('category', 'movie_meta', '=', true)
                     ->count()
             ),
             'tvUploads' => cache()->rememberForever(
@@ -251,7 +250,7 @@ class YearlyOverviewController extends Controller
                 fn () => Torrent::query()
                     ->where('created_at', '>=', $year.'-01-01 00:00:00')
                     ->where('created_at', '<=', $year.'-12-31 23:59:59')
-                    ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', true))
+                    ->whereRelation('category', 'tv_meta', '=', true)
                     ->count()
             ),
             'totalUploads' => cache()->rememberForever(

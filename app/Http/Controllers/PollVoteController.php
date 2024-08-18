@@ -49,7 +49,7 @@ class PollVoteController extends Controller
         $poll->users()->attach($request->user());
 
         $this->chatRepository->systemMessage(
-            sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', href_profile($request->user()), $request->user()->username, href_poll($poll), $poll->title)
+            \sprintf('[url=%s]%s[/url] has voted on poll [url=%s]%s[/url]', href_profile($request->user()), $request->user()->username, href_poll($poll), $poll->title)
         );
 
         return to_route('polls.votes.index', ['poll' => $poll])

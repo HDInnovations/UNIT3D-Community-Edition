@@ -36,7 +36,7 @@
                 <div class="form__group">
                     <input
                         id="torrent"
-                        wire:model.live="torrent"
+                        wire:model.live="torrentName"
                         class="form__text"
                         placeholder=" "
                     />

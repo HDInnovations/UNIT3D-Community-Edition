@@ -55,7 +55,7 @@ class TorrentRequestClaim extends Model
     /**
      * Belongs To A User.
      *
-     * @return BelongsTo<User, self>
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {
@@ -63,7 +63,7 @@ class TorrentRequestClaim extends Model
     }
 
     /**
-     * @return BelongsTo<TorrentRequest, self>
+     * @return BelongsTo<TorrentRequest, $this>
      */
     public function request(): BelongsTo
     {

@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
-use App\Models\Forum;
 use App\Models\ForumCategory;
 use App\Models\Topic;
 use Livewire\Attributes\Computed;
@@ -77,7 +76,7 @@ class ForumCategoryTopicSearch extends Component
                 'forum',
                 'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
             ])
-            ->whereIn('forum_id', Forum::where('forum_category_id', '=', $this->category->id)->select('id'))
+            ->whereRelation('forum', 'forum_category_id', '=', $this->category->id)
             ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
             ->when($this->label !== '', fn ($query) => $query->where($this->label, '=', 1))

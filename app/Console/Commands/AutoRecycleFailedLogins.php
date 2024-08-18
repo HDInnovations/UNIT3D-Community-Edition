@@ -46,7 +46,7 @@ class AutoRecycleFailedLogins extends Command
     final public function handle(): void
     {
         $current = Carbon::now();
-        $failedLogins = FailedLoginAttempt::where('created_at', '<', $current->copy()->subDays(30)->toDateTimeString())->get();
+        $failedLogins = FailedLoginAttempt::where('created_at', '<', $current->copy()->subDays(30))->get();
 
         foreach ($failedLogins as $failedLogin) {
             $failedLogin->delete();

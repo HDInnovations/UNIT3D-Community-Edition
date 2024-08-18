@@ -16,15 +16,9 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
-use App\Models\Bookmark;
-use App\Models\Category;
-use App\Models\Keyword;
-use App\Models\Movie;
 use App\Models\PlaylistTorrent;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
-use App\Models\TorrentTrump;
-use App\Models\Tv;
 use App\Models\User;
 use App\Models\Wish;
 use Carbon\Carbon;
@@ -94,7 +88,7 @@ trait TorrentFilter
      */
     public function scopeOfKeyword(Builder $query, array $keywords): void
     {
-        $query->whereIn('id', Keyword::select('torrent_id')->whereIn('name', $keywords));
+        $query->whereHas('keywords', fn ($query) => $query->whereIn('name', $keywords));
     }
 
     /**
@@ -102,7 +96,16 @@ trait TorrentFilter
      */
     public function scopeReleasedAfterOrIn(Builder $query, int $year): void
     {
-        $query->where('release_year', '>=', $year);
+        $query->where(function ($query) use ($year): void {
+            $query->where(function ($query) use ($year): void {
+                $query->whereRelation('movie', 'release_date', '>=', $year.'-01-01 00:00:00')
+                    ->whereRelation('category', 'movie_meta', '=', true);
+            })
+                ->orWhere(function ($query) use ($year): void {
+                    $query->whereRelation('tv', 'first_air_date', '>=', $year.'-01-01 00:00:00')
+                        ->whereRelation('category', 'tv_meta', '=', true);
+                });
+        });
     }
 
     /**
@@ -110,7 +113,16 @@ trait TorrentFilter
      */
     public function scopeReleasedBeforeOrIn(Builder $query, int $year): void
     {
-        $query->where('release_year', '<=', $year);
+        $query->where(function ($query) use ($year): void {
+            $query->where(function ($query) use ($year): void {
+                $query->whereRelation('movie', 'release_date', '<=', $year.'-12-31 23:59:59')
+                    ->whereRelation('category', 'movie_meta', '=', true);
+            })
+                ->orWhere(function ($query) use ($year): void {
+                    $query->orWhereRelation('tv', 'first_air_date', '<=', $year.'-12-31 23:59:59')
+                        ->whereRelation('category', 'tv_meta', '=', true);
+                });
+        });
     }
 
     /**
@@ -167,12 +179,12 @@ trait TorrentFilter
                 fn ($query) => $query
                     ->where(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereRelation('category', 'movie_meta', '=', true)
                             ->whereIn('tmdb', DB::table('genre_movie')->select('movie_id')->whereIn('genre_id', $genres))
                     )
                     ->orWhere(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereRelation('category', 'tv_meta', '=', true)
                             ->whereIn('tmdb', DB::table('genre_tv')->select('tv_id')->whereIn('genre_id', $genres))
                     )
             );
@@ -258,7 +270,7 @@ trait TorrentFilter
     public function scopeOfCollection(Builder $query, int $collectionId): void
     {
         $query
-            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+            ->whereRelation('category', 'movie_meta', '=', true)
             ->whereIn('tmdb', DB::table('collection_movie')->select('movie_id')->where('collection_id', '=', $collectionId));
     }
 
@@ -272,12 +284,12 @@ trait TorrentFilter
                 fn ($query) => $query
                     ->where(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereRelation('category', 'movie_meta', '=', true)
                             ->whereIn('tmdb', DB::table('company_movie')->select('movie_id')->where('company_id', '=', $companyId))
                     )
                     ->orWhere(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereRelation('category', 'tv_meta', '=', true)
                             ->whereIn('tmdb', DB::table('company_tv')->select('tv_id')->where('company_id', '=', $companyId))
                     )
             );
@@ -289,7 +301,7 @@ trait TorrentFilter
     public function scopeOfNetwork(Builder $query, int $networkId): void
     {
         $query
-            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+            ->whereRelation('category', 'tv_meta', '=', true)
             ->whereIn('tmdb', DB::table('network_tv')->select('tv_id')->where('network_id', '=', $networkId));
     }
 
@@ -359,7 +371,7 @@ trait TorrentFilter
      */
     public function scopeBookmarkedBy(Builder $query, User $user): void
     {
-        $query->whereIn('id', Bookmark::select('torrent_id')->where('user_id', '=', $user->id));
+        $query->whereRelation('bookmarks', 'user_id', '=', $user->id);
     }
 
     /**
@@ -391,7 +403,7 @@ trait TorrentFilter
      */
     public function scopeTrumpable(Builder $query): void
     {
-        $query->whereIn('id', TorrentTrump::select('torrent_id'));
+        $query->has('trump');
     }
 
     /**
@@ -446,12 +458,7 @@ trait TorrentFilter
      */
     public function scopeDownloadedBy(Builder $query, User $user): void
     {
-        $query
-            ->whereHas(
-                'history',
-                fn (Builder $query) => $query
-                    ->where('user_id', '=', $user->id)
-            );
+        $query->whereRelation('history', 'user_id', '=', $user->id);
     }
 
     /**
@@ -505,12 +512,7 @@ trait TorrentFilter
      */
     public function scopeOfFilename(Builder $query, string $filename): void
     {
-        $query
-            ->whereHas(
-                'files',
-                fn ($query) => $query
-                    ->where('name', $filename)
-            );
+        $query->whereRelation('files', 'name', '=', $filename);
     }
 
     /**
@@ -540,13 +542,13 @@ trait TorrentFilter
                 fn ($query) => $query
                     ->where(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
-                            ->whereIn('tmdb', Movie::select('id')->whereIn('original_language', $languages))
+                            ->whereRelation('category', 'movie_meta', '=', true)
+                            ->whereHas('movie', fn ($query) => $query->whereIn('original_language', $languages))
                     )
                     ->orWhere(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
-                            ->whereIn('tmdb', Tv::select('id')->whereIn('original_language', $languages))
+                            ->whereRelation('category', 'tv_meta', '=', true)
+                            ->whereHas('tv', fn ($query) => $query->whereIn('original_language', $languages))
                     )
             );
     }
@@ -561,8 +563,8 @@ trait TorrentFilter
             ->when(
                 $isAdult === true,
                 fn ($query) => $query
-                    ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
-                    ->whereIn('tmdb', Movie::select('id')->where('adult', '=', true)),
+                    ->whereRelation('category', 'movie_meta', '=', true)
+                    ->whereRelation('movie', 'adult', '=', true),
             )
             ->when(
                 $isAdult === false,
@@ -571,12 +573,12 @@ trait TorrentFilter
                         fn ($query) => $query
                             ->where(
                                 fn ($query) => $query
-                                    ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
-                                    ->whereIn('tmdb', Movie::select('id')->where('adult', '=', false))
+                                    ->whereRelation('category', 'movie_meta', '=', true)
+                                    ->whereRelation('movie', 'adult', '=', false)
                             )
                             ->orWhere(
                                 fn ($query) => $query
-                                    ->whereNotIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                                    ->whereRelation('category', 'movie_meta', '=', false)
                             )
                     )
             );
