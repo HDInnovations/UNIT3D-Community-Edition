@@ -71,11 +71,9 @@ class AutoRewardResurrection extends Command
             }
 
             if (isset($user, $torrent, $history)) {
-                $resurrection->rewarded = true;
-                $resurrection->save();
+                $resurrection->update(['rewarded' => true]);
 
-                $user->fl_tokens += config('graveyard.reward');
-                $user->save();
+                $user->increment('fl_tokens', (int) config('graveyard.reward'));
 
                 // Auto Shout
                 $appurl = config('app.url');
@@ -86,13 +84,16 @@ class AutoRewardResurrection extends Command
 
                 // Bump Torrent With FL
                 $torrentUrl = href_torrent($torrent);
-                $torrent->bumped_at = Carbon::now();
-                $torrent->free = 100;
-                $torrent->fl_until = Carbon::now()->addDays(3);
+
+                $torrent->update([
+                    'bumped_at' => Carbon::now(),
+                    'free'      => 100,
+                    'fl_until'  => Carbon::now()->addDays(3),
+                ]);
+
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted 100%% FreeLeech for 3 days and has been bumped to the top.', $torrentUrl, $torrent->name)
                 );
-                $torrent->save();
 
                 cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
 

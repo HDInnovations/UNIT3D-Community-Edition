@@ -74,8 +74,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
                 );
 
                 $requestClaim->delete();
-                $torrentRequest->claimed = null;
-                $torrentRequest->save();
+                $torrentRequest->update(['claimed' => null]);
             }
         }
 

@@ -6,11 +6,6 @@ parameters:
 			path: app/Bots/IRCAnnounceBot.php
 
 		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$avg_seedtime\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoGroup.php
@@ -39,11 +34,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
-
-		-
-			message: "#^Binary operation \"\\+\\=\" between int and string\\|null results in an error\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoRewardResurrection.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
