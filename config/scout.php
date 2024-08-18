@@ -176,7 +176,6 @@ return [
                     'sticky',
                     'sd',
                     'internal',
-                    'release_year',
                     'deleted_at',
                     'personal_release',
                     'info_hash',
