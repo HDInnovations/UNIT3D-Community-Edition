@@ -851,7 +851,11 @@ class Torrent extends Model
             $torrent = $this;
         } else {
             // Refetch torrent if any required attributes are missing
-            $torrent = Torrent::whereKey($this->id)->selectRaw(self::SEARCHABLE)->first();
+            $torrent = Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
+                ->whereKey($this->id)
+                ->selectRaw(self::SEARCHABLE)
+                ->first();
         }
 
         return [
