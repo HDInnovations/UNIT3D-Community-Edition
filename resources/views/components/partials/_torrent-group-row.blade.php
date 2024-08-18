@@ -14,7 +14,10 @@
             <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                 @switch($media->meta)
                     @case('movie')
-                        {{ \preg_replace('/^.*( ' . implode(' | ', range($media->release_date - 1, $media->release_date + 1)) . ' )/i', '', $torrent->name) }}
+                        @php
+                            $releaseYear = $media->release_date instanceof \Illuminate\Support\Carbon ? $media->release_date->year : (int) $media->release_date;
+                        @endphp
+                        {{ \preg_replace('/^.*( ' . implode(' | ', range($releaseYear - 1, $releaseYear + 1)) . ' )/i', '', $torrent->name) }}
 
                         @break
                     @case('tv')
