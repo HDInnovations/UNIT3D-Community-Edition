@@ -48,31 +48,33 @@ class AutoDisableInactiveUsers extends Command
      */
     final public function handle(): void
     {
-        if (config('pruning.user_pruning')) {
-            $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        if (!config('pruning.user_pruning')) {
+            return;
+        }
 
-            $current = Carbon::now();
+        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
-            $matches = User::whereIntegerInRaw('group_id', config('pruning.group_ids'))->get();
+        $current = Carbon::now();
 
-            $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age')))
-                ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login')))
-                ->all();
+        $matches = User::whereIntegerInRaw('group_id', config('pruning.group_ids'))->get();
 
-            foreach ($users as $user) {
-                if ($user->seedingTorrents()->doesntExist()) {
-                    $user->group_id = $disabledGroup[0];
-                    $user->can_download = false;
-                    $user->disabled_at = Carbon::now();
-                    $user->save();
+        $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age')))
+            ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login')))
+            ->all();
 
-                    cache()->forget('user:'.$user->passkey);
+        foreach ($users as $user) {
+            if ($user->seedingTorrents()->doesntExist()) {
+                $user->group_id = $disabledGroup[0];
+                $user->can_download = false;
+                $user->disabled_at = Carbon::now();
+                $user->save();
 
-                    Unit3dAnnounce::addUser($user);
+                cache()->forget('user:'.$user->passkey);
 
-                    // Send Email
-                    dispatch(new SendDisableUserMail($user));
-                }
+                Unit3dAnnounce::addUser($user);
+
+                // Send Email
+                dispatch(new SendDisableUserMail($user));
             }
         }
 
