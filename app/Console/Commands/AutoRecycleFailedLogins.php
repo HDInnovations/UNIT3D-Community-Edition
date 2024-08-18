@@ -19,7 +19,6 @@ namespace App\Console\Commands;
 use App\Models\FailedLoginAttempt;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Throwable;
 
 class AutoRecycleFailedLogins extends Command
@@ -45,12 +44,9 @@ class AutoRecycleFailedLogins extends Command
      */
     final public function handle(): void
     {
-        $current = Carbon::now();
-        $failedLogins = FailedLoginAttempt::where('created_at', '<', $current->copy()->subDays(30))->get();
-
-        foreach ($failedLogins as $failedLogin) {
-            $failedLogin->delete();
-        }
+        FailedLoginAttempt::query()
+            ->where('created_at', '<', now()->subDays(30))
+            ->delete();
 
         $this->comment('Automated Purge Old Failed Logins Command Complete');
     }
