@@ -855,7 +855,7 @@ class Torrent extends Model
         }
 
         return [
-            'id'                 => (string) $torrent->id,
+            'id'                 => $torrent->id,
             'name'               => $torrent->name,
             'num_file'           => $torrent->num_file,
             'folder'             => $torrent->folder,
