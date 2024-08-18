@@ -54,35 +54,47 @@ class AutoDeactivateWarning extends Command
             ->where('active', '=', 1)
             ->get();
 
-        foreach ($warnings as $warning) {
-            if ($warning->expires_on <= $current || ($warning->torrenttitle && $warning->torrenttitle->history()->where('user_id', '=', $warning->warneduser->id)->first()->seedtime >= config('hitrun.seedtime'))) {
-                // Set Records Active To 0 in warnings table
-                $warning->update(['active' => false]);
+        Warning::query()
+            ->where('active', '=', true)
+            ->where(
+                fn ($query) => $query
+                    ->where('expires_on', '<=', $current)
+                    ->orWhereHas(
+                        'torrenttitle.history',
+                        fn ($query) => $query
+                            ->whereColumn('history.user_id', '=', 'warnings.user_id')
+                            ->where('history.seedtime', '>=', config('hitrun.seedtime'))
+                    )
+            )
+            ->chunkById(100, function ($warnings): void {
+                foreach ($warnings as $warning) {
+                    // Set Records Active To 0 in warnings table
+                    $warning->update(['active' => false]);
 
-                // Send Notifications
-                if ($warning->torrenttitle) {
-                    $warning->warneduser->notify(new UserWarningExpire($warning->warneduser, $warning->torrenttitle));
-                } else {
-                    $warning->warneduser->notify(new UserManualWarningExpire($warning->warneduser, $warning));
+                    // Send Notifications
+                    if ($warning->torrenttitle) {
+                        $warning->warneduser->notify(new UserWarningExpire($warning->warneduser, $warning->torrenttitle));
+                    } else {
+                        $warning->warneduser->notify(new UserManualWarningExpire($warning->warneduser, $warning));
+                    }
                 }
-            }
-        }
+            });
 
         // Calculate User Warning Count and Enable DL Priv If Required.
-        $warnings = Warning::with('warneduser')
+        Warning::with('warneduser')
             ->select(DB::raw('user_id, SUM(active = 1) as value'))
             ->groupBy('user_id')
             ->having('value', '<', config('hitrun.max_warnings'))
-            ->get();
+            ->whereRelation('warneduser', 'can_download', '=', false)
+            ->chunkById(100, function ($warnings): void {
+                foreach ($warnings as $warning) {
+                    $warning->warneduser->update(['can_download' => 1]);
 
-        foreach ($warnings as $warning) {
-            if ($warning->warneduser->can_download === false) {
-                $warning->warneduser->update(['can_download' => 1]);
+                    cache()->forget('user:'.$warning->warneduser->passkey);
 
-                cache()->forget('user:'.$warning->warneduser->passkey);
-                Unit3dAnnounce::addUser($warning->warneduser);
-            }
-        }
+                    Unit3dAnnounce::addUser($warning->warneduser);
+                }
+            }, 'user_id');
 
         $this->comment('Automated Warning Deativation Command Complete');
     }
