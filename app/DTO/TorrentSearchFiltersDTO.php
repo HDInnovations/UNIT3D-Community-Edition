@@ -283,7 +283,6 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->free !== []) {
-            /** @phpstan-ignore booleanNot.alwaysTrue */
             if (!config('other.freeleech')) {
                 $filters[] = 'free IN '.json_encode(array_map('intval', $this->free));
             }
