@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use App\Models\Group;
 use App\Models\User;
 
 class UploaderController extends Controller
@@ -30,7 +29,7 @@ class UploaderController extends Controller
         return view('Staff.uploader.index', [
             'uploaders' => User::with(['group'])
                 ->withCount('torrents as total_uploads')
-                ->whereIn('group_id', Group::select('id')->where('is_uploader', '=', true))
+                ->whereRelation('group', 'is_uploader', '=', true)
                 // Count recent uploads for current user
                 ->withCount(['torrents as recent_uploads' => fn ($query) => $query
                     ->where('created_at', '>', now()->subDays(60))

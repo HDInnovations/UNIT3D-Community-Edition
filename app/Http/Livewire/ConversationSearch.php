@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Conversation;
-use App\Models\User;
 use App\Traits\LivewireSort;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Rule;
@@ -76,8 +75,7 @@ class ConversationSearch extends Component
                 fn ($query) => $query
                     ->whereHas(
                         'messages',
-                        fn ($query) => $query
-                            ->whereIn('sender_id', User::select('id')->where('username', 'LIKE', $this->username))
+                        fn ($query) => $query->whereRelation('sender', 'username', 'LIKE', $this->username)
                     )
             )
             ->when(
