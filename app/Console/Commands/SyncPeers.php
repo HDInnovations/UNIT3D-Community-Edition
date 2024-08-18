@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\Models\History;
 use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
@@ -58,22 +59,31 @@ class SyncPeers extends Command
                     'seeders_leechers',
                     fn ($join) => $join->on('torrents.id', '=', 'seeders_leechers.torrent_id')
                 )
+                ->where(
+                    fn ($query) => $query
+                        ->where('seeders', '!=', DB::raw('COALESCE(updated_seeders, 0)'))
+                        ->orWhere('leechers', '!=', DB::raw('COALESCE(updated_leechers, 0)'))
+                )
                 ->update([
-                    'seeders'    => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
-                    'leechers'   => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
-                    'updated_at' => DB::raw('updated_at')
+                    'seeders'  => DB::raw('COALESCE(seeders_leechers.updated_seeders, 0)'),
+                    'leechers' => DB::raw('COALESCE(seeders_leechers.updated_leechers, 0)'),
                 ]);
         }, 5);
 
         DB::transaction(function (): void {
-            DB::statement("
-                UPDATE torrents
-                    SET times_completed = (
-                        SELECT COUNT(*)
-                        FROM history
-                        WHERE `completed_at` IS NOT NULL AND torrent_id = torrents.id
-                    )
-            ");
+            Torrent::withoutGlobalScope(ApprovedScope::class)
+                ->leftJoinSub(
+                    History::query()
+                        ->select('torrent_id')
+                        ->addSelect(DB::raw('SUM(completed_at IS NOT NULL) as updated_times_completed'))
+                        ->groupBy('torrent_id'),
+                    'all_times_completed',
+                    fn ($join) => $join->on('torrents.id', '=', 'all_times_completed.torrent_id'),
+                )
+                ->where('times_completed', '!=', DB::raw('COALESCE(updated_times_completed, 0)'))
+                ->update([
+                    'times_completed' => DB::raw('COALESCE(updated_times_completed, 0)'),
+                ]);
         }, 5);
 
         $this->info('Torrent Seeders/Leechers/Times Completed Count Synced Successfully!');
