@@ -64,8 +64,7 @@ class AutoRemoveFeaturedTorrent extends Command
             $torrent = Torrent::where('featured', '=', 1)->find($featuredTorrent->torrent_id);
 
             if (isset($torrent)) {
-                $torrent->featured = false;
-                $torrent->save();
+                $torrent->update(['featured' => false]);
 
                 // Auto Announce Featured Expired
                 $appurl = config('app.url');

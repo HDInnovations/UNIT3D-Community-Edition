@@ -74,21 +74,23 @@ class AutoBanDisposableUsers extends Command
 
                 if ($v->fails()) {
                     // If User Is Using A Disposable Email Set The Users Group To Banned
-                    $user->group_id = $bannedGroup[0];
-                    $user->can_download = 0;
-                    $user->save();
+                    $user->update([
+                        'group_id'     => $bannedGroup[0],
+                        'can_download' => 0,
+                    ]);
 
                     // Log The Ban To Ban Log
                     $domain = substr((string) strrchr((string) $user->email, '@'), 1);
-                    $logban = new Ban();
-                    $logban->owned_by = $user->id;
-                    $logban->created_by = User::SYSTEM_USER_ID;
-                    $logban->ban_reason = 'Detected disposable email, '.$domain.' not allowed.';
-                    $logban->unban_reason = '';
-                    $logban->save();
+
+                    $ban = Ban::create([
+                        'owned_by'     => $user->id,
+                        'created_by'   => User::SYSTEM_USER_ID,
+                        'ban_reason'   => 'Detected disposable email, '.$domain.' not allowed.',
+                        'unban_reason' => '',
+                    ]);
 
                     // Send Email
-                    $user->notify(new UserBan($logban));
+                    $user->notify(new UserBan($ban));
                 }
 
                 cache()->forget('user:'.$user->passkey);
