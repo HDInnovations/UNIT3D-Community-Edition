@@ -54,7 +54,7 @@ class AutoBonAllocation extends Command
             ->where('torrents.times_completed', '>', 2)
             ->where('peers.seeder', 1)
             ->where('peers.active', 1)
-            ->where('peers.created_at', '<', $now->subMinutes(30))
+            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -64,8 +64,8 @@ class AutoBonAllocation extends Command
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('peers.active', 1)
-            ->where('torrents.created_at', '<', $now->subMonths(12))
-            ->where('peers.created_at', '<', $now->subMinutes(30))
+            ->where('torrents.created_at', '<', $now->copy()->subMonths(12))
+            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -75,9 +75,9 @@ class AutoBonAllocation extends Command
             ->join('torrents', 'torrents.id', 'peers.torrent_id')
             ->where('peers.seeder', 1)
             ->where('peers.active', 1)
-            ->where('torrents.created_at', '<', $now->subMonths(6))
-            ->where('torrents.created_at', '>', $now->subMonths(12))
-            ->where('peers.created_at', '<', $now->subMinutes(30))
+            ->where('torrents.created_at', '<', $now->copy()->subMonths(6))
+            ->where('torrents.created_at', '>', $now->copy()->subMonths(12))
+            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -88,7 +88,7 @@ class AutoBonAllocation extends Command
             ->where('peers.seeder', 1)
             ->where('peers.active', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('100GiB'))
-            ->where('peers.created_at', '<', $now->subMinutes(30))
+            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -100,7 +100,7 @@ class AutoBonAllocation extends Command
             ->where('peers.active', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('25GiB'))
             ->where('torrents.size', '<', $byteUnits->bytesFromUnit('100GiB'))
-            ->where('peers.created_at', '<', $now->subMinutes(30))
+            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
@@ -112,7 +112,7 @@ class AutoBonAllocation extends Command
             ->where('peers.active', 1)
             ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('1GiB'))
             ->where('torrents.size', '<', $byteUnits->bytesFromUnit('25GiB'))
-            ->where('peers.created_at', '<', $now->subMinutes(30))
+            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
             ->groupBy('peers.user_id')
             ->get()
             ->toArray();
