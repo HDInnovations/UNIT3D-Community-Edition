@@ -147,6 +147,7 @@ return [
     'poster'                   => 'Póster',
     'poster-view'              => 'Vista del cartel',
     'posters'                  => 'Carteles',
+    'postponed'                => 'Pospuesto',
     'postponed-torrents'       => 'Torrents pospuestos',
     'prewarn'                  => 'Pre-advertir',
     'progress'                 => 'Progreso',
