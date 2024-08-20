@@ -44,7 +44,7 @@
                 <tbody>
                     @forelse ($seedboxes as $seedbox)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $seedbox->id }}</td>
                             <td>
                                 <x-user_tag :anon="false" :user="$seedbox->user" />
                             </td>

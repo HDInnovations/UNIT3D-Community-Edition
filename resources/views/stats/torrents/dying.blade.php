@@ -36,9 +36,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dying as $torrent)
+                    @foreach ($dying as $i => $torrent)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>
                                 <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                                     {{ $torrent->name }}

@@ -82,7 +82,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($emailUpdates as $emailUpdate)
+                    @forelse ($emailUpdates as $i => $emailUpdate)
                         <tr>
                             <td>
                                 <time
@@ -101,7 +101,7 @@
                                 </time>
                             </td>
                             <td>
-                                @if ($loop->first)
+                                @if ($i === 0)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

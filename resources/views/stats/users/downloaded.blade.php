@@ -36,9 +36,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($downloaded as $user)
+                    @foreach ($downloaded as $i => $user)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>
                                 <x-user_tag
                                     :user="$user"

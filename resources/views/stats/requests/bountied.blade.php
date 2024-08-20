@@ -35,9 +35,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($bountied as $request)
+                    @foreach ($bountied as $i => $request)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>
                                 <a
                                     href="{{ route('requests.show', ['torrentRequest' => $request]) }}"

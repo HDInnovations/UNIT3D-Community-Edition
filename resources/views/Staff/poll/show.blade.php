@@ -30,14 +30,14 @@
         <h2 class="panel__heading">{{ __('poll.results') }}: {{ $poll->title }}</h2>
         <div class="panel__body">
             @php($total = $poll->options->sum('votes'))
-            @foreach ($poll->options as $option)
+            @foreach ($poll->options as $i => $option)
                 <p class="form__group">
-                    <label class="form__label" for="option{{ $loop->iteration }}">
+                    <label class="form__label" for="option{{ $i + 1 }}">
                         {{ $option->name }}
                         ({{ \number_format($total === 0 ? 0 : (100 * $option->votes) / $total, 2) }}%)
                     </label>
                     <meter
-                        id="option{{ $loop->iteration }}"
+                        id="option{{ $i + 1 }}"
                         class="form__meter"
                         min="0"
                         max="{{ $total }}"

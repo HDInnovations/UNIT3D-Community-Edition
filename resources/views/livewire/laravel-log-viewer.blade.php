@@ -158,11 +158,8 @@
             wire:model.live="logs"
             style="height: 320px; padding: 8px; border-radius: 4px; width: 100%"
         >
-            @foreach ($files as $file)
-                <option
-                    value="{{ $loop->index }}"
-                    style="padding: 6px; border-radius: 4px; cursor: pointer"
-                >
+            @foreach ($files as $i => $file)
+                <option value="{{ $i }}" style="padding: 6px; border-radius: 4px; cursor: pointer">
                     {{ $file->getFilename() }}
                 </option>
             @endforeach

@@ -15,11 +15,11 @@
     </header>
     <div class="panel__body" style="padding: 0">
         <div class="random__media">
-            @foreach ($movies as $key => $movie)
+            @foreach ($movies as $i => $movie)
                 <a
                     target="_blank"
                     href="{{ route('torrents.similar', ['category_id' => 1, 'tmdb' => $movie->id]) }}"
-                    class="@if ($loop->iteration == 1) media @elseif ($loop->iteration == 2)media1 @else media2 @endif"
+                    class="@if ($i === 0) media @elseif ($i === 1)media1 @else media2 @endif"
                     style="
                         background-image: url('{{ \tmdb_image('back_small', $movie->backdrop) }}');
                         background-repeat: no-repeat;
@@ -34,11 +34,11 @@
                 </a>
             @endforeach
 
-            @foreach ($tvs as $key => $tv)
+            @foreach ($tvs as $i => $tv)
                 <a
                     target="_blank"
                     href="{{ route('torrents.similar', ['category_id' => 2, 'tmdb' => $tv->id]) }}"
-                    class="@if ($loop->iteration == 1) media3 @elseif ($loop->iteration == 2) media4 @else media5 @endif"
+                    class="@if ($i === 0) media3 @elseif ($i === 1) media4 @else media5 @endif"
                     style="
                         background-image: url('{{ \tmdb_image('back_small', $tv->backdrop) }}');
                         background-repeat: no-repeat;
@@ -53,11 +53,11 @@
                 </a>
             @endforeach
 
-            @foreach ($movies2 as $key => $movie)
+            @foreach ($movies2 as $i => $movie)
                 <a
                     target="_blank"
                     href="{{ route('torrents.similar', ['category_id' => 1, 'tmdb' => $movie->id]) }}"
-                    class="@if ($loop->iteration == 1) media6 @elseif ($loop->iteration == 2) media7 @else media8 @endif"
+                    class="@if ($i === 0) media6 @elseif ($i === 1) media7 @else media8 @endif"
                     style="
                         background-image: url('{{ \tmdb_image('back_small', $movie->backdrop) }}');
                         background-repeat: no-repeat;

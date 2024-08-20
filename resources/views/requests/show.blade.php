@@ -270,8 +270,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($torrentRequest->bounties as $bounty)
-                            <tr @if($loop->iteration > 10) x-show="isToggledOn" x-cloak @endif>
+                        @foreach ($torrentRequest->bounties as $i => $bounty)
+                            <tr @if($i> 9) x-show="isToggledOn" x-cloak @endif>
                                 <td>
                                     <x-user_tag :user="$bounty->user" :anon="$bounty->anon" />
                                 </td>

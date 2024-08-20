@@ -34,9 +34,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($uploaders as $user)
+                    @foreach ($uploaders as $i => $user)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ ++$i }}</td>
                             <td>
                                 <x-user_tag
                                     :user="$user->user"
