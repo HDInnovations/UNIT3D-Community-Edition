@@ -242,7 +242,19 @@ class RequestController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $torrentRequest->user_id === $user->id, 403);
+        abort_unless(
+            $user->group->is_modo
+            || (
+                $torrentRequest->user_id === $user->id
+                && TorrentRequest::query()
+                    ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
+                    ->whereNull('claimed')
+                    ->whereNull('filled_by')
+                    ->whereKey($torrentRequest)
+                    ->exists()
+            ),
+            403
+        );
 
         $torrentRequest->bounties()->delete();
         $torrentRequest->delete();
