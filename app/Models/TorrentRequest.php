@@ -170,6 +170,26 @@ class TorrentRequest extends Model
     }
 
     /**
+     * Belongs To A Movie.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, $this>
+     */
+    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Movie::class, 'tmdb');
+    }
+
+    /**
+     * Belongs To A Tv.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, $this>
+     */
+    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Tv::class, 'tmdb');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
