@@ -265,24 +265,16 @@
                     this.confirmAction(() => this.$wire.massDeactivate());
                 },
                 destroyWarning() {
-                    this.confirmAction(() =>
-                        this.$wire.destroy(this.$el.dataset.warningId),
-                    );
+                    this.confirmAction(() => this.$wire.destroy(this.$el.dataset.warningId));
                 },
                 reactivateWarning() {
-                    this.confirmAction(() =>
-                        this.$wire.reactivate(this.$el.dataset.warningId),
-                    );
+                    this.confirmAction(() => this.$wire.reactivate(this.$el.dataset.warningId));
                 },
                 deactivateWarning() {
-                    this.confirmAction(() =>
-                        this.$wire.deactivate(this.$el.dataset.warningId),
-                    );
+                    this.confirmAction(() => this.$wire.deactivate(this.$el.dataset.warningId));
                 },
                 restoreWarning() {
-                    this.confirmAction(() =>
-                        this.$wire.restore(this.$el.dataset.warningId),
-                    );
+                    this.confirmAction(() => this.$wire.restore(this.$el.dataset.warningId));
                 },
                 confirmAction(onConfirm) {
                     Swal.fire({
