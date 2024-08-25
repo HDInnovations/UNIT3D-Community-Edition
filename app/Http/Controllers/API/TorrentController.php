@@ -335,10 +335,6 @@ class TorrentController extends BaseController
             $featuredTorrent->save();
         }
 
-        // Count and save the torrent number in this category
-        $category->num_torrent = $category->torrents_count;
-        $category->save();
-
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
 

@@ -36,7 +36,6 @@ return [
         'nfo',
         'num_post',
         'num_topic',
-        'num_torrent',
         'passkey',
         'password',
         'read',

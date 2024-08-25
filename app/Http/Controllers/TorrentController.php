@@ -415,10 +415,7 @@ class TorrentController extends Controller
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
-        // Count and save the torrent number in this category
         $category = Category::findOrFail($request->integer('category_id'));
-        $category->num_torrent = $category->torrents()->count();
-        $category->save();
 
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
