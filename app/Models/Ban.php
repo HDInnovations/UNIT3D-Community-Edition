@@ -52,7 +52,7 @@ class Ban extends Model
     {
         return $this->belongsTo(User::class, 'owned_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
@@ -65,7 +65,7 @@ class Ban extends Model
     {
         return $this->belongsTo(User::class, 'created_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 }

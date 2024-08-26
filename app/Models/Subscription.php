@@ -47,7 +47,7 @@ class Subscription extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 

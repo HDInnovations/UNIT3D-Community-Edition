@@ -28,6 +28,7 @@ class UsersTableSeeder extends Seeder
     {
         User::upsert([
             [
+                'id'                => User::SYSTEM_USER_ID,
                 'username'          => 'System',
                 'email'             => config('unit3d.default-owner-email'),
                 'email_verified_at' => now(),
@@ -39,6 +40,7 @@ class UsersTableSeeder extends Seeder
                 'active'            => true,
             ],
             [
+                'id'                => 2,
                 'username'          => 'Bot',
                 'email'             => config('unit3d.default-owner-email'),
                 'email_verified_at' => now(),
@@ -50,6 +52,7 @@ class UsersTableSeeder extends Seeder
                 'active'            => true,
             ],
             [
+                'id'                => 3,
                 'username'          => config('unit3d.owner-username'),
                 'email'             => config('unit3d.default-owner-email'),
                 'email_verified_at' => now(),
