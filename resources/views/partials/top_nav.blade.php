@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('torrents.create', ['category_id' => 1]) }}">
+                    <a href="{{ route('torrents.create') }}">
                         <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                         {{ __('common.upload') }}
                     </a>

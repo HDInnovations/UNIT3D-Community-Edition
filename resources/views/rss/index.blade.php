@@ -26,7 +26,7 @@
         </a>
     </li>
     <li class="nav-tabV2">
-        <a class="nav-tab__link" href="{{ route('torrents.create', ['category_id' => 1]) }}">
+        <a class="nav-tab__link" href="{{ route('torrents.create') }}">
             {{ __('common.upload') }}
         </a>
     </li>

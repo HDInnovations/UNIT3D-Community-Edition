@@ -32,10 +32,7 @@
         </a>
     </li>
     <li class="nav-tab--active">
-        <a
-            class="nav-tab--active__link"
-            href="{{ route('torrents.create', ['category_id' => 1]) }}"
-        >
+        <a class="nav-tab--active__link" href="{{ route('torrents.create') }}">
             {{ __('common.upload') }}
         </a>
     </li>
