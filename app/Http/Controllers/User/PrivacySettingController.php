@@ -53,8 +53,8 @@ class PrivacySettingController extends Controller
         return view('user.privacy_setting.edit', [
             'user'   => $user,
             'groups' => Group::query()
-                ->where('is_modo', '=', '0')
-                ->where('is_admin', '=', '0')
+                ->where('is_modo', '=', false)
+                ->where('is_admin', '=', false)
                 ->where('id', '!=', UserGroup::VALIDATING->value)
                 ->where('id', '!=', UserGroup::PRUNED->value)
                 ->where('id', '!=', UserGroup::BANNED->value)
