@@ -99,7 +99,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
@@ -112,7 +112,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class, 'approved_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
@@ -125,7 +125,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class, 'filled_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
