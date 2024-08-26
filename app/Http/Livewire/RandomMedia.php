@@ -36,6 +36,7 @@ class RandomMedia extends Component
 
         return Movie::query()
             ->select(['id', 'backdrop', 'title', 'release_date'])
+            ->withMin('torrents', 'category_id')
             ->whereIn('id', $movieIds)
             ->get();
     }
@@ -52,6 +53,7 @@ class RandomMedia extends Component
 
         return Movie::query()
             ->select(['id', 'backdrop', 'title', 'release_date'])
+            ->withMin('torrents', 'category_id')
             ->whereIn('id', $movieIds)
             ->get();
     }
@@ -68,6 +70,7 @@ class RandomMedia extends Component
 
         return Tv::query()
             ->select(['id', 'backdrop', 'name', 'first_air_date'])
+            ->withMin('torrents', 'category_id')
             ->whereIn('id', $tvIds)
             ->get();
     }
