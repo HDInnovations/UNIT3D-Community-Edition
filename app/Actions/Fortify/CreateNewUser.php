@@ -68,7 +68,7 @@ class CreateNewUser implements CreatesNewUsers
             'code' => [
                 Rule::when(config('other.invite-only') === true, [
                     'required',
-                    Rule::exists('invites', 'code')->whereNull('accepted_by'),
+                    Rule::exists('invites', 'code')->withoutTrashed()->whereNull('accepted_by'),
                 ]),
             ]
         ])->validate();
