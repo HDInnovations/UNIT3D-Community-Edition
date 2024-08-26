@@ -88,7 +88,7 @@
         @if ($media->torrents->has('Specials'))
             <details
                 class="torrent-search--grouped__dropdown"
-                @if (! $media->torrents->has('Complete Pack') && ! $media->torrents->has('Seaons'))
+                @if (! $media->torrents->has('Complete Pack') && ! $media->torrents->has('Seasons'))
                     open
                 @endif
             >

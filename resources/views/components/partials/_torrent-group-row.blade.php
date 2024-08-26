@@ -70,6 +70,15 @@
         </a>
     @endif
 </td>
+<td class="torrent-search--grouped__bookmark">
+    <button
+        class="form__standard-icon-button"
+        x-data="bookmark({{ $torrent->id }}, {{ Js::from($torrent->bookmarks_exists) }})"
+        x-bind="button"
+    >
+        <i class="{{ config('other.font-awesome') }}" x-bind="icon"></i>
+    </button>
+</td>
 <td class="torrent-search--grouped__size">
     <span title="{{ $torrent->size }} B">
         {{ $torrent->getSize() }}
