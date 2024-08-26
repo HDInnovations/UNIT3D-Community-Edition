@@ -48,13 +48,22 @@ class Bot extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{name: 'string', cost: 'decimal:2'}
+     * @return array{
+     *     name: 'string',
+     *     cost: 'decimal:2',
+     *     is_protected: 'bool',
+     *     is_nerdbot: 'bool',
+     *     is_systembot: 'bool',
+     * }
      */
     protected function casts(): array
     {
         return [
-            'name' => 'string',
-            'cost' => 'decimal:2',
+            'name'         => 'string',
+            'cost'         => 'decimal:2',
+            'is_protected' => 'bool',
+            'is_nerdbot'   => 'bool',
+            'is_systembot' => 'bool',
         ];
     }
 
