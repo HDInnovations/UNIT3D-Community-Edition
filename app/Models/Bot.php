@@ -50,7 +50,7 @@ class Bot extends Model
      *
      * @return array{
      *     name: 'string',
-     *     cost: 'decimal:2'
+     *     cost: 'decimal:2',
      *     is_protected: 'bool',
      *     is_nerdbot: 'bool',
      *     is_systembot: 'bool',
