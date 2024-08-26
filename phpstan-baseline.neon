@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#2 \\$port of function fsockopen expects int, string\\|null given\\.$#"
-			count: 1
-			path: app/Bots/IRCAnnounceBot.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$avg_seedtime\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoGroup.php
