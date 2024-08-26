@@ -116,7 +116,7 @@
                                 ->orwhere(function ($query) {
                                     $query
                                         ->where('staff_id', '=', auth()->id())
-                                        ->Where('staff_read', '=', '0');
+                                        ->Where('staff_read', '=', false);
                                 })
                                 ->exists();
                         @endphp
@@ -130,7 +130,7 @@
                         @php
                             $ticket_unread = DB::table('tickets')
                                 ->where('user_id', '=', auth()->id())
-                                ->where('user_read', '=', '0')
+                                ->where('user_read', '=', false)
                                 ->exists();
                         @endphp
 

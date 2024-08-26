@@ -19,8 +19,8 @@ class UpsertUserNotificationRequest extends FormRequest
     public function rules(): array
     {
         $validGroups = Group::query()
-            ->where('is_modo', '=', '0')
-            ->where('is_admin', '=', '0')
+            ->where('is_modo', '=', false)
+            ->where('is_admin', '=', false)
             ->where('id', '!=', UserGroup::VALIDATING->value)
             ->where('id', '!=', UserGroup::PRUNED->value)
             ->where('id', '!=', UserGroup::BANNED->value)
