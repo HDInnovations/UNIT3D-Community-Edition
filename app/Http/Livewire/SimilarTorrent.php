@@ -68,6 +68,15 @@ class SimilarTorrent extends Component
         'destroy' => 'deleteRecords'
     ];
 
+    final public function boot(): void
+    {
+        if ($this->work instanceof Movie) {
+            $this->work->setAttribute('meta', 'movie');
+        } elseif ($this->work instanceof Tv) {
+            $this->work->setAttribute('meta', 'tv');
+        }
+    }
+
     final public function updating(string $field, mixed &$value): void
     {
         $this->castLivewireProperties($field, $value);
@@ -75,7 +84,7 @@ class SimilarTorrent extends Component
 
     final public function updatedSelectPage(bool $value): void
     {
-        $this->checked = $value ? $this->torrents->pluck('id')->toArray() : [];
+        $this->checked = $value ? $this->torrents->flatten()->pluck('id')->toArray() : [];
     }
 
     final public function updatedChecked(): void
@@ -84,7 +93,7 @@ class SimilarTorrent extends Component
     }
 
     /**
-     * @return \Illuminate\Support\Collection<int, Torrent>
+     * @phpstan-ignore missingType.generics (The return type is too complex for phpstan, something to do with lack of support of Collection array shapes)
      */
     #[Computed]
     final public function torrents(): \Illuminate\Support\Collection
@@ -128,7 +137,60 @@ class SimilarTorrent extends Component
                 fn ($query) => $query->where('igdb', '=', $this->igdbId),
             )
             ->orderBy($this->sortField, $this->sortDirection)
-            ->get();
+            ->get()
+            ->when(
+                $this->category->movie_meta,
+                fn ($torrents) => $this->groupByTypeAndSort($torrents),
+                fn ($torrents) => $torrents
+                    ->when($this->category->tv_meta, function ($torrents) {
+                        return $torrents
+                            ->groupBy(fn ($torrent) => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
+                            ->map(fn ($packOrSpecialOrSeasons, $key) => match ($key) {
+                                'Complete Pack' => $this->groupByTypeAndSort($packOrSpecialOrSeasons),
+                                'Specials'      => $packOrSpecialOrSeasons
+                                    ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
+                                    ->sortKeys(SORT_NATURAL)
+                                    ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
+                                'Seasons' => $packOrSpecialOrSeasons
+                                    ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
+                                    ->sortKeys(SORT_NATURAL)
+                                    ->map(
+                                        fn ($season) => $season
+                                            ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
+                                            ->map(fn ($packOrEpisodes, $key) => match ($key) {
+                                                'Season Pack' => $this->groupByTypeAndSort($packOrEpisodes),
+                                                'Episodes'    => $packOrEpisodes
+                                                    ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
+                                                    ->sortKeys(SORT_NATURAL)
+                                                    ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
+                                                default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
+                                            })
+                                    ),
+                                default => abort(500, 'Group found that isn\'t one of: Complete Pack, Specials, Seasons'),
+                            });
+                    })
+            );
+    }
+
+    /**
+     * @param  \Illuminate\Support\Collection<int, \App\Models\Torrent>                                         $torrents
+     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, \App\Models\Torrent>>
+     */
+    private function groupByTypeAndSort(\Illuminate\Support\Collection $torrents): \Illuminate\Support\Collection
+    {
+        return $torrents
+            ->sortBy('type.position')
+            ->values()
+            ->groupBy(fn ($torrent) => $torrent->type->name)
+            ->map(
+                fn ($torrentsBytype) => $torrentsBytype
+                    ->sortBy([
+                        ['resolution.position', 'asc'],
+                        ['internal', 'desc'],
+                        ['size', 'desc']
+                    ])
+                    ->values()
+            );
     }
 
     /**
@@ -261,6 +323,7 @@ class SimilarTorrent extends Component
             'torrents'          => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
             'torrentRequests'   => $this->torrentRequests,
+            'media'             => $this->work,
         ]);
     }
 }

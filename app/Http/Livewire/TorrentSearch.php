@@ -670,7 +670,11 @@ class TorrentSearch extends Component
         return $medias;
     }
 
-    final private function groupByTypeAndSort($torrents)
+    /**
+     * @param  \Illuminate\Support\Collection<int, \App\Models\Torrent>                                         $torrents
+     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, \App\Models\Torrent>>
+     */
+    private function groupByTypeAndSort($torrents): \Illuminate\Support\Collection
     {
         return $torrents
             ->sortBy('type.position')
