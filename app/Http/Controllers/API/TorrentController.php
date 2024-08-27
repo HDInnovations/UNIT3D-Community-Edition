@@ -183,7 +183,7 @@ class TorrentController extends BaseController
         }
         $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? 0) : 0;
         $torrent->moderated_at = Carbon::now();
-        $torrent->moderated_by = User::where('username', 'System')->first()->id; //System ID
+        $torrent->moderated_by = User::SYSTEM_USER_ID;
 
         // Set freeleech and doubleup if featured
         if ($torrent->featured === true) {
@@ -336,10 +336,6 @@ class TorrentController extends BaseController
             $featuredTorrent->torrent_id = $torrent->id;
             $featuredTorrent->save();
         }
-
-        // Count and save the torrent number in this category
-        $category->num_torrent = $category->torrents_count;
-        $category->save();
 
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);

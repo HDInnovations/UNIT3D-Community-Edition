@@ -259,7 +259,7 @@ class TorrentBuffController extends Controller
 
             Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
 
-            $user->fl_tokens -= '1';
+            $user->fl_tokens -= 1;
             $user->save();
 
             cache()->put('freeleech_token:'.$user->id.':'.$torrent->id, true);

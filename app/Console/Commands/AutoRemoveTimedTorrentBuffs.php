@@ -49,9 +49,10 @@ class AutoRemoveTimedTorrentBuffs extends Command
         $flTorrents = Torrent::whereNotNull('fl_until')->where('fl_until', '<', Carbon::now())->get();
 
         foreach ($flTorrents as $torrent) {
-            $torrent->free = 0;
-            $torrent->fl_until = null;
-            $torrent->save();
+            $torrent->update([
+                'free'     => 0,
+                'fl_until' => null,
+            ]);
 
             cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
             Unit3dAnnounce::addTorrent($torrent);
@@ -60,9 +61,10 @@ class AutoRemoveTimedTorrentBuffs extends Command
         $duTorrents = Torrent::whereNotNull('du_until')->where('du_until', '<', Carbon::now())->get();
 
         foreach ($duTorrents as $torrent) {
-            $torrent->doubleup = false;
-            $torrent->du_until = null;
-            $torrent->save();
+            $torrent->update([
+                'doubleup' => false,
+                'du_until' => null,
+            ]);
 
             cache()->forget('announce-torrents:by-infohash:'.$torrent->info_hash);
             Unit3dAnnounce::addTorrent($torrent);

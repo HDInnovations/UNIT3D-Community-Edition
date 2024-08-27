@@ -19,7 +19,6 @@ namespace App\Console\Commands;
 use App\Models\Audit;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Throwable;
 
 class AutoRecycleAudits extends Command
@@ -45,12 +44,9 @@ class AutoRecycleAudits extends Command
      */
     final public function handle(): void
     {
-        $current = Carbon::now();
-        $audits = Audit::where('created_at', '<', $current->copy()->subDays(config('audit.recycle')))->get();
-
-        foreach ($audits as $audit) {
-            $audit->delete();
-        }
+        Audit::query()
+            ->where('created_at', '<', now()->subDays(config('audit.recycle')))
+            ->delete();
 
         $this->comment('Automated Audit Recycle Command Complete');
     }

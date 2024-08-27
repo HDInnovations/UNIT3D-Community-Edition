@@ -364,7 +364,7 @@ class TorrentController extends Controller
             'regions'      => Region::orderBy('position')->get(),
             'distributors' => Distributor::orderBy('name')->get(),
             'user'         => $request->user(),
-            'category_id'  => $request->category_id,
+            'category_id'  => $request->category_id ?? Category::query()->first()->id,
             'title'        => urldecode((string) $request->title),
             'imdb'         => $request->imdb,
             'tmdb'         => $request->tmdb,
@@ -415,10 +415,7 @@ class TorrentController extends Controller
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
-        // Count and save the torrent number in this category
         $category = Category::findOrFail($request->integer('category_id'));
-        $category->num_torrent = $category->torrents()->count();
-        $category->save();
 
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);

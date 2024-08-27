@@ -228,6 +228,7 @@ return [
     'other-privacy-online'                 => 'Permite a los usuarios verte en el bloque de usuarios en línea',
     'passkey'                              => 'Clave de Acceso',
     'passkey-warning'                      => '¡La PID es como tu contraseña, debes mantenerla segura!',
+    'password-resets'                      => 'Restablecimiento de contraseña',
     'pending-achievements'                 => 'Logros pendientes',
     'per-torrent'                          => 'Por Torrent',
     'posts'                                => 'Publicaciones',

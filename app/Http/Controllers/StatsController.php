@@ -221,7 +221,7 @@ class StatsController extends Controller
     {
         return view('stats.torrents.dying', [
             'dying' => Torrent::where('seeders', '=', 1)
-                ->where('times_completed', '>=', '1')
+                ->where('times_completed', '>=', 1)
                 ->orderByDesc('leechers')
                 ->take(100)
                 ->get(),

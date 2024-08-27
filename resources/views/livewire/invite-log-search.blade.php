@@ -324,7 +324,7 @@
                                     </td>
                                     <td>{{ $invite->email }}</td>
                                     <td>{{ $invite->code }}</td>
-                                    <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
+                                    {{-- format-ignore-start --}}<td style="white-space: pre-wrap">{{ $invite->custom }}</td>{{-- format-ignore-end --}}
                                     <td>
                                         <time
                                             datetime="{{ $invite->created_at }}"

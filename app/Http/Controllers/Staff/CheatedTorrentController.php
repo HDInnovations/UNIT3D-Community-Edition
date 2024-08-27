@@ -56,7 +56,7 @@ class CheatedTorrentController extends Controller
                     'torrents.balance_offset',
                     'torrents.created_at',
                 ])
-                ->having('current_balance', '<>', '0')
+                ->having('current_balance', '<>', 0)
                 /**
                  * @phpstan-ignore-next-line
                  */

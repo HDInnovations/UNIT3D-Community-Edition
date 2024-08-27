@@ -44,8 +44,9 @@ Echo & Private commands:
 
 Available Bots:
 {bots}',
-                'is_protected' => 1,
-                'is_systembot' => 1,
+                'is_protected' => true,
+                'is_systembot' => true,
+                'is_nerdbot'   => false,
             ],
             [
                 'name'     => 'NerdBot',
@@ -84,8 +85,9 @@ Echo & Private commands:
 None.
 
 (All NerdBot statistics are cached for 60 minutes)',
-                'is_protected' => 1,
-                'is_nerdbot'   => 1,
+                'is_protected' => true,
+                'is_systembot' => false,
+                'is_nerdbot'   => true,
             ],
         ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }

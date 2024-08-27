@@ -63,7 +63,7 @@ class HomeController extends Controller
                 fn () => User::with('group', 'privacy')
                     ->withCount([
                         'warnings' => function (Builder $query): void {
-                            $query->whereNotNull('torrent')->where('active', '1');
+                            $query->whereNotNull('torrent')->where('active', true);
                         },
                     ])
                     ->where('last_action', '>', now()->subMinutes(60))

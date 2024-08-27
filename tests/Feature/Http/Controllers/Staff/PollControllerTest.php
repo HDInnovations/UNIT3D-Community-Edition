@@ -22,12 +22,11 @@ use App\Models\Chatroom;
 use App\Models\Group;
 use App\Models\Poll;
 use App\Models\User;
+use Database\Seeders\UsersTableSeeder;
 
 test('create a poll returns an ok response', function (): void {
+    $this->seed(UsersTableSeeder::class);
     // Poll chat announcements needs a system user, a bot and a chatroom
-    $botUser = User::factory()->create([
-        'username' => 'System',
-    ]);
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);
@@ -71,10 +70,8 @@ test('create a poll returns an ok response', function (): void {
 });
 
 test('create a poll with expiration date returns an ok response', function (): void {
+    $this->seed(UsersTableSeeder::class);
     // Poll chat announcements needs a system user, a bot and a chatroom
-    $botUser = User::factory()->create([
-        'username' => 'System',
-    ]);
     $bot = Bot::factory()->create([
         'command' => 'Systembot',
     ]);

@@ -1,5 +1,5 @@
 <li class="comment__list-item">
-    <article class="comment">
+    <article id="comment-{{ $comment->id }}" class="comment">
         <header class="comment__header">
             <time
                 class="comment__datetime"

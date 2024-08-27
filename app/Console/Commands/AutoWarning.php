@@ -76,14 +76,14 @@ class AutoWarning extends Command
 
                 // Insert Warning Into Warnings Table if doesnt already exsist
                 if ($exsist === null) {
-                    $warning = new Warning();
-                    $warning->user_id = $hr->user->id;
-                    $warning->warned_by = User::SYSTEM_USER_ID;
-                    $warning->torrent = $hr->torrent->id;
-                    $warning->reason = \sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name);
-                    $warning->expires_on = $carbon->copy()->addDays(config('hitrun.expire'));
-                    $warning->active = true;
-                    $warning->save();
+                    $warning = Warning::create([
+                        'user_id'    => $hr->user->id,
+                        'warned_by'  => User::SYSTEM_USER_ID,
+                        'torrent'    => $hr->torrent->id,
+                        'reason'     => \sprintf('Hit and Run Warning For Torrent %s', $hr->torrent->name),
+                        'expires_on' => $carbon->copy()->addDays(config('hitrun.expire')),
+                        'active'     => true,
+                    ]);
 
                     History::query()
                         ->where('torrent_id', '=', $hr->torrent_id)
@@ -94,8 +94,7 @@ class AutoWarning extends Command
                         ]);
 
                     // Add +1 To Users Warnings Count In Users Table
-                    $hr->user->hitandruns++;
-                    $hr->user->save();
+                    $hr->user->increment('hitandruns');
 
                     // Add user to usersWithWarnings array
                     $usersWithWarnings[$hr->user->id] = $hr->user;
@@ -113,8 +112,7 @@ class AutoWarning extends Command
 
         foreach ($warnings as $warning) {
             if ($warning->warneduser->can_download) {
-                $warning->warneduser->can_download = 0;
-                $warning->warneduser->save();
+                $warning->warneduser->update(['can_download' => 0]);
 
                 cache()->forget('user:'.$warning->warneduser->passkey);
                 Unit3dAnnounce::addUser($warning->warneduser);

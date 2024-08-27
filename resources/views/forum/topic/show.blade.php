@@ -122,37 +122,40 @@
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('forum.topic') }} {{ __('user.settings') }}</h2>
             <div class="panel__body">
-                @if ($topic->state === 'close')
-                    <form
-                        class="form"
-                        action="{{ route('topics.open', ['id' => $topic->id]) }}"
-                        method="POST"
-                    >
-                        @csrf
-                        <p class="form__group form__group--horizontal">
-                            <button
-                                class="form__button form__button--filled form__button--centered"
-                            >
-                                {{ __('forum.open') }}
-                            </button>
-                        </p>
-                    </form>
-                @else
-                    <form
-                        class="form"
-                        action="{{ route('topics.close', ['id' => $topic->id]) }}"
-                        method="POST"
-                    >
-                        @csrf
-                        <p class="form__group form__group--horizontal">
-                            <button
-                                class="form__button form__button--filled form__button--centered"
-                            >
-                                {{ __('common.close') }}
-                            </button>
-                        </p>
-                    </form>
+                @if (auth()->user()->group->is_modo)
+                    @if ($topic->state === 'close')
+                        <form
+                            class="form"
+                            action="{{ route('topics.open', ['id' => $topic->id]) }}"
+                            method="POST"
+                        >
+                            @csrf
+                            <p class="form__group form__group--horizontal">
+                                <button
+                                    class="form__button form__button--filled form__button--centered"
+                                >
+                                    {{ __('forum.open') }}
+                                </button>
+                            </p>
+                        </form>
+                    @else
+                        <form
+                            class="form"
+                            action="{{ route('topics.close', ['id' => $topic->id]) }}"
+                            method="POST"
+                        >
+                            @csrf
+                            <p class="form__group form__group--horizontal">
+                                <button
+                                    class="form__button form__button--filled form__button--centered"
+                                >
+                                    {{ __('common.close') }}
+                                </button>
+                            </p>
+                        </form>
+                    @endif
                 @endif
+
                 <div class="form">
                     <p class="form__group form__group--horizontal">
                         <a
