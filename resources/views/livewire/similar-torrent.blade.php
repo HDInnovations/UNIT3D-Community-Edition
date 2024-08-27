@@ -36,12 +36,12 @@
             <div class="data-table-wrapper" x-data="torrentGroup">
                 @if ($category->tv_meta)
                     <section>
-                        @if ($torrents->has('Complete Pack'))
+                        @if ($similarTorrents->has('Complete Pack'))
                             <details class="torrent-search--grouped__dropdown" open>
                                 <summary x-bind="complete">Complete Pack</summary>
                                 <table class="similar-torrents__torrents">
                                     <tbody>
-                                        @foreach ($torrents['Complete Pack'] as $type => $torrents)
+                                        @foreach ($similarTorrents['Complete Pack'] as $type => $torrents)
                                             @foreach ($torrents as $torrent)
                                                 <tr>
                                                     @if ($loop->first)
@@ -76,15 +76,15 @@
                             </details>
                         @endif
 
-                        @if ($torrents->has('Specials'))
+                        @if ($similarTorrents->has('Specials'))
                             <details
                                 class="torrent-search--grouped__dropdown"
-                                @if ($checked || (! $torrents->has('Complete Pack') && ! $torrents->has('Seasons')))
+                                @if ($checked || (! $similarTorrents->has('Complete Pack') && ! $similarTorrents->has('Seasons')))
                                     open
                                 @endif
                             >
                                 <summary x-bind="specials">Specials</summary>
-                                @foreach ($torrents['Specials'] as $specialName => $special)
+                                @foreach ($similarTorrents['Specials'] as $specialName => $special)
                                     <details
                                         class="torrent-search--grouped__dropdown"
                                         @if ($checked || $loop->last)
@@ -131,7 +131,7 @@
                             </details>
                         @endif
 
-                        @foreach ($torrents['Seasons'] ?? [] as $seasonName => $season)
+                        @foreach ($similarTorrents['Seasons'] ?? [] as $seasonName => $season)
                             <details
                                 class="torrent-search--grouped__dropdown"
                                 @if ($checked || $loop->last)
@@ -278,7 +278,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        @foreach ($torrents as $type => $torrents)
+                        @foreach ($similarTorrents as $type => $torrents)
                             <tbody>
                                 @foreach ($torrents as $torrent)
                                     <tr>
@@ -312,7 +312,7 @@
                         @endforeach
                     </table>
                 @elseif ($category->game_meta)
-                    @foreach ($torrents->sortBy('type.position')->values()->groupBy('type.name') as $type => $torrents)
+                    @foreach ($similarTorrents->sortBy('type.position')->values()->groupBy('type.name') as $type => $torrents)
                         <section class="panelV2" x-data>
                             <h2 class="panel__heading">{{ $type }}</h2>
                             <div class="data-table-wrapper">

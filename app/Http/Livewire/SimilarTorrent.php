@@ -320,7 +320,7 @@ class SimilarTorrent extends Component
     {
         return view('livewire.similar-torrent', [
             'user'              => auth()->user(),
-            'torrents'          => $this->torrents,
+            'similarTorrents'   => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
             'torrentRequests'   => $this->torrentRequests,
             'media'             => $this->work,
