@@ -33,12 +33,12 @@
                     @endif
                 </div>
             </header>
-            <div class="data-table-wrapper">
+            <div class="data-table-wrapper" x-data="torrentGroup">
                 @if ($category->tv_meta)
                     <section>
                         @if ($torrents->has('Complete Pack'))
                             <details class="torrent-search--grouped__dropdown" open>
-                                <summary>Complete Pack</summary>
+                                <summary x-bind="complete">Complete Pack</summary>
                                 <table class="similar-torrents__torrents">
                                     <tbody>
                                         @foreach ($torrents['Complete Pack'] as $type => $torrents)
@@ -83,7 +83,7 @@
                                     open
                                 @endif
                             >
-                                <summary>Specials</summary>
+                                <summary x-bind="specials">Specials</summary>
                                 @foreach ($torrents['Specials'] as $specialName => $special)
                                     <details
                                         class="torrent-search--grouped__dropdown"
@@ -91,7 +91,7 @@
                                             open
                                         @endif
                                     >
-                                        <summary>{{ $specialName }}</summary>
+                                        <summary x-bind="special">{{ $specialName }}</summary>
                                         <table class="similar-torrents__torrents">
                                             @foreach ($special as $type => $torrents)
                                                 <tbody>
@@ -138,10 +138,10 @@
                                     open
                                 @endif
                             >
-                                <summary>{{ $seasonName }}</summary>
+                                <summary x-bind="season">{{ $seasonName }}</summary>
                                 @if ($season->has('Season Pack'))
                                     <details open class="torrent-search--grouped__dropdown">
-                                        <summary>Season Pack</summary>
+                                        <summary x-bind="pack">Season Pack</summary>
                                         <table class="similar-torrents__torrents">
                                             @foreach ($season['Season Pack'] as $type => $torrents)
                                                 <tbody>
@@ -186,7 +186,7 @@
                                             open
                                         @endif
                                     >
-                                        <summary>{{ $episodeName }}</summary>
+                                        <summary x-bind="episode">{{ $episodeName }}</summary>
                                         <table class="similar-torrents__torrents">
                                             @foreach ($episode as $type => $torrents)
                                                 <tbody>
