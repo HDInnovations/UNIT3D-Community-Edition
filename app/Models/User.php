@@ -948,7 +948,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $conversation = Conversation::create(['subject' => $subject]);
 
-        $conversation->users()->sync([$this->id]);
+        $conversation->users()->sync([User::SYSTEM_USER_ID => ['read' => true], $this->id]);
 
         PrivateMessage::create([
             'conversation_id' => $conversation->id,
@@ -961,7 +961,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $conversation = Conversation::create(['subject' => $subject]);
 
-        $conversation->users()->sync([$userId]);
+        $conversation->users()->sync([User::SYSTEM_USER_ID => ['read' => true], $userId]);
 
         PrivateMessage::create([
             'conversation_id' => $conversation->id,
