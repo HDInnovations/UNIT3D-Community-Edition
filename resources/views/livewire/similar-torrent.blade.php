@@ -578,10 +578,7 @@
                     @endif
 
                     @if ($user->group->is_modo)
-                        <th
-                            class="similar-torrents__checkbox-header"
-                            title="{{ __('common.select') }}"
-                        >
+                        <div class="panel__action" title="{{ __('common.select') }}">
                             <label class="form__label">
                                 Select All
                                 <input
@@ -591,7 +588,7 @@
                                     style="vertical-align: middle"
                                 />
                             </label>
-                        </th>
+                        </div>
                     @endif
                 </div>
             </header>
