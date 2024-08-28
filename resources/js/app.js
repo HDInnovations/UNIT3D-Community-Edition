@@ -213,6 +213,11 @@ Alpine.data('torrentGroup', () => ({
             this.toggle(this.$el.parentNode.parentNode, ['episode']);
         },
     },
+    all: {
+        ['x-on:click.prevent']() {
+            this.toggle(document, ['complete', 'specials', 'special', 'season', 'pack', 'episode']);
+        },
+    },
     toggle(root, dropdowns) {
         let query = dropdowns.map((dropdown) => `details:has([x-bind="${dropdown}"])`).join();
 
