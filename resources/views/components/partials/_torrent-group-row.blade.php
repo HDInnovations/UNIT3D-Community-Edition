@@ -48,14 +48,14 @@
             href="{{ route('download_check', ['id' => $torrent->id]) }}"
             title="{{ __('common.download') }}"
         >
-            <i class="{{ config('other.font-awesome') }} fa-arrow-alt-to-bottom"></i>
+            <i class="{{ config('other.font-awesome') }} fa-download"></i>
         </a>
     @else
         <a
             href="{{ route('download', ['id' => $torrent->id]) }}"
             title="{{ __('common.download') }}"
         >
-            <i class="{{ config('other.font-awesome') }} fa-arrow-alt-to-bottom"></i>
+            <i class="{{ config('other.font-awesome') }} fa-download"></i>
         </a>
     @endif
     @if (config('torrent.magnet') == 1)
