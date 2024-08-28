@@ -66,6 +66,10 @@
     background-color: var(--panel-head-bg);
 }
 
+.panel__action .form__button {
+    margin: 0 3px;
+}
+
 @media only screen and (max-width: 1100px) {
     .panel__header {
         position: relative;
