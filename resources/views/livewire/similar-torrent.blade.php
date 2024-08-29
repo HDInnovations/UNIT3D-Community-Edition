@@ -24,6 +24,8 @@
                             id="name"
                             wire:model.live="name"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                             @if (auth()->user()->settings?->torrent_search_autofocus)
                                 autofocus
@@ -41,6 +43,8 @@
                                 id="description"
                                 wire:model.live="description"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="description">
@@ -52,6 +56,8 @@
                                 id="mediainfo"
                                 wire:model.live="mediainfo"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="mediainfo">
@@ -63,6 +69,8 @@
                                 id="keywords"
                                 wire:model.live="keywords"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="keywords">
@@ -74,6 +82,8 @@
                                 id="uploader"
                                 wire:model.live="uploader"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="uploader">

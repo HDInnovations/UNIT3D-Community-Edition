@@ -7,6 +7,8 @@
                     <div class="form__group">
                         <input
                             id="torrent"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="torrentId"
                             class="form__text"
                             placeholder=" "
@@ -20,6 +22,8 @@
                     <div class="form__group">
                         <input
                             id="user"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="userId"
                             class="form__text"
                             placeholder=" "

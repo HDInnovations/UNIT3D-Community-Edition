@@ -18,7 +18,8 @@
                     <input
                         id="receiver"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="receiver"
                         placeholder=" "
                     />

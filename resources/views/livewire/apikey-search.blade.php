@@ -6,8 +6,9 @@
                 <div class="form__group">
                     <input
                         id="apikey"
+                        type="search"
+                        autocomplete="off"
                         class="form__text"
-                        type="text"
                         wire:model.live="apikey"
                         placeholder=" "
                     />
@@ -20,8 +21,9 @@
                 <div class="form__group">
                     <input
                         id="username"
+                        type="search"
+                        autocomplete="off"
                         class="form__text"
-                        type="text"
                         wire:model.live="username"
                         placeholder=" "
                     />

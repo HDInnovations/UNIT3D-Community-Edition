@@ -8,7 +8,8 @@
                         id="name"
                         class="form__text"
                         placeholder=" "
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live.debounce.250ms="search"
                     />
                     <label class="form__label form__label--floating" for="name">

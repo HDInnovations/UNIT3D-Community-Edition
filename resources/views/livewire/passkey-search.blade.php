@@ -7,7 +7,8 @@
                     <input
                         id="passkey"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="passkey"
                         placeholder=" "
                     />
@@ -21,7 +22,8 @@
                     <input
                         id="username"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="username"
                         placeholder=" "
                     />

@@ -7,6 +7,8 @@
                     <input
                         id="subject"
                         class="form__text"
+                        type="search"
+                        autocomplete="off"
                         name="subject"
                         placeholder=" "
                         wire:model.live="subject"
@@ -35,6 +37,8 @@
                     <input
                         id="message"
                         class="form__text"
+                        type="search"
+                        autocomplete="off"
                         name="message"
                         placeholder=" "
                         wire:model.live="message"

@@ -7,7 +7,8 @@
                     <input
                         id="search"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="search"
                         placeholder=" "
                     />
