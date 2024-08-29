@@ -171,7 +171,7 @@ readonly class TorrentSearchFiltersDTO
             $filters[] = 'user.username = '.json_encode($this->uploader);
 
             if (!$group->is_modo) {
-                $filters[] = 'anon = 0';
+                $filters[] = 'anon = false';
             }
         }
 
@@ -237,7 +237,7 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->adult !== null) {
-            $filters[] = 'movie.adult = '.($this->adult ? '1' : '0');
+            $filters[] = 'movie.adult = '.($this->adult ? 'true' : 'false');
         }
 
         if ($this->tmdbId !== null) {
@@ -289,35 +289,35 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->doubleup) {
-            $filters[] = 'doubleup = 1';
+            $filters[] = 'doubleup = true';
         }
 
         if ($this->featured) {
-            $filters[] = 'featured = 1';
+            $filters[] = 'featured = true';
         }
 
         if ($this->refundable) {
-            $filters[] = 'refundable = 1';
+            $filters[] = 'refundable = true';
         }
 
         if ($this->stream) {
-            $filters[] = 'stream = 1';
+            $filters[] = 'stream = true';
         }
 
         if ($this->sd) {
-            $filters[] = 'sd = 1';
+            $filters[] = 'sd = true';
         }
 
         if ($this->highspeed) {
-            $filters[] = 'highspeed = 1';
+            $filters[] = 'highspeed = true';
         }
 
         if ($this->internal) {
-            $filters[] = 'internal = 1';
+            $filters[] = 'internal = true';
         }
 
         if ($this->personalRelease) {
-            $filters[] = 'personal_release = 1';
+            $filters[] = 'personal_release = true';
         }
 
         if ($this->alive) {
