@@ -41,6 +41,8 @@
                             id="torrentName"
                             wire:model.live="torrentName"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrentName">

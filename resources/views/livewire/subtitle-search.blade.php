@@ -114,6 +114,8 @@
                             wire:model.live="search"
                             type="search"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label for="search" class="form__label form__label--floating">
@@ -166,6 +168,8 @@
                             wire:model.live="username"
                             type="search"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label for="username" class="form__label form__label--floating">

@@ -11,6 +11,8 @@
                             id="torrent"
                             wire:model.live="torrent"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">
@@ -22,6 +24,8 @@
                             id="user"
                             wire:model.live="user"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="user">Username</label>
@@ -31,6 +35,8 @@
                             id="agent"
                             wire:model.live="agent"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="agent">Agent</label>
