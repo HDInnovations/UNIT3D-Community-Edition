@@ -131,7 +131,7 @@ class Comment extends Component
 
     final public function postReply(): void
     {
-        abort_if(!$this->model instanceof Ticket && auth()->user()->can_comment === false, 403, __('comment.rights-revoked'));
+        abort_unless($this->model instanceof Ticket || (auth()->user()->can_comment ?? auth()->user()->group->can_comment), 403, __('comment.rights-revoked'));
 
         abort_if($this->model instanceof Torrent && $this->model->status !== Torrent::APPROVED, 403, __('comment.torrent-status'));
 
@@ -172,8 +172,8 @@ class Comment extends Component
             case $this->model instanceof Playlist:
             case $this->model instanceof TorrentRequest:
             case $this->model instanceof Torrent:
-                if ($this->user->id !== $this->model->user_id) {
-                    User::find($this->model->user_id)?->notify(new NewComment($this->model, $reply));
+                if ($this->user->id !== $this->comment->user_id) {
+                    User::find($this->comment->user_id)?->notify(new NewComment($this->model, $reply));
                 }
 
                 break;

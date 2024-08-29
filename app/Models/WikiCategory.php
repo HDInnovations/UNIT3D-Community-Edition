@@ -40,7 +40,7 @@ class WikiCategory extends Model
     /**
      * Has Many Wikis.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wiki>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wiki, $this>
      */
     public function wikis(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

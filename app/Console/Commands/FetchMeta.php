@@ -55,12 +55,12 @@ class FetchMeta extends Command
 
             if ($torrent->category->tv_meta) {
                 $tmdbScraper->tv($torrent->tmdb);
-                $this->info(sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
+                $this->info(\sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
             }
 
             if ($torrent->category->movie_meta) {
                 $tmdbScraper->movie($torrent->tmdb);
-                $this->info(sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
+                $this->info(\sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
             }
         }
 

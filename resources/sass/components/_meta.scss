@@ -1,6 +1,6 @@
 .meta {
     display: grid;
-    grid-template-areas: "poster title actions" "poster ids ids" "poster description description" "poster chips chips";
+    grid-template-areas: 'poster title actions' 'poster ids ids' 'poster description description' 'poster chips chips';
     grid-template-columns: auto 1fr auto;
     grid-template-rows: auto auto auto minmax(0, 1fr);
     gap: 16px 32px;
@@ -31,19 +31,26 @@
     left: 0;
     right: 0;
     width: 100%;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0));
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1),
+        rgba(0, 0, 0, 0)
+    );
     filter: var(--meta-backdrop-filter);
 }
 
 .meta__poster {
     border-radius: 12px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow:
+        0 14px 28px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
     width: 320px;
 }
 
 .meta__title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
     margin: 0;
     font-size: 28px;
     font-weight: bold;
@@ -51,7 +58,7 @@
 
 @media only screen and (max-width: 1200px) {
     .meta {
-        grid-template-areas: "poster title actions" "poster ids ids" "poster description description" "chips chips chips";
+        grid-template-areas: 'poster title actions' 'poster ids ids' 'poster description description' 'chips chips chips';
         grid-template-columns: 140px minmax(0, 1fr) auto;
     }
 
@@ -63,7 +70,7 @@
 @media screen and (max-width: 767px) {
     .meta {
         max-height: unset;
-        grid-template-areas: "poster title actions" "poster ids ids" "poster description description" "chips chips chips";
+        grid-template-areas: 'poster title actions' 'poster ids ids' 'poster description description' 'chips chips chips';
         grid-template-columns: 96px minmax(0, 1fr) auto;
     }
 
@@ -78,7 +85,7 @@
 
 @media screen and (max-width: 480px) {
     .meta {
-        grid-template-areas: "poster title actions" "ids ids ids" "description description description" "chips chips chips";
+        grid-template-areas: 'poster title actions' 'ids ids ids' 'description description description' 'chips chips chips';
         grid-template-columns: 64px minmax(0, 1fr) auto;
         column-gap: 12px;
         align-items: center;
@@ -109,12 +116,16 @@
     right: 0;
     list-style-type: none;
     border-radius: 8px;
-    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    box-shadow:
+        0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 18px 0px rgba(0, 0, 0, 0.12);
     margin: 0;
     padding: 0;
     backdrop-filter: var(--meta-dropdown-backdrop-filter);
 
-    @supports (not (backdrop-filter: brightness(2) blur(10px))) and (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
+    @supports (not (backdrop-filter: brightness(2) blur(10px))) and
+        (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
         background: var(--meta-dropdown-bg);
     }
 }
@@ -137,12 +148,14 @@
     border-radius: 20px;
 }
 
-.meta__actions:hover .meta__dropdown-button, .meta__dropdown-button:active {
+.meta__actions:hover .meta__dropdown-button,
+.meta__dropdown-button:active {
     backdrop-filter: var(--meta-dropdown-backdrop-filter-hover);
     -webkit-backdrop-filter: var(--meta-dropdown-backdrop-filter-hover);
     color: var(--meta-dropdown-hover-fg);
 
-    @supports (not (backdrop-filter: brightness(2) blur(10px))) and (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
+    @supports (not (backdrop-filter: brightness(2) blur(10px))) and
+        (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
         background: var(--meta-dropdown-hover-bg);
     }
 }
@@ -206,6 +219,7 @@
     list-style-type: none;
     margin: -10px;
     padding: 0;
+    align-items: center;
 
     @media screen and (max-width: 480px) {
         flex-direction: row;
@@ -215,9 +229,7 @@
 
 .meta-id-tag {
     color: var(--meta-id-tag-fg);
-    font-size: 25px;
     display: inline-block;
-    padding: 0 10px;
     white-space: nowrap;
     background: var(--meta-id-tag-bg);
 }
@@ -226,6 +238,21 @@
     background: var(--meta-id-tag-hover-bg);
     border-radius: 9999px;
     color: var(--meta-id-tag-hover-fg);
+}
+
+.meta-id-tag:has(img) {
+    display: flex;
+    padding: 4px 10px;
+}
+
+.meta-id-tag img {
+    height: 17px;
+}
+
+.meta-id-tag:not(:has(img)) {
+    font-size: 21px;
+    line-height: 17px;
+    padding: 2px 10px;
 }
 
 /* Chips
@@ -247,7 +274,8 @@
 }
 
 .meta__heading {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
     font-size: 12px;
     margin: 0;
     padding: 0;
@@ -280,7 +308,7 @@
 
 .meta-chip {
     display: grid;
-    grid-template-areas: "image name" "image value";
+    grid-template-areas: 'image name' 'image value';
     grid-template-columns: 40px auto;
     grid-template-rows: auto auto;
     gap: 3px 20px;
@@ -292,7 +320,8 @@
     backdrop-filter: var(--meta-chip-backdrop-filter-hover);
     -webkit-backdrop-filter: var(--meta-chip-backdrop-filter-hover);
 
-    @supports (not (backdrop-filter: brightness(2) blur(10px))) and (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
+    @supports (not (backdrop-filter: brightness(2) blur(10px))) and
+        (not (-webkit-backdrop-filter: brightness(2) blur(10px))) {
         background: var(--meta-chip-hover-bg);
     }
 }
@@ -333,7 +362,8 @@
     font-weight: bold;
     line-height: 1;
     align-self: end;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
 .meta-chip__value {
@@ -345,7 +375,8 @@
     color: var(--meta-chip-value-fg);
     line-height: 1;
     align-self: start;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+        sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
     height: 100%;
     font-weight: normal;
 }
@@ -368,7 +399,7 @@
         min-width: 112px;
         max-width: 112px;
         max-height: 150px;
-        overflow-y:hidden
+        overflow-y: hidden;
     }
 
     .meta-chip__image {

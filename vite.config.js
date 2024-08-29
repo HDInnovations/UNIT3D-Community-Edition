@@ -35,7 +35,7 @@ export default defineConfig({
           'resources/js/unit3d/tmdb.js',
           'resources/js/unit3d/parser.js',
           'resources/js/unit3d/helper.js',
-          'resources/js/unit3d/imgbb.js',
+          'resources/js/vendor/imgbb.js',
           'resources/js/vendor/virtual-select.js',
         ],
         dest: 'unit3d'

@@ -212,7 +212,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $category->id }}"
-                                                    wire:model.live="categories"
+                                                    wire:model.live="categoryIds"
                                                 />
                                                 {{ $category->name }}
                                             </label>
@@ -232,7 +232,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $type->id }}"
-                                                    wire:model.live="types"
+                                                    wire:model.live="typeIds"
                                                 />
                                                 {{ $type->name }}
                                             </label>
@@ -252,7 +252,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $resolution->id }}"
-                                                    wire:model.live="resolutions"
+                                                    wire:model.live="resolutionIds"
                                                 />
                                                 {{ $resolution->name }}
                                             </label>
@@ -272,7 +272,7 @@
                                                     class="form__checkbox"
                                                     type="checkbox"
                                                     value="{{ $genre->id }}"
-                                                    wire:model.live="genres"
+                                                    wire:model.live="genreIds"
                                                 />
                                                 {{ $genre->name }}
                                             </label>

@@ -421,7 +421,7 @@
             <form
                 action="{{ route('reseed', ['id' => $torrent->id]) }}"
                 method="POST"
-                style="display: inline"
+                style="display: contents"
             >
                 @csrf
                 <button class="form__button form__button--outlined form__button--centered">
@@ -547,4 +547,74 @@
             </form>
         </dialog>
     </li>
+    @if ($user->group->is_modo)
+        @if (! $torrent->trump_exists)
+            <li x-data="dialog" class="form__group form__group--short-horizontal">
+                <button
+                    class="form__button form__button--outlined form__button--centered"
+                    x-bind="showDialog"
+                >
+                    <i class="{{ config('other.font-awesome') }} fa-skull-crossbones"></i>
+                    Mark Trumpable
+                </button>
+                <dialog class="dialog" x-bind="dialogElement">
+                    <h4 class="dialog__heading">
+                        Trump {{ strtolower(__('torrent.torrent')) }}:
+                        {{ $torrent->name }}
+                    </h4>
+                    <form
+                        class="dialog__form"
+                        method="POST"
+                        action="{{ route('torrent.trump.store', ['torrent' => $torrent]) }}"
+                        x-bind="dialogForm"
+                    >
+                        @csrf
+                        <input type="hidden" name="torrent_id" value="{{ $torrent->id }}" />
+                        <p class="form__group">
+                            <textarea
+                                id="reason"
+                                class="form__textarea"
+                                name="reason"
+                                required
+                            ></textarea>
+                            <label
+                                for="trump_reason"
+                                class="form__label form__label--floating"
+                                for="reason"
+                            >
+                                {{ __('common.reason') }}
+                            </label>
+                        </p>
+                        <p class="form__group" style="text-align: left">
+                            <button class="form__button form__button--filled">
+                                {{ __('common.save') }}
+                            </button>
+                            <button
+                                formmethod="dialog"
+                                formnovalidate
+                                class="form__button form__button--outlined"
+                            >
+                                {{ __('common.cancel') }}
+                            </button>
+                        </p>
+                    </form>
+                </dialog>
+            </li>
+        @else
+            <li class="form__group form__group--short-horizontal">
+                <form
+                    action="{{ route('torrent.trump.destroy', ['torrent' => $torrent]) }}"
+                    method="POST"
+                    style="display: inline"
+                >
+                    @csrf
+                    @method('DELETE')
+                    <button class="form__button form__button--outlined form__button--centered">
+                        <i class="{{ config('other.font-awesome') }} fa-skull-crossbones"></i>
+                        Unmark Trumpable
+                    </button>
+                </form>
+            </li>
+        @endif
+    @endif
 </menu>

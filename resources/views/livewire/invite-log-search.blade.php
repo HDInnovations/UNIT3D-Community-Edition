@@ -20,6 +20,18 @@
                     </div>
                     <div class="form__group">
                         <input
+                            id="soundexSender"
+                            class="form__text"
+                            type="text"
+                            wire:model.live="soundexSender"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="soundexSender">
+                            Soundex {{ __('user.sender') }}
+                        </label>
+                    </div>
+                    <div class="form__group">
+                        <input
                             id="receiver"
                             class="form__text"
                             type="text"
@@ -28,6 +40,18 @@
                         />
                         <label class="form__label form__label--floating" for="receiver">
                             {{ __('bon.receiver') }}
+                        </label>
+                    </div>
+                    <div class="form__group">
+                        <input
+                            id="soundexReceiver"
+                            class="form__text"
+                            type="text"
+                            wire:model.live="soundexReceiver"
+                            placeholder=" "
+                        />
+                        <label class="form__label form__label--floating" for="soundexReceiver">
+                            Soundex {{ __('bon.receiver') }}
                         </label>
                     </div>
                     <div class="form__group">
@@ -44,19 +68,36 @@
                     </div>
                     <div class="form__group">
                         <input
-                            id="threshold"
+                            id="email"
                             class="form__text"
                             type="text"
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            max="100"
-                            wire:model.live="threshold"
+                            wire:model.live="soundexEmail"
                             placeholder=" "
                         />
-                        <label class="form__label form__label--floating" for="threshold">
-                            Threshold
+                        <label class="form__label form__label--floating" for="soundexEmail">
+                            Soundex {{ __('common.email') }}
                         </label>
                     </div>
+
+                    @if ($groupBy === 'user_id')
+                        <div class="form__group">
+                            <input
+                                id="threshold"
+                                class="form__text"
+                                type="text"
+                                inputmode="numeric"
+                                pattern="[0-9]*"
+                                max="100"
+                                wire:model.live="threshold"
+                                placeholder=" "
+                                title="Colors 'Percent Inactive' red if above this threshold"
+                            />
+                            <label class="form__label form__label--floating" for="threshold">
+                                Threshold
+                            </label>
+                        </div>
+                    @endif
+
                     <div class="form__group">
                         <select
                             id="groupBy"
@@ -283,7 +324,7 @@
                                     </td>
                                     <td>{{ $invite->email }}</td>
                                     <td>{{ $invite->code }}</td>
-                                    <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
+                                    {{-- format-ignore-start --}}<td style="white-space: pre-wrap">{{ $invite->custom }}</td>{{-- format-ignore-end --}}
                                     <td>
                                         <time
                                             datetime="{{ $invite->created_at }}"

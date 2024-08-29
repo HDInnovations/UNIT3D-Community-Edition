@@ -37,7 +37,7 @@ class InternalController extends Controller
             'internalGroups' => Internal::orderBy('name')->get(),
             'internalUsers'  => User::with(['group', 'internals'])
                 ->withCount('torrents as total_uploads')
-                ->whereIn('group_id', Group::select('id')->where('is_internal', '=', true))
+                ->whereRelation('group', 'is_internal', '=', true)
                 ->orWhereHas('internals')
                 // Count recent uploads for current user
                 ->withCount(['torrents as recent_uploads' => fn ($query) => $query

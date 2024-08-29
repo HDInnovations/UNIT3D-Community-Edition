@@ -54,7 +54,7 @@ class Report extends Model
     /**
      * Belongs To A Request.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TorrentRequest, $this>
      */
     public function request(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -64,7 +64,7 @@ class Report extends Model
     /**
      * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -74,39 +74,39 @@ class Report extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function reporter(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'reporter_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function reported(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'reported_user')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A Staff Member.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function staff(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 }

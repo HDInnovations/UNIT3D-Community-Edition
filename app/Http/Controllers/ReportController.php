@@ -115,7 +115,7 @@ class ReportController extends Controller
             'solved'        => 0,
         ]);
 
-        return to_route('users.show', ['user' => $reportedBy])
+        return to_route('users.show', ['user' => $reportedUser])
             ->withSuccess(trans('user.report-sent'));
     }
 }

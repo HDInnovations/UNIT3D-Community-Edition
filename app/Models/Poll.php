@@ -60,20 +60,20 @@ class Poll extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * A Poll Has Many Options.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Option>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Option, $this>
      */
     public function options(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -83,7 +83,7 @@ class Poll extends Model
     /**
      * A Poll Has Many Voters.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<User, $this>
      */
     public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -93,7 +93,7 @@ class Poll extends Model
     /**
      * A Poll Has Many Votes.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Voter>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Voter, $this>
      */
     public function votes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

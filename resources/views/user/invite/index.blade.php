@@ -62,7 +62,7 @@
                             <td>{{ $invite->email }}</td>
                             @if (auth()->user()->group->is_modo)
                                 <td>{{ $invite->code }}</td>
-                                <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
+                                {{-- format-ignore-start --}}<td style="white-space: pre-wrap">{{ $invite->custom }}</td>{{-- format-ignore-end --}}
                             @endif
 
                             <td>

@@ -47,20 +47,20 @@ class Watchlist extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A Uploader.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function author(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -68,7 +68,7 @@ class Watchlist extends Model
 
         return $this->belongsTo(User::class, 'staff_id', 'id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 }

@@ -75,19 +75,13 @@ class DemoSeed extends Command
                 $this->info('Creating Movie Torrents for Account ID #'.$uid);
 
                 try {
-                    $year = 2021;
-
-                    if (\array_key_exists('release_date', $movie)) {
-                        $year = (int) substr((string) $movie['release_date'], 0, 4);
-                    }
-
                     $freeleech = ['0', '25', '50', '75', '100'];
                     $selected = random_int(0, \count($freeleech) - 1);
 
                     Torrent::factory()->create([
                         'user_id'        => $uid,
                         'tmdb'           => $id,
-                        'name'           => $movie['title'].' ('.$year.')',
+                        'name'           => $movie['title'],
                         'description'    => $movie['overview'],
                         'category_id'    => 1,
                         'type_id'        => random_int(1, 6),
@@ -97,7 +91,6 @@ class DemoSeed extends Command
                         'free'           => $freeleech[$selected],
                         'featured'       => false,
                         'sticky'         => 0,
-                        'release_year'   => $year,
                         'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
@@ -278,19 +271,13 @@ Menu
                 $this->info('Creating TV Torrents for Account ID #'.$uid);
 
                 try {
-                    $year = 2021;
-
-                    if (\array_key_exists('first_air_date', $tv)) {
-                        $year = (int) substr((string) $tv['first_air_date'], 0, 4);
-                    }
-
                     $freeleech = ['0', '25', '50', '75', '100'];
                     $selected = random_int(0, \count($freeleech) - 1);
 
                     Torrent::factory()->create([
                         'user_id'        => $uid,
                         'tmdb'           => $id,
-                        'name'           => $tv['name'].' ('.$year.')',
+                        'name'           => $tv['name'],
                         'description'    => $tv['overview'],
                         'category_id'    => 2,
                         'type_id'        => random_int(1, 6),
@@ -300,7 +287,6 @@ Menu
                         'free'           => $freeleech[$selected],
                         'featured'       => false,
                         'sticky'         => 0,
-                        'release_year'   => $year,
                         'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska

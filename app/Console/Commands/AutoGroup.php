@@ -77,12 +77,8 @@ class AutoGroup extends Command
                             if ($user->group_id === UserGroup::LEECH->value) {
                                 // Keep these as 0/1 instead of false/true
                                 // because it reduces 6% custom casting overhead
-                                $user->can_request = 0;
-                                $user->can_invite = 0;
                                 $user->can_download = 0;
                             } else {
-                                $user->can_request = 1;
-                                $user->can_invite = 1;
                                 $user->can_download = 1;
                             }
 

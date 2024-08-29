@@ -63,7 +63,7 @@ class ForumPermission extends Model
     /**
      * Belongs To A Group.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Group, $this>
      */
     public function group(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -73,7 +73,7 @@ class ForumPermission extends Model
     /**
      * Belongs To A Forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, $this>
      */
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

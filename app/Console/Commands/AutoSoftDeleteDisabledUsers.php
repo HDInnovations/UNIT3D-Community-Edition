@@ -62,75 +62,72 @@ class AutoSoftDeleteDisabledUsers extends Command
      */
     final public function handle(): void
     {
-        if (config('pruning.user_pruning')) {
-            $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        if (!config('pruning.user_pruning')) {
+            return;
+        }
 
-            $users = User::where('group_id', '=', $disabledGroup[0])
-                ->where('disabled_at', '<', now()->copy()->subDays(config('pruning.soft_delete'))->toDateTimeString())
-                ->get();
+        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
-            foreach ($users as $user) {
-                $user->update([
-                    'can_upload'   => false,
-                    'can_download' => false,
-                    'can_comment'  => false,
-                    'can_invite'   => false,
-                    'can_request'  => false,
-                    'can_chat'     => false,
-                    'group_id'     => UserGroup::PRUNED->value,
-                    'deleted_by'   => User::SYSTEM_USER_ID,
-                ]);
+        $users = User::where('group_id', '=', $disabledGroup[0])
+            ->where('disabled_at', '<', now()->copy()->subDays(config('pruning.soft_delete')))
+            ->get();
 
-                Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([
-                    'user_id' => User::SYSTEM_USER_ID,
-                ]);
+        foreach ($users as $user) {
+            $user->update([
+                'can_download' => false,
+                'group_id'     => UserGroup::PRUNED->value,
+                'deleted_by'   => User::SYSTEM_USER_ID,
+            ]);
 
-                Comment::where('user_id', '=', $user->id)->update([
-                    'user_id' => User::SYSTEM_USER_ID,
-                ]);
+            Torrent::withoutGlobalScope(ApprovedScope::class)->where('user_id', '=', $user->id)->update([
+                'user_id' => User::SYSTEM_USER_ID,
+            ]);
 
-                Post::where('user_id', '=', $user->id)->update([
-                    'user_id' => User::SYSTEM_USER_ID,
-                ]);
+            Comment::where('user_id', '=', $user->id)->update([
+                'user_id' => User::SYSTEM_USER_ID,
+            ]);
 
-                Topic::where('first_post_user_id', '=', $user->id)->update([
-                    'first_post_user_id' => User::SYSTEM_USER_ID,
-                ]);
+            Post::where('user_id', '=', $user->id)->update([
+                'user_id' => User::SYSTEM_USER_ID,
+            ]);
 
-                Topic::where('last_post_user_id', '=', $user->id)->update([
-                    'last_post_user_id' => User::SYSTEM_USER_ID,
-                ]);
+            Topic::where('first_post_user_id', '=', $user->id)->update([
+                'first_post_user_id' => User::SYSTEM_USER_ID,
+            ]);
 
-                PrivateMessage::where('sender_id', '=', $user->id)->update([
-                    'sender_id' => User::SYSTEM_USER_ID,
-                ]);
+            Topic::where('last_post_user_id', '=', $user->id)->update([
+                'last_post_user_id' => User::SYSTEM_USER_ID,
+            ]);
 
-                Participant::where('user_id', '=', $user->id)->delete();
-                Message::where('user_id', '=', $user->id)->delete();
-                Like::where('user_id', '=', $user->id)->delete();
-                Thank::where('user_id', '=', $user->id)->delete();
-                Peer::where('user_id', '=', $user->id)->delete();
-                History::where('user_id', '=', $user->id)->delete();
-                FailedLoginAttempt::where('user_id', '=', $user->id)->delete();
+            PrivateMessage::where('sender_id', '=', $user->id)->update([
+                'sender_id' => User::SYSTEM_USER_ID,
+            ]);
 
-                // Removes all follows for user
-                $user->followers()->detach();
-                $user->following()->detach();
+            Participant::where('user_id', '=', $user->id)->delete();
+            Message::where('user_id', '=', $user->id)->delete();
+            Like::where('user_id', '=', $user->id)->delete();
+            Thank::where('user_id', '=', $user->id)->delete();
+            Peer::where('user_id', '=', $user->id)->delete();
+            History::where('user_id', '=', $user->id)->delete();
+            FailedLoginAttempt::where('user_id', '=', $user->id)->delete();
 
-                // Removes all FL Tokens for user
-                foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
-                    $token->delete();
-                    cache()->forget('freeleech_token:'.$user->id.':'.$token->torrent_id);
-                }
+            // Removes all follows for user
+            $user->followers()->detach();
+            $user->following()->detach();
 
-                cache()->forget('user:'.$user->passkey);
-
-                Unit3dAnnounce::removeUser($user);
-
-                dispatch(new SendDeleteUserMail($user));
-
-                $user->delete();
+            // Removes all FL Tokens for user
+            foreach (FreeleechToken::where('user_id', '=', $user->id)->get() as $token) {
+                $token->delete();
+                cache()->forget('freeleech_token:'.$user->id.':'.$token->torrent_id);
             }
+
+            cache()->forget('user:'.$user->passkey);
+
+            Unit3dAnnounce::removeUser($user);
+
+            dispatch(new SendDeleteUserMail($user));
+
+            $user->delete();
         }
 
         $this->comment('Automated Soft Delete Disabled Users Command Complete');

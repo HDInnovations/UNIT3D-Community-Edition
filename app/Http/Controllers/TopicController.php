@@ -138,8 +138,8 @@ class TopicController extends Controller
 
         // Post To ShoutBox
         $appUrl = config('app.url');
-        $topicUrl = sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
-        $profileUrl = sprintf('%s/users/%s', $appUrl, $user->username);
+        $topicUrl = \sprintf('%s/forums/topics/%s', $appUrl, $topic->id);
+        $profileUrl = \sprintf('%s/users/%s', $appUrl, $user->username);
 
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
@@ -151,7 +151,7 @@ class TopicController extends Controller
                 $staffer->notify(new NewTopic('staff', $user, $topic));
             }
         } else {
-            $this->chatRepository->systemMessage(sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
+            $this->chatRepository->systemMessage(\sprintf('[url=%s]%s[/url] has created a new topic [url=%s]%s[/url]', $profileUrl, $user->username, $topicUrl, $topic->name));
 
             $subscribers = User::query()
                 ->where('id', '!=', $topic->first_post_user_id)

@@ -74,20 +74,20 @@ class Subtitle extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -97,7 +97,7 @@ class Subtitle extends Model
     /**
      * Belongs To A Media Language.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<MediaLanguage, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<MediaLanguage, $this>
      */
     public function language(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

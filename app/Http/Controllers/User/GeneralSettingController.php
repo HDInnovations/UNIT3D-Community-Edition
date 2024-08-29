@@ -19,7 +19,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateGeneralSettingRequest;
 use App\Models\User;
-use App\Models\UserSetting;
 use Illuminate\Http\Request;
 
 class GeneralSettingController extends Controller
@@ -31,7 +30,7 @@ class GeneralSettingController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        UserSetting::upsert($request->validated() + ['user_id' => $user->id], ['user_id']);
+        $user->settings()->upsert($request->validated(), ['user_id']);
 
         cache()->forget('user-settings:by-user-id:'.$user->id);
 

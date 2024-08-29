@@ -3,7 +3,7 @@
     <select
       id="currentChatroom"
       class="form__select"
-      :class="chatrooms.some(chatroom => chatroom.id == current) || 'form__select--default'"
+      :class="chatrooms.some((chatroom) => chatroom.id == current) || 'form__select--default'"
       v-model="selected"
       @change="changedRoom"
     >
@@ -15,9 +15,7 @@
         {{ chatroom.name }}
       </option>
     </select>
-    <label class="form__label form__label--floating" for="currentChatroom">
-      Room
-    </label>
+    <label class="form__label form__label--floating" for="currentChatroom"> Room </label>
   </div>
 </template>
 

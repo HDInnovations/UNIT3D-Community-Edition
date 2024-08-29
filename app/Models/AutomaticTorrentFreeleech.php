@@ -28,7 +28,7 @@ class AutomaticTorrentFreeleech extends Model
     /**
      * Belongs To A Category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, $this>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -38,7 +38,7 @@ class AutomaticTorrentFreeleech extends Model
     /**
      * Belongs To A Type.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, $this>
      */
     public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -48,7 +48,7 @@ class AutomaticTorrentFreeleech extends Model
     /**
      * Belongs To A Resolution.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, $this>
      */
     public function resolution(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

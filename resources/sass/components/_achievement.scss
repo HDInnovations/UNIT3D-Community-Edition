@@ -15,6 +15,7 @@
     display: contents;
 }
 
-.achievement__progress::-moz-progress-bar, .achievement__progress::-webkit-progress-value {
+.achievement__progress::-moz-progress-bar,
+.achievement__progress::-webkit-progress-value {
     background-color: var(--achievement-progress-bg);
 }

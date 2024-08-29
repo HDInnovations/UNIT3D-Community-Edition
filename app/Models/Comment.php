@@ -67,18 +67,18 @@ class Comment extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, Comment>
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<Model, $this>
      */
     public function commentable(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
@@ -86,7 +86,7 @@ class Comment extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<self, $this>
      */
     public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -138,7 +138,7 @@ class Comment extends Model
             $last_comment = $ticket->comments()->latest('id')->first();
 
             if ($last_comment !== null && property_exists($last_comment, 'id') && $last_comment->id !== null && !$last_comment->user->group->is_modo && strtotime((string) $last_comment->created_at) < strtotime('- 3 days')) {
-                event(new TicketWentStale($last_comment->commentable));
+                event(new TicketWentStale($ticket));
             }
         }
     }

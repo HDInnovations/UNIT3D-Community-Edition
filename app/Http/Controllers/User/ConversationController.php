@@ -104,7 +104,7 @@ class ConversationController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
-        abort_if($conversation->participants()->where('user_id', '=', User::SYSTEM_USER_ID)->exists(), 403, 'You cannot reply to the system');
+        abort_if($conversation->participants()->withTrashed()->where('user_id', '=', User::SYSTEM_USER_ID)->exists(), 403, 'You cannot reply to the system');
 
         PrivateMessage::create([
             'sender_id'       => $user->id,

@@ -47,7 +47,7 @@ class TorrentTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -55,7 +55,7 @@ class TorrentTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function recipient(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -63,7 +63,7 @@ class TorrentTip extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

@@ -40,7 +40,7 @@
                             <option
                                 class="form__option"
                                 value="{{ $code }}"
-                                @selected(($user->settings === null && $code === config('app.locale')) || $user->settings?->locale === $code)
+                                @selected(($user->settings?->locale ?? config('app.locale')) === $code)
                             >
                                 {{ $name }}
                             </option>
@@ -55,105 +55,105 @@
                             <option
                                 class="form__option"
                                 value="0"
-                                @selected($user->settings === null || $user->settings?->style === 0)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 0)
                             >
                                 Light
                             </option>
                             <option
                                 class="form__option"
                                 value="1"
-                                @selected($user->settings?->style === 1)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 1)
                             >
                                 Galactic
                             </option>
                             <option
                                 class="form__option"
                                 value="2"
-                                @selected($user->settings?->style === 2)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 2)
                             >
                                 Dark Blue
                             </option>
                             <option
                                 class="form__option"
                                 value="3"
-                                @selected($user->settings?->style === 3)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 3)
                             >
                                 Dark Green
                             </option>
                             <option
                                 class="form__option"
                                 value="4"
-                                @selected($user->settings?->style === 4)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 4)
                             >
                                 Dark Pink
                             </option>
                             <option
                                 class="form__option"
                                 value="5"
-                                @selected($user->settings?->style === 5)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 5)
                             >
                                 Dark Purple
                             </option>
                             <option
                                 class="form__option"
                                 value="6"
-                                @selected($user->settings?->style === 6)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 6)
                             >
                                 Dark Red
                             </option>
                             <option
                                 class="form__option"
                                 value="7"
-                                @selected($user->settings?->style === 7)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 7)
                             >
                                 Dark Teal
                             </option>
                             <option
                                 class="form__option"
                                 value="8"
-                                @selected($user->settings?->style === 8)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 8)
                             >
                                 Dark Yellow
                             </option>
                             <option
                                 class="form__option"
                                 value="9"
-                                @selected($user->settings?->style === 9)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 9)
                             >
                                 Cosmic Void
                             </option>
                             <option
                                 class="form__option"
                                 value="10"
-                                @selected($user->settings?->style === 10)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 10)
                             >
                                 Nord
                             </option>
                             <option
                                 class="form__option"
                                 value="11"
-                                @selected($user->settings?->style === 11)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 11)
                             >
                                 Revel (Desktop only)
                             </option>
                             <option
                                 class="form__option"
                                 value="12"
-                                @selected($user->settings?->style === 12)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 12)
                             >
                                 Material Design 3 Light
                             </option>
                             <option
                                 class="form__option"
                                 value="13"
-                                @selected($user->settings?->style === 13)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 13)
                             >
                                 Material Design 3 Dark
                             </option>
                             <option
                                 class="form__option"
                                 value="14"
-                                @selected($user->settings?->style === 14)
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 14)
                             >
                                 Material Design 3 Amoled
                             </option>

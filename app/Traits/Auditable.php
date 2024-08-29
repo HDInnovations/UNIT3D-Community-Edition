@@ -94,7 +94,7 @@ trait Auditable
 
                 break;
             default:
-                throw new InvalidArgumentException(sprintf('Unknown action `%s`.', $action));
+                throw new InvalidArgumentException(\sprintf('Unknown action `%s`.', $action));
         }
 
         $clean = array_filter($data);

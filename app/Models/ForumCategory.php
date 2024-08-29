@@ -48,7 +48,7 @@ class ForumCategory extends Model
     /**
      * Has Many Sub Topics.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Topic>
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough<Topic, Forum, $this>
      */
     public function topics(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
@@ -58,7 +58,7 @@ class ForumCategory extends Model
     /**
      * Has Many Sub Forums.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Forum>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Forum, $this>
      */
     public function forums(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

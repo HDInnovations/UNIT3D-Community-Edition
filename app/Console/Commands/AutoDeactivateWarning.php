@@ -57,8 +57,7 @@ class AutoDeactivateWarning extends Command
         foreach ($warnings as $warning) {
             if ($warning->expires_on <= $current || ($warning->torrenttitle && $warning->torrenttitle->history()->where('user_id', '=', $warning->warneduser->id)->first()->seedtime >= config('hitrun.seedtime'))) {
                 // Set Records Active To 0 in warnings table
-                $warning->active = false;
-                $warning->save();
+                $warning->update(['active' => false]);
 
                 // Send Notifications
                 if ($warning->torrenttitle) {
@@ -78,8 +77,7 @@ class AutoDeactivateWarning extends Command
 
         foreach ($warnings as $warning) {
             if ($warning->warneduser->can_download === false) {
-                $warning->warneduser->can_download = 1;
-                $warning->warneduser->save();
+                $warning->warneduser->update(['can_download' => 1]);
 
                 cache()->forget('user:'.$warning->warneduser->passkey);
                 Unit3dAnnounce::addUser($warning->warneduser);

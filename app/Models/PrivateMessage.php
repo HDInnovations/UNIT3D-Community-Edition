@@ -47,7 +47,7 @@ class PrivateMessage extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -57,7 +57,7 @@ class PrivateMessage extends Model
     /**
      * Belongs To A Conversation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Conversation, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Conversation, $this>
      */
     public function conversation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

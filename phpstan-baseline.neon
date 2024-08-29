@@ -1,123 +1,28 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_chat\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$avg_seedtime\\.$#"
 			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
+			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_comment\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$seedsize\\.$#"
 			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
+			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_download\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$uploads\\.$#"
 			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
+			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_invite\\.$#"
+			message: "#^Binary operation \"\\-\" between float\\|int\\|string and float\\|int\\|string results in an error\\.$#"
 			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
+			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_request\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_upload\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$email\\.$#"
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
 			count: 2
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group_id\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Call to an undefined method TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$avg_seedtime\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_download\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_invite\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_request\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$created_at\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group_id\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$ratio\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$seedsize\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$uploaded\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$uploads\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
 			path: app/Console/Commands/AutoGroup.php
 
 		-
@@ -321,52 +226,7 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$is_nerdbot\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Bot\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Bot\\>\\:\\:\\$is_systembot\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$user\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$user_id\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:createMessage\\(\\) should return App\\\\Http\\\\Resources\\\\ChatMessageResource\\|bool\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response but returns bool\\|Illuminate\\\\Contracts\\\\Foundation\\\\Application\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:deleteMessage\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:messages\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:privateMessages\\(\\) has parameter \\$targetId with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
@@ -421,6 +281,26 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
+			message: "#^Cannot access property \\$id on App\\\\Models\\\\Torrent\\|string\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Cannot access property \\$status on App\\\\Models\\\\Torrent\\|string\\.$#"
+			count: 3
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Cannot call method setRelation\\(\\) on App\\\\Models\\\\Torrent\\|string\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkTorrent\\(\\) should return App\\\\Models\\\\Torrent but returns App\\\\Models\\\\Torrent\\|string\\.$#"
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Article\\:\\:\\$newNews\\.$#"
 			count: 1
 			path: app/Http/Controllers/HomeController.php
@@ -446,6 +326,11 @@ parameters:
 			path: app/Http/Controllers/Staff/ChatBotController.php
 
 		-
+			message: "#^Call to function is_int\\(\\) with string\\|null will always evaluate to false\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/ChatRoomController.php
+
+		-
 			message: "#^Parameter \\#1 \\$boolean of function abort_if expects bool, int given\\.$#"
 			count: 3
 			path: app/Http/Controllers/Staff/RssController.php
@@ -466,26 +351,6 @@ parameters:
 			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$actual_download\\.$#"
-			count: 2
-			path: app/Http/Controllers/StatsController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$actual_upload\\.$#"
-			count: 2
-			path: app/Http/Controllers/StatsController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$credited_download\\.$#"
-			count: 2
-			path: app/Http/Controllers/StatsController.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Models\\\\History\\:\\:\\$credited_upload\\.$#"
-			count: 2
-			path: app/Http/Controllers/StatsController.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
@@ -504,6 +369,21 @@ parameters:
 			message: "#^Unable to resolve the template type TValue in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: "#^Binary operation \"\\+\" between string\\|null and int results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/User/ResurrectionController.php
+
+		-
+			message: "#^Binary operation \"/\" between string\\|null and 1000000 results in an error\\.$#"
+			count: 1
+			path: app/Http/Controllers/User/UserController.php
+
+		-
+			message: "#^Parameter \\#2 \\$timestamp of function date expects int\\|null, int\\|false given\\.$#"
+			count: 1
+			path: app/Http/Controllers/YearlyOverviewController.php
 
 		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
@@ -616,6 +496,11 @@ parameters:
 			path: app/Http/Resources/TorrentResource.php
 
 		-
+			message: "#^Strict comparison using \\=\\=\\= between int\\|null and true will always evaluate to false\\.$#"
+			count: 1
+			path: app/Http/Resources/TorrentResource.php
+
+		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
@@ -656,6 +541,11 @@ parameters:
 			path: app/Http/Resources/UserResource.php
 
 		-
+			message: "#^Strict comparison using \\=\\=\\= between float\\|null and 0 will always evaluate to false\\.$#"
+			count: 1
+			path: app/Models/User.php
+
+		-
 			message: "#^Cannot access offset 'validator' on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
 			count: 1
 			path: app/Providers/AppServiceProvider.php
@@ -671,279 +561,44 @@ parameters:
 			path: app/Providers/AppServiceProvider.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:\\$receiver_id\\.$#"
+			message: "#^Method class@anonymous/app/Providers/FortifyServiceProvider\\.php\\:51\\:\\:toResponse\\(\\) should return Illuminate\\\\Http\\\\RedirectResponse but returns Illuminate\\\\Http\\\\RedirectResponse\\|true\\.$#"
+			count: 1
+			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function rtrim expects string, true given\\.$#"
+			count: 1
+			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Chatroom\\>\\:\\:\\$id\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Call to an undefined method App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\>\\:\\:delete\\(\\)\\.$#"
+			message: "#^Call to function is_int\\(\\) with string\\|null will always evaluate to false\\.$#"
+			count: 1
+			path: app/Repositories/ChatRepository.php
+
+		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: app/Repositories/ChatRepository.php
+
+		-
+			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, bool\\|string given\\.$#"
+			count: 1
+			path: config/cache.php
+
+		-
+			message: "#^Parameter \\#1 \\$url of function parse_url expects string, bool\\|string\\|null given\\.$#"
 			count: 2
-			path: app/Repositories/ChatRepository.php
+			path: config/secure-headers.php
 
 		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, bool\\|string given\\.$#"
 			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:audibles\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:audibles\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) has parameter \\$botId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) has parameter \\$receiver with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessage\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessages\\(\\) has parameter \\$botId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessages\\(\\) has parameter \\$senderId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessages\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:bots\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:censorMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:checkMessageLimits\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:config\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:deleteMessage\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:deleteMessage\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:echoes\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:echoes\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:htmlifyMessage\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:htmlifyMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$bot with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$receiver with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:message\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:messages\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:messages\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:ping\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:ping\\(\\) has parameter \\$type with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$bot with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$ignore with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$receiver with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$roomId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessage\\(\\) has parameter \\$userId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessages\\(\\) has parameter \\$senderId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessages\\(\\) has parameter \\$targetId with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessages\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:roomFindOrFail\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:roomFindOrFail\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:rooms\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:status\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:status\\(\\) has parameter \\$user with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:statusFindOrFail\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:statusFindOrFail\\(\\) has parameter \\$id with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:statuses\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:systemChatroom\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:systemChatroom\\(\\) has parameter \\$room with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:systemMessage\\(\\) has parameter \\$bot with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:systemMessage\\(\\) has parameter \\$message with no type specified\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Parameter \\#1 \\$message of class App\\\\Events\\\\MessageDeleted constructor expects App\\\\Models\\\\Message, App\\\\Models\\\\Message\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\> given\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
+			path: config/session.php
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
@@ -994,3 +649,43 @@ parameters:
 			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
 			count: 1
 			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
+
+		-
+			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
+			count: 1
+			path: routes/announce.php
+
+		-
+			message: "#^Parameter \\#1 \\$scheme of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceScheme\\(\\) expects string\\|null, true given\\.$#"
+			count: 1
+			path: routes/announce.php
+
+		-
+			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
+			count: 1
+			path: routes/api.php
+
+		-
+			message: "#^Parameter \\#1 \\$scheme of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceScheme\\(\\) expects string\\|null, true given\\.$#"
+			count: 1
+			path: routes/api.php
+
+		-
+			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
+			count: 1
+			path: routes/rss.php
+
+		-
+			message: "#^Parameter \\#1 \\$scheme of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceScheme\\(\\) expects string\\|null, true given\\.$#"
+			count: 1
+			path: routes/rss.php
+
+		-
+			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
+			count: 1
+			path: routes/web.php
+
+		-
+			message: "#^Parameter \\#1 \\$scheme of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceScheme\\(\\) expects string\\|null, true given\\.$#"
+			count: 1
+			path: routes/web.php

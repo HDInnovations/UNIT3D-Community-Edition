@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ auth()->user()->locale }}">
+<html lang="{{ auth()->user()->settings?->locale ?? config('app.locale') }}">
     <head>
         @include('partials.head')
     </head>

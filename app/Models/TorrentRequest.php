@@ -93,46 +93,46 @@ class TorrentRequest extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function approver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'approved_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function filler(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class, 'filled_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A Category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Category, $this>
      */
     public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -142,7 +142,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A Type.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Type, $this>
      */
     public function type(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -152,7 +152,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A Resolution.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Resolution, $this>
      */
     public function resolution(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -162,7 +162,7 @@ class TorrentRequest extends Model
     /**
      * Belongs To A Torrent.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Torrent, $this>
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -170,7 +170,27 @@ class TorrentRequest extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment>
+     * Belongs To A Movie.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, $this>
+     */
+    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Movie::class, 'tmdb');
+    }
+
+    /**
+     * Belongs To A Tv.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, $this>
+     */
+    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Tv::class, 'tmdb');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<Comment, $this>
      */
     public function comments(): \Illuminate\Database\Eloquent\Relations\MorphMany
     {
@@ -180,7 +200,7 @@ class TorrentRequest extends Model
     /**
      * Has Many BON Bounties.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequestBounty, $this>
      */
     public function bounties(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -190,7 +210,7 @@ class TorrentRequest extends Model
     /**
      * Has One Torrent Request Claim.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<TorrentRequestClaim>
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<TorrentRequestClaim, $this>
      */
     public function claim(): \Illuminate\Database\Eloquent\Relations\HasOne
     {

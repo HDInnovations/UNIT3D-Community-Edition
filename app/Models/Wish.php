@@ -48,7 +48,7 @@ class Wish extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -58,22 +58,22 @@ class Wish extends Model
     /**
      * Has many torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function movieTorrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class, 'tmdb', 'movie_id')
-            ->whereHas('category', fn ($query) => $query->where('movie_meta', '=', true));
+            ->whereRelation('category', 'movie_meta', '=', true);
     }
 
     /**
      * Has many torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function tvTorrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')
-            ->whereHas('category', fn ($query) => $query->where('tv_meta', '=', true));
+            ->whereRelation('category', 'tv_meta', '=', true);
     }
 }

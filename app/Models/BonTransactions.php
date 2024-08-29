@@ -74,33 +74,33 @@ class BonTransactions extends Model
     /**
      * Belongs To A Sender.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function sender(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A Receiver.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function receiver(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To BonExchange.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BonExchange, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<BonExchange, $this>
      */
     public function exchange(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

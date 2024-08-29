@@ -68,7 +68,7 @@ class CreateNewUser implements CreatesNewUsers
             'code' => [
                 Rule::when(config('other.invite-only') === true, [
                     'required',
-                    Rule::exists('invites', 'code')->whereNull('accepted_by'),
+                    Rule::exists('invites', 'code')->withoutTrashed()->whereNull('accepted_by'),
                 ]),
             ]
         ])->validate();
@@ -83,8 +83,6 @@ class CreateNewUser implements CreatesNewUsers
             'rsskey'     => md5(random_bytes(60)),
             'uploaded'   => config('other.default_upload'),
             'downloaded' => config('other.default_download'),
-            'style'      => config('other.default_style', 0),
-            'locale'     => config('app.locale'),
             'group_id'   => $validatingGroup[0],
         ]);
 
@@ -105,13 +103,13 @@ class CreateNewUser implements CreatesNewUsers
         $profileUrl = href_profile($user);
 
         $welcomeArray = [
-            sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community.',
-            sprintf("[url=%s]%s[/url], We've been expecting you.", $profileUrl, $user->username),
-            sprintf("[url=%s]%s[/url] has arrived. Party's over.", $profileUrl, $user->username),
-            sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
-            sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
-            sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
-            'Welcome to '.config('other.title').sprintf(' [url=%s]%s[/url]. We were expecting you.', $profileUrl, $user->username),
+            \sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community.',
+            \sprintf("[url=%s]%s[/url], We've been expecting you.", $profileUrl, $user->username),
+            \sprintf("[url=%s]%s[/url] has arrived. Party's over.", $profileUrl, $user->username),
+            \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
+            \sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
+            \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
+            'Welcome to '.config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you.', $profileUrl, $user->username),
         ];
 
         $this->chatRepository->systemMessage(

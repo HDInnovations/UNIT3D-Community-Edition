@@ -32,10 +32,7 @@
         </a>
     </li>
     <li class="nav-tab--active">
-        <a
-            class="nav-tab--active__link"
-            href="{{ route('torrents.create', ['category_id' => 1]) }}"
-        >
+        <a class="nav-tab--active__link" href="{{ route('torrents.create') }}">
             {{ __('common.upload') }}
         </a>
     </li>
@@ -562,7 +559,7 @@
     </section>
 @endsection
 
-@if ($user->can_upload == 1 && $user->group->can_upload == 1)
+@if ($user->can_upload ?? $user->group->can_upload)
     @section('sidebar')
         <section class="panelV2">
             <h2 class="panel__heading">

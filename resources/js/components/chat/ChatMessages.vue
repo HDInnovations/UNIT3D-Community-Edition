@@ -12,14 +12,25 @@
                 class="user-tag__link"
                 :class="message.user?.group?.icon"
                 :href="`/users/${message.user?.username}`"
-                :style="`color: ${message.user?.group?.color }`"
+                :style="`color: ${message.user?.group?.color}`"
                 :title="message.user?.group?.name"
               >
-                <span v-if="message.user && message.user.id > 1">{{ message.user?.username ?? 'Unknown' }}</span>
-                <span v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)">{{ message.bot?.name ?? 'Unknown' }}</span>
+                <span v-if="message.user && message.user.id > 1">{{
+                  message.user?.username ?? 'Unknown'
+                }}</span>
+                <span
+                  v-if="
+                    message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)
+                  "
+                  >{{ message.bot?.name ?? 'Unknown' }}</span
+                >
               </a>
             </address>
-            <div v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)" :style="`font-style: italic; white-space: nowrap;`" v-html="message.message"></div>
+            <div
+              v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
+              :style="`font-style: italic; white-space: nowrap;`"
+              v-html="message.message"
+            ></div>
             <time
               v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
               :style="`margin-left: 10px; white-space: nowrap;`"
@@ -30,17 +41,21 @@
               {{ message.created_at | diffForHumans }}
             </time>
             <time
-                v-else
-                class="chatbox-message__time"
-                :datetime="message.created_at"
-                :title="message.created_at"
+              v-else
+              class="chatbox-message__time"
+              :datetime="message.created_at"
+              :title="message.created_at"
             >
               {{ message.created_at | diffForHumans }}
             </time>
           </header>
           <aside class="chatbox-message__aside">
             <figure class="chatbox-message__figure">
-              <i class="fa fa-bell" title="System Notification" v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"></i>
+              <i
+                class="fa fa-bell"
+                title="System Notification"
+                v-if="message.bot && message.bot.id >= 1 && (!message.user || message.user.id < 2)"
+              ></i>
               <a
                 v-if="message.user?.id != 1"
                 :href="`/users/${message.user?.username}`"
@@ -49,7 +64,9 @@
                 <img
                   v-if="message.user?.id != 1"
                   class="chatbox-message__avatar"
-                  :src="message.user?.image ? `/files/img/${message.user.image}` : '/img/profile.png'"
+                  :src="
+                    message.user?.image ? `/files/img/${message.user.image}` : '/img/profile.png'
+                  "
                   :style="`border: 2px solid ${message.user?.chat_status?.color};`"
                   :title="message.user?.chat_status?.name"
                 />
@@ -68,12 +85,14 @@
               </button>
             </li>
           </menu>
-          <section v-if="message.user && message.user.id > 1" class="chatbox-message__content" v-html="message.message"></section>
+          <section
+            v-if="message.user && message.user.id > 1"
+            class="chatbox-message__content"
+            v-html="message.message"
+          ></section>
         </article>
       </li>
-      <li v-if="messages.length === 0">
-        There is no chat history here. Send a message!
-      </li>
+      <li v-if="messages.length === 0">There is no chat history here. Send a message!</li>
     </ul>
   </div>
 </template>
@@ -108,14 +127,14 @@ export default {
       */
 
       return (
-          /* Owner can mod all */
-          this.$parent.auth.group.is_owner ||
-          /* User can mod his own message */
-          message.user.id === this.$parent.auth.id ||
-          /* is_admin can mod messages except for Owner messages */
-          (this.$parent.auth.group.is_admin && !message.user.group.is_owner) ||
-          /* Mods CAN NOT mod other mods messages */
-          (this.$parent.auth.group.is_modo && !message.user.group.is_modo)
+        /* Owner can mod all */
+        this.$parent.auth.group.is_owner ||
+        /* User can mod his own message */
+        message.user.id === this.$parent.auth.id ||
+        /* is_admin can mod messages except for Owner messages */
+        (this.$parent.auth.group.is_admin && !message.user.group.is_owner) ||
+        /* Mods CAN NOT mod other mods messages */
+        (this.$parent.auth.group.is_modo && !message.user.group.is_modo)
       );
     },
     editMessage(message) {},
@@ -127,8 +146,8 @@ export default {
     },
     groupColor(user) {
       return user && user.group && user.group.hasOwnProperty('color')
-          ? `color: ${user.group.color};`
-          : `cursor: pointer;`;
+        ? `color: ${user.group.color};`
+        : `cursor: pointer;`;
     },
   },
   created() {

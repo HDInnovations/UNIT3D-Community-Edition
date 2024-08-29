@@ -66,19 +66,30 @@ class Tv extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     /**
-     * Has Many Torrents.
+     * Get the attributes that should be cast.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return array{first_air_date: 'datetime', last_air_date: 'datetime'}
      */
-    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    protected function casts(): array
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q): void {
-            $q->where('tv_meta', '=', true);
-        });
+        return [
+            'first_air_date' => 'datetime',
+            'last_air_date'  => 'datetime',
+        ];
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Season>
+     * Has Many Torrents.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
+     */
+    public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereRelation('category', 'tv_meta', '=', true);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Season, $this>
      */
     public function seasons(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -87,7 +98,7 @@ class Tv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person, $this>
      */
     public function people(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -95,7 +106,7 @@ class Tv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Credit, $this>
      */
     public function credits(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -103,7 +114,7 @@ class Tv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Person, $this>
      */
     public function creators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -112,7 +123,7 @@ class Tv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Genre>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Genre, $this>
      */
     public function genres(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -120,7 +131,7 @@ class Tv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Network>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Network, $this>
      */
     public function networks(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -128,7 +139,7 @@ class Tv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Company>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Company, $this>
      */
     public function companies(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
@@ -136,7 +147,7 @@ class Tv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Recommendation>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Recommendation, $this>
      */
     public function recommendations(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -144,7 +155,7 @@ class Tv extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Tv, $this>
      */
     public function recommendedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

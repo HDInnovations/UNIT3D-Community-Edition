@@ -1,13 +1,13 @@
 <template>
   <form class="form chatroom__new-message">
     <p class="form__group">
-        <textarea
-          id="chatbox__messages-create"
-          class="form__textarea"
-          name="message"
-          placeholder=" "
-          send="true"
-        ></textarea>
+      <textarea
+        id="chatbox__messages-create"
+        class="form__textarea"
+        name="message"
+        placeholder=" "
+        send="true"
+      ></textarea>
       <label class="form__label form__label--floating" for="chatbox__messages-create">
         Write your message...
       </label>
@@ -15,7 +15,6 @@
   </form>
 </template>
 <script>
-
 export default {
   data() {
     return {
@@ -43,7 +42,7 @@ export default {
       }
     },
     sendMessage() {
-      let msg = this.input.value = this.input.value.trim();
+      let msg = (this.input.value = this.input.value.trim());
 
       if (msg !== null && msg !== '') {
         this.$emit('message-sent', {
@@ -64,8 +63,8 @@ export default {
   mounted() {
     this.editor = document.getElementById('chatbox__messages-create').value;
     this.input = document.getElementById('chatbox__messages-create');
-    this.input.addEventListener("keyup", this.keyup);
-    this.input.addEventListener("keydown", this.keydown);
+    this.input.addEventListener('keyup', this.keyup);
+    this.input.addEventListener('keydown', this.keydown);
   },
 };
 </script>

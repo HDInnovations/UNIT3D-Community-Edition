@@ -21,7 +21,7 @@
     background: #0008;
     backdrop-filter: blur(5px);
     display: grid;
-    grid-template: "avatar author" "description description" / auto 1fr;
+    grid-template: 'avatar author' 'description description' / auto 1fr;
     align-items: center;
     gap: 1.5rem;
     color: #fff;
@@ -54,7 +54,7 @@
 
 .playlists__playlist {
     display: grid;
-    grid-template-areas: "image" "author" "link" "titles";
+    grid-template-areas: 'image' 'author' 'link' 'titles';
     grid-template-rows: 145px auto 1fr auto;
     border: var(--playlist-card-border);
     background-color: var(--playlist-card-bg);
@@ -82,10 +82,10 @@
 .playlists__playlist-image--none::before {
     line-height: 145px;
     font-size: 100px;
-    font-family: "Font Awesome 5 Pro";
+    font-family: 'Font Awesome 5 Pro';
     text-align: center;
     color: var(--playlist-card-missing-image-fg);
-    content: "\f03e";
+    content: '\f03e';
 }
 
 .playlists__playlist-avatar {

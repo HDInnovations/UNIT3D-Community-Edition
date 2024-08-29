@@ -64,18 +64,17 @@ class AutoRecycleClaimedTorrentRequests extends Command
 
         foreach ($torrentRequests as $torrentRequest) {
             $requestClaim = TorrentRequestClaim::where('request_id', '=', $torrentRequest->id)
-                ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
+                ->where('created_at', '<', $current->copy()->subDays(7))
                 ->first();
 
             if ($requestClaim) {
                 $trUrl = href_request($torrentRequest);
                 $this->chatRepository->systemMessage(
-                    sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $torrentRequest->name)
+                    \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $torrentRequest->name)
                 );
 
                 $requestClaim->delete();
-                $torrentRequest->claimed = null;
-                $torrentRequest->save();
+                $torrentRequest->update(['claimed' => null]);
             }
         }
 

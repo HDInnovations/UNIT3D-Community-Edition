@@ -150,11 +150,11 @@ class RequestController extends Controller
         // Auto Shout
         if ($torrentRequest->anon == 0) {
             $this->chatRepository->systemMessage(
-                sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
+                \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
             );
         } else {
             $this->chatRepository->systemMessage(
-                sprintf('An anonymous user has created a new request [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
+                \sprintf('An anonymous user has created a new request [url=%s]%s[/url]', href_request($torrentRequest), $torrentRequest->name)
             );
         }
 
@@ -242,12 +242,24 @@ class RequestController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $torrentRequest->user_id === $user->id, 403);
+        abort_unless(
+            $user->group->is_modo
+            || (
+                $torrentRequest->user_id === $user->id
+                && TorrentRequest::query()
+                    ->whereDoesntHave('bounties', fn ($query) => $query->where('user_id', '!=', $request->user()->id))
+                    ->whereNull('claimed')
+                    ->whereNull('filled_by')
+                    ->whereKey($torrentRequest)
+                    ->exists()
+            ),
+            403
+        );
 
         $torrentRequest->bounties()->delete();
         $torrentRequest->delete();
 
         return to_route('requests.index')
-            ->withSuccess(sprintf(trans('request.deleted'), $torrentRequest->name));
+            ->withSuccess(\sprintf(trans('request.deleted'), $torrentRequest->name));
     }
 }

@@ -41,20 +41,20 @@ class Subscription extends Model
     /**
      * Belongs To A User.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
      */
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
     /**
      * Belongs To A Topic.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, $this>
      */
     public function topic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -64,7 +64,7 @@ class Subscription extends Model
     /**
      * Belongs To A Forum.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Forum, $this>
      */
     public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

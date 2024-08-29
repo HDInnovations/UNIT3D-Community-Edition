@@ -44,17 +44,15 @@ class Season extends Model
     /**
      * Has Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereHas('category', function ($q): void {
-            $q->where('tv_meta', '=', true);
-        });
+        return $this->hasMany(Torrent::class, 'tmdb', 'tv_id')->whereRelation('category', 'tv_meta', '=', true);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, self>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, $this>
      */
     public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -62,7 +60,7 @@ class Season extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Episode>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Episode, $this>
      */
     public function episodes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

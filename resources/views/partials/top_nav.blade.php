@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('torrents.create', ['category_id' => 1]) }}">
+                    <a href="{{ route('torrents.create') }}">
                         <i class="{{ config('other.font-awesome') }} fa-upload"></i>
                         {{ __('common.upload') }}
                     </a>
@@ -116,7 +116,7 @@
                                 ->orwhere(function ($query) {
                                     $query
                                         ->where('staff_id', '=', auth()->id())
-                                        ->Where('staff_read', '=', '0');
+                                        ->Where('staff_read', '=', false);
                                 })
                                 ->exists();
                         @endphp
@@ -130,7 +130,7 @@
                         @php
                             $ticket_unread = DB::table('tickets')
                                 ->where('user_id', '=', auth()->id())
-                                ->where('user_read', '=', '0')
+                                ->where('user_read', '=', false)
                                 ->exists();
                         @endphp
 
@@ -473,7 +473,22 @@
                     <li>
                         <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
+                            @php
+                                $uploadCount = Cache::remember(
+                                    'users:' . auth()->id() . ':upload_count',
+                                    60,
+                                    fn () => auth()
+                                        ->user()
+                                        ->torrents()
+                                        ->count() ?? 0
+                                );
+                            @endphp
+
                             {{ __('user.my-uploads') }}
+
+                            @if ($uploadCount > 0)
+                                ({{ $uploadCount }})
+                            @endif
                         </a>
                     </li>
                     <li>
@@ -481,7 +496,23 @@
                             href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                            @php
+                                $downloadCount = Cache::remember(
+                                    'users:' . auth()->id() . ':download_count',
+                                    60,
+                                    fn () => auth()
+                                        ->user()
+                                        ->history()
+                                        ->where('actual_downloaded', '>', 0)
+                                        ->count() ?? 0
+                                );
+                            @endphp
+
                             {{ __('user.my-downloads') }}
+
+                            @if ($downloadCount > 0)
+                                ({{ $downloadCount }})
+                            @endif
                         </a>
                     </li>
                     <li>

@@ -48,50 +48,52 @@ class AutoPreWarning extends Command
      */
     final public function handle(): void
     {
-        if (config('hitrun.enabled') === true) {
-            $carbon = new Carbon();
-            $prewarn = History::with(['user', 'torrent'])
-                ->whereNull('prewarned_at')
-                ->where('hitrun', '=', 0)
-                ->where('immune', '=', 0)
-                ->where('actual_downloaded', '>', 0)
-                ->where('active', '=', 0)
-                ->where('seedtime', '<=', config('hitrun.seedtime'))
-                ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn'))->toDateTimeString())
-                ->get();
+        if (config('hitrun.enabled') !== true) {
+            return;
+        }
 
-            $usersWithPreWarnings = [];
+        $carbon = new Carbon();
+        $prewarn = History::with(['user', 'torrent'])
+            ->whereNull('prewarned_at')
+            ->where('hitrun', '=', 0)
+            ->where('immune', '=', 0)
+            ->where('actual_downloaded', '>', 0)
+            ->where('active', '=', 0)
+            ->where('seedtime', '<=', config('hitrun.seedtime'))
+            ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn')))
+            ->get();
 
-            foreach ($prewarn as $pre) {
-                if (null === $pre->torrent) {
-                    continue;
-                }
+        $usersWithPreWarnings = [];
 
-                if (!$pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
-                    $exsist = Warning::withTrashed()
-                        ->where('torrent', '=', $pre->torrent->id)
-                        ->where('user_id', '=', $pre->user->id)
-                        ->first();
-
-                    if ($exsist === null) {
-                        History::query()
-                            ->where('torrent_id', '=', $pre->torrent_id)
-                            ->where('user_id', '=', $pre->user_id)
-                            ->update([
-                                'prewarned_at' => now(),
-                                'updated_at'   => DB::raw('updated_at'),
-                            ]);
-
-                        // Add user to usersWithWarnings array
-                        $usersWithPreWarnings[$pre->user->id] = $pre->user;
-                    }
-                }
+        foreach ($prewarn as $pre) {
+            if (null === $pre->torrent) {
+                continue;
             }
 
-            // Send a single notification for each user with warnings
-            foreach ($usersWithPreWarnings as $user) {
-                $user->notify(new UserPreWarning($user));
+            if (!$pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
+                $exsist = Warning::withTrashed()
+                    ->where('torrent', '=', $pre->torrent->id)
+                    ->where('user_id', '=', $pre->user->id)
+                    ->first();
+
+                if ($exsist === null) {
+                    History::query()
+                        ->where('torrent_id', '=', $pre->torrent_id)
+                        ->where('user_id', '=', $pre->user_id)
+                        ->update([
+                            'prewarned_at' => now(),
+                            'updated_at'   => DB::raw('updated_at'),
+                        ]);
+
+                    // Add user to usersWithWarnings array
+                    $usersWithPreWarnings[$pre->user->id] = $pre->user;
+                }
             }
+        }
+
+        // Send a single notification for each user with warnings
+        foreach ($usersWithPreWarnings as $user) {
+            $user->notify(new UserPreWarning($user));
         }
 
         $this->comment('Automated User Pre-Warning Command Complete');

@@ -49,7 +49,7 @@ class AutoFlushPeers extends Command
     {
         $carbon = new Carbon();
         $peers = Peer::select(['torrent_id', 'user_id', 'peer_id', 'seeder', 'updated_at'])
-            ->where('updated_at', '<', $carbon->copy()->subHours(2)->toDateTimeString())
+            ->where('updated_at', '<', $carbon->copy()->subHours(2))
             ->where('active', '=', 1)
             ->get();
 

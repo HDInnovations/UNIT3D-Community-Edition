@@ -180,6 +180,7 @@
 }
 
 .post__figure {
+    grid-area: figure;
     margin-bottom: 9px;
 }
 
@@ -189,11 +190,13 @@
 }
 
 .post__author {
+    grid-area: author;
     font-size: 14px;
     text-align: center;
 }
 
 .post__author-title {
+    grid-area: title;
     font-size: 13px;
     text-align: center;
     word-break: normal;
@@ -225,6 +228,18 @@
 .post__author-topics dt:after,
 .post__author-posts dt:after {
     content: ':';
+}
+
+.post__author-join {
+    grid-area: join;
+}
+
+.post__author-topics {
+    grid-area: topics;
+}
+
+.post__author-posts {
+    grid-area: posts;
 }
 
 .post__author-join-datetime {
@@ -259,6 +274,83 @@
 .post__like-animation {
     -webkit-animation: fa-beat 1s infinite linear;
     animation: fa-beat 1s infinite linear;
+}
+
+.post__toolbar-overflow {
+    display: none;
+    color: var(--post-head-fg);
+    cursor: pointer;
+}
+
+@media screen and (max-width: 576px) {
+    .post {
+        grid-template-areas: 'aside' 'header' 'content' 'footer';
+        grid-template-columns: 100%;
+    }
+
+    .post__header {
+        grid-template-areas: 'datetime topic . tip-stats overflow' '. . . . toolbar';
+        grid-template-columns: auto auto 1fr auto auto;
+        gap: 0 6px;
+    }
+
+    .post__aside {
+        display: grid;
+        grid-template-areas: 'figure author author author' 'figure topics posts .';
+        grid-template-columns: 34px auto auto 1fr;
+        gap: 0 8px;
+        padding: 2px;
+    }
+
+    .post__figure {
+        margin-bottom: 0;
+    }
+
+    .post__author-join {
+        display: none;
+    }
+
+    .post__author-title {
+        display: none;
+    }
+
+    .post__tip {
+        flex-direction: column;
+    }
+
+    .post__toolbar-overflow {
+        grid-area: overflow;
+        display: block;
+        padding: 4px 8px;
+        text-align: right;
+    }
+
+    .post__toolbar {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        border-top-left-radius: 9px;
+    }
+
+    .post__header:focus-within .post__toolbar,
+    .post__toolbar:hover {
+        display: flex;
+    }
+
+    .post__permalink,
+    .post__quote,
+    .post__edit,
+    .post__delete-button,
+    .votes__like,
+    .votes__dislike,
+    .post__tip-button {
+        width: 100%;
+        padding: 32px;
+    }
+
+    .post__tip-input {
+        margin: 15px 5px 2px 5px;
+    }
 }
 
 @-webkit-keyframes post__like-animation {

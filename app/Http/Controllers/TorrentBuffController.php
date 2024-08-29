@@ -55,7 +55,7 @@ class TorrentBuffController extends Controller
         $profileUrl = href_profile($user);
 
         $this->chatRepository->systemMessage(
-            sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
+            \sprintf('Attention, [url=%s]%s[/url] has been bumped to the top by [url=%s]%s[/url]! It could use more seeds!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
         );
 
         // Announce To IRC
@@ -64,7 +64,7 @@ class TorrentBuffController extends Controller
                 ->to(config('irc-bot.channel'))
                 ->say('['.config('app.name').'] User '.$user->username.' has bumped '.$torrent->name.' , it could use more seeds!')
                 ->say('[Category: '.$torrent->category->name.'] [Type: '.$torrent->type->name.'] [Size:'.$torrent->getSize().']')
-                ->say(sprintf('[Link: %s]', $torrentUrl));
+                ->say(\sprintf('[Link: %s]', $torrentUrl));
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -107,16 +107,16 @@ class TorrentBuffController extends Controller
             if ($request->fl_until !== null) {
                 $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days.', $torrentUrl, $torrent->name, $request->freeleech)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech for '.$request->fl_until.' days.', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->freeleech)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted %s%% FreeLeech! Grab It While You Can!', $torrentUrl, $torrent->name, $request->freeleech)
                 );
             }
         } elseif ($torrent->free != 0) {
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech!', $torrentUrl, $torrent->name, $torrent->free)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its %s%% FreeLeech!', $torrentUrl, $torrent->name, $torrent->free)
             );
         }
 
@@ -157,7 +157,7 @@ class TorrentBuffController extends Controller
             $torrentUrl = href_torrent($torrent);
             $profileUrl = href_profile($user);
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been added to the Featured Torrents Slider by [url=%s]%s[/url]! Grab It While You Can!', $torrentUrl, $torrent->name, $profileUrl, $user->username)
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
@@ -188,7 +188,7 @@ class TorrentBuffController extends Controller
         $appurl = config('app.url');
 
         $this->chatRepository->systemMessage(
-            sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
+            \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
         );
 
         $featured_torrent->delete();
@@ -217,17 +217,17 @@ class TorrentBuffController extends Controller
             if ($du_until !== null) {
                 $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days.', $torrentUrl, $torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload for '.$request->input('du_until').' days.', $torrentUrl, $torrent->name)
                 );
             } else {
                 $this->chatRepository->systemMessage(
-                    sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can!', $torrentUrl, $torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s]%s[/url] has been granted Double Upload! Grab It While You Can!', $torrentUrl, $torrent->name)
                 );
             }
         } else {
             $torrent->doubleup = false;
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload!', $torrentUrl, $torrent->name)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] has been revoked of its Double Upload!', $torrentUrl, $torrent->name)
             );
         }
 
@@ -259,7 +259,7 @@ class TorrentBuffController extends Controller
 
             Unit3dAnnounce::addFreeleechToken($user->id, $torrent->id);
 
-            $user->fl_tokens -= '1';
+            $user->fl_tokens -= 1;
             $user->save();
 
             cache()->put('freeleech_token:'.$user->id.':'.$torrent->id, true);
@@ -287,13 +287,13 @@ class TorrentBuffController extends Controller
             $torrent->refundable = true;
 
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can!', $torrent_url, $torrent->name)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can!', $torrent_url, $torrent->name)
             );
         } else {
             $torrent->refundable = 0;
 
             $this->chatRepository->systemMessage(
-                sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable!', $torrent_url, $torrent->name)
+                \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable!', $torrent_url, $torrent->name)
             );
         }
 

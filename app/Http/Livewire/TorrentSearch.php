@@ -191,6 +191,9 @@ class TorrentSearch extends Component
     public bool $personalRelease = false;
 
     #[Url(history: true)]
+    public bool $trumpable = false;
+
+    #[Url(history: true)]
     public bool $alive = false;
 
     #[Url(history: true)]
@@ -269,7 +272,7 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Category>
      */
-    #[Computed(cache: true, seconds: 3600)]
+    #[Computed(seconds: 3600, cache: true)]
     final public function categories(): \Illuminate\Database\Eloquent\Collection
     {
         return Category::query()->orderBy('position')->get();
@@ -278,7 +281,7 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Type>
      */
-    #[Computed(cache: true, seconds: 3600)]
+    #[Computed(seconds: 3600, cache: true)]
     final public function types(): \Illuminate\Database\Eloquent\Collection
     {
         return Type::query()->orderBy('position')->get();
@@ -287,7 +290,7 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Resolution>
      */
-    #[Computed(cache: true, seconds: 3600)]
+    #[Computed(seconds: 3600, cache: true)]
     final public function resolutions(): \Illuminate\Database\Eloquent\Collection
     {
         return Resolution::query()->orderBy('position')->get();
@@ -296,7 +299,7 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Genre>
      */
-    #[Computed(cache: true, seconds: 3600)]
+    #[Computed(seconds: 3600, cache: true)]
     final public function genres(): \Illuminate\Database\Eloquent\Collection
     {
         return Genre::query()->orderBy('name')->get();
@@ -305,7 +308,7 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Region>
      */
-    #[Computed(cache: true, seconds: 3600)]
+    #[Computed(seconds: 3600, cache: true)]
     final public function regions(): \Illuminate\Database\Eloquent\Collection
     {
         return Region::query()->orderBy('position')->get();
@@ -314,7 +317,7 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Collection<int, Distributor>
      */
-    #[Computed(cache: true, seconds: 3600)]
+    #[Computed(seconds: 3600, cache: true)]
     final public function distributors(): \Illuminate\Database\Eloquent\Collection
     {
         return Distributor::query()->orderBy('name')->get();
@@ -323,7 +326,7 @@ class TorrentSearch extends Component
     /**
      * @return \Illuminate\Support\Collection<int, Movie>
      */
-    #[Computed(cache: true, seconds: 3600)]
+    #[Computed(seconds: 3600, cache: true)]
     final public function primaryLanguages(): \Illuminate\Support\Collection
     {
         return Movie::query()
@@ -378,6 +381,7 @@ class TorrentSearch extends Component
             sd: $this->sd,
             highspeed: $this->highspeed,
             internal: $this->internal,
+            trumpable: $this->trumpable,
             personalRelease: $this->personalRelease,
             alive: $this->alive,
             dying: $this->dying,
@@ -451,6 +455,7 @@ class TorrentSearch extends Component
                             ->where('seeder', '=', 1)
                             ->orWhereNotNull('completed_at')
                     ),
+                'trump',
             ])
             ->selectRaw("
                 CASE
@@ -556,7 +561,6 @@ class TorrentSearch extends Component
                 'sticky',
                 'sd',
                 'internal',
-                'release_year',
                 'created_at',
                 'bumped_at',
                 'type_id',
@@ -568,12 +572,12 @@ class TorrentSearch extends Component
                 fn ($query) => $query
                     ->where(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('movie_meta', '=', 1))
+                            ->whereRelation('category', 'movie_meta', '=', true)
                             ->whereIntegerInRaw('tmdb', $movieIds)
                     )
                     ->orWhere(
                         fn ($query) => $query
-                            ->whereIn('category_id', Category::select('id')->where('tv_meta', '=', 1))
+                            ->whereRelation('category', 'tv_meta', '=', true)
                             ->whereIntegerInRaw('tmdb', $tvIds)
                     )
             )
@@ -586,19 +590,7 @@ class TorrentSearch extends Component
                     ->map(
                         function ($movie) {
                             $category_id = $movie->first()->category_id;
-                            $movie = $movie
-                                ->sortBy('type.position')
-                                ->values()
-                                ->groupBy(fn ($torrent) => $torrent->type->name)
-                                ->map(
-                                    fn ($torrentsByType) => $torrentsByType
-                                        ->sortBy([
-                                            ['resolution.position', 'asc'],
-                                            ['internal', 'desc'],
-                                            ['size', 'desc']
-                                        ])
-                                        ->values()
-                                );
+                            $movie = $this->groupByTypeAndSort($movie);
                             $movie->put('category_id', $category_id);
 
                             return $movie;
@@ -614,37 +606,11 @@ class TorrentSearch extends Component
                             $tv = $tv
                                 ->groupBy(fn ($torrent) => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
                                 ->map(fn ($packOrSpecialOrSeasons, $key) => match ($key) {
-                                    'Complete Pack' => $packOrSpecialOrSeasons
-                                        ->sortBy('type.position')
-                                        ->values()
-                                        ->groupBy(fn ($torrent) => $torrent->type->name)
-                                        ->map(
-                                            fn ($torrentsByType) => $torrentsByType
-                                                ->sortBy([
-                                                    ['resolution.position', 'asc'],
-                                                    ['internal', 'desc'],
-                                                    ['size', 'desc']
-                                                ])
-                                                ->values()
-                                        ),
-                                    'Specials' => $packOrSpecialOrSeasons
+                                    'Complete Pack' => $this->groupByTypeAndSort($packOrSpecialOrSeasons),
+                                    'Specials'      => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
                                         ->sortKeys(SORT_NATURAL)
-                                        ->map(
-                                            fn ($episode) => $episode
-                                                ->sortBy('type.position')
-                                                ->values()
-                                                ->groupBy(fn ($torrent) => $torrent->type->name)
-                                                ->map(
-                                                    fn ($torrentsByType) => $torrentsByType
-                                                        ->sortBy([
-                                                            ['resolution.position', 'asc'],
-                                                            ['internal', 'desc'],
-                                                            ['size', 'desc']
-                                                        ])
-                                                        ->values()
-                                                )
-                                        ),
+                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
                                     'Seasons' => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
                                         ->sortKeys(SORT_NATURAL)
@@ -652,37 +618,11 @@ class TorrentSearch extends Component
                                             fn ($season) => $season
                                                 ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
                                                 ->map(fn ($packOrEpisodes, $key) => match ($key) {
-                                                    'Season Pack' => $packOrEpisodes
-                                                        ->sortBy('type.position')
-                                                        ->values()
-                                                        ->groupBy(fn ($torrent) => $torrent->type->name)
-                                                        ->map(
-                                                            fn ($torrentsByType) => $torrentsByType
-                                                                ->sortBy([
-                                                                    ['resolution.position', 'asc'],
-                                                                    ['internal', 'desc'],
-                                                                    ['size', 'desc']
-                                                                ])
-                                                                ->values()
-                                                        ),
-                                                    'Episodes' => $packOrEpisodes
+                                                    'Season Pack' => $this->groupByTypeAndSort($packOrEpisodes),
+                                                    'Episodes'    => $packOrEpisodes
                                                         ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
                                                         ->sortKeys(SORT_NATURAL)
-                                                        ->map(
-                                                            fn ($episode) => $episode
-                                                                ->sortBy('type.position')
-                                                                ->values()
-                                                                ->groupBy(fn ($torrent) => $torrent->type->name)
-                                                                ->map(
-                                                                    fn ($torrentsBytype) => $torrentsBytype
-                                                                        ->sortBy([
-                                                                            ['resolution.position', 'asc'],
-                                                                            ['internal', 'desc'],
-                                                                            ['size', 'desc']
-                                                                        ])
-                                                                        ->values()
-                                                                )
-                                                        ),
+                                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
                                                     default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
                                                 })
                                         ),
@@ -728,6 +668,27 @@ class TorrentSearch extends Component
         });
 
         return $medias;
+    }
+
+    /**
+     * @param  \Illuminate\Support\Collection<int, \App\Models\Torrent>                                         $torrents
+     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, \App\Models\Torrent>>
+     */
+    private function groupByTypeAndSort($torrents): \Illuminate\Support\Collection
+    {
+        return $torrents
+            ->sortBy('type.position')
+            ->values()
+            ->groupBy(fn ($torrent) => $torrent->type->name)
+            ->map(
+                fn ($torrentsBytype) => $torrentsBytype
+                    ->sortBy([
+                        ['resolution.position', 'asc'],
+                        ['internal', 'desc'],
+                        ['size', 'desc']
+                    ])
+                    ->values()
+            );
     }
 
     /**

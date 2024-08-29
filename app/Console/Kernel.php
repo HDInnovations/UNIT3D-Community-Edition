@@ -50,7 +50,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:remove_personal_freeleech')->hourly();
         $schedule->command('auto:remove_featured_torrent')->hourly();
         $schedule->command('auto:recycle_invites')->daily();
-        $schedule->command('auto:recycle_activity_log')->daily();
+        $schedule->command('auto:recycle_audits')->daily();
         $schedule->command('auto:recycle_failed_logins')->daily();
         $schedule->command('auto:disable_inactive_users')->daily();
         $schedule->command('auto:softdelete_disabled_users')->daily();
@@ -63,7 +63,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:remove_torrent_buffs')->hourly();
         $schedule->command('auto:refund_download')->daily();
         $schedule->command('auth:clear-resets')->daily();
-        $schedule->command('fetch:release_years')->everyTenMinutes();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         //$schedule->command('backup:clean')->daily();
         //$schedule->command('backup:run --only-db')->daily();

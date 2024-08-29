@@ -245,6 +245,11 @@ Route::middleware('language')->group(function (): void {
             Route::post('/{id}/refundable', [App\Http\Controllers\TorrentBuffController::class, 'setRefundable'])->name('refundable');
         });
 
+        Route::prefix('torrent')->name('torrent.trump.')->group(function (): void {
+            Route::post('/{torrent}/trump', [App\Http\Controllers\TorrentTrumpController::class, 'store'])->name('store');
+            Route::delete('/{torrent}/trump', [App\Http\Controllers\TorrentTrumpController::class, 'destroy'])->name('destroy');
+        });
+
         // Poll System
         Route::prefix('polls')->name('polls.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\PollController::class, 'index'])->name('index');
@@ -474,6 +479,11 @@ Route::middleware('language')->group(function (): void {
             Route::post('/{sentInvite}/send', [App\Http\Controllers\User\InviteController::class, 'send'])->name('send');
             Route::delete('/{sentInvite}', [App\Http\Controllers\User\InviteController::class, 'destroy'])->name('destroy')->withTrashed();
             Route::get('/', [App\Http\Controllers\User\InviteController::class, 'index'])->name('index')->withTrashed();
+        });
+
+        // Invite Tree
+        Route::prefix('invite-tree')->name('invite_tree.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\User\InviteTreeController::class, 'index'])->name('index');
         });
 
         // Notifications
@@ -964,6 +974,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Password Reset Histories
+        Route::prefix('password-reset-histories')->group(function (): void {
+            Route::name('password_reset_histories.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\PasswordResetHistoryController::class, 'index'])->name('index');
+            });
+        });
+
         // Peers
         Route::prefix('peers')->group(function (): void {
             Route::name('peers.')->group(function (): void {
@@ -1046,6 +1063,9 @@ Route::middleware('language')->group(function (): void {
 
         // Torrent Downloads
         Route::get('/torrent-downloads', App\Http\Livewire\TorrentDownloadSearch::class)->name('torrent_downloads.index');
+
+        // Torrent Trump Search
+        Route::get('/torrent-trump-search', App\Http\Livewire\TorrentTrumpSearch::class)->name('torrent_trumps.index');
 
         // Types
         Route::prefix('types')->group(function (): void {

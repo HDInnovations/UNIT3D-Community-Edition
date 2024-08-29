@@ -41,7 +41,7 @@ class WarningController extends Controller
             'torrent'    => null,
             'reason'     => $request->string('message'),
             'expires_on' => Carbon::now()->addDays(config('hitrun.expire')),
-            'active'     => '1',
+            'active'     => true,
         ]);
 
         $user->sendSystemNotification(

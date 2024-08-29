@@ -33,7 +33,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool        $game_meta
  * @property bool        $tv_meta
  * @property bool        $movie_meta
- * @property int         $num_torrent
  */
 class Category extends Model
 {
@@ -74,7 +73,7 @@ class Category extends Model
     /**
      * Has Many Torrents.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Torrent, $this>
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
@@ -84,7 +83,7 @@ class Category extends Model
     /**
      * Has Many Requests.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentRequest, $this>
      */
     public function requests(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

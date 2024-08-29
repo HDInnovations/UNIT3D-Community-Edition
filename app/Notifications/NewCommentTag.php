@@ -61,33 +61,33 @@ class NewCommentTag extends Notification implements ShouldQueue
         return match (true) {
             $this->model instanceof Torrent => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Torrent '.$this->comment->commentable->name,
-                'url'   => '/torrents/'.$this->comment->commentable->id,
+                'body'  => $username.' has tagged you in an comment on Torrent '.$this->model->name,
+                'url'   => '/torrents/'.$this->model->id,
             ],
             $this->model instanceof TorrentRequest => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Torrent Request '.$this->comment->commentable->name,
-                'url'   => '/requests/'.$this->comment->commentable->id,
+                'body'  => $username.' has tagged you in an comment on Torrent Request '.$this->model->name,
+                'url'   => '/requests/'.$this->model->id,
             ],
             $this->model instanceof Ticket => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Ticket '.$this->comment->commentable->subject,
-                'url'   => '/tickets/'.$this->comment->commentable->id,
+                'body'  => $username.' has tagged you in an comment on Ticket '.$this->model->subject,
+                'url'   => '/tickets/'.$this->model->id,
             ],
             $this->model instanceof Playlist => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Playlist '.$this->comment->commentable->name,
-                'url'   => '/playlists/'.$this->comment->commentable->id,
+                'body'  => $username.' has tagged you in an comment on Playlist '.$this->model->name,
+                'url'   => '/playlists/'.$this->model->id,
             ],
             $this->model instanceof Collection => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Collection '.$this->comment->commentable->name,
-                'url'   => '/mediahub/collections/'.$this->comment->commentable->id,
+                'body'  => $username.' has tagged you in an comment on Collection '.$this->model->name,
+                'url'   => '/mediahub/collections/'.$this->model->id,
             ],
             $this->model instanceof Article => [
                 'title' => $title,
-                'body'  => $username.' has tagged you in an comment on Article '.$this->comment->commentable->title,
-                'url'   => '/articles/'.$this->comment->commentable->id,
+                'body'  => $username.' has tagged you in an comment on Article '.$this->model->title,
+                'url'   => '/articles/'.$this->model->id,
             ],
         };
     }
