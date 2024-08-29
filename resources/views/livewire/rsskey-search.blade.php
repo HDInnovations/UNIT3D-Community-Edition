@@ -7,7 +7,6 @@
                     <input
                         id="rsskey"
                         class="form__text"
-                        type="text"
                         type="search"
                         autocomplete="off"
                         wire:model.live="rsskey"

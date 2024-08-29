@@ -114,7 +114,6 @@
                             wire:model.live="search"
                             type="search"
                             class="form__text"
-                            type="search"
                             autocomplete="off"
                             placeholder=" "
                         />
@@ -166,7 +165,6 @@
                         <input
                             id="username"
                             wire:model.live="username"
-                            type="search"
                             class="form__text"
                             type="search"
                             autocomplete="off"

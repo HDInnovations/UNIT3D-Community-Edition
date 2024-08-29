@@ -9,7 +9,6 @@
                         type="search"
                         autocomplete="off"
                         class="form__text"
-                        type="text"
                         wire:model.live="apikey"
                         placeholder=" "
                     />
@@ -25,7 +24,6 @@
                         type="search"
                         autocomplete="off"
                         class="form__text"
-                        type="text"
                         wire:model.live="username"
                         placeholder=" "
                     />
