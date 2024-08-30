@@ -135,7 +135,29 @@
                 @endif
             >
                 <summary x-bind="season">{{ $seasonName }}</summary>
-                @if ($season->has('Season Pack'))
+                @if ($season->has('Season Pack') && ! $season->has('Episodes'))
+                    <table class="torrent-search--grouped__torrents">
+                        @foreach ($season['Season Pack'] as $type => $torrents)
+                            <tbody>
+                                @foreach ($torrents as $torrent)
+                                    <tr>
+                                        @if ($loop->first)
+                                            <th
+                                                class="torrent-search--grouped__type"
+                                                scope="rowgroup"
+                                                rowspan="{{ $loop->count }}"
+                                            >
+                                                {{ $type }}
+                                            </th>
+                                        @endif
+
+                                        @include('components.partials._torrent-group-row')
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        @endforeach
+                    </table>
+                @elseif ($season->has('Season Pack'))
                     <details open class="torrent-search--grouped__dropdown">
                         <summary x-bind="pack">Season Pack</summary>
                         <table class="torrent-search--grouped__torrents">
