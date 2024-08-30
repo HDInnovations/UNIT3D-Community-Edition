@@ -656,7 +656,7 @@
                                 @foreach ($similarTorrents['Specials'] as $specialName => $special)
                                     <details
                                         class="torrent-search--grouped__dropdown"
-                                        @if ($checked || $loop->last)
+                                        @if ($checked || $loop->first)
                                             open
                                         @endif
                                     >
@@ -703,7 +703,7 @@
                         @foreach ($similarTorrents['Seasons'] ?? [] as $seasonName => $season)
                             <details
                                 class="torrent-search--grouped__dropdown"
-                                @if ($checked || $loop->last)
+                                @if ($checked || $loop->first)
                                     open
                                 @endif
                             >
@@ -786,7 +786,7 @@
                                 @foreach ($season['Episodes'] ?? [] as $episodeName => $episode)
                                     <details
                                         class="torrent-search--grouped__dropdown"
-                                        @if ($checked || ($loop->last && ! $season->has('Season Pack')))
+                                        @if ($checked || ($loop->first && ! $season->has('Season Pack')))
                                             open
                                         @endif
                                     >
