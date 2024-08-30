@@ -21,6 +21,8 @@
                 <p class="form__group">
                     <input
                         id="name"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="name"
                         class="form__text"
                         placeholder=" "

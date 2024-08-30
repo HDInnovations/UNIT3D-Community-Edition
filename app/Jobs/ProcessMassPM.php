@@ -18,7 +18,6 @@ namespace App\Jobs;
 
 use App\Models\Conversation;
 use App\Models\PrivateMessage;
-use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -46,13 +45,7 @@ class ProcessMassPM implements ShouldQueue
     {
         $conversation = Conversation::create(['subject' => $this->subject]);
 
-        if ($this->senderId !== User::SYSTEM_USER_ID) {
-            $conversation->users()->sync([$this->senderId => ['read' => true]]);
-        }
-
-        if ($this->receiverId !== User::SYSTEM_USER_ID) {
-            $conversation->users()->sync([$this->receiverId]);
-        }
+        $conversation->users()->sync([$this->senderId => ['read' => true], $this->receiverId]);
 
         PrivateMessage::create([
             'conversation_id' => $conversation->id,

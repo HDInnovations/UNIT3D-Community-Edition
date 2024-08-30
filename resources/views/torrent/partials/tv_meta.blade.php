@@ -107,7 +107,7 @@
                     title="The Movie Database: {{ $meta->id }}"
                     target="_blank"
                 >
-                    <img src="{{ url('/img/meta/tmdb.svg') }}" style="width: 40px" />
+                    <img src="{{ url('/img/meta/tmdb.svg') }}" />
                 </a>
             </li>
         @endif
@@ -120,7 +120,7 @@
                     title="Internet Movie Database: {{ \str_pad((string) $meta->imdb_id, \max(\strlen((string) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
                     target="_blank"
                 >
-                    <img src="{{ url('/img/meta/imdb.svg') }}" style="width: 35px" />
+                    <img src="{{ url('/img/meta/imdb.svg') }}" />
                 </a>
             </li>
         @endif
@@ -133,7 +133,7 @@
                     title="My Anime List: {{ $torrent->mal }}"
                     target="_blank"
                 >
-                    <img src="{{ url('/img/meta/anidb.svg') }}" style="width: 45px" />
+                    <img src="{{ url('/img/meta/mal.svg') }}" />
                 </a>
             </li>
         @endif
@@ -146,7 +146,7 @@
                     title="The TV Database: {{ $torrent->tvdb }}"
                     target="_blank"
                 >
-                    <img src="{{ url('/img/meta/tvdb.svg') }}" style="width: 32px" />
+                    <img src="{{ url('/img/meta/tvdb.svg') }}" />
                 </a>
             </li>
         @endif
@@ -166,8 +166,6 @@
                             --fa-secondary-opacity: 1;
                             --fa-primary-color: green;
                             --fa-secondary-color: red;
-                            font-size: 23px;
-                            bottom: 2px;
                         "
                     ></i>
                 </a>

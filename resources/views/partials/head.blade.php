@@ -17,7 +17,7 @@
 @if (auth()->user()->settings?->standalone_css === null)
     @vite('resources/sass/main.scss')
 
-    @switch(auth()->user()->settings?->style)
+    @switch(auth()->user()->settings?->style ?? config('other.default_style', 0))
         @case(0)
             @vite('resources/sass/themes/_light.scss')
 

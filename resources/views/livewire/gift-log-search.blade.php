@@ -7,7 +7,8 @@
                     <input
                         id="sender"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="sender"
                         placeholder=" "
                     />
@@ -21,7 +22,8 @@
                     <input
                         id="receiver"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="receiver"
                         placeholder=" "
                     />
@@ -35,7 +37,8 @@
                     <input
                         id="comment"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="comment"
                         placeholder=" "
                     />

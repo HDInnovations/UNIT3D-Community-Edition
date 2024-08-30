@@ -7,7 +7,8 @@
                     <input
                         id="username"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="username"
                         placeholder=" "
                     />
@@ -38,7 +39,8 @@
                     <input
                         id="modelId"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="modelId"
                         placeholder=" "
                     />
@@ -61,7 +63,8 @@
                     <input
                         id="record"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="record"
                         placeholder=" "
                     />

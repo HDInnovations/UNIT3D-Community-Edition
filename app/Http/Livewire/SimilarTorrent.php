@@ -16,12 +16,17 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use App\DTO\TorrentSearchFiltersDTO;
 use App\Models\Category;
+use App\Models\Distributor;
 use App\Models\History;
 use App\Models\Movie;
+use App\Models\Region;
+use App\Models\Resolution;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
+use App\Models\Type;
 use App\Models\User;
 use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
@@ -45,6 +50,135 @@ class SimilarTorrent extends Component
     public ?int $igdbId;
 
     public string $reason;
+
+    #[Url(history: true)]
+    public string $name = '';
+
+    #[Url(history: true)]
+    public string $description = '';
+
+    #[Url(history: true)]
+    public string $mediainfo = '';
+
+    #[Url(history: true)]
+    public string $uploader = '';
+
+    #[Url(history: true)]
+    public string $keywords = '';
+
+    #[Url(history: true)]
+    public ?int $minSize = null;
+
+    #[Url(history: true)]
+    public int $minSizeMultiplier = 1;
+
+    #[Url(history: true)]
+    public ?int $maxSize = null;
+
+    #[Url(history: true)]
+    public int $maxSizeMultiplier = 1;
+
+    #[Url(history: true)]
+    public ?int $episodeNumber = null;
+
+    #[Url(history: true)]
+    public ?int $seasonNumber = null;
+
+    /**
+     * @var array<int>
+     */
+    #[Url(history: true)]
+    public array $typeIds = [];
+
+    /**
+     * @var array<int>
+     */
+    #[Url(history: true)]
+    public array $resolutionIds = [];
+
+    /**
+     * @var array<int>
+     */
+    #[Url(history: true)]
+    public array $regionIds = [];
+
+    /**
+     * @var array<int>
+     */
+    #[Url(history: true)]
+    public array $distributorIds = [];
+
+    #[Url(history: true)]
+    public string $adult = 'any';
+
+    #[Url(history: true)]
+    public ?int $playlistId = null;
+
+    /**
+     * @var string[]
+     */
+    #[Url(history: true)]
+    public array $free = [];
+
+    #[Url(history: true)]
+    public bool $doubleup = false;
+
+    #[Url(history: true)]
+    public bool $featured = false;
+
+    #[Url(history: true)]
+    public bool $refundable = false;
+
+    #[Url(history: true)]
+    public bool $stream = false;
+
+    #[Url(history: true)]
+    public bool $sd = false;
+
+    #[Url(history: true)]
+    public bool $highspeed = false;
+
+    #[Url(history: true)]
+    public bool $bookmarked = false;
+
+    #[Url(history: true)]
+    public bool $wished = false;
+
+    #[Url(history: true)]
+    public bool $internal = false;
+
+    #[Url(history: true)]
+    public bool $personalRelease = false;
+
+    #[Url(history: true)]
+    public bool $trumpable = false;
+
+    #[Url(history: true)]
+    public bool $alive = false;
+
+    #[Url(history: true)]
+    public bool $dying = false;
+
+    #[Url(history: true)]
+    public bool $dead = false;
+
+    #[Url(history: true)]
+    public bool $graveyard = false;
+
+    #[Url(history: true)]
+    public bool $notDownloaded = false;
+
+    #[Url(history: true)]
+    public bool $downloaded = false;
+
+    #[Url(history: true)]
+    public bool $seeding = false;
+
+    #[Url(history: true)]
+    public bool $leeching = false;
+
+    #[Url(history: true)]
+    public bool $incomplete = false;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
@@ -136,6 +270,51 @@ class SimilarTorrent extends Component
                 fn ($query) => $query->where('tmdb', '=', $this->tmdbId),
                 fn ($query) => $query->where('igdb', '=', $this->igdbId),
             )
+            ->where((new TorrentSearchFiltersDTO(
+                name: $this->name,
+                description: $this->description,
+                mediainfo: $this->mediainfo,
+                keywords: $this->keywords ? array_map('trim', explode(',', $this->keywords)) : [],
+                uploader: $this->uploader,
+                episodeNumber: $this->episodeNumber,
+                seasonNumber: $this->seasonNumber,
+                minSize: $this->minSize === null ? null : $this->minSize * $this->minSizeMultiplier,
+                maxSize: $this->maxSize === null ? null : $this->maxSize * $this->maxSizeMultiplier,
+                playlistId: $this->playlistId,
+                typeIds: $this->typeIds,
+                resolutionIds: $this->resolutionIds,
+                free: $this->free,
+                doubleup: $this->doubleup,
+                featured: $this->featured,
+                refundable: $this->refundable,
+                internal: $this->internal,
+                personalRelease: $this->personalRelease,
+                trumpable: $this->trumpable,
+                stream: $this->stream,
+                sd: $this->sd,
+                highspeed: $this->highspeed,
+                userBookmarked: $this->bookmarked,
+                userWished: $this->wished,
+                alive: $this->alive,
+                dying: $this->dying,
+                dead: $this->dead,
+                graveyard: $this->graveyard,
+                userDownloaded: match (true) {
+                    $this->downloaded    => true,
+                    $this->notDownloaded => false,
+                    default              => null,
+                },
+                userSeeder: match (true) {
+                    $this->seeding  => true,
+                    $this->leeching => false,
+                    default         => null,
+                },
+                userActive: match (true) {
+                    $this->seeding  => true,
+                    $this->leeching => true,
+                    default         => null,
+                },
+            ))->toSqlQueryBuilder())
             ->orderBy($this->sortField, $this->sortDirection)
             ->get()
             ->when(
@@ -316,14 +495,54 @@ class SimilarTorrent extends Component
         return cache()->get('personal_freeleech:'.auth()->id()) ?? false;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Type>
+     */
+    #[Computed(seconds: 3600, cache: true)]
+    final public function types(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Type::query()->orderBy('position')->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     */
+    #[Computed(seconds: 3600, cache: true)]
+    final public function resolutions(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Resolution::query()->orderBy('position')->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Region>
+     */
+    #[Computed(seconds: 3600, cache: true)]
+    final public function regions(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Region::query()->orderBy('position')->get();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Distributor>
+     */
+    #[Computed(seconds: 3600, cache: true)]
+    final public function distributors(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Distributor::query()->orderBy('name')->get();
+    }
+
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.similar-torrent', [
             'user'              => auth()->user(),
-            'torrents'          => $this->torrents,
+            'similarTorrents'   => $this->torrents,
             'personalFreeleech' => $this->personalFreeleech,
             'torrentRequests'   => $this->torrentRequests,
             'media'             => $this->work,
+            'types'             => $this->types,
+            'resolutions'       => $this->resolutions,
+            'regions'           => $this->regions,
+            'distributors'      => $this->distributors,
         ]);
     }
 }
