@@ -609,11 +609,11 @@ class TorrentSearch extends Component
                                     'Complete Pack' => $this->groupByTypeAndSort($packOrSpecialOrSeasons),
                                     'Specials'      => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
-                                        ->sortKeys(SORT_NATURAL)
+                                        ->sortKeysDesc(SORT_NATURAL)
                                         ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
                                     'Seasons' => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
-                                        ->sortKeys(SORT_NATURAL)
+                                        ->sortKeysDesc(SORT_NATURAL)
                                         ->map(
                                             fn ($season) => $season
                                                 ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
@@ -621,7 +621,7 @@ class TorrentSearch extends Component
                                                     'Season Pack' => $this->groupByTypeAndSort($packOrEpisodes),
                                                     'Episodes'    => $packOrEpisodes
                                                         ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
-                                                        ->sortKeys(SORT_NATURAL)
+                                                        ->sortKeysDesc(SORT_NATURAL)
                                                         ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
                                                     default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
                                                 })
@@ -684,8 +684,7 @@ class TorrentSearch extends Component
                 fn ($torrentsBytype) => $torrentsBytype
                     ->sortBy([
                         ['resolution.position', 'asc'],
-                        ['internal', 'desc'],
-                        ['size', 'desc']
+                        ['name', 'asc'],
                     ])
                     ->values()
             );
