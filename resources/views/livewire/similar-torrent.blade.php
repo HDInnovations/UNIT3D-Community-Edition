@@ -708,7 +708,42 @@
                                 @endif
                             >
                                 <summary x-bind="season">{{ $seasonName }}</summary>
-                                @if ($season->has('Season Pack'))
+                                @if ($season->has('Season Pack') && ! $season->has('Episodes'))
+                                    <table class="similar-torrents__torrents">
+                                        @foreach ($season['Season Pack'] as $type => $torrents)
+                                            <tbody>
+                                                @foreach ($torrents as $torrent)
+                                                    <tr>
+                                                        @if ($loop->first)
+                                                            <th
+                                                                class="similar-torrents__type"
+                                                                scope="rowgroup"
+                                                                rowspan="{{ $loop->count }}"
+                                                            >
+                                                                {{ $type }}
+                                                            </th>
+                                                        @endif
+
+                                                        @if ($user->group->is_modo)
+                                                            <td
+                                                                class="similar-torrents__checkbox"
+                                                                x-on:click.self="$el.firstElementChild.click()"
+                                                            >
+                                                                <input
+                                                                    type="checkbox"
+                                                                    value="{{ $torrent->id }}"
+                                                                    wire:model.live="checked"
+                                                                />
+                                                            </td>
+                                                        @endif
+
+                                                        @include('components.partials._torrent-group-row')
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        @endforeach
+                                    </table>
+                                @elseif ($season->has('Season Pack'))
                                     <details open class="torrent-search--grouped__dropdown">
                                         <summary x-bind="pack">Season Pack</summary>
                                         <table class="similar-torrents__torrents">
