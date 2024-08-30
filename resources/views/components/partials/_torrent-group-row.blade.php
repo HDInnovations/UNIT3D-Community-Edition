@@ -14,6 +14,7 @@
             <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                 @switch($media->meta)
                     @case('movie')
+                        {{-- Removes the year and everything before it --}}
                         @php
                             $releaseYear = $media->release_date instanceof \Illuminate\Support\Carbon ? $media->release_date->year : (int) $media->release_date;
                         @endphp
@@ -22,7 +23,7 @@
 
                         @break
                     @case('tv')
-                        {{-- Removes the following patterns from the name: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000-, 2000 --}}
+                        {{-- Removes the show name and year --}}
                         @php
                             if ($media->first_air_date?->year !== null && $media->last_air_date?->year !== null) {
                                 $firstAirDateRange = range($media->first_air_date->year - 1, $media->first_air_date->year + 1);
@@ -33,7 +34,7 @@
                             }
                         @endphp
 
-                        {{ \preg_replace('/^.*( S\d{2,4}(?:-?E\d{2,4})*? | ' . implode(' | ', $firstAirDateRange) . ' | ' . implode('-| ', $fullRange) . '-)/i', '', $torrent->name) }}
+                        {{ \preg_replace('/^.*(' . $media->name . ' | ' . implode(' | ', $firstAirDateRange) . ' )/i', '', $torrent->name) }}
 
                         @break
                 @endswitch
