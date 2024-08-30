@@ -595,7 +595,6 @@
                                     class="form__checkbox"
                                     type="checkbox"
                                     wire:model.live="selectPage"
-                                    style="vertical-align: middle"
                                 />
                             </label>
                         </div>
