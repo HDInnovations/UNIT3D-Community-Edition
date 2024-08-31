@@ -531,6 +531,8 @@
 .torrent-search--grouped__dropdown {
     display: block;
     font-size: 13px;
+    background-color: var(--torrent-group-bg);
+    color: var(--torrent-group-text);
 
     > summary {
         padding: 6px;
@@ -601,7 +603,11 @@
 }
 
 .torrent-search--grouped__torrents tbody:nth-child(odd) {
-    background-color: var(--torrent-group-table-stripe);
+    background-color: var(--torrent-group-table-stripe-odd);
+}
+
+.torrent-search--grouped__torrents tbody:nth-child(even) {
+    background-color: var(--torrent-group-table-stripe-even);
 }
 
 .torrent-search--grouped__torrents > tbody > tr {
@@ -954,7 +960,11 @@ td.torrent-search--grouped__age time {
 }
 
 .similar-torrents__torrents tbody:nth-child(odd) {
-    background-color: var(--torrent-group-table-stripe);
+    background-color: var(--torrent-group-table-stripe-odd);
+}
+
+.similar-torrents__torrents tbody:nth-child(even) {
+    background-color: var(--torrent-group-table-stripe-even);
 }
 
 .similar-torrents__torrents > tbody > tr {

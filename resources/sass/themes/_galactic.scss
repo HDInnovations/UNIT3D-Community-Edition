@@ -337,7 +337,8 @@
     --torrent-group-header-bg: #303030;
     --torrent-group-text: white;
     --torrent-group-text-muted: #878787;
-    --torrent-group-table-stripe: rgba(255, 255, 255, 0.05);
+    --torrent-group-table-stripe-even: rgba(255, 255, 255, 0.02);
+    --torrent-group-table-stripe-odd: rgba(255, 255, 255, 0.05);
     --torrent-group-hover-brightness-emphasis: 1.2;
     --torrent-group-chip-border: rgba(255, 255, 255, 0.05);
 
