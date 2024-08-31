@@ -189,6 +189,8 @@ class SimilarTorrent extends Component
 
     public bool $selectPage = false;
 
+    public bool $hideFilledRequests = true;
+
     #[Url(history: true)]
     public string $sortField = 'bumped_at';
 
@@ -381,6 +383,10 @@ class SimilarTorrent extends Component
             ->withCount(['comments'])
             ->where('tmdb', '=', $this->tmdbId)
             ->where('category_id', '=', $this->category->id)
+            ->when(
+                $this->hideFilledRequests,
+                fn ($query) => $query->where(fn ($query) => $query->whereDoesntHave('torrent')->orWhereDoesntHave('approver'))
+            )
             ->latest()
             ->get();
     }

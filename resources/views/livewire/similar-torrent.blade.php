@@ -965,12 +965,24 @@
                     {{ __('request.requests') }}
                 </h2>
                 <div class="panel__actions">
-                    <a
-                        href="{{ route('requests.create') }}"
-                        class="form__button form__button--text"
-                    >
-                        {{ __('request.add-request') }}
-                    </a>
+                    <div class="panel__action">
+                        <label class="form__label">
+                            Hide Filled Requests
+                            <input
+                                class="form__checkbox"
+                                type="checkbox"
+                                wire:model.live="hideFilledRequests"
+                            />
+                        </label>
+                    </div>
+                    <div class="panel__action">
+                        <a
+                            href="{{ route('requests.create') }}"
+                            class="form__button form__button--text"
+                        >
+                            {{ __('request.add-request') }}
+                        </a>
+                    </div>
                 </div>
             </header>
             <div class="data-table-wrapper">
