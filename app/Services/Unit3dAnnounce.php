@@ -239,7 +239,7 @@ class Unit3dAnnounce
         return self::put('groups', [
             'id'               => $group->id,
             'slug'             => $group->slug,
-            'download_slots'   => (int) $group->download_slots,
+            'download_slots'   => $group->download_slots === null ? null : (int) $group->download_slots,
             'is_immune'        => (bool) $group->is_immune,
             'is_freeleech'     => (bool) $group->is_freeleech,
             'is_double_upload' => (bool) $group->is_double_upload,
