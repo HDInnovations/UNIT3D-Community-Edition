@@ -27,6 +27,8 @@ use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Meilisearch\Endpoints\Indexes;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\RssControllerTest
@@ -152,33 +154,8 @@ class RssController extends Controller
         if (\is_object($search)) {
             $cacheKey = 'rss:'.$rss->id;
 
-            $torrents = cache()->remember($cacheKey, 300, fn () => Torrent::query()
-                ->select([
-                    'name',
-                    'id',
-                    'category_id',
-                    'type_id',
-                    'resolution_id',
-                    'size',
-                    'created_at',
-                    'seeders',
-                    'leechers',
-                    'times_completed',
-                    'user_id',
-                    'anon',
-                    'imdb',
-                    'tmdb',
-                    'tvdb',
-                    'mal',
-                    'internal',
-                ])
-                ->with([
-                    'user:id,username,rsskey',
-                    'category:id,name,movie_meta,tv_meta',
-                    'type:id,name',
-                    'resolution:id,name'
-                ])
-                ->where((new TorrentSearchFiltersDTO(
+            $torrents = cache()->remember($cacheKey, 300, function () use ($search, $user) {
+                $filters = new TorrentSearchFiltersDTO(
                     user: $user,
                     name: $search->search ?? '',
                     description: $search->description ?? '',
@@ -203,10 +180,54 @@ class RssController extends Controller
                     alive: (bool) ($search->alive ?? false),
                     dying: (bool) ($search->dying ?? false),
                     dead: (bool) ($search->dead ?? false),
-                ))->toSqlQueryBuilder())
-                ->orderByDesc('bumped_at')
-                ->take(50)
-                ->get());
+                );
+
+                $torrents = Torrent::search(
+                    $search->search ?? '',
+                    function (Indexes $meilisearch, string $query, array $options) use ($filters) {
+                        $options['sort'] = [
+                            'bumped_at:desc',
+                        ];
+                        $options['filter'] = $filters->toMeilisearchFilter();
+                        $options['matchingStrategy'] = 'all';
+
+                        $results = $meilisearch->search($query, $options);
+
+                        return $results;
+                    }
+                )
+                    ->query(
+                        fn (Builder $query) => $query->
+                            select([
+                                'name',
+                                'id',
+                                'category_id',
+                                'type_id',
+                                'resolution_id',
+                                'size',
+                                'created_at',
+                                'seeders',
+                                'leechers',
+                                'times_completed',
+                                'user_id',
+                                'anon',
+                                'imdb',
+                                'tmdb',
+                                'tvdb',
+                                'mal',
+                                'internal',
+                            ])
+                                ->with([
+                                    'user:id,username,rsskey',
+                                    'category:id,name,movie_meta,tv_meta',
+                                    'type:id,name',
+                                    'resolution:id,name'
+                                ])
+                    )
+                    ->paginate(50);
+
+                return $torrents;
+            });
 
             return response()->view('rss.show', [
                 'torrents' => $torrents,

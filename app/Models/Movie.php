@@ -147,4 +147,12 @@ class Movie extends Model
     {
         return $this->hasMany(TorrentRequest::class, 'tmdb', 'id')->whereRelation('category', 'movie_meta', '=', true);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish, $this>
+     */
+    public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Wish::class);
+    }
 }

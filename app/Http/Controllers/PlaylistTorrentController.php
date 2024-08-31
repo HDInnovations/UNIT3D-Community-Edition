@@ -39,7 +39,9 @@ class PlaylistTorrentController extends Controller
 
         abort_unless($request->user()->id === $playlist->user_id, 403);
 
-        PlaylistTorrent::create($request->validated());
+        $playlistTorrent = PlaylistTorrent::create($request->validated());
+
+        $playlistTorrent->torrent()->searchable();
 
         return to_route('playlists.show', ['playlist' => $playlist])
             ->withSuccess(trans('playlist.attached-success'));
@@ -69,6 +71,8 @@ class PlaylistTorrentController extends Controller
 
         PlaylistTorrent::upsert($playlistTorrents, ['playlist_id', 'torrent_id', 'tmdb_id']);
 
+        $playlist->torrents()->searchable();
+
         return to_route('playlists.show', ['playlist' => $playlist])
             ->withSuccess(trans('playlist.attached-success'));
     }
@@ -83,6 +87,8 @@ class PlaylistTorrentController extends Controller
         abort_unless($request->user()->group->is_modo || $request->user()->id === $playlistTorrent->playlist->user_id, 403);
 
         $playlistTorrent->delete();
+
+        $playlistTorrent->torrent()->searchable();
 
         return to_route('playlists.show', ['playlist' => $playlistTorrent->playlist])
             ->withSuccess(trans('playlist.detached-success'));

@@ -161,4 +161,12 @@ class Tv extends Model
     {
         return $this->belongsToMany(__CLASS__, Recommendation::class, 'tv_id', 'recommendation_tv_id', 'id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish, $this>
+     */
+    public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Wish::class);
+    }
 }

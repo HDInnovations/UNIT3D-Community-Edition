@@ -22,3 +22,13 @@ parameters:
         - bootstrap/cache
     level: 7
     checkOctaneCompatibility: true
+    ignoreErrors:
+        -
+            message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\:\:searchable\(\)\.$#'
+            identifier: method.notFound
+        -
+            message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Torrent, [a-zA-Z0-9\\_]+\>\:\:searchable\(\)\.$#'
+            identifier: method.notFound
+        -
+            message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Torrent, [a-zA-Z0-9\\_]+\>\:\:searchable\(\)\.$#'
+            identifier: method.notFound
