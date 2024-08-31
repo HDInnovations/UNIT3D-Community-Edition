@@ -981,6 +981,12 @@ td.torrent-search--grouped__age time {
     border-bottom: 0;
 }
 
+.similar-torrents__torrents > thead > tr > th {
+    padding: 7px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
 th.similar-torrents__type {
     background-color: initial;
     font-size: 13px;
