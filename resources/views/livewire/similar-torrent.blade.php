@@ -1,6 +1,6 @@
 <div class="similar-torrents-list">
     <div style="display: flex; flex-direction: column; gap: 16px">
-        <section class="panelV2 torrent-search__filters" x-data="toggle">
+        <section class="panelV2 similar-torrents__filters" x-data="toggle">
             <header class="panel__header">
                 <h2 class="panel__heading">{{ __('common.search') }}</h2>
                 <div class="panel__actions">
