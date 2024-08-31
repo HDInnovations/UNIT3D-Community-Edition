@@ -17,9 +17,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\History;
-use App\Models\Warning;
 use App\Notifications\UserPreWarning;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -52,43 +50,33 @@ class AutoPreWarning extends Command
             return;
         }
 
-        $carbon = new Carbon();
-        $prewarn = History::with(['user', 'torrent'])
+        $prewarn = History::with(['user'])
             ->whereNull('prewarned_at')
             ->where('hitrun', '=', 0)
             ->where('immune', '=', 0)
             ->where('actual_downloaded', '>', 0)
             ->where('active', '=', 0)
             ->where('seedtime', '<=', config('hitrun.seedtime'))
-            ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.prewarn')))
+            ->where('updated_at', '<', now()->subDays(config('hitrun.prewarn')))
+            ->has('torrent')
+            ->whereRelation('user.group', 'is_immune', '=', false)
+            ->whereHas('torrent', fn ($query) => $query->whereRaw('history.actual_downloaded > torrents.size * ?', [config('hitrun.buffer') / 100]))
+            ->whereDoesntHave('user.warnings', fn ($query) => $query->withTrashed()->whereColumn('warnings.torrent', '=', 'history.torrent_id'))
             ->get();
 
         $usersWithPreWarnings = [];
 
         foreach ($prewarn as $pre) {
-            if (null === $pre->torrent) {
-                continue;
-            }
+            History::query()
+                ->where('torrent_id', '=', $pre->torrent_id)
+                ->where('user_id', '=', $pre->user_id)
+                ->update([
+                    'prewarned_at' => now(),
+                    'updated_at'   => DB::raw('updated_at'),
+                ]);
 
-            if (!$pre->user->group->is_immune && $pre->actual_downloaded > ($pre->torrent->size * (config('hitrun.buffer') / 100))) {
-                $exsist = Warning::withTrashed()
-                    ->where('torrent', '=', $pre->torrent->id)
-                    ->where('user_id', '=', $pre->user->id)
-                    ->first();
-
-                if ($exsist === null) {
-                    History::query()
-                        ->where('torrent_id', '=', $pre->torrent_id)
-                        ->where('user_id', '=', $pre->user_id)
-                        ->update([
-                            'prewarned_at' => now(),
-                            'updated_at'   => DB::raw('updated_at'),
-                        ]);
-
-                    // Add user to usersWithWarnings array
-                    $usersWithPreWarnings[$pre->user->id] = $pre->user;
-                }
-            }
+            // Add user to usersWithWarnings array
+            $usersWithPreWarnings[$pre->user_id] = $pre->user;
         }
 
         // Send a single notification for each user with warnings
