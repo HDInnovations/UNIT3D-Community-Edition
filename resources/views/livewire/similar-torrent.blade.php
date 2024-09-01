@@ -571,11 +571,6 @@
             <header class="panel__header">
                 <h2 class="panel__heading">{{ __('torrent.torrents') }}</h2>
                 <div class="panel__actions">
-                    <div class="panel__action">
-                        <button class="form__button form__button--text" x-bind="all">
-                            Expand all
-                        </button>
-                    </div>
                     @if ($checked && $user->group->is_modo)
                         <div class="panel__action">
                             <button
@@ -599,6 +594,12 @@
                             </label>
                         </div>
                     @endif
+
+                    <div class="panel__action">
+                        <button class="form__button form__button--text" x-bind="all">
+                            Expand all
+                        </button>
+                    </div>
                 </div>
             </header>
             <div class="data-table-wrapper">
