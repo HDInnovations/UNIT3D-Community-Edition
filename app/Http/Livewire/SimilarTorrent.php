@@ -258,6 +258,7 @@ class SimilarTorrent extends Component
                             ->where('seeder', '=', 1)
                             ->orWhereNotNull('completed_at')
                     ),
+                'trump',
             ])
             ->when(
                 $this->category->movie_meta,
