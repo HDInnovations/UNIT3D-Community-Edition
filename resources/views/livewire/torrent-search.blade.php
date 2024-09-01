@@ -1061,12 +1061,21 @@
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('livewire:init', function () {
           let myRegions = [
-              @foreach($regions as $region)
               {
-                  label: "{{ $region->name }} ({{ __('regions.'.$region->name) }})", value: "{{ $region->id }}"
+                  label: "No region", value: "0"
               },
-              @endforeach
-          ]
+              ... {{
+                  Js::from(
+                      $regions
+                          ->each(function ($region) {
+                              $region->label = $region->name . ' (' . __('regions.' . $region->name) . ')';
+                              $region->value = $region->id;
+                          })
+                          ->select(['label', 'value'])
+                  )
+              }}
+          ];
+
           VirtualSelect.init({
             ele: '#regions',
             options: myRegions,
@@ -1083,12 +1092,21 @@
           })
 
           let myDistributors = [
-              @foreach($distributors as $distributor)
               {
-                  label: "{{ $distributor->name }}", value: "{{ $distributor->id }}"
+                  label: "No distributor", value: "0"
               },
-              @endforeach
-          ]
+              ... {{
+                  Js::from(
+                      $distributors
+                          ->each(function ($distributor) {
+                              $distributor->label = $distributor->name;
+                              $distributor->value = $distributor->id;
+                          })
+                          ->select(['label', 'value'])
+                  )
+              }}
+          ];
+
           VirtualSelect.init({
             ele: '#distributors',
             options: myDistributors,

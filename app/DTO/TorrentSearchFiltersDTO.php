@@ -229,11 +229,25 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->regionIds !== []) {
-            $filters[] = 'region_id IN '.json_encode(array_map('intval', $this->regionIds));
+            if (\in_array(0, $this->regionIds, false)) {
+                $filters[] = [
+                    'region_id IS NULL',
+                    'region_id IN '.json_encode(array_map('intval', $this->regionIds)),
+                ];
+            } else {
+                $filters[] = 'region_id IN '.json_encode(array_map('intval', $this->regionIds));
+            }
         }
 
         if ($this->distributorIds !== []) {
-            $filters[] = 'distributor_id IN '.json_encode(array_map('intval', $this->distributorIds));
+            if (\in_array(0, $this->distributorIds, false)) {
+                $filters[] = [
+                    'distributor_id IS NULL',
+                    'distributor_id IN '.json_encode(array_map('intval', $this->distributorIds)),
+                ];
+            } else {
+                $filters[] = 'distributor_id IN '.json_encode(array_map('intval', $this->distributorIds));
+            }
         }
 
         if ($this->adult !== null) {
