@@ -261,11 +261,6 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: "#^Access to an undefined property object\\:\\:\\$banned_id\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
