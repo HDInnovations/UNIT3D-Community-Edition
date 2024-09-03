@@ -130,6 +130,15 @@
                             {{ __('common.quantity') }}
                         </label>
                     </p>
+                    <p class="form__group">
+                        <input
+                            id="hideSnoozed"
+                            class="form__checkbox"
+                            type="checkbox"
+                            wire:model.live="hideSnoozed"
+                        />
+                        <label class="form__label" for="hideSnoozed">Hide Snoozed</label>
+                    </p>
                 </div>
             </form>
         </div>
