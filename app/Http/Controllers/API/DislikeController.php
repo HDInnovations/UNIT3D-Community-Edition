@@ -22,38 +22,28 @@ use App\Models\Like;
 
 class DislikeController extends Controller
 {
-    public function store(int $postId)
+    public function store(int $postId): \Illuminate\Http\JsonResponse
     {
         $user = auth()->user();
-        $post = Post::withCount('dislikes')->findOrFail($postId);
+        $post = Post::findOrFail($postId);
 
-        if ($user->id === $post->user_id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You cannot dislike your own post!',
-            ], 400);
+        if($user->id === $post->id) {
+            abort(400, 'You cannot dislike your own post!');
         }
 
-        $exist = Like::where('user_id', $user->id)->where('post_id', $postId)->first();
-
-        if ($exist) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You have already liked or disliked this post!',
-            ], 400);
+        if(Like::where('user_id', '=', $user->id)->where('post_id', '=', $post->id)->exists()) {
+            abort(400, 'You have already liked or disliked this post!');
         }
 
-        $like = new Like();
-        $like->user_id = $user->id;
-        $like->post_id = $postId;
-        $like->dislike = true;
-        $like->save();
-
-        $post->loadCount('dislikes');
+        Like::create([
+            'user_id' => $user->id,
+            'post_id' => $post->id,
+            'dislike' => true,
+        ]);
 
         return response()->json([
-            'success'       => true,
-            'dislikesCount' => $post->dislikes_count,
+            'success'    => true,
+            'likesCount' => $post->dislikes()->count(),
         ]);
     }
 }
