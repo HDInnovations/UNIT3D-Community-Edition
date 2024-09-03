@@ -18,7 +18,10 @@ document.addEventListener('alpine:init', () => {
                             icon: 'success',
                             title: 'Your dislike was successfully applied!',
                         });
-                        this.$dispatch('dislike-updated', { postId: this.postId, dislikesCount: this.dislikesCount });
+                        this.$dispatch('dislike-updated', {
+                            postId: this.postId,
+                            dislikesCount: this.dislikesCount,
+                        });
                     }
                 })
                 .catch((error) => {

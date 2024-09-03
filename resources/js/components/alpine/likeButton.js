@@ -18,7 +18,10 @@ document.addEventListener('alpine:init', () => {
                             icon: 'success',
                             title: 'Your like was successfully applied!',
                         });
-                        this.$dispatch('like-updated', { postId: this.postId, likesCount: this.likesCount });
+                        this.$dispatch('like-updated', {
+                            postId: this.postId,
+                            likesCount: this.likesCount,
+                        });
                     }
                 })
                 .catch((error) => {
