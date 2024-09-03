@@ -145,6 +145,11 @@
     font-size: 14px;
     color: var(--post-fg);
     line-height: 1.5;
+
+    img {
+        max-width: 400px;
+        max-height: 400px;
+    }
 }
 
 .edit-comment {
