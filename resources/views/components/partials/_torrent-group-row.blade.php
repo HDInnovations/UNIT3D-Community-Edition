@@ -23,7 +23,7 @@
 
                         @break
                     @case('tv')
-                        {{-- Removes the show name and year --}}
+                        {{-- Removes the year and everything before it. Also removes everything before the following patterns: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000- --}}
                         @php
                             if ($media->first_air_date?->year !== null && $media->last_air_date?->year !== null) {
                                 $firstAirDateRange = range($media->first_air_date->year - 1, $media->first_air_date->year + 1);
@@ -34,7 +34,7 @@
                             }
                         @endphp
 
-                        {{ \preg_replace('/^.*(' . $media->name . ' | ' . implode(' | ', $firstAirDateRange) . ' )/i', '', $torrent->name) }}
+                        {{ \preg_replace('/^.*( ' . implode(' | ', $firstAirDateRange) . ' | (?=S\d{2,4}(?:-S\d{2,4})(?:-?E\d{2,4})*? |' . implode('-|', $fullRange) . '-))/i', '', $torrent->name) }}
 
                         @break
                 @endswitch
