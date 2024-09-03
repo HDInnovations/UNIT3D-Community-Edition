@@ -48,4 +48,9 @@ Route::middleware(['web', 'auth', 'banned', 'verified'])->group(function (): voi
         Route::post('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'store'])->name('api.bookmarks.store');
         Route::delete('/{torrentId}', [App\Http\Controllers\API\BookmarkController::class, 'destroy'])->name('api.bookmarks.destroy');
     });
+
+    Route::prefix('posts')->group(function (): void {
+        Route::post('/{postId}/like', [App\Http\Controllers\API\LikeController::class, 'store'])->name('api.posts.like.store');
+        Route::post('/{postId}/dislike', [App\Http\Controllers\API\DislikeController::class, 'store'])->name('api.posts.dislike.store');
+    });
 });
