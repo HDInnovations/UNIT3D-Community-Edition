@@ -68,15 +68,31 @@
                     </datalist>
                 </form>
             </li>
-            <li class="post__toolbar-item" x-data="likeButton({{ $post->id }}, {{ $post->likes_count }})" @like-updated.window="if ($event.detail.postId === {{ $post->id }}) likesCount = $event.detail.likesCount">
+            <li
+                class="post__toolbar-item"
+                x-data="likeButton({{ $post->id }}, {{ $post->likes_count }})"
+                @like-updated.window="if ($event.detail.postId === {{ $post->id }}) likesCount = $event.detail.likesCount"
+            >
                 <button class="votes__like" @click="like" title="{{ __('forum.like-post') }}">
-                    <i class="votes__like-icon {{ config('other.font-awesome') }} fa-thumbs-up"></i>
+                    <i
+                        class="votes__like-icon {{ config('other.font-awesome') }} fa-thumbs-up"
+                    ></i>
                     <span class="votes__like-count" x-text="likesCount"></span>
                 </button>
             </li>
-            <li class="post__toolbar-item" x-data="dislikeButton({{ $post->id }}, {{ $post->dislikes_count }})" @dislike-updated.window="if ($event.detail.postId === {{ $post->id }}) dislikesCount = $event.detail.dislikesCount">
-                <button class="votes__dislike" @click="dislike" title="{{ __('forum.dislike-post') }}">
-                    <i class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down"></i>
+            <li
+                class="post__toolbar-item"
+                x-data="dislikeButton({{ $post->id }}, {{ $post->dislikes_count }})"
+                @dislike-updated.window="if ($event.detail.postId === {{ $post->id }}) dislikesCount = $event.detail.dislikesCount"
+            >
+                <button
+                    class="votes__dislike"
+                    @click="dislike"
+                    title="{{ __('forum.dislike-post') }}"
+                >
+                    <i
+                        class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down"
+                    ></i>
                     <span class="votes__dislike-count" x-text="dislikesCount"></span>
                 </button>
             </li>

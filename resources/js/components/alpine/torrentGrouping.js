@@ -2,12 +2,26 @@ document.addEventListener('alpine:init', () => {
     Alpine.data('torrentGroup', () => ({
         complete: {
             ['x-on:click.ctrl.prevent']() {
-                this.toggle(document, ['complete', 'specials', 'special', 'season', 'pack', 'episode']);
+                this.toggle(document, [
+                    'complete',
+                    'specials',
+                    'special',
+                    'season',
+                    'pack',
+                    'episode',
+                ]);
             },
         },
         specials: {
             ['x-on:click.ctrl.prevent']() {
-                this.toggle(document, ['complete', 'specials', 'special', 'season', 'pack', 'episode']);
+                this.toggle(document, [
+                    'complete',
+                    'specials',
+                    'special',
+                    'season',
+                    'pack',
+                    'episode',
+                ]);
             },
         },
         special: {
@@ -17,7 +31,14 @@ document.addEventListener('alpine:init', () => {
         },
         season: {
             ['x-on:click.ctrl.prevent']() {
-                this.toggle(document, ['complete', 'specials', 'special', 'season', 'pack', 'episode']);
+                this.toggle(document, [
+                    'complete',
+                    'specials',
+                    'special',
+                    'season',
+                    'pack',
+                    'episode',
+                ]);
             },
         },
         pack: {},
@@ -28,7 +49,14 @@ document.addEventListener('alpine:init', () => {
         },
         all: {
             ['x-on:click.prevent']() {
-                this.toggle(document, ['complete', 'specials', 'special', 'season', 'pack', 'episode']);
+                this.toggle(document, [
+                    'complete',
+                    'specials',
+                    'special',
+                    'season',
+                    'pack',
+                    'episode',
+                ]);
             },
         },
         toggle(root, dropdowns) {
