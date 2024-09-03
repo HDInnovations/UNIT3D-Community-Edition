@@ -18,9 +18,7 @@
                             <option value="Request">Request</option>
                             <option value="User">User</option>
                         </select>
-                        <label class="form__label form__label--floating" for="type">
-                            Type
-                        </label>
+                        <label class="form__label form__label--floating" for="type">Type</label>
                     </p>
                     <p class="form__group">
                         <input
@@ -112,7 +110,9 @@
                                 <td>{{ $report->id }}</td>
                                 <td>{{ $report->type }}</td>
                                 <td>
-                                    <a href="{{ route('staff.reports.show', ['report' => $report]) }}">
+                                    <a
+                                        href="{{ route('staff.reports.show', ['report' => $report]) }}"
+                                    >
                                         {{ $report->title }}
                                     </a>
                                 </td>
