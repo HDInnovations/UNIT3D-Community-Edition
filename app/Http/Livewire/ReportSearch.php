@@ -59,6 +59,9 @@ class ReportSearch extends Component
     public ?string $solved = 'exclude';
 
     #[Url(history: true)]
+    public bool $hideSnoozed = true;
+
+    #[Url(history: true)]
     public string $sortField = 'created_at';
 
     #[Url(history: true)]
@@ -84,6 +87,7 @@ class ReportSearch extends Component
             ->when($this->verdict !== null, fn ($query) => $query->where('verdict', 'LIKE', '%'.str_replace(' ', '%', '%'.$this->verdict.'%')))
             ->when($this->solved === 'include', fn ($query) => $query->where('solved', '=', true))
             ->when($this->solved === 'exclude', fn ($query) => $query->where('solved', '=', false))
+            ->when($this->hideSnoozed, fn ($query) => $query->where(fn ($query) => $query->whereNull('snoozed_until')->orWhere('snoozed_until', '<', now())))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
