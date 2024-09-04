@@ -1,7 +1,21 @@
 document.addEventListener('alpine:init', () => {
-    Alpine.data('dislikeButton', (postId, initialDislikesCount) => ({
+    Alpine.data('dislikeButton', (postId, initialDislikesCount, isDisliked) => ({
         postId: postId,
         dislikesCount: initialDislikesCount,
+        isDisliked: isDisliked,
+        button: {
+            ['x-on:click']() {
+                this.dislike();
+            },
+            ['x-bind:title']() {
+                return this.isDisliked ? 'Disliked' : 'Dislike this post';
+            },
+        },
+        icon: {
+            ['x-bind:class']() {
+                return this.isDisliked && 'post__like-animation';
+            },
+        },
         dislike() {
             axios
                 .post(`/api/posts/${this.postId}/dislike`)
@@ -9,6 +23,7 @@ document.addEventListener('alpine:init', () => {
                     const data = response.data;
                     if (data.success) {
                         this.dislikesCount++;
+                        this.isDisliked = true;
                         Swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -17,10 +32,6 @@ document.addEventListener('alpine:init', () => {
                         }).fire({
                             icon: 'success',
                             title: 'Your dislike was successfully applied!',
-                        });
-                        this.$dispatch('dislike-updated', {
-                            postId: this.postId,
-                            dislikesCount: this.dislikesCount,
                         });
                     }
                 })

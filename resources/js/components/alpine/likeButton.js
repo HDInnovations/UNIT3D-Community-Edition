@@ -1,7 +1,21 @@
 document.addEventListener('alpine:init', () => {
-    Alpine.data('likeButton', (postId, initialLikesCount) => ({
+    Alpine.data('likeButton', (postId, initialLikesCount, isLiked) => ({
         postId: postId,
         likesCount: initialLikesCount,
+        isLiked: isLiked,
+        button: {
+            ['x-on:click']() {
+                this.like();
+            },
+            ['x-bind:title']() {
+                return this.isLiked ? 'Liked' : 'Like this post';
+            },
+        },
+        icon: {
+            ['x-bind:class']() {
+                return this.isLiked && 'post__like-animation';
+            },
+        },
         like() {
             axios
                 .post(`/api/posts/${this.postId}/like`)
@@ -9,6 +23,7 @@ document.addEventListener('alpine:init', () => {
                     const data = response.data;
                     if (data.success) {
                         this.likesCount++;
+                        this.isLiked = true;
                         Swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -17,10 +32,6 @@ document.addEventListener('alpine:init', () => {
                         }).fire({
                             icon: 'success',
                             title: 'Your like was successfully applied!',
-                        });
-                        this.$dispatch('like-updated', {
-                            postId: this.postId,
-                            likesCount: this.likesCount,
                         });
                     }
                 })

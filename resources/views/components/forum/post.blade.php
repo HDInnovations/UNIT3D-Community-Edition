@@ -70,11 +70,11 @@
             </li>
             <li
                 class="post__toolbar-item"
-                x-data="likeButton({{ $post->id }}, {{ $post->likes_count }})"
-                @like-updated.window="if ($event.detail.postId === {{ $post->id }}) likesCount = $event.detail.likesCount"
+                x-data="likeButton({{ $post->id }}, {{ $post->likes_count }}, {{ $post->likes_exists }})"
             >
-                <button class="votes__like" @click="like" title="{{ __('forum.like-post') }}">
+                <button class="votes__like" x-bind="button">
                     <i
+                        x-bind="icon"
                         class="votes__like-icon {{ config('other.font-awesome') }} fa-thumbs-up"
                     ></i>
                     <span class="votes__like-count" x-text="likesCount"></span>
@@ -82,15 +82,11 @@
             </li>
             <li
                 class="post__toolbar-item"
-                x-data="dislikeButton({{ $post->id }}, {{ $post->dislikes_count }})"
-                @dislike-updated.window="if ($event.detail.postId === {{ $post->id }}) dislikesCount = $event.detail.dislikesCount"
+                x-data="dislikeButton({{ $post->id }}, {{ $post->dislikes_count }}, {{ $post->dislikes_exists }})"
             >
-                <button
-                    class="votes__dislike"
-                    @click="dislike"
-                    title="{{ __('forum.dislike-post') }}"
-                >
+                <button class="votes__dislike" x-bind="button">
                     <i
+                        x-bind="icon"
                         class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down"
                     ></i>
                     <span class="votes__dislike-count" x-text="dislikesCount"></span>
