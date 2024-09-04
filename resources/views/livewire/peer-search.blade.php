@@ -92,11 +92,21 @@
                     <p class="form__group">
                         <label class="form__label">
                             <input
-                                wire:model.live="duplicateIpsOnly"
+                                wire:model.live="sharedIpsOnly"
                                 type="checkbox"
                                 class="form__checkbox"
                             />
-                            Duplicate Ips Only
+                            Shared IPs Only
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input
+                                wire:model.live="sharedSocketsOnly"
+                                type="checkbox"
+                                class="form__checkbox"
+                            />
+                            Shared Sockets Only
                         </label>
                     </p>
                     <p class="form__group">
