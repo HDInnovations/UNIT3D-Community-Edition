@@ -100,33 +100,33 @@
         </ul>
     </div>
     <ul class="meta__ids">
-        @if ($meta->id ?? 0 > 0)
+        @foreach (array_unique(array_filter([$meta->id ?? 0, $torrent->tmdb ?? 0])) as $tmdbId)
             <li class="meta__tmdb">
                 <a
                     class="meta-id-tag"
-                    href="https://www.themoviedb.org/movie/{{ $meta->id }}"
-                    title="The Movie Database: {{ $meta->id }}"
+                    href="https://www.themoviedb.org/movie/{{ $tmdbId }}"
+                    title="The Movie Database: {{ $tmdbId }}"
                     target="_blank"
                 >
                     <img src="{{ url('/img/meta/tmdb.svg') }}" />
                 </a>
             </li>
-        @endif
+        @endforeach
 
-        @if ($meta->imdb_id ?? 0 > 0)
+        @foreach (array_unique(array_filter([$meta->imdb_id ?? 0, $torrent->imdb ?? 0])) as $imdbId)
             <li class="meta__imdb">
                 <a
                     class="meta-id-tag"
-                    href="https://www.imdb.com/title/tt{{ \str_pad((string) $meta->imdb_id, \max(\strlen((string) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
-                    title="Internet Movie Database: {{ \str_pad((string) $meta->imdb_id, \max(\strlen((string) $meta->imdb_id), 7), '0', STR_PAD_LEFT) }}"
+                    href="https://www.imdb.com/title/tt{{ \str_pad((string) $imdbId, \max(\strlen((string) $imdbId), 7), '0', STR_PAD_LEFT) }}"
+                    title="Internet Movie Database: {{ \str_pad((string) $imdbId, \max(\strlen((string) $imdbId), 7), '0', STR_PAD_LEFT) }}"
                     target="_blank"
                 >
                     <img src="{{ url('/img/meta/imdb.svg') }}" />
                 </a>
             </li>
-        @endif
+        @endforeach
 
-        @if ($torrent->mal ?? 0 > 0)
+        @if (($torrent->mal ?? 0) > 0)
             <li class="meta__mal">
                 <a
                     class="meta-id-tag"
@@ -139,7 +139,7 @@
             </li>
         @endif
 
-        @if ($torrent->tvdb ?? 0 > 0)
+        @if (($torrent->tvdb ?? 0) > 0)
             <li class="meta__tvdb">
                 <a
                     class="meta-id-tag"
@@ -152,7 +152,7 @@
             </li>
         @endif
 
-        @if ($meta->id ?? 0 > 0)
+        @if (($meta->id ?? 0) > 0)
             <li class="meta__rotten">
                 <a
                     class="meta-id-tag"
@@ -173,7 +173,7 @@
             </li>
         @endif
 
-        @if ($meta->imdb_id ?? 0 > 0)
+        @if (($meta->imdb_id ?? 0) > 0)
             <li class="meta__bluray">
                 <a
                     class="meta-id-tag"
