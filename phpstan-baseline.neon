@@ -532,7 +532,17 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$torrents of method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) expects Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Pagination\\\\CursorPaginator\\<App\\\\Models\\\\Torrent\\>, Illuminate\\\\Contracts\\\\Pagination\\\\CursorPaginator given\\.$#"
-			count: 2
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$torrents of method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) expects Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Pagination\\\\CursorPaginator\\<App\\\\Models\\\\Torrent\\>, Illuminate\\\\Contracts\\\\Pagination\\\\CursorPaginator\\|Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator given\\.$#"
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
@@ -1786,11 +1796,6 @@ parameters:
 			path: app/Models/Torrent.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$bdinfo\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
 			message: "#^Access to an undefined property object\\:\\:\\$bumped_at\\.$#"
 			count: 1
 			path: app/Models/Torrent.php
@@ -1802,11 +1807,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$deleted_at\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$description\\.$#"
 			count: 1
 			path: app/Models/Torrent.php
 
@@ -1887,11 +1887,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$mal\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$mediainfo\\.$#"
 			count: 1
 			path: app/Models/Torrent.php
 
