@@ -612,7 +612,7 @@ class TorrentController extends BaseController
                         'attributes' => [
                             'meta' => [
                                 'poster' => \array_key_exists('poster', $meta) ? tmdb_image('poster_small', $meta['poster']) : null,
-                                'genres' => \array_key_exists('genres', $meta) ? implode(', ', array_column($meta['genres'], 'name')) : [],
+                                'genres' => \array_key_exists('genres', $meta) ? implode(', ', array_column($meta['genres'], 'name')) : '',
                             ],
                             'name'             => $hit['name'],
                             'release_year'     => $meta['year'] ?? null,
