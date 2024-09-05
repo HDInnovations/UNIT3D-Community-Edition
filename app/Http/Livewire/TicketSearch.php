@@ -18,6 +18,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Ticket;
 use App\Models\User;
+use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -33,6 +34,9 @@ class TicketSearch extends Component
     use WithPagination;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
+
+    #[Url(history: true)]
+    public bool $show = false;
 
     #[Url(history: true)]
     public ?User $user = null;
@@ -67,6 +71,13 @@ class TicketSearch extends Component
         $this->resetPage();
     }
 
+    final public function toggleProperties($property): void
+    {
+        if ($property === 'show') {
+            $this->show = !$this->show;
+        }
+    }
+
     /**
      * @return \Illuminate\Pagination\LengthAwarePaginator<Ticket>
      */
@@ -82,6 +93,7 @@ class TicketSearch extends Component
                 fn ($query) => $query->whereNotNull('closed_at')
             )
             ->when($this->search, fn ($query) => $query->where('subject', 'LIKE', '%'.$this->search.'%'))
+            ->when($this->show === true, fn ($query) => $query->where('staff_id', '=', auth()->user()->id))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
