@@ -18,7 +18,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Ticket;
 use App\Models\User;
-use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
