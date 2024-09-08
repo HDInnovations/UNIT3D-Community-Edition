@@ -271,7 +271,7 @@
                             </h3>
                             <h4 class="user-stat-card__stat">
                                 {{ App\Helpers\StringHelper::timeElapsed($seedtime->seedtime ?? 0) }}
-                                Seedtime Average
+                                {{ __('user.total-seedtime') }}
                             </h4>
 
                             @if ($seedtime->privacy?->private_profile)
