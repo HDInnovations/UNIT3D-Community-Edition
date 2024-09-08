@@ -112,7 +112,7 @@
             </li>
         @endforeach
 
-        @foreach (array_unique(array_filter([$meta->imdb_id ?? 0, $torrent->imdb ?? 0])) as $imdbId)
+        @foreach (array_unique(array_filter([(int) $meta->imdb_id ?? 0, $torrent->imdb ?? 0])) as $imdbId)
             <li class="meta__imdb">
                 <a
                     class="meta-id-tag"
