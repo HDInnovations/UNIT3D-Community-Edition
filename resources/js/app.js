@@ -46,5 +46,6 @@ import './components/alpine/likeButton';
 import './components/alpine/livewireDialog';
 import './components/alpine/smallBookmarkButton';
 import './components/alpine/toggle';
+import './components/alpine/torrentGrouping';
 
 Livewire.start();
