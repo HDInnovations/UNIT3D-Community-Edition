@@ -129,6 +129,7 @@
                         name="category_id"
                         id="autocat"
                         class="form__select"
+                        type="text"                        
                         required
                         x-model="cat"
                         @change="cats[cat].type = cats[$event.target.value].type;"
