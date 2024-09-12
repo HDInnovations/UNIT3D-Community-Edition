@@ -27,6 +27,7 @@ return new class () extends Migration {
         Schema::table('users', function (Blueprint $table): void {
             $table->boolean('is_donor')->default(false)->after('can_upload');
             $table->boolean('is_lifetime')->default(false)->after('is_donor');
+            $table->string('icon')->nullable()->after('image');
         });
     }
 };
