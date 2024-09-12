@@ -1,7 +1,7 @@
 <nav class="top-nav" x-data="{ expanded: false }" x-bind:class="expanded && 'mobile'">
     <div class="top-nav__left">
         <a class="top-nav__branding" href="{{ route('home.index') }}">
-            <img src="{{ url('/favicon.ico') }}" style="height: 35px;">
+            <img src="{{ url('/favicon.ico') }}" style="height: 35px" />
             <span class="top-nav__site-logo">{{ \config('other.title') }}</span>
         </a>
         <livewire:quick-search-dropdown />

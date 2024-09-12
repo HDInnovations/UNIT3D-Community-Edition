@@ -50,7 +50,7 @@
                                 @else
                                     {{ $donation->package->donor_value }} Days
                                 @endif
-                             </td>
+                            </td>
                             <td>
                                 @if ($donation->status === App\Models\Donation::PENDING)
                                     <span class="text-warning">Pending</span>
@@ -59,41 +59,43 @@
                                 @else
                                     <span class="text-danger">Rejected</span>
                                 @endif
+                            </td>
+
                             <td>
                                 @if ($donation->status === App\Models\Donation::PENDING)
                                     <menu class="data-table__actions">
                                         <li class="data-table__action">
-                                    <form
-                                        action="{{ route('staff.donations.update', ['donation' => $donation]) }}"
-                                        method="POST"
-                                        x-data="confirmation"
-                                    >
-                                        @csrf
-                                        <button
-                                            x-on:click.prevent="confirmAction"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to approve this donation: ' . $donation->id . '?') }}"
-                                            class="form__button form__button--filled"
-                                        >
-                                            Approve
-                                        </button>
-                                    </form>
+                                            <form
+                                                action="{{ route('staff.donations.update', ['donation' => $donation]) }}"
+                                                method="POST"
+                                                x-data="confirmation"
+                                            >
+                                                @csrf
+                                                <button
+                                                    x-on:click.prevent="confirmAction"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to approve this donation: ' . $donation->id . '?') }}"
+                                                    class="form__button form__button--filled"
+                                                >
+                                                    Approve
+                                                </button>
+                                            </form>
                                         </li>
 
                                         <li class="data-table__action">
-                                    <form
-                                        action="{{ route('staff.donations.destroy', ['donation' => $donation]) }}"
-                                        method="POST"
-                                        x-data="confirmation"
-                                    >
-                                        @csrf
-                                        <button
-                                            x-on:click.prevent="confirmAction"
-                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to reject this donation: ' . $donation->id . '?') }}"
-                                            class="form__button form__button--filled"
-                                        >
-                                           Reject
-                                        </button>
-                                    </form>
+                                            <form
+                                                action="{{ route('staff.donations.destroy', ['donation' => $donation]) }}"
+                                                method="POST"
+                                                x-data="confirmation"
+                                            >
+                                                @csrf
+                                                <button
+                                                    x-on:click.prevent="confirmAction"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to reject this donation: ' . $donation->id . '?') }}"
+                                                    class="form__button form__button--filled"
+                                                >
+                                                    Reject
+                                                </button>
+                                            </form>
                                         </li>
                                     </menu>
                                 @endif

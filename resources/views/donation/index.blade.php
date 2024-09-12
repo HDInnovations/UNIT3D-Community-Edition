@@ -37,12 +37,14 @@
                         @foreach ($packages as $package)
                             <td>
                                 <ul>
-                                    @if($package->donor_value === null)
+                                    @if ($package->donor_value === null)
                                         <li>Unlimited Download Slots</li>
                                     @endif
-                                    @if($package->donor_value === null)
-                                         <li>Custom User Icon</li>
+
+                                    @if ($package->donor_value === null)
+                                        <li>Custom User Icon</li>
                                     @endif
+
                                     <li>Global Freeleech</li>
                                     <li>Immunity To Automated Warnings (Don't Abuse)</li>
                                     <li
@@ -70,11 +72,16 @@
                                         {{ config('other.title') }}
                                     </li>
                                     @if ($package->upload_value !== null)
-                                        <li>{{ App\Helpers\StringHelper::formatBytes($package->upload_value) }}  Upload Credit</li>
+                                        <li>
+                                            {{ App\Helpers\StringHelper::formatBytes($package->upload_value) }}
+                                            Upload Credit
+                                        </li>
                                     @endif
 
                                     @if ($package->bonus_value !== null)
-                                        <li>{{ number_format($package->bonus_value) }} Bonus Points</li>
+                                        <li>
+                                            {{ number_format($package->bonus_value) }} Bonus Points
+                                        </li>
                                     @endif
 
                                     @if ($package->invite_value !== null)

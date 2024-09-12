@@ -55,7 +55,7 @@
                             <td>{{ $package->invite_value }}</td>
                             <td>{{ $package->bonus_value }}</td>
                             <td>
-                                @if($package->donor_value === null)
+                                @if ($package->donor_value === null)
                                     Lifetime
                                 @else
                                     {{ $package->donor_value }} day(s)
