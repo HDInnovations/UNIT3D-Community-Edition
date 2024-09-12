@@ -306,11 +306,6 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Parameter \\#2 \\$isDonor of class App\\\\DTO\\\\AnnounceUserDTO constructor expects int, bool given\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\DonationController\\:\\:store\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/DonationController.php
