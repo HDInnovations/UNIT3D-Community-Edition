@@ -421,11 +421,6 @@ parameters:
 			path: app/Http/Controllers/User/ResurrectionController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$icon\\.$#"
-			count: 3
-			path: app/Http/Controllers/User/UserController.php
-
-		-
 			message: "#^Binary operation \"/\" between string\\|null and 1000000 results in an error\\.$#"
 			count: 2
 			path: app/Http/Controllers/User/UserController.php
@@ -544,11 +539,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Resources\\\\ChatRoomResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Resources/ChatRoomResource.php
-
-		-
-			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$icon\\.$#"
-			count: 1
-			path: app/Http/Resources/ChatUserResource.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
