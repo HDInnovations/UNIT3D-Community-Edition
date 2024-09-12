@@ -1,0 +1,93 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * NOTICE OF LICENSE.
+ *
+ * UNIT3D Community Edition is open-sourced software licensed under the GNU Affero General Public License v3.0
+ * The details is bundled with this project in the file LICENSE.txt.
+ *
+ * @project    UNIT3D Community Edition
+ *
+ * @author     HDVinnie <hdinnovations@protonmail.com>
+ * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
+ */
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * App\Models\Donation.
+ *
+ * @property int                        $id
+ * @property float                      $cost
+ * @property int                        $upload_value
+ * @property int                        $invite_value
+ * @property int                        $bonus_value
+ * @property int                        $donor_value
+ * @property int                        $user_id
+ * @property int                        $gifted_user_id
+ * @property string                     $transaction
+ * @property int                        $status
+ * @property bool                       $is_gifted
+ * @property \Illuminate\Support\Carbon $starts_at
+ * @property \Illuminate\Support\Carbon $ends_at
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
+class Donation extends Model
+{
+    final public const int PENDING = 0;
+    final public const int APPROVED = 1;
+    final public const int REJECTED = 2;
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{user_id: 'int', gifted_user_id: 'int', status: 'int', package_id: 'int', transaction: 'string', is_gifted: 'bool', starts_at: 'datetime', ends_at: 'datetime', created_at: 'datetime', updated_at: 'datetime'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'user_id'        => 'int',
+            'gifted_user_id' => 'int',
+            'status'         => 'int',
+            'package_id'     => 'int',
+            'transaction'    => 'string',
+            'is_gifted'      => 'bool',
+            'starts_at'      => 'datetime',
+            'ends_at'        => 'datetime',
+            'created_at'     => 'datetime',
+            'updated_at'     => 'datetime',
+        ];
+    }
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id'];
+
+    /**
+     * Belongs To A User.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     */
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Belongs To A Package.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<DonationPackage, $this>
+     */
+    public function package(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(DonationPackage::class);
+    }
+}

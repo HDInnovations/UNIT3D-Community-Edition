@@ -20,3 +20,4 @@
 resources/views/emails
 resources/views/rss/show.blade.php
 resources/views/vendor
+resources/views/components/user_tag.blade.php

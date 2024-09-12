@@ -18,6 +18,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\BonTransactions;
+use App\Models\Donation;
 use App\Models\Invite;
 use App\Models\Peer;
 use App\Models\User;
@@ -108,7 +109,8 @@ class UserController extends Controller
                 ->where('user_id', '=', $user->id)
                 ->first(),
             'watch'        => $user->watchlist,
-            'externalUser' => $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : null,
+            'externalUser' => ! $user->trashed() && $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : false,
+            'donation'     => Donation::where('status', '=', Donation::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
         ]);
     }
 
@@ -176,6 +178,47 @@ class UserController extends Controller
             }
         }
 
+        if (($request->hasFile('icon') && $user->is_lifetime) || ($request->hasFile('icon') && $user->group->is_modo)) {
+            $image = $request->file('icon');
+
+            abort_if(\is_array($image), 400);
+
+            abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
+
+            if (!\in_array($image->getClientOriginalExtension(), ['jpg', 'JPG', 'jpeg', 'bmp', 'png', 'PNG', 'tiff', 'gif'])) {
+                return to_route('users.show', ['user' => $user])
+                    ->withErrors('Only .jpg, .bmp, .png, .tiff, and .gif are allowed.');
+            }
+
+            if (!preg_match('#image/*#', (string) $image->getMimeType())) {
+                return to_route('users.show', ['user' => $user])
+                    ->withErrors('Incorrect mime type.');
+            }
+
+            if ($image->getSize() > config('image.max_upload_size')) {
+                return to_route('users.show', ['user' => $user])
+                    ->withErrors('Your icon is too large, max file size: '.(config('image.max_upload_size') / 1_000_000).' MB');
+            }
+
+            $filename = uniqid('', true).'_icon.'.$image->getClientOriginalExtension();
+            $path = public_path('/files/img/'.$filename);
+
+            if ($image->getClientOriginalExtension() !== 'gif') {
+                Image::make($image->getRealPath())->fit(30, 30)->encode('png', 100)->save($path);
+            } else {
+                $request->validate([
+                    'image' => 'dimensions:ratio=1/1',
+                ]);
+
+                $image->move(public_path('/files/img/'), $filename);
+            }
+
+            if ($user->icon !== $filename) {
+                $oldIcon = $user->icon;
+                $user->icon = $filename;
+            }
+        }
+
         // Define data
         $request->validate([
             'title'     => 'nullable|max:255',
@@ -190,6 +233,11 @@ class UserController extends Controller
         // Remove avatar's old file format
         if (isset($oldAvatar)) {
             File::delete(public_path('/files/img/').$oldAvatar);
+        }
+
+        // Remove icon's old file format
+        if (isset($oldIcon)) {
+            File::delete(public_path('/files/img/').$oldIcon);
         }
 
         return to_route('users.show', ['user' => $user])

@@ -60,6 +60,7 @@ class AutoPreWarning extends Command
             ->where('updated_at', '<', now()->subDays(config('hitrun.prewarn')))
             ->has('torrent')
             ->whereRelation('user.group', 'is_immune', '=', false)
+            ->whereRelation('user', 'is_donor', '=', false)
             ->whereHas('torrent', fn ($query) => $query->whereRaw('history.actual_downloaded > torrents.size * ?', [config('hitrun.buffer') / 100]))
             ->whereDoesntHave('user.warnings', fn ($query) => $query->withTrashed()->whereColumn('warnings.torrent', '=', 'history.torrent_id'))
             ->get();

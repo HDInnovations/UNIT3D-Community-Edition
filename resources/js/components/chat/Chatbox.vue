@@ -8,7 +8,7 @@
     <header class="panel__header" id="chatbox_header">
       <h2 class="panel__heading">
         <i class="fas fa-comment-dots"></i>
-        Chatbox v3.0
+        Chatbox
       </h2>
       <div class="panel__actions">
         <div class="panel__action">

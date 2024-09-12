@@ -41,6 +41,19 @@
                         type="file"
                     />
                 </p>
+                @if ($user->is_lifetime)
+                    <p class="form__group">
+                        <label for="icon" class="form__label">Icon</label>
+                        <input
+                            id="icon"
+                            class="form__file"
+                            accept=".jpg, .jpeg, .bmp, .png, .tiff, .gif"
+                            name="icon"
+                            type="file"
+                        />
+                    </p>
+                @endif
+
                 <p class="form__group">
                     <input
                         id="title"

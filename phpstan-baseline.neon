@@ -1,279 +1,34 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$avg_seedtime\\.$#"
 			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
+			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$seedsize\\.$#"
 			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
+			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$rsskey\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$uploads\\.$#"
 			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
+			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$username\\.$#"
-			count: 7
-			path: app/Actions/Fortify/CreateNewUser.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:emailUpdates\\(\\)\\.$#"
+			message: "#^Binary operation \"\\-\" between float\\|int\\|string and float\\|int\\|string results in an error\\.$#"
 			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
+			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:passkeys\\(\\)\\.$#"
-			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:rsskeys\\(\\)\\.$#"
-			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:sendSystemNotification\\(\\)\\.$#"
-			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
-
-		-
-			message: "#^Method App\\\\Actions\\\\Fortify\\\\CreateNewUser\\:\\:create\\(\\) should return App\\\\Models\\\\User\\|Illuminate\\\\Http\\\\RedirectResponse but returns Illuminate\\\\Database\\\\Eloquent\\\\Model\\.$#"
-			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of function href_profile expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Actions/Fortify/CreateNewUser.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Bots/NerdBot.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 3
-			path: app/Bots/NerdBot.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$username\\.$#"
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
 			count: 2
-			path: app/Bots/NerdBot.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Bots/SystemBot.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$username\\.$#"
-			count: 2
-			path: app/Bots/SystemBot.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:acceptsNotification\\(\\)\\.$#"
-			count: 1
-			path: app/Bots/SystemBot.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 1
-			path: app/Bots/SystemBot.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of function href_profile expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Bots/SystemBot.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$email\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoBanDisposableUsers.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$warneduser\\.$#"
-			count: 3
-			path: app/Console/Commands/AutoDeactivateWarning.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of class App\\\\Jobs\\\\SendDisableUserMail constructor expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoDisableInactiveUsers.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$avg_seedtime\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$can_download\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$created_at\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$group_id\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$ratio\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$seedsize\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$uploaded\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$uploads\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:save\\(\\)\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Call to an undefined method object\\:\\:wasChanged\\(\\)\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoGroup.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, object given\\.$#"
-			count: 1
 			path: app/Console/Commands/AutoGroup.php
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$torrent_id\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoPreWarning.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoPreWarning.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user_id\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoPreWarning.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoRemoveFeaturedTorrent.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$info_hash\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoRemoveTimedTorrentBuffs.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addTorrent\\(\\) expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoRemoveTimedTorrentBuffs.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 15
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:followers\\(\\)\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:following\\(\\)\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of class App\\\\Jobs\\\\SendDeleteUserMail constructor expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:removeUser\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Console/Commands/AutoSoftDeleteDisabledUsers.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:searchable\\(\\)\\.$#"
-			count: 2
-			path: app/Console/Commands/AutoSyncTorrentsToMeilisearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$warneduser\\.$#"
-			count: 3
-			path: app/Console/Commands/AutoWarning.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -436,7 +191,7 @@ parameters:
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\CacheUser\\:\\:user\\(\\) should return App\\\\Models\\\\User\\|null but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
+			message: "#^Method App\\\\Helpers\\\\CacheUser\\:\\:user\\(\\) should return App\\\\Models\\\\User\\|null but returns App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\|null\\.$#"
 			count: 1
 			path: app/Helpers/CacheUser.php
 
@@ -476,11 +231,6 @@ parameters:
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/ChatController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:createMessage\\(\\) should return App\\\\Http\\\\Resources\\\\ChatMessageResource\\|bool\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response but returns bool\\|Illuminate\\\\Contracts\\\\Foundation\\\\Application\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
@@ -494,21 +244,6 @@ parameters:
 			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept true\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$category\\.$#"
-			count: 3
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$igdb\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$tmdb\\.$#"
-			count: 2
-			path: app/Http/Controllers/API/TorrentController.php
 
 		-
 			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
@@ -531,27 +266,12 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Parameter \\#1 \\$torrents of method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) expects Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Pagination\\\\CursorPaginator\\<App\\\\Models\\\\Torrent\\>, Illuminate\\\\Contracts\\\\Pagination\\\\CursorPaginator given\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrents of method App\\\\Http\\\\Controllers\\\\API\\\\TorrentController\\:\\:scopeMeta\\(\\) expects Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Pagination\\\\CursorPaginator\\<App\\\\Models\\\\Torrent\\>, Illuminate\\\\Contracts\\\\Pagination\\\\CursorPaginator\\|Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator given\\.$#"
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$banned_id\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$can_download\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
@@ -566,138 +286,43 @@ parameters:
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Cannot access property \\$id on Illuminate\\\\Database\\\\Eloquent\\\\Model\\|string\\.$#"
+			message: "#^Cannot access property \\$id on App\\\\Models\\\\Torrent\\|string\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Cannot access property \\$status on Illuminate\\\\Database\\\\Eloquent\\\\Model\\|string\\.$#"
+			message: "#^Cannot access property \\$status on App\\\\Models\\\\Torrent\\|string\\.$#"
 			count: 3
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Cannot call method setRelation\\(\\) on Illuminate\\\\Database\\\\Eloquent\\\\Model\\|string\\.$#"
+			message: "#^Cannot call method setRelation\\(\\) on App\\\\Models\\\\Torrent\\|string\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkGroup\\(\\) should return App\\\\Models\\\\Group but returns object\\|null\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkTorrent\\(\\) should return App\\\\Models\\\\Torrent but returns App\\\\Models\\\\Torrent\\|string\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkTorrent\\(\\) should return App\\\\Models\\\\Torrent but returns Illuminate\\\\Database\\\\Eloquent\\\\Model\\|string\\.$#"
+			message: "#^Parameter \\#2 \\$isDonor of class App\\\\DTO\\\\AnnounceUserDTO constructor expects int, bool given\\.$#"
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkUser\\(\\) should return App\\\\Models\\\\User but returns object\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\DonationController\\:\\:store\\(\\) has no return type specified\\.$#"
 			count: 1
-			path: app/Http/Controllers/AnnounceController.php
+			path: app/Http/Controllers/DonationController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$email\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Article\\:\\:\\$newNews\\.$#"
 			count: 1
-			path: app/Http/Controllers/ContactController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 2
-			path: app/Http/Controllers/ReportController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Controllers/ReportController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user\\.$#"
-			count: 1
-			path: app/Http/Controllers/ReportController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Http/Controllers/ReportController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/RequestFillController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 3
-			path: app/Http/Controllers/ReseedController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Controllers/ReseedController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$seeders\\.$#"
-			count: 1
-			path: app/Http/Controllers/ReseedController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/ReseedController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of class App\\\\Notifications\\\\NewReseedRequest constructor expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/ReseedController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of function href_torrent expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/ReseedController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$active\\.$#"
-			count: 1
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$expected_fields\\.$#"
-			count: 1
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group_id\\.$#"
-			count: 2
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$is_private\\.$#"
-			count: 1
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$json_torrent\\.$#"
-			count: 2
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user_id\\.$#"
-			count: 3
-			path: app/Http/Controllers/RssController.php
-
-		-
-			message: "#^Parameter \\$user of class App\\\\DTO\\\\TorrentSearchFiltersDTO constructor expects App\\\\Models\\\\User\\|null, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/RssController.php
+			path: app/Http/Controllers/HomeController.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(int\\) does not accept true\\.$#"
-			count: 1
+			count: 2
 			path: app/Http/Controllers/RssController.php
 
 		-
@@ -709,31 +334,6 @@ parameters:
 			message: "#^Unable to resolve the template type TValue in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/SimilarTorrentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$invite of class App\\\\Mail\\\\InviteUser constructor expects App\\\\Models\\\\Invite, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/ApplicationController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/BanController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/BanController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/BanController.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/BanController.php
 
 		-
 			message: "#^Parameter \\#1 \\$boolean of function abort_if expects bool, int given\\.$#"
@@ -746,59 +346,39 @@ parameters:
 			path: app/Http/Controllers/Staff/ChatRoomController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$bon\\.$#"
 			count: 1
-			path: app/Http/Controllers/Staff/MassActionController.php
+			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
 			count: 1
-			path: app/Http/Controllers/Staff/MassActionController.php
+			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Parameter \\#1 \\$user of class App\\\\Jobs\\\\SendMassEmail constructor expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			message: "#^Property App\\\\Models\\\\Donation\\:\\:\\$ends_at \\(Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\Carbon\\.$#"
 			count: 1
-			path: app/Http/Controllers/Staff/MassEmailController.php
+			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$anon\\.$#"
+			message: "#^Property App\\\\Models\\\\Donation\\:\\:\\$ends_at \\(Illuminate\\\\Support\\\\Carbon\\) does not accept null\\.$#"
 			count: 1
-			path: app/Http/Controllers/Staff/ModerationController.php
+			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$category\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ModerationController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$info_hash\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ModerationController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 6
-			path: app/Http/Controllers/Staff/ModerationController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$status\\.$#"
+			message: "#^Property App\\\\Models\\\\Donation\\:\\:\\$starts_at \\(Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\Carbon\\.$#"
 			count: 1
-			path: app/Http/Controllers/Staff/ModerationController.php
+			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ModerationController.php
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\DonationGatewayController\\:\\:destroy\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/DonationGatewayController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user_id\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ModerationController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addTorrent\\(\\) expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 2
-			path: app/Http/Controllers/Staff/ModerationController.php
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\DonationGatewayController\\:\\:store\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: app/Http/Controllers/Staff/DonationGatewayController.php
 
 		-
 			message: "#^Parameter \\#1 \\$boolean of function abort_if expects bool, int given\\.$#"
@@ -811,31 +391,6 @@ parameters:
 			path: app/Http/Controllers/Staff/RssController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$group\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/UnbanController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/UnbanController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/UnbanController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/UnbanController.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addUser\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/UnbanController.php
-
-		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Group\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Group\\>\\:\\:\\$level\\.$#"
 			count: 1
 			path: app/Http/Controllers/Staff/UserController.php
@@ -846,249 +401,14 @@ parameters:
 			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Controllers/SubtitleController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of function href_torrent expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 2
-			path: app/Http/Controllers/SubtitleController.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$post_count\\.$#"
+			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
 			count: 1
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$bumped_at\\.$#"
+			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$refundable \\(bool\\) does not accept int\\.$#"
 			count: 1
 			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$category\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$doubleup\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$du_until\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$featured\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$fl_until\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$free\\.$#"
-			count: 3
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 18
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$info_hash\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 12
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$refundable\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$sticky\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$type\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getSize\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:searchable\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of function href_torrent expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 5
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addTorrent\\(\\) expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$anon\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$category\\.$#"
-			count: 6
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$created_at\\.$#"
-			count: 3
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$featured\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$free\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 19
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$igdb\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$info_hash\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$mediainfo\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 5
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$status\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$tmdb\\.$#"
-			count: 8
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user_id\\.$#"
-			count: 4
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:comments\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:featured\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:files\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:freeleechTokens\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:history\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:hitrun\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:peers\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:playlists\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:requests\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:resurrections\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:subtitles\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:tips\\(\\)\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:addTorrent\\(\\) expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:removeTorrent\\(\\) expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: "#^Return type of call to function collect contains unresolvable type\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentController.php
 
 		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
@@ -1101,154 +421,24 @@ parameters:
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$can_download\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$file_name\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 8
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$passkey\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$ratio\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$status\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user_id\\.$#"
-			count: 2
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:history\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentDownloadController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$size\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentPeerController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/ConversationController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/GiftController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/GiftController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:acceptsNotification\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/GiftController.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/GiftController.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of function href_profile expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/GiftController.php
-
-		-
-			message: "#^Parameter \\#1 \\$invite of class App\\\\Mail\\\\InviteUser constructor expects App\\\\Models\\\\Invite, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/InviteController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$created_at\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/ResurrectionController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 6
-			path: app/Http/Controllers/User/ResurrectionController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$seeders\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/ResurrectionController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user_id\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/ResurrectionController.php
-
-		-
 			message: "#^Binary operation \"\\+\" between string\\|null and int results in an error\\.$#"
 			count: 1
 			path: app/Http/Controllers/User/ResurrectionController.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$file_name\\.$#"
-			count: 2
-			path: app/Http/Controllers/User/TorrentZipController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 2
-			path: app/Http/Controllers/User/TorrentZipController.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Controllers/User/TorrentZipController.php
+			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$icon\\.$#"
+			count: 3
+			path: app/Http/Controllers/User/UserController.php
 
 		-
 			message: "#^Binary operation \"/\" between string\\|null and 1000000 results in an error\\.$#"
-			count: 1
+			count: 2
 			path: app/Http/Controllers/User/UserController.php
 
 		-
 			message: "#^Parameter \\#2 \\$timestamp of function date expects int\\|null, int\\|false given\\.$#"
 			count: 1
 			path: app/Http/Controllers/YearlyOverviewController.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\AnnounceSearch\\:\\:announces\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Announce\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/AnnounceSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ApikeySearch\\:\\:apikeys\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Apikey\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/ApikeySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ApplicationSearch\\:\\:applications\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Application\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/ApplicationSearch.php
 
 		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
@@ -1276,61 +466,6 @@ parameters:
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 4
-			path: app/Http/Livewire/Comment.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:notify\\(\\)\\.$#"
-			count: 3
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ConversationSearch\\:\\:conversations\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Conversation\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/ConversationSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\EmailUpdateSearch\\:\\:emailUpdates\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\EmailUpdate\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/EmailUpdateSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:failedLogins\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\FailedLoginAttempt\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\FailedLoginSearch\\:\\:failedLoginsTop10Ip\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\FailedLoginAttempt\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:authorized\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:authorized\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\GiftLogSearch\\:\\:gifts\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Gift\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\HistorySearch\\:\\:histories\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\History\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/HistorySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\InviteLogSearch\\:\\:invites\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Invite\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
-
-		-
 			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
@@ -1346,74 +481,14 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\LeakerSearch\\:\\:leakers\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\History\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
+			message: "#^Parameter \\#1 \\$relations of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\History\\>\\:\\:with\\(\\) expects array\\<\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<\\*, \\*, \\*\\>\\)\\: mixed\\)\\|string\\>\\|string, array\\{user\\: array\\{history\\: Closure\\(mixed\\)\\: mixed, peers\\: Closure\\(mixed\\)\\: mixed\\}\\} given\\.$#"
 			count: 1
 			path: app/Http/Livewire/LeakerSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:medias\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Movie\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:types\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Type\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PasskeySearch\\:\\:passkeys\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Passkey\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/PasskeySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PasswordResetHistorySearch\\:\\:passwordResetHistories\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\PasswordResetHistory\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/PasswordResetHistorySearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PersonSearch\\:\\:firstCharacters\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Person\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PlaylistSearch\\:\\:playlists\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Playlist\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/PlaylistSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\PostSearch\\:\\:posts\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Post\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\ReportSearch\\:\\:reports\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Report\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/ReportSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\RsskeySearch\\:\\:rsskeys\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Rsskey\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/RsskeySearch.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 2
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$info_hash\\.$#"
-			count: 2
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
 			message: "#^Access to an undefined property MarcReichel\\\\IGDBLaravel\\\\Models\\\\Game\\:\\:\\$first_release_date\\.$#"
@@ -1426,194 +501,9 @@ parameters:
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:comments\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:featured\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:files\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:freeleechTokens\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:history\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:hitrun\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:peers\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:playlists\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:requests\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:resurrections\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:subtitles\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:distributors\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Distributor\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:regions\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Region\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:resolutions\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Resolution\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SimilarTorrent\\:\\:types\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Type\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrent of static method App\\\\Services\\\\Unit3dAnnounce\\:\\:removeTorrent\\(\\) expects App\\\\Models\\\\Torrent, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\Stats\\\\TorrentStats\\:\\:categories\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/Stats/TorrentStats.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubscribedForum\\:\\:forums\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Forum\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:authorized\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\SubtitleSearch\\:\\:subtitles\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Subtitle\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:tickets\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Ticket\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
+			message: "#^Method App\\\\Http\\\\Livewire\\\\TicketSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\Top10\\:\\:works\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/Top10.php
-
-		-
-			message: "#^Parameter \\#1 \\$torrents of method App\\\\Http\\\\Livewire\\\\TopTorrents\\:\\:scopeMeta\\(\\) expects Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Torrent\\>\\|Illuminate\\\\Pagination\\\\CursorPaginator\\<App\\\\Models\\\\Torrent\\>, Illuminate\\\\Support\\\\Collection given\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\:\\:getCollection\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicPostSearch\\:\\:posts\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Post\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:authorized\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TopicSearch\\:\\:forumCategories\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\ForumCategory\\> but returns Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), mixed\\>\\.$#"
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentDownloadSearch\\:\\:torrentDownloads\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\TorrentDownload\\> but returns Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentDownloadSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:categories\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Category\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:genres\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Genre\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:resolutions\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Resolution\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:torrentRequests\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\TorrentRequest\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentRequestSearch\\:\\:types\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Type\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\TorrentTrumpSearch\\:\\:torrentTrumps\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\TorrentTrump\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/TorrentTrumpSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserActive\\:\\:actives\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Peer\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserActive\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserResurrections\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:withTrashed\\(\\)\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
@@ -1621,39 +511,9 @@ parameters:
 			path: app/Http/Livewire/UserSearch.php
 
 		-
-			message: "#^Unable to resolve the template type TWhenReturnType in call to method Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:when\\(\\)$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserTorrents\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:uploads\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Torrent\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:warnings\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Warning\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WatchlistSearch\\:\\:users\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Watchlist\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
-			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -1669,16 +529,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Middleware\\\\TrustHosts\\:\\:hosts\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Middleware/TrustHosts.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$status\\.$#"
-			count: 1
-			path: app/Http/Requests/StoreTorrentRequest.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$user_id\\.$#"
-			count: 1
-			path: app/Http/Requests/UpdateTorrentRequest.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Resources\\\\BotResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -1699,6 +549,11 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Resources\\\\ChatRoomResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Resources/ChatRoomResource.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:\\$icon\\.$#"
+			count: 1
+			path: app/Http/Resources/ChatUserResource.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -1756,226 +611,6 @@ parameters:
 			path: app/Http/Resources/UserResource.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Listeners/AchievementUnlocked.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$privacy\\.$#"
-			count: 1
-			path: app/Listeners/AchievementUnlocked.php
-
-		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$username\\.$#"
-			count: 1
-			path: app/Listeners/AchievementUnlocked.php
-
-		-
-			message: "#^Parameter \\#1 \\$user of function href_profile expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Listeners/AchievementUnlocked.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Post\\:\\:scopeAuthorized\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Post\\> but returns Illuminate\\\\Database\\\\Query\\\\Builder\\.$#"
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:scopeStale\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Ticket\\> but returns Illuminate\\\\Database\\\\Query\\\\Builder\\.$#"
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Ticket\\:\\:scopeStatus\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Ticket\\> but returns Illuminate\\\\Database\\\\Query\\\\Builder\\.$#"
-			count: 2
-			path: app/Models/Ticket.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$anon\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$bumped_at\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$created_at\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$deleted_at\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$distributor_id\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$doubleup\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$du_until\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$episode_number\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$featured\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$fl_until\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$folder\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$free\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$highspeed\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$igdb\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$imdb\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$info_hash\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$internal\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$leechers\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$mal\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$name\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$num_file\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$personal_release\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$refundable\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$region_id\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$sd\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$season_number\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$seeders\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$size\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$status\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$sticky\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$stream\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$times_completed\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$tmdb\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$tvdb\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Access to an undefined property object\\:\\:\\$user_id\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Torrent\\:\\:makeAllSearchableUsing\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Torrent\\> but returns Illuminate\\\\Database\\\\Query\\\\Builder\\.$#"
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between float\\|null and 0 will always evaluate to false\\.$#"
 			count: 1
 			path: app/Models/User.php
@@ -2011,11 +646,6 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$settings\\.$#"
-			count: 3
-			path: app/Repositories/ChatRepository.php
-
-		-
 			message: "#^Call to function is_int\\(\\) with string\\|null will always evaluate to false\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
@@ -2026,22 +656,7 @@ parameters:
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:botMessages\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:messages\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Method App\\\\Repositories\\\\ChatRepository\\:\\:privateMessages\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Message\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
-			count: 1
-			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Offset 'namesort' does not exist on array\\{0\\?\\: string, 1\\?\\: string, namesort\\?\\: string, 2\\?\\: string, seperator\\?\\: ''\\|'\\:'\\|'and', 3\\?\\: ''\\|'\\:'\\|'and', remaining\\?\\: string, 4\\?\\: string, \\.\\.\\.\\}\\.$#"
+			message: "#^Offset 'namesort' does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, namesort\\?\\: string, 2\\?\\: string, seperator\\?\\: string, 3\\?\\: string, remaining\\?\\: string, 4\\?\\: string, \\.\\.\\.\\}\\.$#"
 			count: 1
 			path: app/Services/Tmdb/Client/Movie.php
 
@@ -2084,11 +699,6 @@ parameters:
 			message: "#^Access to an undefined property object\\:\\:\\$file_name\\.$#"
 			count: 3
 			path: database/migrations/2023_02_09_113903_clean_torrent_files.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:markEmailAsVerified\\(\\)\\.$#"
-			count: 1
-			path: database/migrations/2023_06_14_102346_delete_user_activations.php
 
 		-
 			message: "#^Access to an undefined property object\\:\\:\\$content\\.$#"
