@@ -20,7 +20,6 @@ use App\Http\Requests\StoreDonationRequest;
 use App\Models\Donation;
 use App\Models\DonationGateway;
 use App\Models\DonationPackage;
-use App\Models\User;
 
 class DonationController extends Controller
 {
