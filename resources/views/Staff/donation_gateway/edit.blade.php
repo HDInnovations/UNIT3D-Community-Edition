@@ -25,7 +25,7 @@
             >
                 @csrf
                 @method('PATCH')
-                <table class="table table-condensed table-striped table-bordered table-hover">
+                <table class="data-table">
                     <thead>
                         <tr>
                             <th>Position</th>
