@@ -107,13 +107,16 @@
                                     x-text="'Proof ' + proof"
                                 ></legend>
                                 <p class="auth-form__text-input-group">
-                                    <label class="auth-form__label" x-bind:for="'image' + proof">
+                                    <label
+                                        class="auth-form__label"
+                                        x-bind:for="'image' + (proof - 1)"
+                                    >
                                         {{ __('auth.proof-image') }}
                                     </label>
                                     <input
-                                        x-bind:id="'image' + proof"
+                                        x-bind:id="'image' + (proof - 1)"
                                         class="auth-form__text-input"
-                                        x-bind:name="'images[' + proof + '][image]'"
+                                        x-bind:name="'images[' + (proof - 1) + '][image]'"
                                         type="url"
                                         placeholder=" "
                                         required
@@ -122,14 +125,14 @@
                                 <p class="auth-form__text-input-group">
                                     <label
                                         class="auth-form__label"
-                                        x-bind:for="'profile' + proof"
+                                        x-bind:for="'profile' + (proof - 1)"
                                     >
                                         {{ __('auth.proof-profile') }}
                                     </label>
                                     <input
-                                        x-bind:id="'profile' + proof"
+                                        x-bind:id="'profile' + (proof - 1)"
                                         class="auth-form__text-input"
-                                        x-bind:name="'links[' + proof + '][url]'"
+                                        x-bind:name="'links[' + (proof - 1) + '][url]'"
                                         type="url"
                                         placeholder=" "
                                     />

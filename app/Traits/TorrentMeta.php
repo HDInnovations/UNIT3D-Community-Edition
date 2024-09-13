@@ -25,19 +25,30 @@ use ReflectionException;
 trait TorrentMeta
 {
     /**
-     * @param \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent>|\Illuminate\Pagination\CursorPaginator<\App\Models\Torrent>|\Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent> $torrents
+     * @param \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent>|\Illuminate\Pagination\CursorPaginator<\App\Models\Torrent>|\Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent>|\Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\Torrent> $torrents
      *
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
      * @throws ReflectionException
      * @throws JsonException
-     * @return ($torrents is \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> ? \Illuminate\Support\Collection<int, \App\Models\Torrent> : ($torrents is \Illuminate\Pagination\CursorPaginator<\App\Models\Torrent> ? \Illuminate\Pagination\CursorPaginator<\App\Models\Torrent> : \Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent>))
+     * @return (
+     *        $torrents is \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> ? \Illuminate\Support\Collection<int, \App\Models\Torrent>
+     *     : ($torrents is \Illuminate\Pagination\CursorPaginator<\App\Models\Torrent> ? \Illuminate\Pagination\CursorPaginator<\App\Models\Torrent>
+     *     : ($torrents is \Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent> ? \Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent>
+     *     : \Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\Torrent>
+     * )))
      */
-    public function scopeMeta(\Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator $torrents): \Illuminate\Support\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator
+    public function scopeMeta(\Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents): \Illuminate\Support\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $movieIds = $torrents->where('meta', '=', 'movie')->pluck('tmdb');
-        $tvIds = $torrents->where('meta', '=', 'tv')->pluck('tmdb');
-        $gameIds = $torrents->where('meta', '=', 'game')->pluck('igdb');
+        if ($torrents instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator || $torrents instanceof \Illuminate\Contracts\Pagination\CursorPaginator) {
+            $movieIds = collect($torrents->items())->where('meta', '=', 'movie')->pluck('tmdb');
+            $tvIds = collect($torrents->items())->where('meta', '=', 'tv')->pluck('tmdb');
+            $gameIds = collect($torrents->items())->where('meta', '=', 'game')->pluck('igdb');
+        } else {
+            $movieIds = $torrents->where('meta', '=', 'movie')->pluck('tmdb');
+            $tvIds = $torrents->where('meta', '=', 'tv')->pluck('tmdb');
+            $gameIds = $torrents->where('meta', '=', 'game')->pluck('igdb');
+        }
 
         $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
         $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
@@ -65,6 +76,14 @@ trait TorrentMeta
             return $torrents->map($setRelation);
         }
 
+        /**
+         * Laravel's \Illuminate\Contracts\Pagination\LengthAwarePaginator does not have a through method
+         * but we are passed a \Illuminate\Pagination\LengthAwarePaginator which does have such a method.
+         * Seems to be caused by some Laravel type error that's returning an interface instead of the type
+         * itself, or that the interface is missing the method.
+         *
+         * @phpstan-ignore method.notFound
+         */
         return $torrents->through($setRelation);
     }
 }

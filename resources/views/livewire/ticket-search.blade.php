@@ -19,7 +19,8 @@
                     <input
                         id="search"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="search"
                         placeholder=" "
                     />
@@ -28,6 +29,20 @@
                     </label>
                 </div>
             </div>
+            @if (auth()->user()->group->is_modo)
+                <div class="panel__action">
+                    <div class="form__group">
+                        <input
+                            id="show"
+                            class="form__checkbox"
+                            type="checkbox"
+                            wire:click="toggleProperties('show')"
+                        />
+                        <label class="form__label" for="show">My Assigned Tickets</label>
+                    </div>
+                </div>
+            @endif
+
             <div class="panel__action">
                 <a href="{{ route('tickets.create') }}" class="form__button form__button--text">
                     {{ __('ticket.create-ticket') }}

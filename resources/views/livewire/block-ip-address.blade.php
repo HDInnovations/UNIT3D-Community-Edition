@@ -13,6 +13,8 @@
                             <input
                                 id="ipAddress"
                                 class="form__text"
+                                type="text"
+                                autocomplete="off"
                                 name="ipAddress"
                                 placeholder=" "
                                 wire:model="ipAddress"
@@ -57,7 +59,8 @@
                     <input
                         id="ipSearch"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="ipSearch"
                         placeholder=" "
                     />
@@ -71,7 +74,8 @@
                     <input
                         id="reasonSearch"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="reasonSearch"
                         placeholder=" "
                     />

@@ -24,6 +24,7 @@ use App\Models\Network;
 use App\Models\Person;
 use App\Models\Recommendation;
 use App\Models\Season;
+use App\Models\Torrent;
 use App\Models\Tv;
 use App\Services\Tmdb\Client;
 use Illuminate\Bus\Queueable;
@@ -112,5 +113,10 @@ class ProcessTvJob implements ShouldQueue
         // Recommendations
 
         Recommendation::upsert($tvScraper->getRecommendations(), ['recommendation_tv_id', 'tv_id']);
+
+        Torrent::query()
+            ->where('tmdb', '=', $this->id)
+            ->whereRelation('category', 'tv_meta', '=', true)
+            ->searchable();
     }
 }

@@ -7,7 +7,8 @@
                     <input
                         id="name"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="name"
                         placeholder=" "
                     />
@@ -55,11 +56,15 @@
             @foreach ($medias as $media)
                 <tr>
                     <td>
-                        <a
-                            href="{{ route('torrents.similar', ['category_id' => 1, 'tmdb' => $media->id]) }}"
-                        >
-                            {{ $media->title }} ({{ \substr($media->release_date, 0, 4) ?? '' }})
-                        </a>
+                        @if ($media->torrents_min_category_id === null)
+                            {{ $media->title }} ({{ $media->release_date?->format('Y') }})
+                        @else
+                            <a
+                                href="{{ route('torrents.similar', ['category_id' => $media->torrents_min_category_id, 'tmdb' => $media->id]) }}"
+                            >
+                                {{ $media->title }} ({{ $media->release_date?->format('Y') }})
+                            </a>
+                        @endif
                     </td>
                     <td>
                         <a

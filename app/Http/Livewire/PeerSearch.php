@@ -32,7 +32,10 @@ class PeerSearch extends Component
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
 
     #[Url(history: true)]
-    public bool $duplicateIpsOnly = false;
+    public bool $sharedIpsOnly = false;
+
+    #[Url(history: true)]
+    public bool $sharedSocketsOnly = false;
 
     #[Url(history: true)]
     public bool $includeSeedsize = false;
@@ -125,14 +128,14 @@ class PeerSearch extends Component
                 $this->groupBy === 'user_session',
                 fn ($query) => $query
                     ->select(['peers.user_id', 'peers.port', 'peers.agent'])
-                    ->selectRaw('COUNT(DISTINCT(peers.torrent_id)) as torrent_id')
+                    ->selectRaw('COUNT(DISTINCT peers.torrent_id) as torrent_id')
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
                     ->selectRaw('SUM(peers.uploaded) as uploaded')
                     ->selectRaw('SUM(peers.downloaded) as downloaded')
                     ->selectRaw('SUM(peers.`left`) as `left`')
                     ->selectRaw('MIN(peers.created_at) as created_at')
                     ->selectRaw('MAX(peers.updated_at) as updated_at')
-                    ->selectRaw('COUNT(DISTINCT(peers.torrent_id, peers.user_id, peers.peer_id)) as peer_count')
+                    ->selectRaw('COUNT(DISTINCT peers.torrent_id, peers.user_id, peers.peer_id) as peer_count')
                     ->selectRaw('SUM(peers.connectable = 1) as connectable_count')
                     ->selectRaw('SUM(peers.connectable = 0) as unconnectable_count')
                     ->selectRaw('SUM(peers.active = 1) as active_count')
@@ -144,10 +147,10 @@ class PeerSearch extends Component
                 $this->groupBy === 'user_ip',
                 fn ($query) => $query
                     ->select(['peers.user_id'])
-                    ->selectRaw('COUNT(DISTINCT(peers.torrent_id)) as torrent_id')
-                    ->selectRaw('COUNT(DISTINCT(peers.agent)) as agent')
+                    ->selectRaw('COUNT(DISTINCT peers.torrent_id) as torrent_id')
+                    ->selectRaw('COUNT(DISTINCT peers.agent) as agent')
                     ->selectRaw('INET6_NTOA(peers.ip) as ip')
-                    ->selectRaw('COUNT(DISTINCT(peers.port)) as port')
+                    ->selectRaw('COUNT(DISTINCT peers.port) as port')
                     ->selectRaw('SUM(peers.uploaded) as uploaded')
                     ->selectRaw('SUM(peers.downloaded) as downloaded')
                     ->selectRaw('SUM(`left`) as `left`')
@@ -165,10 +168,10 @@ class PeerSearch extends Component
                 $this->groupBy === 'user',
                 fn ($query) => $query
                     ->select(['peers.user_id'])
-                    ->selectRaw('COUNT(DISTINCT(peers.torrent_id)) as torrent_id')
-                    ->selectRaw('COUNT(DISTINCT(peers.agent)) as agent')
-                    ->selectRaw('COUNT(DISTINCT(peers.ip)) as ip')
-                    ->selectRaw('COUNT(DISTINCT(peers.port)) as port')
+                    ->selectRaw('COUNT(DISTINCT peers.torrent_id) as torrent_id')
+                    ->selectRaw('COUNT(DISTINCT peers.agent) as agent')
+                    ->selectRaw('COUNT(DISTINCT peers.ip) as ip')
+                    ->selectRaw('COUNT(DISTINCT peers.port) as port')
                     ->selectRaw('SUM(peers.uploaded) as uploaded')
                     ->selectRaw('SUM(peers.downloaded) as downloaded')
                     ->selectRaw('SUM(`left`) as `left`')
@@ -183,7 +186,7 @@ class PeerSearch extends Component
                     ->with(['user', 'user.group'])
             )
             ->when(
-                $this->duplicateIpsOnly,
+                $this->sharedIpsOnly,
                 fn ($query) => $query
                     ->whereIn(
                         'peers.ip',
@@ -191,6 +194,18 @@ class PeerSearch extends Component
                             ->select('ip')
                             ->fromSub(Peer::select('ip', 'user_id')->distinct(), 'distinct_ips')
                             ->groupBy('ip')
+                            ->havingRaw('COUNT(*) > 1')
+                    )
+            )
+            ->when(
+                $this->sharedSocketsOnly,
+                fn ($query) => $query
+                    ->whereIn(
+                        DB::raw('(peers.ip, peers.port)'),
+                        Peer::query()
+                            ->select('ip', 'port')
+                            ->fromSub(Peer::select('ip', 'port', 'user_id')->distinct(), 'distinct_sockets')
+                            ->groupBy('ip', 'port')
                             ->havingRaw('COUNT(*) > 1')
                     )
             )

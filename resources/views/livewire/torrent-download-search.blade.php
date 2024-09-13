@@ -41,6 +41,8 @@
                             id="torrentName"
                             wire:model.live="torrentName"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrentName">
@@ -176,7 +178,7 @@
                                             datetime="{{ $torrentDownload->created_at_min }}"
                                             title="{{ $torrentDownload->created_at_min }}"
                                         >
-                                            {{ $torrentDownload->created_at_min->format('Y-m-d') }}
+                                            {{ $torrentDownload->created_at_min }}
                                         </time>
                                     </td>
                                     <td>
@@ -184,7 +186,7 @@
                                             datetime="{{ $torrentDownload->created_at_max }}"
                                             title="{{ $torrentDownload->created_at_max }}"
                                         >
-                                            {{ $torrentDownload->created_at_max->format('Y-m-d') }}
+                                            {{ $torrentDownload->created_at_max }}
                                         </time>
                                     </td>
                                 </tr>
@@ -251,7 +253,7 @@
                                             datetime="{{ $torrentDownload->created_at }}"
                                             title="{{ $torrentDownload->created_at }}"
                                         >
-                                            {{ $torrentDownload->created_at->format('Y-m-d') }}
+                                            {{ $torrentDownload->created_at }}
                                         </time>
                                     </td>
                                 </tr>

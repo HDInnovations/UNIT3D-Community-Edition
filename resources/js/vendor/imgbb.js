@@ -6,7 +6,7 @@
                     vendor: 'auto',
                     mode: 'auto',
                     lang: 'auto',
-                    autoInsert: 'bbcode-embed-thumbnail',
+                    autoInsert: 'bbcode-embed-full',
                     palette: 'default',
                     init: 'onload',
                     containerClass: 1,
@@ -131,13 +131,14 @@
                     );
                 },
                 getNewValue: function (t, e) {
+                    w = e.replaceAll("[img]", "[img=350]").replaceAll("\n", " ")
                     var i =
                             'string' != typeof t.getAttribute('contenteditable')
                                 ? 'value'
                                 : 'innerHTML',
                         s = 'value' == i ? '\n' : '<br>',
                         n = t[i],
-                        r = e;
+                        r = w;
                     if (0 == n.length) return r;
                     var o = '',
                         a = n.match(/\n+$/g),

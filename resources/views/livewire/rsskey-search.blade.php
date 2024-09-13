@@ -7,7 +7,8 @@
                     <input
                         id="rsskey"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="rsskey"
                         placeholder=" "
                     />
@@ -21,7 +22,8 @@
                     <input
                         id="username"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="username"
                         placeholder=" "
                     />

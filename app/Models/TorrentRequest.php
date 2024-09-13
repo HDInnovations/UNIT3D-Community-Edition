@@ -99,7 +99,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
@@ -112,7 +112,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class, 'approved_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
@@ -125,7 +125,7 @@ class TorrentRequest extends Model
     {
         return $this->belongsTo(User::class, 'filled_by')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
@@ -167,6 +167,26 @@ class TorrentRequest extends Model
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Torrent::class);
+    }
+
+    /**
+     * Belongs To A Movie.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Movie, $this>
+     */
+    public function movie(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Movie::class, 'tmdb');
+    }
+
+    /**
+     * Belongs To A Tv.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Tv, $this>
+     */
+    public function tv(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Tv::class, 'tmdb');
     }
 
     /**

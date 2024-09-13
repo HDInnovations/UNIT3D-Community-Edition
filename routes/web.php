@@ -1030,6 +1030,14 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Snoozed Reports
+        Route::prefix('snoozed-reports')->group(function (): void {
+            Route::name('snoozed_reports.')->group(function (): void {
+                Route::post('/{report}', [App\Http\Controllers\Staff\SnoozedReportController::class, 'store'])->name('store');
+                Route::delete('/{report}', [App\Http\Controllers\Staff\SnoozedReportController::class, 'destroy'])->name('destroy');
+            });
+        });
+
         // Resolutions
         Route::prefix('resolutions')->group(function (): void {
             Route::name('resolutions.')->group(function (): void {

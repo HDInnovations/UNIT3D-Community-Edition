@@ -3,7 +3,7 @@
     'personalFreeleech',
 ])
 
-<article class="torrent-search--grouped__result">
+<article class="torrent-search--grouped__result" x-data="torrentGroup">
     <header class="torrent-search--grouped__header">
         @if (auth()->user()->settings?->show_poster)
             <a
@@ -60,7 +60,7 @@
     <section>
         @if ($media->torrents->has('Complete Pack'))
             <details class="torrent-search--grouped__dropdown" open>
-                <summary>Complete Pack</summary>
+                <summary x-bind="complete">Complete Pack</summary>
                 <table class="torrent-search--grouped__torrents">
                     <tbody>
                         @foreach ($media->torrents['Complete Pack'] as $type => $torrents)
@@ -88,19 +88,19 @@
         @if ($media->torrents->has('Specials'))
             <details
                 class="torrent-search--grouped__dropdown"
-                @if (! $media->torrents->has('Complete Pack') && ! $media->torrents->has('Seaons'))
+                @if (! $media->torrents->has('Complete Pack') && ! $media->torrents->has('Seasons'))
                     open
                 @endif
             >
-                <summary>Specials</summary>
+                <summary x-bind="specials">Specials</summary>
                 @foreach ($media->torrents['Specials'] as $specialName => $special)
                     <details
                         class="torrent-search--grouped__dropdown"
-                        @if ($loop->last)
+                        @if ($loop->first)
                             open
                         @endif
                     >
-                        <summary>{{ $specialName }}</summary>
+                        <summary x-bind="special">{{ $specialName }}</summary>
                         <table class="torrent-search--grouped__torrents">
                             @foreach ($special as $type => $torrents)
                                 <tbody>
@@ -130,14 +130,36 @@
         @foreach ($media->torrents['Seasons'] ?? [] as $seasonName => $season)
             <details
                 class="torrent-search--grouped__dropdown"
-                @if ($loop->last)
+                @if ($loop->first)
                     open
                 @endif
             >
-                <summary>{{ $seasonName }}</summary>
-                @if ($season->has('Season Pack'))
+                <summary x-bind="season">{{ $seasonName }}</summary>
+                @if ($season->has('Season Pack') && ! $season->has('Episodes'))
+                    <table class="torrent-search--grouped__torrents">
+                        @foreach ($season['Season Pack'] as $type => $torrents)
+                            <tbody>
+                                @foreach ($torrents as $torrent)
+                                    <tr>
+                                        @if ($loop->first)
+                                            <th
+                                                class="torrent-search--grouped__type"
+                                                scope="rowgroup"
+                                                rowspan="{{ $loop->count }}"
+                                            >
+                                                {{ $type }}
+                                            </th>
+                                        @endif
+
+                                        @include('components.partials._torrent-group-row')
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        @endforeach
+                    </table>
+                @elseif ($season->has('Season Pack'))
                     <details open class="torrent-search--grouped__dropdown">
-                        <summary>Season Pack</summary>
+                        <summary x-bind="pack">Season Pack</summary>
                         <table class="torrent-search--grouped__torrents">
                             @foreach ($season['Season Pack'] as $type => $torrents)
                                 <tbody>
@@ -165,11 +187,11 @@
                 @foreach ($season['Episodes'] ?? [] as $episodeName => $episode)
                     <details
                         class="torrent-search--grouped__dropdown"
-                        @if ($loop->last && ! $season->has('Season Pack'))
+                        @if ($loop->first && ! $season->has('Season Pack'))
                             open
                         @endif
                     >
-                        <summary>{{ $episodeName }}</summary>
+                        <summary x-bind="episode">{{ $episodeName }}</summary>
                         <table class="torrent-search--grouped__torrents">
                             @foreach ($episode as $type => $torrents)
                                 <tbody>

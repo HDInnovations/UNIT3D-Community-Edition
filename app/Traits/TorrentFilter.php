@@ -196,7 +196,11 @@ trait TorrentFilter
      */
     public function scopeOfRegion(Builder $query, array $regions): void
     {
-        $query->whereIntegerInRaw('region_id', $regions);
+        $query->where(
+            fn ($query) => $query
+                ->whereIntegerInRaw('region_id', $regions)
+                ->when(\in_array(0, $regions), fn ($query) => $query->orWhereNull('region_id'))
+        );
     }
 
     /**
@@ -205,7 +209,11 @@ trait TorrentFilter
      */
     public function scopeOfDistributor(Builder $query, array $distributors): void
     {
-        $query->whereIntegerInRaw('distributor_id', $distributors);
+        $query->where(
+            fn ($query) => $query
+                ->whereIntegerInRaw('distributor_id', $distributors)
+                ->when(\in_array(0, $distributors), fn ($query) => $query->orWhereNull('distributor_id'))
+        );
     }
 
     /**

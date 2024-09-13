@@ -18,6 +18,7 @@ namespace App\Models;
 
 use App\Helpers\Bbcode;
 use App\Helpers\MarkdownExtra;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -32,6 +33,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Wiki extends Model
 {
+    use Auditable;
+
     protected $guarded = [];
 
     /**

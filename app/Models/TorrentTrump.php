@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Models\Scopes\ApprovedScope;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -42,7 +43,7 @@ class TorrentTrump extends Model
      */
     public function torrent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Torrent::class)->withTrashed();
+        return $this->belongsTo(Torrent::class)->withoutGlobalScope(ApprovedScope::class)->withTrashed();
     }
 
     /**

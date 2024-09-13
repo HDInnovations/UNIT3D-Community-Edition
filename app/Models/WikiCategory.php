@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,6 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WikiCategory extends Model
 {
+    use Auditable;
+
     /**
      * Indicates If The Model Should Be Timestamped.
      *

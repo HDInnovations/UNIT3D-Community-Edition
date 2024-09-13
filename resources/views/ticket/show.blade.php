@@ -135,7 +135,7 @@
                             datetime="{{ $ticket->closed_at }}"
                             title="{{ $ticket->closed_at }}"
                         >
-                            {{ $ticket->closed_at->format('m/d/Y') }}
+                            {{ $ticket->closed_at->format('Y-m-d') }}
                         </time>
                     </dd>
                 </div>

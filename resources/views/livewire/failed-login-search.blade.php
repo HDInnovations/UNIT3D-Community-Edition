@@ -7,7 +7,8 @@
                     <input
                         id="username"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="username"
                         placeholder=" "
                     />
@@ -21,7 +22,8 @@
                     <input
                         id="userId"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         inputmode="numeric"
                         pattern="[0-9]*"
                         wire:model.live="userId"
@@ -37,7 +39,8 @@
                     <input
                         id="ipAddress"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="ipAddress"
                         placeholder=" "
                     />

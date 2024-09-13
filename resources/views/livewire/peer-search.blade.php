@@ -11,6 +11,8 @@
                             id="torrent"
                             wire:model.live="torrent"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">
@@ -26,6 +28,8 @@
                             id="port"
                             wire:model.live="port"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="port">Port</label>
@@ -35,6 +39,8 @@
                             id="agent"
                             wire:model.live="agent"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="agent">Agent</label>
@@ -86,11 +92,21 @@
                     <p class="form__group">
                         <label class="form__label">
                             <input
-                                wire:model.live="duplicateIpsOnly"
+                                wire:model.live="sharedIpsOnly"
                                 type="checkbox"
                                 class="form__checkbox"
                             />
-                            Duplicate Ips Only
+                            Shared IPs Only
+                        </label>
+                    </p>
+                    <p class="form__group">
+                        <label class="form__label">
+                            <input
+                                wire:model.live="sharedSocketsOnly"
+                                type="checkbox"
+                                class="form__checkbox"
+                            />
+                            Shared Sockets Only
                         </label>
                     </p>
                     <p class="form__group">

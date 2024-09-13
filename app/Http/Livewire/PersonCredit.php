@@ -213,19 +213,7 @@ class PersonCredit extends Component
                     ->map(
                         function ($movie) {
                             $category_id = $movie->first()->category_id;
-                            $movie = $movie
-                                ->sortBy('type.position')
-                                ->values()
-                                ->groupBy(fn ($torrent) => $torrent->type->name)
-                                ->map(
-                                    fn ($torrentsByType) => $torrentsByType
-                                        ->sortBy([
-                                            ['resolution.position', 'asc'],
-                                            ['internal', 'desc'],
-                                            ['size', 'desc']
-                                        ])
-                                        ->values()
-                                );
+                            $movie = $this->groupByTypeAndSort($movie);
                             $movie->put('category_id', $category_id);
 
                             return $movie;
@@ -241,37 +229,11 @@ class PersonCredit extends Component
                             $tv = $tv
                                 ->groupBy(fn ($torrent) => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
                                 ->map(fn ($packOrSpecialOrSeasons, $key) => match ($key) {
-                                    'Complete Pack' => $packOrSpecialOrSeasons
-                                        ->sortBy('type.position')
-                                        ->values()
-                                        ->groupBy(fn ($torrent) => $torrent->type->name)
-                                        ->map(
-                                            fn ($torrentsByType) => $torrentsByType
-                                                ->sortBy([
-                                                    ['resolution.position', 'asc'],
-                                                    ['internal', 'desc'],
-                                                    ['size', 'desc']
-                                                ])
-                                                ->values()
-                                        ),
-                                    'Specials' => $packOrSpecialOrSeasons
+                                    'Complete Pack' => $this->groupByTypeAndSort($packOrSpecialOrSeasons),
+                                    'Specials'      => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
                                         ->sortKeys(SORT_NATURAL)
-                                        ->map(
-                                            fn ($episode) => $episode
-                                                ->sortBy('type.position')
-                                                ->values()
-                                                ->groupBy(fn ($torrent) => $torrent->type->name)
-                                                ->map(
-                                                    fn ($torrentsByType) => $torrentsByType
-                                                        ->sortBy([
-                                                            ['resolution.position', 'asc'],
-                                                            ['internal', 'desc'],
-                                                            ['size', 'desc']
-                                                        ])
-                                                        ->values()
-                                                )
-                                        ),
+                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
                                     'Seasons' => $packOrSpecialOrSeasons
                                         ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
                                         ->sortKeys(SORT_NATURAL)
@@ -279,37 +241,11 @@ class PersonCredit extends Component
                                             fn ($season) => $season
                                                 ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
                                                 ->map(fn ($packOrEpisodes, $key) => match ($key) {
-                                                    'Season Pack' => $packOrEpisodes
-                                                        ->sortBy('type.position')
-                                                        ->values()
-                                                        ->groupBy(fn ($torrent) => $torrent->type->name)
-                                                        ->map(
-                                                            fn ($torrentsByType) => $torrentsByType
-                                                                ->sortBy([
-                                                                    ['resolution.position', 'asc'],
-                                                                    ['internal', 'desc'],
-                                                                    ['size', 'desc']
-                                                                ])
-                                                                ->values()
-                                                        ),
-                                                    'Episodes' => $packOrEpisodes
+                                                    'Season Pack' => $this->groupByTypeAndSort($packOrEpisodes),
+                                                    'Episodes'    => $packOrEpisodes
                                                         ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
                                                         ->sortKeys(SORT_NATURAL)
-                                                        ->map(
-                                                            fn ($episode) => $episode
-                                                                ->sortBy('type.position')
-                                                                ->values()
-                                                                ->groupBy(fn ($torrent) => $torrent->type->name)
-                                                                ->map(
-                                                                    fn ($torrentsBytype) => $torrentsBytype
-                                                                        ->sortBy([
-                                                                            ['resolution.position', 'asc'],
-                                                                            ['internal', 'desc'],
-                                                                            ['size', 'desc']
-                                                                        ])
-                                                                        ->values()
-                                                                )
-                                                        ),
+                                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
                                                     default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
                                                 })
                                         ),
@@ -346,6 +282,27 @@ class PersonCredit extends Component
         }
 
         return $medias;
+    }
+
+    /**
+     * @param  \Illuminate\Support\Collection<int, \App\Models\Torrent>                                         $torrents
+     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, \App\Models\Torrent>>
+     */
+    private function groupByTypeAndSort($torrents): \Illuminate\Support\Collection
+    {
+        return $torrents
+            ->sortBy('type.position')
+            ->values()
+            ->groupBy(fn ($torrent) => $torrent->type->name)
+            ->map(
+                fn ($torrentsBytype) => $torrentsBytype
+                    ->sortBy([
+                        ['resolution.position', 'asc'],
+                        ['internal', 'desc'],
+                        ['size', 'desc']
+                    ])
+                    ->values()
+            );
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

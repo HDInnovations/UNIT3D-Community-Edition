@@ -39,6 +39,13 @@ class Like extends Model
     use HasFactory;
 
     /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var string[]
+     */
+    protected $guarded = ['id'];
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array{like: 'bool', dislike: 'bool'}
@@ -60,7 +67,7 @@ class Like extends Model
     {
         return $this->belongsTo(User::class)->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 

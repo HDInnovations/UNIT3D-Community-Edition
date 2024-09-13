@@ -56,28 +56,27 @@ class AutoDisableInactiveUsers extends Command
 
         $current = Carbon::now();
 
-        $matches = User::whereIntegerInRaw('group_id', config('pruning.group_ids'))->get();
-
-        $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age')))
+        User::query()
+            ->whereIntegerInRaw('group_id', config('pruning.group_ids'))
+            ->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age')))
             ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login')))
-            ->all();
+            ->whereDoesntHave('seedingTorrents')
+            ->chunk(100, function ($users) use ($disabledGroup): void {
+                foreach ($users as $user) {
+                    $user->update([
+                        'group_id'     => $disabledGroup[0],
+                        'can_download' => false,
+                        'disabled_at'  => Carbon::now(),
+                    ]);
 
-        foreach ($users as $user) {
-            if ($user->seedingTorrents()->doesntExist()) {
-                $user->update([
-                    'group_id'     => $disabledGroup[0],
-                    'can_download' => false,
-                    'disabled_at'  => Carbon::now(),
-                ]);
+                    cache()->forget('user:'.$user->passkey);
 
-                cache()->forget('user:'.$user->passkey);
+                    Unit3dAnnounce::addUser($user);
 
-                Unit3dAnnounce::addUser($user);
-
-                // Send Email
-                dispatch(new SendDisableUserMail($user));
-            }
-        }
+                    // Send Email
+                    dispatch(new SendDisableUserMail($user));
+                }
+            });
 
         $this->comment('Automated User Disable Command Complete');
     }

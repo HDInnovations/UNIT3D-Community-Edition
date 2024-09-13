@@ -36,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $reported_user
  * @property int|null                        $torrent_id
  * @property int|null                        $request_id
+ * @property \Illuminate\Support\Carbon|null $snoozed_until
  */
 class Report extends Model
 {
@@ -50,6 +51,18 @@ class Report extends Model
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{snoozed_until: 'datetime'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'snoozed_until' => 'datetime',
+        ];
+    }
 
     /**
      * Belongs To A Request.
@@ -80,7 +93,7 @@ class Report extends Model
     {
         return $this->belongsTo(User::class, 'reporter_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
@@ -93,7 +106,7 @@ class Report extends Model
     {
         return $this->belongsTo(User::class, 'reported_user')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 
@@ -106,7 +119,7 @@ class Report extends Model
     {
         return $this->belongsTo(User::class, 'staff_id')->withDefault([
             'username' => 'System',
-            'id'       => '1',
+            'id'       => User::SYSTEM_USER_ID,
         ]);
     }
 }

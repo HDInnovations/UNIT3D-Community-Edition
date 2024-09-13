@@ -14,6 +14,7 @@
             <a href="{{ route('torrents.show', ['id' => $torrent->id]) }}">
                 @switch($media->meta)
                     @case('movie')
+                        {{-- Removes the year and everything before it --}}
                         @php
                             $releaseYear = $media->release_date instanceof \Illuminate\Support\Carbon ? $media->release_date->year : (int) $media->release_date;
                         @endphp
@@ -22,21 +23,18 @@
 
                         @break
                     @case('tv')
-                        {{-- Removes the following patterns from the name: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000-, 2000 --}}
+                        {{-- Removes the year and everything before it. Also removes everything before the following patterns: S01, S01E01, S01E01E02, S01E01E02E03, S01E01-E03, 2000- --}}
                         @php
-                            if (
-                                $media->first_air_date !== null &&
-                                preg_match('/^[0-9]{4}/', $media->first_air_date) &&
-                                $media->last_air_date &&
-                                preg_match('/^[0-9]{4}/', $media->last_air_date)
-                            ) {
-                                $range = range((int) substr($media->first_air_date, 0, 4) - 1, (int) substr($media->last_air_date, 0, 4) + 1);
+                            if ($media->first_air_date?->year !== null && $media->last_air_date?->year !== null) {
+                                $firstAirDateRange = range($media->first_air_date->year - 1, $media->first_air_date->year + 1);
+                                $fullRange = range($media->first_air_date->year - 1, $media->last_air_date->year + 1);
                             } else {
-                                $range = [];
+                                $firstAirDateRange = [];
+                                $fullRange = [];
                             }
                         @endphp
 
-                        {{ \preg_replace('/^.*( S\d{2,4}(?:-?E\d{2,4})*? | ' . implode(' | ', range($media->release_date - 1, $media->release_date + 1)) . ' | ' . implode('-| ', $range) . '-)/i', '', $torrent->name) }}
+                        {{ \preg_replace('/^.*( ' . implode(' | ', $firstAirDateRange) . ' | (?=S\d{2,4}(?:-S\d{2,4})(?:-?E\d{2,4})*? |' . implode('-|', $fullRange) . '-))/i', '', $torrent->name) }}
 
                         @break
                 @endswitch
@@ -51,14 +49,14 @@
             href="{{ route('download_check', ['id' => $torrent->id]) }}"
             title="{{ __('common.download') }}"
         >
-            <i class="{{ config('other.font-awesome') }} fa-arrow-alt-to-bottom"></i>
+            <i class="{{ config('other.font-awesome') }} fa-download"></i>
         </a>
     @else
         <a
             href="{{ route('download', ['id' => $torrent->id]) }}"
             title="{{ __('common.download') }}"
         >
-            <i class="{{ config('other.font-awesome') }} fa-arrow-alt-to-bottom"></i>
+            <i class="{{ config('other.font-awesome') }} fa-download"></i>
         </a>
     @endif
     @if (config('torrent.magnet') == 1)
@@ -69,6 +67,15 @@
             <i class="{{ config('other.font-awesome') }} fa-magnet"></i>
         </a>
     @endif
+</td>
+<td class="torrent-search--grouped__bookmark">
+    <button
+        class="form__standard-icon-button"
+        x-data="bookmark({{ $torrent->id }}, {{ Js::from($torrent->bookmarks_exists) }})"
+        x-bind="button"
+    >
+        <i class="{{ config('other.font-awesome') }}" x-bind="icon"></i>
+    </button>
 </td>
 <td class="torrent-search--grouped__size">
     <span title="{{ $torrent->size }} B">
