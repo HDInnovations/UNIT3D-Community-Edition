@@ -30,7 +30,7 @@ return [
     'bookmarks'                => 'Favoritos',
     'bump'                     => 'Empujar arriba',
     'cant-upload'              => 'Error: Sus derechos de carga están deshabilitados',
-    'cant-upload-desc'         => 'Si cree que esto es un error, comuníquese con el personal',
+    'cant-upload-desc'         => 'Si cree que esto es un error, comuníquese con el staff',
     'cards'                    => 'Tarjetas',
     'cards-view'               => 'Ver torrents como tarjetas',
     'categories'               => 'Categorías',
