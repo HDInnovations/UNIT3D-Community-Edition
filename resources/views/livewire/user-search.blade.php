@@ -115,7 +115,7 @@
                             id="show"
                             class="form__checkbox"
                             type="checkbox"
-                            wire:click="toggleProperties('show')"
+                            wire:model.live="show"
                         />
                         <label class="form__label" for="show">Include Soft Deletes</label>
                     </p>
