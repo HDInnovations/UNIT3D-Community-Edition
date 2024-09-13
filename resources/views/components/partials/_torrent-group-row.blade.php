@@ -34,7 +34,7 @@
                             }
                         @endphp
 
-                        {{ \preg_replace('/^.*( ' . implode(' | ', $firstAirDateRange) . ' | (?=S\d{2,4}(?:-S\d{2,4})(?:-?E\d{2,4})*? |' . implode('-|', $fullRange) . '-))/i', '', $torrent->name) }}
+                        {{ \preg_replace('/^.*( ' . implode(' | ', $firstAirDateRange) . ' | (?=S\d{2,4}(?:-S\d{2,4})?(?:-?E\d{2,4})*? |' . implode('-|', $fullRange) . '-))/i', '', $torrent->name) }}
 
                         @break
                 @endswitch
