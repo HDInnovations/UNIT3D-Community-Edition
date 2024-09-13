@@ -102,17 +102,19 @@
                     </p>
                     <p class="form__group">
                         <select
-                            id="solved"
-                            wire:model.live="solved"
+                            id="status"
+                            wire:model.live="status"
                             class="form__select"
                             placeholder=" "
                         >
-                            <option value="any">Any</option>
-                            <option value="include">Include</option>
-                            <option value="exclude">Exclude</option>
+                            <option value="open">Open</option>
+                            <option value="snoozed">Snoozed</option>
+                            <option value="closed">Closed</option>
+                            <option value="all">All</option>
+                            <option value="all_open">All open</option>
                         </select>
-                        <label class="form__label form__label--floating" for="solved">
-                            {{ __('forum.solved') }}
+                        <label class="form__label form__label--floating" for="status">
+                            {{ __('common.status') }}
                         </label>
                     </p>
                     <p class="form__group">
@@ -129,15 +131,6 @@
                         <label class="form__label form__label--floating" for="quantity">
                             {{ __('common.quantity') }}
                         </label>
-                    </p>
-                    <p class="form__group">
-                        <input
-                            id="hideSnoozed"
-                            class="form__checkbox"
-                            type="checkbox"
-                            wire:model.live="hideSnoozed"
-                        />
-                        <label class="form__label" for="hideSnoozed">Hide Snoozed</label>
                     </p>
                 </div>
             </form>
