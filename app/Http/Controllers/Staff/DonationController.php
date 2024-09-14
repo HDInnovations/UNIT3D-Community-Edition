@@ -59,7 +59,7 @@ class DonationController extends Controller
         $donation->user->uploaded += $donation->package->upload_value;
         $donation->user->is_donor = true;
         $donation->user->is_lifetime = $donation->package->donor_value === null;
-        $donation->user->bon += $donation->package->bonus_value;
+        $donation->user->seedbonus += $donation->package->bonus_value;
         $donation->user->save();
 
         $conversation = Conversation::create(['subject' => 'Your donation from '.$donation->created_at.', has been approved by '.$request->user()->username]);
