@@ -54,13 +54,6 @@ class WarningLogSearch extends Component
     #[Url(history: true)]
     public string $sortDirection = 'desc';
 
-    final public function toggleProperties($property): void
-    {
-        if ($property === 'show') {
-            $this->show = !$this->show;
-        }
-    }
-
     /**
      * @return \Illuminate\Pagination\LengthAwarePaginator<Warning>
      */
