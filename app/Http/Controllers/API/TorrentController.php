@@ -644,7 +644,7 @@ class TorrentController extends BaseController
                             'category_id'      => $hit['category']['id'] ?? null,
                             'type_id'          => $hit['type']['id'] ?? null,
                             'resolution_id'    => $hit['resolution']['id'] ?? null,
-                            'created_at'       => date('Y-m-d\TH:i:s.Z\Z', $hit['created_at']),
+                            'created_at'       => date('Y-m-d\TH:i:s', $hit['created_at']).'.000000Z',
                             'details_link'     => route('torrents.show', ['id' => $hit['id']]),
                         ]
                     ]);
