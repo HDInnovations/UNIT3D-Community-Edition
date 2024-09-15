@@ -645,8 +645,6 @@ class TorrentController extends BaseController
                             'type_id'          => $hit['type']['id'] ?? null,
                             'resolution_id'    => $hit['resolution']['id'] ?? null,
                             'created_at'       => date('Y-m-d\TH:i:s.Z\Z', $hit['created_at']),
-                            'download_link'    => route('torrent.download.rsskey', ['id' => $hit['id'], 'rsskey' => auth('api')->user()->rsskey]),
-                            'magnet_link'      => config('torrent.magnet') ? 'magnet:?dn='.$hit['name'].'&xt=urn:btih:'.$hit['info_hash'].'&as='.route('torrent.download.rsskey', ['id' => $hit['id'], 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$hit['size'] : null,
                             'details_link'     => route('torrents.show', ['id' => $hit['id']]),
                         ]
                     ]);
@@ -666,6 +664,14 @@ class TorrentController extends BaseController
         } elseif ($torrents->isNotEmpty()) {
             $page = $request->integer('page') ?: 1;
             $perPage = min(100, $request->integer('perPage') ?: 25);
+
+            // Auth keys must not be cached
+            $torrents->through(function ($torrent) {
+                $torrent['attributes']['download_link'] = route('torrent.download.rsskey', ['id' => $torrent['id'], 'rsskey' => auth('api')->user()->rsskey]);
+                $torrent['attributes']['magnet_link'] = config('torrent.magnet') ? 'magnet:?dn='.$torrent['attributes']['name'].'&xt=urn:btih:'.$torrent['attributes']['info_hash'].'&as='.route('torrent.download.rsskey', ['id' => $torrent['id'], 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$torrent['attributes']['size'] : null;
+
+                return $torrent;
+            });
 
             return response()->json([
                 'data'  => $torrents->items(),
