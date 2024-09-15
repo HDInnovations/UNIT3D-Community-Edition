@@ -1616,11 +1616,6 @@ parameters:
 			path: app/Http/Livewire/UserSearch.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\UserSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
-
-		-
 			message: "#^Unable to resolve the template type TWhenReturnType in call to method Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:when\\(\\)$#"
 			count: 1
 			path: app/Http/Livewire/UserSearch.php
@@ -1639,11 +1634,6 @@ parameters:
 			message: "#^Property App\\\\Http\\\\Livewire\\\\UserUploads\\:\\:\\$user \\(App\\\\Models\\\\User\\|null\\) does not accept Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
 			count: 1
 			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:toggleProperties\\(\\) has parameter \\$property with no type specified\\.$#"
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Livewire\\\\WarningLogSearch\\:\\:warnings\\(\\) should return Illuminate\\\\Pagination\\\\LengthAwarePaginator\\<App\\\\Models\\\\Warning\\> but returns Illuminate\\\\Contracts\\\\Pagination\\\\LengthAwarePaginator\\.$#"
