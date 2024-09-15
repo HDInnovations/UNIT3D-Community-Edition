@@ -56,11 +56,11 @@ class DonationController extends Controller
             $donation->ends_at = null;
         }
 
-        $donation->user->invites += (int) ($donation->package->invite_value ?? 0);
-        $donation->user->uploaded += (int) ($donation->package->upload_value ?? 0);
+        $donation->user->invites += $donation->package->invite_value ?? 0;
+        $donation->user->uploaded += $donation->package->upload_value ?? 0;
         $donation->user->is_donor = true;
         $donation->user->is_lifetime = $donation->package->donor_value === null;
-        $donation->user->seedbonus += (int) ($donation->package->bonus_value ?? 0);
+        $donation->user->seedbonus += $donation->package->bonus_value ?? 0;
         $donation->user->save();
 
         $conversation = Conversation::create(['subject' => 'Your donation from '.$donation->created_at.', has been approved by '.$request->user()->username]);
@@ -71,7 +71,7 @@ class DonationController extends Controller
             'sender_id'       => $request->user()->id,
             'message'         => '[b]Thank you for supporting '.config('app.name').'[/b]'."\n"
                 .'Your donation has been approved and is valid through: '.($donation->ends_at ?? 'Lifetime').' (YYYY-MM-DD)'."\n"
-                .'A total of '.number_format((int) ($donation->package->bonus_value ?? 0)).' BON points, '.StringHelper::formatBytes((int) ($donation->package->upload_value ?? 0)).' upload and '.(int) ($donation->package->invite_value ?? 0).' invites have been credited to your account.',
+                .'A total of '.number_format(($donation->package->bonus_value ?? 0)).' BON points, '.StringHelper::formatBytes(($donation->package->upload_value ?? 0)).' upload and '.($donation->package->invite_value ?? 0).' invites have been credited to your account.',
         ]);
 
         $donation->save();
