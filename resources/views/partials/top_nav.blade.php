@@ -229,7 +229,7 @@
                         return $donation->package->cost;
                     });
                 if ($sum) {
-                    $percentage = number_format(($sum / config('donation.monthly_goal')) * 100);
+                     $percentage = min(100, number_format(($sum / config('donation.monthly_goal')) * 100));
                 }
             @endphp
 

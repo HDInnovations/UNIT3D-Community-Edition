@@ -341,12 +341,7 @@ parameters:
 			path: app/Http/Controllers/Staff/ChatRoomController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$bon\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/DonationController.php
-
-		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			message: "#^Binary operation \"\\+\\=\" between string and int\\|null results in an error\\.$#"
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
 
