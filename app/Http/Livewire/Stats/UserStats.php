@@ -54,6 +54,24 @@ class UserStats extends Component
         return User::query()->whereRelation('group', 'slug', '=', 'banned')->count();
     }
 
+    #[Computed(cache: true, seconds: 10 * 60)]
+    final public function usersActiveToday(): int
+    {
+        return User::query()->where('last_action', '>', now()->subDay())->count();
+    }
+
+    #[Computed(cache: true, seconds: 10 * 60)]
+    final public function usersActiveThisWeek(): int
+    {
+        return User::query()->where('last_action', '>', now()->subWeek())->count();
+    }
+
+    #[Computed(cache: true, seconds: 10 * 60)]
+    final public function usersActiveThisMonth(): int
+    {
+        return User::query()->where('last_action', '>', now()->subMonth())->count();
+    }
+
     final public function placeholder(): string
     {
         return <<<'HTML'
@@ -67,11 +85,14 @@ class UserStats extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.stats.user-stats', [
-            'all_user'      => $this->allUsers,
-            'active_user'   => $this->activeUsers,
-            'disabled_user' => $this->disableUsers,
-            'pruned_user'   => $this->prunedUsers,
-            'banned_user'   => $this->bannedUsers,
+            'all_user'                => $this->allUsers,
+            'active_user'             => $this->activeUsers,
+            'disabled_user'           => $this->disableUsers,
+            'pruned_user'             => $this->prunedUsers,
+            'banned_user'             => $this->bannedUsers,
+            'users_active_today'      => $this->usersActiveToday,
+            'users_active_this_week'  => $this->usersActiveThisWeek,
+            'users_active_this_month' => $this->usersActiveThisMonth,
         ]);
     }
 }

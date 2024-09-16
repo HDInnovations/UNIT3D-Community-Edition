@@ -74,13 +74,6 @@ class UserSearch extends Component
         $this->resetPage();
     }
 
-    final public function toggleProperties($property): void
-    {
-        if ($property === 'show') {
-            $this->show = !$this->show;
-        }
-    }
-
     /**
      * @return \Illuminate\Pagination\LengthAwarePaginator<User>
      */
