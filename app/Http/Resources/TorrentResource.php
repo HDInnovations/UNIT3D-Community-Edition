@@ -48,6 +48,7 @@ class TorrentResource extends JsonResource
                 'description'  => $this->description,
                 'info_hash'    => bin2hex($this->info_hash),
                 'size'         => $this->size,
+                'folder'       => $this->folder,
                 'num_file'     => $this->num_file,
                 'files'        => $this->files->map(fn ($file, $index) => [
                     'index' => $index + 1,
