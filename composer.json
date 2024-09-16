@@ -25,13 +25,13 @@
         "intervention/image": "^2.7.2",
         "joypixels/assets": "^v7.0.1",
         "laravel/fortify": "1.20.0",
-        "laravel/framework": "^11.23.2",
+        "laravel/framework": "^11.23.5",
         "laravel/octane": "^2.5.5",
         "laravel/scout": "^10.11.3",
         "laravel/tinker": "^2.9.0",
         "livewire/livewire": "^3.5.6",
         "marcreichel/igdb-laravel": "^4.3.0",
-        "meilisearch/meilisearch-php": "^1.10",
+        "meilisearch/meilisearch-php": "^1.10.1",
         "nesbot/carbon": "2.72.3",
         "paragonie/constant_time_encoding": "^2.7.0",
         "resend/resend-laravel": "^0.14.0",
@@ -42,7 +42,7 @@
         "symfony/dom-crawler": "^6.4.8",
         "theodorejb/polycast": "dev-master",
         "voku/anti-xss": "^4.1.42",
-        "vstelmakh/url-highlight": "^3.1.0"
+        "vstelmakh/url-highlight": "^3.1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13.5",
