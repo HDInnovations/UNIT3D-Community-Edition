@@ -466,11 +466,6 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Parameter \\#1 \\$relations of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\History\\>\\:\\:with\\(\\) expects array\\<\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<\\*, \\*, \\*\\>\\)\\: mixed\\)\\|string\\>\\|string, array\\{user\\: array\\{history\\: Closure\\(mixed\\)\\: mixed, peers\\: Closure\\(mixed\\)\\: mixed\\}\\} given\\.$#"
-			count: 1
-			path: app/Http/Livewire/LeakerSearch.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
