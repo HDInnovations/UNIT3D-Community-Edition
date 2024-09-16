@@ -15,10 +15,10 @@ declare(strict_types=1);
 
 return [
     'aboutus-advantage'     => 'Lo mejor de',
-    'aboutus-advantage1'    => 'Tenemos miembros y personal con experiencia que están bien versados en el mundo del video / audio HD y soporte técnico.',
+    'aboutus-advantage1'    => 'Tenemos miembros y staff con experiencia que están bien versados en el mundo del video / audio HD y soporte técnico.',
     'aboutus-advantage2'    => 'Junto con nuestra gran pasión por las películas y los programas de televisión, también ofrecemos una de las mejores selecciones de algo que la mayoría no hace: ¡FANRES! <em>MUCHAS GRACIAS</em> a nuestros proveedores de contenido.',
     'aboutus-advantage3'    => 'Si bien aceptamos donaciones para mantener el sitio en funcionamiento, no habrá mensajes publicitarios ni carteles en el sitio. No te lo rogaremos.',
-    'aboutus-advantage4'    => 'Nuestra comunidad es insuperable para su edad temprana. Entre nuestro personal y la base de usuarios, siempre estuvimos aquí para ayudar. Nos apasionó asegurarnos de que tu experiencia en: el título es algo increíble.',
+    'aboutus-advantage4'    => 'Nuestra comunidad es insuperable para su edad temprana. Entre nuestro staff y la base de usuarios, siempre estuvimos aquí para ayudar. Nos apasionó asegurarnos de que tu experiencia en: el título es algo increíble.',
     'aboutus-advantage5'    => 'Nuestro servicio es utilizado diariamente por muchas personas en todo el mundo. Hemos demostrado que nos importa la funcionalidad y la seguridad de nuestra base de código y podemos confiar y confiar en ella. Nuestros desarrolladores trabajan diariamente para proporcionar una base de código verdaderamente nex-gen.',
     'aboutus-header'        => 'Hola',
     'aboutus-rules'         => 'Qué necesitamos de ti',
@@ -26,7 +26,7 @@ return [
     'aboutus-rules2'        => '¡Leer las reglas en su totalidad y, por favor, respétalas!',
     'aboutus-rules3'        => '¡Hacer sugerencias! Nos estamos esforzando para hacer :title mejor cada día. No estamos diciendo que se utilizarán todas las sugerencias, pero nunca está de más ver nuevas ideas.',
     'aboutus-welcome'       => 'Unas palabras sobre',
-    'aboutus-welcome-desc'  => ':title es una base de datos de Películas/Series/FanRes. Todos los datos han sido agregados por nuestra increíble comunidad desde 2017. Los :titles se <em>centran principalmente</em> en el contenido en HD, una base de usuarios proactiva, una plataforma asombrosa / segura y un equipo de personal amable y servicial.',
+    'aboutus-welcome-desc'  => ':title es una base de datos de Películas/Series/FanRes. Todos los datos han sido agregados por nuestra increíble comunidad desde 2017. Los :titles se <em>centran principalmente</em> en el contenido en HD, una base de usuarios proactiva, una plataforma asombrosa / segura y un equipo de staff amable y servicial.',
     'blacklist-btclient'    => 'Cliente BitTorrent',
     'blacklist-clients'     => 'Clientes',
     'blacklist-desc'        => 'Estos clientes BitTorrent están en la lista negra/prohibidos de anunciar a :title',
