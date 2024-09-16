@@ -218,56 +218,58 @@
                 </li>
             </ul>
         </li>
-        <li class="top-nav__dropdown">
-            @php
-                $sum = App\Models\Donation::whereMonth('created_at', date('m'))
-                    ->whereYear('created_at', date('Y'))
-                    ->where('status', App\Models\Donation::APPROVED)
-                    ->with('package')
-                    ->get()
-                    ->sum(function ($donation) {
-                        return $donation->package->cost;
-                    });
-                if ($sum) {
-                    $percentage = min(100, number_format(($sum / config('donation.monthly_goal')) * 100));
-                }
-            @endphp
+        @if (config('donation.is_enabled'))
+            <li class="top-nav__dropdown">
+                @php
+                    $sum = App\Models\Donation::whereMonth('created_at', date('m'))
+                        ->whereYear('created_at', date('Y'))
+                        ->where('status', App\Models\Donation::APPROVED)
+                        ->with('package')
+                        ->get()
+                        ->sum(function ($donation) {
+                            return $donation->package->cost;
+                        });
+                    if ($sum) {
+                        $percentage = min(100, number_format(($sum / config('donation.monthly_goal')) * 100));
+                    }
+                @endphp
 
-            <a tabindex="0" title="{{ $percentage ?? 0 }}% filled">
-                <div class="top-nav--left__container">
-                    <span style="color: lightcoral">Donate</span>
-                    <div class="progress" style="background-color: slategray">
-                        <div
-                            class="progress-bar"
-                            role="progressbar"
-                            style="
-                                width: {{ $percentage ?? 0 }}%;
-                                background-color: slategray;
-                                border-bottom: 2px solid lightcoral !important;
-                                max-width: 100%;
-                            "
-                            aria-valuenow="{{ $percentage ?? 0 }}"
-                            aria-valuemin="0"
-                            aria-valuemax="{{ config('donation.monthly_goal') }}"
-                        ></div>
+                <a tabindex="0" title="{{ $percentage ?? 0 }}% filled">
+                    <div class="top-nav--left__container">
+                        <span class="fa-fade" style="color: lightcoral">Donate</span>
+                        <div class="progress" style="background-color: slategray">
+                            <div
+                                class="progress-bar"
+                                role="progressbar"
+                                style="
+                                    width: {{ $percentage ?? 0 }}%;
+                                    background-color: slategray;
+                                    border-bottom: 2px solid lightcoral !important;
+                                    max-width: 100%;
+                                "
+                                aria-valuenow="{{ $percentage ?? 0 }}"
+                                aria-valuemin="0"
+                                aria-valuemax="{{ config('donation.monthly_goal') }}"
+                            ></div>
+                        </div>
                     </div>
-                </div>
-            </a>
-            <ul>
-                <li>
-                    <a href="{{ route('donations.index') }}">
-                        <i class="fas fa-display-chart-up-circle-dollar"></i>
-                        Support {{ config('other.title') }} ({{ $percentage ?? 0 }}%)
-                    </a>
-                </li>
-                <li>
-                    <a href="https://polar.sh/HDInnovations">
-                        <i class="fas fa-handshake"></i>
-                        Support UNIT3D Development (polar.sh)
-                    </a>
-                </li>
-            </ul>
-        </li>
+                </a>
+                <ul>
+                    <li>
+                        <a href="{{ route('donations.index') }}">
+                            <i class="fas fa-display-chart-up-circle-dollar"></i>
+                            Support {{ config('other.title') }} ({{ $percentage ?? 0 }}%)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://polar.sh/HDInnovations">
+                            <i class="fas fa-handshake"></i>
+                            Support UNIT3D Development (polar.sh)
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
     </ul>
     <div class="top-nav__right" x-bind:class="expanded && 'mobile'">
         <ul class="top-nav__stats" x-bind:class="expanded && 'mobile'">
