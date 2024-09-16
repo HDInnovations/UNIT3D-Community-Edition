@@ -57,6 +57,12 @@ class AutoRemoveExpiredDonors extends Command
             $user->is_donor = false;
             $user->save();
 
+            User::sendSystemNotificationTo(
+                userId: $user->id,
+                subject: 'Your Donor Status Has Expired',
+                message: 'Your donor status has expired. Feel free to donate again to regain your donor status. Thank you for your support!',
+            );
+
             cache()->forget('user:'.$user->passkey);
             Unit3dAnnounce::addUser($user);
         }
