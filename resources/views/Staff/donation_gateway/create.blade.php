@@ -59,11 +59,13 @@
                                 />
                             </td>
                             <td>
+                                <input name="is_active" type="hidden" value="0" />
                                 <input
-                                    type="checkbox"
-                                    name="is_active"
-                                    value="1"
+                                    id="is_active"
                                     class="form__checkbox"
+                                    name="is_active"
+                                    type="checkbox"
+                                    value="1"
                                 />
                             </td>
                         </tr>

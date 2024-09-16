@@ -28,8 +28,8 @@ class DonationController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $packages = DonationPackage::all()->sortBy('position');
-        $gateways = DonationGateway::all()->sortBy('position');
+        $packages = DonationPackage::where('is_active', '=', true)->orderBy('position')->get();
+        $gateways = DonationGateway::where('is_active', '=', true)->orderBy('position')->get();
 
         return view('donation.index', ['packages' => $packages, 'gateways' => $gateways]);
     }

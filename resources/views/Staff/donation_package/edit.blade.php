@@ -100,11 +100,14 @@
                                     />
                                 </td>
                                 <td>
+                                    <input name="is_active" type="hidden" value="0" />
                                     <input
-                                        type="checkbox"
+                                        id="is_active"
+                                        class="form__checkbox"
                                         name="is_active"
+                                        type="checkbox"
                                         value="1"
-                                        @if ($package->is_active) checked @endif
+                                        @checked($package->is_active)
                                     />
                                 </td>
                             </tr>

@@ -58,7 +58,7 @@ class StoreDonationPackageRequest extends FormRequest
                 'max:9999',
             ],
             'is_active' => [
-                'sometimes',
+                'required',
                 'boolean',
             ],
         ];

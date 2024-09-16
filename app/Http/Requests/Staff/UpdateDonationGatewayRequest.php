@@ -41,7 +41,7 @@ class UpdateDonationGatewayRequest extends FormRequest
             'address'   => 'required',
             'name'      => 'required',
             'position'  => 'min:0|max:9999999',
-            'is_active' => 'sometimes|boolean',
+            'is_active' => 'required|boolean',
         ];
     }
 }

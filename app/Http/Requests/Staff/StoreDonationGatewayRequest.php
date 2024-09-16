@@ -41,7 +41,7 @@ class StoreDonationGatewayRequest extends FormRequest
             'address'   => 'required|unique:donation_gateways',
             'name'      => 'required|unique:donation_gateways',
             'position'  => 'min:0|max:9999999',
-            'is_active' => 'sometimes|boolean',
+            'is_active' => 'required|boolean',
         ];
     }
 }
