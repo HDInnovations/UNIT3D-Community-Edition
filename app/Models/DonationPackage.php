@@ -18,6 +18,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\DonationPackage.
+ *
+ * @property int                        $id
+ * @property int                        $position
+ * @property string                     $name
+ * @property string                     $description
+ * @property float                      $cost
+ * @property int                        $upload_value
+ * @property int                        $invite_value
+ * @property int                        $bonus_value
+ * @property int                        $donor_value
+ * @property bool                       $is_active
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
 class DonationPackage extends Model
 {
     /**
@@ -30,13 +46,14 @@ class DonationPackage extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{position: 'int', name: 'string', cost: 'decimal:2', upload_value: 'int', invite_value: 'int', bonus_value: 'int', donor_value: 'int', is_active: 'bool', created_at: 'datetime', updated_at: 'datetime'}
+     * @return array{position: 'int', name: 'string', description: 'string', cost: 'decimal:2', upload_value: 'int', invite_value: 'int', bonus_value: 'int', donor_value: 'int', is_active: 'bool', created_at: 'datetime', updated_at: 'datetime'}
      */
     protected function casts(): array
     {
         return [
             'position'     => 'int',
             'name'         => 'string',
+            'description'  => 'string',
             'cost'         => 'decimal:2',
             'upload_value' => 'int',
             'invite_value' => 'int',

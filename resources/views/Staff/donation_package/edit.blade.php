@@ -31,6 +31,7 @@
                             <tr>
                                 <th>Position</th>
                                 <th>Name</th>
+                                <th>Description</th>
                                 <th>Cost</th>
                                 <th>Upload (GiB)</th>
                                 <th>Invite (#)</th>
@@ -58,6 +59,12 @@
                                         class="form__text"
                                     />
                                 </td>
+                                <td>
+                                    <textarea name="description" class="form__textarea">
+{{ $package->description }}</textarea
+                                    >
+                                </td>
+
                                 <td>
                                     <input
                                         type="number"

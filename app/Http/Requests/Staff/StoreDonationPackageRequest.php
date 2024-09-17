@@ -31,7 +31,12 @@ class StoreDonationPackageRequest extends FormRequest
             ],
             'name' => [
                 'required',
+                'string',
                 'unique:donation_packages',
+            ],
+            'description' => [
+                'required',
+                'string',
             ],
             'cost' => [
                 'required',

@@ -25,6 +25,7 @@
                         <tr>
                             <th>Position</th>
                             <th>Name</th>
+                            <th>Description</th>
                             <th>Cost</th>
                             <th>Upload (Bytes)</th>
                             <th>Invite (#)</th>
@@ -52,6 +53,13 @@
                                     placeholder="Name"
                                     class="form__text"
                                 />
+                            </td>
+                            <td>
+                                <textarea
+                                    name="description"
+                                    placeholder="Description"
+                                    class="form__textarea"
+                                ></textarea>
                             </td>
                             <td>
                                 <input

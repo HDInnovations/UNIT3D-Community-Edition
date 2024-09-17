@@ -22,15 +22,11 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Donation.
  *
  * @property int                        $id
- * @property float                      $cost
- * @property int                        $upload_value
- * @property int                        $invite_value
- * @property int                        $bonus_value
- * @property int                        $donor_value
  * @property int                        $user_id
  * @property int                        $gifted_user_id
- * @property string                     $transaction
  * @property int                        $status
+ * @property int                        $package_id
+ * @property string                     $transaction
  * @property bool                       $is_gifted
  * @property \Illuminate\Support\Carbon $starts_at
  * @property \Illuminate\Support\Carbon $ends_at

@@ -1,0 +1,112 @@
+:root {
+    --border-color: #e0e0e0;
+    --box-shadow-color: rgba(0, 0, 0, 0.1);
+    --primary-text-color: #333;
+    --secondary-text-color: #666;
+    --button-bg-color: #f44336;
+    --button-text-color: #fff;
+    --button-hover-bg-color: #d32f2f;
+}
+
+.donation-packages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust the gap as needed */
+    justify-content: center; /* Center the last row if it has fewer than three packages */
+}
+
+.donation-package__wrapper {
+    flex: 1 1 calc(33.333% - 20px); /* Adjust the width to fit three packages in a row */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    box-shadow: 0 0 10px var(--box-shadow-color);
+    transition: all 0.3s;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    max-width: calc(33.333% - 20px); /* Ensure the packages do not take full width */
+}
+
+.donation-package {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.donation-package__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.donation-package__name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-text-color);
+}
+
+.donation-package__price-days {
+    display: flex;
+    align-items: center;
+}
+
+.donation-package__days {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-text-color);
+}
+
+.donation-package__price {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--primary-text-color);
+}
+
+.donation-package__separator {
+    margin: 0 5px;
+}
+
+.donation-package__description {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+}
+
+.donation-package__benefits-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.benefits-list {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.donation-package__footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.donation-package__button {
+    padding: 10px 20px;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.donation-package__button:hover {
+    background-color: var(--button-hover-bg-color);
+}

@@ -18,6 +18,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\DonationGateway.
+ *
+ * @property int                        $id
+ * @property int                        $position
+ * @property string                     $name
+ * @property string                     $address
+ * @property bool                       $is_active
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property \Illuminate\Support\Carbon $updated_at
+ */
 class DonationGateway extends Model
 {
     /**

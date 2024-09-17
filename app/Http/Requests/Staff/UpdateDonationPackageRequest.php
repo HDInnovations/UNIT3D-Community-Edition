@@ -31,6 +31,11 @@ class UpdateDonationPackageRequest extends FormRequest
             ],
             'name' => [
                 'required',
+                'string',
+            ],
+            'description' => [
+                'required',
+                'string',
             ],
             'cost' => [
                 'required',

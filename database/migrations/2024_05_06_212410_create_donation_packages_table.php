@@ -27,13 +27,14 @@ return new class () extends Migration {
         Schema::create('donation_packages', function (Blueprint $table): void {
             $table->increments('id');
             $table->integer('position')->index();
-            $table->string('name')->index();
+            $table->string('name');
+            $table->text('description');
             $table->decimal('cost', 6, 2);
             $table->unsignedBigInteger('upload_value')->nullable();
             $table->unsignedBigInteger('invite_value')->nullable();
             $table->unsignedBigInteger('bonus_value')->nullable();
             $table->unsignedBigInteger('donor_value')->nullable();
-            $table->boolean('is_active')->default(false);
+            $table->boolean('is_active')->index();
             $table->timestamps();
         });
     }

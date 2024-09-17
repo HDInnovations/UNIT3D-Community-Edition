@@ -22,7 +22,7 @@ return [
     | Configure site to use Donation System
     |
     */
-    'is_enabled'   => false,
+    'is_enabled'   => true,
     'monthly_goal' => 100,
     'currency'     => 'USD',
     'description'  => 'Help keep the site alive by donating to our monthly goal.',

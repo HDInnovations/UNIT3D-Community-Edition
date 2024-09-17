@@ -15,34 +15,35 @@
 @section('content')
     <section x-data class="panelV2">
         <h2 class="panel__heading">Support {{ config('other.title') }}</h2>
-        <div class="panel__body bbcode-rendered">
+        <div class="panel__body">
             <p>{{ config('donation.description') }}</p>
-            <table>
-                <tbody>
-                    <tr>
-                        @foreach ($packages as $package)
-                            <td style="text-align: center">
-                                <span>
-                                    @if ($package->donor_value === null)
-                                        Lifetime
-                                    @else
-                                        {{ $package->donor_value }} Days
-                                    @endif
-                                    --- {{ $package->cost }} {{ config('donation.currency') }}
-                                </span>
-                            </td>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        @foreach ($packages as $package)
-                            <td>
-                                <ul>
+            <div class="donation-packages">
+                @foreach ($packages as $package)
+                    <div class="donation-package__wrapper">
+                        <div class="donation-package">
+                            <div class="donation-package__header">
+                                <div class="donation-package__name">{{ $package->name }}</div>
+                                <div class="donation-package__price-days">
+                                    <span class="donation-package__price">
+                                        {{ $package->cost }} {{ config('donation.currency') }}
+                                    </span>
+                                    <span class="donation-package__separator">/</span>
+                                    <span class="donation-package__days">
+                                        @if ($package->donor_value === null)
+                                            Lifetime
+                                        @else
+                                            {{ $package->donor_value }} Days
+                                        @endif
+                                    </span>
+                                </div>
+                                <div class="donation-package__description">
+                                    {{ $package->description }}
+                                </div>
+                            </div>
+                            <div class="donation-package__benefits-list">
+                                <ol class="benefits-list">
                                     @if ($package->donor_value === null)
                                         <li>Unlimited Download Slots</li>
-                                    @endif
-
-                                    @if ($package->donor_value === null)
-                                        <li>Custom User Icon</li>
                                     @endif
 
                                     <li>Global Freeleech</li>
@@ -87,24 +88,20 @@
                                     @if ($package->invite_value !== null)
                                         <li>{{ $package->invite_value }} Invites</li>
                                     @endif
-                                </ul>
-                            </td>
-                        @endforeach
-                    </tr>
-                    <tr>
-                        @foreach ($packages as $package)
-                            <td style="text-align: center">
+                                </ol>
+                            </div>
+                            <div class="donation-package__footer">
                                 <button
+                                    class="donation-package__button"
                                     x-on:click.stop="$refs.dialog{{ $package->id }}.showModal()"
-                                    class="form__button form__button--filled form__button--centered"
                                 >
                                     Donate
                                 </button>
-                            </td>
-                        @endforeach
-                    </tr>
-                </tbody>
-            </table>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
 
         @foreach ($packages as $package)
