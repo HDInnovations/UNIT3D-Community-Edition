@@ -30,7 +30,7 @@ return new class () extends Migration {
             $table->unsignedInteger('gifted_user_id')->nullable()->index();
             $table->tinyInteger('status')->default(0);
             $table->unsignedInteger('package_id')->index();
-            $table->string('transaction');
+            $table->text('transaction');
             $table->boolean('is_gifted')->default(false);
             $table->date('starts_at')->nullable();
             $table->date('ends_at')->nullable();

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -35,6 +36,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Donation extends Model
 {
+    use Encryptable;
+
     final public const int PENDING = 0;
     final public const int APPROVED = 1;
     final public const int REJECTED = 2;
@@ -66,6 +69,15 @@ class Donation extends Model
      * @var string[]
      */
     protected $guarded = ['id'];
+
+    /**
+     * The Attributes That Are Encrypted.
+     *
+     * @var string[]
+     */
+    protected array $encryptable = [
+        'transaction',
+    ];
 
     /**
      * Belongs To A User.
