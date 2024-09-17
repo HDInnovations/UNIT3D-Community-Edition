@@ -28,7 +28,9 @@
     transition: all 0.3s;
     margin-bottom: 20px;
     box-sizing: border-box;
-    max-width: calc(33.333% - 20px); /* Ensure the packages do not take full width */
+    max-width: calc(
+        33.333% - 20px
+    ); /* Ensure the packages do not take full width */
 }
 
 .donation-package {
