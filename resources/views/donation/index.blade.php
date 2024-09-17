@@ -27,7 +27,7 @@
                                     <span class="donation-package__price">
                                         {{ $package->cost }} {{ config('donation.currency') }}
                                     </span>
-                                    <span class="donation-package__separator">/</span>
+                                    <span class="donation-package__separator">-</span>
                                     <span class="donation-package__days">
                                         @if ($package->donor_value === null)
                                             Lifetime
@@ -44,6 +44,10 @@
                                 <ol class="benefits-list">
                                     @if ($package->donor_value === null)
                                         <li>Unlimited Download Slots</li>
+                                    @endif
+
+                                    @if ($package->donor_value === null)
+                                        <li>Custom User Icon</li>
                                     @endif
 
                                     <li>Global Freeleech</li>
@@ -91,12 +95,15 @@
                                 </ol>
                             </div>
                             <div class="donation-package__footer">
-                                <button
-                                    class="donation-package__button"
-                                    x-on:click.stop="$refs.dialog{{ $package->id }}.showModal()"
-                                >
-                                    Donate
-                                </button>
+                                <p class="form__group form__group--horizontal">
+                                    <button
+                                        class="form__button form__button--filled form__button--centered"
+                                        x-on:click.stop="$refs.dialog{{ $package->id }}.showModal()"
+                                    >
+                                        <i class="fas fa-handshake"></i>
+                                        Donate
+                                    </button>
+                                </p>
                             </div>
                         </div>
                     </div>

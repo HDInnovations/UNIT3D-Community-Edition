@@ -229,14 +229,17 @@
                         ->sum(function ($donation) {
                             return $donation->package->cost;
                         });
-                    if ($sum) {
-                        $percentage = min(100, number_format(($sum / config('donation.monthly_goal')) * 100));
-                    }
+                    $percentage = $sum ? min(100, number_format(($sum / config('donation.monthly_goal')) * 100)) : 0;
                 @endphp
 
-                <a tabindex="0" title="{{ $percentage ?? 0 }}% filled">
+                <a tabindex="0" title="{{ $percentage }}% filled">
                     <div class="top-nav--left__container">
-                        <span class="fa-fade" style="color: lightcoral">Donate</span>
+                        <span
+                            class="{{ $percentage < 100 ? 'fa-fade' : '' }}"
+                            style="color: lightcoral"
+                        >
+                            Donate
+                        </span>
                         <div class="progress" style="background-color: slategray">
                             <div
                                 class="progress-bar"
