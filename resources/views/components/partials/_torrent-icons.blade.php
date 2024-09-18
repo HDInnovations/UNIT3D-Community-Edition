@@ -69,7 +69,7 @@
     @endif
 
     @php
-        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || config('other.freeleech')
+        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || auth()->user()->is_donor || config('other.freeleech')
     @endphp
 
     @if ($torrent->featured)
@@ -85,7 +85,7 @@
                             "\nAfter feature expires:" => true,
                             __('torrent.personal-freeleech') => $personalFreeleech,
                             __('torrent.freeleech-token') => $torrent->freeleech_tokens_exists,
-                            __('torrent.special-freeleech') => auth()->user()->group->is_freeleech,
+                            __('torrent.special-freeleech') => auth()->user()->group->is_freeleech || auth()->user()->is_donor,
                             __('torrent.global-freeleech') => config('other.freeleech'),
                             $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
                             __('torrent.global-double-upload') => config('other.doubleup'),

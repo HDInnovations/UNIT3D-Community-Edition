@@ -1,0 +1,124 @@
+:root {
+    --donation-border-color: #e0e0e0;
+    --donation-box-shadow-color: rgba(0, 0, 0, 0.1);
+    --donation-primary-text-color: #333;
+    --donation-secondary-text-color: #666;
+    --donation-background-color: transparent;
+    --donation-price-days-color: #f44336;
+}
+
+.donation-packages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* Adjust the gap as needed */
+    justify-content: center; /* Center the last row if it has fewer than four packages */
+}
+
+.donation-package__wrapper {
+    flex: 1 1 calc(25% - 30px); /* Adjust the width to fit four packages in a row */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid var(--donation-border-color);
+    border-radius: 5px;
+    box-shadow: 0 0 10px var(--donation-box-shadow-color);
+    transition: all 0.3s;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background-color: var(--donation-background-color);
+    max-width: calc(
+        25% - 30px
+    ); /* Ensure the packages do not take full width */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .donation-package__wrapper {
+        flex: 1 1 calc(33.333% - 30px); /* Three packages per row */
+        max-width: calc(33.333% - 30px);
+    }
+}
+
+@media (max-width: 900px) {
+    .donation-package__wrapper {
+        flex: 1 1 calc(50% - 30px); /* Two packages per row */
+        max-width: calc(50% - 30px);
+    }
+}
+
+@media (max-width: 600px) {
+    .donation-package__wrapper {
+        flex: 1 1 calc(100% - 30px); /* One package per row */
+        max-width: calc(100% - 30px);
+    }
+}
+
+.donation-package {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.donation-package__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.donation-package__name {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--donation-primary-text-color);
+    text-decoration: underline;
+}
+
+.donation-package__price-days {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.donation-package__days {
+    font-size: 15px;
+    font-weight: 100;
+    color: var(--donation-price-days-color);
+}
+
+.donation-package__price {
+    font-size: 15px;
+    font-weight: 100;
+    color: var(--donation-price-days-color);
+}
+
+.donation-package__separator {
+    margin: 0 5px;
+}
+
+.donation-package__description {
+    font-size: 14px;
+    color: var(--donation-secondary-text-color);
+    margin-top: 20px;
+    text-align: center;
+    font-style: italic;
+}
+
+.donation-package__benefits-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.benefits-list {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.donation-package__footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

@@ -39,6 +39,9 @@ class ChatUserResource extends JsonResource
             'group_id'       => $this->group_id,
             'title'          => $this->title,
             'image'          => $this->image,
+            'is_lifetime'    => $this->is_lifetime,
+            'is_donor'       => $this->is_donor,
+            'icon'           => $this->icon,
         ];
     }
 }

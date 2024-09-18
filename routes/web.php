@@ -105,6 +105,14 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Donation System
+        Route::prefix('donations')->group(function (): void {
+            Route::name('donations.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\DonationController::class, 'index'])->name('index');
+                Route::post('/store', [App\Http\Controllers\DonationController::class, 'store'])->name('store');
+            });
+        });
+
         // RSS System
         Route::prefix('rss')->group(function (): void {
             Route::name('rss.')->group(function (): void {
@@ -1177,6 +1185,37 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{wiki}/edit', [App\Http\Controllers\Staff\WikiController::class, 'edit'])->name('edit');
                 Route::patch('/{wiki}/update', [App\Http\Controllers\Staff\WikiController::class, 'update'])->name('update');
                 Route::delete('/{wiki}/destroy', [App\Http\Controllers\Staff\WikiController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Donation System
+        Route::group(['prefix' => 'donations'], function (): void {
+            Route::name('donations.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\DonationController::class, 'index'])->name('index');
+                Route::post('/{donation}/update', [App\Http\Controllers\Staff\DonationController::class, 'update'])->name('update');
+                Route::post('/{donation}/destroy', [App\Http\Controllers\Staff\DonationController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        Route::group(['prefix' => 'packages'], function (): void {
+            Route::name('packages.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\DonationPackageController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\DonationPackageController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\DonationPackageController::class, 'store'])->name('store');
+                Route::get('/{package}/edit', [App\Http\Controllers\Staff\DonationPackageController::class, 'edit'])->name('edit');
+                Route::patch('/{package}/update', [App\Http\Controllers\Staff\DonationPackageController::class, 'update'])->name('update');
+                Route::delete('/{package}/destroy', [App\Http\Controllers\Staff\DonationPackageController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        Route::group(['prefix' => 'gateways'], function (): void {
+            Route::name('gateways.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\DonationGatewayController::class, 'index'])->name('index');
+                Route::get('/create', [App\Http\Controllers\Staff\DonationGatewayController::class, 'create'])->name('create');
+                Route::post('/store', [App\Http\Controllers\Staff\DonationGatewayController::class, 'store'])->name('store');
+                Route::get('/{gateway}/edit', [App\Http\Controllers\Staff\DonationGatewayController::class, 'edit'])->name('edit');
+                Route::patch('/{gateway}/update', [App\Http\Controllers\Staff\DonationGatewayController::class, 'update'])->name('update');
+                Route::delete('/{gateway}/destroy', [App\Http\Controllers\Staff\DonationGatewayController::class, 'destroy'])->name('destroy');
             });
         });
     });

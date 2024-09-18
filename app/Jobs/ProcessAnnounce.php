@@ -121,6 +121,7 @@ class ProcessAnnounce implements ShouldQueue
         // Calculate credited Download
         if (
             $personalFreeleech
+            || $this->user->isDonor
             || $this->user->group->isFreeleech
             || $freeleechToken
             || $isFeatured
@@ -207,7 +208,7 @@ class ProcessAnnounce implements ShouldQueue
                 'seeder'            => $this->queries->left === 0,
                 'active'            => $event !== 'stopped',
                 'seedtime'          => 0,
-                'immune'            => $this->user->group->isImmune,
+                'immune'            => $this->user->isDonor ?: $this->user->group->isImmune,
                 'completed_at'      => $event === 'completed' ? now() : null,
             ])
         ]);

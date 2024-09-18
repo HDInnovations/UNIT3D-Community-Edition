@@ -59,6 +59,36 @@
                             Commands
                         </a>
                     </p>
+
+                    @if (config('donation.is_enabled'))
+                        <p class="form__group form__group--horizontal">
+                            <a
+                                class="form__button form__button--text"
+                                href="{{ route('staff.donations.index') }}"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                                Donations
+                            </a>
+                        </p>
+                        <p class="form__group form__group--horizontal">
+                            <a
+                                class="form__button form__button--text"
+                                href="{{ route('staff.gateways.index') }}"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                                Gateways
+                            </a>
+                        </p>
+                        <p class="form__group form__group--horizontal">
+                            <a
+                                class="form__button form__button--text"
+                                href="{{ route('staff.packages.index') }}"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                                Packages
+                            </a>
+                        </p>
+                    @endif
                 @endif
             </div>
         </section>

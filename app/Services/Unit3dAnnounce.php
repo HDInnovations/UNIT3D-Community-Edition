@@ -186,6 +186,8 @@ class Unit3dAnnounce
             'group_id'     => (int) $user->group_id,
             'passkey'      => $user->passkey,
             'can_download' => (bool) $user->can_download,
+            'is_donor'     => (bool) $user->is_donor,
+            'is_lifetime'  => (bool) $user->is_lifetime,
             /** @phpstan-ignore-next-line  */
             'num_seeding' => (int) $peers->num_seeding,
             /** @phpstan-ignore-next-line  */
@@ -208,6 +210,8 @@ class Unit3dAnnounce
      *     group_id: int,
      *     passkey: string,
      *     can_download: bool,
+     *     is_donor: bool,
+     *     is_lifetime: bool,
      *     num_seeding: int,
      *     num_leeching: int,
      * }
@@ -225,6 +229,8 @@ class Unit3dAnnounce
             && \array_key_exists('group_id', $user) && \is_int($user['group_id'])
             && \array_key_exists('passkey', $user) && \is_string($user['passkey'])
             && \array_key_exists('can_download', $user) && \is_bool($user['can_download'])
+            && \array_key_exists('is_donor', $user) && \is_bool($user['is_donor'])
+            && \array_key_exists('is_lifetime', $user) && \is_bool($user['is_lifetime'])
             && \array_key_exists('num_seeding', $user) && \is_int($user['num_seeding'])
             && \array_key_exists('num_leeching', $user) && \is_int($user['num_leeching'])
         ) {

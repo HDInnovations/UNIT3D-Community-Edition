@@ -62,6 +62,8 @@ use voku\helper\AntiXSS;
  * @property bool                            $can_request
  * @property bool                            $can_invite
  * @property bool                            $can_upload
+ * @property bool                            $is_donor
+ * @property bool                            $is_lifetime
  * @property string|null                     $remember_token
  * @property string|null                     $api_token
  * @property \Illuminate\Support\Carbon|null $last_login
@@ -113,30 +115,31 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{last_login: 'datetime', last_action: 'datetime', disabled_at: 'datetime', hidden: 'bool', can_comment: 'bool', can_download: 'bool', can_request: 'bool', can_invite: 'bool', can_upload: 'bool', can_chat: 'bool', seedbonus: 'decimal:2', active: 'bool'}
+     * @return array{last_login: 'datetime', last_action: 'datetime', disabled_at: 'datetime', can_comment: 'bool', can_download: 'bool', can_request: 'bool', can_invite: 'bool', can_upload: 'bool', can_chat: 'bool', seedbonus: 'decimal:2', active: 'bool', is_donor: 'bool', is_lifetime: 'bool'}
      */
     protected function casts(): array
     {
         return [
+            'seedbonus'    => 'decimal:2',
             'last_login'   => 'datetime',
             'last_action'  => 'datetime',
             'disabled_at'  => 'datetime',
-            'hidden'       => 'bool',
             'can_comment'  => 'bool',
             'can_download' => 'bool',
             'can_request'  => 'bool',
             'can_invite'   => 'bool',
             'can_upload'   => 'bool',
             'can_chat'     => 'bool',
-            'seedbonus'    => 'decimal:2',
             'active'       => 'bool',
+            'is_donor'     => 'bool',
+            'is_lifetime'  => 'bool',
         ];
     }
 
     /**
      * ID of the system user.
      */
-    final public const SYSTEM_USER_ID = 1;
+    final public const int SYSTEM_USER_ID = 1;
 
     /**
      * Belongs To A Group.
@@ -942,6 +945,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function torrentTrumps(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(TorrentTrump::class);
+    }
+
+    /**
+     * Has many donations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Donation, $this>
+     */
+    public function donations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Donation::class);
     }
 
     public function sendSystemNotification(string $subject, string $message): void

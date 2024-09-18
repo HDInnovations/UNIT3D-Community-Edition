@@ -64,6 +64,7 @@ class AutoWarning extends Command
             ->where('seedtime', '<', config('hitrun.seedtime'))
             ->where('updated_at', '<', $carbon->copy()->subDays(config('hitrun.grace')))
             ->whereRelation('user.group', 'is_immune', '=', false)
+            ->whereRelation('user', 'is_donor', '=', false)
             ->whereHas('torrent', fn ($query) => $query->whereRaw('history.actual_downloaded > torrents.size * ?', [config('hitrun.buffer') / 100]))
             ->whereDoesntHave('user.warnings', fn ($query) => $query->withTrashed()->whereColumn('warnings.torrent', '=', 'history.torrent_id'))
             ->get();

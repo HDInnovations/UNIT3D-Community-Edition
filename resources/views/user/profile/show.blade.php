@@ -586,6 +586,65 @@
     @endsection
 
     @section('sidebar')
+        @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
+            <section class="panelV2">
+                <h2 class="panel__heading">Donations</h2>
+                <dl class="key-value">
+                    <div class="key-value__group">
+                        <dt>Active Donor</dt>
+                        <dd>
+                            @if ($user->is_donor)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Lifetime Donor</dt>
+                        <dd>
+                            @if ($user->is_lifetime)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Latest Donation Amount</dt>
+                        <dd>
+                            {{ $donation->package->cost ?? 'N/A' }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Latest Donation Date</dt>
+                        <dd>
+                            {{ $donation->starts_at ?? 'N/A' }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Donation Expire Date</dt>
+                        <dd>
+                            @if ($user->is_lifetime)
+                                Lifetime Donor
+                                <i class="fal fa-star" id="lifeline" title="Lifetime Donor"></i>
+                            @else
+                                {{ $donation->ends_at ?? 'N/A' }}
+                            @endif
+                        </dd>
+                    </div>
+                </dl>
+            </section>
+        @endif
+
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_warning'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('common.warnings') }}</h2>
