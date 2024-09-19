@@ -91,7 +91,7 @@
             Soft Deleted ({{ $deletedWarningsCount ?? 0 }})
         </li>
     </menu>
-    <div class="data-table-wrapper" x-data="userWarnings">
+    <div class="data-table-wrapper">
         <table class="data-table">
             <thead>
                 <tr>
@@ -127,7 +127,7 @@
             </thead>
             <tbody>
                 @forelse ($warnings as $warning)
-                    <tr x-ref="warning" data-warning-id="{{ $warning->id }}">
+                    <tr x-data="userWarnings" data-warning-id="{{ $warning->id }}">
                         <td>
                             <x-user_tag :user="$warning->staffuser" :anon="false" />
                         </td>
