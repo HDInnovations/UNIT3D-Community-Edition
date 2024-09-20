@@ -221,15 +221,21 @@
         @if (config('donation.is_enabled'))
             <li class="top-nav__dropdown">
                 @php
-                    $sum = App\Models\Donation::whereMonth('created_at', date('m'))
-                        ->whereYear('created_at', date('Y'))
-                        ->where('status', App\Models\Donation::APPROVED)
-                        ->with('package')
-                        ->get()
-                        ->sum(function ($donation) {
-                            return $donation->package->cost;
-                        });
-                    $percentage = $sum ? min(100, number_format(($sum / config('donation.monthly_goal')) * 100)) : 0;
+                    $goalType = config('donation.goal_type');
+                    $startDate = config('donation.start_date');
+                    $query = App\Models\Donation::where('status', App\Models\Donation::APPROVED)->with('package');
+
+                    if ($goalType === 'yearly') {
+                        $query->where('created_at', '>=', $startDate);
+                        $goal = config('donation.yearly_goal');
+                    } else {
+                        $query->whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'));
+                        $goal = config('donation.monthly_goal');
+                    }
+                    $sum = $query->get()->sum(function ($donation) {
+                        return $donation->package->cost;
+                    });
+                    $percentage = $sum ? number_format(($sum / $goal) * 100) : 0;
                 @endphp
 
                 <a tabindex="0" title="{{ $percentage }}% filled">
@@ -252,7 +258,7 @@
                                 "
                                 aria-valuenow="{{ $percentage ?? 0 }}"
                                 aria-valuemin="0"
-                                aria-valuemax="{{ config('donation.monthly_goal') }}"
+                                aria-valuemax="{{ $goal }}"
                             ></div>
                         </div>
                     </div>

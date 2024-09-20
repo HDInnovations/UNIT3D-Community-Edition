@@ -22,8 +22,11 @@ return [
     | Configure site to use Donation System
     |
     */
-    'is_enabled'   => true,
+    'is_enabled'   => false,
     'monthly_goal' => 100,
+    'yearly_goal'  => 1200,
+    'goal_type'    => 'yearly', // monthly or yearly
+    'start_date'   => '2024-09-20', // Donation drive start date
     'currency'     => 'USD',
     'description'  => 'Help keep the site alive by donating to our monthly goal.',
 ];
