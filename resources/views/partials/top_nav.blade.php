@@ -1,5 +1,6 @@
 @php
     use App\Models\Donation;
+    use Carbon\Carbon;
 @endphp
 
 <nav class="top-nav" x-data="{ expanded: false }" x-bind:class="expanded && 'mobile'">
@@ -228,21 +229,17 @@
                     $goalType = config('donation.goal_type');
                     $startDate = config('donation.start_date');
 
-                    if ($goalType === 'yearly') {
-                        $endDate = date('Y-m-d', strtotime('+1 year', strtotime($startDate)));
-                        $goal = config('donation.yearly_goal');
-                    } else {
-                        $startDate = date('Y-m-01');
-                        $endDate = date('Y-m-t', strtotime($startDate));
-                        $goal = config('donation.monthly_goal');
-                    }
-
                     $sum = App\Models\Donation::join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
                         ->where('donations.status', App\Models\Donation::APPROVED)
-                        ->whereBetween('donations.created_at', [$startDate, $endDate])
+                        ->when(
+                            $goalType === 'yearly',
+                            fn ($query) => $query->whereBetween('donations.created_at', [Carbon::parse($startDate), Carbon::parse($startDate)->addYear()]),
+                            fn ($query) => $query->whereBetween('donations.created_at', [now()->startOfMonth(), now()->endOfMonth()])
+                        )
                         ->where('donation_packages.cost', '>', 0)
                         ->sum('donation_packages.cost');
 
+                    $goal = $goalType === 'yearly' ? config('donation.yearly_goal') : config('donation.monthly_goal');
                     $percentage = $sum ? number_format(($sum / $goal) * 100) : 0;
                 @endphp
 
