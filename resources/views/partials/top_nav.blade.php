@@ -224,21 +224,21 @@
         @if (config('donation.is_enabled'))
             <li class="top-nav__dropdown">
                 @php
-                    $goalType = config('donation.goal_type');
+                    $goal = config('donation.goal');
+
                     $startDate = config('donation.start_date');
 
-                    $sum = App\Models\Donation::join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
-                        ->where('donations.status', App\Models\Donation::APPROVED)
+                    $sum = Donation::join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
+                        ->where('donations.status', Donation::APPROVED)
                         ->when(
-                            $goalType === 'yearly',
+                            config('donation.goal_type') === 'yearly',
                             fn ($query) => $query->whereBetween('donations.created_at', [Carbon::parse($startDate), Carbon::parse($startDate)->addYear()]),
                             fn ($query) => $query->whereBetween('donations.created_at', [now()->startOfMonth(), now()->endOfMonth()])
                         )
                         ->where('donation_packages.cost', '>', 0)
                         ->sum('donation_packages.cost');
 
-                    $goal = $goalType === 'yearly' ? config('donation.yearly_goal') : config('donation.monthly_goal');
-                    $percentage = $sum ? number_format(($sum / $goal) * 100) : 0;
+                    $percentage = $goal > 0 && $sum > 0 ? number_format(($sum / $goal) * 100) : 0;
                 @endphp
 
                 <a tabindex="0" title="{{ $percentage }}% filled">
