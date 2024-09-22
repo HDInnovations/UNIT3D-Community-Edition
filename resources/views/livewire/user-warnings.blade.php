@@ -183,7 +183,6 @@
                                                 @method('PATCH')
                                                 <button
                                                     x-on:click.prevent="restoreWarning"
-                                                    data-warning-id="{{ $warning->id }}"
                                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to restore this warning: ' . $warning->reason . '?') }}"
                                                     class="form__button form__button--text"
                                                 >
@@ -199,7 +198,6 @@
                                                         @csrf
                                                         <button
                                                             x-on:click.prevent="deactivateWarning"
-                                                            data-warning-id="{{ $warning->id }}"
                                                             data-b64-deletion-message="{{ base64_encode('Are you sure you want to deactivate this warning: ' . $warning->reason . '?') }}"
                                                             class="form__button form__button--text"
                                                         >
@@ -213,7 +211,6 @@
                                                         @csrf
                                                         <button
                                                             x-on:click.prevent="reactivateWarning"
-                                                            data-warning-id="{{ $warning->id }}"
                                                             data-b64-deletion-message="{{ base64_encode('Are you sure you want to reactivate this warning: ' . $warning->reason . '?') }}"
                                                             class="form__button form__button--text"
                                                         >
@@ -229,7 +226,6 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="destroyWarning"
-                                                    data-warning-id="{{ $warning->id }}"
                                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this warning: ' . $warning->reason . '?') }}"
                                                     class="form__button form__button--text"
                                                 >
@@ -265,16 +261,16 @@
                     this.confirmAction(() => this.$wire.massDeactivate());
                 },
                 destroyWarning() {
-                    this.confirmAction(() => this.$wire.destroy(this.$el.dataset.warningId));
+                    this.confirmAction(() => this.$wire.destroy(this.$root.dataset.warningId));
                 },
                 reactivateWarning() {
-                    this.confirmAction(() => this.$wire.reactivate(this.$el.dataset.warningId));
+                    this.confirmAction(() => this.$wire.reactivate(this.$root.dataset.warningId));
                 },
                 deactivateWarning() {
-                    this.confirmAction(() => this.$wire.deactivate(this.$el.dataset.warningId));
+                    this.confirmAction(() => this.$wire.deactivate(this.$root.dataset.warningId));
                 },
                 restoreWarning() {
-                    this.confirmAction(() => this.$wire.restore(this.$el.dataset.warningId));
+                    this.confirmAction(() => this.$wire.restore(this.$root.dataset.warningId));
                 },
                 confirmAction(onConfirm) {
                     Swal.fire({
