@@ -328,6 +328,7 @@ Route::middleware('language')->group(function (): void {
                 Route::post('/{ticket}/assignee', [App\Http\Controllers\TicketAssigneeController::class, 'store'])->name('assignee.store');
                 Route::delete('/{ticket}/assignee', [App\Http\Controllers\TicketAssigneeController::class, 'destroy'])->name('assignee.destroy');
                 Route::post('/{ticket}/close', [App\Http\Controllers\TicketController::class, 'close'])->name('close');
+                Route::post('/{ticket}/reopen', [App\Http\Controllers\TicketController::class, 'reopen'])->name('reopen');
                 Route::post('/{ticket}/attachments/{attachment}/download', [App\Http\Controllers\TicketAttachmentController::class, 'download'])->name('attachment.download');
             })->scopeBindings();
         });
