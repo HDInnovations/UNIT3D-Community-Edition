@@ -1,7 +1,5 @@
-@php
-    use App\Models\Donation;
-    use Carbon\Carbon;
-@endphp
+@use(App\Models\Donation)
+@use(Illuminate\Support\Carbon)
 
 <nav class="top-nav" x-data="{ expanded: false }" x-bind:class="expanded && 'mobile'">
     <div class="top-nav__left">
