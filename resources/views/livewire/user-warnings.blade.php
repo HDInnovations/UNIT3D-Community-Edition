@@ -91,7 +91,7 @@
             Soft Deleted ({{ $deletedWarningsCount ?? 0 }})
         </li>
     </menu>
-    <div class="data-table-wrapper" x-data="userWarnings">
+    <div class="data-table-wrapper">
         <table class="data-table">
             <thead>
                 <tr>
@@ -127,7 +127,7 @@
             </thead>
             <tbody>
                 @forelse ($warnings as $warning)
-                    <tr x-ref="warning" data-warning-id="{{ $warning->id }}">
+                    <tr x-data="userWarnings" data-warning-id="{{ $warning->id }}">
                         <td>
                             <x-user_tag :user="$warning->staffuser" :anon="false" />
                         </td>
@@ -261,24 +261,16 @@
                     this.confirmAction(() => this.$wire.massDeactivate());
                 },
                 destroyWarning() {
-                    this.confirmAction(() =>
-                        this.$wire.destroy(this.$refs.warning.dataset.warningId),
-                    );
+                    this.confirmAction(() => this.$wire.destroy(this.$root.dataset.warningId));
                 },
                 reactivateWarning() {
-                    this.confirmAction(() =>
-                        this.$wire.reactivate(this.$refs.warning.dataset.warningId),
-                    );
+                    this.confirmAction(() => this.$wire.reactivate(this.$root.dataset.warningId));
                 },
                 deactivateWarning() {
-                    this.confirmAction(() =>
-                        this.$wire.deactivate(this.$refs.warning.dataset.warningId),
-                    );
+                    this.confirmAction(() => this.$wire.deactivate(this.$root.dataset.warningId));
                 },
                 restoreWarning() {
-                    this.confirmAction(() =>
-                        this.$wire.restore(this.$refs.warning.dataset.warningId),
-                    );
+                    this.confirmAction(() => this.$wire.restore(this.$root.dataset.warningId));
                 },
                 confirmAction(onConfirm) {
                     Swal.fire({
