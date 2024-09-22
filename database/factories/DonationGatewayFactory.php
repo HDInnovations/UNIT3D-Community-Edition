@@ -36,7 +36,7 @@ class DonationGatewayFactory extends Factory
             'position'  => $this->faker->randomDigitNotNull(),
             'name'      => $this->faker->name(),
             'address'   => $this->faker->word(),
-            'is_active' => 1,
+            'is_active' => $this->faker->boolean(),
         ];
     }
 }
