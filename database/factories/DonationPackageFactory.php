@@ -41,7 +41,7 @@ class DonationPackageFactory extends Factory
             'invite_value' => $this->faker->randomNumber(),
             'bonus_value'  => $this->faker->randomNumber(),
             'donor_value'  => $this->faker->numberBetween(30, 365),
-            'is_active'    => true,
+            'is_active'    => $this->faker->boolean(),
         ];
     }
 }
