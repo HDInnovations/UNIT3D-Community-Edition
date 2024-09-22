@@ -27,7 +27,7 @@ class DislikeController extends Controller
         $user = auth()->user();
         $post = Post::findOrFail($postId);
 
-        if ($user->id === $post->id) {
+        if ($user->id === $post->user_id) {
             abort(400, 'You cannot dislike your own post!');
         }
 
