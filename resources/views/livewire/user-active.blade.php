@@ -309,12 +309,12 @@
                                     @else
                                         @if ($connectable)
                                             <i
-                                                class="{{ config('other.font-awesome') }} text-green fa-check"
+                                                class="{{ config('other.font-awesome') }} text-green fa-wifi"
                                                 title="Connectable"
                                             ></i>
                                         @else
                                             <i
-                                                class="{{ config('other.font-awesome') }} text-red fa-times"
+                                                class="{{ config('other.font-awesome') }} text-red fa-wifi-slash"
                                                 title="Not Connectable"
                                             ></i>
                                         @endif
@@ -326,12 +326,12 @@
                                 @if ($active->active)
                                     @if ($active->seeder)
                                         <i
-                                            class="{{ config('other.font-awesome') }} text-green fa-check"
+                                            class="{{ config('other.font-awesome') }} text-green fa-arrow-up"
                                             title="{{ __('torrent.seeding') }}"
                                         ></i>
                                     @else
                                         <i
-                                            class="{{ config('other.font-awesome') }} text-red fa-times"
+                                            class="{{ config('other.font-awesome') }} text-red fa-arrow-down"
                                             title="Not {{ __('torrent.seeding') }}"
                                         ></i>
                                     @endif
