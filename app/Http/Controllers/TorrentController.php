@@ -423,7 +423,7 @@ class TorrentController extends Controller
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
 
-        foreach($files as &$file) {
+        foreach ($files as &$file) {
             $file['torrent_id'] = $torrent->id;
         }
 

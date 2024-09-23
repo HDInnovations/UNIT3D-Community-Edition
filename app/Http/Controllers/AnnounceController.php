@@ -153,7 +153,7 @@ final class AnnounceController extends Controller
         }
 
         // Block Other Browser, Crawler (May Cheater or Faker Client) by check Requests headers
-        if(
+        if (
             $request->header('accept-language')
             || $request->header('referer')
             || $request->header('accept-charset')
@@ -207,7 +207,7 @@ final class AnnounceController extends Controller
         }
 
         // If Passkey Length Is Wrong
-        if(\strlen($passkey) !== 32) {
+        if (\strlen($passkey) !== 32) {
             throw new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]);
         }
 
