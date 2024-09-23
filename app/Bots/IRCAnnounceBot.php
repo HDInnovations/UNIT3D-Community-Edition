@@ -117,10 +117,11 @@ class IRCAnnounceBot
     public function to(string $recipient): self
     {
         $this->recipient = $recipient;
+        $channelKey = config('irc-bot.channel_key', '');
 
         if (config('irc-bot.joinchannel')) {
             if ($this->isValidChannelName($recipient)) {
-                $this->join($recipient);
+                $this->join($recipient, $channelKey);
                 $this->isInChannel = true;
             } else {
                 Log::error('Tried to channel with invalid name.', [
@@ -192,7 +193,7 @@ class IRCAnnounceBot
     /**
      * @see https://www.rfc-editor.org/rfc/rfc1459#section-4.2.1
      */
-    private function join(string $channel, string $key = ''): void
+    private function join(string $channel, string $channelKey = ''): void
     {
         if (!$this->isValidChannelName($channel)) {
             Log::error('Tried to join a channel with invalid name.', ['name' => $channel]);
@@ -200,7 +201,7 @@ class IRCAnnounceBot
             return;
         }
 
-        $this->send("JOIN {$channel} {$key}");
+        $this->send("JOIN {$channel} {$channelKey}");
     }
 
     /**

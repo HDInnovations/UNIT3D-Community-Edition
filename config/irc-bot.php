@@ -30,6 +30,7 @@ return [
     'username'     => 'UNIT3D',
     'password'     => 'UNIT3D',
     'channel'      => '#announce',
+    'channel_key'  => 'UNIT3D',
     'nickservpass' => false,
     'joinchannel'  => false,
 ];
