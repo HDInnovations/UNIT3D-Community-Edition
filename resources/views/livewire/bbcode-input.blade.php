@@ -269,6 +269,15 @@
                                     : 'border-color 600ms cubic-bezier(0.25, 0.8, 0.25, 1), height 600ms cubic-bezier(0.25, 0.8, 0.25, 1)',
                         };
                     },
+                    ['x-on:keydown.self.ctrl.b.prevent']() {
+                        this.insertBold();
+                    },
+                    ['x-on:keydown.self.ctrl.i.prevent']() {
+                        this.insertItalic();
+                    },
+                    ['x-on:keydown.self.ctrl.u.prevent']() {
+                        this.insertUnderline();
+                    },
                 },
                 insertBold() {
                     this.insert('[b]', '[/b]');
