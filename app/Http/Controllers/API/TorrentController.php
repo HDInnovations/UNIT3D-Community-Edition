@@ -286,6 +286,9 @@ class TorrentController extends BaseController
             'personal_release' => [
                 'nullable',
             ],
+            'mod_queue_opt_in' => [
+                'required',
+            ],
             'internal' => [
                 'required',
             ],
