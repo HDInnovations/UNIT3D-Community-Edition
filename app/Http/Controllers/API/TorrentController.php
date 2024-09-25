@@ -143,6 +143,7 @@ class TorrentController extends BaseController
         $torrent->bdinfo = $request->input('bdinfo');
         $torrent->info_hash = $infohash;
         $torrent->file_name = $fileName;
+        $torrent->folder_name = $folder;
         $torrent->num_file = $meta['count'];
         $torrent->folder = Bencode::get_name($decodedTorrent);
         $torrent->size = $meta['size'];
@@ -209,6 +210,9 @@ class TorrentController extends BaseController
             'num_file' => [
                 'required',
                 'numeric',
+            ],
+            'folder_name' => [
+                'required',
             ],
             'size' => [
                 'required',
@@ -547,6 +551,7 @@ class TorrentController extends BaseController
                     dying: $request->filled('dying'),
                     dead: $request->filled('dead'),
                     filename: $request->filled('file_name') ? $request->string('file_name')->toString() : '',
+                    folder: $request->('folder_name') ? $request->string('folder_name')->toString() : '',
                     seasonNumber: $request->filled('seasonNumber') ? $request->integer('seasonNumber') : null,
                     episodeNumber: $request->filled('episodeNumber') ? $request->integer('episodeNumber') : null,
                 ))->toSqlQueryBuilder())
