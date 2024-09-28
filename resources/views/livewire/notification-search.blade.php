@@ -24,7 +24,7 @@
                                         {{ $notification->data['title'] }}
                                     </a>
                                 </td>
-                                <td>
+                                <td style="word-break: break-all">
                                     {{ $notification->data['body'] }}
                                 </td>
                                 <td>
