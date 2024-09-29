@@ -200,6 +200,7 @@
                                 class="meta-chip__image"
                                 src="{{ tmdb_image('cast_face', $credit->person->still) }}"
                                 alt=""
+                                loading="lazy"
                             />
                         @else
                             <i
@@ -225,6 +226,7 @@
                                 class="meta-chip__image"
                                 src="{{ tmdb_image('cast_face', $credit->person->still) }}"
                                 alt=""
+                                loading="lazy"
                             />
                         @else
                             <i
