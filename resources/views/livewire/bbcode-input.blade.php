@@ -354,12 +354,22 @@
                     input = this.$refs.bbcode;
                     start = input.selectionStart;
                     end = input.selectionEnd;
-                    input.value =
-                        input.value.substring(0, start) +
-                        openTag +
-                        input.value.substring(start, end) +
-                        closeTag +
-                        input.value.substring(end);
+                    alreadyNested =
+                        input.value.substring(start, start + openTag.length) === openTag &&
+                        input.value.substring(end - closeTag.length, end) === closeTag;
+                    if (alreadyNested) {
+                        input.value =
+                            input.value.substring(0, start) +
+                            input.value.substring(start + openTag.length, end - closeTag.length) +
+                            input.value.substring(end);
+                    } else {
+                        input.value =
+                            input.value.substring(0, start) +
+                            openTag +
+                            input.value.substring(start, end) +
+                            closeTag +
+                            input.value.substring(end);
+                    }
                     input.dispatchEvent(new Event('input'));
                     input.focus();
                     if (openTag.charAt(openTag.length - 2) === '=') {
@@ -370,7 +380,11 @@
                     } else if (start == end) {
                         input.setSelectionRange(start + openTag.length, end + openTag.length);
                     } else {
-                        input.setSelectionRange(start, end + openTag.length + closeTag.length);
+                        if (alreadyNested) {
+                            input.setSelectionRange(start, end - openTag.length - closeTag.length);
+                        } else {
+                            input.setSelectionRange(start, end + openTag.length + closeTag.length);
+                        }
                     }
                 },
             }));
