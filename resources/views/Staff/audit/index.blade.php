@@ -35,14 +35,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($staffActivities as $activity)
+                    @foreach ($staffUsers as $staffUser)
                         <tr>
                             <td>
-                                <x-user_tag :anon="false" :user="$activity->user" />
+                                <x-user_tag :anon="false" :user="$staffUser" />
                             </td>
-                            <td>{{ $activity->last_30_days }}</td>
-                            <td>{{ $activity->last_60_days }}</td>
-                            <td>{{ $activity->total_actions }}</td>
+                            <td>{{ $staffUser->last_30_days }}</td>
+                            <td>{{ $staffUser->last_60_days }}</td>
+                            <td>{{ $staffUser->total_actions }}</td>
                         </tr>
                     @endforeach
                 </tbody>

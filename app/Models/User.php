@@ -948,6 +948,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has Many Audits.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Audit, $this>
+     */
+    public function audits(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Audit::class);
+    }
+
+    /**
      * Has many donations.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Donation, $this>
