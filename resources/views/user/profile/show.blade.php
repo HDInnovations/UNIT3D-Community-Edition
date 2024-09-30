@@ -934,6 +934,50 @@
                             <dt>{{ __('user.total-leeching') }}</dt>
                             <dd>{{ $externalUser['num_leeching'] }}</dd>
                         </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Seed lists</th>
+                                    <th>Window</th>
+                                    <th>Max</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($externalUser['receive_seed_list_rates']['rates'] as $rate)
+                                    <tr>
+                                        <td
+                                            title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
+                                        >
+                                            {{ $rate['count'] }}
+                                        </td>
+                                        <td>{{ $rate['window'] }}</td>
+                                        <td>{{ $rate['max_count'] }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Leech lists</th>
+                                    <th>Window</th>
+                                    <th>Max</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($externalUser['receive_leech_list_rates']['rates'] as $rate)
+                                    <tr>
+                                        <td
+                                            title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
+                                        >
+                                            {{ $rate['count'] }}
+                                        </td>
+                                        <td>{{ $rate['window'] }}</td>
+                                        <td>{{ $rate['max_count'] }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </dl>
                 </section>
             @endif
