@@ -35,8 +35,15 @@ class EmailBlacklist implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         // Load blacklisted domains
-        $this->domains = cache()->get(config('email-blacklist.cache-key'));
+        $this->domains = cache()->get(config('email-blacklist.cache-key'), []);
         $this->appendCustomDomains();
+
+        // Fail if the domain blacklist cache is empty
+        if (empty($this->domains)) {
+            $fail('The email blacklist cache is currently empty. Please try again later or contact staff.');
+
+            return;
+        }
 
         // Extract domain from supplied email address
         $domain = Str::after(strtolower((string) $value), '@');
