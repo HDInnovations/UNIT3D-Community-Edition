@@ -872,17 +872,17 @@
         @if (config('announce.external_tracker.is_enabled') && auth()->user()->group->is_modo)
             @if ($externalUser === true)
                 <section class="panelV2">
-                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <h2 class="panel__heading">External Tracker</h2>
                     <div class="panel__body">External tracker not enabled.</div>
                 </section>
             @elseif ($externalUser === false)
                 <section class="panelV2">
-                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <h2 class="panel__heading">External Tracker</h2>
                     <div class="panel__body">User not found.</div>
                 </section>
             @elseif ($externalUser === [])
                 <section class="panelV2">
-                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <h2 class="panel__heading">External Tracker</h2>
                     <div class="panel__body">Tracker returned an error.</div>
                 </section>
             @else
@@ -940,6 +940,7 @@
                                     <th>Seed lists</th>
                                     <th>Window</th>
                                     <th>Max</th>
+                                    <th>Lists/h</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -948,10 +949,13 @@
                                         <td
                                             title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
                                         >
-                                            {{ $rate['count'] }}
+                                            {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
                                         </td>
                                         <td>{{ $rate['window'] }}</td>
                                         <td>{{ $rate['max_count'] }}</td>
+                                        <td>
+                                            {{ \number_format((3600 * $rate['count']) / $rate['window'], 1, null, "\u{202F}") }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -962,6 +966,7 @@
                                     <th>Leech lists</th>
                                     <th>Window</th>
                                     <th>Max</th>
+                                    <th>Lists/h</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -970,10 +975,13 @@
                                         <td
                                             title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
                                         >
-                                            {{ $rate['count'] }}
+                                            {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
                                         </td>
                                         <td>{{ $rate['window'] }}</td>
                                         <td>{{ $rate['max_count'] }}</td>
+                                        <td>
+                                            {{ \number_format((3600 * $rate['count']) / $rate['window'], 1, null, "\u{202F}") }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
