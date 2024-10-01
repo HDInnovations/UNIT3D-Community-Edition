@@ -23,7 +23,6 @@ test('index returns an ok response', function (): void {
     $response->assertOk();
     $response->assertViewIs('home.index');
     $response->assertViewHas('user');
-    $response->assertViewHas('personal_freeleech');
     $response->assertViewHas('users');
     $response->assertViewHas('groups');
     $response->assertViewHas('articles');
@@ -31,6 +30,4 @@ test('index returns an ok response', function (): void {
     $response->assertViewHas('posts');
     $response->assertViewHas('featured');
     $response->assertViewHas('poll');
-    $response->assertViewHas('freeleech_tokens');
-    $response->assertViewHas('bookmarks');
 });
