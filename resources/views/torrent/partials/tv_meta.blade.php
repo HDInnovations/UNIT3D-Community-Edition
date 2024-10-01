@@ -32,7 +32,7 @@
                         route('torrents.create', [
                             'category_id' => $category->id,
                             'title' => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->first_air_date ?? '', 0, 4) ?? ''),
-                            'imdb' => $torrent->imdb ?? '',
+                            'imdb' => $torrent->imdb ?? '' ?: $meta->imdb_id ?? '' ?: '',
                             'tmdb' => $meta?->id ?? '',
                             'mal' => $torrent->mal ?? '',
                             'tvdb' => $torrent->tvdb ?? '',
@@ -49,7 +49,7 @@
                         route('requests.create', [
                             'category_id' => $category->id,
                             'title' => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->first_air_date ?? '', 0, 4) ?? ''),
-                            'imdb' => $torrent->imdb ?? '',
+                            'imdb' => $torrent->imdb ?? '' ?: $meta->imdb_id ?? '' ?: '',
                             'tmdb' => $meta?->id ?? '',
                             'mal' => $torrent->mal ?? '',
                             'tvdb' => $torrent->tvdb ?? '',
