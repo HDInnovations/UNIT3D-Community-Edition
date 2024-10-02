@@ -248,7 +248,7 @@ class TorrentRequestSearch extends Component
                 $query->where('user_id', '=', $user->id);
             })
             ->when($this->myClaims, function ($query) use ($user): void {
-                $query->whereRelation('claim', 'user_id', '=', $user->id)->whereNull('approved_by');
+                $query->whereRelation('claim', 'user_id', '=', $user->id)->whereNull('torrent_id')->whereNull('approved_by');
             })
             ->when($this->myVoted, function ($query) use ($user): void {
                 $query->whereRelation('bounties', 'user_id', '=', $user->id);
