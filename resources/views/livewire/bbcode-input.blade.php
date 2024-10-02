@@ -309,7 +309,7 @@
                 insertColor() {
                     this.insert('[color=]', '[/color]');
                 },
-                insertsize() {
+                insertSize() {
                     this.insert('[size=]', '[/size]');
                 },
                 insertFont() {
