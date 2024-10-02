@@ -19,6 +19,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Movie;
 use App\Models\Torrent;
+use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
@@ -103,7 +104,13 @@ class SimilarTorrentController extends Controller
 
     public function update(Request $request, Category $category, int $tmdbId): \Illuminate\Http\RedirectResponse
     {
-        if ($tmdbId === 0 || Torrent::where('category_id', '=', $category->id)->where('tmdb', '=', $tmdbId)->doesntExist()) {
+        if (
+            $tmdbId === 0
+            || (
+                Torrent::where('category_id', '=', $category->id)->where('tmdb', '=', $tmdbId)->doesntExist()
+                && TorrentRequest::where('category_id', '=', $category->id)->where('tmdb', '=', $tmdbId)->doesntExist()
+            )
+        ) {
             return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdbId])
                 ->withErrors('There exists no torrent with this tmdb.');
         }
@@ -149,7 +156,6 @@ class SimilarTorrentController extends Controller
                 break;
         }
 
-        return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdbId])
-            ->withSuccess('Metadata update queued successfully.');
+        return back()->withSuccess('Metadata update queued successfully.');
     }
 }
