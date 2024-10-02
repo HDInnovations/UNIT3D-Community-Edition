@@ -19,7 +19,7 @@
                             $releaseYear = $media->release_date instanceof \Illuminate\Support\Carbon ? $media->release_date->year : (int) $media->release_date;
                         @endphp
 
-                        {{ \preg_replace('/^.*( ' . implode(' | ', range($releaseYear - 1, $releaseYear + 1)) . ' )/i', '', $torrent->name) }}
+                        {{ str_contains($torrent->name, ' / ') ? $torrent->name : \preg_replace('/^.*( ' . implode(' | ', range($releaseYear - 1, $releaseYear + 1)) . ' )/i', '', $torrent->name) }}
 
                         @break
                     @case('tv')
@@ -34,7 +34,7 @@
                             }
                         @endphp
 
-                        {{ \preg_replace('/^.*( ' . implode(' | ', $firstAirDateRange) . ' | (?=S\d{2,4}(?:-S\d{2,4})?(?:-?E\d{2,4})*? |' . implode('-|', $fullRange) . '-))/i', '', $torrent->name) }}
+                        {{ str_contains($torrent->name, ' / ') ? $torrent->name : \preg_replace('/^.*( ' . implode(' | ', $firstAirDateRange) . ' | (?=S\d{2,4}(?:-S\d{2,4})?(?:-?E\d{2,4})*? |' . implode('-|', $fullRange) . '-))/i', '', $torrent->name) }}
 
                         @break
                 @endswitch
