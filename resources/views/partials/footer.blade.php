@@ -44,7 +44,7 @@
                 <li><a href="{{ route('wikis.index') }}">Wikis</a></li>
             </ul>
         </section>
-        @if ($footer_pages)
+        @if ($footer_pages = cache()->remember('cached-pages',3600,fn () => \App\Models\Page::select(['id', 'name', 'created_at'])->take(6)->get()))
             <section class="footer__section">
                 <h2 class="footer__section-title">{{ __('common.pages') }}</h2>
                 <ul class="footer__section-list">
