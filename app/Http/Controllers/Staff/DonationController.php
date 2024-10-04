@@ -34,7 +34,28 @@ class DonationController extends Controller
     {
         abort_unless($request->user()->group->is_owner, 403);
 
-        return view('Staff.donation.index', ['donations' => Donation::with('package')->latest()->paginate(25)]);
+        $donations = Donation::with('package')->latest()->paginate(25);
+
+        $dailyDonations = Donation::selectRaw('DATE(donations.created_at) as date, SUM(donation_packages.cost) as total')
+            ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
+            ->where('donations.status', Donation::APPROVED)
+            ->groupBy('date')
+            ->orderBy('date') // Ensure the data is ordered by date
+            ->get();
+
+        $monthlyDonations = Donation::selectRaw('YEAR(donations.created_at) as year, MONTH(donations.created_at) as month, SUM(donation_packages.cost) as total')
+            ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
+            ->where('donations.status', Donation::APPROVED)
+            ->groupBy('year', 'month')
+            ->orderBy('year')
+            ->orderBy('month') // Ensure the data is ordered by year and month
+            ->get();
+
+        return view('Staff.donation.index', [
+            'donations'        => $donations,
+            'dailyDonations'   => $dailyDonations,
+            'monthlyDonations' => $monthlyDonations,
+        ]);
     }
 
     /**
