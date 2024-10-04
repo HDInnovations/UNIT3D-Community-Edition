@@ -126,21 +126,25 @@
 @section('scripts')
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('DOMContentLoaded', function () {
-            const dailyDonations = @json($dailyDonations);
-            const monthlyDonations = @json($monthlyDonations);
+            const dailyDonations = {!! Js::encode($dailyDonations) !!};
+            const monthlyDonations = {!! Js::encode($monthlyDonations) !!};
 
             // Daily Donations Chart
             const dailyCtx = document.getElementById('dailyDonationsChart').getContext('2d');
             new Chart(dailyCtx, {
                 type: 'line',
                 data: {
-                    labels: dailyDonations.map((d) => d.date),
+                    labels: dailyDonations.map((donation) => donation.date),
                     datasets: [
                         {
                             label: 'Daily Donations',
-                            data: dailyDonations.map((d) => d.total),
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                            borderColor: 'rgba(75, 192, 192, 1)',
+                            data: dailyDonations.map((donation) => donation.total),
+                            backgroundColor: getComputedStyle(
+                                document.documentElement,
+                            ).getPropertyValue('--donation-chart-daily-bg'),
+                            borderColor: getComputedStyle(
+                                document.documentElement,
+                            ).getPropertyValue('--donation-chart-daily-border'),
                             borderWidth: 1,
                             fill: false,
                         },
@@ -159,13 +163,19 @@
             new Chart(monthlyCtx, {
                 type: 'line',
                 data: {
-                    labels: monthlyDonations.map((d) => `${d.year}-${d.month}`),
+                    labels: monthlyDonations.map(
+                        (donation) => `${donation.year}-${donation.month}`,
+                    ),
                     datasets: [
                         {
                             label: 'Monthly Donations',
-                            data: monthlyDonations.map((d) => d.total),
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                            borderColor: 'rgba(153, 102, 255, 1)',
+                            data: monthlyDonations.map((donation) => donation.total),
+                            backgroundColor: getComputedStyle(
+                                document.documentElement,
+                            ).getPropertyValue('--donation-chart-monthly-bg'),
+                            borderColor: getComputedStyle(
+                                document.documentElement,
+                            ).getPropertyValue('--donation-chart-monthly-border'),
                             borderWidth: 1,
                             fill: false,
                         },
