@@ -35,7 +35,7 @@
                             'imdb' => $torrent->imdb ?? '' ?: $meta->imdb_id ?? '' ?: '',
                             'tmdb' => $meta?->id ?? '',
                             'mal' => $torrent->mal ?? '',
-                            'tvdb' => $torrent->tvdb ?? '',
+                            'tvdb' => $torrent->tvdb ?? '' ?: $meta->tvdb_id ?? '' ?: '',
                             'igdb' => $torrent->igdb ?? '',
                         ])
                     }}"
@@ -52,7 +52,7 @@
                             'imdb' => $torrent->imdb ?? '' ?: $meta->imdb_id ?? '' ?: '',
                             'tmdb' => $meta?->id ?? '',
                             'mal' => $torrent->mal ?? '',
-                            'tvdb' => $torrent->tvdb ?? '',
+                            'tvdb' => $torrent->tvdb ?? '' ?: $meta->tvdb_id ?? '' ?: '',
                             'igdb' => $torrent->igdb ?? '',
                         ])
                     }}"
@@ -138,18 +138,18 @@
             </li>
         @endif
 
-        @if (($torrent->tvdb ?? 0) > 0)
+        @foreach (array_unique(array_filter([(int) ($meta->tvdb_id ?? 0), $torrent->tvdb ?? 0])) as $tvdbId)
             <li class="meta__tvdb">
                 <a
                     class="meta-id-tag"
-                    href="https://www.thetvdb.com/?tab=series&id={{ $torrent->tvdb }}"
-                    title="The TV Database: {{ $torrent->tvdb }}"
+                    href="https://www.thetvdb.com/?tab=series&id={{ $tvdbId }}"
+                    title="The TV Database: {{ $tvdbId }}"
                     target="_blank"
                 >
                     <img src="{{ url('/img/meta/tvdb.svg') }}" />
                 </a>
             </li>
-        @endif
+        @endforeach
 
         @if (($meta->id ?? 0) > 0)
             <li class="meta__rotten">
