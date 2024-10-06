@@ -36,16 +36,16 @@ class DonationController extends Controller
 
         $donations = Donation::with('package')->latest()->paginate(25);
 
-        $dailyDonations = Donation::with('package')
-            ->selectRaw('DATE(created_at) as date, SUM((SELECT cost FROM donation_packages WHERE donation_packages.id = donations.package_id)) as total')
-            ->where('status', '=', Donation::APPROVED)
+        $dailyDonations = Donation::selectRaw('DATE(donations.created_at) as date, SUM(donation_packages.cost) as total')
+            ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
+            ->where('donations.status', '=', Donation::APPROVED)
             ->groupBy('date')
             ->orderBy('date')
             ->get();
 
-        $monthlyDonations = Donation::with('package')
-            ->selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM((SELECT cost FROM donation_packages WHERE donation_packages.id = donations.package_id)) as total')
-            ->where('status', '=', Donation::APPROVED)
+        $monthlyDonations = Donation::selectRaw('YEAR(donations.created_at) as year, MONTH(donations.created_at) as month, SUM(donation_packages.cost) as total')
+            ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
+            ->where('donations.status', '=', Donation::APPROVED)
             ->groupBy('year', 'month')
             ->orderBy('year')
             ->orderBy('month')
