@@ -40,6 +40,8 @@ return [
     'note-destroy-success' => '¡Nota del staff eliminada con éxito!',
     'opened-by'            => 'Abierto por:',
     'priority'             => 'Prioridad',
+    'reopen'               => 'Reabrir',
+    'reopen-success'       => 'Su solicitud de asistencia se ha reabierto correctamente',
     'reset'                => 'Restablecer',
     'staff-notes'          => 'Notas del staff',
     'subject'              => 'Asunto',
