@@ -93,7 +93,7 @@
 
                             @if (auth()->user()->group->is_modo)
                                 <td>
-                                    @if ($user->created_at === null)
+                                    @if ($invite->receiver->created_at === null)
                                         N/A
                                     @else
                                         <time
@@ -106,7 +106,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($user->last_action === null)
+                                    @if ($invite->receiver->last_action === null)
                                         N/A
                                     @else
                                         <time

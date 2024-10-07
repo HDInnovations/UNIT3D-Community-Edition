@@ -20,7 +20,7 @@
 @section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ $ticket->subject }}</h2>
-        <div class="panel__body" style="white-space: pre-wrap">{{ $ticket->body }}</div>
+        {{-- format-ignore-start --}}<div class="panel__body" style="white-space: pre-wrap">{{ $ticket->body }}</div>{{-- format-ignore-end --}}
     </section>
     @if ($user->group->is_modo)
         <section class="panelV2">
@@ -41,9 +41,7 @@
                                 <td>
                                     <x-user_tag :anon="false" :user="$note->user" />
                                 </td>
-                                <td style="white-space: pre-wrap">
-                                    @joypixels($note->getMessageHtml())
-                                </td>
+                                {{-- format-ignore-start --}}<td style="white-space: pre-wrap">@joypixels($note->getMessageHtml())</td>{{-- format-ignore-end --}}
                                 <td>
                                     <time
                                         datetime="{{ $note->created_at }}"
@@ -137,7 +135,7 @@
                             datetime="{{ $ticket->closed_at }}"
                             title="{{ $ticket->closed_at }}"
                         >
-                            {{ $ticket->closed_at->format('m/d/Y') }}
+                            {{ $ticket->closed_at->format('Y-m-d') }}
                         </time>
                     </dd>
                 </div>
@@ -255,6 +253,15 @@
                         @csrf
                         <button class="form__button form__button--filled form__button--centered">
                             {{ __('ticket.close') }}
+                        </button>
+                    </p>
+                </form>
+            @else
+                <form action="{{ route('tickets.reopen', ['ticket' => $ticket]) }}" method="POST">
+                    <p class="form__group form__group--horizontal">
+                        @csrf
+                        <button class="form__button form__button--filled form__button--centered">
+                            {{ __('ticket.reopen') }}
                         </button>
                     </p>
                 </form>

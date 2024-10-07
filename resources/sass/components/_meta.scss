@@ -219,6 +219,7 @@
     list-style-type: none;
     margin: -10px;
     padding: 0;
+    align-items: center;
 
     @media screen and (max-width: 480px) {
         flex-direction: row;
@@ -228,9 +229,7 @@
 
 .meta-id-tag {
     color: var(--meta-id-tag-fg);
-    font-size: 25px;
     display: inline-block;
-    padding: 0 10px;
     white-space: nowrap;
     background: var(--meta-id-tag-bg);
 }
@@ -241,6 +240,21 @@
     color: var(--meta-id-tag-hover-fg);
 }
 
+.meta-id-tag:has(img) {
+    display: flex;
+    padding: 4px 10px;
+}
+
+.meta-id-tag img {
+    height: 17px;
+}
+
+.meta-id-tag:not(:has(img)) {
+    font-size: 21px;
+    line-height: 17px;
+    padding: 2px 10px;
+}
+
 /* Chips
 ---------------------------------------------------------------------------- */
 
@@ -249,13 +263,14 @@
     overflow-x: auto;
     grid-area: chips;
     gap: 24px;
+    will-change: transform;
 }
 
 .meta__chip-container {
     position: relative;
     padding-top: 16px;
     height: calc(100%);
-    overflow-y: auto;
+    overflow-y: scroll;
     flex: 1 0 200px;
 }
 
@@ -300,6 +315,7 @@
     gap: 3px 20px;
     border-radius: 26px;
     padding: 6px 26px 6px 6px;
+    will-change: backdrop-filter, background;
 }
 
 .meta-chip:hover {

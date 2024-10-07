@@ -6,7 +6,7 @@
           <header class="chatbox-message__header">
             <address
               class="chatbox-message__address user-tag"
-              :style="`background-image: ${message.user?.group?.effect};`"
+              :style="`${message.user?.is_lifetime ? 'background-image: url(/img/sparkels.gif);' : 'background-image:' + message.user?.group?.effect};`"
             >
               <a
                 class="user-tag__link"
@@ -15,7 +15,7 @@
                 :style="`color: ${message.user?.group?.color}`"
                 :title="message.user?.group?.name"
               >
-                <span v-if="message.user && message.user.id > 1">{{
+                <span v-if="message.user && message.user.id > 1" :style="`padding-right: 5px;`">{{
                   message.user?.username ?? 'Unknown'
                 }}</span>
                 <span
@@ -24,6 +24,24 @@
                   "
                   >{{ message.bot?.name ?? 'Unknown' }}</span
                 >
+                <i v-if="message.user?.icon !== null">
+                  <img
+                    :style="`max-height: 16px; vertical-align: text-bottom;`"
+                    title="Custom User Icon"
+                    :src="`/files/img/${message.user.icon}`"
+                  />
+                </i>
+                <i
+                  v-if="message.user?.is_lifetime == 1"
+                  class="fal fa-star"
+                  id="lifeline"
+                  title="Lifetime Donor"
+                ></i>
+                <i
+                  v-if="message.user?.is_donor == 1 && message.user?.is_lifetime == 0"
+                  class="fal fa-star text-gold"
+                  title="Donor"
+                ></i>
               </a>
             </address>
             <div

@@ -40,6 +40,8 @@ return [
     'note-destroy-success' => 'Staff Note Removed Successfully!',
     'opened-by'            => 'Opened By:',
     'priority'             => 'Priority',
+    'reopen'               => 'Reopen',
+    'reopen-success'       => 'Your helpdesk ticket was reopened successfully',
     'reset'                => 'Reset',
     'staff-notes'          => 'Staff Notes',
     'subject'              => 'Subject',

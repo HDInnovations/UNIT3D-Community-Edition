@@ -21,8 +21,6 @@ use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Resolution;
 use App\Models\TorrentRequest;
-use App\Models\TorrentRequestBounty;
-use App\Models\TorrentRequestClaim;
 use App\Models\Type;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
@@ -250,12 +248,10 @@ class TorrentRequestSearch extends Component
                 $query->where('user_id', '=', $user->id);
             })
             ->when($this->myClaims, function ($query) use ($user): void {
-                $requestClaims = TorrentRequestClaim::where('user_id', '=', $user->id)->pluck('request_id');
-                $query->whereIntegerInRaw('id', $requestClaims)->whereNull('torrent_id')->whereNull('approved_by');
+                $query->whereRelation('claim', 'user_id', '=', $user->id)->whereNull('torrent_id')->whereNull('approved_by');
             })
             ->when($this->myVoted, function ($query) use ($user): void {
-                $requestVotes = TorrentRequestBounty::where('user_id', '=', $user->id)->pluck('requests_id');
-                $query->whereIntegerInRaw('id', $requestVotes);
+                $query->whereRelation('bounties', 'user_id', '=', $user->id);
             })
             ->when($this->myFilled, function ($query) use ($user): void {
                 $query->where('filled_by', '=', $user->id);

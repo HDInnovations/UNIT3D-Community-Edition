@@ -9,6 +9,8 @@
                             id="torrent"
                             wire:model.live.debounce.1500ms="torrentIds"
                             class="form__text"
+                            type="search"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">
@@ -22,6 +24,10 @@
                             id="torrent"
                             wire:model.live.debounce.500ms="minutesLeakedWithin"
                             class="form__text"
+                            type="search"
+                            inputmode="numeric"
+                            pattern="[0-9]*"
+                            autocomplete="off"
                             placeholder=" "
                         />
                         <label class="form__label form__label--floating" for="torrent">

@@ -10,7 +10,8 @@
                         <input
                             id="sender"
                             class="form__text"
-                            type="text"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="sender"
                             placeholder=" "
                         />
@@ -22,7 +23,8 @@
                         <input
                             id="soundexSender"
                             class="form__text"
-                            type="text"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="soundexSender"
                             placeholder=" "
                         />
@@ -34,7 +36,8 @@
                         <input
                             id="receiver"
                             class="form__text"
-                            type="text"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="receiver"
                             placeholder=" "
                         />
@@ -46,7 +49,8 @@
                         <input
                             id="soundexReceiver"
                             class="form__text"
-                            type="text"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="soundexReceiver"
                             placeholder=" "
                         />
@@ -58,7 +62,8 @@
                         <input
                             id="email"
                             class="form__text"
-                            type="text"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="email"
                             placeholder=" "
                         />
@@ -70,7 +75,8 @@
                         <input
                             id="email"
                             class="form__text"
-                            type="text"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="soundexEmail"
                             placeholder=" "
                         />
@@ -116,7 +122,8 @@
                         <input
                             id="code"
                             class="form__text"
-                            type="text"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="code"
                             placeholder=" "
                         />
@@ -128,7 +135,8 @@
                         <input
                             id="custom"
                             class="form__text"
-                            type="text"
+                            type="search"
+                            autocomplete="off"
                             wire:model.live="custom"
                             placeholder=" "
                         />
@@ -324,7 +332,7 @@
                                     </td>
                                     <td>{{ $invite->email }}</td>
                                     <td>{{ $invite->code }}</td>
-                                    <td style="white-space: pre-wrap">{{ $invite->custom }}</td>
+                                    {{-- format-ignore-start --}}<td style="white-space: pre-wrap">{{ $invite->custom }}</td>{{-- format-ignore-end --}}
                                     <td>
                                         <time
                                             datetime="{{ $invite->created_at }}"

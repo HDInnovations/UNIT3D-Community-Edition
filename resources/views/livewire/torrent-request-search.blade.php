@@ -135,6 +135,7 @@
                                 id="name"
                                 wire:model.live="name"
                                 type="search"
+                                autocomplete="off"
                                 class="form__text"
                                 placeholder=" "
                             />
@@ -147,6 +148,8 @@
                                 id="requester"
                                 wire:model.live="requestor"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="requester">
@@ -160,6 +163,8 @@
                                 id="tmdbId"
                                 wire:model.live="tmdbId"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="tmdbId">
@@ -171,6 +176,8 @@
                                 id="imdbId"
                                 wire:model.live="imdbId"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="imdbId">
@@ -182,6 +189,8 @@
                                 id="tvdbId"
                                 wire:model.live="tvdbId"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="tvdbId">
@@ -193,6 +202,8 @@
                                 id="malId"
                                 wire:model.live="malId"
                                 class="form__text"
+                                type="search"
+                                autocomplete="off"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="malId">

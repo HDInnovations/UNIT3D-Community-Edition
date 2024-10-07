@@ -20,6 +20,7 @@
     <env name="REDIS_PORT" value="6379" />
     -->
     <env name="TELESCOPE_ENABLED" value="false"/>
+    <env name="SCOUT_DRIVER" value="null"/>
   </php>
   <coverage/>
   <source>

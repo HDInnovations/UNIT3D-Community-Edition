@@ -60,32 +60,32 @@ class NewComment extends Notification
             $this->model instanceof Torrent => [
                 'title' => 'New Torrent Comment Received',
                 'body'  => $username.' has left you a comment on Torrent '.$this->model->name,
-                'url'   => '/torrents/'.$this->model->id,
+                'url'   => '/torrents/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof TorrentRequest => [
                 'title' => 'New Request Comment Received',
                 'body'  => $username.' has left you a comment on Torrent Request '.$this->model->name,
-                'url'   => '/requests/'.$this->model->id,
+                'url'   => '/requests/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Ticket => [
                 'title' => 'New Ticket Comment Received',
                 'body'  => $username.' has left you a comment on Ticket '.$this->model->subject,
-                'url'   => '/tickets/'.$this->model->id,
+                'url'   => '/tickets/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Playlist => [
                 'title' => 'New Playlist Comment Received',
                 'body'  => $username.' has left you a comment on Playlist '.$this->model->name,
-                'url'   => '/playlists/'.$this->model->id,
+                'url'   => '/playlists/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Collection => [
                 'title' => 'New Collection Comment Received',
                 'body'  => $username.' has left you a comment on Collection '.$this->model->name,
-                'url'   => '/mediahub/collections/'.$this->model->id,
+                'url'   => '/mediahub/collections/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Article => [
                 'title' => 'New Article Comment Received',
                 'body'  => $username.' has left you a comment on Article '.$this->model->title,
-                'url'   => '/articles/'.$this->model->id,
+                'url'   => '/articles/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
         };
     }

@@ -16,11 +16,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Torrent;
+
 class BookmarkController extends BaseController
 {
     final public function store(int $torrentId): bool
     {
         auth()->user()->bookmarks()->attach($torrentId);
+
+        Torrent::query()->whereKey($torrentId)->searchable();
 
         return true;
     }
@@ -28,6 +32,8 @@ class BookmarkController extends BaseController
     final public function destroy(int $torrentId): bool
     {
         auth()->user()->bookmarks()->detach($torrentId);
+
+        Torrent::query()->whereKey($torrentId)->searchable();
 
         return false;
     }

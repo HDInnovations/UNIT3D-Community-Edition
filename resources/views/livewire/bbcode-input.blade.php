@@ -269,6 +269,15 @@
                                     : 'border-color 600ms cubic-bezier(0.25, 0.8, 0.25, 1), height 600ms cubic-bezier(0.25, 0.8, 0.25, 1)',
                         };
                     },
+                    ['x-on:keydown.self.ctrl.b.prevent']() {
+                        this.insertBold();
+                    },
+                    ['x-on:keydown.self.ctrl.i.prevent']() {
+                        this.insertItalic();
+                    },
+                    ['x-on:keydown.self.ctrl.u.prevent']() {
+                        this.insertUnderline();
+                    },
                 },
                 insertBold() {
                     this.insert('[b]', '[/b]');
@@ -300,7 +309,7 @@
                 insertColor() {
                     this.insert('[color=]', '[/color]');
                 },
-                insertsize() {
+                insertSize() {
                     this.insert('[size=]', '[/size]');
                 },
                 insertFont() {
@@ -345,12 +354,22 @@
                     input = this.$refs.bbcode;
                     start = input.selectionStart;
                     end = input.selectionEnd;
-                    input.value =
-                        input.value.substring(0, start) +
-                        openTag +
-                        input.value.substring(start, end) +
-                        closeTag +
-                        input.value.substring(end);
+                    alreadyNested =
+                        input.value.substring(start, start + openTag.length) === openTag &&
+                        input.value.substring(end - closeTag.length, end) === closeTag;
+                    if (alreadyNested) {
+                        input.value =
+                            input.value.substring(0, start) +
+                            input.value.substring(start + openTag.length, end - closeTag.length) +
+                            input.value.substring(end);
+                    } else {
+                        input.value =
+                            input.value.substring(0, start) +
+                            openTag +
+                            input.value.substring(start, end) +
+                            closeTag +
+                            input.value.substring(end);
+                    }
                     input.dispatchEvent(new Event('input'));
                     input.focus();
                     if (openTag.charAt(openTag.length - 2) === '=') {
@@ -361,7 +380,11 @@
                     } else if (start == end) {
                         input.setSelectionRange(start + openTag.length, end + openTag.length);
                     } else {
-                        input.setSelectionRange(start, end + openTag.length + closeTag.length);
+                        if (alreadyNested) {
+                            input.setSelectionRange(start, end - openTag.length - closeTag.length);
+                        } else {
+                            input.setSelectionRange(start, end + openTag.length + closeTag.length);
+                        }
                     }
                 },
             }));

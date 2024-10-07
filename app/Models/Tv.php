@@ -85,9 +85,7 @@ class Tv extends Model
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereHas('category', function ($q): void {
-            $q->where('tv_meta', '=', true);
-        });
+        return $this->hasMany(Torrent::class, 'tmdb', 'id')->whereRelation('category', 'tv_meta', '=', true);
     }
 
     /**
@@ -162,5 +160,13 @@ class Tv extends Model
     public function recommendedTv(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(__CLASS__, Recommendation::class, 'tv_id', 'recommendation_tv_id', 'id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Wish, $this>
+     */
+    public function wishes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Wish::class);
     }
 }

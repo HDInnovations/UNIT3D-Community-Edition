@@ -147,6 +147,7 @@ return [
     'poster'                   => 'Poster',
     'poster-view'              => 'Poster View',
     'posters'                  => 'Posters',
+    'postponed'                => 'Postponed',
     'postponed-torrents'       => 'Postponed Torrents',
     'prewarn'                  => 'Prewarned?',
     'progress'                 => 'Progress',

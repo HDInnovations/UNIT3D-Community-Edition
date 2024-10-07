@@ -8,7 +8,7 @@
                         id="show"
                         class="form__checkbox"
                         type="checkbox"
-                        wire:click="toggleProperties('show')"
+                        wire:model.live="show"
                     />
                     <label class="form__label" for="show">Show Soft Deletes</label>
                 </div>
@@ -18,7 +18,8 @@
                     <input
                         id="receiver"
                         class="form__text"
-                        type="text"
+                        type="search"
+                        autocomplete="off"
                         wire:model.live="receiver"
                         placeholder=" "
                     />

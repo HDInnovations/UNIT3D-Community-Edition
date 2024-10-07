@@ -347,6 +347,30 @@
                     </fieldset>
                 </div>
                 <p class="form__group">
+                    <input type="hidden" name="is_donor" value="0" />
+                    <input
+                        type="checkbox"
+                        class="form__checkbox"
+                        id="is_donor"
+                        name="is_donor"
+                        value="1"
+                        @checked($user->is_donor)
+                    />
+                    <label for="is_donor">Active Donor?</label>
+                </p>
+                <p class="form__group">
+                    <input type="hidden" name="is_lifetime" value="0" />
+                    <input
+                        type="checkbox"
+                        class="form__checkbox"
+                        id="is_lifetime"
+                        name="is_lifetime"
+                        value="1"
+                        @checked($user->is_lifetime)
+                    />
+                    <label for="is_donor">Lifetime Donor?</label>
+                </p>
+                <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.save') }}
                     </button>

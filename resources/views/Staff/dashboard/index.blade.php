@@ -59,6 +59,36 @@
                             Commands
                         </a>
                     </p>
+
+                    @if (config('donation.is_enabled'))
+                        <p class="form__group form__group--horizontal">
+                            <a
+                                class="form__button form__button--text"
+                                href="{{ route('staff.donations.index') }}"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                                Donations
+                            </a>
+                        </p>
+                        <p class="form__group form__group--horizontal">
+                            <a
+                                class="form__button form__button--text"
+                                href="{{ route('staff.gateways.index') }}"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                                Gateways
+                            </a>
+                        </p>
+                        <p class="form__group form__group--horizontal">
+                            <a
+                                class="form__button form__button--text"
+                                href="{{ route('staff.packages.index') }}"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-money-bill"></i>
+                                Packages
+                            </a>
+                        </p>
+                    @endif
                 @endif
             </div>
         </section>
@@ -430,6 +460,15 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-key"></i>
                         {{ __('user.email-updates') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.password_reset_histories.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-key"></i>
+                        {{ __('user.password-resets') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">

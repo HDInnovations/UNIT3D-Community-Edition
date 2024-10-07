@@ -223,8 +223,6 @@ class ChatRepository
      */
     public function botMessages(int $senderId, int $botId): \Illuminate\Database\Eloquent\Collection
     {
-        $systemUserId = User::where('username', 'System')->sole()->id;
-
         return $this->message->with([
             'bot',
             'user.group',
@@ -232,8 +230,8 @@ class ChatRepository
             'user.chatStatus',
             'receiver.group',
             'receiver.chatStatus',
-        ])->where(function ($query) use ($senderId, $systemUserId): void {
-            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, $systemUserId])->orWhereRaw('(user_id = ? and receiver_id = ?)', [$systemUserId, $senderId]);
+        ])->where(function ($query) use ($senderId): void {
+            $query->whereRaw('(user_id = ? and receiver_id = ?)', [$senderId, User::SYSTEM_USER_ID])->orWhereRaw('(user_id = ? and receiver_id = ?)', [User::SYSTEM_USER_ID, $senderId]);
         })->where('bot_id', '=', $botId)
             ->where('chatroom_id', '=', 0)
             ->latest('id')
@@ -285,14 +283,12 @@ class ChatRepository
 
     public function systemMessage(string $message, ?int $bot = null): static
     {
-        $systemUserId = User::where('username', 'System')->first()->id;
-
         if ($bot) {
-            $this->message($systemUserId, $this->systemChatroom(), $message, null, $bot);
+            $this->message(User::SYSTEM_USER_ID, $this->systemChatroom(), $message, null, $bot);
         } else {
             $systemBotId = Bot::where('command', 'systembot')->first()->id;
 
-            $this->message($systemUserId, $this->systemChatroom(), $message, null, $systemBotId);
+            $this->message(User::SYSTEM_USER_ID, $this->systemChatroom(), $message, null, $systemBotId);
         }
 
         return $this;

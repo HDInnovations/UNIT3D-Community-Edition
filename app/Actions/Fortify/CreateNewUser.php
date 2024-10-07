@@ -68,7 +68,7 @@ class CreateNewUser implements CreatesNewUsers
             'code' => [
                 Rule::when(config('other.invite-only') === true, [
                     'required',
-                    Rule::exists('invites', 'code')->whereNull('accepted_by'),
+                    Rule::exists('invites', 'code')->withoutTrashed()->whereNull('accepted_by'),
                 ]),
             ]
         ])->validate();
@@ -83,8 +83,6 @@ class CreateNewUser implements CreatesNewUsers
             'rsskey'     => md5(random_bytes(60)),
             'uploaded'   => config('other.default_upload'),
             'downloaded' => config('other.default_download'),
-            'style'      => config('other.default_style', 0),
-            'locale'     => config('app.locale'),
             'group_id'   => $validatingGroup[0],
         ]);
 

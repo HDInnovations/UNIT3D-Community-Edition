@@ -57,7 +57,7 @@ class PeerController extends Controller
         }
 
         // Only peers older than 70 minutes are allowed to be flushed otherwise users could use this to exploit leech slots
-        $cutoff = (new Carbon())->copy()->subMinutes(70)->toDateTimeString();
+        $cutoff = (new Carbon())->copy()->subMinutes(70);
 
         $user->peers()
             ->where('updated_at', '<', $cutoff)

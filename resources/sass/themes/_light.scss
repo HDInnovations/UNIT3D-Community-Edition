@@ -93,6 +93,11 @@
     --dialog-head-bg: #373d43;
     --dialog-head-fg: #fff;
 
+    --donation-chart-daily-bg: rgba(75, 192, 192, 0.2);
+    --donation-chart-daily-border: rgba(75, 192, 192, 1);
+    --donation-chart-monthly-bg: rgba(153, 102, 255, 0.2);
+    --donation-chart-monthly-border: rgba(153, 102, 255, 1);
+
     --fieldset-bg: inherit;
     --fieldset-fg: #444;
     --fieldset-border-radius: 5px;
@@ -315,7 +320,8 @@
     --torrent-group-header-bg: #d3d3d3;
     --torrent-group-text: #555;
     --torrent-group-text-muted: #555;
-    --torrent-group-table-stripe: rgba(0, 0, 0, 0.05);
+    --torrent-group-table-stripe-even: rgba(0, 0, 0, 0.015);
+    --torrent-group-table-stripe-odd: rgba(0, 0, 0, 0.07);
     --torrent-group-hover-brightness-emphasis: 1.13;
     --torrent-group-chip-border: #eee;
 

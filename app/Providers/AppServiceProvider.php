@@ -19,13 +19,11 @@ namespace App\Providers;
 use App\Helpers\ByteUnits;
 use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
-use App\Models\Page;
 use App\Models\User;
 use App\Observers\UserObserver;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,13 +50,6 @@ class AppServiceProvider extends ServiceProvider
     {
         // User Observer For Cache
         User::observe(UserObserver::class);
-
-        // Share $footer_pages across all views
-        view()->composer('*', function (View $view): void {
-            $footerPages = cache()->remember('cached-pages', 3_600, fn () => Page::select(['id', 'name', 'created_at'])->take(6)->get());
-
-            $view->with(['footer_pages' => $footerPages]);
-        });
 
         // Hidden Captcha
         Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => \sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));

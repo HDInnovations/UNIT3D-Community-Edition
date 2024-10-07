@@ -32,158 +32,26 @@ if (token) {
 import Swal from 'sweetalert2';
 window.Swal = Swal;
 
-// Vite
+// ChartJS
+import { Chart, registerables } from 'chart.js';
+import 'chartjs-adapter-date-fns';
+Chart.register(...registerables);
+window.Chart = Chart;
+
+// Vite Import
 import.meta.glob(['/public/img/pipes/**', '/resources/sass/vendor/webfonts/font-awesome/**']);
 
 // Livewire + AlpineJS
 import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm.js';
 
-Alpine.data('dialog', () => ({
-    showDialog: {
-        ['x-on:click.stop']() {
-            this.$refs.dialog.showModal();
-        },
-    },
-    dialogElement: {
-        ['x-ref']: 'dialog',
-    },
-    dialogForm: {
-        ['x-on:click.outside']() {
-            let closest = this.$event.target.closest('dialog');
-
-            if (closest === null || closest === this.$event.target) {
-                this.$refs.dialog.close();
-            }
-        },
-    },
-}));
-
-Alpine.data('dialogLivewire', () => ({
-    showDialog: {
-        ['x-on:click.stop']() {
-            this.$refs.dialog.showModal();
-        },
-    },
-    dialogElement: {
-        ['x-ref']: 'dialog',
-    },
-    dialogForm: {
-        ['x-on:click.outside']() {
-            let closest = this.$event.target.closest('dialog');
-
-            if (closest === null || closest === this.$event.target) {
-                this.$refs.dialog.close();
-            }
-        },
-        ['x-on:submit.prevent']() {
-            let closest = this.$event.target.closest('dialog');
-
-            if (closest === null || closest === this.$event.target) {
-                this.$refs.dialog.close();
-            }
-        },
-    },
-    submitDialogForm: {
-        ['x-on:click']() {
-            this.$refs.dialog.close();
-        },
-    },
-}));
-
-Alpine.data('toggle', () => ({
-    toggleState: false,
-    isToggledOn() {
-        return this.toggleState === true;
-    },
-    isToggledOff() {
-        return this.toggleState === false;
-    },
-    toggle() {
-        this.toggleState = !this.toggleState;
-    },
-    toggleOn() {
-        this.toggleState = true;
-    },
-    toggleOff() {
-        this.toggleState = false;
-    },
-}));
-
-Alpine.data('checkboxGrid', () => ({
-    columnHeader: {
-        ['x-on:click']() {
-            let cellIndex = this.$el.cellIndex + 1;
-            let cells = this.$root.querySelectorAll(
-                `tbody tr td:nth-child(${cellIndex}) > input[type="checkbox"]`,
-            );
-
-            if (Array.from(cells).some((el) => el.checked)) {
-                cells.forEach((el) => (el.checked = false));
-            } else {
-                cells.forEach((el) => (el.checked = true));
-            }
-        },
-        ['x-bind:style']() {
-            return {
-                cursor: 'pointer',
-            };
-        },
-    },
-    rowHeader: {
-        ['x-on:click']() {
-            let rowIndex = this.$el.parentElement.sectionRowIndex + 1;
-            let cells = this.$root.querySelectorAll(
-                `tbody tr:nth-child(${rowIndex}) td > input[type="checkbox"]`,
-            );
-
-            if (Array.from(cells).some((el) => el.checked)) {
-                cells.forEach((el) => (el.checked = false));
-            } else {
-                cells.forEach((el) => (el.checked = true));
-            }
-        },
-        ['x-bind:style']() {
-            return {
-                cursor: 'pointer',
-            };
-        },
-    },
-}));
-
-Alpine.data('bookmark', (torrentId, bookmarked) => ({
-    torrentId: torrentId,
-    bookmarked: bookmarked,
-    button: {
-        ['x-on:click']() {
-            this.bookmarked ? this.deleteBookmark() : this.createBookmark();
-        },
-        ['x-bind:title']() {
-            return this.bookmarked ? 'Unbookmark' : 'Bookmark';
-        },
-    },
-    icon: {
-        ['x-bind:class']() {
-            return this.bookmarked ? 'fa-bookmark-slash' : 'fa-bookmark';
-        },
-    },
-    createBookmark() {
-        axios.post(`/api/bookmarks/${this.torrentId}`).then((response) => {
-            this.bookmarked = Boolean(response.data);
-            this.dispatchEvent();
-        });
-    },
-    deleteBookmark() {
-        axios.delete(`/api/bookmarks/${this.torrentId}`).then((response) => {
-            this.bookmarked = Boolean(response.data);
-            this.dispatchEvent();
-        });
-    },
-    dispatchEvent() {
-        this.$dispatch('success', {
-            type: 'success',
-            message: `Torrent has been ${this.bookmarked ? 'bookmarked' : 'unbookmarked'} successfully!`,
-        });
-    },
-}));
+// Custom AlpineJS Components
+import './components/alpine/checkboxGrid';
+import './components/alpine/dialog';
+import './components/alpine/dislikeButton';
+import './components/alpine/likeButton';
+import './components/alpine/livewireDialog';
+import './components/alpine/smallBookmarkButton';
+import './components/alpine/toggle';
+import './components/alpine/torrentGrouping';
 
 Livewire.start();

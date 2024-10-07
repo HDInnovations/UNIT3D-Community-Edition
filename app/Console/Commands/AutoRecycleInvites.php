@@ -19,7 +19,6 @@ namespace App\Console\Commands;
 use App\Models\Invite;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Throwable;
 
 class AutoRecycleInvites extends Command
@@ -45,12 +44,11 @@ class AutoRecycleInvites extends Command
      */
     final public function handle(): void
     {
-        $current = Carbon::now();
-        $invites = Invite::whereNull('accepted_by')->whereNull('accepted_at')->where('expires_on', '<', $current)->get();
-
-        foreach ($invites as $invite) {
-            $invite->delete();
-        }
+        Invite::query()
+            ->whereNull('accepted_by')
+            ->whereNull('accepted_at')
+            ->where('expires_on', '<', now())
+            ->delete();
 
         $this->comment('Automated Purge Unaccepted Invites Command Complete');
     }

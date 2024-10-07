@@ -186,6 +186,8 @@ class Unit3dAnnounce
             'group_id'     => (int) $user->group_id,
             'passkey'      => $user->passkey,
             'can_download' => (bool) $user->can_download,
+            'is_donor'     => (bool) $user->is_donor,
+            'is_lifetime'  => (bool) $user->is_lifetime,
             /** @phpstan-ignore-next-line  */
             'num_seeding' => (int) $peers->num_seeding,
             /** @phpstan-ignore-next-line  */
@@ -208,8 +210,26 @@ class Unit3dAnnounce
      *     group_id: int,
      *     passkey: string,
      *     can_download: bool,
+     *     is_donor: bool,
+     *     is_lifetime: bool,
      *     num_seeding: int,
      *     num_leeching: int,
+     *     receive_seed_list_rates: array{
+     *         rates: array{
+     *             count: int,
+     *             max_count: int,
+     *             window: int,
+     *             updated_at: double,
+     *         }
+     *     },
+     *     receive_leech_list_rates: array{
+     *         rates: array{
+     *             count: int,
+     *             max_count: int,
+     *             window: int,
+     *             updated_at: double,
+     *         }
+     *     },
      * }
      */
     public static function getUser(int $userId): bool|array
@@ -221,17 +241,41 @@ class Unit3dAnnounce
         }
 
         if (
-            \array_key_exists('id', $user) && \is_int($user['id'])
-            && \array_key_exists('group_id', $user) && \is_int($user['group_id'])
-            && \array_key_exists('passkey', $user) && \is_string($user['passkey'])
-            && \array_key_exists('can_download', $user) && \is_bool($user['can_download'])
-            && \array_key_exists('num_seeding', $user) && \is_int($user['num_seeding'])
-            && \array_key_exists('num_leeching', $user) && \is_int($user['num_leeching'])
+            !\array_key_exists('id', $user) || !\is_int($user['id'])
+            || !\array_key_exists('group_id', $user) || !\is_int($user['group_id'])
+            || !\array_key_exists('passkey', $user) || !\is_string($user['passkey'])
+            || !\array_key_exists('can_download', $user) || !\is_bool($user['can_download'])
+            || !\array_key_exists('is_donor', $user) || !\is_bool($user['is_donor'])
+            || !\array_key_exists('is_lifetime', $user) || !\is_bool($user['is_lifetime'])
+            || !\array_key_exists('num_seeding', $user) || !\is_int($user['num_seeding'])
+            || !\array_key_exists('num_leeching', $user) || !\is_int($user['num_leeching'])
         ) {
-            return $user;
+            return [];
         }
 
-        return [];
+        foreach ($user['receive_seed_list_rates']['rates'] as $rate) {
+            if (
+                !\array_key_exists('count', $rate) || !\is_float($rate['count'])
+                || !\array_key_exists('max_count', $rate) || !\is_float($rate['max_count'])
+                || !\array_key_exists('window', $rate) || !\is_float($rate['window'])
+                || !\array_key_exists('updated_at', $rate) || !\is_float($rate['updated_at'])
+            ) {
+                return [];
+            }
+        }
+
+        foreach ($user['receive_leech_list_rates']['rates'] as $rate) {
+            if (
+                !\array_key_exists('count', $rate) || !\is_float($rate['count'])
+                || !\array_key_exists('max_count', $rate) || !\is_float($rate['max_count'])
+                || !\array_key_exists('window', $rate) || !\is_float($rate['window'])
+                || !\array_key_exists('updated_at', $rate) || !\is_float($rate['updated_at'])
+            ) {
+                return [];
+            }
+        }
+
+        return $user;
     }
 
     public static function addGroup(Group $group): bool
@@ -239,7 +283,7 @@ class Unit3dAnnounce
         return self::put('groups', [
             'id'               => $group->id,
             'slug'             => $group->slug,
-            'download_slots'   => (int) $group->download_slots,
+            'download_slots'   => $group->download_slots === null ? null : (int) $group->download_slots,
             'is_immune'        => (bool) $group->is_immune,
             'is_freeleech'     => (bool) $group->is_freeleech,
             'is_double_upload' => (bool) $group->is_double_upload,

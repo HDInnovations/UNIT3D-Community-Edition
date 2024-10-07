@@ -17,9 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Bookmark;
 use App\Models\FeaturedTorrent;
-use App\Models\FreeleechToken;
 use App\Models\Group;
 use App\Models\Poll;
 use App\Models\Post;
@@ -55,15 +53,14 @@ class HomeController extends Controller
         }
 
         return view('home.index', [
-            'user'               => $user,
-            'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
-            'users'              => cache()->remember(
+            'user'  => $user,
+            'users' => cache()->remember(
                 'online_users:by-group:'.auth()->user()->group_id,
                 $expiresAt,
                 fn () => User::with('group', 'privacy')
                     ->withCount([
                         'warnings' => function (Builder $query): void {
-                            $query->whereNotNull('torrent')->where('active', '1');
+                            $query->whereNotNull('torrent')->where('active', true);
                         },
                     ])
                     ->where('last_action', '>', now()->subMinutes(60))
@@ -121,8 +118,6 @@ class HomeController extends Controller
                         ->orWhereNull('expires_at');
                 })->latest()->first();
             }),
-            'freeleech_tokens' => FreeleechToken::where('user_id', $user->id)->get(),
-            'bookmarks'        => Bookmark::where('user_id', $user->id)->get(),
         ]);
     }
 }

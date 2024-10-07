@@ -126,6 +126,11 @@
                             <i class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ strtoupper(__('torrent.pending')) }}
                         </span>
+                    @elseif ($torrent->status === \App\Models\Torrent::POSTPONED)
+                        <span class="text-red">
+                            <i class="{{ config('other.font-awesome') }} fa-times"></i>
+                            {{ strtoupper(__('torrent.postponed')) }}
+                        </span>
                     @else
                         <span class="text-green">
                             <i class="{{ config('other.font-awesome') }} fa-check"></i>

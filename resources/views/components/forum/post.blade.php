@@ -27,6 +27,9 @@
             </dl>
         @endif
 
+        <a class="post__toolbar-overflow" tabindex="0">
+            <i class="fa fas fa-ellipsis"></i>
+        </a>
         <menu class="post__toolbar">
             <li class="post__toolbar-item">
                 <form
@@ -65,11 +68,29 @@
                     </datalist>
                 </form>
             </li>
-            <li class="post__toolbar-item">
-                @livewire('like-button', ['post' => $post, 'likesCount' => $post->likes_count], key('like-'.$post->id))
+            <li
+                class="post__toolbar-item"
+                x-data="likeButton({{ $post->id }}, {{ $post->likes_count }}, {{ $post->likes_exists }})"
+            >
+                <button class="votes__like" x-bind="button">
+                    <i
+                        x-bind="icon"
+                        class="votes__like-icon {{ config('other.font-awesome') }} fa-thumbs-up"
+                    ></i>
+                    <span class="votes__like-count" x-text="likesCount"></span>
+                </button>
             </li>
-            <li class="post__toolbar-item">
-                @livewire('dislike-button', ['post' => $post, 'dislikesCount' => $post->dislikes_count], key('dislike-'.$post->id))
+            <li
+                class="post__toolbar-item"
+                x-data="dislikeButton({{ $post->id }}, {{ $post->dislikes_count }}, {{ $post->dislikes_exists }})"
+            >
+                <button class="votes__dislike" x-bind="button">
+                    <i
+                        x-bind="icon"
+                        class="votes__dislike-icon {{ config('other.font-awesome') }} fa-thumbs-down"
+                    ></i>
+                    <span class="votes__dislike-count" x-text="dislikesCount"></span>
+                </button>
             </li>
             <li class="post__toolbar-item">
                 <a

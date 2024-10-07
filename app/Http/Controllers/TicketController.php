@@ -50,7 +50,7 @@ class TicketController extends Controller
     {
         $ticket = Ticket::create(['user_id' => $request->user()->id] + $request->validated());
 
-        if($request->hasFile('attachments')) {
+        if ($request->hasFile('attachments')) {
             TicketAttachmentController::storeTicketAttachments($request, $ticket, $request->user());
         }
 
@@ -111,5 +111,17 @@ class TicketController extends Controller
 
         return to_route('tickets.index')
             ->withSuccess(trans('ticket.closed-success'));
+    }
+
+    final public function reopen(Request $request, Ticket $ticket): \Illuminate\Http\RedirectResponse
+    {
+        abort_unless($request->user()->group->is_modo || $request->user()->id === $ticket->user_id, 403);
+
+        $ticket->update([
+            'closed_at' => null,
+        ]);
+
+        return to_route('tickets.show', ['ticket' => $ticket])
+            ->withSuccess(trans('ticket.reopened-success'));
     }
 }

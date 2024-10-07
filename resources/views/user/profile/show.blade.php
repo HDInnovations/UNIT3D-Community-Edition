@@ -586,6 +586,65 @@
     @endsection
 
     @section('sidebar')
+        @if (auth()->user()->group->is_modo ||auth()->user()->is($user))
+            <section class="panelV2">
+                <h2 class="panel__heading">Donations</h2>
+                <dl class="key-value">
+                    <div class="key-value__group">
+                        <dt>Active Donor</dt>
+                        <dd>
+                            @if ($user->is_donor)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Lifetime Donor</dt>
+                        <dd>
+                            @if ($user->is_lifetime)
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-check text-green"
+                                ></i>
+                            @else
+                                <i
+                                    class="{{ config('other.font-awesome') }} fa-times text-red"
+                                ></i>
+                            @endif
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Latest Donation Amount</dt>
+                        <dd>
+                            {{ $donation->package->cost ?? 'N/A' }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Latest Donation Date</dt>
+                        <dd>
+                            {{ $donation->starts_at ?? 'N/A' }}
+                        </dd>
+                    </div>
+                    <div class="key-value__group">
+                        <dt>Donation Expire Date</dt>
+                        <dd>
+                            @if ($user->is_lifetime)
+                                Lifetime Donor
+                                <i class="fal fa-star" id="lifeline" title="Lifetime Donor"></i>
+                            @else
+                                {{ $donation->ends_at ?? 'N/A' }}
+                            @endif
+                        </dd>
+                    </div>
+                </dl>
+            </section>
+        @endif
+
         @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_warning'))
             <section class="panelV2">
                 <h2 class="panel__heading">{{ __('common.warnings') }}</h2>
@@ -813,17 +872,17 @@
         @if (config('announce.external_tracker.is_enabled') && auth()->user()->group->is_modo)
             @if ($externalUser === true)
                 <section class="panelV2">
-                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <h2 class="panel__heading">External Tracker</h2>
                     <div class="panel__body">External tracker not enabled.</div>
                 </section>
             @elseif ($externalUser === false)
                 <section class="panelV2">
-                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <h2 class="panel__heading">External Tracker</h2>
                     <div class="panel__body">User not found.</div>
                 </section>
             @elseif ($externalUser === [])
                 <section class="panelV2">
-                    <h2 class="panel__heading">{{ __('torrent.torrent') }}</h2>
+                    <h2 class="panel__heading">External Tracker</h2>
                     <div class="panel__body">Tracker returned an error.</div>
                 </section>
             @else
@@ -875,6 +934,58 @@
                             <dt>{{ __('user.total-leeching') }}</dt>
                             <dd>{{ $externalUser['num_leeching'] }}</dd>
                         </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Seed lists</th>
+                                    <th>Window</th>
+                                    <th>Max</th>
+                                    <th>Lists/h</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($externalUser['receive_seed_list_rates']['rates'] as $rate)
+                                    <tr>
+                                        <td
+                                            title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
+                                        >
+                                            {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
+                                        </td>
+                                        <td>{{ $rate['window'] }}</td>
+                                        <td>{{ $rate['max_count'] }}</td>
+                                        <td>
+                                            {{ \number_format((3600 * $rate['count']) / $rate['window'], 1, null, "\u{202F}") }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Leech lists</th>
+                                    <th>Window</th>
+                                    <th>Max</th>
+                                    <th>Lists/h</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($externalUser['receive_leech_list_rates']['rates'] as $rate)
+                                    <tr>
+                                        <td
+                                            title="Updated at: {{ $lastUpdatedAt = \Illuminate\Support\Carbon::createFromTimestampUTC($rate['updated_at']) }} ({{ $lastUpdatedAt->diffForHumans() }})"
+                                        >
+                                            {{ \number_format($rate['count'], 2, null, "\u{202F}") }}
+                                        </td>
+                                        <td>{{ $rate['window'] }}</td>
+                                        <td>{{ $rate['max_count'] }}</td>
+                                        <td>
+                                            {{ \number_format((3600 * $rate['count']) / $rate['window'], 1, null, "\u{202F}") }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </dl>
                 </section>
             @endif

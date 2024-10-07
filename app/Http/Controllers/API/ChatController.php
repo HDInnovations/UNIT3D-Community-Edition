@@ -304,7 +304,7 @@ class ChatController extends Controller
 
     public function deleteMessage(Request $request, int $id): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $message = Message::find($id);
+        $message = Message::findOrFail($id);
 
         abort_unless($request->user()->id === $message->user_id || $request->user()->group->is_modo, 403);
 
@@ -447,8 +447,6 @@ class ChatController extends Controller
     /* USERS */
     public function updateUserChatStatus(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
     {
-        $systemUser = User::where('username', 'System')->sole();
-
         $user = $request->user();
         $user->load(['chatStatus', 'chatroom', 'group', 'echoes']);
         $status = $this->chatRepository->statusFindOrFail($request->input('status_id'));

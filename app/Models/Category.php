@@ -33,7 +33,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool        $game_meta
  * @property bool        $tv_meta
  * @property bool        $movie_meta
- * @property int         $num_torrent
  */
 class Category extends Model
 {

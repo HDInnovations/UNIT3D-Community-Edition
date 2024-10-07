@@ -58,7 +58,7 @@ return [
     'reports-log'              => 'Registro de reportes',
     'rooms'                    => 'Salas',
     'rss'                      => 'RSS',
-    'staff-dashboard'          => 'Panel de Personal',
+    'staff-dashboard'          => 'Panel de staff',
     'status'                   => 'Estado',
     'statuses'                 => 'Estados',
     'torrent-categories'       => 'Categorías de Torrents',

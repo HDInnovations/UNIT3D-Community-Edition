@@ -16,11 +16,9 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
-use App\Models\TorrentRequest;
 use App\Models\TorrentRequestClaim;
 use App\Repositories\ChatRepository;
 use Illuminate\Console\Command;
-use Illuminate\Support\Carbon;
 use Exception;
 use Throwable;
 
@@ -55,29 +53,29 @@ class AutoRecycleClaimedTorrentRequests extends Command
      */
     final public function handle(): void
     {
-        $current = Carbon::now();
-        $torrentRequests = TorrentRequest::where('claimed', '=', 1)
-            ->whereNull('filled_by')
-            ->whereNull('filled_when')
-            ->whereNull('torrent_id')
-            ->get();
+        TorrentRequestClaim::query()
+            ->with('request')
+            ->where('created_at', '<', now()->subDays(7))
+            ->whereHas(
+                'request',
+                fn ($query) => $query
+                    ->where('claimed', '=', true)
+                    ->whereNull('filled_by')
+                    ->whereNull('filled_when')
+                    ->whereNull('torrent_id')
+            )
+            ->chunkById(100, function ($claims): void {
+                foreach ($claims as $claim) {
+                    $trUrl = href_request($claim->request);
 
-        foreach ($torrentRequests as $torrentRequest) {
-            $requestClaim = TorrentRequestClaim::where('request_id', '=', $torrentRequest->id)
-                ->where('created_at', '<', $current->copy()->subDays(7)->toDateTimeString())
-                ->first();
+                    $this->chatRepository->systemMessage(
+                        \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $claim->request->name)
+                    );
 
-            if ($requestClaim) {
-                $trUrl = href_request($torrentRequest);
-                $this->chatRepository->systemMessage(
-                    \sprintf('[url=%s]%s[/url] claim has been reset due to not being filled within 7 days.', $trUrl, $torrentRequest->name)
-                );
-
-                $requestClaim->delete();
-                $torrentRequest->claimed = null;
-                $torrentRequest->save();
-            }
-        }
+                    $claim->request->update(['claimed' => null]);
+                    $claim->delete();
+                }
+            });
 
         $this->comment('Automated Request Claim Reset Command Complete');
     }

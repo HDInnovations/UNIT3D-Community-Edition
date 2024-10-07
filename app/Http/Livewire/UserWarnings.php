@@ -115,7 +115,7 @@ class UserWarnings extends Component
             'torrent'    => null,
             'reason'     => $this->message,
             'expires_on' => Carbon::now()->addDays(config('hitrun.expire')),
-            'active'     => '1',
+            'active'     => true,
         ]);
 
         $this->user->sendSystemNotification(

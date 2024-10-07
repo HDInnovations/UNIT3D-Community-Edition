@@ -50,51 +50,55 @@ class AutoBanDisposableUsers extends Command
      */
     final public function handle(): void
     {
+        if (!cache()->has(config('email-blacklist.cache-key'))) {
+            $this->comment('Email Blacklist Cache Key Not Found. Skipping!');
+
+            return;
+        }
+
         $bannedGroup = cache()->rememberForever('banned_group', fn () => Group::where('slug', '=', 'banned')->pluck('id'));
 
-        if (cache()->has(config('email-blacklist.cache-key'))) {
-            User::where('group_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup): void {
-                foreach ($users as $user) {
-                    $v = validator([
-                        'email' => $user->email,
-                    ], [
-                        'email' => [
-                            'required',
-                            'string',
-                            'email',
-                            'max:70',
-                            new EmailBlacklist(),
-                        ],
+        User::where('group_id', '!=', $bannedGroup[0])->chunkById(100, function ($users) use ($bannedGroup): void {
+            foreach ($users as $user) {
+                $v = validator([
+                    'email' => $user->email,
+                ], [
+                    'email' => [
+                        'required',
+                        'string',
+                        'email',
+                        'max:70',
+                        new EmailBlacklist(),
+                    ],
+                ]);
+
+                if ($v->fails()) {
+                    // If User Is Using A Disposable Email Set The Users Group To Banned
+                    $user->update([
+                        'group_id'     => $bannedGroup[0],
+                        'can_download' => 0,
                     ]);
 
-                    if ($v->fails()) {
-                        // If User Is Using A Disposable Email Set The Users Group To Banned
-                        $user->group_id = $bannedGroup[0];
-                        $user->can_download = 0;
-                        $user->save();
+                    // Log The Ban To Ban Log
+                    $domain = substr((string) strrchr((string) $user->email, '@'), 1);
 
-                        // Log The Ban To Ban Log
-                        $domain = substr((string) strrchr((string) $user->email, '@'), 1);
-                        $logban = new Ban();
-                        $logban->owned_by = $user->id;
-                        $logban->created_by = User::SYSTEM_USER_ID;
-                        $logban->ban_reason = 'Detected disposable email, '.$domain.' not allowed.';
-                        $logban->unban_reason = '';
-                        $logban->save();
+                    $ban = Ban::create([
+                        'owned_by'     => $user->id,
+                        'created_by'   => User::SYSTEM_USER_ID,
+                        'ban_reason'   => 'Detected disposable email, '.$domain.' not allowed.',
+                        'unban_reason' => '',
+                    ]);
 
-                        // Send Email
-                        $user->notify(new UserBan($logban));
-                    }
-
-                    cache()->forget('user:'.$user->passkey);
-
-                    Unit3dAnnounce::addUser($user);
+                    // Send Email
+                    $user->notify(new UserBan($ban));
                 }
-            });
 
-            $this->comment('Automated User Banning Command Complete');
-        } else {
-            $this->comment('Email Blacklist Cache Key Not Found. Skipping!');
-        }
+                cache()->forget('user:'.$user->passkey);
+
+                Unit3dAnnounce::addUser($user);
+            }
+        });
+
+        $this->comment('Automated User Banning Command Complete');
     }
 }

@@ -48,23 +48,26 @@ class AutoDisableInactiveUsers extends Command
      */
     final public function handle(): void
     {
-        if (config('pruning.user_pruning')) {
-            $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
+        if (!config('pruning.user_pruning')) {
+            return;
+        }
 
-            $current = Carbon::now();
+        $disabledGroup = cache()->rememberForever('disabled_group', fn () => Group::where('slug', '=', 'disabled')->pluck('id'));
 
-            $matches = User::whereIntegerInRaw('group_id', config('pruning.group_ids'))->get();
+        $current = Carbon::now();
 
-            $users = $matches->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age'))->toDateTimeString())
-                ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login'))->toDateTimeString())
-                ->all();
-
-            foreach ($users as $user) {
-                if ($user->seedingTorrents()->doesntExist()) {
-                    $user->group_id = $disabledGroup[0];
-                    $user->can_download = false;
-                    $user->disabled_at = Carbon::now();
-                    $user->save();
+        User::query()
+            ->whereIntegerInRaw('group_id', config('pruning.group_ids'))
+            ->where('created_at', '<', $current->copy()->subDays(config('pruning.account_age')))
+            ->where('last_login', '<', $current->copy()->subDays(config('pruning.last_login')))
+            ->whereDoesntHave('seedingTorrents')
+            ->chunk(100, function ($users) use ($disabledGroup): void {
+                foreach ($users as $user) {
+                    $user->update([
+                        'group_id'     => $disabledGroup[0],
+                        'can_download' => false,
+                        'disabled_at'  => Carbon::now(),
+                    ]);
 
                     cache()->forget('user:'.$user->passkey);
 
@@ -73,8 +76,7 @@ class AutoDisableInactiveUsers extends Command
                     // Send Email
                     dispatch(new SendDisableUserMail($user));
                 }
-            }
-        }
+            });
 
         $this->comment('Automated User Disable Command Complete');
     }

@@ -81,3 +81,24 @@
 .text-bold {
     font-weight: 700;
 }
+
+/* purgecss start ignore */
+#lifeline {
+    color: #fff;
+    animation: splash 5s linear infinite;
+    text-shadow:
+        0 0 1px #0072ff,
+        0 0 1px #0072ff,
+        0 0 1px #0072ff,
+        0 0 1px #0072ff;
+}
+
+@keyframes splash {
+    from {
+        filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(360deg);
+    }
+}
+/* purgecss end ignore */

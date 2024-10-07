@@ -39,16 +39,16 @@ use Illuminate\Support\Facades\Redis;
 final class AnnounceController extends Controller
 {
     // Torrent Moderation Codes
-    protected const PENDING = 0;
-    protected const REJECTED = 2;
-    protected const POSTPONED = 3;
+    protected const int PENDING = 0;
+    protected const int REJECTED = 2;
+    protected const int POSTPONED = 3;
 
     // Announce Intervals
-    private const MIN = 1_800;
-    private const MAX = 3_600;
+    private const int MIN = 1_800;
+    private const int MAX = 3_600;
 
     // Port Blacklist
-    private const BLACK_PORTS = [
+    private const array BLACK_PORTS = [
         // Hyper Text Transfer Protocol (HTTP) - port used for web traffic
         8080,
         8081,
@@ -65,7 +65,7 @@ final class AnnounceController extends Controller
         6699,
     ];
 
-    private const HEADERS = [
+    private const array HEADERS = [
         'Content-Type'  => 'text/plain; charset=utf-8',
         'Cache-Control' => 'private, no-cache, no-store, must-revalidate, max-age=0',
         'Pragma'        => 'no-cache',
@@ -110,7 +110,7 @@ final class AnnounceController extends Controller
             $this->checkMaxConnections($torrent, $user);
 
             // Check Download Slots.
-            if (config('announce.slots_system.enabled')) {
+            if (($user->is_lifetime === false || $user->group->download_slots !== null) && config('announce.slots_system.enabled')) {
                 $visible = $this->checkDownloadSlots($queries, $torrent, $user, $group);
             } else {
                 $visible = true;
@@ -153,7 +153,7 @@ final class AnnounceController extends Controller
         }
 
         // Block Other Browser, Crawler (May Cheater or Faker Client) by check Requests headers
-        if(
+        if (
             $request->header('accept-language')
             || $request->header('referer')
             || $request->header('accept-charset')
@@ -207,7 +207,7 @@ final class AnnounceController extends Controller
         }
 
         // If Passkey Length Is Wrong
-        if(\strlen($passkey) !== 32) {
+        if (\strlen($passkey) !== 32) {
             throw new TrackerException(132, [':attribute' => 'passkey', ':rule' => 32]);
         }
 
@@ -325,7 +325,7 @@ final class AnnounceController extends Controller
     {
         // Check Passkey Against Users Table
         $user = cache()->remember('user:'.$passkey, 8 * 3600, fn () => User::query()
-            ->select(['id', 'group_id', 'can_download'])
+            ->select(['id', 'group_id', 'can_download', 'is_donor', 'is_lifetime'])
             ->where('passkey', '=', $passkey)
             ->first());
 
@@ -692,7 +692,7 @@ final class AnnounceController extends Controller
     private function processAnnounceJob(AnnounceQueryDTO $queries, User $user, Group $group, Torrent $torrent, bool $visible): void
     {
         $groupDto = new AnnounceGroupDTO((bool) $group->is_freeleech, (bool) $group->is_double_upload, (bool) $group->is_immune);
-        $userDto = new AnnounceUserDTO($user->id, $groupDto);
+        $userDto = new AnnounceUserDTO($user->id, $user->is_donor, $groupDto);
         $torrentDto = new AnnounceTorrentDTO($torrent->id, $torrent->free, $torrent->doubleup);
 
         ProcessAnnounce::dispatch($queries, $userDto, $torrentDto, $visible);

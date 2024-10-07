@@ -59,7 +59,7 @@
         />
         @if (strlen($quicksearchText) > 0)
             <div class="quick-search__results" x-ref="searchResults">
-                @forelse ($search_results as $search_result)
+                @forelse ($search_results['hits'] ?? $search_results as $search_result)
                     <article
                         class="quick-search__result"
                         x-on:keydown.down.prevent="quickSearchArrowDown($el)"
@@ -69,21 +69,21 @@
                             @case('movies')
                                 <a
                                     class="quick-search__result-link"
-                                    href="{{ route('torrents.similar', ['category_id' => $search_result['category_id'], 'tmdb' => $search_result['id']]) }}"
+                                    href="{{ route('torrents.similar', ['category_id' => $search_result['category']['id'], 'tmdb' => $search_result['tmdb']]) }}"
                                 >
                                     <img
                                         class="quick-search__image"
-                                        src="{{ isset($search_result['poster']) ? \tmdb_image('poster_small', $search_result['poster']) : 'https://via.placeholder.com/90x135' }}"
+                                        src="{{ isset($search_result['movie']['poster']) ? \tmdb_image('poster_small', $search_result['movie']['poster']) : 'https://via.placeholder.com/90x135' }}"
                                         alt=""
                                     />
                                     <h2 class="quick-search__result-text">
-                                        {{ $search_result['title'] }}
+                                        {{ $search_result['movie']['name'] }}
                                         <time
                                             class="quick-search__result-year"
-                                            datetime="{{ $search_result['release_date'] }}"
-                                            title="{{ $search_result['release_date'] }}"
+                                            datetime="{{ $search_result['movie']['year'] }}"
+                                            title="{{ $search_result['movie']['year'] }}"
                                         >
-                                            {{ substr($search_result['release_date'], 0, 4) }}
+                                            {{ substr($search_result['movie']['year'], 0, 4) }}
                                         </time>
                                     </h2>
                                 </a>
@@ -92,21 +92,21 @@
                             @case('series')
                                 <a
                                     class="quick-search__result-link"
-                                    href="{{ route('torrents.similar', ['category_id' => $search_result['category_id'], 'tmdb' => $search_result['id']]) }}"
+                                    href="{{ route('torrents.similar', ['category_id' => $search_result['category']['id'], 'tmdb' => $search_result['tmdb']]) }}"
                                 >
                                     <img
                                         class="quick-search__image"
-                                        src="{{ isset($search_result['poster']) ? \tmdb_image('poster_small', $search_result['poster']) : 'https://via.placeholder.com/90x135' }}"
+                                        src="{{ isset($search_result['tv']['poster']) ? \tmdb_image('poster_small', $search_result['tv']['poster']) : 'https://via.placeholder.com/90x135' }}"
                                         alt=""
                                     />
                                     <h2 class="quick-search__result-text">
-                                        {{ $search_result['name'] }}
+                                        {{ $search_result['tv']['name'] }}
                                         <time
                                             class="quick-search__result-year"
-                                            datetime="{{ $search_result['first_air_date'] }}"
-                                            title="{{ $search_result['first_air_date'] }}"
+                                            datetime="{{ $search_result['tv']['year'] }}"
+                                            title="{{ $search_result['tv']['year'] }}"
                                         >
-                                            {{ substr($search_result['first_air_date'], 0, 4) }}
+                                            {{ $search_result['tv']['year'] }}
                                         </time>
                                     </h2>
                                 </a>
