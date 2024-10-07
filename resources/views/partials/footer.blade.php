@@ -2,7 +2,8 @@
     <div class="footer__wrapper">
         <section class="footer__section">
             <h2 class="footer__section-title">
-                <b>{{ config('other.title') }}</b>
+                <img src="{{ url('/favicon.ico') }}" style="height: 30px; vertical-align: sub" />
+                <span class="top-nav__site-logo">{{ \config('other.title') }}</span>
             </h2>
             <p>{{ config('other.meta_description') }}</p>
             <p class="footer__icons">
@@ -255,7 +256,9 @@
             Site and design &copy;
             {{ date('Y', strtotime(config('other.birthdate'))) }}-{{ date('Y') }}
             {{ config('other.title') }} |
-            <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition">UNIT3D</a>
+            <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition">
+                UNIT3D {{ config('unit3d.version') }}
+            </a>
             @if (config('announce.external_tracker.is_enabled'))
                 +
                 <a href="https://github.com/HDInnovations/UNIT3D-Announce">UNIT3D-Announce</a>
