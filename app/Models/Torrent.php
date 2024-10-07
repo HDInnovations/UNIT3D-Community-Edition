@@ -794,6 +794,9 @@ class Torrent extends Model
         $missingRequiredAttributes = array_diff([
             'id',
             'name',
+            'description',
+            'mediainfo',
+            'bdinfo',
             'num_file',
             'folder',
             'size',
