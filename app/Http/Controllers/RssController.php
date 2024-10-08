@@ -27,7 +27,6 @@ use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Exception;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Meilisearch\Endpoints\Indexes;
 
 /**
@@ -182,9 +181,10 @@ class RssController extends Controller
                     dead: (bool) ($search->dead ?? false),
                 );
 
-                $torrents = Torrent::search(
+                $results = Torrent::search(
                     $search->search ?? '',
                     function (Indexes $meilisearch, string $query, array $options) use ($filters) {
+                        $options['limit'] = 50;
                         $options['sort'] = [
                             'bumped_at:desc',
                         ];
@@ -196,37 +196,9 @@ class RssController extends Controller
                         return $results;
                     }
                 )
-                    ->query(
-                        fn (Builder $query) => $query->
-                            select([
-                                'name',
-                                'id',
-                                'category_id',
-                                'type_id',
-                                'resolution_id',
-                                'size',
-                                'created_at',
-                                'seeders',
-                                'leechers',
-                                'times_completed',
-                                'user_id',
-                                'anon',
-                                'imdb',
-                                'tmdb',
-                                'tvdb',
-                                'mal',
-                                'internal',
-                            ])
-                                ->with([
-                                    'user:id,username,rsskey',
-                                    'category:id,name,movie_meta,tv_meta',
-                                    'type:id,name',
-                                    'resolution:id,name'
-                                ])
-                    )
-                    ->paginate(50);
+                    ->raw();
 
-                return $torrents;
+                return $results['hits'] ?? [];
             });
 
             return response()->view('rss.show', [
