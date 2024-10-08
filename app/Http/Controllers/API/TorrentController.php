@@ -519,8 +519,8 @@ class TorrentController extends BaseController
         $queryString = http_build_query($queryParams);
         $cacheKey = $url.'?'.$queryString;
 
-        /** @phpstan-ignore argument.templateType (phpstan is unable to resolve type because it's returning a phpstan-ignored line) */
-        $torrents = cache()->remember($cacheKey, 300, function () use ($request, $isSqlAllowed) {
+        /** @phpstan-ignore method.unresolvableReturnType (phpstan is unable to resolve type because it's returning a phpstan-ignored line) */
+        [$torrents, $hasMore] = cache()->remember($cacheKey, 300, function () use ($request, $isSqlAllowed) {
             $eagerLoads = fn (Builder $query) => $query
                 ->with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region', 'files'])
                 ->select('*')
@@ -580,6 +580,8 @@ class TorrentController extends BaseController
 
                 // See app/Traits/TorrentMeta.php
                 $this->scopeMeta($torrents);
+
+                $hasMore = $torrents->nextCursor() !== null;
             } else {
                 $paginator = Torrent::search(
                     $request->filled('name') ? $request->string('name')->toString() : '',
@@ -597,6 +599,8 @@ class TorrentController extends BaseController
                 )
                     ->query($eagerLoads)
                     ->simplePaginateRaw(min($request->input('perPage') ?? $this->perPage, 100));
+
+                $hasMore = $paginator->hasMorePages();
 
                 /** @phpstan-ignore method.notFound (this method exists at time of writing) */
                 $results = $paginator->getCollection();
@@ -654,7 +658,7 @@ class TorrentController extends BaseController
                 $torrents = $paginator->setCollection(collect($torrents));
             }
 
-            return $torrents;
+            return [$torrents, $hasMore];
         });
 
         if ($isSqlAllowed) {
@@ -678,7 +682,7 @@ class TorrentController extends BaseController
                 'first' => $request->fullUrlWithoutQuery(['page' => 1]),
                 'last'  => null,
                 'prev'  => $page === 1 ? null : $request->fullUrlWithQuery(['page' => $page - 1]),
-                'next'  => $request->fullUrlWithQuery(['page' => $page + 1]),
+                'next'  => $hasMore ? $request->fullUrlWithQuery(['page' => $page + 1]) : null,
                 'self'  => $request->fullUrl(),
             ],
             'meta' => [
