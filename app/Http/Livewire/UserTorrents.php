@@ -177,4 +177,21 @@ class UserTorrents extends Component
             'histories' => $this->history,
         ]);
     }
+
+    /**
+     * Update History Immune.
+     */
+    final public function updateImmune(int $torrentId, bool $immune): void
+    {
+        abort_unless(auth()->user()->group->is_modo, 403);
+
+        $this->user
+            ->history()
+            ->where('torrent_id', '=', $torrentId)
+            ->update([
+                'immune' => $immune,
+            ]);
+
+        $this->dispatch('success', type: 'success', message: 'Immunity has successfully been updated!');
+    }
 }
