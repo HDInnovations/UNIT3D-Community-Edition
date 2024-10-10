@@ -519,8 +519,8 @@ class TorrentController extends BaseController
         $queryString = http_build_query($queryParams);
         $cacheKey = $url.'?'.$queryString;
 
-        /** @phpstan-ignore argument.templateType (phpstan is unable to resolve type because it's returning a phpstan-ignored line) */
-        $torrents = cache()->remember($cacheKey, 300, function () use ($request, $isSqlAllowed) {
+        /** @phpstan-ignore method.unresolvableReturnType (phpstan is unable to resolve type because it's returning a phpstan-ignored line) */
+        [$torrents, $hasMore] = cache()->remember($cacheKey, 300, function () use ($request, $isSqlAllowed) {
             $eagerLoads = fn (Builder $query) => $query
                 ->with(['user:id,username', 'category', 'type', 'resolution', 'distributor', 'region', 'files'])
                 ->select('*')
@@ -580,6 +580,8 @@ class TorrentController extends BaseController
 
                 // See app/Traits/TorrentMeta.php
                 $this->scopeMeta($torrents);
+
+                $hasMore = $torrents->nextCursor() !== null;
             } else {
                 $paginator = Torrent::search(
                     $request->filled('name') ? $request->string('name')->toString() : '',
@@ -597,6 +599,8 @@ class TorrentController extends BaseController
                 )
                     ->query($eagerLoads)
                     ->simplePaginateRaw(min($request->input('perPage') ?? $this->perPage, 100));
+
+                $hasMore = $paginator->hasMorePages();
 
                 /** @phpstan-ignore method.notFound (this method exists at time of writing) */
                 $results = $paginator->getCollection();
@@ -654,43 +658,39 @@ class TorrentController extends BaseController
                 $torrents = $paginator->setCollection(collect($torrents));
             }
 
-            return $torrents;
+            return [$torrents, $hasMore];
         });
 
         if ($isSqlAllowed) {
-            if ($torrents !== null) {
-                return new TorrentsResource($torrents);
-            }
-        } elseif ($torrents->isNotEmpty()) {
-            $page = $request->integer('page') ?: 1;
-            $perPage = min(100, $request->integer('perPage') ?: 25);
-
-            // Auth keys must not be cached
-            $torrents->through(function ($torrent) {
-                $torrent['attributes']['download_link'] = route('torrent.download.rsskey', ['id' => $torrent['id'], 'rsskey' => auth('api')->user()->rsskey]);
-                $torrent['attributes']['magnet_link'] = config('torrent.magnet') ? 'magnet:?dn='.$torrent['attributes']['name'].'&xt=urn:btih:'.$torrent['attributes']['info_hash'].'&as='.route('torrent.download.rsskey', ['id' => $torrent['id'], 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$torrent['attributes']['size'] : null;
-
-                return $torrent;
-            });
-
-            return response()->json([
-                'data'  => $torrents->items(),
-                'links' => [
-                    'first' => $request->fullUrlWithoutQuery(['page' => 1]),
-                    'last'  => null,
-                    'prev'  => $page === 1 ? null : $request->fullUrlWithQuery(['page' => $page - 1]),
-                    'next'  => $request->fullUrlWithQuery(['page' => $page + 1]),
-                    'self'  => $request->fullUrl(),
-                ],
-                'meta' => [
-                    'current_page' => $page,
-                    'per_page'     => $perPage,
-                    'from'         => ($page - 1) * $perPage + 1,
-                    'to'           => ($page - 1) * $perPage + \count($torrents->items()),
-                ]
-            ]);
+            return new TorrentsResource($torrents);
         }
 
-        return $this->sendResponse('404', 'No Torrents Found');
+        $page = $request->integer('page') ?: 1;
+        $perPage = min(100, $request->integer('perPage') ?: 25);
+
+        // Auth keys must not be cached
+        $torrents->through(function ($torrent) {
+            $torrent['attributes']['download_link'] = route('torrent.download.rsskey', ['id' => $torrent['id'], 'rsskey' => auth('api')->user()->rsskey]);
+            $torrent['attributes']['magnet_link'] = config('torrent.magnet') ? 'magnet:?dn='.$torrent['attributes']['name'].'&xt=urn:btih:'.$torrent['attributes']['info_hash'].'&as='.route('torrent.download.rsskey', ['id' => $torrent['id'], 'rsskey' => auth('api')->user()->rsskey]).'&tr='.route('announce', ['passkey' => auth('api')->user()->passkey]).'&xl='.$torrent['attributes']['size'] : null;
+
+            return $torrent;
+        });
+
+        return response()->json([
+            'data'  => $torrents->items(),
+            'links' => [
+                'first' => $request->fullUrlWithoutQuery(['page' => 1]),
+                'last'  => null,
+                'prev'  => $page === 1 ? null : $request->fullUrlWithQuery(['page' => $page - 1]),
+                'next'  => $hasMore ? $request->fullUrlWithQuery(['page' => $page + 1]) : null,
+                'self'  => $request->fullUrl(),
+            ],
+            'meta' => [
+                'current_page' => $page,
+                'per_page'     => $perPage,
+                'from'         => ($page - 1) * $perPage + 1,
+                'to'           => ($page - 1) * $perPage + \count($torrents->items()),
+            ]
+        ]);
     }
 }
