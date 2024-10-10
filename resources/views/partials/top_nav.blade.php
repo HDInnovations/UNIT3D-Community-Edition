@@ -394,6 +394,15 @@
                         title="{{ __('staff.staff-dashboard') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
+                        @php
+                            $unsolvedReportsCount = DB::table('reports')
+                                ->where('solved', '=', false)
+                                ->count()
+                        @endphp
+
+                        @if ($unsolvedReportsCount > 0)
+                            <x-animation.notification />
+                        @endif
                     </a>
                 </li>
             @endif
