@@ -46,7 +46,7 @@
                                 <tr x-cloak x-show="isToggledOn">
                                     <td style="padding: 0 0 0 24px">
                                         <a
-                                            href="{{ route('staff.peers.index', ['agent' => $prefix]) }}"
+                                            href="{{ route('staff.peers.index', ['agent' => $client['agent']]) }}"
                                         >
                                             {{ $client['agent'] }}
                                         </a>

@@ -32,7 +32,7 @@
                         route('torrents.create', [
                             'category_id' => $category->id,
                             'title' => rawurlencode(($meta?->title ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
-                            'imdb' => $torrent->imdb ?? '',
+                            'imdb' => $torrent->imdb ?? '' ?: $meta->imdb_id ?? '' ?: '',
                             'tmdb' => $meta?->id ?? '',
                             'mal' => $torrent->mal ?? '',
                             'tvdb' => $torrent->tvdb ?? '',
@@ -49,7 +49,7 @@
                         route('requests.create', [
                             'category_id' => $category->id,
                             'title' => rawurlencode(($meta?->title ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
-                            'imdb' => $torrent->imdb ?? '',
+                            'imdb' => $torrent->imdb ?? '' ?: $meta->imdb_id ?? '' ?: '',
                             'tmdb' => $meta?->id ?? '',
                             'mal' => $torrent->mal ?? '',
                             'tvdb' => $torrent->tvdb ?? '',
@@ -201,6 +201,7 @@
                                 class="meta-chip__image"
                                 src="{{ tmdb_image('cast_face', $credit->person->still) }}"
                                 alt=""
+                                loading="lazy"
                             />
                         @else
                             <i
@@ -226,6 +227,7 @@
                                 class="meta-chip__image"
                                 src="{{ tmdb_image('cast_face', $credit->person->still) }}"
                                 alt=""
+                                loading="lazy"
                             />
                         @else
                             <i

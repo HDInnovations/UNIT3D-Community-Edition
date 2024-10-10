@@ -46,3 +46,15 @@
     height: 40px;
     border-radius: 10%;
 }
+
+/* Donation Charts */
+
+.chart-wrapper {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+
+    & > div {
+        flex: 1;
+    }
+}

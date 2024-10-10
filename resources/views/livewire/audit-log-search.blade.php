@@ -17,15 +17,7 @@
             </div>
             <div class="panel__action">
                 <div class="form__group">
-                    <select
-                        id="model"
-                        x-data="{ selected: '' }"
-                        x-model="selected"
-                        x-bind:class="selected === '' ? 'form__select--default' : ''"
-                        class="form__select"
-                        wire:model.live="modelName"
-                        required
-                    >
+                    <select id="model" class="form__select" wire:model.live="modelName">
                         <option selected value="">All</option>
                         @foreach ($modelNames as $modelName)
                             <option value="{{ $modelName }}">{{ $modelName }}</option>

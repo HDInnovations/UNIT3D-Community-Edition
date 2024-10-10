@@ -91,7 +91,7 @@ return [
      *                  'same-origin', 'strict-origin', 'strict-origin-when-cross-origin', 'unsafe-url'
      */
 
-    'referrer-policy' => 'no-referrer-when-downgrade',
+    'referrer-policy' => 'same-origin',
 
     /*
      * Clear-Site-Data
@@ -547,6 +547,16 @@ return [
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/media-src
         'media-src' => [
+            'self' => true,
+
+            'schemes' => [
+                'data:',
+                'https:',
+            ],
+
+            'allow' => [
+                'https://www.youtube-nocookie.com/embed/',
+            ],
         ],
 
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/navigate-to

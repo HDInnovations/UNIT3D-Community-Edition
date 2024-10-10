@@ -309,6 +309,14 @@
                                 Inactive {{ __('torrent.peers') }}
                                 @include('livewire.includes._sort-icon', ['field' => 'inactive_count'])
                             </th>
+                            <th
+                                wire:click="sortBy('inactive_ratio')"
+                                role="columnheader button"
+                                style="text-align: right"
+                            >
+                                Inactive/active ratio
+                                @include('livewire.includes._sort-icon', ['field' => 'inactive_ratio'])
+                            </th>
                         @endif
                         <th
                             wire:click="sortBy('created_at')"
@@ -437,6 +445,7 @@
                             @else
                                 <td style="text-align: right">{{ $peer->active_count }}</td>
                                 <td style="text-align: right">{{ $peer->inactive_count }}</td>
+                                <td style="text-align: right">{{ $peer->inactive_ratio }}</td>
                             @endif
                             <td style="text-align: right">
                                 <time

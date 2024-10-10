@@ -263,13 +263,14 @@
     overflow-x: auto;
     grid-area: chips;
     gap: 24px;
+    will-change: transform;
 }
 
 .meta__chip-container {
     position: relative;
     padding-top: 16px;
     height: calc(100%);
-    overflow-y: auto;
+    overflow-y: scroll;
     flex: 1 0 200px;
 }
 
@@ -314,6 +315,7 @@
     gap: 3px 20px;
     border-radius: 26px;
     padding: 6px 26px 6px 6px;
+    will-change: backdrop-filter, background;
 }
 
 .meta-chip:hover {

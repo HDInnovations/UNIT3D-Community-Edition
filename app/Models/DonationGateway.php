@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,6 +32,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DonationGateway extends Model
 {
+    /** @use HasFactory<\Database\Factories\DonationGatewayFactory> */
+    use HasFactory;
+
     /**
      * The attributes that aren't mass assignable.
      *

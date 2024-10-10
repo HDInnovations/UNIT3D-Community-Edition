@@ -119,16 +119,16 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\RssController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\RssController::class, 'create'])->name('create');
                 Route::post('/store', [App\Http\Controllers\RssController::class, 'store'])->name('store');
-                Route::get('/{id}/edit', [App\Http\Controllers\RssController::class, 'edit'])->name('edit');
-                Route::patch('/{id}/update', [App\Http\Controllers\RssController::class, 'update'])->name('update');
-                Route::delete('/{id}/destroy', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy');
+                Route::get('/{id}/edit', [App\Http\Controllers\RssController::class, 'edit'])->name('edit')->whereNumber('id');
+                Route::patch('/{id}/update', [App\Http\Controllers\RssController::class, 'update'])->name('update')->whereNumber('id');
+                Route::delete('/{id}/destroy', [App\Http\Controllers\RssController::class, 'destroy'])->name('destroy')->whereNumber('id');
             });
         });
 
         // Reports System
         Route::prefix('reports')->group(function (): void {
-            Route::post('/torrent/{id}', [App\Http\Controllers\ReportController::class, 'torrent'])->name('report_torrent');
-            Route::post('/request/{id}', [App\Http\Controllers\ReportController::class, 'request'])->name('report_request');
+            Route::post('/torrent/{id}', [App\Http\Controllers\ReportController::class, 'torrent'])->name('report_torrent')->whereNumber('id');
+            Route::post('/request/{id}', [App\Http\Controllers\ReportController::class, 'request'])->name('report_request')->whereNumber('id');
             Route::post('/user/{username}', [App\Http\Controllers\ReportController::class, 'user'])->name('report_user');
         });
 
@@ -147,7 +147,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/internal', [App\Http\Controllers\PageController::class, 'internal'])->name('internal');
             Route::get('/blacklist/clients', [App\Http\Controllers\PageController::class, 'clientblacklist'])->name('client_blacklist');
             Route::get('/aboutus', [App\Http\Controllers\PageController::class, 'about'])->name('about');
-            Route::get('/{page}', [App\Http\Controllers\PageController::class, 'show'])->where('id', '[0-9]+')->name('pages.show');
+            Route::get('/{page}', [App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
         });
 
         // Wiki System
@@ -176,7 +176,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/torrent/dead', [App\Http\Controllers\StatsController::class, 'dead'])->name('dead');
             Route::get('/request/bountied', [App\Http\Controllers\StatsController::class, 'bountied'])->name('bountied');
             Route::get('/groups', [App\Http\Controllers\StatsController::class, 'groups'])->name('groups');
-            Route::get('/groups/group/{id}', [App\Http\Controllers\StatsController::class, 'group'])->name('group');
+            Route::get('/groups/group/{id}', [App\Http\Controllers\StatsController::class, 'group'])->name('group')->whereNumber('id');
             Route::get('/groups/requirements', [App\Http\Controllers\StatsController::class, 'groupsRequirements'])->name('groups_requirements');
             Route::get('/languages', [App\Http\Controllers\StatsController::class, 'languages'])->name('languages');
             Route::get('/themes', [App\Http\Controllers\StatsController::class, 'themes'])->name('themes');
@@ -225,32 +225,32 @@ Route::middleware('language')->group(function (): void {
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'index'])->name('index');
             Route::get('/create', [App\Http\Controllers\TorrentController::class, 'create'])->name('create');
             Route::post('/', [App\Http\Controllers\TorrentController::class, 'store'])->name('store');
-            Route::get('/{id}{hash?}', [App\Http\Controllers\TorrentController::class, 'show'])->name('show');
-            Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit');
-            Route::patch('/{id}', [App\Http\Controllers\TorrentController::class, 'update'])->name('update');
-            Route::delete('/{id}', [App\Http\Controllers\TorrentController::class, 'destroy'])->name('destroy');
+            Route::get('/{id}{hash?}', [App\Http\Controllers\TorrentController::class, 'show'])->name('show')->whereNumber('id');
+            Route::get('/{id}/edit', [App\Http\Controllers\TorrentController::class, 'edit'])->name('edit')->whereNumber('id');
+            Route::patch('/{id}', [App\Http\Controllers\TorrentController::class, 'update'])->name('update')->whereNumber('id');
+            Route::delete('/{id}', [App\Http\Controllers\TorrentController::class, 'destroy'])->name('destroy')->whereNumber('id');
         });
 
         Route::prefix('torrents')->group(function (): void {
-            Route::get('/{id}/peers', [App\Http\Controllers\TorrentPeerController::class, 'index'])->name('peers');
-            Route::get('/{id}/history', [App\Http\Controllers\TorrentHistoryController::class, 'index'])->name('history');
-            Route::get('/{id}/external-tracker', [App\Http\Controllers\ExternalTorrentController::class, 'show'])->name('torrents.external_tracker')->middleware('modo');
-            Route::get('/download_check/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'show'])->name('download_check');
-            Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download');
-            Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed');
-            Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar');
+            Route::get('/{id}/peers', [App\Http\Controllers\TorrentPeerController::class, 'index'])->name('peers')->whereNumber('id');
+            Route::get('/{id}/history', [App\Http\Controllers\TorrentHistoryController::class, 'index'])->name('history')->whereNumber('id');
+            Route::get('/{id}/external-tracker', [App\Http\Controllers\ExternalTorrentController::class, 'show'])->name('torrents.external_tracker')->whereNumber('id')->middleware('modo');
+            Route::get('/download_check/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'show'])->name('download_check')->whereNumber('id');
+            Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download')->whereNumber('id');
+            Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed')->whereNumber('id');
+            Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar')->whereNumber('category_id');
             Route::patch('/similar/{category}.{tmdbId}', [App\Http\Controllers\SimilarTorrentController::class, 'update'])->name('torrents.similar.update');
         });
 
         Route::prefix('torrent')->group(function (): void {
-            Route::post('/{id}/torrent_fl', [App\Http\Controllers\TorrentBuffController::class, 'grantFL'])->name('torrent_fl');
-            Route::post('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentBuffController::class, 'grantDoubleUp'])->name('torrent_doubleup');
-            Route::post('/{id}/bumpTorrent', [App\Http\Controllers\TorrentBuffController::class, 'bumpTorrent'])->name('bumpTorrent');
-            Route::post('/{id}/torrent_sticky', [App\Http\Controllers\TorrentBuffController::class, 'sticky'])->name('torrent_sticky');
-            Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentBuffController::class, 'grantFeatured'])->name('torrent_feature');
-            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentBuffController::class, 'revokeFeatured'])->name('torrent_revokefeature');
-            Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentBuffController::class, 'freeleechToken'])->name('freeleech_token');
-            Route::post('/{id}/refundable', [App\Http\Controllers\TorrentBuffController::class, 'setRefundable'])->name('refundable');
+            Route::post('/{id}/torrent_fl', [App\Http\Controllers\TorrentBuffController::class, 'grantFL'])->name('torrent_fl')->whereNumber('id');
+            Route::post('/{id}/torrent_doubleup', [App\Http\Controllers\TorrentBuffController::class, 'grantDoubleUp'])->name('torrent_doubleup')->whereNumber('id');
+            Route::post('/{id}/bumpTorrent', [App\Http\Controllers\TorrentBuffController::class, 'bumpTorrent'])->name('bumpTorrent')->whereNumber('id');
+            Route::post('/{id}/torrent_sticky', [App\Http\Controllers\TorrentBuffController::class, 'sticky'])->name('torrent_sticky')->whereNumber('id');
+            Route::post('/{id}/torrent_feature', [App\Http\Controllers\TorrentBuffController::class, 'grantFeatured'])->name('torrent_feature')->whereNumber('id');
+            Route::post('/{id}/torrent_revokefeature', [App\Http\Controllers\TorrentBuffController::class, 'revokeFeatured'])->name('torrent_revokefeature')->whereNumber('id');
+            Route::post('/{id}/freeleech_token', [App\Http\Controllers\TorrentBuffController::class, 'freeleechToken'])->name('freeleech_token')->whereNumber('id');
+            Route::post('/{id}/refundable', [App\Http\Controllers\TorrentBuffController::class, 'setRefundable'])->name('refundable')->whereNumber('id');
         });
 
         Route::prefix('torrent')->name('torrent.trump.')->group(function (): void {
@@ -328,6 +328,7 @@ Route::middleware('language')->group(function (): void {
                 Route::post('/{ticket}/assignee', [App\Http\Controllers\TicketAssigneeController::class, 'store'])->name('assignee.store');
                 Route::delete('/{ticket}/assignee', [App\Http\Controllers\TicketAssigneeController::class, 'destroy'])->name('assignee.destroy');
                 Route::post('/{ticket}/close', [App\Http\Controllers\TicketController::class, 'close'])->name('close');
+                Route::post('/{ticket}/reopen', [App\Http\Controllers\TicketController::class, 'reopen'])->name('reopen');
                 Route::post('/{ticket}/attachments/{attachment}/download', [App\Http\Controllers\TicketAttachmentController::class, 'download'])->name('attachment.download');
             })->scopeBindings();
         });
@@ -351,9 +352,9 @@ Route::middleware('language')->group(function (): void {
         Route::get('/networks', [App\Http\Controllers\MediaHub\NetworkController::class, 'index'])->name('mediahub.networks.index');
         Route::get('/companies', [App\Http\Controllers\MediaHub\CompanyController::class, 'index'])->name('mediahub.companies.index');
         Route::get('/persons', [App\Http\Controllers\MediaHub\PersonController::class, 'index'])->name('mediahub.persons.index');
-        Route::get('/persons/{id}', [App\Http\Controllers\MediaHub\PersonController::class, 'show'])->name('mediahub.persons.show');
+        Route::get('/persons/{id}', [App\Http\Controllers\MediaHub\PersonController::class, 'show'])->name('mediahub.persons.show')->whereNumber('id');
         Route::get('/collections', [App\Http\Controllers\MediaHub\CollectionController::class, 'index'])->name('mediahub.collections.index');
-        Route::get('/collections/{id}', [App\Http\Controllers\MediaHub\CollectionController::class, 'show'])->name('mediahub.collections.show');
+        Route::get('/collections/{id}', [App\Http\Controllers\MediaHub\CollectionController::class, 'show'])->name('mediahub.collections.show')->whereNumber('id');
     });
 
     /*
@@ -365,12 +366,12 @@ Route::middleware('language')->group(function (): void {
         // Forum System
         Route::name('forums.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])->name('index');
-            Route::get('/{id}', [App\Http\Controllers\ForumController::class, 'show'])->where('id', '[0-9]+')->name('show');
+            Route::get('/{id}', [App\Http\Controllers\ForumController::class, 'show'])->name('show')->whereNumber('id');
         });
 
         // Forum Category System
         Route::prefix('categories')->name('forums.categories.')->group(function (): void {
-            Route::get('/{id}', [App\Http\Controllers\ForumCategoryController::class, 'show'])->where('id', '[0-9]+')->name('show');
+            Route::get('/{id}', [App\Http\Controllers\ForumCategoryController::class, 'show'])->name('show')->whereNumber('id');
         });
 
         // Posts System
@@ -385,18 +386,18 @@ Route::middleware('language')->group(function (): void {
         //Topics System
         Route::prefix('topics')->name('topics.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\TopicController::class, 'index'])->name('index');
-            Route::get('/forum/{id}/create', [App\Http\Controllers\TopicController::class, 'create'])->name('create');
-            Route::post('/forum/{id}', [App\Http\Controllers\TopicController::class, 'store'])->name('store');
-            Route::get('/{topicId}/posts/{postId}', [App\Http\Controllers\TopicController::class, 'permalink'])->name('permalink');
-            Route::get('/{id}/latest', [App\Http\Controllers\TopicController::class, 'latestPermalink'])->name('latestPermalink');
-            Route::get('/{id}', [App\Http\Controllers\TopicController::class, 'show'])->name('show');
-            Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit');
-            Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update');
-            Route::delete('/{id}', [App\Http\Controllers\TopicController::class, 'destroy'])->name('destroy')->middleware('modo');
-            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'close'])->name('close')->middleware('modo');
-            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'open'])->name('open')->middleware('modo');
-            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pin'])->name('pin')->middleware('modo');
-            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpin'])->name('unpin')->middleware('modo');
+            Route::get('/forum/{id}/create', [App\Http\Controllers\TopicController::class, 'create'])->name('create')->whereNumber('id');
+            Route::post('/forum/{id}', [App\Http\Controllers\TopicController::class, 'store'])->name('store')->whereNumber('id');
+            Route::get('/{topicId}/posts/{postId}', [App\Http\Controllers\TopicController::class, 'permalink'])->name('permalink')->whereNumber(['topicId', 'postId']);
+            Route::get('/{id}/latest', [App\Http\Controllers\TopicController::class, 'latestPermalink'])->name('latestPermalink')->whereNumber('id');
+            Route::get('/{id}', [App\Http\Controllers\TopicController::class, 'show'])->name('show')->whereNumber('id');
+            Route::get('/{id}/edit', [App\Http\Controllers\TopicController::class, 'edit'])->name('edit')->whereNumber('id');
+            Route::patch('/{id}', [App\Http\Controllers\TopicController::class, 'update'])->name('update')->whereNumber('id');
+            Route::delete('/{id}', [App\Http\Controllers\TopicController::class, 'destroy'])->name('destroy')->whereNumber('id')->middleware('modo');
+            Route::post('/{id}/close', [App\Http\Controllers\TopicController::class, 'close'])->name('close')->whereNumber('id')->middleware('modo');
+            Route::post('/{id}/open', [App\Http\Controllers\TopicController::class, 'open'])->name('open')->whereNumber('id')->middleware('modo');
+            Route::post('/{id}/pin', [App\Http\Controllers\TopicController::class, 'pin'])->name('pin')->whereNumber('id')->middleware('modo');
+            Route::post('/{id}/unpin', [App\Http\Controllers\TopicController::class, 'unpin'])->name('unpin')->whereNumber('id')->middleware('modo');
         });
 
         // Topic Label System
@@ -666,9 +667,9 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('applications')->group(function (): void {
             Route::name('applications.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ApplicationController::class, 'index'])->name('index');
-                Route::get('/{id}', [App\Http\Controllers\Staff\ApplicationController::class, 'show'])->where('id', '[0-9]+')->name('show');
-                Route::post('/{id}/approve', [App\Http\Controllers\Staff\ApplicationController::class, 'approve'])->name('approve');
-                Route::post('/{id}/reject', [App\Http\Controllers\Staff\ApplicationController::class, 'reject'])->name('reject');
+                Route::get('/{id}', [App\Http\Controllers\Staff\ApplicationController::class, 'show'])->name('show')->whereNumber('id');
+                Route::post('/{id}/approve', [App\Http\Controllers\Staff\ApplicationController::class, 'approve'])->name('approve')->whereNumber('id');
+                Route::post('/{id}/reject', [App\Http\Controllers\Staff\ApplicationController::class, 'reject'])->name('reject')->whereNumber('id');
             });
         });
 
@@ -959,7 +960,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('moderation')->group(function (): void {
             Route::name('moderation.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update'])->name('update');
+                Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update'])->name('update')->whereNumber('id');
             });
         });
 

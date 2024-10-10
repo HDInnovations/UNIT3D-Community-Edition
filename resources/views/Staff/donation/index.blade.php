@@ -12,6 +12,20 @@
 @section('content')
     <section class="panelV2">
         <header class="panel__header">
+            <h2 class="panel__heading">Donation Statistics</h2>
+        </header>
+        <div class="chart-wrapper">
+            <div>
+                <canvas id="dailyDonationsChart"></canvas>
+            </div>
+            <div>
+                <canvas id="monthlyDonationsChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <section class="panelV2">
+        <header class="panel__header">
             <h2 class="panel__heading">Donations</h2>
         </header>
         <div class="data-table-wrapper">
@@ -40,10 +54,10 @@
                             <td>{{ $donation->transaction }}</td>
                             <td>$ {{ $donation->package->cost }}</td>
                             <td>
-                                {{ App\Helpers\StringHelper::formatBytes($donation->package->upload_value) }}
+                                {{ App\Helpers\StringHelper::formatBytes($donation->package->upload_value ?? 0) }}
                             </td>
-                            <td>{{ $donation->package->invite_value }}</td>
-                            <td>{{ $donation->package->bonus_value }}</td>
+                            <td>{{ $donation->package->invite_value ?? 0 }}</td>
+                            <td>{{ $donation->package->bonus_value ?? 0 }}</td>
                             <td>
                                 @if ($donation->package->donor_value === null)
                                     Lifetime
@@ -107,4 +121,73 @@
         </div>
         {{ $donations->links('partials.pagination') }}
     </section>
+@endsection
+
+@section('scripts')
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
+        document.addEventListener('DOMContentLoaded', function () {
+            const dailyDonations = {!! Js::encode($dailyDonations) !!};
+            const monthlyDonations = {!! Js::encode($monthlyDonations) !!};
+
+            // Daily Donations Chart
+            const dailyCtx = document.getElementById('dailyDonationsChart').getContext('2d');
+            new Chart(dailyCtx, {
+                type: 'line',
+                data: {
+                    labels: dailyDonations.map((donation) => donation.date),
+                    datasets: [
+                        {
+                            label: 'Daily Donations',
+                            data: dailyDonations.map((donation) => donation.total),
+                            backgroundColor: getComputedStyle(
+                                document.documentElement,
+                            ).getPropertyValue('--donation-chart-daily-bg'),
+                            borderColor: getComputedStyle(
+                                document.documentElement,
+                            ).getPropertyValue('--donation-chart-daily-border'),
+                            borderWidth: 1,
+                            fill: false,
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        x: { type: 'time', time: { unit: 'day' } },
+                        y: { beginAtZero: true },
+                    },
+                },
+            });
+
+            // Monthly Donations Chart
+            const monthlyCtx = document.getElementById('monthlyDonationsChart').getContext('2d');
+            new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: monthlyDonations.map(
+                        (donation) => `${donation.year}-${donation.month}`,
+                    ),
+                    datasets: [
+                        {
+                            label: 'Monthly Donations',
+                            data: monthlyDonations.map((donation) => donation.total),
+                            backgroundColor: getComputedStyle(
+                                document.documentElement,
+                            ).getPropertyValue('--donation-chart-monthly-bg'),
+                            borderColor: getComputedStyle(
+                                document.documentElement,
+                            ).getPropertyValue('--donation-chart-monthly-border'),
+                            borderWidth: 1,
+                            fill: false,
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        x: { type: 'category' },
+                        y: { beginAtZero: true },
+                    },
+                },
+            });
+        });
+    </script>
 @endsection
