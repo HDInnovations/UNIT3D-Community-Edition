@@ -39,7 +39,7 @@ return [
     |         Example: "example.com|example.net|foobar.com".
     |
     */
-    'enabled'   => true,
+    'enabled'   => false,
     'source'    => 'https://cdn.jsdelivr.net/gh/andreis/disposable-email-domains@master/domains.json',
     'cache-key' => 'email.domains.blacklist',
     'append'    => null,

@@ -27,7 +27,7 @@ return [
          * The name of this application. You can use this name to monitor
          * the backups.
          */
-        'name' => 'UNIT3D',
+        'name' => '电影收藏馆',
 
         'source' => [
             'files' => [
@@ -120,7 +120,7 @@ return [
             /*
              * The filename prefix used for the backup zip file.
              */
-            'filename_prefix' => '[UNIT3D]',
+            'filename_prefix' => '[电影收藏馆]',
 
             /*
              * The disk names on which the backups will be stored.
@@ -189,7 +189,7 @@ return [
      */
     'monitor_backups' => [
         [
-            'name'          => 'UNIT3D',
+            'name'          => '电影收藏馆',
             'disks'         => ['backups'],
             'health_checks' => [
                 Spatie\Backup\Tasks\Monitor\HealthChecks\MaximumAgeInDays::class          => 1,
