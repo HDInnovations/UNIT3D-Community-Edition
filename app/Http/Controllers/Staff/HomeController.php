@@ -71,7 +71,7 @@ class HomeController extends Controller
                 ->selectRaw('sum(seeder = 0 AND active = 1) as leechers')
                 ->selectRaw('sum(seeder = 1 AND active = 1) as seeders')
                 ->first()),
-            'unsolvedReportsCount'     => DB::table('reports')->where('solved', '=', false)->count(),
+            'unsolvedReportsCount'     => DB::table('reports')->whereNull('snoozed_until')->where('solved', '=', false)->count(),
             'pendingApplicationsCount' => DB::table('applications')->where('status', '=', 0)->count(),
             'certificate'              => $certificate,
             'uptime'                   => $systemInformation->uptime(),

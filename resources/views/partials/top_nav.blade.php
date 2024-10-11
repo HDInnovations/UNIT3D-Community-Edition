@@ -267,7 +267,7 @@
                     <li>
                         <a href="https://polar.sh/HDInnovations">
                             <i class="fas fa-handshake"></i>
-                            Support UNIT3D Development (polar.sh)
+                            Support UNIT3D Development
                         </a>
                     </li>
                 </ul>
@@ -396,6 +396,7 @@
                         <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
                         @php
                             $unsolvedReportsCount = DB::table('reports')
+                                ->whereNull('snoozed_until')
                                 ->where('solved', '=', false)
                                 ->count()
                         @endphp
