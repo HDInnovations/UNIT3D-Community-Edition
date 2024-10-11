@@ -267,7 +267,7 @@
                     <li>
                         <a href="https://polar.sh/HDInnovations">
                             <i class="fas fa-handshake"></i>
-                            Support UNIT3D Development (polar.sh)
+                            Support UNIT3D Development
                         </a>
                     </li>
                 </ul>
@@ -394,6 +394,16 @@
                         title="{{ __('staff.staff-dashboard') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
+                        @php
+                            $unsolvedReportsCount = DB::table('reports')
+                                ->whereNull('snoozed_until')
+                                ->where('solved', '=', false)
+                                ->count()
+                        @endphp
+
+                        @if ($unsolvedReportsCount > 0)
+                            <x-animation.notification />
+                        @endif
                     </a>
                 </li>
             @endif

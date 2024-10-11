@@ -427,7 +427,7 @@
                 </thead>
                 <tbody>
                     @foreach ($histories as $history)
-                        <tr>
+                        <tr x-data="userHistory" data-history-id="{{ $history->torrent_id }}">
                             <td>
                                 <a
                                     class="user-torrents__name"
@@ -664,15 +664,25 @@
                                 @endif
                             </td>
                             <td class="user-torrents__immune">
-                                @if ($history->immune == 1)
+                                @if ($history->immune)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                         title="Immune"
+                                        @if (auth()->user()->group->is_modo)
+                                            x-on:click.prevent="updateImmune(false)"
+                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to set this history record to not immune: ' . $history->name . '?') }}"
+                                            style="cursor: pointer"
+                                        @endif
                                     ></i>
                                 @else
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-times text-red"
                                         title="Not immune"
+                                        @if (auth()->user()->group->is_modo)
+                                            x-on:click.prevent="updateImmune(true)"
+                                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to set this history record to immune: ' . $history->name . '?') }}"
+                                            style="cursor: pointer"
+                                        @endif
                                     ></i>
                                 @endif
                             </td>
@@ -744,5 +754,28 @@
                 },
             };
         }
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('userHistory', () => ({
+                updateImmune(immune) {
+                    this.confirmAction(() =>
+                        this.$wire.updateImmune(this.$root.dataset.historyId, immune),
+                    );
+                },
+                confirmAction(onConfirm) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: atob(this.$el.dataset.b64DeletionMessage),
+                        icon: 'warning',
+                        showConfirmButton: true,
+                        showCancelButton: true,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            onConfirm();
+                        }
+                    });
+                },
+            }));
+        });
     </script>
 </div>

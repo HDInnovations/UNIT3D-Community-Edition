@@ -71,6 +71,7 @@
                     <thead>
                         <tr>
                             <th>{{ __('common.user') }}</th>
+                            <th>Peer ID</th>
                             <th>{{ __('torrent.progress') }}</th>
                             <th>{{ __('common.upload') }}</th>
                             <th>{{ __('common.download') }}</th>
@@ -83,7 +84,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($externalTorrent['peers'] ?? [] as $peer)
+                        @foreach ($externalTorrent['peers'] ?? [] as $peerId => $peer)
                             <tr>
                                 <td>
                                     @if (null !== ($user = \App\Models\User::find($peer['user_id'])))
@@ -102,6 +103,9 @@
                                     @else
                                             User not found
                                     @endif
+                                </td>
+                                <td>
+                                    {{ implode('', array_map(fn ($char) => ctype_print($char) ? $char : '\x' . bin2hex($char), str_split(hex2bin(explode('-', $peerId)[1])))) }}
                                 </td>
                                 <td>
                                     @if ($torrent === null)
