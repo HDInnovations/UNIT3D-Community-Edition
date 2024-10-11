@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="footer__wrapper">
         <section class="footer__section">
-            <h2 class="footer__section-title">
+            <h2 class="footer__section-title top-nav__site-logo">
                 <img src="{{ url('/favicon.ico') }}" style="height: 30px; vertical-align: sub" />
                 <span class="top-nav__site-logo">{{ \config('other.title') }}</span>
             </h2>
@@ -79,18 +79,18 @@
                 <li>
                     <a href="{{ route('about') }}">{{ __('common.about') }}</a>
                 </li>
-                <li>
+                <!-- <li>
                     <a
                         href="https://github.com/HDInnovations/UNIT3D-Community-Edition/wiki/Torrent-API-(UNIT3D-v8.x.x)"
                     >
                         API Documentation
                     </a>
-                </li>
+                </li> -->
             </ul>
         </section>
     </div>
     <div class="footer__sub-footer">
-        <p class="footer__icons">
+        <!-- <p class="footer__icons">
             Built using:
             <a href="https://laravel.com" target="_blank">
                 <svg height="22" viewBox="0 0 50 52" xmlns="http://www.w3.org/2000/svg">
@@ -236,7 +236,7 @@
                     </g>
                 </svg>
             </a>
-        </p>
+        </p> -->
         <p class="footer__stats">
             <strong>Time:</strong>
             <span>
@@ -252,7 +252,7 @@
             <strong>Date:</strong>
             <span>{{ now() }}</span>
         </p>
-        <p class="footer__copyright">
+        <!-- <p class="footer__copyright">
             Site and design &copy;
             {{ date('Y', strtotime(config('other.birthdate'))) }}-{{ date('Y') }}
             {{ config('other.title') }} |
@@ -263,6 +263,6 @@
                 +
                 <a href="https://github.com/HDInnovations/UNIT3D-Announce">UNIT3D-Announce</a>
             @endif
-        </p>
+        </p> -->
     </div>
 </footer>

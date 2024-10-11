@@ -24,6 +24,6 @@ return [
     */
     'is_enabled'   => true,
     'monthly_goal' => 100,
-    'currency'     => 'USD',
-    'description'  => 'Help keep the site alive by donating to our monthly goal.',
+    'currency'     => 'CNY',
+    'description'  => '捐赠资金以帮助站点正常运营维护',
 ];

@@ -62,8 +62,8 @@ body {
 
 .footer__sub-footer {
     border-top: 1px solid var(--footer-hr-fg);
-    display: grid;
-    grid-template: 'libraries stats' auto 'libraries copyright' auto / auto auto;
+    // display: grid;
+    // grid-template: 'libraries stats' auto 'libraries copyright' auto / auto auto;
     width: 100vw;
     max-width: 100%;
     padding: 10px;
@@ -74,14 +74,14 @@ body {
     grid-area: stats;
     font-size: 12px;
     margin: 0;
-    text-align: right;
+    text-align: center;
 }
 
 .footer__copyright {
     grid-area: copyright;
     margin: 0;
     font-size: 12px;
-    text-align: right;
+    text-align: center;
 }
 
 .footer__icons {

@@ -238,7 +238,7 @@
                             class="{{ $percentage < 100 ? 'fa-fade' : '' }}"
                             style="color: lightcoral"
                         >
-                            Donate
+                            捐赠
                         </span>
                         <div class="progress" style="background-color: slategray">
                             <div
@@ -261,13 +261,7 @@
                     <li>
                         <a href="{{ route('donations.index') }}">
                             <i class="fas fa-display-chart-up-circle-dollar"></i>
-                            Support {{ config('other.title') }} ({{ $percentage ?? 0 }}%)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://polar.sh/HDInnovations">
-                            <i class="fas fa-handshake"></i>
-                            Support UNIT3D Development (polar.sh)
+                            捐赠 {{ config('other.title') }} ({{ $percentage ?? 0 }}%)
                         </a>
                     </li>
                 </ul>
