@@ -75,31 +75,10 @@
                             </option>
                             <option
                                 class="form__option"
-                                value="3"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 3)
-                            >
-                                Dark Green
-                            </option>
-                            <option
-                                class="form__option"
-                                value="4"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 4)
-                            >
-                                Dark Pink
-                            </option>
-                            <option
-                                class="form__option"
                                 value="5"
                                 @selected(($user->settings?->style ?? config('other.default_style', 0)) === 5)
                             >
                                 Dark Purple
-                            </option>
-                            <option
-                                class="form__option"
-                                value="6"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 6)
-                            >
-                                Dark Red
                             </option>
                             <option
                                 class="form__option"
@@ -110,52 +89,10 @@
                             </option>
                             <option
                                 class="form__option"
-                                value="8"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 8)
-                            >
-                                Dark Yellow
-                            </option>
-                            <option
-                                class="form__option"
-                                value="9"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 9)
-                            >
-                                Cosmic Void
-                            </option>
-                            <option
-                                class="form__option"
                                 value="10"
                                 @selected(($user->settings?->style ?? config('other.default_style', 0)) === 10)
                             >
                                 Nord
-                            </option>
-                            <option
-                                class="form__option"
-                                value="11"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 11)
-                            >
-                                Revel (Desktop only)
-                            </option>
-                            <option
-                                class="form__option"
-                                value="12"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 12)
-                            >
-                                Material Design 3 Light
-                            </option>
-                            <option
-                                class="form__option"
-                                value="13"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 13)
-                            >
-                                Material Design 3 Dark
-                            </option>
-                            <option
-                                class="form__option"
-                                value="14"
-                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 14)
-                            >
-                                Material Design 3 Amoled
                             </option>
                         </select>
                         <label class="form__label form__label--floating" for="style">Theme</label>

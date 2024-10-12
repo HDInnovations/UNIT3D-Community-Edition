@@ -23,7 +23,7 @@ return [
     |
     */
     'is_enabled'   => true,
-    'monthly_goal' => 100,
+    'monthly_goal' => 10000,
     'currency'     => 'CNY',
     'description'  => '捐赠资金以帮助站点正常运营维护',
 ];

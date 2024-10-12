@@ -48,7 +48,7 @@
                                     {{ $package->name }}
                                 </a>
                             </td>
-                            <td>$ {{ $package->cost }}</td>
+                            <td>￥ {{ $package->cost }}</td>
                             <td>
                                 {{ App\Helpers\StringHelper::formatBytes($package->upload_value) }}
                             </td>

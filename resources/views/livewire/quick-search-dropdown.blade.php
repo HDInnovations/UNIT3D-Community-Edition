@@ -132,14 +132,14 @@
                     </article>
                 @empty
                     <article class="quick-search__result--empty">
-                        <p class="quick-search__result-text">No results found</p>
+                        <p class="quick-search__result-text">未查到结果</p>
                     </article>
                 @endforelse
             </div>
         @else
             <div class="quick-search__results">
                 <article class="quick-search__result--keep-typing">
-                    <p class="quick-search__result-text">Keep typing to get results</p>
+                    <p class="quick-search__result-text">输入资源名称</p>
                 </article>
             </div>
         @endif

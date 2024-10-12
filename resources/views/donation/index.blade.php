@@ -78,7 +78,7 @@
                                     @if ($package->upload_value !== null)
                                         <li>
                                             {{ App\Helpers\StringHelper::formatBytes($package->upload_value) }}
-                                            Upload Credit
+                                            上传
                                         </li>
                                     @endif
 
@@ -89,7 +89,7 @@
                                     @endif
 
                                     @if ($package->invite_value !== null)
-                                        <li>{{ $package->invite_value }} Invites</li>
+                                        <li>{{ $package->invite_value }} 个邀请</li>
                                     @endif
                                 </ol>
                             </div>
