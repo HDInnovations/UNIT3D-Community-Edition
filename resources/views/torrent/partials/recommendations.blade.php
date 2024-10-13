@@ -3,7 +3,7 @@
         @switch(true)
             @case($torrent->category->movie_meta)
                 @forelse ($meta->recommendedMovies ?? [] as $movie)
-                    <x-movie.poster :$movie :categoryId="$torrent->category_id" />
+                    <x-movie.poster :$movie :categoryId="$movie->torrents_min_category_id" />
                 @empty
                     No Recommendations Found!
                 @endforelse
@@ -11,7 +11,7 @@
                 @break
             @case($torrent->category->tv_meta)
                 @forelse ($meta->recommendedTv ?? [] as $tv)
-                    <x-tv.poster :$tv :categoryId="$torrent->category_id" />
+                    <x-tv.poster :$tv :categoryId="$tv->torrents_min_category_id" />
                 @empty
                     No Recommendations Found!
                 @endforelse
