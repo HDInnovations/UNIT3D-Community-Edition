@@ -50,7 +50,8 @@
 
     &:valid:not(:placeholder-shown),
     &:focus:placeholder-shown,
-    &:read-only {
+    &:read-only,
+    &[type='date'][required] {
         & + .form__label--floating {
             top: -5px;
             font-size: 11px;

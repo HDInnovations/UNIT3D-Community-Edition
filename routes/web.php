@@ -113,6 +113,19 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Events
+        Route::prefix('events')->name('events.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\EventController::class, 'index'])->name('index');
+            Route::prefix('{event}')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\EventController::class, 'show'])->name('show');
+
+                //Claims
+                Route::prefix('claims')->name('claims.')->group(function (): void {
+                    Route::post('/', [App\Http\Controllers\ClaimedPrizeController::class, 'store'])->name('store');
+                });
+            });
+        });
+
         // RSS System
         Route::prefix('rss')->group(function (): void {
             Route::name('rss.')->group(function (): void {
@@ -854,6 +867,25 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('email-updates')->group(function (): void {
             Route::name('email_updates.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\EmailUpdateController::class, 'index'])->name('index');
+            });
+        });
+
+        // Events
+        Route::prefix('events')->name('events.')->group(function (): void {
+            Route::get('/', [App\Http\Controllers\Staff\EventController::class, 'index'])->name('index');
+            Route::get('/create', [App\Http\Controllers\Staff\EventController::class, 'create'])->name('create');
+            Route::post('/', [App\Http\Controllers\Staff\EventController::class, 'store'])->name('store');
+            Route::prefix('{event}')->group(function (): void {
+                Route::get('/edit', [App\Http\Controllers\Staff\EventController::class, 'edit'])->name('edit');
+                Route::patch('/', [App\Http\Controllers\Staff\EventController::class, 'update'])->name('update');
+                Route::delete('/', [App\Http\Controllers\Staff\EventController::class, 'destroy'])->name('destroy');
+
+                // Prizes
+                Route::prefix('prizes')->name('prizes.')->group(function (): void {
+                    Route::post('/', [App\Http\Controllers\Staff\PrizeController::class, 'store'])->name('store');
+                    Route::patch('/{prize}', [App\Http\Controllers\Staff\PrizeController::class, 'update'])->name('update');
+                    Route::delete('/{prize}', [App\Http\Controllers\Staff\PrizeController::class, 'destroy'])->name('destroy');
+                });
             });
         });
 

@@ -186,12 +186,38 @@
             </ul>
         </li>
         <li class="top-nav__dropdown">
+            @php
+                $events = \App\Models\Event::query()
+                    ->where('active', '=', true)
+                    ->withExists([
+                        'claimedPrizes' => fn ($query) => $query
+                            ->where('created_at', '>', now()->startOfDay())
+                            ->where('user_id', '=', auth()->id()),
+                    ])
+                    ->get()
+            @endphp
+
             <a tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
+                    @if ($events->contains(fn ($event) => ! $event->claimed_prizes_exists && $event->ends_at->isFuture()))
+                        <x-animation.notification />
+                    @endif
                 </div>
             </a>
             <ul>
+                @foreach ($events as $event)
+                    <li>
+                        <a href="{{ route('events.show', ['event' => $event]) }}">
+                            <i class="{{ config('other.font-awesome') }} fa-calendar-star"></i>
+                            {{ $event->name }}
+                            @if (! $event->claimed_prizes_exists && $event->ends_at->isFuture())
+                                <x-animation.notification />
+                            @endif
+                        </a>
+                    </li>
+                @endforeach
+
                 <li>
                     <a href="{{ route('subtitles.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-closed-captioning"></i>
