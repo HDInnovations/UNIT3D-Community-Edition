@@ -47,7 +47,8 @@ class UserController extends Controller
             'tickets' => fn ($query) => $query->orderByRaw('ISNULL(closed_at) desc')->orderByDesc('id'),
         ])
             ->loadCount([
-                'torrents',
+                'torrents as anon_uploads_count'     => fn ($query) => $query->where('anon', '=', true),
+                'torrents as non_anon_uploads_count' => fn ($query) => $query->where('anon', '=', false),
                 'topics',
                 'posts',
                 'filledRequests' => fn ($query) => $query->whereNotNull('approved_by'),

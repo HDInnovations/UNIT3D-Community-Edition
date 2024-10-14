@@ -715,9 +715,18 @@
                             <dt>
                                 <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
                                     {{ __('user.total-uploads') }}
+                                    (Non-{{ __('common.anonymous') }})
                                 </a>
                             </dt>
-                            <dd>{{ $user->torrents_count ?? 0 }}</dd>
+                            <dd>{{ $user->non_anon_uploads_count ?? 0 }}</dd>
+                        </div>
+                        <div class="key-value__group">
+                            <dt>
+                                <a href="{{ route('users.torrents.index', ['user' => $user]) }}">
+                                    {{ __('user.total-uploads') }} ({{ __('common.anonymous') }})
+                                </a>
+                            </dt>
+                            <dd>{{ $user->anon_uploads_count ?? 0 }}</dd>
                         </div>
                         <div class="key-value__group">
                             <dt>
@@ -773,7 +782,7 @@
                                     {{ __('user.total-uploads') }}
                                 </a>
                             </dt>
-                            <dd>{{ $user->torrents_count ?? 0 }}</dd>
+                            <dd>{{ $user->non_anon_uploads_count ?? 0 }}</dd>
                         </div>
                         <div class="key-value__group">
                             <dt>{{ __('user.total-downloads') }}</dt>
