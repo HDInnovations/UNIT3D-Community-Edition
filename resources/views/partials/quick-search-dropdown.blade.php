@@ -26,10 +26,7 @@
                         x-on:keydown.down.prevent="focusNextResult($el)"
                         x-on:keydown.up.prevent="focusPreviousResult($el)"
                     >
-                        <a
-                            class="quick-search__result-link"
-                            :href="result.url"
-                        >
+                        <a class="quick-search__result-link" :href="result.url">
                             <img class="quick-search__image" :src="result.image" alt="" />
                             <h2 class="quick-search__result-text">
                                 <span x-text="result.name"></span>
