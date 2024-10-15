@@ -56,60 +56,6 @@
     display: none;
 }
 
-.quick-search__radios {
-    display: flex;
-    align-items: stretch;
-    background-color: inherit;
-    cursor: pointer;
-    width: min-content;
-}
-
-.quick-search__radio-label {
-    cursor: pointer;
-    color: var(--quick-search-selector-fg);
-    display: flex;
-}
-
-.quick-search__radio-label:hover,
-.quick-search__radio-label:focus-within {
-    color: var(--quick-search-selector-hover-fg);
-}
-
-.quick-search__radio-icon {
-    height: 100%;
-}
-
-.quick-search__radio-icon:before {
-    display: block;
-    height: 100%;
-    width: 32px;
-    padding: 8px 0;
-    text-align: center;
-    font-size: 14px;
-}
-
-.quick-search__radio-icon:hover,
-.quick-search__radio-label:focus-within .quick-search__radio-icon {
-    background-color: var(--quick-search-selector-hover-bg);
-}
-
-.quick-search__radio:checked ~ .quick-search__radio-icon:before {
-    background-color: var(--quick-search-selector-selected-bg);
-    color: var(--quick-search-selector-selected-fg);
-}
-
-.quick-search__radio {
-    position: absolute !important;
-    opacity: 0;
-    width: 0 !important;
-    height: 0 !important;
-
-    &::after {
-        width: 0 !important;
-        height: 0 !important;
-    }
-}
-
 .quick-search__results {
     position: absolute;
     left: 0;
