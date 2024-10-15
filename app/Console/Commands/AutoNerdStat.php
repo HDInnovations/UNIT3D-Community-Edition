@@ -71,6 +71,7 @@ class AutoNerdStat extends Command
             'du',
             'peers',
             'bans',
+            'unbans',
             'warnings',
             'king',
         ])->random();
@@ -87,7 +88,8 @@ class AutoNerdStat extends Command
             'fl100'    => 'There Are Currently [color=#93c47d][b]'.DB::table('torrents')->where('free', '=', 100)->count().'[/b][/color] 100% Freeleech Torrents On '.config('other.title').'!',
             'du'       => 'There Are Currently [color=#93c47d][b]'.DB::table('torrents')->where('doubleup', '=', 1)->count().'[/b][/color] Double Upload Torrents On '.config('other.title').'!',
             'peers'    => 'Currently There Are [color=#93c47d][b]'.DB::table('peers')->where('active', '=', 1)->count().'[/b][/color] Peers On '.config('other.title').'!',
-            'bans'     => 'In The Last 24 Hours [color=#dd7e6b][b]'.DB::table('bans')->whereNull('unban_reason')->whereNull('removed_at')->where('created_at', '>', now()->subDay())->count().'[/b][/color] Users Have Been Banned From '.config('other.title').'!',
+            'bans'     => 'In The Last 24 Hours [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('ban_reason')->where('created_at', '>', now()->subDay())->count().'[/b][/color] Users Have Been Banned From '.config('other.title').'!',
+            'unbans'   => 'In The Last 24 Hours [color=#dd7e6b][b]'.DB::table('bans')->whereNotNull('unban_reason')->where('removed_at', '>', now()->subDay())->count().'[/b][/color] Users Have Been Unbanned From '.config('other.title').'!',
             'warnings' => 'In The Last 24 Hours [color=#dd7e6b][b]'.DB::table('warnings')->where('created_at', '>', now()->subDay())->count().'[/b][/color] Hit and Run Warnings Have Been Issued On '.config('other.title').'!',
             'king'     => config('other.title').' Is King!',
             default    => 'Nerd Stat Error!',
