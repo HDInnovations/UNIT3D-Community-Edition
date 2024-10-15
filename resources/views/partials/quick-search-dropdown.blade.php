@@ -3,9 +3,9 @@
         <input
             class="quick-search__input"
             type="text"
-            placeholder="Search for Movie or TV Series"
+            placeholder="Search Movie, TV Series or Person"
             x-model="searchText"
-            x-on:input.debounce.300ms="performSearch"
+            x-on:input="performSearch"
             x-ref="quickSearch"
             x-on:keydown.down.prevent="focusNextResult()"
             x-on:keydown.up.prevent="focusPreviousResult()"
@@ -29,7 +29,6 @@
                         <a
                             class="quick-search__result-link"
                             :href="result.url"
-                            @click.prevent="navigateTo(result.url)"
                         >
                             <img class="quick-search__image" :src="result.image" alt="" />
                             <h2 class="quick-search__result-text">
@@ -62,7 +61,7 @@
                         return;
                     }
 
-                    fetch(`/api/quicksearch?query=${this.searchText}`)
+                    fetch(`/api/quicksearch?query=${encodeURIComponent(this.searchText)}`)
                         .then((response) => response.json())
                         .then((data) => {
                             this.searchResults = data.results.map((result) => {
@@ -78,32 +77,21 @@
                     this.searchResults = [];
                     this.searchPerformed = false;
                 },
-                focusNextResult(el) {
-                    if (el.nextElementSibling == null) {
+                focusNextResult() {
+                    const el = this.$el;
+                    if (el.nextElementSibling === null) {
                         el.parentNode?.firstElementChild?.firstElementChild?.focus();
                     } else {
                         el.nextElementSibling?.firstElementChild?.focus();
                     }
                 },
-                focusPreviousResult(el) {
-                    if (el.previousElementSibling == null) {
+                focusPreviousResult() {
+                    const el = this.$el;
+                    if (el.previousElementSibling === null) {
                         this.$refs.quickSearch.focus();
                     } else {
                         el.previousElementSibling?.firstElementChild?.focus();
                     }
-                },
-                navigateTo(url) {
-                    window.location.href = url;
-                },
-                init() {
-                    this.$refs.searchResults.addEventListener('click', (event) => {
-                        if (event.target.closest('.quick-search__result-link')) {
-                            event.stopPropagation();
-                            window.location.href = event.target.closest(
-                                '.quick-search__result-link',
-                            ).href;
-                        }
-                    });
                 },
             };
         }
