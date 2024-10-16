@@ -17,10 +17,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Torrent;
 use Illuminate\Http\Request;
 use Meilisearch\Client;
-use Meilisearch\Endpoints\Indexes;
+use Meilisearch\Contracts\FederationOptions;
+use Meilisearch\Contracts\MultiSearchFederation;
+use Meilisearch\Contracts\SearchQuery;
 
 class QuickSearchController extends Controller
 {
@@ -31,77 +32,72 @@ class QuickSearchController extends Controller
         $filters = [
             'deleted_at IS NULL',
             'status = 1',
+            [
+                'category.movie_meta = true',
+                'category.tv_meta = true',
+            ],
+            [
+                'movie.name EXISTS',
+                'tv.name EXISTS',
+            ]
         ];
+
+        // Check if the query is an IMDb or TMDB ID
+        if (preg_match('/^(\d+)$/', $query, $matches)) {
+            $filters[] = 'tmdb = '.$matches[1];
+        }
+
+        if (preg_match('/tt0*(?=(\d{7,}))/', $query, $matches)) {
+            $filters[] = 'imdb = '.$matches[1];
+        }
+
+        $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
+
+        // Perform multi-search
+        $multiSearchResults = $client->multiSearch([
+            (new SearchQuery())
+                ->setIndexUid('torrents')
+                ->setQuery($query)
+                ->setFilter($filters)
+                ->setDistinct('imdb'),
+            (new SearchQuery())
+                ->setIndexUid('people')
+                ->setQuery($query)
+                ->setFederationOptions((new FederationOptions())->setWeight(0.9)),
+        ], ((new MultiSearchFederation()))->setLimit(20));
 
         $results = [];
 
-        // Search for movies
-        $movieResults = Torrent::search($query, function (Indexes $meilisearch, string $query, array $options) use ($filters) {
-            $filters[] = 'category.movie_meta = true';
-            $filters[] = 'movie.name EXISTS';
-            $options['filter'] = $filters;
-            $options['distinct'] = 'movie.id';
-            $options['showRankingScore'] = true;
+        // Process the hits from the multiSearchResults
+        foreach ($multiSearchResults['hits'] as $hit) {
+            if ($hit['_federation']['indexUid'] === 'torrents') {
+                if ($hit['category']['movie_meta'] === true || $hit['category']['tv_meta'] === true) {
+                    $type = $hit['category']['movie_meta'] === true ? 'Movie' : 'TV Series';
+                    $name = $hit['category']['movie_meta'] === true ? $hit['movie']['name'] : $hit['tv']['name'];
+                    $year = $hit['category']['movie_meta'] === true ? $hit['movie']['year'] : $hit['tv']['year'];
+                    $poster = $hit['category']['movie_meta'] === true ? $hit['movie']['poster'] : $hit['tv']['poster'];
+                    $url = route('torrents.similar', ['category_id' => $hit['category']['id'], 'tmdb' => $hit['tmdb']]);
 
-            return $meilisearch->search($query, $options);
-        })->get();
-
-        foreach ($movieResults as $result) {
-            $results[] = [
-                'id'    => $result->id,
-                'name'  => $result->movie->title,
-                'year'  => $result->movie->release_date,
-                'image' => $result->movie->poster ? tmdb_image('poster_small', $result->movie->poster) : 'https://via.placeholder.com/90x135',
-                'url'   => route('torrents.similar', ['category_id' => $result->category->id, 'tmdb' => $result->tmdb]),
-                'type'  => 'Movie',
-                'score' => $result->_rankingInfo['score'] ?? 0,
-            ];
+                    $results[] = [
+                        'id'    => $hit['id'],
+                        'name'  => $name,
+                        'year'  => $year,
+                        'image' => $poster ? tmdb_image('poster_small', $poster) : 'https://via.placeholder.com/90x135',
+                        'url'   => $url,
+                        'type'  => $type,
+                    ];
+                }
+            } elseif ($hit['_federation']['indexUid'] === 'people') {
+                $results[] = [
+                    'id'    => $hit['id'],
+                    'name'  => $hit['name'],
+                    'year'  => $hit['birthday'],
+                    'image' => $hit['still'] ? tmdb_image('poster_small', $hit['still']) : 'https://via.placeholder.com/90x135',
+                    'url'   => route('mediahub.persons.show', ['id' => $hit['id']]),
+                    'type'  => 'Person',
+                ];
+            }
         }
-
-        // Search for TV shows
-        $tvResults = Torrent::search($query, function (Indexes $meilisearch, string $query, array $options) use ($filters) {
-            $filters[] = 'category.tv_meta = true';
-            $filters[] = 'tv.name EXISTS';
-            $options['filter'] = $filters;
-            $options['distinct'] = 'tv.id';
-            $options['showRankingScore'] = true;
-
-            return $meilisearch->search($query, $options);
-        })->get();
-
-        foreach ($tvResults as $result) {
-            $results[] = [
-                'id'    => $result->id,
-                'name'  => $result->tv->name,
-                'year'  => $result->tv->first_air_date,
-                'image' => $result->tv->poster ? tmdb_image('poster_small', $result->tv->poster) : 'https://via.placeholder.com/90x135',
-                'url'   => route('torrents.similar', ['category_id' => $result->category->id, 'tmdb' => $result->tmdb]),
-                'type'  => 'TV Series',
-                'score' => $result->_rankingInfo['score'] ?? 0,
-            ];
-        }
-
-        // Search for persons
-        $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
-        $index = $client->index('people');
-        $personResults = $index->search($query, [
-            'showRankingScore' => true,
-        ]);
-
-        foreach ($personResults->getHits() as $result) {
-            $results[] = [
-                'id'    => $result['id'],
-                'name'  => $result['name'],
-                'year'  => $result['birthday'],
-                'image' => $result['still'] ? tmdb_image('poster_small', $result['still']) : 'https://via.placeholder.com/90x135',
-                'url'   => route('mediahub.persons.show', ['id' => $result['id']]),
-                'type'  => 'Person',
-                'score' => $result['_rankingInfo']['score'] ?? 0,
-            ];
-        }
-
-        // Sort results by score
-        usort($results, fn ($a, $b) => $b['score'] <=> $a['score']);
 
         return response()->json(['results' => $results]);
     }
