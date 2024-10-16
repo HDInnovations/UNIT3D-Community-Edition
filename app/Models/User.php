@@ -958,6 +958,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has many claimed prizes.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ClaimedPrize, $this>
+     */
+    public function claimedPrizes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ClaimedPrize::class);
+    }
+
+    /**
      * Has many donations.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Donation, $this>

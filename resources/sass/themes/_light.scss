@@ -222,6 +222,16 @@
     --post-aside-fg: #696969;
     --post-footer-fg: var(--panel-fg);
 
+    --prize-bg: #f6f6f6;
+    --prize-border-radius: 10px;
+    --prize-border: none;
+    --prize-box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+        0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    --prize-fg: #222;
+    --prize-heading-fg: #222;
+    --prize-icon-primary-color: mediumseagreen;
+    --prize-icon-secondary-color: linen;
+
     --quick-search-bg: #e5e5e5;
     --quick-search-fg: #444;
     --quick-search-border: none;

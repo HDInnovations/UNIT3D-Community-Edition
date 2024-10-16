@@ -162,6 +162,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.events.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-calendar-star"></i>
+                        {{ __('event.events') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.bon_exchanges.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-coins"></i>
