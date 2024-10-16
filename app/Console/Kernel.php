@@ -64,7 +64,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('auto:refund_download')->daily();
         $schedule->command('auth:clear-resets')->daily();
         $schedule->command('auto:sync_torrents_to_meilisearch')->everyFifteenMinutes();
-        $schedule->command('auto:sync_persons_to_meilisearch')->daily();
+        $schedule->command('auto:sync_people_to_meilisearch')->daily();
         $schedule->command('auto:remove_expired_donors')->daily();
         //$schedule->command('auto:ban_disposable_users')->weekends();
         $schedule->command('backup:clean')->daily();

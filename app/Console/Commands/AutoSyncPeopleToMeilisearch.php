@@ -21,14 +21,14 @@ use Exception;
 use Illuminate\Console\Command;
 use Meilisearch\Client;
 
-class AutoSyncPersonsToMeilisearch extends Command
+class AutoSyncPeopleToMeilisearch extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'auto:sync_persons_to_meilisearch';
+    protected $signature = 'auto:sync_people_to_meilisearch';
 
     /**
      * The console command description.
