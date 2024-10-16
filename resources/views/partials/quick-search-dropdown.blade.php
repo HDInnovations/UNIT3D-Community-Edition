@@ -3,9 +3,9 @@
         <input
             class="quick-search__input"
             type="text"
-            placeholder="Search Movie, TV Series or Person"
+            placeholder="Search Movie, TV Series or People"
             x-model="searchText"
-            x-on:input="performSearch"
+            x-on:input.debounce.100ms="performSearch"
             x-ref="quickSearch"
             x-on:keydown.down.prevent="focusNextResult()"
             x-on:keydown.up.prevent="focusPreviousResult()"
