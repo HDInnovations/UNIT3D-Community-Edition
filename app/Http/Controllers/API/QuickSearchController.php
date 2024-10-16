@@ -71,22 +71,16 @@ class QuickSearchController extends Controller
         // Process the hits from the multiSearchResults
         foreach ($multiSearchResults['hits'] as $hit) {
             if ($hit['_federation']['indexUid'] === 'torrents') {
-                if ($hit['category']['movie_meta'] === true || $hit['category']['tv_meta'] === true) {
-                    $type = $hit['category']['movie_meta'] === true ? 'Movie' : 'TV Series';
-                    $name = $hit['category']['movie_meta'] === true ? $hit['movie']['name'] : $hit['tv']['name'];
-                    $year = $hit['category']['movie_meta'] === true ? $hit['movie']['year'] : $hit['tv']['year'];
-                    $poster = $hit['category']['movie_meta'] === true ? $hit['movie']['poster'] : $hit['tv']['poster'];
-                    $url = route('torrents.similar', ['category_id' => $hit['category']['id'], 'tmdb' => $hit['tmdb']]);
+                $type = $hit['category']['movie_meta'] === true ? 'movie' : 'tv';
 
-                    $results[] = [
-                        'id'    => $hit['id'],
-                        'name'  => $name,
-                        'year'  => $year,
-                        'image' => $poster ? tmdb_image('poster_small', $poster) : 'https://via.placeholder.com/90x135',
-                        'url'   => $url,
-                        'type'  => $type,
-                    ];
-                }
+                $results[] = [
+                    'id'    => $hit['id'],
+                    'name'  => $hit[$type]['name'],
+                    'year'  => $hit[$type]['year'],
+                    'image' => $hit[$type]['poster'] ? tmdb_image('poster_small', $hit[$type]['poster']) : 'https://via.placeholder.com/90x135',
+                    'url'   => route('torrents.similar', ['category_id' => $hit['category']['id'], 'tmdb' => $hit['tmdb']]),
+                    'type'  => $type === 'movie' ? 'Movie' : 'TV Series',
+                ];
             } elseif ($hit['_federation']['indexUid'] === 'people') {
                 $results[] = [
                     'id'    => $hit['id'],
