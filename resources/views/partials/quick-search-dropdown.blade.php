@@ -62,9 +62,6 @@
                         .then((response) => response.json())
                         .then((data) => {
                             this.searchResults = data.results.map((result) => {
-                                result.year = result.year
-                                    ? new Date(result.year).getFullYear()
-                                    : '';
                                 return result;
                             });
                         });
