@@ -280,6 +280,7 @@ class Bbcode
     {
         // Replace all void elements since they don't have closing tags
         $source = str_replace('[*]', '<li>', (string) $source);
+        $source = str_replace('[hr]', '<hr>', $source);
         $source = preg_replace_callback(
             '/\[url](.*?)\[\/url]/i',
             fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.$this->sanitizeUrl($matches[1]).'</a>',
