@@ -422,6 +422,7 @@ class TorrentSearch extends Component
         // Whitelist which columns are allowed to be ordered by
         if (!\in_array($this->sortField, [
             'name',
+            'rating',
             'size',
             'seeders',
             'leechers',
@@ -429,6 +430,10 @@ class TorrentSearch extends Component
             'created_at',
             'bumped_at'
         ])) {
+            $this->reset('sortField');
+        }
+
+        if ($this->driver === 'sql' && $this->sortField === 'rating') {
             $this->reset('sortField');
         }
 
