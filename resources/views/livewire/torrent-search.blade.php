@@ -836,7 +836,14 @@
                                 <th class="torrent-search--list__actions-header">
                                     {{ __('common.actions') }}
                                 </th>
-                                <th class="torrent-search--list__ratings-header">Rating</th>
+                                <th
+                                    class="torrent-search--list__ratings-header"
+                                    wire:click="sortBy('rating')"
+                                    role="columnheader button"
+                                >
+                                    Rating
+                                    @include('livewire.includes._sort-icon', ['field' => 'rating'])
+                                </th>
                                 <th
                                     class="torrent-search--list__size-header"
                                     wire:click="sortBy('size')"

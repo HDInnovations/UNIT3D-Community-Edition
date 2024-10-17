@@ -423,6 +423,7 @@ class TorrentSearch extends Component
         // Whitelist which columns are allowed to be ordered by
         if (!\in_array($this->sortField, [
             'name',
+            'rating',
             'size',
             'seeders',
             'leechers',

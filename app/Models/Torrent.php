@@ -283,6 +283,28 @@ class Torrent extends Model
                 LIMIT 1
             ) AS json_resolution,
             (
+                SELECT vote_average
+                FROM movies
+                WHERE
+                    torrents.tmdb = movies.id
+                    AND torrents.category_id in (
+                        SELECT id
+                        FROM categories
+                        WHERE movie_meta = 1
+                    )
+                UNION
+                SELECT vote_average
+                FROM tv
+                WHERE
+                    torrents.tmdb = tv.id
+                    AND torrents.category_id in (
+                        SELECT id
+                        FROM categories
+                        WHERE tv_meta = 1
+                    )
+                LIMIT 1
+            ) AS rating,
+            (
                 SELECT JSON_OBJECT(
                     'id', movies.id,
                     'name', movies.title,
@@ -290,6 +312,7 @@ class Torrent extends Model
                     'poster', movies.poster,
                     'original_language', movies.original_language,
                     'adult', movies.adult != 0,
+                    'rating', movies.vote_average,
                     'companies', (
                         SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
                             'id', companies.id,
@@ -344,6 +367,7 @@ class Torrent extends Model
                     'year', YEAR(tv.first_air_date),
                     'poster', tv.poster,
                     'original_language', tv.original_language,
+                    'rating', tv.vote_average,
                     'companies', (
                         SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
                             'id', companies.id,
@@ -831,6 +855,7 @@ class Torrent extends Model
             'region_id',
             'personal_release',
             'info_hash',
+            'rating',
             'json_user',
             'json_type',
             'json_category',
@@ -901,6 +926,7 @@ class Torrent extends Model
             'region_id'          => $torrent->region_id,
             'personal_release'   => (bool) $torrent->personal_release,
             'info_hash'          => bin2hex($torrent->info_hash),
+            'rating'             => (float) $torrent->rating, /** @phpstan-ignore property.notFound (This property is selected in the query but doesn't exist on the model) */
             'user'               => json_decode($torrent->json_user ?? 'null'),
             'type'               => json_decode($torrent->json_type ?? 'null'),
             'category'           => json_decode($torrent->json_category ?? 'null'),
