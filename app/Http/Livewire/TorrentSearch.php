@@ -35,8 +35,9 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Meilisearch\Endpoints\Indexes;
 use Closure;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Meilisearch\Client;
 
 class TorrentSearch extends Component
 {
@@ -432,10 +433,7 @@ class TorrentSearch extends Component
             $this->reset('sortField');
         }
 
-        // Only allow sql for now to prevent user complaints of limiting page count to 1000 results (meilisearch limitation).
-        // However, eventually we want to switch to meilisearch only to reduce server load.
-        // $isSqlAllowed = $user->group->is_modo && $this->driver === 'sql';
-        $isSqlAllowed = $this->driver !== 'sql';
+        $isSqlAllowed = $user->group->is_modo && $this->driver === 'sql';
 
         $eagerLoads = fn (Builder $query) => $query
             ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
@@ -486,23 +484,30 @@ class TorrentSearch extends Component
             $eagerLoads($torrents);
             $torrents = $torrents->paginate(min($this->perPage, 100));
         } else {
-            $torrents = Torrent::search(
-                $this->name,
-                function (Indexes $meilisearch, string $query, array $options) {
-                    $options['sort'] = [
-                        'sticky:desc',
-                        $this->sortField.':'.$this->sortDirection,
-                    ];
-                    $options['filter'] = $this->filters()->toMeilisearchFilter();
-                    $options['matchingStrategy'] = 'all';
+            $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
+            $index = $client->getIndex('torrents');
 
-                    $results = $meilisearch->search($query, $options);
+            $results = $index->search($this->name, [
+                'sort' => [
+                    'sticky:desc',
+                    $this->sortField.':'.$this->sortDirection,
+                ],
+                'filter'               => $this->filters()->toMeilisearchFilter(),
+                'matchingStrategy'     => 'all',
+                'page'                 => $this->getPage(),
+                'hitsPerPage'          => min($this->perPage, 100),
+                'attributesToRetrieve' => ['id'],
+            ]);
 
-                    return $results;
-                }
-            )
-                ->query($eagerLoads)
-                ->paginate(min($this->perPage, 100));
+            $ids = array_column($results->getHits(), 'id');
+
+            $torrents = Torrent::query()->whereIntegerInRaw('id', $ids);
+
+            $eagerLoads($torrents);
+
+            $torrents = $torrents->get();
+
+            $torrents = new LengthAwarePaginator($torrents, $results->getTotalHits(), $this->perPage, $this->getPage());
         }
 
         // See app/Traits/TorrentMeta.php
