@@ -154,6 +154,7 @@ CREATE TABLE `audits` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `audits_user_id_foreign` (`user_id`),
+  KEY `audits_user_id_action_created_at_index` (`user_id`,`action`,`created_at`),
   CONSTRAINT `audits_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -303,7 +304,7 @@ DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `position` int NOT NULL,
@@ -313,7 +314,6 @@ CREATE TABLE `categories` (
   `game_meta` tinyint(1) NOT NULL DEFAULT '0',
   `tv_meta` tinyint(1) NOT NULL DEFAULT '0',
   `movie_meta` tinyint(1) NOT NULL DEFAULT '0',
-  `num_torrent` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -342,6 +342,24 @@ CREATE TABLE `chatrooms` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `chatrooms_name_unique` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `claimed_prizes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `claimed_prizes` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `event_id` int unsigned NOT NULL,
+  `bon` bigint unsigned NOT NULL,
+  `fl_tokens` int unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `claimed_prizes_event_id_foreign` (`event_id`),
+  KEY `claimed_prizes_user_id_foreign` (`user_id`),
+  CONSTRAINT `claimed_prizes_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`),
+  CONSTRAINT `claimed_prizes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `collection_movie`;
@@ -438,7 +456,7 @@ DROP TABLE IF EXISTS `conversations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `conversations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -476,6 +494,62 @@ CREATE TABLE `distributors` (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `distributors_name_index` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `donation_gateways`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `donation_gateways` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `position` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `donation_packages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `donation_packages` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `position` int NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cost` decimal(6,2) NOT NULL,
+  `upload_value` bigint unsigned DEFAULT NULL,
+  `invite_value` bigint unsigned DEFAULT NULL,
+  `bonus_value` bigint unsigned DEFAULT NULL,
+  `donor_value` bigint unsigned DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `donation_packages_position_index` (`position`),
+  KEY `donation_packages_is_active_index` (`is_active`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `donations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `donations` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `gifted_user_id` int unsigned DEFAULT NULL,
+  `status` tinyint NOT NULL DEFAULT '0',
+  `package_id` int unsigned NOT NULL,
+  `transaction` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_gifted` tinyint(1) NOT NULL DEFAULT '0',
+  `starts_at` date DEFAULT NULL,
+  `ends_at` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `donations_user_id_index` (`user_id`),
+  KEY `donations_gifted_user_id_index` (`gifted_user_id`),
+  KEY `donations_package_id_index` (`package_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `email_updates`;
@@ -516,6 +590,22 @@ CREATE TABLE `episodes` (
   KEY `episodes_tv_id_foreign` (`tv_id`),
   CONSTRAINT `episodes_season_id_foreign` FOREIGN KEY (`season_id`) REFERENCES `seasons` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `episodes_tv_id_foreign` FOREIGN KEY (`tv_id`) REFERENCES `tv` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `events`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `events` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `starts_at` date NOT NULL,
+  `ends_at` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `failed_jobs`;
@@ -749,6 +839,7 @@ CREATE TABLE `groups` (
   `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `effect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
+  `is_uploader` tinyint(1) NOT NULL DEFAULT '0',
   `is_internal` tinyint(1) NOT NULL DEFAULT '0',
   `is_editor` tinyint(1) NOT NULL DEFAULT '0',
   `is_owner` tinyint(1) NOT NULL DEFAULT '0',
@@ -759,6 +850,10 @@ CREATE TABLE `groups` (
   `is_freeleech` tinyint(1) NOT NULL DEFAULT '0',
   `is_double_upload` tinyint(1) NOT NULL DEFAULT '0',
   `is_refundable` tinyint(1) NOT NULL DEFAULT '0',
+  `can_chat` tinyint(1) NOT NULL,
+  `can_comment` tinyint(1) NOT NULL,
+  `can_invite` tinyint(1) NOT NULL,
+  `can_request` tinyint(1) NOT NULL,
   `can_upload` tinyint(1) NOT NULL DEFAULT '1',
   `is_incognito` tinyint(1) NOT NULL DEFAULT '0',
   `autogroup` tinyint(1) NOT NULL DEFAULT '0',
@@ -779,7 +874,6 @@ DROP TABLE IF EXISTS `history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `history` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `torrent_id` int unsigned NOT NULL,
   `agent` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -799,14 +893,14 @@ CREATE TABLE `history` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `completed_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `history_user_id_torrent_id_unique` (`user_id`,`torrent_id`),
+  PRIMARY KEY (`user_id`,`torrent_id`),
   KEY `history_user_id_foreign` (`user_id`),
   KEY `history_immune_index` (`immune`),
   KEY `history_hitrun_index` (`hitrun`),
   KEY `history_user_id_torrent_id_index` (`user_id`,`torrent_id`),
   KEY `history_torrent_id_foreign` (`torrent_id`),
   KEY `history_idx_prewa_hitru_immun_activ_actua` (`prewarned_at`,`hitrun`,`immune`,`active`,`actual_downloaded`),
+  KEY `history_torrent_id_completed_at_created_at_index` (`torrent_id`,`completed_at`,`created_at`),
   CONSTRAINT `history_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `history_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1113,6 +1207,18 @@ CREATE TABLE `passkeys` (
   CONSTRAINT `passkeys_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `password_reset_histories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `password_reset_histories` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `password_reset_histories_user_id_foreign` (`user_id`),
+  CONSTRAINT `password_reset_histories_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `password_resets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1129,7 +1235,6 @@ DROP TABLE IF EXISTS `peers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `peers` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `peer_id` binary(20) NOT NULL,
   `ip` varbinary(16) NOT NULL,
   `port` smallint unsigned NOT NULL,
@@ -1145,8 +1250,7 @@ CREATE TABLE `peers` (
   `connectable` tinyint(1) NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL,
   `visible` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `peers_user_id_torrent_id_peer_id_unique` (`user_id`,`torrent_id`,`peer_id`),
+  PRIMARY KEY (`user_id`,`torrent_id`,`peer_id`),
   KEY `peers_idx_seeder_user_id` (`seeder`,`user_id`),
   KEY `peers_torrent_id_foreign` (`torrent_id`),
   KEY `peers_active_index` (`active`),
@@ -1238,6 +1342,7 @@ CREATE TABLE `polls` (
   `user_id` int unsigned NOT NULL DEFAULT '0',
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `multiple_choice` tinyint(1) NOT NULL DEFAULT '0',
+  `expires_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1299,6 +1404,23 @@ CREATE TABLE `private_messages` (
   CONSTRAINT `private_messages_sender_id_foreign` FOREIGN KEY (`sender_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `prizes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `prizes` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `event_id` int unsigned NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `min` int unsigned NOT NULL,
+  `max` int unsigned NOT NULL,
+  `weight` int unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `prizes_event_id_foreign` (`event_id`),
+  CONSTRAINT `prizes_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `recommendations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1353,6 +1475,7 @@ CREATE TABLE `reports` (
   `reported_user` int unsigned DEFAULT NULL,
   `torrent_id` int unsigned DEFAULT NULL,
   `request_id` int unsigned DEFAULT NULL,
+  `snoozed_until` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `reports_reporter_id_foreign` (`reporter_id`),
   KEY `reports_staff_id_foreign` (`staff_id`),
@@ -1404,7 +1527,7 @@ DROP TABLE IF EXISTS `requests`;
 CREATE TABLE `requests` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `category_id` int NOT NULL,
+  `category_id` smallint unsigned NOT NULL,
   `imdb` int unsigned DEFAULT NULL,
   `tvdb` int unsigned DEFAULT NULL,
   `tmdb` int unsigned DEFAULT NULL,
@@ -1424,8 +1547,8 @@ CREATE TABLE `requests` (
   `filled_anon` tinyint(1) NOT NULL DEFAULT '0',
   `approved_by` int unsigned DEFAULT NULL,
   `approved_when` datetime DEFAULT NULL,
-  `type_id` int NOT NULL,
-  `resolution_id` int DEFAULT NULL,
+  `type_id` smallint unsigned NOT NULL,
+  `resolution_id` smallint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   KEY `imdb` (`imdb`),
@@ -1440,8 +1563,11 @@ CREATE TABLE `requests` (
   KEY `requests_approved_by_foreign` (`approved_by`),
   KEY `requests_torrent_id_foreign` (`torrent_id`),
   CONSTRAINT `requests_approved_by_foreign` FOREIGN KEY (`approved_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `requests_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `requests_filled_by_foreign` FOREIGN KEY (`filled_by`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `requests_resolution_id_foreign` FOREIGN KEY (`resolution_id`) REFERENCES `resolutions` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `requests_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `requests_type_id_foreign` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `requests_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `check_requests_bounty` CHECK ((`bounty` >= 0))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1450,7 +1576,7 @@ DROP TABLE IF EXISTS `resolutions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `resolutions` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
   PRIMARY KEY (`id`)
@@ -1735,7 +1861,7 @@ CREATE TABLE `topics` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `pinned` tinyint(1) NOT NULL DEFAULT '0',
+  `priority` tinyint unsigned NOT NULL,
   `approved` tinyint(1) NOT NULL DEFAULT '0',
   `denied` tinyint(1) NOT NULL DEFAULT '0',
   `solved` tinyint(1) NOT NULL DEFAULT '0',
@@ -1802,6 +1928,23 @@ CREATE TABLE `torrent_tips` (
   CONSTRAINT `torrent_tips_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `torrent_trumps`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `torrent_trumps` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `torrent_id` int unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
+  `reason` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `torrent_trumps_torrent_id_user_id_unique` (`torrent_id`,`user_id`),
+  KEY `torrent_trumps_user_id_foreign` (`user_id`),
+  CONSTRAINT `torrent_trumps_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `torrent_trumps_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `torrents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -1809,7 +1952,7 @@ CREATE TABLE `torrents` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mediainfo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `mediainfo` longtext COLLATE utf8mb4_unicode_ci,
   `bdinfo` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `num_file` int NOT NULL,
@@ -1819,7 +1962,7 @@ CREATE TABLE `torrents` (
   `leechers` int NOT NULL DEFAULT '0',
   `seeders` int NOT NULL DEFAULT '0',
   `times_completed` int NOT NULL DEFAULT '0',
-  `category_id` int DEFAULT NULL,
+  `category_id` smallint unsigned DEFAULT NULL,
   `user_id` int unsigned NOT NULL,
   `imdb` int unsigned NOT NULL DEFAULT '0',
   `tvdb` int unsigned NOT NULL DEFAULT '0',
@@ -1847,9 +1990,8 @@ CREATE TABLE `torrents` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   `fl_until` datetime DEFAULT NULL,
   `du_until` datetime DEFAULT NULL,
-  `release_year` smallint unsigned DEFAULT NULL,
-  `type_id` int NOT NULL,
-  `resolution_id` int DEFAULT NULL,
+  `type_id` smallint unsigned DEFAULT NULL,
+  `resolution_id` smallint unsigned DEFAULT NULL,
   `distributor_id` int DEFAULT NULL,
   `region_id` int DEFAULT NULL,
   `personal_release` int NOT NULL DEFAULT '0',
@@ -1865,7 +2007,6 @@ CREATE TABLE `torrents` (
   KEY `mal` (`mal`),
   KEY `moderated_by` (`moderated_by`),
   KEY `torrents_igdb_index` (`igdb`),
-  KEY `torrents_release_year_index` (`release_year`),
   KEY `torrents_type_id_index` (`type_id`),
   KEY `torrents_resolution_id_index` (`resolution_id`),
   KEY `torrents_personal_release_index` (`personal_release`),
@@ -1888,7 +2029,12 @@ CREATE TABLE `torrents` (
   KEY `torrents_info_hash_index` (`info_hash`),
   KEY `torrents_user_id_anon_status_created_at_index` (`user_id`,`anon`,`status`,`created_at`),
   KEY `torrents_status_sticky_created_at_index` (`status`,`sticky`,`created_at`),
-  CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  KEY `torrents_user_id_status_anon_deleted_at_index` (`user_id`,`status`,`anon`,`deleted_at`),
+  KEY `torrents_name_index` (`name`),
+  KEY `torrents_category_id_status_deleted_at_tmdb_size_index` (`category_id`,`status`,`deleted_at`,`tmdb`,`size`),
+  CONSTRAINT `torrents_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT,
+  CONSTRAINT `torrents_resolution_id_foreign` FOREIGN KEY (`resolution_id`) REFERENCES `resolutions` (`id`) ON DELETE RESTRICT,
+  CONSTRAINT `torrents_type_id_foreign` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `torrents_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1934,7 +2080,7 @@ DROP TABLE IF EXISTS `types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `types` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
   PRIMARY KEY (`id`)
@@ -2149,14 +2295,14 @@ CREATE TABLE `user_settings` (
   `user_id` int unsigned NOT NULL,
   `censor` tinyint(1) NOT NULL DEFAULT '0',
   `chat_hidden` tinyint(1) NOT NULL DEFAULT '0',
-  `locale` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
+  `locale` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
   `style` tinyint unsigned NOT NULL DEFAULT '0',
   `torrent_layout` tinyint unsigned NOT NULL DEFAULT '0',
   `torrent_filters` tinyint(1) NOT NULL DEFAULT '0',
-  `custom_css` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `standalone_css` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `custom_css` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `standalone_css` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `show_poster` tinyint(1) NOT NULL DEFAULT '0',
-  `torrent_sort_field` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `torrent_sort_field` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `torrent_search_autofocus` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -2182,6 +2328,7 @@ CREATE TABLE `users` (
   `uploaded` bigint unsigned NOT NULL DEFAULT '0',
   `downloaded` bigint unsigned NOT NULL DEFAULT '0',
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `about` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `signature` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
@@ -2192,12 +2339,14 @@ CREATE TABLE `users` (
   `rsskey` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `chatroom_id` int unsigned NOT NULL DEFAULT '1',
   `read_rules` tinyint(1) NOT NULL DEFAULT '0',
-  `can_chat` tinyint(1) NOT NULL DEFAULT '1',
-  `can_comment` tinyint(1) NOT NULL DEFAULT '1',
+  `can_chat` tinyint(1) DEFAULT NULL,
+  `can_comment` tinyint(1) DEFAULT NULL,
   `can_download` tinyint(1) NOT NULL DEFAULT '1',
-  `can_request` tinyint(1) NOT NULL DEFAULT '1',
-  `can_invite` tinyint(1) NOT NULL DEFAULT '1',
-  `can_upload` tinyint(1) NOT NULL DEFAULT '1',
+  `can_invite` tinyint(1) DEFAULT NULL,
+  `can_request` tinyint(1) DEFAULT NULL,
+  `can_upload` tinyint(1) DEFAULT NULL,
+  `is_donor` tinyint(1) NOT NULL DEFAULT '0',
+  `is_lifetime` tinyint(1) NOT NULL DEFAULT '0',
   `remember_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `api_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
@@ -2650,3 +2799,25 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (302,'2024_06_06_04
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (303,'2024_06_09_052006_drop_useless_columns_from_bots',7);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (304,'2024_06_14_005443_add_soft_deletes_to_torrents_table',7);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (305,'2024_06_23_202341_add_prewarned_at_to_history',7);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (306,'2024_05_06_212348_create_donations_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (307,'2024_05_06_212410_create_donation_packages_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (308,'2024_05_06_212446_create_donation_gateways_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (309,'2024_06_13_125854_add_is_uploader_to_groups_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (310,'2024_06_13_185043_add_donation_columns_to_users_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (311,'2024_07_02_082323_add_indexes_to_torrents_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (312,'2024_07_16_083832_add_composite_primary_key_to_peers',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (313,'2024_07_19_143828_add_priority_to_topics',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (314,'2024_07_23_054141_add_composite_primary_key_to_history',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (315,'2024_07_23_054751_create_torrent_trumps_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (316,'2024_07_23_153202_add_poll_expiry',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (317,'2024_07_26_211112_fix_some_user_group_perms',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (318,'2024_07_28_231553_update_cat_type_res_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (319,'2024_08_14_012412_drop_release_year_from_torrents_table',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (320,'2024_08_17_140412_create_password_reset_history',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (321,'2024_08_25_121227_drop_num_torrent_from_categories',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (322,'2024_08_26_085452_fix_bot_systembot_nerdbot_flags',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (323,'2024_09_02_224259_alter_reports_add_snooze_until',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (324,'2024_09_27_072554_add_indexes_to_audits',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (325,'2024_09_29_041904_add_indexes_for_top10_performance',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (326,'2024_10_10_140532_update_mediainfo_from_text_to_longtext',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (327,'2024_10_13_221353_create_events_claimed_prizes_tables',8);
