@@ -166,7 +166,7 @@
                             </label>
                         </p>
                         <p class="form__group">
-                            <input class="form__text" type="text" value="" id="proof" />
+                            <input class="form__text" type="text" value="" id="proof" name="transaction" />
                             <label for="proof" class="form__label form__label--floating">
                                 Tx hash, Receipt number, Etc
                             </label>
