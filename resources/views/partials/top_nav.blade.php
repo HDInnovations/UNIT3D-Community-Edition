@@ -1,3 +1,6 @@
+@use(App\Models\Donation)
+@use(Illuminate\Support\Carbon)
+
 <nav class="top-nav" x-data="{ expanded: false }" x-bind:class="expanded && 'mobile'">
     <div class="top-nav__left">
         <a class="top-nav__branding" href="{{ route('home.index') }}">
@@ -247,15 +250,21 @@
         @if (config('donation.is_enabled'))
             <li class="top-nav__dropdown">
                 @php
-                    $sum = App\Models\Donation::whereMonth('created_at', date('m'))
-                        ->whereYear('created_at', date('Y'))
-                        ->where('status', App\Models\Donation::APPROVED)
-                        ->with('package')
-                        ->get()
-                        ->sum(function ($donation) {
-                            return $donation->package->cost;
-                        });
-                    $percentage = $sum ? min(100, number_format(($sum / config('donation.monthly_goal')) * 100)) : 0;
+                    $goal = config('donation.goal');
+
+                    $startDate = config('donation.start_date');
+
+                    $sum = Donation::join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
+                        ->where('donations.status', Donation::APPROVED)
+                        ->when(
+                            config('donation.goal_type') === 'yearly',
+                            fn ($query) => $query->whereBetween('donations.created_at', [Carbon::parse($startDate), Carbon::parse($startDate)->addYear()]),
+                            fn ($query) => $query->whereBetween('donations.created_at', [now()->startOfMonth(), now()->endOfMonth()])
+                        )
+                        ->where('donation_packages.cost', '>', 0)
+                        ->sum('donation_packages.cost');
+
+                    $percentage = $goal > 0 && $sum > 0 ? number_format(($sum / $goal) * 100) : 0;
                 @endphp
 
                 <a tabindex="0" title="{{ $percentage }}% filled">
@@ -278,7 +287,7 @@
                                 "
                                 aria-valuenow="{{ $percentage ?? 0 }}"
                                 aria-valuemin="0"
-                                aria-valuemax="{{ config('donation.monthly_goal') }}"
+                                aria-valuemax="{{ $goal }}"
                             ></div>
                         </div>
                     </div>
