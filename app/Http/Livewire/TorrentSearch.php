@@ -505,7 +505,7 @@ class TorrentSearch extends Component
 
             $eagerLoads($torrents);
 
-            $torrents = $torrents->get();
+            $torrents = $torrents->get()->sortBy(fn ($torrent) => array_search($torrent->id, $ids));
 
             $torrents = new LengthAwarePaginator($torrents, $results->getTotalHits(), $this->perPage, $this->getPage());
         }
