@@ -7,8 +7,8 @@
             x-model="searchText"
             x-on:input.debounce.100ms="performSearch"
             x-ref="quickSearch"
-            x-on:keydown.down.prevent="focusNextResult()"
-            x-on:keydown.up.prevent="focusPreviousResult()"
+            x-on:keydown.down.prevent="focusFirstResult"
+            x-on:keydown.up.prevent="focusLastResult"
             x-on:focus="searchPerformed = true"
         />
         <template x-if="searchPerformed && searchResults.length === 0">
@@ -23,8 +23,8 @@
                 <template x-for="result in searchResults" :key="result.id">
                     <article
                         class="quick-search__result"
-                        x-on:keydown.down.prevent="focusNextResult($el)"
-                        x-on:keydown.up.prevent="focusPreviousResult($el)"
+                        x-on:keydown.down.prevent="focusNextResult"
+                        x-on:keydown.up.prevent="focusPreviousResult"
                     >
                         <a class="quick-search__result-link" :href="result.url">
                             <img class="quick-search__image" :src="result.image" alt="" />
@@ -71,17 +71,26 @@
                     this.searchResults = [];
                     this.searchPerformed = false;
                 },
+                focusFirstResult() {
+                    document.querySelector('[x-ref="searchResults"]').querySelector('a').focus();
+                },
+                focusLastResult() {
+                    document
+                        .querySelector('[x-ref="searchResults"]')
+                        .querySelector('article:last-child > a')
+                        .focus();
+                },
                 focusNextResult() {
                     const el = this.$el;
                     if (el.nextElementSibling === null) {
-                        el.parentNode?.firstElementChild?.firstElementChild?.focus();
+                        el.parentNode?.firstElementChild?.nextElementSibling?.firstElementChild?.focus();
                     } else {
                         el.nextElementSibling?.firstElementChild?.focus();
                     }
                 },
                 focusPreviousResult() {
                     const el = this.$el;
-                    if (el.previousElementSibling === null) {
+                    if (el.previousElementSibling.tagName === 'TEMPLATE') {
                         this.$refs.quickSearch.focus();
                     } else {
                         el.previousElementSibling?.firstElementChild?.focus();
