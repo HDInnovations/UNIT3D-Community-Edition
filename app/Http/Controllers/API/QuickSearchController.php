@@ -43,28 +43,39 @@ class QuickSearchController extends Controller
         ];
 
         // Check if the query is an IMDb or TMDB ID
+        $searchById = false;
+
         if (preg_match('/^(\d+)$/', $query, $matches)) {
             $filters[] = 'tmdb = '.$matches[1];
+            $searchById = true;
         }
 
         if (preg_match('/tt0*(?=(\d{7,}))/', $query, $matches)) {
             $filters[] = 'imdb = '.$matches[1];
+            $searchById = true;
         }
 
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
 
-        // Perform multi-search
-        $multiSearchResults = $client->multiSearch([
+        // Prepare the search queries
+        $searchQueries = [
             (new SearchQuery())
                 ->setIndexUid('torrents')
-                ->setQuery($query)
+                ->setQuery($searchById ? '' : $query)
                 ->setFilter($filters)
-                ->setDistinct('imdb'),
-            (new SearchQuery())
+                ->setDistinct('imdb')
+        ];
+
+        // Add the people search query only if it's not an ID search
+        if (!$searchById) {
+            $searchQueries[] = (new SearchQuery())
                 ->setIndexUid('people')
-                ->setQuery($query)
-                ->setFederationOptions((new FederationOptions())->setWeight(0.9)),
-        ], ((new MultiSearchFederation()))->setLimit(20));
+                ->setQuery($query);
+            //->setFederationOptions((new FederationOptions())->setWeight(0.9));
+        }
+
+        // Perform multi-search with MultiSearchFederation
+        $multiSearchResults = $client->multiSearch($searchQueries, ((new MultiSearchFederation()))->setLimit(20));
 
         $results = [];
 
