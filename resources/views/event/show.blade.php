@@ -69,7 +69,7 @@
                                     <i class="events__prize-message">{{ __('common.expired') }}</i>
                                 @else
                                     <i
-                                        class="events__prize-icon events__prize-icon--today-unclaimed fad {{ $event->icon }}"
+                                        class="events__prize-icon events__prize-icon--today-unclaimed fad {{ $event->icon }} fa-beat-fade"
                                     ></i>
                                     <form
                                         class="form"
