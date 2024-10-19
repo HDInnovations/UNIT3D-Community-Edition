@@ -176,7 +176,7 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->keywords !== []) {
-            $filters[] = 'keywords.name IN '.json_encode($this->keywords);
+            $filters[] = 'keywords IN '.json_encode($this->keywords);
         }
 
         if ($this->startYear !== null) {
