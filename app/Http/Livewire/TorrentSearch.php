@@ -418,7 +418,7 @@ class TorrentSearch extends Component
     #[Computed]
     final public function torrents(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $user = auth()->user();
+        $user = auth()->user()->load('group');
 
         // Whitelist which columns are allowed to be ordered by
         if (!\in_array($this->sortField, [
@@ -433,7 +433,7 @@ class TorrentSearch extends Component
             $this->reset('sortField');
         }
 
-        $isSqlAllowed = $user->group->is_modo && $this->driver === 'sql';
+        $isSqlAllowed = ($user->group->is_modo || $user->group->is_editor) && $this->driver === 'sql';
 
         $eagerLoads = fn (Builder $query) => $query
             ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
