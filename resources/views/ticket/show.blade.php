@@ -24,7 +24,51 @@
     </section>
     @if ($user->group->is_modo)
         <section class="panelV2">
-            <h2 class="panel__heading">{{ __('ticket.staff-notes') }}</h2>
+            <header class="panel__header">
+                <h2 class="panel__heading">{{ __('ticket.staff-notes') }}</h2>
+                <div class="panel__actions">
+                    <div class="panel__action" x-data="dialog">
+                        <button class="form__button form__button--text" x-bind="showDialog">
+                            {{ __('common.add') }}
+                        </button>
+                        <dialog class="dialog" x-bind="dialogElement">
+                            <h4 class="dialog__heading">Add Staff Note</h4>
+                            <form
+                                class="dialog__form"
+                                method="POST"
+                                action="{{ route('tickets.note.store', ['ticket' => $ticket]) }}"
+                                x-bind="dialogForm"
+                            >
+                                @csrf
+                                <p class="form__group">
+                                    <textarea
+                                        id="message"
+                                        class="form__textarea"
+                                        name="message"
+                                        type="text"
+                                        required
+                                    ></textarea>
+                                    <label class="form__label form__label--floating" for="message">
+                                        Message
+                                    </label>
+                                </p>
+                                <p class="form__group">
+                                    <button class="form__button form__button--filled">
+                                        {{ __('common.add') }}
+                                    </button>
+                                    <button
+                                        formmethod="dialog"
+                                        formnovalidate
+                                        class="form__button form__button--outlined"
+                                    >
+                                        {{ __('common.cancel') }}
+                                    </button>
+                                </p>
+                            </form>
+                        </dialog>
+                    </div>
+                </div>
+            </header>
             <div class="data-table-wrapper">
                 <table class="data-table">
                     <thead>
@@ -56,12 +100,15 @@
                                             <form
                                                 action="{{ route('tickets.note.destroy', ['ticket' => $ticket]) }}"
                                                 method="POST"
+                                                x-data="confirmation"
                                             >
                                                 @csrf
                                                 @method('DELETE')
                                                 <p class="form__group form__group--horizontal">
                                                     <button
-                                                        class="form__button form__button--filled form__button--centered"
+                                                        x-on:click.prevent="confirmAction"
+                                                        data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete this note: ' . $note->message . '?') }}"
+                                                        class="form__button form__button--text form__button--centered"
                                                     >
                                                         {{ __('ticket.delete') }}
                                                     </button>
@@ -176,49 +223,6 @@
                     </p>
                 </form>
 
-                <div class="form__group form__group--horizontal" x-data="dialog">
-                    <button
-                        class="form__button form__button--filled form__button--centered"
-                        x-bind="showDialog"
-                    >
-                        Staff Note
-                    </button>
-                    <dialog class="dialog" x-bind="dialogElement">
-                        <h4 class="dialog__heading">Add Staff Note</h4>
-                        <form
-                            class="dialog__form"
-                            method="POST"
-                            action="{{ route('tickets.note.store', ['ticket' => $ticket]) }}"
-                            x-bind="dialogForm"
-                        >
-                            @csrf
-                            <p class="form__group">
-                                <textarea
-                                    id="message"
-                                    class="form__textarea"
-                                    name="message"
-                                    type="text"
-                                    required
-                                ></textarea>
-                                <label class="form__label form__label--floating" for="message">
-                                    Message
-                                </label>
-                            </p>
-                            <p class="form__group">
-                                <button class="form__button form__button--filled">
-                                    {{ __('common.add') }}
-                                </button>
-                                <button
-                                    formmethod="dialog"
-                                    formnovalidate
-                                    class="form__button form__button--outlined"
-                                >
-                                    {{ __('common.cancel') }}
-                                </button>
-                            </p>
-                        </form>
-                    </dialog>
-                </div>
                 @if ($ticket->staff_id !== null)
                     <form
                         action="{{ route('tickets.assignee.destroy', ['ticket' => $ticket]) }}"
