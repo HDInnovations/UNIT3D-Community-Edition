@@ -314,8 +314,10 @@ class Torrent extends Model
                             WHERE genre_movie.movie_id = torrents.tmdb
                         )
                     ),
-                    'collection_id', (
-                        SELECT collection_movie.collection_id
+                    'collection', (
+                        SELECT JSON_OBJECT(
+                            'id', collection_movie.collection_id
+                        )
                         FROM collection_movie
                         WHERE movies.id = collection_movie.movie_id
                         LIMIT 1
