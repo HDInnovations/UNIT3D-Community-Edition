@@ -53,7 +53,7 @@ class TrackerException extends Exception
         138 => 'You have reached a rate limit. You can only seed/leech a single torrent from upto :limit locations.',
 
         // Error message about User Account
-        140 => 'Passkey does not esist! Please Re-download the .torrent',
+        140 => 'Passkey does not exist! Please Re-download the .torrent',
         141 => 'Your account is not enabled! ( Current `:status` )',
         142 => 'Your downloading privileges have been disabled! (Read the rules)',
 
