@@ -178,6 +178,7 @@ return [
                     'internal',
                     'deleted_at',
                     'personal_release',
+                    'trumpable',
                     'info_hash',
                     'history_seeders.user_id',
                     'history_leechers.user_id',
