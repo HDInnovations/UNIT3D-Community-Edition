@@ -218,6 +218,7 @@ return [
                 ],
                 'sortableAttributes' => [
                     'name',
+                    'rating',
                     'size',
                     'seeders',
                     'leechers',
