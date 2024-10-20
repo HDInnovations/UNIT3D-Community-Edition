@@ -486,9 +486,9 @@ class TorrentController extends BaseController
      */
     public function filter(Request $request): TorrentsResource|\Illuminate\Http\JsonResponse
     {
-        $user = auth()->user();
+        $user = auth()->user()->load('group');
         $isRegexAllowed = $user->group->is_modo;
-        $isSqlAllowed = $user->group->is_modo && $request->driver === 'sql';
+        $isSqlAllowed = ($user->group->is_modo || $user->group->is_editor) && $request->driver === 'sql';
 
         $request->validate([
             'sortField' => [
