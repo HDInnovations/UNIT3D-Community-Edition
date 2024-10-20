@@ -292,7 +292,7 @@ class TorrentBuffController extends Controller
                 \sprintf('Ladies and Gents, [url=%s]%s[/url] is now refundable! Grab It While You Can!', $torrent_url, $torrent->name)
             );
         } else {
-            $torrent->refundable = 0;
+            $torrent->refundable = false;
 
             $this->chatRepository->systemMessage(
                 \sprintf('Ladies and Gents, [url=%s]%s[/url] is no longer refundable!', $torrent_url, $torrent->name)
