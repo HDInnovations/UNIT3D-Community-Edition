@@ -371,11 +371,6 @@ parameters:
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Torrent\\:\\:\\$refundable \\(bool\\) does not accept int\\.$#"
-			count: 1
-			path: app/Http/Controllers/TorrentBuffController.php
-
-		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/TorrentController.php

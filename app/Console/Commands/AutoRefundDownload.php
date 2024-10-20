@@ -64,8 +64,8 @@ class AutoRefundDownload extends Command
             ->whereColumn('torrents.user_id', '!=', 'history.user_id')
             ->when(!config('other.refundable'), fn ($query) => $query->where(
                 fn ($query) => $query
-                    ->where('groups.is_refundable', '=', 1)
-                    ->orWhere('torrents.refundable', '=', 1)
+                    ->where('groups.is_refundable', '=', true)
+                    ->orWhere('torrents.refundable', '=', true)
             ))
             ->update([
                 'history.refunded_download' => DB::raw('history.refunded_download + (@delta := LEAST(1, history.seedtime / '.(int) $FULL_REFUND_SEEDTIME.') * torrents.size - history.refunded_download)'),
