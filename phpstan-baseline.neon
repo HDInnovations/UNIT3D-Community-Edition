@@ -321,11 +321,6 @@ parameters:
 			path: app/Http/Controllers/SimilarTorrentController.php
 
 		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_if expects bool, int given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/ChatBotController.php
-
-		-
 			message: "#^Call to function is_int\\(\\) with string\\|null will always evaluate to false\\.$#"
 			count: 1
 			path: app/Http/Controllers/Staff/ChatRoomController.php
