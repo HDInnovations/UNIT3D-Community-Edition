@@ -311,11 +311,6 @@ parameters:
 			path: app/Http/Controllers/HomeController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(int\\) does not accept true\\.$#"
-			count: 2
-			path: app/Http/Controllers/RssController.php
-
-		-
 			message: "#^Unable to resolve the template type TKey in call to function collect$#"
 			count: 2
 			path: app/Http/Controllers/SimilarTorrentController.php
@@ -364,16 +359,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\DonationGatewayController\\:\\:store\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/Staff/DonationGatewayController.php
-
-		-
-			message: "#^Parameter \\#1 \\$boolean of function abort_if expects bool, int given\\.$#"
-			count: 3
-			path: app/Http/Controllers/Staff/RssController.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Rss\\:\\:\\$is_private \\(int\\) does not accept false\\.$#"
-			count: 1
-			path: app/Http/Controllers/Staff/RssController.php
 
 		-
 			message: "#^Access to an undefined property App\\\\Models\\\\Group\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Group\\>\\:\\:\\$level\\.$#"
