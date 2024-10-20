@@ -34,15 +34,8 @@ class YearlyOverviewController extends Controller
      */
     public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
     {
-        // Site Years
-        $siteYears = collect();
-
-        for ($currentYear = (int) date('Y', strtotime('-1 year')); $currentYear >= date('Y', strtotime(config('other.birthdate'))); $currentYear--) {
-            $siteYears->push($currentYear);
-        }
-
         return view('stats.yearly_overviews.index', [
-            'siteYears' => $siteYears,
+            'siteYears' => range(now()->subYear()->year, Carbon::parse(config('other.birthdate'))->year),
         ]);
     }
 
