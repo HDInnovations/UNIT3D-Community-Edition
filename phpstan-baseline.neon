@@ -391,11 +391,6 @@ parameters:
 			path: app/Http/Controllers/User/UserController.php
 
 		-
-			message: "#^Parameter \\#2 \\$timestamp of function date expects int\\|null, int\\|false given\\.$#"
-			count: 1
-			path: app/Http/Controllers/YearlyOverviewController.php
-
-		-
 			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
 			count: 1
 			path: app/Http/Livewire/AttachmentUpload.php
