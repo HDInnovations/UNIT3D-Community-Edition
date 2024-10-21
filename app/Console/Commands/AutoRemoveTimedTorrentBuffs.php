@@ -70,6 +70,10 @@ class AutoRemoveTimedTorrentBuffs extends Command
             Unit3dAnnounce::addTorrent($torrent);
         }
 
+        Torrent::query()->whereNotNull('bumped_at')->where('bumped_at', '<', now()->subWeek())->update([
+            'bumped_at' => null,
+        ]);
+
         $this->comment('Automated Removal Of Expired Torrent Buffs Command Complete');
     }
 }
