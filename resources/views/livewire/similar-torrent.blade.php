@@ -977,7 +977,16 @@
                     </div>
                     <div class="panel__action">
                         <a
-                            href="{{ route('requests.create') }}"
+                            href="{{
+                                route('requests.create', [
+                                    'category_id' => $torrents->first()?->category_id ?? '',
+                                    'title' => rawurlencode(($work?->title ?? '') . ' ' . substr($work->release_date ?? '', 0, 4) ?? ''),
+                                    'imdb' => $work?->tmdb ?? '',
+                                    'tmdb' => $tmdbId ?? '',
+                                    'tvdb' => $work->tvdb ?? '',
+                                    'igdb' => $igdb ?? '',
+                                ])
+                            }}"
                             class="form__button form__button--text"
                         >
                             {{ __('request.add-request') }}

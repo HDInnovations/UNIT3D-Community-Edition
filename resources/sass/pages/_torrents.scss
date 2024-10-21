@@ -124,7 +124,7 @@
 .torrent-search--list__row {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 60px 100px 1fr 150px 60px 100px 50px 50px 50px 120px;
+    grid-template-columns: 60px 100px 1fr 150px 68px 100px 50px 50px 50px 120px;
     grid-template-areas: 'poster format overview buttons rating size seeders leechers completed age';
 }
 
@@ -132,7 +132,7 @@
 .torrent-search--list__no-poster-row {
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 100px 1fr 150px 60px 100px 50px 50px 50px 120px;
+    grid-template-columns: 100px 1fr 150px 68px 100px 50px 50px 50px 120px;
     grid-template-areas: 'format overview buttons rating size seeders leechers completed age';
 }
 
@@ -292,6 +292,7 @@
     }
 
     .torrent-search--list__name-header,
+    .torrent-search--list__ratings-header,
     .torrent-search--list__size-header,
     .torrent-search--list__seeders-header,
     .torrent-search--list__leechers-header,
@@ -302,8 +303,7 @@
 
     .torrent-search--list__poster-header,
     .torrent-search--list__format-header,
-    .torrent-search--list__actions-header,
-    .torrent-search--list__ratings-header {
+    .torrent-search--list__actions-header {
         display: none;
     }
 

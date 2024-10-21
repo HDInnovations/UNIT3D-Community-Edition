@@ -1,0 +1,57 @@
+.events__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-auto-rows: 1fr;
+    grid-auto-flow: dense;
+    grid-gap: 2rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.events__prize {
+    background-color: var(--prize-bg);
+    color: var(--prize-fg);
+    border-radius: var(--prize-border-radius);
+    box-shadow: var(--prize-box-shadow);
+    border: var(--prize-border);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 100%;
+    align-items: center;
+}
+
+.events__prize-heading {
+    margin: 0;
+    text-align: center;
+    color: var(--prize-heading-fg);
+    margin-bottom: 12px;
+}
+
+.events__prize-icon {
+    font-size: 64px;
+    margin-bottom: 8px;
+}
+
+.events__prize-icon--today-unclaimed,
+.events__prize-icon--future {
+    --fa-secondary-opacity: 1;
+    --fa-primary-color: var(--prize-icon-primary-color);
+    --fa-secondary-color: var(--prize-icon-secondary-color);
+}
+
+.events__prize-message {
+    margin: 10px 0 10px 0;
+    text-align: center;
+}
+
+.events__prize-winnings-list {
+    margin: 10px 0 0 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

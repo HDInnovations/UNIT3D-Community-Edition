@@ -156,12 +156,23 @@ class NerdBot
         $bans = cache()->remember(
             'nerdbot-bans',
             $this->expiresAt,
-            fn () => Ban::whereNull('unban_reason')
-                ->whereNull('removed_at')
+            fn () => Ban::whereNotNull('ban_reason')
                 ->where('created_at', '>', $this->current->subDay())->count()
         );
 
         return "In the last 24 hours, {$bans} users have been banned from {$this->site}";
+    }
+
+    public function getUnbans(): string
+    {
+        $unbans = cache()->remember(
+            'nerdbot-unbans',
+            $this->expiresAt,
+            fn () => Ban::whereNotNull('unban_reason')
+                ->where('removed_at', '>', $this->current->subDay())->count()
+        );
+
+        return "In the last 24 hours, {$unbans} users have been unbanned from {$this->site}";
     }
 
     public function getWarnings(): string
@@ -254,6 +265,7 @@ class NerdBot
             $log = match($command[$x]) {
                 'banker'        => $this->getBanker(),
                 'bans'          => $this->getBans(),
+                'unbans'        => $this->getUnbans(),
                 'doubleupload'  => $this->getDoubleUpload(),
                 'freeleech'     => $this->getFreeleech(),
                 'help'          => $this->getHelp(),

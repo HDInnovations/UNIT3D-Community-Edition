@@ -176,7 +176,7 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->keywords !== []) {
-            $filters[] = 'keywords.name IN '.json_encode($this->keywords);
+            $filters[] = 'keywords IN '.json_encode($this->keywords);
         }
 
         if ($this->startYear !== null) {
@@ -330,6 +330,10 @@ readonly class TorrentSearchFiltersDTO
             $filters[] = 'internal = true';
         }
 
+        if ($this->trumpable) {
+            $filters[] = 'trumpable = true';
+        }
+
         if ($this->personalRelease) {
             $filters[] = 'personal_release = true';
         }
@@ -368,11 +372,15 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->userDownloaded === true) {
-            $filters[] = 'history_complete.user_id = '.$this->user->id;
+            $filters[] = [
+                'history_complete.user_id = '.$this->user->id,
+                'history_incomplete.user_id = '.$this->user->id,
+            ];
         }
 
         if ($this->userDownloaded === false) {
-            $filters[] = 'history_incomplete.user_id = '.$this->user->id;
+            $filters[] = 'history_complete.user_id != '.$this->user->id;
+            $filters[] = 'history_incomplete.user_id != '.$this->user->id;
         }
 
         if ($this->userSeeder === false) {

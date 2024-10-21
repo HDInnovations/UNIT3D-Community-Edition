@@ -121,53 +121,66 @@
                     x-on:click.outside="$refs.dialog{{ $package->id }}.close()"
                 >
                     @csrf
-                    <a href="#">To make a donation you must complete the following steps:</a>
-                    <div>
+                    <span class="text-success text-center">
+                        To make a donation you must complete the following steps:
+                    </span>
+                    <div class="form__group--horizontal">
                         @foreach ($gateways->sortBy('position') as $gateway)
-                            <div class="label label-default" style="display: inline-block">
-                                {{ $gateway->name }}
-                            </div>
-                            <input
-                                class="form__text"
-                                type="text"
-                                disabled
-                                value="{{ $gateway->address }}"
-                            />
+                            <p class="form__group">
+                                <input
+                                    class="form__text"
+                                    type="text"
+                                    disabled
+                                    value="{{ $gateway->address }}"
+                                    id="{{ 'gateway-' . $gateway->id }}"
+                                />
+                                <label
+                                    for="{{ 'gateway-' . $gateway->id }}"
+                                    class="form__label form__label--floating"
+                                >
+                                    {{ $gateway->name }}
+                                </label>
+                            </p>
                         @endforeach
 
-                        2: Send
-                        <strong>$ {{ $package->cost }} {{ config('donation.currency') }}</strong>
-                        to gateway of your choice.
-                        <br />
-                        3: Take note of the tx hash, receipt number, etc and input it below.
-                        <br />
+                        <p class="text-info">
+                            Send
+                            <strong>
+                                $ {{ $package->cost }} {{ config('donation.currency') }}
+                            </strong>
+                            to gateway of your choice. Take note of the tx hash, receipt number, etc
+                            and input it below.
+                        </p>
                     </div>
-                    <span class="badge-extra text-center" style="font-size: 18px">Info:</span>
-                    <div>
-                        <div>
-                            Amount:
-                            <br />
+                    <div class="form__group--horizontal">
+                        <p class="form__group">
                             <input
-                                type="number"
-                                name="amount"
-                                value="{{ $package->cost }}"
-                                placerholder=""
                                 class="form__text"
-                                disabled
-                            />
-                        </div>
-                        <div>
-                            Transaction Proof:
-                            <br />
-                            <input
                                 type="text"
-                                name="transaction"
-                                value="tx hash, receipt number, etc."
-                                class="form__text"
+                                disabled
+                                value="{{ $package->cost }}"
+                                id="package-cost"
                             />
-                        </div>
+                            <label for="package-cost" class="form__label form__label--floating">
+                                Cost
+                            </label>
+                        </p>
+                        <p class="form__group">
+                            <input
+                                class="form__text"
+                                type="text"
+                                value=""
+                                id="proof"
+                                name="transaction"
+                            />
+                            <label for="proof" class="form__label form__label--floating">
+                                Tx hash, Receipt number, Etc
+                            </label>
+                        </p>
                     </div>
-                    <span>* Transactions may take up to 48 hours to process.</span>
+                    <span class="text-warning">
+                        * Transactions may take up to 48 hours to process.
+                    </span>
                     <p class="form__group">
                         <input type="hidden" name="package_id" value="{{ $package->id }}" />
                         <button class="form__button form__button--filled">Donate</button>

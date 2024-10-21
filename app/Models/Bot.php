@@ -31,10 +31,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $icon
  * @property string|null                     $emoji
  * @property string|null                     $help
- * @property int                             $active
- * @property int                             $is_protected
- * @property int                             $is_nerdbot
- * @property int                             $is_systembot
+ * @property bool                            $active
+ * @property bool                            $is_protected
+ * @property bool                            $is_nerdbot
+ * @property bool                            $is_systembot
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
@@ -51,6 +51,7 @@ class Bot extends Model
      * @return array{
      *     name: 'string',
      *     cost: 'decimal:2',
+     *     active: 'bool',
      *     is_protected: 'bool',
      *     is_nerdbot: 'bool',
      *     is_systembot: 'bool',
@@ -61,6 +62,7 @@ class Bot extends Model
         return [
             'name'         => 'string',
             'cost'         => 'decimal:2',
+            'active'       => 'bool',
             'is_protected' => 'bool',
             'is_nerdbot'   => 'bool',
             'is_systembot' => 'bool',

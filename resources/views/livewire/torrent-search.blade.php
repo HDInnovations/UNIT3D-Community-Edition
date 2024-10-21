@@ -84,26 +84,38 @@
                 </div>
                 <div class="form__group--short-horizontal">
                     <div class="form__group--short-horizontal">
-                        <p class="form__group">
+                        <p class="form__group" x-data="{ startYear: @entangle('startYear') }">
                             <input
                                 id="startYear"
-                                wire:model.live="startYear"
+                                x-on:input.debounce.150ms="
+                                    if ($el.checkValidity()) {
+                                        $wire.set('startYear', $event.target.value);
+                                    }
+                                "
+                                x-model.live="startYear"
                                 class="form__text"
                                 inputmode="numeric"
-                                pattern="[0-9]*"
+                                minlength="4"
+                                pattern="[0-9]{4}"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="startYear">
                                 {{ __('torrent.start-year') }}
                             </label>
                         </p>
-                        <p class="form__group">
+                        <p class="form__group" x-data="{ endYear: @entangle('endYear') }">
                             <input
                                 id="endYear"
-                                wire:model.live="endYear"
+                                x-on:input.debounce.150ms="
+                                    if ($el.checkValidity()) {
+                                        $wire.set('endYear', $event.target.value);
+                                    }
+                                "
+                                x-model.live="endYear"
                                 class="form__text"
                                 inputmode="numeric"
-                                pattern="[0-9]*"
+                                minlength="4"
+                                pattern="[0-9]{4}"
                                 placeholder=" "
                             />
                             <label class="form__label form__label--floating" for="endYear">
@@ -824,7 +836,14 @@
                                 <th class="torrent-search--list__actions-header">
                                     {{ __('common.actions') }}
                                 </th>
-                                <th class="torrent-search--list__ratings-header">Rating</th>
+                                <th
+                                    class="torrent-search--list__ratings-header"
+                                    wire:click="sortBy('rating')"
+                                    role="columnheader button"
+                                >
+                                    Rating
+                                    @include('livewire.includes._sort-icon', ['field' => 'rating'])
+                                </th>
                                 <th
                                     class="torrent-search--list__size-header"
                                     wire:click="sortBy('size')"

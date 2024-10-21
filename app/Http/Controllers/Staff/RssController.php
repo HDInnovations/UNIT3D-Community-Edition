@@ -38,7 +38,7 @@ class RssController extends Controller
     public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
         return view('Staff.rss.index', [
-            'public_rss' => Rss::where('is_private', '=', 0)->oldest('position')->get(),
+            'public_rss' => Rss::where('is_private', '=', false)->oldest('position')->get(),
         ]);
     }
 

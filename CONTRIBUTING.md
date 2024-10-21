@@ -96,6 +96,11 @@ Common syntax | Shorter and more readable syntax
   `->orderBy('age', 'desc')` | `->latest('age')`
   `->orderBy('created_at', 'asc')` | `->oldest()`
 
+### CSS
+
+CSS should follow the [BEM methodology](https://getbem.com/) and the [7-1 SCSS Architecture](https://sass-guidelin.es/#the-7-1-pattern).
+
+Any new pages should use the existing component styles unless a new block, element and/or modifier is being added. It is highly discouraged to add new components when an existing one will do.
 
 ## Other
 

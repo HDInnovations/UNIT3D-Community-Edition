@@ -41,8 +41,8 @@ class RssController extends Controller
     {
         return view('rss.index', [
             'hash'        => $hash,
-            'public_rss'  => Rss::where('is_private', '=', 0)->oldest('position')->get(),
-            'private_rss' => Rss::where('is_private', '=', 1)->where('user_id', '=', $request->user()->id)->latest()->get(),
+            'public_rss'  => Rss::where('is_private', '=', false)->oldest('position')->get(),
+            'private_rss' => Rss::where('is_private', '=', true)->where('user_id', '=', $request->user()->id)->latest()->get(),
             'user'        => $request->user(),
         ]);
     }
@@ -144,7 +144,7 @@ class RssController extends Controller
             ->where(
                 fn ($query) => $query
                     ->where('user_id', '=', $user->id)
-                    ->orWhere('is_private', '=', 0)
+                    ->orWhere('is_private', '=', false)
             )
             ->findOrFail($id);
 
@@ -217,7 +217,7 @@ class RssController extends Controller
     public function edit(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $user = $request->user();
-        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 
@@ -237,7 +237,7 @@ class RssController extends Controller
     public function update(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
-        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 
@@ -305,7 +305,7 @@ class RssController extends Controller
     public function destroy(Request $request, int $id): \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
     {
         $user = $request->user();
-        $rss = Rss::where('is_private', '=', 1)->findOrFail($id);
+        $rss = Rss::where('is_private', '=', true)->findOrFail($id);
 
         abort_unless($user->group->is_modo || $user->id === $rss->user_id, 403);
 

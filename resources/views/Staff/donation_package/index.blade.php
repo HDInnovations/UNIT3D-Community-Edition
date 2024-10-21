@@ -50,10 +50,10 @@
                             </td>
                             <td>$ {{ $package->cost }}</td>
                             <td>
-                                {{ App\Helpers\StringHelper::formatBytes($package->upload_value) }}
+                                {{ App\Helpers\StringHelper::formatBytes($package->upload_value ?? 0) }}
                             </td>
-                            <td>{{ $package->invite_value }}</td>
-                            <td>{{ $package->bonus_value }}</td>
+                            <td>{{ $package->invite_value ?? 0 }}</td>
+                            <td>{{ $package->bonus_value ?? 0 }}</td>
                             <td>
                                 @if ($package->donor_value === null)
                                     Lifetime
