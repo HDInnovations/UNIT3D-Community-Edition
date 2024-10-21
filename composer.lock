@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "895a01f2f75fc1b56e7e2a33b78b32dc",
+    "content-hash": "488a8a8b1556689bd2798c3de8ad16bd",
     "packages": [
         {
             "name": "assada/laravel-achievements",
@@ -1073,60 +1073,6 @@
             "time": "2023-10-06T06:47:41+00:00"
         },
         {
-            "name": "ezyang/htmlpurifier",
-            "version": "v4.13.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "08e27c97e4c6ed02f37c5b2b20488046c8d90d75"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/08e27c97e4c6ed02f37c5b2b20488046c8d90d75",
-                "reference": "08e27c97e4c6ed02f37c5b2b20488046c8d90d75",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "simpletest/simpletest": "dev-master#72de02a7b80c6bb8864ef9bf66d41d2f58f826bd"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "library/HTMLPurifier.composer.php"
-                ],
-                "psr-0": {
-                    "HTMLPurifier": "library/"
-                },
-                "exclude-from-classmap": [
-                    "/library/HTMLPurifier/Language/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Edward Z. Yang",
-                    "email": "admin@htmlpurifier.org",
-                    "homepage": "http://ezyang.com"
-                }
-            ],
-            "description": "Standards compliant HTML filter written in PHP",
-            "homepage": "http://htmlpurifier.org/",
-            "keywords": [
-                "html"
-            ],
-            "support": {
-                "issues": "https://github.com/ezyang/htmlpurifier/issues",
-                "source": "https://github.com/ezyang/htmlpurifier/tree/master"
-            },
-            "time": "2020-06-29T00:56:53+00:00"
-        },
-        {
             "name": "fruitcake/php-cors",
             "version": "v1.3.0",
             "source": {
@@ -1725,83 +1671,6 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
-        },
-        {
-            "name": "hdvinnie/laravel-html-purifier",
-            "version": "v3.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/HDVinnie/laravel-html-purifier.git",
-                "reference": "bd41a3f8418aed12514ea307ad35cf64d15c76b6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/HDVinnie/laravel-html-purifier/zipball/bd41a3f8418aed12514ea307ad35cf64d15c76b6",
-                "reference": "bd41a3f8418aed12514ea307ad35cf64d15c76b6",
-                "shasum": ""
-            },
-            "require": {
-                "ezyang/htmlpurifier": "4.13.*",
-                "illuminate/config": "^5.8|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
-                "illuminate/filesystem": "^5.8|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
-                "illuminate/support": "^5.8|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
-                "php": "^7.2|^8.0"
-            },
-            "require-dev": {
-                "graham-campbell/testbench": "^3.2|^5.5.1",
-                "mockery/mockery": "^1.3.3",
-                "phpunit/phpunit": "^8.0|^9.0"
-            },
-            "suggest": {
-                "laravel/framework": "To test the Laravel bindings",
-                "laravel/lumen-framework": "To test the Lumen bindings"
-            },
-            "type": "package",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "HDVinnie\\Purifier\\PurifierServiceProvider"
-                    ],
-                    "aliases": {
-                        "Purifier": "HDVinnie\\Purifier\\Facades\\Purifier"
-                    }
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "HDVinnie\\Purifier\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "HDVinnie",
-                    "email": "hdinnovations@protonmail.com",
-                    "homepage": "https://github.com/HDVinnie",
-                    "role": "Developer"
-                }
-            ],
-            "description": "An HTML Purifier for Laravel",
-            "homepage": "https://github.com/HDVinnie/laravel-html-purifier",
-            "keywords": [
-                "HDVinnie",
-                "Purifier",
-                "html",
-                "laravel",
-                "security",
-                "xss"
-            ],
-            "support": {
-                "issues": "https://github.com/HDVinnie/laravel-html-purifier/issues",
-                "source": "https://github.com/HDVinnie/laravel-html-purifier/tree/v3.0.0"
-            },
-            "time": "2024-03-13T15:38:18+00:00"
         },
         {
             "name": "hdvinnie/laravel-joypixel-emojis",

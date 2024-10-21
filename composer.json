@@ -19,7 +19,6 @@
         "doctrine/dbal": "^3.9.3",
         "gabrielelana/byte-units": "^0.5.0",
         "guzzlehttp/guzzle": "^7.9.2",
-        "hdvinnie/laravel-html-purifier": "^v3.0.0",
         "hdvinnie/laravel-joypixel-emojis": "^v3.0.0",
         "hdvinnie/laravel-security-headers": "^v3.0.0",
         "intervention/image": "^2.7.2",
