@@ -372,11 +372,15 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->userDownloaded === true) {
-            $filters[] = 'history_complete.user_id = '.$this->user->id;
+            $filters[] = [
+                'history_complete.user_id = '.$this->user->id,
+                'history_incomplete.user_id = '.$this->user->id,
+            ];
         }
 
         if ($this->userDownloaded === false) {
-            $filters[] = 'history_incomplete.user_id = '.$this->user->id;
+            $filters[] = 'history_complete.user_id != '.$this->user->id;
+            $filters[] = 'history_incomplete.user_id != '.$this->user->id;
         }
 
         if ($this->userSeeder === false) {
