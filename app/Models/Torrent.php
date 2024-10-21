@@ -304,6 +304,11 @@ class Torrent extends Model
                     )
                 LIMIT 1
             ) AS rating,
+            EXISTS(
+                SELECT *
+                FROM torrent_trumps
+                WHERE torrents.id = torrent_trumps.torrent_id
+            ) AS trumpable,
             (
                 SELECT JSON_OBJECT(
                     'id', movies.id,
@@ -857,6 +862,7 @@ class Torrent extends Model
             'region_id',
             'personal_release',
             'info_hash',
+            'trumpable',
             'rating',
             'json_user',
             'json_type',
@@ -929,6 +935,7 @@ class Torrent extends Model
             'personal_release'   => (bool) $torrent->personal_release,
             'info_hash'          => bin2hex($torrent->info_hash),
             'rating'             => (float) $torrent->rating, /** @phpstan-ignore property.notFound (This property is selected in the query but doesn't exist on the model) */
+            'trumpable'          => (bool) $torrent->trumpable, /** @phpstan-ignore property.notFound (This property is selected in the query but doesn't exist on the model) */
             'user'               => json_decode($torrent->json_user ?? 'null'),
             'type'               => json_decode($torrent->json_type ?? 'null'),
             'category'           => json_decode($torrent->json_category ?? 'null'),

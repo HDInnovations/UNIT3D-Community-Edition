@@ -330,6 +330,10 @@ readonly class TorrentSearchFiltersDTO
             $filters[] = 'internal = true';
         }
 
+        if ($this->trumpable) {
+            $filters[] = 'trumpable = true';
+        }
+
         if ($this->personalRelease) {
             $filters[] = 'personal_release = true';
         }
