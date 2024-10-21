@@ -34,13 +34,17 @@ class AuditController extends Controller
         return view('Staff.audit.index', [
             'staffUsers' => User::query()
                 ->with(['group'])
-                ->whereRelation('group', 'is_modo', '=', true)
+                ->whereHas('group', function ($query): void {
+                    $query->where('is_modo', '=', true)
+                        ->orWhere('is_editor', '=', true);
+                })
                 ->withCount([
                     'audits as total_actions' => fn ($query) => $query->where('action', '!=', 'create'),
                     'audits as last_60_days'  => fn ($query) => $query->where('action', '!=', 'create')->whereBetween('created_at', [now()->subDays(60), now()]),
                     'audits as last_30_days'  => fn ($query) => $query->where('action', '!=', 'create')->whereBetween('created_at', [now()->subDays(30), now()]),
                 ])
                 ->get()
+                ->sortBy(fn ($user) => $user->group->level)
         ]);
     }
 
