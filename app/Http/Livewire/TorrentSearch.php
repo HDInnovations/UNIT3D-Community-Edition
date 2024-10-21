@@ -400,14 +400,15 @@ class TorrentSearch extends Component
                 default              => null,
             },
             userSeeder: match (true) {
-                $this->seeding  => true,
-                $this->leeching => false,
-                default         => null,
+                $this->seeding => true,
+                $this->leeching, $this->incomplete => false,
+                default => null,
             },
             userActive: match (true) {
-                $this->seeding  => true,
-                $this->leeching => true,
-                default         => null,
+                $this->seeding    => true,
+                $this->leeching   => true,
+                $this->incomplete => false,
+                default           => null,
             },
         ));
     }
