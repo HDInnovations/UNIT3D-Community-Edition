@@ -496,7 +496,7 @@ class TorrentSearch extends Component
                 ],
                 'filter'               => $this->filters()->toMeilisearchFilter(),
                 'matchingStrategy'     => 'all',
-                'page'                 => $this->getPage(),
+                'page'                 => (int) $this->getPage(),
                 'hitsPerPage'          => min($this->perPage, 100),
                 'attributesToRetrieve' => ['id'],
             ]);
