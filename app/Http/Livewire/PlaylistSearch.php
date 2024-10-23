@@ -69,7 +69,7 @@ class PlaylistSearch extends Component
                             ->orWhere(fn ($query) => $query->where('is_private', '=', 1)->where('user_id', '=', auth()->id()))
                     )
             )
-            ->when($this->name !== '', fn ($query) => $query->where('name', '=', $this->name))
+            ->when($this->name !== '', fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->name).'%'))
             ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', '=', $this->username))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(min($this->perPage, 100));
