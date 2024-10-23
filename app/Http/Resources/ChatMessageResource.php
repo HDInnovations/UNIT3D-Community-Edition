@@ -45,7 +45,6 @@ class ChatMessageResource extends JsonResource
             $logger = $bbcode->parse('<div class="align-left">'.$this->message.'</div>');
             $logger = $emojiOne->toImage($logger);
         }
-        $logger = htmlspecialchars_decode((string) $logger);
 
         return [
             'id'         => $this->id,
