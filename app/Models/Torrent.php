@@ -430,10 +430,10 @@ class Torrent extends Model
             ) AS json_tv,
             (
                 SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
-                    'id', playlist_torrents.id
+                    'id', playlist_torrents.playlist_id
                 )), JSON_ARRAY())
                 FROM playlist_torrents
-                WHERE torrents.id = playlist_torrents.playlist_id
+                WHERE torrents.id = playlist_torrents.torrent_id
             ) AS json_playlists,
             (
                 SELECT COALESCE(JSON_ARRAYAGG(JSON_OBJECT(
