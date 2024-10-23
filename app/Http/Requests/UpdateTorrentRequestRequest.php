@@ -16,7 +16,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\Category;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UpdateTorrentRequestRequest extends FormRequest
 {
@@ -31,39 +34,66 @@ class UpdateTorrentRequestRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array<\Illuminate\Contracts\Validation\Rule|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|string>|string>
      */
-    public function rules(): array
+    public function rules(Request $request): array
     {
+        $category = Category::findOrFail($request->integer('category_id'));
+
         return [
             'name' => [
                 'required',
                 'max:180',
             ],
             'imdb' => [
-                'required',
-                'decimal:0',
-                'min:0',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'decimal:0',
+                    'min:0',
+                ]),
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'tvdb' => [
-                'required',
-                'decimal:0',
-                'min:0',
+                Rule::when($category->tv_meta, [
+                    'required',
+                    'decimal:0',
+                    'min:0',
+                ]),
+                Rule::when(!$category->tv_meta, [
+                    Rule::in([0]),
+                ]),
             ],
             'tmdb' => [
-                'required',
-                'decimal:0',
-                'min:0',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'decimal:0',
+                    'min:0',
+                ]),
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'mal' => [
-                'required',
-                'decimal:0',
-                'min:0',
+                Rule::when($category->movie_meta || $category->tv_meta, [
+                    'required',
+                    'decimal:0',
+                    'min:0',
+                ]),
+                Rule::when(!($category->movie_meta || $category->tv_meta), [
+                    Rule::in([0]),
+                ]),
             ],
             'igdb' => [
-                'required',
-                'decimal:0',
-                'min:0',
+                Rule::when($category->game_meta, [
+                    'required',
+                    'decimal:0',
+                    'min:0',
+                ]),
+                Rule::when(!$category->game_meta, [
+                    Rule::in([0]),
+                ]),
             ],
             'category_id' => [
                 'required',
