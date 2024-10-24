@@ -73,7 +73,7 @@ class AutoUpsertHistories extends Command
         $historyCount = Redis::connection('announce')->command('LLEN', [$key]);
 
         for ($historiesLeft = $historyCount; $historiesLeft > 0; $historiesLeft -= $historiesPerCycle) {
-            $histories = Redis::connection('announce')->command('LPOP', [$key, $historiesPerCycle]);
+            $histories = Redis::connection('announce')->command('LRANGE', [$key, 0, $historiesPerCycle - 1]);
 
             if ($histories === false) {
                 break;
@@ -103,6 +103,8 @@ class AutoUpsertHistories extends Command
                     ],
                 );
             }, 5);
+
+            Redis::connection('announce')->command('LTRIM', [$key, $historiesPerCycle, -1]);
         }
 
         $this->comment('Automated upsert histories command complete');
