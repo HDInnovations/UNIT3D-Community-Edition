@@ -188,8 +188,8 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->endYear !== null) {
             $filters[] = [
-                'movie.year <= '.$this->startYear,
-                'tv.year <= '.$this->startYear,
+                'movie.year <= '.$this->endYear,
+                'tv.year <= '.$this->endYear,
             ];
         }
 
