@@ -476,6 +476,11 @@ parameters:
 			path: app/Http/Resources/ChatMessageResource.php
 
 		-
+			message: "#^Unable to resolve the template type TXssCleanInput in call to method voku\\\\helper\\\\AntiXSS\\:\\:xss_clean\\(\\)$#"
+			count: 1
+			path: app/Http/Resources/ChatMessageResource.php
+
+		-
 			message: "#^Method App\\\\Http\\\\Resources\\\\ChatRoomResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Http/Resources/ChatRoomResource.php
