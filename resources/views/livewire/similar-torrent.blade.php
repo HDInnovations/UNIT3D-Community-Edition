@@ -979,11 +979,15 @@
                         <a
                             href="{{
                                 route('requests.create', [
-                                    'category_id' => $torrents->first()?->category_id ?? '',
-                                    'title' => rawurlencode(($work?->title ?? '') . ' ' . substr($work->release_date ?? '', 0, 4) ?? ''),
-                                    'imdb' => $work?->tmdb ?? '',
+                                    'category_id' => $category->id,
+                                    'title' => rawurlencode(
+                                        $category->movie_meta
+                                            ? ($work?->title ?? '') . ' ' . substr($work->release_date ?? '', 0, 4)
+                                            : ($work?->name ?? '') . ' ' . substr($work->first_air_date ?? '', 0, 4)
+                                    ),
+                                    'imdb' => $work?->imdb_id ?? '',
                                     'tmdb' => $tmdbId ?? '',
-                                    'tvdb' => $work->tvdb ?? '',
+                                    'tvdb' => $work->tvdb_id ?? '',
                                     'igdb' => $igdb ?? '',
                                 ])
                             }}"

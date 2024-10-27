@@ -52,8 +52,10 @@ class StringHelper
         return $result."\u{a0}".self::units[$i];
     }
 
-    public static function timeElapsed(int $seconds): string
+    public static function timeElapsed(int|float $seconds): string
     {
+        $seconds = \intval($seconds);
+
         if ($seconds == 0) {
             return 'N/A';
         }

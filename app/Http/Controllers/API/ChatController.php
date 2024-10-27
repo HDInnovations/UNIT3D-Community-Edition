@@ -150,11 +150,6 @@ class ChatController extends Controller
             return response('error', 401);
         }
 
-        // Temp Fix For HTMLPurifier
-        if ($message === '<') {
-            return response('error', 401);
-        }
-
         $bots = cache()->remember('bots', 3600, fn () => Bot::where('active', '=', 1)->orderByDesc('position')->get());
 
         $which = null;
