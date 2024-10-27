@@ -255,7 +255,7 @@
                         ->sum(function ($donation) {
                             return $donation->package->cost;
                         });
-                    $percentage = $sum ? min(100, number_format(($sum / config('donation.monthly_goal')) * 100)) : 0;
+                    $percentage = $sum ? number_format(($sum / config('donation.monthly_goal')) * 100) : 0;
                 @endphp
 
                 <a tabindex="0" title="{{ $percentage }}% filled">
