@@ -21,6 +21,7 @@ use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class AutoRemoveTimedTorrentBuffs extends Command
@@ -71,7 +72,7 @@ class AutoRemoveTimedTorrentBuffs extends Command
         }
 
         Torrent::query()->whereNotNull('bumped_at')->where('bumped_at', '<', now()->subWeek())->update([
-            'bumped_at' => null,
+            'bumped_at' => DB::raw('created_at'),
         ]);
 
         $this->comment('Automated Removal Of Expired Torrent Buffs Command Complete');
