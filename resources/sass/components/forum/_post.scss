@@ -38,8 +38,8 @@
 .post__header {
     grid-area: header;
     display: grid;
-    grid-template-areas: 'datetime topic . tip-stats toolbar';
-    grid-template-columns: auto auto 1fr auto auto;
+    grid-template-areas: 'datetime edited topic . tip-stats toolbar';
+    grid-template-columns: auto auto auto 1fr auto auto;
     align-items: center;
     gap: 9px;
     font-size: 13px;
@@ -50,6 +50,26 @@
 
 .post__datetime {
     grid-area: datetime;
+}
+
+.post__edited {
+    grid-area: edited;
+    cursor: pointer;
+}
+
+.post__edited-dropdown {
+    display: none;
+    background-color: var(--top-nav-dropdown-menu-item-hover-bg);
+    position: absolute;
+    padding: 5px;
+    box-shadow: var(--post-shadow);
+    border-radius: 5px;
+    border: var(--bbcode-input-border);
+}
+
+/* Show dropdown menu when the dropdown is focused */
+.post__edited:hover .post__edited-dropdown {
+    display: block;
 }
 
 .post__topic {
@@ -158,6 +178,7 @@
     background-color: transparent;
     color: var(--post-like-fg);
 }
+
 .votes__dislike {
     background-color: transparent;
     color: var(--post-dislike-fg);
@@ -289,8 +310,8 @@
     }
 
     .post__header {
-        grid-template-areas: 'datetime topic . tip-stats overflow' '. . . . toolbar';
-        grid-template-columns: auto auto 1fr auto auto;
+        grid-template-areas: 'datetime edited topic . tip-stats overflow' '. . . . toolbar';
+        grid-template-columns: auto auto auto 1fr auto auto;
         gap: 0 6px;
     }
 
@@ -358,10 +379,12 @@
         -webkit-transform: scale(1);
         transform: scale(1);
     }
+
     50% {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
     }
+
     100% {
         -webkit-transform: scale(1);
         transform: scale(1);
@@ -373,10 +396,12 @@
         -webkit-transform: scale(1);
         transform: scale(1);
     }
+
     50% {
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
     }
+
     100% {
         -webkit-transform: scale(1);
         transform: scale(1);
