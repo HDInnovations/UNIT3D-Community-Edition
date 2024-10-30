@@ -75,6 +75,7 @@
                                 id="internal_note"
                                 class="form__textarea"
                                 name="internal_note"
+                                placeholder=" "
                             ></textarea>
                             <label class="form__label form__label--floating" for="internal_note">
                                 {{ __('ticket.staff-notes') }}
