@@ -16,9 +16,9 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\Invite;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Invite;
 
 /** @extends Factory<Invite> */
 class InviteFactory extends Factory
@@ -35,12 +35,27 @@ class InviteFactory extends Factory
     {
         return [
             'user_id'     => User::factory(),
-            'email'       => $this->faker->email(),
-            'code'        => $this->faker->word(),
-            'expires_on'  => $this->faker->dateTime(),
-            'accepted_by' => User::factory(),
-            'accepted_at' => $this->faker->dateTime(),
+            'email'       => $this->faker->safeEmail(),
+            'code'        => $this->faker->unique()->lexify(),
+            'expires_on'  => $this->faker->dateTimeBetween('now', '+1 month'),
+            'accepted_by' => null,
+            'accepted_at' => null,
             'custom'      => $this->faker->text(),
         ];
+    }
+
+    public function expired(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'expires_on' => $this->faker->dateTimeBetween('-1 month', '-1 day'),
+        ]);
+    }
+
+    public function accepted(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'accepted_by' => User::factory(),
+            'accepted_at' => $this->faker->dateTimeBetween('-1 month'),
+        ]);
     }
 }
