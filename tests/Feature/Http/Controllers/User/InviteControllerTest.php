@@ -202,15 +202,15 @@ test('store with internal note as staff user', function (): void {
     Mail::fake();
 
     $response = $this->actingAs($user)->post(route('users.invites.store', [$user]), [
-        'email'   => $inviteEmail,
-        'message' => 'Test Invite',
+        'email'         => $inviteEmail,
+        'message'       => 'Test Invite',
         'internal_note' => 'Test Internal Note',
     ]);
 
     $response->assertRedirect();
     $this->assertDatabaseHas('invites', [
-        'user_id' => $user->id,
-        'email'   => $inviteEmail,
+        'user_id'       => $user->id,
+        'email'         => $inviteEmail,
         'internal_note' => 'Test Internal Note',
     ]);
 });

@@ -101,7 +101,7 @@ class CreateNewUser implements CreatesNewUsers
 
             if ($invite->internal_note !== null) {
                 $user->notes()->create([
-                    'message' => $invite->internal_note,
+                    'message'  => $invite->internal_note,
                     'staff_id' => $invite->user_id,
                 ]);
             }
