@@ -21,20 +21,20 @@
     </figure>
     <dl class="subforum-listing__topic-stats">
         <dt>{{ __('forum.topics') }}</dt>
-        <dd>{{ $subforum->num_topic ?: 0 }}</dd>
+        <dd>{{ $subforum->topics_count ?: 0 }}</dd>
     </dl>
     <dl class="subforum-listing__post-stats">
         <dt>{{ __('forum.posts') }}</dt>
-        <dd>{{ $subforum->num_post ?: 0 }}</dd>
+        <dd>{{ $subforum->posts_count ?: 0 }}</dd>
     </dl>
     <article class="subforum-listing__latest-topic">
-        @if ($subforum->lastRepliedTopic !== null)
+        @if ($subforum->latestPost?->topic !== null)
             <p class="subforum-listing__latest-heading">
                 <a
                     class="subforum-listing__latest-link"
-                    href="{{ route('topics.show', ['id' => $subforum->lastRepliedTopic->id]) }}"
+                    href="{{ route('topics.show', ['id' => $subforum->latestPost?->topic->id]) }}"
                 >
-                    {{ $subforum->lastRepliedTopic->name }}
+                    {{ $subforum->latestPost?->topic?->name }}
                 </a>
             </p>
         @endif
@@ -44,24 +44,24 @@
             datetime="{{ $subforum->updated_at }}"
             title="{{ $subforum->updated_at }}"
         >
-            @if ($subforum->lastRepliedTopic === null)
+            @if ($subforum->latestPost?->topic === null)
                 {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
             @else
                 <a
                     class="subforum-listing__latest-post-link"
-                    href="{{ route('topics.latestPermalink', ['id' => $subforum->lastRepliedTopic->id]) }}"
+                    href="{{ route('topics.latestPermalink', ['id' => $subforum->latestPost?->topic?->id]) }}"
                 >
                     {{ $subforum->updated_at?->diffForHumans() ?? __('common.unknown') }}
                 </a>
             @endif
         </time>
-        @if ($subforum->lastRepliedTopic !== null && $subforum->latestPoster !== null)
+        @if ($subforum->latestPost?->topic !== null && $subforum->latestPost?->user !== null)
             <address class="subforum-listing__latest-author">
                 <a
                     class="subforum-listing__latest-author-link"
-                    href="{{ route('users.show', ['user' => $subforum->latestPoster]) }}"
+                    href="{{ route('users.show', ['user' => $subforum->latestPost?->user]) }}"
                 >
-                    {{ $subforum->latestPoster->username }}
+                    {{ $subforum->latestPost?->user?->username }}
                 </a>
             </address>
         @endif

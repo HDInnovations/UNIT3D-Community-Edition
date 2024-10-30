@@ -81,7 +81,7 @@
             </div>
             <div class="key-value__group">
                 <dt>{{ __('forum.replies') }}</dt>
-                <dd>{{ $topic->num_post - 1 }}</dd>
+                <dd>{{ $topic->posts_count - 1 }}</dd>
             </div>
             <div class="key-value__group">
                 <dt>{{ __('forum.views') }}</dt>

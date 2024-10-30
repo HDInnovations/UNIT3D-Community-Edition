@@ -30,18 +30,39 @@ class ForumController extends Controller
     /**
      * Show All Forums.
      */
-    public function index(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        $categories = ForumCategory::query()
+            ->with([
+                'forums' => fn ($query) => $query->authorized(canReadTopic: true)->orderBy('position')->withCount('topics', 'posts'),
+            ])
+            ->orderBy('position')
+            ->get()
+            ->filter(fn ($category) => $category->forums->isNotEmpty());
+
+        $latestPosts = Post::query()
+            ->with([
+                'user' => fn ($query) => $query->withTrashed(),
+                'topic',
+            ])
+            ->joinSub(
+                Post::query()
+                    ->selectRaw('MAX(posts.id) AS id, forum_id')
+                    ->join('topics', 'posts.topic_id', '=', 'topics.id')
+                    ->groupBy('forum_id'),
+                'latest_posts',
+                fn ($join) => $join->on('posts.id', '=', 'latest_posts.id')
+            )
+            ->get();
+
+        $categories->transform(function ($category) use ($latestPosts) {
+            $category->forums->transform(fn ($forum) => $forum->setRelation('latestPost', $latestPosts->firstWhere('forum_id', '=', $forum->id)));
+
+            return $category;
+        });
+
         return view('forum.index', [
-            'categories' => ForumCategory::query()
-                ->with([
-                    'forums'              => fn ($query) => $query->authorized(canReadTopic: true)->orderBy('position'),
-                    'forums.latestPoster' => fn ($query) => $query->withTrashed(),
-                    'forums.lastRepliedTopic',
-                ])
-                ->orderBy('position')
-                ->get()
-                ->filter(fn ($category) => $category->forums->isNotEmpty()),
+            'categories' => $categories,
             'num_posts'  => Post::count(),
             'num_forums' => Forum::count(),
             'num_topics' => Topic::count(),

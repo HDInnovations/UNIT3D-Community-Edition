@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use App\Models\Post;
 use App\Models\Topic;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -35,13 +36,14 @@ class SubscribedTopic extends Component
             ->select('topics.*')
             ->with([
                 'user.group',
-                'latestPoster',
+                'latestPost.user',
                 'forum',
                 'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
             ])
+            ->withCount('posts')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->authorized(canReadTopic: true)
-            ->orderBy('last_post_created_at')
+            ->orderByDesc(Post::query()->selectRaw('MAX(id)')->whereColumn('topics.id', '=', 'posts.topic_id'))
             ->paginate(25, ['*'], 'subscribedTopicsPage');
     }
 

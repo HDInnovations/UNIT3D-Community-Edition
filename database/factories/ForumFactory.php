@@ -34,17 +34,11 @@ class ForumFactory extends Factory
     public function definition(): array
     {
         return [
-            'position'             => $this->faker->randomNumber(),
-            'num_topic'            => $this->faker->randomNumber(),
-            'num_post'             => $this->faker->randomNumber(),
-            'last_topic_id'        => null,
-            'last_post_id'         => null,
-            'last_post_user_id'    => null,
-            'last_post_created_at' => $this->faker->dateTime,
-            'name'                 => $this->faker->name(),
-            'slug'                 => $this->faker->slug(),
-            'description'          => $this->faker->text(),
-            'forum_category_id'    => ForumCategory::factory(),
+            'position'          => $this->faker->randomNumber(),
+            'name'              => $this->faker->name(),
+            'slug'              => $this->faker->slug(),
+            'description'       => $this->faker->text(),
+            'forum_category_id' => ForumCategory::factory(),
         ];
     }
 }

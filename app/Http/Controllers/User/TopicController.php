@@ -31,10 +31,11 @@ class TopicController extends Controller
             'topics' => $user->topics()
                 ->with([
                     'user.group',
-                    'latestPoster',
+                    'latestPost.user',
                     'forum:id,name',
                     'reads' => fn ($query) => $query->whereBelongsTo(auth()->user()),
                 ])
+                ->withCount('posts')
                 ->authorized(canReadTopic: true)
                 ->latest()
                 ->paginate(25),
