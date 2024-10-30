@@ -69,6 +69,18 @@
                             {{ __('common.message') }}
                         </label>
                     </p>
+                    @if ($user->group->is_modo)
+                    <p class="form__group">
+                        <textarea
+                            id="internal_note"
+                            class="form__textarea"
+                            name="internal_note"
+                        ></textarea>
+                        <label class="form__label form__label--floating" for="internal_note">
+                            {{ __('ticket.staff-notes') }}
+                        </label>
+                    </p>
+                    @endif
                     <p class="form__group">
                         <button class="form__button form__button--filled">
                             {{ __('common.submit') }}

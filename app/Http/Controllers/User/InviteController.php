@@ -102,6 +102,7 @@ class InviteController extends Controller
         $request->validate([
             'bail',
             'message' => 'required',
+            'internal_note' => Rule::unless($user->group->is_modo, 'missing'),
             'email'   => [
                 'required',
                 'string',
@@ -120,6 +121,7 @@ class InviteController extends Controller
             'user_id'    => $user->id,
             'email'      => $request->input('email'),
             'code'       => Uuid::uuid4()->toString(),
+            'internal_note' => $request->input('internal_note'),
             'expires_on' => now()->addDays(config('other.invite_expire')),
             'custom'     => $request->input('message'),
         ]);
