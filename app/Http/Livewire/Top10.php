@@ -17,8 +17,10 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Category;
+use App\Models\History;
 use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
@@ -40,7 +42,7 @@ class Top10 extends Component
     public string $metaType = 'movie_meta';
 
     #[Url(history: true)]
-    #[Validate('in:day,week,month,year,all,custom')]
+    #[Validate('in:day,week,weekly,month,year,all,custom')]
     public string $interval = 'day';
 
     #[Url(history: true)]
@@ -110,6 +112,50 @@ class Top10 extends Component
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Collection<int|string, \Illuminate\Database\Eloquent\Collection<int, Torrent>>
+     * @phpstan-ignore generics.notSubtype (I can't figure out the correct return type to silence this error)
+     */
+    #[Computed]
+    final public function weekly(): Collection
+    {
+        $this->validate();
+
+        return cache()->remember(
+            'weekly-charts:'.$this->metaType,
+            24 * 3600,
+            fn () => Torrent::query()
+                ->withoutGlobalScopes()
+                ->with($this->metaType === 'movie_meta' ? 'movie' : 'tv')
+                ->fromSub(
+                    History::query()
+                        ->withoutGlobalScopes()
+                        ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
+                        ->join('categories', fn (JoinClause $join) => $join->on('torrents.category_id', '=', 'categories.id')->where($this->metaType, '=', true))
+                        ->select([
+                            DB::raw('FROM_DAYS(TO_DAYS(history.created_at) - MOD(TO_DAYS(history.created_at) - 1, 7)) AS week_start'),
+                            'tmdb',
+                            DB::raw('MIN(categories.id) as category_id'),
+                            DB::raw('COUNT(*) AS download_count'),
+                            DB::raw('ROW_NUMBER() OVER (PARTITION BY FROM_DAYS(TO_DAYS(history.created_at) - MOD(TO_DAYS(history.created_at) - 1, 7)) ORDER BY COUNT(*) DESC) AS place'),
+                        ])
+                        ->where('tmdb', '!=', 0)
+                        // Small torrents screw the stats since users download them only to farm bon.
+                        ->where('torrents.size', '>', 1024 * 1024 * 1024)
+                        ->groupBy('week_start', 'tmdb'),
+                    'ranked_groups',
+                )
+                ->where('place', '<=', 10)
+                ->orderByDesc('week_start')
+                ->orderBy('place')
+                ->withCasts([
+                    'week_start' => 'datetime',
+                ])
+                ->get()
+                ->groupBy('week_start')
+        );
+    }
+
+    /**
      * @return array<string, string>
      */
     #[Computed]
@@ -142,7 +188,7 @@ class Top10 extends Component
     {
         return view('livewire.top10', [
             'user'      => auth()->user(),
-            'works'     => $this->works,
+            'works'     => $this->interval === 'weekly' ? $this->weekly : $this->works,
             'metaTypes' => $this->metaTypes,
         ]);
     }
