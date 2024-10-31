@@ -14,44 +14,37 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-use App\Models\Bot;
-use App\Models\User;
-use App\Models\Chatroom;
 use App\Models\Invite;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Event;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
 
+beforeEach(function (): void {
+    Event::fake(Registered::class);
+});
+
 test('user registration is not available when disabled', function (): void {
-    User::factory()->system()->create();
     $this->withoutMiddleware();
     config(['other.invite-only' => true]);
 
     $this->get('/register')
         ->assertOk()
-        ->assertSeeText('Open Registration Is Disabled')
-    ;
+        ->assertSeeText('Open Registration Is Disabled');
+    Event::assertNotDispatched(Registered::class);
 });
 
 test('user registration is available when enabled', function (): void {
-    User::factory()->system()->create();
     $this->withoutMiddleware();
     config([
         'other.invite-only' => false,
         'captcha.enabled'   => false,
     ]);
 
-    Bot::factory()->create([
-        'command' => 'Systembot',
-    ]);
-    Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
-
     $this->get('/register')
         ->assertOk()
-        ->assertDontSeeText('Open Registration Is Disabled')
-    ;
+        ->assertDontSeeText('Open Registration Is Disabled');
 
     $this->post('/register', [
         'username'              => 'testuser',
@@ -64,10 +57,10 @@ test('user registration is available when enabled', function (): void {
         'username' => 'testuser',
         'email'    => 'unit3d@protnmail.com',
     ]);
+    Event::assertDispatched(Registered::class);
 });
 
 test('user can register using invite code', function (): void {
-    User::factory()->system()->create();
     $this->withoutMiddleware();
     config([
         'other.invite-only' => true,
@@ -81,19 +74,11 @@ test('user can register using invite code', function (): void {
         'expires_on'  => now()->addDays(7),
     ]);
 
-    Bot::factory()->create([
-        'command' => 'Systembot',
-    ]);
-    Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
-
     $email = fake()->safeEmail;
 
     $this->get('/register?code=testcode')
         ->assertOk()
-        ->assertDontSeeText('Open Registration Is Disabled')
-    ;
+        ->assertDontSeeText('Open Registration Is Disabled');
 
     $this->post('/register?code=testcode', [
         'username'              => 'testuser',
@@ -108,6 +93,7 @@ test('user can register using invite code', function (): void {
         'username' => 'testuser',
         'email'    => $email,
     ]);
+    Event::assertDispatched(Registered::class);
 });
 
 test('user cannot register using invalid invite code', function (): void {
@@ -121,8 +107,7 @@ test('user cannot register using invalid invite code', function (): void {
 
     $this->get('/register?code=testcode')
         ->assertOk()
-        ->assertDontSeeText('Open Registration Is Disabled')
-    ;
+        ->assertDontSeeText('Open Registration Is Disabled');
 
     $this->post('/register?code=testcode', [
         'username'              => 'testuser',
@@ -137,10 +122,10 @@ test('user cannot register using invalid invite code', function (): void {
         'username' => 'testuser',
         'email'    => $email,
     ]);
+    Event::assertNotDispatched(Registered::class);
 });
 
 test('user can register using invite code with internal note assigned', function (): void {
-    User::factory()->system()->create();
     $this->withoutMiddleware();
     config([
         'other.invite-only' => true,
@@ -155,19 +140,11 @@ test('user can register using invite code with internal note assigned', function
         'internal_note' => 'This is a test note',
     ]);
 
-    Bot::factory()->create([
-        'command' => 'Systembot',
-    ]);
-    Chatroom::factory()->create([
-        'name' => config('chat.system_chatroom'),
-    ]);
-
     $email = fake()->safeEmail;
 
     $this->get('/register?code=testcode')
         ->assertOk()
-        ->assertDontSeeText('Open Registration Is Disabled')
-    ;
+        ->assertDontSeeText('Open Registration Is Disabled');
 
     $this->post('/register?code=testcode', [
         'username'              => 'testuser',
@@ -190,4 +167,6 @@ test('user can register using invite code with internal note assigned', function
         'staff_id' => $invite->user_id,
         'user_id'  => $invite->accepted_by,
     ]);
+
+    Event::assertDispatched(Registered::class);
 });
