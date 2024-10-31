@@ -200,7 +200,7 @@
             <a tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
-                    @if ($events->contains(fn ($event) => ! $event->claimed_prizes_exists && $event->ends_at->isFuture()))
+                    @if ($events->contains(fn ($event) => ! $event->claimed_prizes_exists && $event->ends_at->endOfDay()->isFuture()))
                         <x-animation.notification />
                     @endif
                 </div>
