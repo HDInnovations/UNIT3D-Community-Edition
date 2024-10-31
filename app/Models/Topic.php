@@ -34,11 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool                            $bug
  * @property bool                            $suggestion
  * @property bool                            $implemented
- * @property int|null                        $num_post
  * @property int|null                        $first_post_user_id
- * @property int|null                        $last_post_id
- * @property int|null                        $last_post_user_id
- * @property \Illuminate\Support\Carbon|null $last_post_created_at
  * @property int|null                        $views
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -56,20 +52,19 @@ class Topic extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{last_post_created_at: 'datetime', priority: 'integer', approved: 'bool', denied: 'bool', solved: 'bool', invalid: 'bool', bug: 'bool', suggestion: 'bool', implemented: 'bool'}
+     * @return array{priority: 'integer', approved: 'bool', denied: 'bool', solved: 'bool', invalid: 'bool', bug: 'bool', suggestion: 'bool', implemented: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'last_post_created_at' => 'datetime',
-            'priority'             => 'integer',
-            'approved'             => 'bool',
-            'denied'               => 'bool',
-            'solved'               => 'bool',
-            'invalid'              => 'bool',
-            'bug'                  => 'bool',
-            'suggestion'           => 'bool',
-            'implemented'          => 'bool',
+            'priority'    => 'integer',
+            'approved'    => 'bool',
+            'denied'      => 'bool',
+            'solved'      => 'bool',
+            'invalid'     => 'bool',
+            'bug'         => 'bool',
+            'suggestion'  => 'bool',
+            'implemented' => 'bool',
         ];
     }
 
@@ -148,29 +143,9 @@ class Topic extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne<Post, $this>
      */
-    public function latestPostSlow(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function latestPost(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(Post::class)->latestOfMany();
-    }
-
-    /**
-     * Latest post.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Post, $this>
-     */
-    public function latestPost(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Post::class, 'last_post_id');
-    }
-
-    /**
-     * Latest poster.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
-     */
-    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(User::class, 'last_post_user_id');
     }
 
     /**

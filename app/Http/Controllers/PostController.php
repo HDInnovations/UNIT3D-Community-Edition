@@ -80,22 +80,6 @@ class PostController extends Controller
             'topic_id' => $topic->id,
         ]);
 
-        $topic->update([
-            'last_post_id'         => $post->id,
-            'last_post_user_id'    => $user->id,
-            'num_post'             => $topic->posts()->count(),
-            'last_post_created_at' => $post->created_at,
-        ]);
-
-        $forum->update([
-            'num_post'             => $forum->posts()->count(),
-            'num_topic'            => $forum->topics()->count(),
-            'last_post_user_id'    => $user->id,
-            'last_post_id'         => $post->id,
-            'last_topic_id'        => $topic->id,
-            'last_post_created_at' => $post->created_at,
-        ]);
-
         // Post To Chatbox and Notify Subscribers
         $appUrl = config('app.url');
         $postUrl = \sprintf('%s/forums/topics/%s/posts/%s', $appUrl, $topic->id, $post->id);
@@ -230,38 +214,10 @@ class PostController extends Controller
 
         $post->delete();
 
-        $latestPost = $topic->latestPostSlow;
-        $isTopicDeleted = false;
-
-        if ($latestPost === null) {
+        if ($topic->latestPost()->doesntExist()) {
             $topic->delete();
-            $isTopicDeleted = true;
-        } else {
-            $latestPoster = $latestPost->user;
-            $topic->update([
-                'last_post_id'         => $latestPost->id,
-                'last_post_user_id'    => $latestPoster->id,
-                'num_post'             => $topic->posts()->count(),
-                'last_post_created_at' => $latestPost->created_at,
-            ]);
-        }
 
-        $forum = $topic->forum;
-        $lastRepliedTopic = $forum->lastRepliedTopicSlow;
-        $latestPost = $lastRepliedTopic->latestPostSlow;
-        $latestPoster = $latestPost->user;
-
-        $forum->update([
-            'num_post'             => $forum->posts()->count(),
-            'num_topic'            => $forum->topics()->count(),
-            'last_post_id'         => $latestPost->id,
-            'last_post_user_id'    => $latestPoster->id,
-            'last_topic_id'        => $lastRepliedTopic->id,
-            'last_post_created_at' => $latestPost->created_at,
-        ]);
-
-        if ($isTopicDeleted === true) {
-            return to_route('forums.show', ['id' => $forum->id])
+            return to_route('forums.show', ['id' => $post->topic->forum_id])
                 ->withSuccess(trans('forum.delete-post-success'));
         }
 

@@ -39,20 +39,14 @@ class ForumsTableSeeder extends Seeder
 
         Forum::upsert([
             [
-                'id'                   => 1,
-                'position'             => 2,
-                'num_topic'            => null,
-                'num_post'             => null,
-                'last_topic_id'        => null,
-                'last_post_id'         => null,
-                'last_post_user_id'    => null,
-                'last_post_created_at' => null,
-                'name'                 => 'Welcome',
-                'slug'                 => 'welcome',
-                'description'          => 'Introduce Yourself Here!',
-                'forum_category_id'    => 1,
-                'created_at'           => '2017-04-01 20:16:06',
-                'updated_at'           => '2017-12-27 18:19:07',
+                'id'                => 1,
+                'position'          => 2,
+                'name'              => 'Welcome',
+                'slug'              => 'welcome',
+                'description'       => 'Introduce Yourself Here!',
+                'forum_category_id' => 1,
+                'created_at'        => '2017-04-01 20:16:06',
+                'updated_at'        => '2017-12-27 18:19:07',
             ],
         ], ['id'], ['updated_at' => DB::raw('updated_at')]);
     }

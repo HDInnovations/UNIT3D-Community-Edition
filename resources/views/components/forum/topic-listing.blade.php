@@ -105,7 +105,7 @@
     </figure>
     <dl class="topic-listing__post-stats">
         <dt>{{ __('forum.replies') }}</dt>
-        <dd>{{ $topic->num_post - 1 }}</dd>
+        <dd>{{ $topic->posts_count - 1 }}</dd>
     </dl>
     <dl class="topic-listing__view-stats">
         <dt>{{ __('forum.views') }}</dt>
@@ -113,27 +113,27 @@
     </dl>
     <article class="topic-listing__latest-post">
         <address class="topic-listing__latest-author">
-            @if ($topic->latestPoster === null)
+            @if ($topic->latestPost?->user === null)
                 {{ __('common.unknown') }}
             @else
                 <a
                     class="topic-listing__latest-author-link"
-                    href="{{ route('users.show', ['user' => $topic->latestPoster]) }}"
+                    href="{{ route('users.show', ['user' => $topic->latestPost?->user]) }}"
                 >
-                    {{ $topic->latestPoster->username }}
+                    {{ $topic->latestPost?->user?->username }}
                 </a>
             @endif
         </address>
         <time
             class="topic-listing__latest-datetime"
-            datetime="{{ $topic->last_post_created_at }}"
-            title="{{ $topic->last_post_created_at }}"
+            datetime="{{ $topic->latestPost?->created_at }}"
+            title="{{ $topic->latestPost?->created_at }}"
         >
             <a
                 class="topic-listing__latest-post-link"
                 href="{{ route('topics.latestPermalink', ['id' => $topic->id]) }}"
             >
-                {{ $topic->last_post_created_at?->diffForHumans() ?? __('common.unknown') }}
+                {{ $topic->latestPost?->created_at?->diffForHumans() ?? __('common.unknown') }}
             </a>
         </time>
     </article>

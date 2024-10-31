@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\Forum;
+use App\Models\Post;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -31,12 +32,32 @@ class SubscribedForum extends Component
     #[Computed]
     final public function forums()
     {
-        return Forum::query()
-            ->with('latestPoster', 'lastRepliedTopic')
+        $forums = Forum::query()
+            ->withCount('topics', 'posts')
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->authorized(canReadTopic: true)
             ->orderBy('position')
             ->paginate(25, ['*'], 'subscribedForumsPage');
+
+        $latestPosts = Post::query()
+            ->with([
+                'user' => fn ($query) => $query->withTrashed(),
+                'topic',
+            ])
+            ->joinSub(
+                Post::query()
+                    ->selectRaw('MAX(posts.id) AS id, forum_id')
+                    ->join('topics', 'posts.topic_id', '=', 'topics.id')
+                    ->whereIntegerInRaw('forum_id', $forums->pluck('id'))
+                    ->groupBy('forum_id'),
+                'latest_posts',
+                fn ($join) => $join->on('posts.id', '=', 'latest_posts.id')
+            )
+            ->get();
+
+        $forums->transform(fn ($forum) => $forum->setRelation('latestPost', $latestPosts->firstWhere('forum_id', '=', $forum->id)));
+
+        return $forums;
     }
 
     final public function updatedSubscribedForumsPage(): void

@@ -25,12 +25,6 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int                             $id
  * @property int|null                        $position
- * @property int|null                        $num_topic
- * @property int|null                        $num_post
- * @property int|null                        $last_topic_id
- * @property int|null                        $last_post_id
- * @property int|null                        $last_post_user_id
- * @property \Illuminate\Support\Carbon|null $last_post_created_at
  * @property string|null                     $name
  * @property string|null                     $slug
  * @property string|null                     $description
@@ -80,36 +74,6 @@ class Forum extends Model
     public function posts(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
         return $this->hasManyThrough(Post::class, Topic::class);
-    }
-
-    /**
-     * Latest topic.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<Topic, $this>
-     */
-    public function lastRepliedTopicSlow(): \Illuminate\Database\Eloquent\Relations\HasOne
-    {
-        return $this->hasOne(Topic::class)->ofMany('last_post_created_at', 'max');
-    }
-
-    /**
-     * Latest topic.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<Topic, $this>
-     */
-    public function lastRepliedTopic(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Topic::class, 'last_topic_id');
-    }
-
-    /**
-     * Latest poster.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
-     */
-    public function latestPoster(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(User::class, 'last_post_user_id');
     }
 
     /**

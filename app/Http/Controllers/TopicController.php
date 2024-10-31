@@ -83,8 +83,6 @@ class TopicController extends Controller
      */
     public function create(Request $request, int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Illuminate\Http\RedirectResponse
     {
-        $user = $request->user();
-
         $forum = Forum::with('category')->authorized(canStartTopic: true)->findOrFail($id);
 
         return view('forum.forum_topic.create', [
@@ -109,31 +107,15 @@ class TopicController extends Controller
             'name'               => $request->title,
             'state'              => 'open',
             'first_post_user_id' => $user->id,
-            'last_post_user_id'  => $user->id,
             'views'              => 0,
             'priority'           => 0,
             'forum_id'           => $forum->id,
-            'num_post'           => 1,
         ]);
 
-        $post = Post::create([
+        Post::create([
             'content'  => $request->input('content'),
             'user_id'  => $user->id,
             'topic_id' => $topic->id,
-        ]);
-
-        $forum->update([
-            'num_topic'            => $forum->topics()->count(),
-            'num_post'             => $forum->posts()->count(),
-            'last_topic_id'        => $topic->id,
-            'last_post_id'         => $post->id,
-            'last_post_user_id'    => $user->id,
-            'last_post_created_at' => $post->created_at,
-        ]);
-
-        $topic->update([
-            'last_post_id'         => $post->id,
-            'last_post_created_at' => $post->created_at,
         ]);
 
         // Post To ShoutBox
@@ -232,49 +214,10 @@ class TopicController extends Controller
 
         $newForum = Forum::authorized(canStartTopic: true)->whereKey($request->forum_id)->sole();
 
-        $oldForum = $topic->forum;
-
         $topic->update([
             'name'     => $request->name,
             'forum_id' => $newForum->id,
         ]);
-
-        if ($oldForum->id === $newForum->id) {
-            $lastRepliedTopic = $newForum->lastRepliedTopicSlow;
-
-            if ($lastRepliedTopic->id === $newForum->last_topic_id) {
-                $latestPost = $lastRepliedTopic->latestPostSlow;
-
-                $newForum->updated_at = $latestPost->created_at;
-                $newForum->save();
-            }
-        } else {
-            $lastRepliedTopic = $oldForum->lastRepliedTopicSlow;
-            $latestPost = $lastRepliedTopic->latestPostSlow;
-            $latestPoster = $latestPost->user;
-
-            $oldForum->update([
-                'num_topic'            => $oldForum->topics()->count(),
-                'num_post'             => $oldForum->posts()->count(),
-                'last_topic_id'        => $lastRepliedTopic->id,
-                'last_post_id'         => $latestPost->id,
-                'last_post_user_id'    => $latestPoster->id,
-                'last_post_created_at' => $latestPost->created_at,
-            ]);
-
-            $lastRepliedTopic = $newForum->lastRepliedTopicSlow;
-            $latestPost = $lastRepliedTopic->latestPostSlow;
-            $latestPoster = $latestPost->user;
-
-            $newForum->update([
-                'num_topic'            => $newForum->topics()->count(),
-                'num_post'             => $newForum->posts()->count(),
-                'last_topic_id'        => $lastRepliedTopic->id,
-                'last_post_id'         => $latestPost->id,
-                'last_post_user_id'    => $latestPoster->id,
-                'last_post_created_at' => $latestPost->created_at,
-            ]);
-        }
 
         return to_route('topics.show', ['id' => $topic->id])
             ->withSuccess('Topic Successfully Edited');
@@ -292,21 +235,7 @@ class TopicController extends Controller
         $topic->posts()->delete();
         $topic->delete();
 
-        $forum = $topic->forum;
-        $lastRepliedTopic = $forum->lastRepliedTopicSlow;
-        $latestPost = $lastRepliedTopic->latestPostSlow;
-        $latestPoster = $latestPost->user;
-
-        $topic->forum()->update([
-            'num_topic'            => $forum->topics()->count(),
-            'num_post'             => $forum->posts()->count(),
-            'last_topic_id'        => $lastRepliedTopic->id,
-            'last_post_id'         => $latestPost->id,
-            'last_post_user_id'    => $latestPoster->id,
-            'last_post_created_at' => $latestPost->created_at,
-        ]);
-
-        return to_route('forums.show', ['id' => $forum->id])
+        return to_route('forums.show', ['id' => $topic->forum_id])
             ->withSuccess('This Topic Is Now Deleted!');
     }
 

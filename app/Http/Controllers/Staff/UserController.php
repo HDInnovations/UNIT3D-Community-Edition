@@ -139,10 +139,6 @@ class UserController extends Controller
             'first_post_user_id' => User::SYSTEM_USER_ID,
         ]);
 
-        Topic::where('last_post_user_id', '=', $user->id)->update([
-            'last_post_user_id' => User::SYSTEM_USER_ID,
-        ]);
-
         PrivateMessage::where('sender_id', '=', $user->id)->update([
             'sender_id' => User::SYSTEM_USER_ID,
         ]);

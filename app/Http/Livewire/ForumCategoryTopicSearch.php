@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire;
 
 use App\Models\ForumCategory;
+use App\Models\Post;
 use App\Models\Topic;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -72,10 +73,11 @@ class ForumCategoryTopicSearch extends Component
             ->select('topics.*')
             ->with([
                 'user.group',
-                'latestPoster',
+                'latestPost.user',
                 'forum',
                 'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
             ])
+            ->withCount('posts')
             ->whereRelation('forum', 'forum_category_id', '=', $this->category->id)
             ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
@@ -117,7 +119,11 @@ class ForumCategoryTopicSearch extends Component
                     ->whereDoesntHave('reads', fn ($query) => $query->whereBelongsTo(auth()->user()))
             )
             ->orderByDesc('priority')
-            ->orderBy($this->sortField, $this->sortDirection)
+            ->when(
+                $this->sortField === 'last_post_created_at',
+                fn ($query) => $query->orderBy(Post::query()->selectRaw('MAX(id)')->whereColumn('topics.id', '=', 'posts.topic_id'), $this->sortDirection),
+                fn ($query) => $query->orderBy('created_at', $this->sortDirection),
+            )
             ->paginate(25);
     }
 
