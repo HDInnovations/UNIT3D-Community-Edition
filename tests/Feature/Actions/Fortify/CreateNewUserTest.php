@@ -15,13 +15,16 @@ declare(strict_types=1);
  */
 
 use App\Models\Invite;
+use Database\Seeders\GroupsTableSeeder;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
+use function Pest\Laravel\seed;
 
 beforeEach(function (): void {
+    seed(GroupsTableSeeder::class);
     Event::fake(Registered::class);
 });
 
