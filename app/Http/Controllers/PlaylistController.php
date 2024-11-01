@@ -100,15 +100,15 @@ class PlaylistController extends Controller
 
         $torrents = $playlist->torrents()
             ->select('*')
-            ->selectRaw("
+            ->selectRaw(<<<'SQL'
                 CASE
-                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                    WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                    WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                    WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                    WHEN category_id IN (SELECT id from categories where movie_meta = TRUE) THEN 'movie'
+                    WHEN category_id IN (SELECT id from categories where tv_meta = TRUE) THEN 'tv'
+                    WHEN category_id IN (SELECT id from categories where game_meta = TRUE) THEN 'game'
+                    WHEN category_id IN (SELECT id from categories where music_meta = TRUE) THEN 'music'
+                    WHEN category_id IN (SELECT id from categories where no_meta = TRUE) THEN 'no'
                 END as meta
-            ")
+            SQL)
             ->with(['category', 'resolution', 'type', 'user.group'])
             ->orderBy('name')
             ->paginate(26);

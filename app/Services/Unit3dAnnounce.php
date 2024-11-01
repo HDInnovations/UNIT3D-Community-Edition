@@ -178,7 +178,7 @@ class Unit3dAnnounce
 
         $peers = Peer::query()
             ->where('user_id', '=', $user->id)
-            ->selectRaw('SUM(seeder = 1 AND active = 1 AND visible = 1) as num_seeding, SUM(seeder = 0 AND active = 1 AND visible = 1) as num_leeching')
+            ->selectRaw('SUM(seeder = TRUE AND active = TRUE AND visible = TRUE) as num_seeding, SUM(seeder = FALSE AND active = TRUE AND visible = TRUE) as num_leeching')
             ->first();
 
         return self::put('users', [

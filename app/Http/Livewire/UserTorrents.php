@@ -124,7 +124,7 @@ class UserTorrents extends Component
                 'torrents.user_id',
                 'torrents.status',
             )
-            ->selectRaw('IF(torrents.user_id = ?, 1, 0) AS uploader', [$this->user->id])
+            ->selectRaw('torrents.user_id = ? AS uploader', [$this->user->id])
             ->selectRaw('history.active AND history.seeder AS seeding')
             ->selectRaw('history.active AND NOT history.seeder AS leeching')
             ->selectRaw('TIMESTAMPDIFF(SECOND, history.created_at, history.completed_at) AS leechtime')

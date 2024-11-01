@@ -140,7 +140,7 @@ class Torrent extends Model
      * The fields it returns are used by Meilisearch to power the advanced
      * torrent search, quick search, RSS, and the API.
      */
-    public const string SEARCHABLE = "
+    public const string SEARCHABLE = <<<'SQL'
             torrents.id,
             torrents.name,
             torrents.description,
@@ -234,13 +234,13 @@ class Torrent extends Model
                     'username', users.username,
                     'group', (
                         SELECT JSON_OBJECT(
-                            'name', `groups`.name,
-                            'color', `groups`.color,
-                            'icon', `groups`.icon,
-                            'effect', `groups`.effect
+                            'name', "groups".name,
+                            'color', "groups".color,
+                            'icon', "groups".icon,
+                            'effect', "groups".effect
                         )
-                        FROM `groups`
-                        WHERE `groups`.id = users.group_id
+                        FROM "groups"
+                        WHERE "groups".id = users.group_id
                         LIMIT 1
                     )
                 )
@@ -463,7 +463,7 @@ class Torrent extends Model
                 FROM keywords
                 WHERE torrents.id = keywords.torrent_id
             ) AS json_keywords
-        ";
+    SQL;
 
     protected static function booted(): void
     {

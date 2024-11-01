@@ -31,7 +31,7 @@ return new class () extends Migration {
             $table->integer('receiver')->unsigned()->default(0);
             $table->integer('torrent_id')->nullable();
             $table->text('comment');
-            $table->timestamp('date_actioned')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('date_actioned')->useCurrent();
         });
     }
 };

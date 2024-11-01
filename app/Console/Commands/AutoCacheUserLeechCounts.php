@@ -45,8 +45,8 @@ class AutoCacheUserLeechCounts extends Command
     final public function handle(): void
     {
         $peerCounts = User::withoutGlobalScopes()
-            ->selectRaw("CONCAT('user-leeching-count:', id) as cacheKey")
-            ->selectRaw('(select COUNT(*) from peers where peers.user_id = users.id and seeder = 0 and active = 1 and visible = 1) as count')
+            ->selectRaw("'user-leeching-count:' || id as cacheKey")
+            ->selectRaw('(select COUNT(*) from peers where peers.user_id = users.id and seeder = FALSE and active = TRUE and visible = TRUE) as count')
             ->pluck('count', 'cacheKey')
             ->toArray();
 

@@ -64,7 +64,7 @@ class HomeController extends Controller
                         },
                     ])
                     ->where('last_action', '>', now()->subMinutes(60))
-                    ->orderByRaw('(select position from `groups` where `groups`.id = users.group_id), group_id, username')
+                    ->orderByRaw('(select position from "groups" where "groups".id = users.group_id), group_id, username')
                     ->get()
                     ->sortBy(fn ($user) => $user->privacy?->hidden || ! $user->isVisible($user, 'other', 'show_online')),
             ),
