@@ -855,15 +855,15 @@
             <dl class="key-value">
                 <div class="key-value__group">
                     <dt>1 minute</dt>
-                    <dd>{{ $avg['1-minute'] }}</dd>
+                    <dd>{{ $avg['1-minute'] ?? 'N/A' }}</dd>
                 </div>
                 <div class="key-value__group">
                     <dt>5 minutes</dt>
-                    <dd>{{ $avg['5-minute'] }}</dd>
+                    <dd>{{ $avg['5-minute'] ?? 'N/A' }}</dd>
                 </div>
                 <div class="key-value__group">
                     <dt>15 minutes</dt>
-                    <dd>{{ $avg['15-minute'] }}</dd>
+                    <dd>{{ $avg['15-minute'] ?? 'N/A' }}</dd>
                 </div>
             </dl>
         </section>

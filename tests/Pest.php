@@ -12,9 +12,15 @@ declare(strict_types=1);
 |
 */
 
-uses(
+pest()->extend(
     Tests\TestCase::class,
-)->in('Feature', 'Unit');
+)->beforeEach(function (): void {
+    config(['email-blacklist.enabled' => false]);
+})->in('Feature', 'Unit');
+
+pest()->beforeEach(function (): void {
+    $this->asStaffUser();
+})->in('Feature/Http/Controllers/Staff');
 
 /*
 |--------------------------------------------------------------------------

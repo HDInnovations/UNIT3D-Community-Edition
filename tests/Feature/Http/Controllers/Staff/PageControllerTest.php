@@ -14,122 +14,98 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
-namespace Tests\Feature\Http\Controllers\Staff;
-
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use PHPUnit\Framework\Attributes\Test;
-use App\Models\Group;
+use App\Http\Controllers\Staff\PageController;
+use App\Http\Requests\Staff\StorePageRequest;
+use App\Http\Requests\Staff\UpdatePageRequest;
 use App\Models\Page;
-use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
-use Tests\TestCase;
 
-/**
- * @see \App\Http\Controllers\Staff\PageController
- */
-final class PageControllerTest extends TestCase
-{
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
+use function Pest\Laravel\assertDatabaseHas;
 
-    protected function createStaffUser(): Collection|Model
-    {
-        return User::factory()->create([
-            'group_id' => fn () => Group::factory()->create([
-                'is_owner' => true,
-                'is_admin' => true,
-                'is_modo'  => true,
-            ])->id,
-        ]);
-    }
+test('create returns an ok response', function (): void {
+    $this->seed(GroupsTableSeeder::class);
 
-    #[Test]
-    public function create_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+    $this->get(route('staff.pages.create'))
+        ->assertOk()
+        ->assertViewIs('Staff.page.create');
+});
 
-        $user = $this->createStaffUser();
+test('destroy returns an ok response', function (): void {
+    $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.pages.create'));
+    $this->delete(route('staff.pages.destroy', ['page' => $page]))
+        ->assertRedirect(route('staff.pages.index'));
 
-        $response->assertOk();
-        $response->assertViewIs('Staff.page.create');
-    }
+    $this->assertModelMissing($page);
+});
 
-    #[Test]
-    public function destroy_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('edit returns an ok response', function (): void {
+    $page = Page::factory()->create();
 
-        $user = $this->createStaffUser();
-        $page = Page::factory()->create();
+    $this->get(route('staff.pages.edit', ['page' => $page]))
+        ->assertOk()
+        ->assertViewIs('Staff.page.edit')
+        ->assertViewHas('page');
+});
 
-        $response = $this->actingAs($user)->delete(route('staff.pages.destroy', ['page' => $page]));
+test('index returns an ok response', function (): void {
+    $pages = Page::factory()->times(3)->create();
 
-        $response->assertRedirect(route('staff.pages.index'));
-    }
+    $this->get(route('staff.pages.index'))
+        ->assertOk()
+        ->assertViewIs('Staff.page.index')
+        ->assertViewHas('pages', $pages);
+});
 
-    #[Test]
-    public function edit_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('store validates with a form request', function (): void {
+    $this->assertActionUsesFormRequest(
+        PageController::class,
+        'store',
+        StorePageRequest::class
+    );
+});
 
-        $user = $this->createStaffUser();
-        $page = Page::factory()->create();
+test('store returns an ok response', function (): void {
+    $page = Page::factory()->make();
 
-        $response = $this->actingAs($user)->get(route('staff.pages.edit', ['page' => $page]));
+    $this->post(route('staff.pages.store'), [
+        'name'    => $page->name,
+        'content' => $page->content,
+    ])
+        ->assertRedirect(route('staff.pages.index'))
+        ->assertSessionHasNoErrors();
 
-        $response->assertOk();
-        $response->assertViewIs('Staff.page.edit');
-        $response->assertViewHas('page');
-    }
+    assertDatabaseHas('pages', [
+        'name'    => $page->name,
+        'content' => $page->content,
+    ]);
+});
 
-    #[Test]
-    public function index_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+test('update validates with a form request', function (): void {
+    $this->assertActionUsesFormRequest(
+        PageController::class,
+        'update',
+        UpdatePageRequest::class
+    );
+});
 
-        $user = $this->createStaffUser();
+test('update returns an ok response', function (): void {
+    $page = Page::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('staff.pages.index'));
+    $name = fake()->name;
+    $content = fake()->text;
 
-        $response->assertOk();
-        $response->assertViewIs('Staff.page.index');
-        $response->assertViewHas('pages');
-    }
+    $this->patch(route('staff.pages.update', ['page' => $page]), [
+        'name'    => $name,
+        'content' => $content,
+    ])
+        ->assertRedirect(route('staff.pages.index'))
+        ->assertSessionHasNoErrors();
 
-    #[Test]
-    public function store_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
+    $page->refresh();
 
-        $user = $this->createStaffUser();
-        $page = Page::factory()->make();
-
-        $response = $this->actingAs($user)->post(route('staff.pages.store'), [
-            'name'    => $page->name,
-            'content' => $page->content,
-        ]);
-
-        $response->assertRedirect(route('staff.pages.index'));
-    }
-
-    #[Test]
-    public function update_returns_an_ok_response(): void
-    {
-        $this->seed(GroupsTableSeeder::class);
-
-        $user = $this->createStaffUser();
-        $page = Page::factory()->create();
-
-        $response = $this->actingAs($user)->patch(route('staff.pages.update', ['page' => $page]), [
-            'name'    => $page->name,
-            'content' => $page->content,
-        ]);
-
-        $response->assertRedirect(route('staff.pages.index'));
-    }
-}
+    expect($page->name)
+        ->toBe($name)
+        ->and($page->content)
+        ->toBe($content);
+});

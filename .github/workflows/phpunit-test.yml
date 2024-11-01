@@ -70,6 +70,7 @@ jobs:
           DB_USERNAME: root
           DB_DATABASE: unit3d
           DB_PASSWORD: null
+          CACHE_STORE: array
       - name: Cache phpunit cache directory
         uses: actions/cache@v4
         with:

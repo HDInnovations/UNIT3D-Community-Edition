@@ -16,8 +16,10 @@ declare(strict_types=1);
 
 use App\Models\Torrent;
 use App\Models\User;
+use Illuminate\Support\Facades\Redis;
 
 test('index returns an ok response', function (): void {
+    Redis::connection('announce')->flushdb();
     $user = User::factory()->create([
         'can_download' => true,
     ]);
