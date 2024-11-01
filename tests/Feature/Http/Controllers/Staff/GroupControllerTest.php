@@ -58,7 +58,6 @@ test('store returns an ok response', function (): void {
 
     $this->post(route('staff.groups.store'), [
         'name'             => $group->name,
-        'slug'             => $group->slug,
         'position'         => $group->position,
         'level'            => $group->level,
         'color'            => $group->color,
@@ -88,7 +87,6 @@ test('store returns an ok response', function (): void {
 
     assertDatabaseHas('groups', [
         'name'     => $group->name,
-        'slug'     => $group->slug,
         'position' => $group->position,
     ]);
 });
@@ -105,8 +103,8 @@ test('update returns an ok response', function (): void {
     $group = Group::factory()->create();
 
     $this->patch(route('staff.groups.update', ['group' => $group]), [
+        ...$group->toArray(),
         'name'     => 'new name',
-        'slug'     => 'new-slug',
         'position' => -2,
         'level'    => 1000,
     ])
@@ -115,7 +113,7 @@ test('update returns an ok response', function (): void {
 
     assertDatabaseHas('groups', [
         'name'     => 'new name',
-        'slug'     => 'new-slug',
+        'slug'     => 'new-name',
         'position' => -2,
         'level'    => 1000,
     ]);
