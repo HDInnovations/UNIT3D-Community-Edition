@@ -43,7 +43,7 @@ class PlaylistSearch extends Component
     public string $username = '';
 
     #[Url(history: true)]
-    public string $sortDirection = 'desc';
+    public string $sortDirection = 'asc';
 
     final public function updatingName(): void
     {
