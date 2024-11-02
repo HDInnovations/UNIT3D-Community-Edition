@@ -14,19 +14,34 @@ declare(strict_types=1);
  */
 
 return [
-    'chatbox'                 => 'Sohbet kutusu',
-    'click'                   => 'Click',
-    'to-enable-editor'        => 'editörü etkinleştirmek için',
-    'featured-by'             => 'Tarafından sunulan',
-    'featured-torrents'       => 'Öne Çıkan Torrentler',
-    'featured-torrents-intro' => 'Onları Yapabiliyorken Alın!',
-    'featured-until'          => 'Bu kadar sel torrent özellikli',
-    'top-torrents'            => 'En İyi Torrents',
-    'latest-posts'            => 'Son Gönderiler',
-    'latest-topics'           => 'Son Konular',
-    'active-in-last'          => 'Sonunda aktif',
-    'users-online'            => 'Kullanıcılar çevrimiçi',
-    'check-news'              => 'Haberler (günlük kontrol)',
-    'new-news'                => 'Yeni haberler',
-    'new-torrents'            => 'Yeni seller',
+    // Chat
+    'chatbox'          => 'Sohbet kutusu',
+    'click'            => 'Tıkla',
+    'to-enable-editor' => 'Editörü etkinleştir',
+
+    // Featured Torrents
+    'featured-by'             => 'Tarafından öne çıkarıldı',
+    'featured-torrents'       => 'Öne çıkarılan torrentler',
+    'featured-torrents-intro' => 'Öner çıkarılan torrentleri kaçırma',
+    'featured-until'          => 'Sınırlı süreli öne çıkarılan torrent',
+
+    // Latest Torrents
+    'top-torrents' => 'Top Torrentler',
+
+    // Latest Posts
+    'latest-posts' => 'En yeni mesajlar',
+
+    // Latest Topics
+    'latest-topics' => 'En yeni başlıklar',
+
+    // Users Online
+    'active-in-last' => 'En yeni üye',
+    'users-online'   => 'Online üyeler',
+
+    // News/Articles
+    'check-news' => 'En yeni haberler',
+    'new-news'   => 'Yeni haberler',
+
+    // Top Torrents
+    'new-torrents' => 'Yeni Torrentler',
 ];
