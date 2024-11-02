@@ -70,7 +70,7 @@ class PlaylistSearch extends Component
                     )
             )
             ->when($this->name !== '', fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->name).'%'))
-            ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', '=', $this->username))
+            ->when($this->username !== '', fn ($query) => $query->whereRelation('user', 'username', 'LIKE', '%'.$this->username.'%'))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate(min($this->perPage, 100));
     }
