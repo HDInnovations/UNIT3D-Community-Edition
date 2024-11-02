@@ -14,8 +14,8 @@ declare(strict_types=1);
  */
 
 return [
-    'articles'      => 'Makaleler',
-    'meta-articles' => 'Takipçi ve topluluk hakkında makaleler ve haberler',
+    'articles'      => 'Konular',
+    'meta-articles' => 'Site ve üyeler hakkında Konular ve haberler',
     'published-at'  => 'Yayınlandı',
-    'read-more'     => 'Daha fazla oku',
+    'read-more'     => 'Daha fazlasını oku',
 ];
