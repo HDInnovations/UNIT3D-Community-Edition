@@ -1,4 +1,10 @@
-<section class="panelV2 top10">
+<section
+    @class([
+        'panelV2',
+        'top10',
+        'top10--weekly' => $this->interval === 'weekly',
+    ])
+>
     <header class="panel__header">
         <h2 class="panel__heading">Top Titles</h2>
         <div class="panel__actions">
