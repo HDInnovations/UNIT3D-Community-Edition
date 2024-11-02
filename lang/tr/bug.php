@@ -14,15 +14,15 @@ declare(strict_types=1);
  */
 
 return [
-    'bug-report'             => 'Hata raporu',
-    'bug-report-description' => 'Site hatası bildirin',
-    'enter-description'      => 'Sorunu en iyi şekilde tanımlayın',
-    'enter-email'            => 'Lütfen E-postanızı girin',
-    'enter-title'            => 'Lütfen uygun bir başlık seçin',
-    'enter-username'         => 'Lütfen kullanıcı adınızı giriniz',
-    'high'                   => 'Yüksek',
-    'low'                    => 'Düşük',
-    'priority'               => 'öncelik',
-    'priority-description'   => 'Hata gerçekten siteyi kullanmak için bir sorunsa, sadece çok yüksek seçin.',
-    'very-high'              => 'Çok yüksek',
+    'bug-report'             => 'Bug-hata rapor',
+    'bug-report-description' => 'Site Bug-hata rapor',
+    'enter-description'      => 'Hatayı, sorunu detaylıca açıkla',
+    'enter-email'            => 'email adresini gir',
+    'enter-title'            => 'Uygun başlık seç',
+    'enter-username'         => 'Kullanıcı adını gir',
+    'high'                   => 'Çok önemli',
+    'low'                    => 'Düşük önemli',
+    'priority'               => 'Önem derecesi',
+    'priority-description'   => 'Sorun-hata site kullanımında çok ciddi ise çok çok önemli seçin',
+    'very-high'              => 'Çok çok önemli',
 ];
