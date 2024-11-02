@@ -34,7 +34,9 @@ class DonationController extends Controller
     {
         abort_unless($request->user()->group->is_owner, 403);
 
-        $donations = Donation::with('package')->latest()->paginate(25);
+        $donations = Donation::with(['package' => function ($query): void {
+            $query->withTrashed();
+        }])->latest()->paginate(25);
 
         $dailyDonations = Donation::selectRaw('DATE(donations.created_at) as date, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')

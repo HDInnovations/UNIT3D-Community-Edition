@@ -96,6 +96,6 @@ class Donation extends Model
      */
     public function package(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(DonationPackage::class);
+        return $this->belongsTo(DonationPackage::class)->withTrashed();
     }
 }
