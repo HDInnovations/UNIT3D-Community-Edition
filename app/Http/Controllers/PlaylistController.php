@@ -154,9 +154,11 @@ class PlaylistController extends Controller
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
-        }
 
-        $playlist->update(['cover_image' => $filename ?? null] + $request->validated());
+            $playlist->update(['cover_image' => $filename] + $request->validated());
+        } else {
+            $playlist->update($request->validated());
+        }
 
         return to_route('playlists.show', ['playlist' => $playlist])
             ->withSuccess(trans('playlist.update-success'));
