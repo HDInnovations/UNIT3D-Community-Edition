@@ -14,15 +14,15 @@ declare(strict_types=1);
  */
 
 return [
-    'about'      => 'hakkında',
+    'about'      => 'Hakkında',
     'bot'        => 'Bot',
-    'bots'       => 'botlar',
+    'bots'       => 'Botlar',
     'color'      => 'Renk',
-    'command'    => 'komuta',
-    'edit-bot'   => 'Botu Düzenle',
-    'emoji-code' => 'Emoji Kodu',
-    'help'       => 'yardım et',
-    'icon'       => 'ikon',
+    'command'    => 'Komut',
+    'edit-bot'   => 'Bot düzenle',
+    'emoji-code' => 'Emoji kod',
+    'help'       => 'Yardım',
+    'icon'       => 'İkon',
     'info'       => 'Bilgi',
-    'name'       => 'isim',
+    'name'       => 'İsim',
 ];
