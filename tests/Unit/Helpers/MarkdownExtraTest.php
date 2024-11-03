@@ -15,27 +15,25 @@ declare(strict_types=1);
  */
 
 use App\Helpers\MarkdownExtra;
+use League\CommonMark\MarkdownConverter;
 
 describe('markdown support', tests: function (): void {
     it(
         'Generates HTML from Markdown',
         function (
+            string $service,
             string $result,
             string $markdown,
             bool $minify = true,
             bool $strict = false,
             bool $safeMode = false
         ): void {
-            $service = (new MarkdownExtra())
-                ->setSafeMode($safeMode)
-                ->setStrictMode($strict);
-
-            $html = $service->parse($markdown);
+            $html = convertToMarkdown($service, $markdown, $strict, $safeMode);
             $html = $minify ? str_replace(["\r\n", "\r", "\n"], '', $html) : $html;
 
-            $this->assertEquals($result, $html);
+            $this->assertEquals($result, rtrim($html));
         }
-    )->with(function (): iterable {
+    )->with(['default', 'commonmark'])->with(function (): iterable {
         yield from basicMarkdown();
 
         yield from codeBlocks();
@@ -54,6 +52,23 @@ describe('markdown support', tests: function (): void {
         yield 'auto link disabled' => ['<p>https://example.com</p>', 'https://example.com', false];
     });
 });
+
+function convertToMarkdown(string $converter, string $input, bool $strict = false, bool $safeMode = false): string
+{
+    if ($converter === 'commonmark') {
+        /** @var MarkdownConverter $service */
+        $service = app(MarkdownConverter::class);
+        $service->getEnvironment()->mergeConfig([
+            'html_input' => $safeMode ? 'escape' : 'allow',
+        ]);
+
+        return $service->convert($input)->getContent();
+    }
+
+    return (new MarkdownExtra())
+        ->setSafeMode($safeMode)
+        ->setStrictMode($strict)->parse($input);
+}
 
 function basicMarkdown(): iterable
 {
