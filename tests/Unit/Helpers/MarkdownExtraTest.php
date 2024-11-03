@@ -299,7 +299,7 @@ MD,
     yield 'html elements' => [
         <<<'HTML'
 <img src="https://example.com/image.jpg" alt="Image" />
-<p>&lt;div&gt;&amp;star;â¨©™ï¸ð&lt;&amp;sol;div&gt;</p>
+<div>☆✨©™️😎</div>
 <p><strong>Strong ☆ ✨</strong></p>
 HTML,
         <<<'MD'
