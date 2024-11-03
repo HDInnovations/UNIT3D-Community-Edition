@@ -67,7 +67,7 @@ class Playlist extends Model
      */
     public function torrents(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Torrent::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id');
+        return $this->belongsToMany(Torrent::class, 'playlist_torrents')->using(PlaylistTorrent::class)->withPivot('id')->withTimestamps();
     }
 
     /**
