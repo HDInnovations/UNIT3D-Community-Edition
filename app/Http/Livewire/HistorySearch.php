@@ -118,8 +118,8 @@ class HistorySearch extends Component
                         DB::raw('SUM(active AND seeder) AS seeding_count'),
                         DB::raw('SUM(active AND NOT seeder) AS leeching_count'),
                         DB::raw('SUM(prewarned_at IS NOT NULL) AS prewarn_count'),
-                        DB::raw('SUM(hitrun = 1) AS hitrun_count'),
-                        DB::raw('SUM(immune = 1) AS immune_count'),
+                        DB::raw('SUM(hitrun = TRUE) AS hitrun_count'),
+                        DB::raw('SUM(immune = TRUE) AS immune_count'),
                     ])
                     ->withCasts([
                         'created_at_min' => 'datetime',

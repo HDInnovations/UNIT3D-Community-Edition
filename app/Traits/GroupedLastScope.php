@@ -34,7 +34,7 @@ trait GroupedLastScope
     public function scopeLastPerGroup(Builder $query, ?array $fields = null): void
     {
         $query->whereIn('id', fn (QueryBuilder $query) => $query->from('torrents')
-            ->selectRaw('max(`id`)')
+            ->selectRaw('max("id")')
             ->groupBy($fields));
     }
 }

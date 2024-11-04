@@ -467,15 +467,15 @@ class TorrentSearch extends Component
                     ),
                 'trump',
             ])
-            ->selectRaw("
+            ->selectRaw(<<<'SQL'
                 CASE
-                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                    WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                    WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                    WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
-                END as meta
-            ");
+                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
+                    WHEN category_id IN (SELECT id FROM categories WHERE game_meta = 1) THEN 'game'
+                    WHEN category_id IN (SELECT id FROM categories WHERE music_meta = 1) THEN 'music'
+                    WHEN category_id IN (SELECT id FROM categories WHERE no_meta = 1) THEN 'no'
+                END AS meta
+            SQL);
 
         if ($isSqlAllowed) {
             $torrents = Torrent::query()
@@ -539,7 +539,12 @@ class TorrentSearch extends Component
             ->selectRaw('MAX(sticky) as sticky')
             ->selectRaw('MAX(bumped_at) as bumped_at')
             ->selectRaw('SUM(times_completed) as times_completed')
-            ->selectRaw("CASE WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie' WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv' END as meta")
+            ->selectRaw(<<<'SQL'
+                CASE
+                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
+                END AS meta
+            SQL)
             ->havingNotNull('meta')
             ->where('tmdb', '!=', 0)
             ->where($this->filters()->toSqlQueryBuilder())
@@ -608,7 +613,12 @@ class TorrentSearch extends Component
                 'resolution_id',
                 'personal_release',
             ])
-            ->selectRaw("CASE WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie' WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv' END as meta")
+            ->selectRaw(<<<'SQL'
+                CASE
+                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
+                END AS meta
+            SQL)
             ->where(
                 fn ($query) => $query
                     ->where(
@@ -751,7 +761,12 @@ class TorrentSearch extends Component
             ->selectRaw('MAX(bumped_at) as bumped_at')
             ->selectRaw('SUM(times_completed) as times_completed')
             ->selectRaw('MIN(category_id) as category_id')
-            ->selectRaw("CASE WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie' WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv' END as meta")
+            ->selectRaw(<<<'SQL'
+                CASE
+                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
+                END AS meta
+            SQL)
             ->havingNotNull('meta')
             ->where('tmdb', '!=', 0)
             ->where($this->filters()->toSqlQueryBuilder())

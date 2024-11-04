@@ -44,7 +44,7 @@ class UserController extends Controller
             'application',
             'privacy',
             'userban' => ['banneduser', 'staffuser'],
-            'tickets' => fn ($query) => $query->orderByRaw('ISNULL(closed_at) desc')->orderByDesc('id'),
+            'tickets' => fn ($query) => $query->orderByRaw('CASE WHEN closed_at IS NULL THEN 1 ELSE 0 END DESC')->orderByDesc('id'),
         ])
             ->loadCount([
                 'torrents as anon_uploads_count'     => fn ($query) => $query->where('anon', '=', true),
@@ -104,9 +104,9 @@ class UserController extends Controller
                 ->whereNotNull('unlocked_at')
                 ->get(),
             'peers' => Peer::query()
-                ->selectRaw('SUM(seeder = 0 AND active = 1) as leeching')
-                ->selectRaw('SUM(seeder = 1 AND active = 1) as seeding')
-                ->selectRaw('SUM(active = 0) as inactive')
+                ->selectRaw('SUM(seeder = FALSE AND active = TRUE) as leeching')
+                ->selectRaw('SUM(seeder = TRUE AND active = TRUE) as seeding')
+                ->selectRaw('SUM(active = FALSE) as inactive')
                 ->where('user_id', '=', $user->id)
                 ->first(),
             'watch'        => $user->watchlist,
