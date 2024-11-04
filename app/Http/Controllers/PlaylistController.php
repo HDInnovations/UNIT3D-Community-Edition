@@ -94,7 +94,7 @@ class PlaylistController extends Controller
      */
     public function show(Request $request, Playlist $playlist): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_if($playlist->is_private && $playlist->user_id !== $request->user()->id, 403, trans('playlist.private-error'));
+        abort_if($playlist->is_private && $playlist->user_id !== $request->user()->id && !$request->user()->group->is_modo, 403, trans('playlist.private-error'));
 
         $randomTorrent = $playlist->torrents()->inRandomOrder()->with('category')->first();
 
