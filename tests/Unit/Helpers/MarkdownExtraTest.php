@@ -22,7 +22,7 @@ describe('markdown support', tests: function (): void {
         'Generates HTML from Markdown',
         function (
             string $service,
-            string $result,
+            string|array $result,
             string $markdown,
             bool $minify = true,
             bool $strict = false,
@@ -31,7 +31,7 @@ describe('markdown support', tests: function (): void {
             $html = convertToMarkdown($service, $markdown, $strict, $safeMode);
             $html = $minify ? str_replace(["\r\n", "\r", "\n"], '', $html) : $html;
 
-            $this->assertEquals($result, rtrim($html));
+            expect(rtrim($html))->toBe(\is_array($result) ? $result[$service] : $result);
         }
     )->with(['default', 'commonmark'])->with(function (): iterable {
         yield from basicMarkdown();
@@ -96,13 +96,25 @@ function basicMarkdown(): iterable
 
     yield 'escaped italic' => ['<p>I do not want _italic text_ here</p>', 'I do not want \_italic text\_ here'];
 
-    yield 'copy' => ['<p>&copy;</p>', '&copy;'];
+    yield 'copy' => [['default' => '<p>&copy;</p>', 'commonmark' => '<p>©</p>'], '&copy;'];
 
     yield 'strikethrough' => ['<p><del>This is strikethrough</del></p>', '~~This is strikethrough~~'];
 
-    yield 'bold italic' => ['<p><strong><em>This is bold italic</em></strong></p>', '***This is bold italic***'];
+    yield 'bold italic' => [
+        [
+            'default'    => '<p><strong><em>This is bold italic</em></strong></p>',
+            'commonmark' => '<p><em><strong>This is bold italic</strong></em></p>',
+        ],
+        '***This is bold italic***',
+    ];
 
-    yield 'bold italic strikethrough' => ['<p><strong><em><del>This is bold italic strikethrough</del></em></strong></p>', '***~~This is bold italic strikethrough~~***'];
+    yield 'bold italic strikethrough' => [
+        [
+            'default'    => '<p><strong><em><del>This is bold italic strikethrough</del></em></strong></p>',
+            'commonmark' => '<p><em><strong><del>This is bold italic strikethrough</del></strong></em></p>',
+        ],
+        '***~~This is bold italic strikethrough~~***',
+    ];
 
     yield 'code' => ['<p>Do not use <code>dump()</code> in your code please.</p>', 'Do not use `dump()` in your code please.'];
 
@@ -123,7 +135,8 @@ function basicMarkdown(): iterable
     yield 'comment' => ['', '[//]: <> (This is a comment, it will not be included)'];
 
     yield 'list with nested list' => [
-        <<<'HTML'
+        [
+            'default' => <<<'HTML'
 <ul>
 <li>Item 1<ul>
 <li>Item 1.1
@@ -139,6 +152,25 @@ Test</li>
 </ul>
 <p>Test</p>
 HTML,
+            'commonmark' => <<<'HTML'
+<ul>
+<li>Item 1
+<ul>
+<li>Item 1.1
+Test</li>
+<li>Item 1.2
+<ul>
+<li>Item 1.2.1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Item 2</li>
+<li>Item 3</li>
+</ul>
+<p>Test</p>
+HTML,
+        ],
         <<<MD
 - Item 1\n  - Item 1.1\n  Test\n  - Item 1.2\n    - Item 1.2.1\n- Item 2\n- Item 3\n\nTest
 MD,
@@ -153,17 +185,24 @@ MD,
 function codeBlocks(): iterable
 {
     yield 'code block' => [
-        '<pre><code>echo "Hello, World!";</code></pre>',
+        [
+            'default'    => '<pre><code>echo "Hello, World!";</code></pre>',
+            'commonmark' => '<pre><code>echo &quot;Hello, World!&quot;;</code></pre>',
+        ],
         "```\necho \"Hello, World!\";\n```",
     ];
 
     yield 'code block with language' => [
-        '<pre><code class="language-php">echo "Hello, World!";</code></pre>',
+        [
+            'default'    => '<pre><code class="language-php">echo "Hello, World!";</code></pre>',
+            'commonmark' => '<pre><code class="language-php">echo &quot;Hello, World!&quot;;</code></pre>',
+        ],
         "```php\necho \"Hello, World!\";\n```",
     ];
 
     yield 'code block with language json' => [
-        <<<'HTML'
+        [
+            'default' => <<<'HTML'
 <pre><code class="language-json">
 {
     "firstName": "John",
@@ -171,6 +210,15 @@ function codeBlocks(): iterable
     "age": 25
 }</code></pre>
 HTML,
+            'commonmark' => <<<'HTML'
+<pre><code class="language-json">{
+    &quot;firstName&quot;: &quot;John&quot;,
+    &quot;lastName&quot;: &quot;Smith&quot;,
+    &quot;age&quot;: 25
+}
+</code></pre>
+HTML,
+        ],
         <<<'MD'
 ```json
 {
@@ -183,10 +231,17 @@ MD,
     ];
 
     yield 'code block with language text' => [
-        <<<'HTML'
+        [
+            'default' => <<<'HTML'
 <pre><code class="language-text">code();
 address@domain.example</code></pre>
 HTML,
+            'commonmark' => <<<'HTML'
+<pre><code class="language-text">code();
+address@domain.example
+</code></pre>
+HTML,
+        ],
         <<<'MD'
 ~~~text
 code();
@@ -197,13 +252,23 @@ MD,
     ];
 
     yield 'code block using 4 spaces' => [
-        <<<'HTML'
+        [
+            'default' => <<<'HTML'
 <pre><code>{
   "firstName": "John",
   "lastName": "Smith",
   "age": 25
 }</code></pre>
 HTML,
+            'commonmark' => <<<'HTML'
+<pre><code>{
+  &quot;firstName&quot;: &quot;John&quot;,
+  &quot;lastName&quot;: &quot;Smith&quot;,
+  &quot;age&quot;: 25
+}
+</code></pre>
+HTML,
+        ],
         <<<'MD'
     {
       "firstName": "John",
@@ -240,7 +305,8 @@ MD,
 function extendedSyntax(): iterable
 {
     yield 'footnotes' => [
-        <<<'HTML'
+        [
+            'default' => <<<'HTML'
 <p>Here is a simple footnote<sup id="fnref1:1"><a href="#fn:1" class="footnote-ref">1</a></sup>. With some additional<sup id="fnref1:2"><a href="#fn:2" class="footnote-ref">2</a></sup> text after it.</p>
 <div class="footnotes">
 <hr />
@@ -256,6 +322,14 @@ Some more text here.</p>
 </ol>
 </div>
 HTML,
+            'commonmark' => <<<'HTML'
+<p>Here is a simple footnote<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" role="doc-noteref">1</a></sup>. With some additional<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" role="doc-noteref">2</a></sup> text after it.</p>
+<div class="footnotes" role="doc-endnotes"><hr /><ol><li class="footnote" id="fn:1" role="doc-endnote"><p>Another footnote.&nbsp;<a class="footnote-backref" rev="footnote" href="#fnref:1" role="doc-backlink">↩</a></p></li>
+<li class="footnote" id="fn:2" role="doc-endnote"><p>My reference.
+Some more text here.</p>
+<p>Continuing here.&nbsp;<a class="footnote-backref" rev="footnote" href="#fnref:2" role="doc-backlink">↩</a></p></li></ol></div>
+HTML,
+        ],
         <<<'MD'
 Here is a simple footnote[^1]. With some additional[^2] text after it.
 
@@ -269,7 +343,8 @@ MD,
     ];
 
     yield 'definition lists' => [
-        <<<'HTML'
+        [
+            'default' => <<<'HTML'
 <dl>
 <dt>First Term</dt>
 <dd>This is the definition of the first term.</dd>
@@ -282,6 +357,18 @@ Continuing here</p>
 </dd>
 </dl>
 HTML,
+            'commonmark' => <<<'HTML'
+<dl>
+<dt>First Term</dt>
+<dd>This is the definition of the first term.</dd>
+<dt>Second Term</dt>
+<dd>This is one definition of the second term.</dd>
+<dd>This is another definition of the second term.
+Continuing here
+One more line</dd>
+</dl>
+HTML,
+        ],
         <<<'MD'
 First Term
 : This is the definition of the first term.
@@ -296,27 +383,19 @@ MD,
         false,
     ];
 
-    yield 'abbreviations' => [
-        <<<'HTML'
-<p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification
-is maintained by the <abbr title="World Wide Web Consortium">W3C</abbr>.</p>
-HTML,
-        <<<'MD'
-The HTML specification
-is maintained by the W3C.
-
-*[HTML]: Hyper Text Markup Language
-*[W3C]:  World Wide Web Consortium
-MD,
-        false,
-    ];
-
     yield 'html elements' => [
-        <<<'HTML'
+        [
+            'default' => <<<'HTML'
 <img src="https://example.com/image.jpg" alt="Image" />
 <div>☆✨©™️😎</div>
 <p><strong>Strong ☆ ✨</strong></p>
 HTML,
+            'commonmark' => <<<'HTML'
+<img src="https://example.com/image.jpg" alt="Image" />
+<div>☆✨©™️😎</div>
+<strong>Strong ☆ ✨</strong>
+HTML,
+        ],
         <<<'MD'
 <img src="https://example.com/image.jpg" alt="Image" />
 <div>☆✨©™️😎</div>

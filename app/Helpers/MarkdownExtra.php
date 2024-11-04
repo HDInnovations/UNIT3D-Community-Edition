@@ -20,6 +20,9 @@ namespace App\Helpers;
 use DOMDocument;
 use DOMElement;
 
+/**
+ * @deprecated Use \GrahamCampbell\Markdown\Facades\Markdown instead
+ */
 class MarkdownExtra extends Markdown
 {
     public function __construct()

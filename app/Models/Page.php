@@ -17,8 +17,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Helpers\Bbcode;
-use App\Helpers\MarkdownExtra;
 use App\Traits\Auditable;
+use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -56,8 +56,8 @@ class Page extends Model
     /**
      * Parse Content And Return Valid HTML.
      */
-    public function getContentHtml(): ?string
+    public function getContentHtml(): string
     {
-        return (new MarkdownExtra())->text((new Bbcode())->parse($this->content, false));
+        return Markdown::convert((new Bbcode())->parse($this->content, false))->getContent();
     }
 }
