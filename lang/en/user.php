@@ -189,6 +189,7 @@ return [
     'my-general-settings'            => 'My General Settings',
     'my-notification'                => 'My Notification',
     'my-notification-settings'       => 'My Notification Settings',
+    'my-playlists'                   => 'My Playlists',
     'my-privacy'                     => 'My Privacy',
     'my-privacy-settings'            => 'My Privacy Settings',
     'my-profile'                     => 'My Profile',

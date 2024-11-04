@@ -621,6 +621,14 @@
                         </a>
                     </li>
                     <li>
+                        <a
+                            href="{{ route('playlists.index', ['username' => auth()->user()->username]) }}"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
+                            {{ __('user.my-playlists') }}
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('users.wishes.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-clipboard-list"></i>
                             {{ __('user.my-wishlist') }}
