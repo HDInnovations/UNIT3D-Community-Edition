@@ -25,7 +25,6 @@ use App\Notifications\NewComment;
 use App\Notifications\NewThank;
 use App\Traits\Auditable;
 use App\Traits\GroupedLastScope;
-use App\Traits\TorrentFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -95,7 +94,6 @@ class Torrent extends Model
     use HasFactory;
     use Searchable;
     use SoftDeletes;
-    use TorrentFilter;
 
     protected $guarded = [];
 
