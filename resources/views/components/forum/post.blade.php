@@ -21,8 +21,10 @@
                     by
                     <a
                         class="user-tag__link {{ $post->updatedBy->group->icon ?? $post->user->group->icon }}"
-                        href="{{ route('users.show', ['user' => $post->updatedBy ?? $post->user ]) }}"
-                        style="color: {{ $post->updatedBy->group->color ?? $post->user->group->color }}"
+                        href="{{ route('users.show', ['user' => $post->updatedBy ?? $post->user]) }}"
+                        style="
+                            color: {{ $post->updatedBy->group->color ?? $post->user->group->color }};
+                        "
                         title="{{ $post->updatedBy->group->name ?? $post->user->group->name }}"
                     >
                         {{ $post->updatedBy?->username ?? $post->user->username }}
