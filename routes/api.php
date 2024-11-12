@@ -42,6 +42,9 @@ Route::middleware(['auth:api', 'banned'])->prefix('torrents')->group(function ()
     Route::post('/upload', [App\Http\Controllers\API\TorrentController::class, 'store']);
 });
 
+// User
+Route::middleware(['auth:api', 'banned'])->get('/user', [App\Http\Controllers\API\UserController::class, 'show']);
+
 // Internal front-end web API routes
 Route::middleware(['web', 'auth', 'banned', 'verified'])->group(function (): void {
     Route::prefix('bookmarks')->group(function (): void {
