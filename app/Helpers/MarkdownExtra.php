@@ -20,6 +20,9 @@ namespace App\Helpers;
 use DOMDocument;
 use DOMElement;
 
+/**
+ * @deprecated Use \GrahamCampbell\Markdown\Facades\Markdown instead
+ */
 class MarkdownExtra extends Markdown
 {
     public function __construct()
@@ -550,13 +553,17 @@ class MarkdownExtra extends Markdown
         // http://stackoverflow.com/q/1148928/200145
         libxml_use_internal_errors(true);
 
-        $DOMDocument = new DOMDocument();
+        $DOMDocument = new DOMDocument('1.0', 'utf-8');
+
+        $DOMDocument->loadHTML('<?xml encoding="UTF-8">'.$elementMarkup);
 
         // http://stackoverflow.com/q/11309194/200145
-        $elementMarkup = mb_convert_encoding((string) $elementMarkup, 'HTML-ENTITIES', 'UTF-8');
+        foreach ($DOMDocument->childNodes as $item) {
+            if ($item->nodeType == XML_PI_NODE) {
+                $DOMDocument->removeChild($item);
+            }
+        }
 
-        // http://stackoverflow.com/q/4879946/200145
-        $DOMDocument->loadHTML($elementMarkup);
         $DOMDocument->removeChild($DOMDocument->doctype);
         $DOMDocument->replaceChild($DOMDocument->firstChild->firstChild->firstChild, $DOMDocument->firstChild);
 
