@@ -44,6 +44,10 @@
                                     <button disabled class="form__button form__button--filled">
                                         {{ __('bon.activated') }}!
                                     </button>
+                                @elseif ($item->upload && config('other.bon.max-buffer-to-buy-upload') !== null && $user->uploaded - $user->downloaded > config('other.bon.max-buffer-to-buy-upload'))
+                                    <button disabled class="form__button form__button--filled">
+                                        Too much buffer!
+                                    </button>
                                 @else
                                     <form
                                         method="POST"
