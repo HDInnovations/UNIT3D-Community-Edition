@@ -1128,6 +1128,13 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
+        // Unregistered Torrents
+        Route::prefix('unregistered-info-hashes')->group(function (): void {
+            Route::name('unregistered_info_hashes.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\UnregisteredInfoHashController::class, 'index'])->name('index');
+            });
+        });
+
         // User Staff Notes
         Route::prefix('notes')->group(function (): void {
             Route::name('notes.')->group(function (): void {
