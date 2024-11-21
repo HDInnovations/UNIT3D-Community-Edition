@@ -94,8 +94,14 @@ class UserController extends Controller
             // 'boughtDownload'        => BonTransactions::where('sender_id', '=', $user->id)->where([['name', 'like', '%Download%']])->sum('cost'),
             'invitedBy' => Invite::where('accepted_by', '=', $user->id)->first(),
             'clients'   => $user->peers()
+                ->join('torrents', 'torrents.id', '=', 'peers.torrent_id')
                 ->select('agent', 'port')
-                ->selectRaw('INET6_NTOA(ip) as ip, MIN(created_at) as created_at, MAX(updated_at) as updated_at, COUNT(*) as num_peers, MAX(connectable) as connectable')
+                ->selectRaw('INET6_NTOA(peers.ip) as ip')
+                ->selectRaw('MIN(peers.created_at) as created_at')
+                ->selectRaw('MAX(peers.updated_at) as updated_at')
+                ->selectRaw('SUM(torrents.size) as size')
+                ->selectRaw('COUNT(*) as num_peers')
+                ->selectRaw('MAX(peers.connectable) as connectable')
                 ->groupBy(['ip', 'port', 'agent'])
                 ->where('active', '=', true)
                 ->get(),
