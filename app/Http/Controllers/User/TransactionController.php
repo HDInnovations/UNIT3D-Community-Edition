@@ -71,6 +71,10 @@ class TransactionController extends Controller
 
             switch (true) {
                 case $bonExchange->upload:
+                    if (config('other.bon.max-buffer-to-buy-upload') !== null && $user->uploaded - $user->downloaded > config('other.bon.max-buffer-to-buy-upload')) {
+                        return back()->withErrors('You already have enough buffer.');
+                    }
+
                     $user->increment('uploaded', $bonExchange->value);
 
                     break;
