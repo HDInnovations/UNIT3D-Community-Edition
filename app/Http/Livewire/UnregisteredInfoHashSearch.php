@@ -18,6 +18,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Scopes\ApprovedScope;
 use App\Models\UnregisteredInfoHash;
+use App\Traits\CastLivewireProperties;
+use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
@@ -26,6 +28,8 @@ use Livewire\WithPagination;
 
 class UnregisteredInfoHashSearch extends Component
 {
+    use CastLivewireProperties;
+    use LivewireSort;
     use WithPagination;
 
     #TODO: Update URL attributes once Livewire 3 fixes upstream bug. See: https://github.com/livewire/livewire/discussions/7746
