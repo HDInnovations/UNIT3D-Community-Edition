@@ -80,7 +80,7 @@ class UnregisteredInfoHashSearch extends Component
                 $this->excludeSoftDeletedTorrents,
                 fn ($query) => $query->whereDoesntHave('torrent', fn ($query) => $query->onlyTrashed()->withoutGlobalScope(ApprovedScope::class))
             )
-            ->latest()
+            ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }
 
