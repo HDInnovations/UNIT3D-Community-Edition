@@ -79,6 +79,10 @@ class StoreGroupRequest extends FormRequest
                 'required',
                 'boolean',
             ],
+            'is_torrent_modo' => [
+                'required',
+                'boolean',
+            ],
             'is_modo' => [
                 'required',
                 'boolean',

@@ -350,7 +350,7 @@
                 </menu>
             @endif
 
-            @if (auth()->user()->group->is_modo)
+            @if (auth()->user()->group->is_torrent_modo)
                 <menu
                     style="
                         display: flex;

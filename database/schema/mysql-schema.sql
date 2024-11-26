@@ -502,8 +502,8 @@ DROP TABLE IF EXISTS `donation_gateways`;
 CREATE TABLE `donation_gateways` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `position` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -516,8 +516,8 @@ DROP TABLE IF EXISTS `donation_packages`;
 CREATE TABLE `donation_packages` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `position` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `cost` decimal(6,2) NOT NULL,
   `upload_value` bigint unsigned DEFAULT NULL,
   `invite_value` bigint unsigned DEFAULT NULL,
@@ -526,6 +526,7 @@ CREATE TABLE `donation_packages` (
   `is_active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `donation_packages_position_index` (`position`),
   KEY `donation_packages_is_active_index` (`is_active`)
@@ -540,7 +541,7 @@ CREATE TABLE `donations` (
   `gifted_user_id` int unsigned DEFAULT NULL,
   `status` tinyint NOT NULL DEFAULT '0',
   `package_id` int unsigned NOT NULL,
-  `transaction` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_gifted` tinyint(1) NOT NULL DEFAULT '0',
   `starts_at` date DEFAULT NULL,
   `ends_at` date DEFAULT NULL,
@@ -597,9 +598,9 @@ DROP TABLE IF EXISTS `events`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `events` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL,
   `starts_at` date NOT NULL,
   `ends_at` date NOT NULL,
@@ -842,6 +843,7 @@ CREATE TABLE `groups` (
   `is_uploader` tinyint(1) NOT NULL DEFAULT '0',
   `is_internal` tinyint(1) NOT NULL DEFAULT '0',
   `is_editor` tinyint(1) NOT NULL DEFAULT '0',
+  `is_torrent_modo` tinyint(1) NOT NULL DEFAULT '0',
   `is_owner` tinyint(1) NOT NULL DEFAULT '0',
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `is_modo` tinyint(1) NOT NULL DEFAULT '0',
@@ -867,7 +869,8 @@ CREATE TABLE `groups` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `groups_slug_unique` (`slug`),
   KEY `groups_download_slots_index` (`download_slots`),
-  KEY `groups_is_editor_index` (`is_editor`)
+  KEY `groups_is_editor_index` (`is_editor`),
+  KEY `groups_is_torrent_modo_index` (`is_torrent_modo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `history`;
@@ -946,6 +949,7 @@ CREATE TABLE `invites` (
   `accepted_by` int unsigned DEFAULT NULL,
   `accepted_at` datetime DEFAULT NULL,
   `custom` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `internal_note` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -1410,7 +1414,7 @@ DROP TABLE IF EXISTS `prizes`;
 CREATE TABLE `prizes` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `event_id` int unsigned NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `min` int unsigned NOT NULL,
   `max` int unsigned NOT NULL,
   `weight` int unsigned NOT NULL,
@@ -1935,7 +1939,7 @@ CREATE TABLE `torrent_trumps` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `torrent_id` int unsigned NOT NULL,
   `user_id` int unsigned NOT NULL,
-  `reason` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1952,7 +1956,7 @@ CREATE TABLE `torrents` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mediainfo` longtext COLLATE utf8mb4_unicode_ci,
+  `mediainfo` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `bdinfo` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `num_file` int NOT NULL,
@@ -2328,7 +2332,7 @@ CREATE TABLE `users` (
   `uploaded` bigint unsigned NOT NULL DEFAULT '0',
   `downloaded` bigint unsigned NOT NULL DEFAULT '0',
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `about` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `signature` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
@@ -2821,3 +2825,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (324,'2024_09_27_07
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (325,'2024_09_29_041904_add_indexes_for_top10_performance',8);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (326,'2024_10_10_140532_update_mediainfo_from_text_to_longtext',8);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (327,'2024_10_13_221353_create_events_claimed_prizes_tables',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (328,'2024_10_29_180417_add_internal_note_to_invites_table',9);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (329,'2024_11_01_013426_add_soft_deletes_to_donation_packages_table',9);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (330,'2024_11_26_170256_add_is_torrent_modo_to_groups_table',9);

@@ -234,6 +234,16 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Torrents System
+        Route::prefix('torrents')->group(function (): void {
+            Route::prefix('moderation')->name('staff.')->group(function (): void {
+                Route::name('moderation.')->group(function (): void {
+                    Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
+                    Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update']
+                    )->name('update')->whereNumber('id');
+                });
+            });
+        });
+
         Route::prefix('torrents')->name('torrents.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'index'])->name('index');
             Route::get('/create', [App\Http\Controllers\TorrentController::class, 'create'])->name('create');
@@ -985,14 +995,6 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{mediaLanguage}/edit', [App\Http\Controllers\Staff\MediaLanguageController::class, 'edit'])->name('edit');
                 Route::patch('/{mediaLanguage}', [App\Http\Controllers\Staff\MediaLanguageController::class, 'update'])->name('update');
                 Route::delete('/{mediaLanguage}', [App\Http\Controllers\Staff\MediaLanguageController::class, 'destroy'])->name('destroy');
-            });
-        });
-
-        // Moderation System
-        Route::prefix('moderation')->group(function (): void {
-            Route::name('moderation.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update'])->name('update')->whereNumber('id');
             });
         });
 
