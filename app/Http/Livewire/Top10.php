@@ -30,8 +30,8 @@ use Livewire\Component;
 use Throwable;
 
 /**
- * @property \Illuminate\Database\Eloquent\Collection<int, Torrent> $works
- * @property array<string, string>                                  $metaTypes
+ * @property Collection<int, Torrent> $works
+ * @property array<string, string>    $metaTypes
  */
 class Top10 extends Component
 {
@@ -72,7 +72,7 @@ class Top10 extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Torrent>
+     * @return Collection<int, Torrent>
      */
     #[Computed]
     final public function works(): Collection
@@ -112,7 +112,7 @@ class Top10 extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int|string, \Illuminate\Database\Eloquent\Collection<int, Torrent>>
+     * @return Collection<int|string, Collection<int, Torrent>>
      * @phpstan-ignore generics.notSubtype (I can't figure out the correct return type to silence this error)
      */
     #[Computed]

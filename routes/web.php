@@ -238,7 +238,9 @@ Route::middleware('language')->group(function (): void {
             Route::prefix('moderation')->name('staff.')->group(function (): void {
                 Route::name('moderation.')->group(function (): void {
                     Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
-                    Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update']
+                    Route::post(
+                        '/{id}/update',
+                        [App\Http\Controllers\Staff\ModerationController::class, 'update']
                     )->name('update')->whereNumber('id');
                 });
             });
