@@ -66,7 +66,7 @@ class InviteTreeController extends Controller
 
         $invites = Invite::query()
             ->join(
-                DB::raw('
+                DB::raw(<<<'SQL'
                 (
                     WITH RECURSIVE cte AS (
                         SELECT invites.id, invites.accepted_by, 0 as depth, CAST(invites.accepted_by AS CHAR(200)) AS path
@@ -75,7 +75,7 @@ class InviteTreeController extends Controller
                             AND invites.accepted_by IS NOT NULL
                             AND invites.accepted_by != '.(int) User::SYSTEM_USER_ID.'
                         UNION ALL
-                        SELECT invites.id, invites.accepted_by, cte.depth + 1, CONCAT(cte.path, ", ", invites.accepted_by)
+                        SELECT invites.id, invites.accepted_by, cte.depth + 1, CONCAT(cte.path, ', ', invites.accepted_by)
                         FROM invites
                             JOIN cte
                                 ON cte.accepted_by = invites.user_id
@@ -87,7 +87,7 @@ class InviteTreeController extends Controller
                     FROM cte
                     ORDER BY path
                 ) AS tree
-            '),
+            SQL),
                 fn ($join) => $join->on('invites.id', '=', 'tree.id')
             )
             ->with([
