@@ -14,12 +14,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Run Pint
-        uses: aglipanci/laravel-pint-action@2.0.0
-        with:
-          preset: psr12
-          verboseMode: true
+        run: ./vendor/bin/pint
       - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: PHP Style Change (Laravel Pint CI)
           commit_user_name: HDVinne
