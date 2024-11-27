@@ -651,6 +651,16 @@ parameters:
 			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
 
 		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 1
+			path: database/migrations/2024_01_15_151522_update_groups_table.php
+
+		-
+			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			count: 1
+			path: database/migrations/2024_11_26_170256_add_is_torrent_modo_to_groups_table.php
+
+		-
 			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
 			count: 1
 			path: routes/announce.php

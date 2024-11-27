@@ -8,12 +8,12 @@ DROP TABLE IF EXISTS `achievement_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `achievement_details` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `points` int unsigned NOT NULL DEFAULT '1',
   `secret` tinyint(1) NOT NULL DEFAULT '0',
-  `class_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `class_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -23,9 +23,9 @@ DROP TABLE IF EXISTS `achievement_progress`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `achievement_progress` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `achievement_id` int unsigned NOT NULL,
-  `achiever_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `achievement_id` bigint unsigned NOT NULL,
+  `achiever_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `achiever_id` int unsigned NOT NULL,
   `points` int unsigned NOT NULL DEFAULT '0',
   `unlocked_at` timestamp NULL DEFAULT NULL,
@@ -54,8 +54,8 @@ CREATE TABLE `announces` (
   `port` smallint unsigned NOT NULL,
   `numwant` smallint unsigned NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `event` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `event` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `announces_user_id_torrent_id_index` (`user_id`,`torrent_id`),
   KEY `announces_torrent_id_index` (`torrent_id`)
@@ -67,7 +67,7 @@ DROP TABLE IF EXISTS `apikeys`;
 CREATE TABLE `apikeys` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -81,7 +81,7 @@ DROP TABLE IF EXISTS `application_image_proofs`;
 CREATE TABLE `application_image_proofs` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `application_id` int NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -94,7 +94,7 @@ DROP TABLE IF EXISTS `application_url_proofs`;
 CREATE TABLE `application_url_proofs` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `application_id` int NOT NULL,
-  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -106,9 +106,9 @@ DROP TABLE IF EXISTS `applications`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `applications` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `referrer` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `referrer` longtext COLLATE utf8mb4_unicode_ci,
   `status` tinyint NOT NULL DEFAULT '0',
   `moderated_at` datetime DEFAULT NULL,
   `moderated_by` int unsigned DEFAULT NULL,
@@ -128,9 +128,9 @@ DROP TABLE IF EXISTS `articles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `articles` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` int unsigned NOT NULL,
@@ -146,14 +146,13 @@ DROP TABLE IF EXISTS `audits`;
 CREATE TABLE `audits` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned DEFAULT NULL,
-  `model_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_entry_id` bigint unsigned NOT NULL,
-  `action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `action` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `record` json NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `audits_user_id_foreign` (`user_id`),
   KEY `audits_user_id_action_created_at_index` (`user_id`,`action`,`created_at`),
   CONSTRAINT `audits_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -164,7 +163,7 @@ DROP TABLE IF EXISTS `automatic_torrent_freeleeches`;
 CREATE TABLE `automatic_torrent_freeleeches` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `position` int unsigned NOT NULL,
-  `name_regex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name_regex` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `size` bigint unsigned DEFAULT NULL,
   `category_id` int DEFAULT NULL,
   `type_id` int DEFAULT NULL,
@@ -182,8 +181,8 @@ CREATE TABLE `bans` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `owned_by` int unsigned NOT NULL,
   `created_by` int unsigned DEFAULT NULL,
-  `ban_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `unban_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `ban_reason` text COLLATE utf8mb4_unicode_ci,
+  `unban_reason` text COLLATE utf8mb4_unicode_ci,
   `removed_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -199,11 +198,11 @@ DROP TABLE IF EXISTS `blacklist_clients`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `blacklist_clients` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `reason` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reason` longtext COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `peer_id_prefix` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `peer_id_prefix` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `blacklist_clients_name_unique` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -214,8 +213,8 @@ DROP TABLE IF EXISTS `blocked_ips`;
 CREATE TABLE `blocked_ips` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `ip_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `ip_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reason` text COLLATE utf8mb4_unicode_ci,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -230,7 +229,7 @@ DROP TABLE IF EXISTS `bon_exchanges`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bon_exchanges` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `value` bigint unsigned NOT NULL DEFAULT '0',
   `cost` int unsigned NOT NULL DEFAULT '0',
   `upload` tinyint(1) NOT NULL DEFAULT '0',
@@ -246,11 +245,11 @@ DROP TABLE IF EXISTS `bon_transactions`;
 CREATE TABLE `bon_transactions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `bon_exchange_id` int unsigned NOT NULL DEFAULT '0',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `cost` decimal(22,2) NOT NULL DEFAULT '0.00',
   `sender_id` int unsigned DEFAULT NULL,
   `receiver_id` int unsigned DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `bon_transactions_itemid_index` (`bon_exchange_id`),
   KEY `bon_transactions_sender_foreign` (`sender_id`),
@@ -281,12 +280,12 @@ DROP TABLE IF EXISTS `bots`;
 CREATE TABLE `bots` (
   `id` int NOT NULL AUTO_INCREMENT,
   `position` int NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `command` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `emoji` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `help` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `command` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `emoji` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `help` text COLLATE utf8mb4_unicode_ci,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `is_protected` tinyint(1) NOT NULL DEFAULT '0',
   `is_nerdbot` tinyint(1) NOT NULL DEFAULT '0',
@@ -305,10 +304,10 @@ DROP TABLE IF EXISTS `categories`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categories` (
   `id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `position` int NOT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
   `no_meta` tinyint(1) NOT NULL DEFAULT '0',
   `music_meta` tinyint(1) NOT NULL DEFAULT '0',
   `game_meta` tinyint(1) NOT NULL DEFAULT '0',
@@ -322,9 +321,9 @@ DROP TABLE IF EXISTS `chat_statuses`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chat_statuses` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -337,7 +336,7 @@ DROP TABLE IF EXISTS `chatrooms`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `chatrooms` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -379,12 +378,12 @@ DROP TABLE IF EXISTS `collections`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `collections` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_sort` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `parts` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `overview` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `poster` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `backdrop` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_sort` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `parts` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `overview` mediumtext COLLATE utf8mb4_unicode_ci,
+  `poster` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `backdrop` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -396,13 +395,13 @@ DROP TABLE IF EXISTS `comments`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `anon` smallint NOT NULL DEFAULT '0',
   `user_id` int unsigned DEFAULT NULL,
   `parent_id` bigint unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `commentable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `commentable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `commentable_id` bigint unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `comments_commentable_type_commentable_id_index` (`commentable_type`,`commentable_id`),
@@ -417,12 +416,12 @@ DROP TABLE IF EXISTS `companies`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `companies` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `headquarters` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `homepage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `origin_country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` mediumtext COLLATE utf8mb4_unicode_ci,
+  `headquarters` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `origin_country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `companies_name_index` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -456,7 +455,7 @@ DROP TABLE IF EXISTS `conversations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `conversations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -474,7 +473,7 @@ CREATE TABLE `credits` (
   `tv_id` int unsigned DEFAULT NULL,
   `occupation_id` smallint unsigned NOT NULL,
   `order` int unsigned DEFAULT NULL,
-  `character` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `character` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `credits_person_id_movie_id_tv_id_occupation_id_character_unique` (`person_id`,`movie_id`,`tv_id`,`occupation_id`,`character`),
   KEY `credits_occupation_id_foreign` (`occupation_id`),
@@ -491,7 +490,7 @@ DROP TABLE IF EXISTS `distributors`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `distributors` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `distributors_name_index` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -526,6 +525,7 @@ CREATE TABLE `donation_packages` (
   `is_active` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `donation_packages_position_index` (`position`),
   KEY `donation_packages_is_active_index` (`is_active`)
@@ -570,17 +570,17 @@ DROP TABLE IF EXISTS `episodes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `episodes` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `overview` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `production_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `overview` mediumtext COLLATE utf8mb4_unicode_ci,
+  `production_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `season_number` int NOT NULL,
   `season_id` int unsigned NOT NULL,
-  `still` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `still` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tv_id` int unsigned NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vote_average` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vote_average` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vote_count` int DEFAULT NULL,
-  `air_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `air_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `episode_number` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -613,11 +613,11 @@ DROP TABLE IF EXISTS `failed_jobs`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `failed_jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
@@ -629,8 +629,8 @@ DROP TABLE IF EXISTS `failed_login_attempts`;
 CREATE TABLE `failed_login_attempts` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ip_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -659,7 +659,7 @@ DROP TABLE IF EXISTS `files`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `files` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `size` bigint unsigned NOT NULL,
   `torrent_id` int unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -687,9 +687,9 @@ DROP TABLE IF EXISTS `forum_categories`;
 CREATE TABLE `forum_categories` (
   `id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `position` smallint unsigned NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -725,19 +725,19 @@ CREATE TABLE `forums` (
   `last_post_id` int DEFAULT NULL,
   `last_post_user_id` int unsigned DEFAULT NULL,
   `last_post_created_at` timestamp NULL DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
   `forum_category_id` smallint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `default_topic_state_filter` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `default_topic_state_filter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `forums_last_post_user_id_foreign` (`last_post_user_id`),
   KEY `forums_last_topic_id_foreign` (`last_topic_id`),
-  KEY `forums_parent_id_foreign` (`forum_category_id`),
   KEY `forums_last_post_id_foreign` (`last_post_id`),
   KEY `forums_last_post_created_at_index` (`last_post_created_at`),
+  KEY `forums_forum_category_id_foreign` (`forum_category_id`),
   CONSTRAINT `forums_forum_category_id_foreign` FOREIGN KEY (`forum_category_id`) REFERENCES `forum_categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `forums_last_post_id_foreign` FOREIGN KEY (`last_post_id`) REFERENCES `posts` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `forums_last_post_user_id_foreign` FOREIGN KEY (`last_post_user_id`) REFERENCES `users` (`id`) ON UPDATE CASCADE,
@@ -789,7 +789,7 @@ DROP TABLE IF EXISTS `genres`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `genres` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `genres_name_index` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -802,7 +802,7 @@ CREATE TABLE `gifts` (
   `sender_id` int unsigned DEFAULT NULL,
   `recipient_id` int unsigned DEFAULT NULL,
   `bon` decimal(22,2) NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `gifts_sender_id_foreign` (`sender_id`),
@@ -816,8 +816,8 @@ DROP TABLE IF EXISTS `git_updates`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `git_updates` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hash` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -830,18 +830,19 @@ DROP TABLE IF EXISTS `groups`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `groups` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
   `level` int NOT NULL DEFAULT '0',
   `download_slots` int DEFAULT NULL,
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `color` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `effect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `color` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `effect` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
   `is_uploader` tinyint(1) NOT NULL DEFAULT '0',
   `is_internal` tinyint(1) NOT NULL DEFAULT '0',
   `is_editor` tinyint(1) NOT NULL DEFAULT '0',
+  `is_torrent_modo` tinyint(1) NOT NULL DEFAULT '0',
   `is_owner` tinyint(1) NOT NULL DEFAULT '0',
   `is_admin` tinyint(1) NOT NULL DEFAULT '0',
   `is_modo` tinyint(1) NOT NULL DEFAULT '0',
@@ -867,7 +868,8 @@ CREATE TABLE `groups` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `groups_slug_unique` (`slug`),
   KEY `groups_download_slots_index` (`download_slots`),
-  KEY `groups_is_editor_index` (`is_editor`)
+  KEY `groups_is_editor_index` (`is_editor`),
+  KEY `groups_is_torrent_modo_index` (`is_torrent_modo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `history`;
@@ -876,7 +878,7 @@ DROP TABLE IF EXISTS `history`;
 CREATE TABLE `history` (
   `user_id` int unsigned NOT NULL,
   `torrent_id` int unsigned NOT NULL,
-  `agent` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `agent` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `uploaded` bigint unsigned NOT NULL DEFAULT '0',
   `actual_uploaded` bigint unsigned NOT NULL DEFAULT '0',
   `client_uploaded` bigint unsigned NOT NULL,
@@ -898,7 +900,6 @@ CREATE TABLE `history` (
   KEY `history_immune_index` (`immune`),
   KEY `history_hitrun_index` (`hitrun`),
   KEY `history_user_id_torrent_id_index` (`user_id`,`torrent_id`),
-  KEY `history_torrent_id_foreign` (`torrent_id`),
   KEY `history_idx_prewa_hitru_immun_activ_actua` (`prewarned_at`,`hitrun`,`immune`,`active`,`actual_downloaded`),
   KEY `history_torrent_id_completed_at_created_at_index` (`torrent_id`,`completed_at`,`created_at`),
   CONSTRAINT `history_torrent_id_foreign` FOREIGN KEY (`torrent_id`) REFERENCES `torrents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -927,9 +928,9 @@ DROP TABLE IF EXISTS `internals`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `internals` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
-  `effect` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
+  `effect` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
   PRIMARY KEY (`id`),
   UNIQUE KEY `internals_name_unique` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -940,12 +941,13 @@ DROP TABLE IF EXISTS `invites`;
 CREATE TABLE `invites` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `expires_on` datetime DEFAULT NULL,
   `accepted_by` int unsigned DEFAULT NULL,
   `accepted_at` datetime DEFAULT NULL,
-  `custom` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `custom` text COLLATE utf8mb4_unicode_ci,
+  `internal_note` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -960,13 +962,13 @@ DROP TABLE IF EXISTS `job_batches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `job_batches` (
-  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_jobs` int NOT NULL,
   `pending_jobs` int NOT NULL,
   `failed_jobs` int NOT NULL,
-  `failed_job_ids` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `failed_job_ids` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` text COLLATE utf8mb4_unicode_ci,
   `cancelled_at` int DEFAULT NULL,
   `created_at` int NOT NULL,
   `finished_at` int DEFAULT NULL,
@@ -978,8 +980,8 @@ DROP TABLE IF EXISTS `jobs`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jobs` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `attempts` tinyint(1) NOT NULL,
   `reserved_at` int unsigned DEFAULT NULL,
   `available_at` int unsigned NOT NULL,
@@ -993,7 +995,7 @@ DROP TABLE IF EXISTS `keywords`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `keywords` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `torrent_id` int unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1024,8 +1026,8 @@ DROP TABLE IF EXISTS `media_languages`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `media_languages` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` char(2) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1040,7 +1042,7 @@ CREATE TABLE `messages` (
   `chatroom_id` int unsigned NOT NULL,
   `receiver_id` int unsigned DEFAULT NULL,
   `bot_id` int unsigned DEFAULT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1055,7 +1057,7 @@ DROP TABLE IF EXISTS `migrations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `migrations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1065,29 +1067,29 @@ DROP TABLE IF EXISTS `movies`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `movies` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `tmdb_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `imdb_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title_sort` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `original_language` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tmdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_sort` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `original_language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `adult` tinyint(1) DEFAULT NULL,
-  `backdrop` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `budget` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `homepage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `overview` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `popularity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `poster` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `backdrop` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `budget` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `original_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `overview` mediumtext COLLATE utf8mb4_unicode_ci,
+  `popularity` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `poster` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `release_date` date DEFAULT NULL,
-  `revenue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `runtime` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tagline` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vote_average` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `revenue` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `runtime` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tagline` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vote_average` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vote_count` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `trailer` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trailer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `movie_title_index` (`title`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1109,12 +1111,12 @@ DROP TABLE IF EXISTS `networks`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `networks` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `homepage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `headquarters` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `origin_country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` mediumtext COLLATE utf8mb4_unicode_ci,
+  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `headquarters` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `origin_country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `networks_name_index` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1123,11 +1125,11 @@ DROP TABLE IF EXISTS `notifications`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notifications` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `notifiable_id` int unsigned NOT NULL,
-  `notifiable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notifiable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `data` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `read_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1143,7 +1145,7 @@ DROP TABLE IF EXISTS `occupations`;
 CREATE TABLE `occupations` (
   `id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `position` smallint NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1153,7 +1155,7 @@ DROP TABLE IF EXISTS `options`;
 CREATE TABLE `options` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `poll_id` int unsigned NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `votes` int NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1167,8 +1169,8 @@ DROP TABLE IF EXISTS `pages`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pages` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -1199,7 +1201,7 @@ DROP TABLE IF EXISTS `passkeys`;
 CREATE TABLE `passkeys` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1223,8 +1225,8 @@ DROP TABLE IF EXISTS `password_resets`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `password_resets` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`email`),
   KEY `password_resets_email_index` (`email`),
@@ -1238,7 +1240,7 @@ CREATE TABLE `peers` (
   `peer_id` binary(20) NOT NULL,
   `ip` varbinary(16) NOT NULL,
   `port` smallint unsigned NOT NULL,
-  `agent` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `agent` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `uploaded` bigint unsigned NOT NULL,
   `downloaded` bigint unsigned NOT NULL,
   `left` bigint unsigned NOT NULL,
@@ -1263,20 +1265,20 @@ DROP TABLE IF EXISTS `people`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `people` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imdb_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `known_for_department` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `place_of_birth` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `popularity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `profile` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `still` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `adult` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `also_known_as` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `biography` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `birthday` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deathday` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `gender` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `homepage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `known_for_department` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `place_of_birth` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `popularity` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `still` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `adult` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `also_known_as` mediumtext COLLATE utf8mb4_unicode_ci,
+  `biography` mediumtext COLLATE utf8mb4_unicode_ci,
+  `birthday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deathday` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `person_name_index` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1317,9 +1319,9 @@ DROP TABLE IF EXISTS `playlists`;
 CREATE TABLE `playlists` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cover_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `position` int DEFAULT NULL,
   `is_private` tinyint(1) NOT NULL DEFAULT '0',
   `is_pinned` tinyint(1) NOT NULL DEFAULT '0',
@@ -1340,7 +1342,7 @@ DROP TABLE IF EXISTS `polls`;
 CREATE TABLE `polls` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL DEFAULT '0',
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `multiple_choice` tinyint(1) NOT NULL DEFAULT '0',
   `expires_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1374,7 +1376,7 @@ DROP TABLE IF EXISTS `posts`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `posts` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` int unsigned NOT NULL,
@@ -1394,7 +1396,7 @@ CREATE TABLE `private_messages` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `conversation_id` int unsigned NOT NULL,
   `sender_id` int unsigned NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1426,9 +1428,9 @@ DROP TABLE IF EXISTS `recommendations`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recommendations` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `poster` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vote_average` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `poster` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vote_average` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `release_date` date DEFAULT NULL,
   `first_air_date` date DEFAULT NULL,
   `movie_id` int unsigned DEFAULT NULL,
@@ -1453,7 +1455,7 @@ DROP TABLE IF EXISTS `regions`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `regions` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1463,13 +1465,13 @@ DROP TABLE IF EXISTS `reports`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reports` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `reporter_id` int unsigned NOT NULL,
   `staff_id` int unsigned DEFAULT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `solved` int NOT NULL,
-  `verdict` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `verdict` text COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `reported_user` int unsigned DEFAULT NULL,
@@ -1526,14 +1528,14 @@ DROP TABLE IF EXISTS `requests`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `requests` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` smallint unsigned NOT NULL,
   `imdb` int unsigned DEFAULT NULL,
   `tvdb` int unsigned DEFAULT NULL,
   `tmdb` int unsigned DEFAULT NULL,
   `mal` int unsigned DEFAULT NULL,
-  `igdb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `igdb` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int unsigned NOT NULL,
   `bounty` decimal(12,2) NOT NULL,
   `votes` int NOT NULL DEFAULT '0',
@@ -1577,7 +1579,7 @@ DROP TABLE IF EXISTS `resolutions`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `resolutions` (
   `id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1606,7 +1608,7 @@ DROP TABLE IF EXISTS `rss`;
 CREATE TABLE `rss` (
   `id` int NOT NULL AUTO_INCREMENT,
   `position` int NOT NULL DEFAULT '0',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Default',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Default',
   `user_id` int unsigned NOT NULL DEFAULT '1',
   `is_private` tinyint(1) NOT NULL DEFAULT '0',
   `is_torrent` tinyint(1) NOT NULL DEFAULT '0',
@@ -1627,7 +1629,7 @@ DROP TABLE IF EXISTS `rsskeys`;
 CREATE TABLE `rsskeys` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1642,10 +1644,10 @@ CREATE TABLE `seasons` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `tv_id` int unsigned NOT NULL,
   `season_number` int NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `overview` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `poster` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `air_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `overview` mediumtext COLLATE utf8mb4_unicode_ci,
+  `poster` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `air_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1660,8 +1662,8 @@ DROP TABLE IF EXISTS `seedboxes`;
 CREATE TABLE `seedboxes` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1675,11 +1677,11 @@ DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sessions` (
-  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int unsigned DEFAULT NULL,
-  `ip_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `payload` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ip_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci,
+  `payload` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_activity` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `sessions_id_unique` (`id`),
@@ -1711,12 +1713,12 @@ DROP TABLE IF EXISTS `subtitles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subtitles` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `file_size` bigint unsigned NOT NULL,
   `language_id` int NOT NULL,
-  `extension` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `note` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `extension` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `note` text COLLATE utf8mb4_unicode_ci,
   `downloads` int DEFAULT NULL,
   `verified` tinyint(1) NOT NULL DEFAULT '0',
   `user_id` int unsigned NOT NULL,
@@ -1724,7 +1726,7 @@ CREATE TABLE `subtitles` (
   `anon` tinyint(1) NOT NULL DEFAULT '0',
   `status` smallint NOT NULL DEFAULT '0',
   `moderated_at` datetime DEFAULT NULL,
-  `moderated_by` int unsigned DEFAULT NULL,
+  `moderated_by` int unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1761,9 +1763,9 @@ CREATE TABLE `ticket_attachments` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `ticket_id` int NOT NULL,
-  `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `file_size` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `file_extension` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_size` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `file_extension` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -1778,7 +1780,7 @@ DROP TABLE IF EXISTS `ticket_categories`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ticket_categories` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1792,7 +1794,7 @@ CREATE TABLE `ticket_notes` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `ticket_id` int unsigned NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1805,7 +1807,7 @@ DROP TABLE IF EXISTS `ticket_priorities`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ticket_priorities` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1823,8 +1825,8 @@ CREATE TABLE `tickets` (
   `staff_id` int unsigned DEFAULT NULL,
   `user_read` tinyint DEFAULT NULL,
   `staff_read` tinyint DEFAULT NULL,
-  `subject` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `closed_at` timestamp NULL DEFAULT NULL,
   `reminded_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1859,8 +1861,8 @@ DROP TABLE IF EXISTS `topics`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `topics` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `priority` tinyint unsigned NOT NULL,
   `approved` tinyint(1) NOT NULL DEFAULT '0',
   `denied` tinyint(1) NOT NULL DEFAULT '0',
@@ -1873,7 +1875,7 @@ CREATE TABLE `topics` (
   `first_post_user_id` int unsigned DEFAULT NULL,
   `last_post_id` int DEFAULT NULL,
   `last_post_user_id` int unsigned DEFAULT NULL,
-  `last_post_created_at` datetime DEFAULT NULL,
+  `last_post_created_at` timestamp NULL DEFAULT NULL,
   `views` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -1898,7 +1900,7 @@ CREATE TABLE `torrent_downloads` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `torrent_id` int unsigned NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1950,13 +1952,13 @@ DROP TABLE IF EXISTS `torrents`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `torrents` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `mediainfo` longtext COLLATE utf8mb4_unicode_ci,
-  `bdinfo` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `file_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bdinfo` longtext COLLATE utf8mb4_unicode_ci,
+  `file_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `num_file` int NOT NULL,
-  `folder` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `folder` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `size` double NOT NULL,
   `nfo` blob,
   `leechers` int NOT NULL DEFAULT '0',
@@ -1968,7 +1970,7 @@ CREATE TABLE `torrents` (
   `tvdb` int unsigned NOT NULL DEFAULT '0',
   `tmdb` int unsigned NOT NULL DEFAULT '0',
   `mal` int unsigned NOT NULL DEFAULT '0',
-  `igdb` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `igdb` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `season_number` int DEFAULT NULL,
   `episode_number` int DEFAULT NULL,
   `stream` tinyint(1) NOT NULL DEFAULT '0',
@@ -2025,7 +2027,6 @@ CREATE TABLE `torrents` (
   KEY `torrents_idx_sticky_bumped_at` (`sticky`,`bumped_at`),
   KEY `torrents_idx_status_info_hash` (`status`),
   KEY `torrents_fl_until_du_until_index` (`fl_until`,`du_until`),
-  KEY `torrents_user_id_foreign` (`user_id`),
   KEY `torrents_info_hash_index` (`info_hash`),
   KEY `torrents_user_id_anon_status_created_at_index` (`user_id`,`anon`,`status`,`created_at`),
   KEY `torrents_status_sticky_created_at_index` (`status`,`sticky`,`created_at`),
@@ -2043,35 +2044,35 @@ DROP TABLE IF EXISTS `tv`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tv` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `tmdb_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `imdb_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tvdb_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name_sort` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `overview` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `tmdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tvdb_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_sort` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `overview` mediumtext COLLATE utf8mb4_unicode_ci,
   `number_of_episodes` int DEFAULT NULL,
   `count_existing_episodes` int DEFAULT NULL,
   `count_total_episodes` int DEFAULT NULL,
   `number_of_seasons` int DEFAULT NULL,
-  `episode_run_time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `first_air_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `homepage` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `episode_run_time` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `first_air_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `homepage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `in_production` tinyint(1) DEFAULT NULL,
-  `last_air_date` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `next_episode_to_air` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `origin_country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_language` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `original_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `popularity` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `backdrop` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `poster` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `vote_average` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_air_date` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `next_episode_to_air` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `origin_country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `original_language` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `original_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `popularity` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `backdrop` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `poster` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vote_average` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vote_count` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `trailer` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trailer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `tv_name_index` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2081,9 +2082,22 @@ DROP TABLE IF EXISTS `types`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `types` (
   `id` smallint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `position` int NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `unregistered_info_hashes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `unregistered_info_hashes` (
+  `user_id` int unsigned NOT NULL,
+  `info_hash` binary(20) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`info_hash`,`user_id`),
+  KEY `unregistered_info_hashes_user_id_foreign` (`user_id`),
+  CONSTRAINT `unregistered_info_hashes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `user_audibles`;
@@ -2135,7 +2149,7 @@ CREATE TABLE `user_notes` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `staff_id` int unsigned NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2295,14 +2309,14 @@ CREATE TABLE `user_settings` (
   `user_id` int unsigned NOT NULL,
   `censor` tinyint(1) NOT NULL DEFAULT '0',
   `chat_hidden` tinyint(1) NOT NULL DEFAULT '0',
-  `locale` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
+  `locale` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
   `style` tinyint unsigned NOT NULL DEFAULT '0',
   `torrent_layout` tinyint unsigned NOT NULL DEFAULT '0',
   `torrent_filters` tinyint(1) NOT NULL DEFAULT '0',
-  `custom_css` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `standalone_css` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `custom_css` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `standalone_css` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `show_poster` tinyint(1) NOT NULL DEFAULT '0',
-  `torrent_sort_field` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `torrent_sort_field` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `torrent_search_autofocus` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -2316,27 +2330,27 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `two_factor_secret` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `two_factor_recovery_codes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `two_factor_secret` text COLLATE utf8mb4_unicode_ci,
+  `two_factor_recovery_codes` text COLLATE utf8mb4_unicode_ci,
   `two_factor_confirmed_at` timestamp NULL DEFAULT NULL,
-  `passkey` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `passkey` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `group_id` int NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
   `uploaded` bigint unsigned NOT NULL DEFAULT '0',
   `downloaded` bigint unsigned NOT NULL DEFAULT '0',
-  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `icon` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `about` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `signature` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about` mediumtext COLLATE utf8mb4_unicode_ci,
+  `signature` text COLLATE utf8mb4_unicode_ci,
   `fl_tokens` int unsigned NOT NULL DEFAULT '0',
   `seedbonus` decimal(12,2) NOT NULL DEFAULT '0.00',
   `invites` int unsigned NOT NULL DEFAULT '0',
   `hitandruns` int unsigned NOT NULL DEFAULT '0',
-  `rsskey` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rsskey` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `chatroom_id` int unsigned NOT NULL DEFAULT '1',
   `read_rules` tinyint(1) NOT NULL DEFAULT '0',
   `can_chat` tinyint(1) DEFAULT NULL,
@@ -2347,8 +2361,8 @@ CREATE TABLE `users` (
   `can_upload` tinyint(1) DEFAULT NULL,
   `is_donor` tinyint(1) NOT NULL DEFAULT '0',
   `is_lifetime` tinyint(1) NOT NULL DEFAULT '0',
-  `remember_token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `api_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `api_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_login` datetime DEFAULT NULL,
   `last_action` datetime DEFAULT NULL,
   `disabled_at` datetime DEFAULT NULL,
@@ -2396,7 +2410,7 @@ CREATE TABLE `warnings` (
   `user_id` int unsigned NOT NULL,
   `warned_by` int unsigned NOT NULL,
   `torrent` int unsigned DEFAULT NULL,
-  `reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reason` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `expires_on` datetime DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
   `deleted_by` int unsigned DEFAULT NULL,
@@ -2422,7 +2436,7 @@ CREATE TABLE `watchlists` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
   `staff_id` int unsigned NOT NULL,
-  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2437,7 +2451,7 @@ DROP TABLE IF EXISTS `whitelisted_image_urls`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `whitelisted_image_urls` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `pattern` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pattern` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -2449,8 +2463,8 @@ DROP TABLE IF EXISTS `wiki_categories`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wiki_categories` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fa-book',
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `icon` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fa-book',
   `position` int NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2460,8 +2474,8 @@ DROP TABLE IF EXISTS `wikis`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `wikis` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `category_id` int unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -2476,7 +2490,7 @@ DROP TABLE IF EXISTS `wishes`;
 CREATE TABLE `wishes` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int unsigned NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `movie_id` int unsigned DEFAULT NULL,
   `tv_id` int unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -2554,270 +2568,270 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (57,'2017_12_10_020
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (58,'2017_12_10_020754_add_foreign_keys_to_torrents_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (59,'2017_12_10_020754_add_foreign_keys_to_voters_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (60,'2017_12_10_020754_add_foreign_keys_to_warnings_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (61,'2017_12_21_123452_add_custom_css_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (62,'2017_12_27_000000_add_locale_column',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (63,'2018_01_23_095412_add_implemented_to_topics_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (64,'2018_01_25_000000_add_twostep_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (65,'2018_02_06_142024_add_last_reply_at_to_topics_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (66,'2018_02_14_000000_add_is_internal_to_groups_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (67,'2018_03_13_000000_add_position_to_categories_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (68,'2018_03_21_000000_add_censor_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (69,'2018_03_27_000000_add_chat_hidden_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (70,'2018_04_19_221542_create_failed_jobs_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (71,'2018_04_21_181026_create_wishes_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (72,'2018_04_22_195516_alter_reports_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (73,'2018_04_28_021651_alter_shoutbox_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (74,'2018_04_28_022305_create_chatrooms_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (75,'2018_04_28_022344_add_chatroom_id_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (76,'2018_05_04_101711_create_chat_statuses_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (77,'2018_05_04_102055_add_chat_status_id_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (78,'2018_05_07_183534_add_can_upload_to_groups_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (79,'2018_05_15_223339_add_receiver_id_column_to_messages_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (80,'2018_05_18_144651_rename_ban_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (81,'2018_05_21_022459_add_torrent_layout_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (82,'2018_05_21_192858_alter_peers_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (83,'2018_05_22_224911_alter_private_messages_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (84,'2018_05_31_120936_create_albums_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (85,'2018_05_31_120955_create_images_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (86,'2018_06_11_110000_create_topic_subscriptions_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (87,'2018_07_12_114125_add_soft_deletes_to_warnings',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (88,'2018_08_19_212319_create_git_updates_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (89,'2018_09_08_153849_add_soft_deletes_to_user_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (90,'2018_09_24_205852_add_internal_to_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (91,'2018_09_29_163937_add_anon_to_requests_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (92,'2018_09_29_164525_add_anon_to_request_bounty_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (93,'2018_11_09_010002_add_immune_to_history_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (94,'2018_12_03_024251_create_applications_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (95,'2018_12_03_032701_create_application_image_proofs_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (96,'2018_12_03_032712_create_application_url_proofs_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (97,'2018_12_06_012908_update_tag_torrent_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (98,'2018_1_10_020753_create_freeleech_tokens_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (99,'2018_1_20_070937_create_two_step_auth_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (100,'2019_01_09_151754_alter_categories_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (101,'2019_01_09_175336_add_incognito_to_groups_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (102,'2019_01_10_102512_add_request_id_to_reports_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (103,'2019_01_11_001150_alter_rss_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (104,'2019_01_17_213210_add_torrent_filters_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (105,'2019_01_23_034500_alter_bon_transactions_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (106,'2019_01_24_033802_rename_topic_subscriptions_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (107,'2019_01_24_190220_alter_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (108,'2019_01_27_005216_create_user_privacy_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (109,'2019_01_28_031842_alter_groups_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (110,'2019_01_28_225127_create_user_notifications_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (111,'2019_01_29_054104_alter_users_tables',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (112,'2019_02_04_041644_create_user_echoes_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (113,'2019_02_05_220444_create_bots_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (114,'2019_02_06_005248_add_bot_id_to_messages_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (115,'2019_02_06_075938_create_bot_transactions_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (116,'2019_02_07_022409_create_user_audibles_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (117,'2019_02_10_010213_fix_chat_related_tables',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (118,'2019_02_21_133950_add_is_owner_to_groups_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (119,'2019_02_21_221047_add_request_to_user_privacy_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (120,'2019_03_20_214306_alter_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (121,'2019_06_17_172554_add_last_action_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (122,'2019_07_09_225645_add_release_year_to_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (123,'2019_07_30_210848_create_tv_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (124,'2019_07_30_210849_create_seasons_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (125,'2019_07_30_210850_create_cast_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (126,'2019_07_30_210850_create_collection_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (127,'2019_07_30_210850_create_companies_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (128,'2019_07_30_210850_create_episodes_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (129,'2019_07_30_210850_create_genres_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (130,'2019_07_30_210850_create_movie_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (131,'2019_07_30_210850_create_networks_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (132,'2019_07_30_210850_create_person_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (133,'2019_07_31_024816_alter_requests_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (134,'2019_07_31_210850_create_cast_episode_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (135,'2019_07_31_210850_create_cast_movie_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (136,'2019_07_31_210850_create_cast_season_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (137,'2019_07_31_210850_create_cast_tv_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (138,'2019_07_31_210850_create_company_tv_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (139,'2019_07_31_210850_create_crew_episode_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (140,'2019_07_31_210850_create_crew_movie_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (141,'2019_07_31_210850_create_crew_season_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (142,'2019_07_31_210850_create_crew_tv_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (143,'2019_07_31_210850_create_episode_guest_star_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (144,'2019_07_31_210850_create_episode_person_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (145,'2019_07_31_210850_create_genre_tv_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (146,'2019_07_31_210850_create_network_tv_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (147,'2019_07_31_210850_create_person_movie_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (148,'2019_07_31_210850_create_person_tv_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (149,'2019_07_31_210851_create_collection_movie_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (150,'2019_07_31_210851_create_company_movie_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (151,'2019_07_31_210851_create_genre_movie_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (152,'2019_07_31_210851_create_person_season_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (153,'2019_09_22_204439_create_playlists_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (154,'2019_09_22_204613_create_playlist_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (155,'2019_09_24_160123_alter_comments_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (156,'2019_11_05_233558_create_audits_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (157,'2019_11_27_025048_add_api_token_field_users',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (158,'2019_12_17_030908_create_keywords_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (159,'2020_01_02_203432_bdinfo_to_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (160,'2020_02_14_185120_add_foreign_key_to_options_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (161,'2020_02_14_202935_drop_ip_checking_in_polls_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (162,'2020_02_14_203001_drop_ip_address_in_voters_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (163,'2020_03_02_031656_update_comments_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (164,'2020_03_26_030235_create_subtitles_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (165,'2020_03_26_034620_create_media_languages_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (166,'2020_03_31_201107_add_is_double_upload_to_groups_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (167,'2020_05_19_023939_add_type_id_to_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (168,'2020_05_26_053632_add_type_id_to_requests_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (169,'2020_06_06_185230_create_resolutions_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (170,'2020_06_07_023938_add_resolution_id_to_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (171,'2020_06_07_054632_add_resolution_id_to_requests_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (172,'2020_06_10_014256_unique_groups',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (173,'2020_06_18_115296_add_bumped_at_to_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (174,'2020_07_07_202935_drop_tags_tables',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (175,'2020_10_06_143759_add_uuid_to_failed_jobs_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (176,'2020_10_07_012129_create_job_batches_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (177,'2020_10_18_235628_create_genre_torrent_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (178,'2020_11_01_165838_update_wishes_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (179,'2021_01_02_230512_update_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (180,'2021_01_06_360572_update_nfo_column_on_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (181,'2021_01_18_191121_create_tickets_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (182,'2021_01_18_191321_create_ticket_categories_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (183,'2021_01_18_191336_create_ticket_priorities_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (184,'2021_01_18_191357_create_ticket_attachments_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (185,'2021_01_18_191596_add_ticket_id_to_comments_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (186,'2021_03_04_042851_create_watchlists_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (187,'2021_03_11_024605_add_personal_release_to_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (188,'2021_03_14_093812_add_read_column_tickets_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (189,'2021_04_13_200421_update_about_column_on_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (190,'2021_05_26_215430_create_recommendations_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (191,'2021_06_28_123452_add_standalone_css_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (192,'2021_07_04_200752_create_conversations_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (193,'2021_07_04_202354_create_conversation_user_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (194,'2021_07_04_205806_create_conversation_message_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (195,'2021_07_08_135537_add_flush_own_peers_to_users_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (196,'2021_07_27_140562_change_torrents_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (197,'2021_07_27_185231_create_distributors_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (198,'2021_07_27_285231_create_regions_table',1);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (199,'2021_04_18_085155_add_internals_table',2);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (200,'2021_07_31_172708_add_connectable_state_to_peers_table',2);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (201,'2021_08_20_121103_change_torrent_to_nullable_in_warning',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (202,'2021_10_03_180121_add_indexes_to_tables',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (203,'2021_11_22_115517_add_more_torrent_promos',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (204,'2021_11_26_024738_update_torrents_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (205,'2021_12_19_202317_fix_database_indexs',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (206,'2022_01_23_232931_update_comments_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (207,'2022_02_03_080630_update_groups_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (208,'2022_02_03_090219_update_torrents_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (209,'2022_02_06_210013_update_history_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (210,'2022_02_21_162827_create_torrent_downloads_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (211,'2022_04_27_143156_update_users_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (212,'2022_08_29_030244_update_history_table_add_refundable',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (213,'2022_08_29_030525_update_torrents_table_add_refundable',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (214,'2022_08_29_031309_update_groups_table_add_refundable',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (215,'2022_08_29_155715_create_client_blacklist_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (216,'2022_09_29_182332_alter_torrents_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (217,'2022_11_23_024350_update_history_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (218,'2022_11_23_195306_update_peers_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (219,'2022_11_24_032502_update_torrents_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (220,'2022_11_24_032521_update_requests_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (221,'2022_11_27_062458_drop_old_tables',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (222,'2022_11_29_010000_alter_reports_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (223,'2022_11_29_010010_alter_bon_transactions_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (224,'2022_11_29_030020_alter_user_id',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (225,'2022_12_05_012617_drop_conversations',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (226,'2022_12_21_014703_alter_torrent_id',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (227,'2022_12_22_004317_update_peers_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (228,'2022_12_22_213142_update_history_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (229,'2022_12_23_103322_update_requests_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (230,'2022_12_24_222839_update_follows_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (231,'2022_12_30_090331_update_user_notifications_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (232,'2022_12_30_090351_update_user_privacy_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (233,'2023_01_06_194157_remove_slugs',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (234,'2023_02_03_094806_update_rss_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (235,'2023_02_09_113903_clean_torrent_files',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (236,'2023_02_27_164336_credits_refactor',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (237,'2023_04_08_053641_alter_torrents_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (238,'2023_06_13_092029_alter_invites_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (239,'2023_07_16_010906_add_indexes',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (240,'2023_07_20_084446_drop_distributor_position',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (241,'2023_07_22_023920_alter_movie_and_tv_ids',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (242,'2023_07_22_043634_post_playlist_html_special_chars_decode',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (243,'2023_07_22_165745_add_active_column_to_peers',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (244,'2023_07_22_204126_rename_bon_transactions_foreign_keys',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (245,'2023_07_23_190319_drop_genre_torrent_table',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (246,'2023_07_23_192525_rename_graveyard_to_resurrections',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (247,'2023_07_23_220207_alter_mediahub_ids',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (248,'2023_07_29_205035_add_torrent_folder_name',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (249,'2023_07_31_043749_drop_announce_column_from_torrents',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (250,'2023_08_05_231341_swap_username_for_user_id_on_request_claims',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (251,'2023_08_13_234828_add_forum_foreign_key_constraints',3);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (252,'2014_10_12_200000_add_two_factor_columns_to_users_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (253,'2023_06_14_102346_delete_user_activations',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (254,'2023_09_10_234654_create_blocked_ips_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (255,'2023_11_06_152351_drop_2fa_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (256,'2023_11_12_223126_create_passkeys',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (257,'2023_11_15_170525_create_apikeys',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (258,'2023_11_16_084506_create_rsskeys',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (259,'2023_11_16_122533_create_announces',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (260,'2023_12_19_133124_create_wiki_categories_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (261,'2023_12_19_233124_create_wikis_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (262,'2023_12_22_221619_plural_table_names',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (263,'2023_12_30_092415_add_peer_id_prefix_to_blacklist_client',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (264,'2024_01_08_025430_update_meta_tables',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (265,'2024_01_12_092724_alter_history_table_64_int_id',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (266,'2024_01_15_151522_update_groups_table',4);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (267,'2024_01_21_062125_create_email_updates',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (268,'2024_01_23_115425_add_created_at_index_to_torrent_downloads',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (269,'2024_02_02_222845_create_automatic_torrent_freeleeches_table',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (270,'2024_02_04_012321_remove_user_ratings',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (271,'2024_02_07_192449_add_requirements_to_groups',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (272,'2024_02_07_213520_add_visible_to_peers',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (273,'2024_02_08_095758_add_last_post_id_to_topics',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (274,'2024_02_08_144018_add_system_required_to_groups_table',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (275,'2024_02_09_190708_remove_show_forum_from_permissions',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (276,'2024_02_10_140207_create_forum_categories',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (277,'2024_02_13_033340_create_topic_reads',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (278,'2024_02_14_022118_fix_subtitle_filepaths',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (279,'2024_02_19_100212_add_primary_keys',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (280,'2024_02_19_100813_alter_year_type',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (281,'2024_02_19_102057_alter_floats_to_decimal',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (282,'2024_02_19_233644_add_permission_indexes',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (283,'2024_02_22_015442_create_post_tips_table',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (284,'2024_02_22_033718_create_gifts_table',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (285,'2024_02_22_092555_create_torrent_tips_table',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (286,'2024_02_23_154435_remove_request_bon_transactions',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (287,'2024_02_23_211021_create_internal_user',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (288,'2024_02_24_233030_rename_permissions_to_forum_permissions',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (289,'2024_02_26_000850_create_whitelisted_image_domains',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (290,'2024_03_06_062526_add_open_topics_to_forums',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (291,'2024_03_06_154000_add_user_indexes_to_torrents_table',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (292,'2024_03_19_211512_create_ticket_notes_table',5);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (293,'2024_03_21_145139_add_group_description',6);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (294,'2017_12_10_020755_add_two_factor_columns_to_users_table',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (295,'2024_04_30_063509_remove_casino_triva_bet_bot',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (296,'2024_05_08_000014_add_min_uploads_to_groups_table',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (297,'2024_05_23_184913_alter_wishes',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (298,'2024_05_26_034811_create_user_settings',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (299,'2024_05_26_043410_drop_user_stat_hidden_peer_hidden',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (300,'2024_05_29_075428_add_torrent_sort_field_to_user_settings',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (301,'2024_06_04_115016_add_torrent_search_autofocus_to_user_settings',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (302,'2024_06_06_042258_create_private_message_conversations',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (303,'2024_06_09_052006_drop_useless_columns_from_bots',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (304,'2024_06_14_005443_add_soft_deletes_to_torrents_table',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (305,'2024_06_23_202341_add_prewarned_at_to_history',7);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (306,'2024_05_06_212348_create_donations_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (307,'2024_05_06_212410_create_donation_packages_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (308,'2024_05_06_212446_create_donation_gateways_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (309,'2024_06_13_125854_add_is_uploader_to_groups_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (310,'2024_06_13_185043_add_donation_columns_to_users_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (311,'2024_07_02_082323_add_indexes_to_torrents_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (312,'2024_07_16_083832_add_composite_primary_key_to_peers',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (313,'2024_07_19_143828_add_priority_to_topics',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (314,'2024_07_23_054141_add_composite_primary_key_to_history',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (315,'2024_07_23_054751_create_torrent_trumps_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (316,'2024_07_23_153202_add_poll_expiry',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (317,'2024_07_26_211112_fix_some_user_group_perms',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (318,'2024_07_28_231553_update_cat_type_res_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (319,'2024_08_14_012412_drop_release_year_from_torrents_table',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (320,'2024_08_17_140412_create_password_reset_history',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (321,'2024_08_25_121227_drop_num_torrent_from_categories',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (322,'2024_08_26_085452_fix_bot_systembot_nerdbot_flags',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (323,'2024_09_02_224259_alter_reports_add_snooze_until',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (324,'2024_09_27_072554_add_indexes_to_audits',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (325,'2024_09_29_041904_add_indexes_for_top10_performance',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (326,'2024_10_10_140532_update_mediainfo_from_text_to_longtext',8);
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (327,'2024_10_13_221353_create_events_claimed_prizes_tables',8);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (61,'2017_12_10_020755_add_two_factor_columns_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (62,'2017_12_21_123452_add_custom_css_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (63,'2017_12_27_000000_add_locale_column',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (64,'2018_01_23_095412_add_implemented_to_topics_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (65,'2018_01_25_000000_add_twostep_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (66,'2018_02_06_142024_add_last_reply_at_to_topics_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (67,'2018_02_14_000000_add_is_internal_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (68,'2018_03_13_000000_add_position_to_categories_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (69,'2018_03_21_000000_add_censor_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (70,'2018_03_27_000000_add_chat_hidden_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (71,'2018_04_19_221542_create_failed_jobs_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (72,'2018_04_21_181026_create_wishes_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (73,'2018_04_22_195516_alter_reports_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (74,'2018_04_28_021651_alter_shoutbox_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (75,'2018_04_28_022305_create_chatrooms_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (76,'2018_04_28_022344_add_chatroom_id_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (77,'2018_05_04_101711_create_chat_statuses_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (78,'2018_05_04_102055_add_chat_status_id_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (79,'2018_05_07_183534_add_can_upload_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (80,'2018_05_15_223339_add_receiver_id_column_to_messages_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (81,'2018_05_18_144651_rename_ban_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (82,'2018_05_21_022459_add_torrent_layout_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (83,'2018_05_21_192858_alter_peers_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (84,'2018_05_22_224911_alter_private_messages_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (85,'2018_05_31_120936_create_albums_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (86,'2018_05_31_120955_create_images_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (87,'2018_06_11_110000_create_topic_subscriptions_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (88,'2018_07_12_114125_add_soft_deletes_to_warnings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (89,'2018_08_19_212319_create_git_updates_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (90,'2018_09_08_153849_add_soft_deletes_to_user_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (91,'2018_09_24_205852_add_internal_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (92,'2018_09_29_163937_add_anon_to_requests_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (93,'2018_09_29_164525_add_anon_to_request_bounty_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (94,'2018_11_09_010002_add_immune_to_history_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (95,'2018_12_03_024251_create_applications_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (96,'2018_12_03_032701_create_application_image_proofs_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (97,'2018_12_03_032712_create_application_url_proofs_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (98,'2018_12_06_012908_update_tag_torrent_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (99,'2018_1_10_020753_create_freeleech_tokens_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (100,'2018_1_20_070937_create_two_step_auth_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (101,'2019_01_09_151754_alter_categories_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (102,'2019_01_09_175336_add_incognito_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (103,'2019_01_10_102512_add_request_id_to_reports_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (104,'2019_01_11_001150_alter_rss_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (105,'2019_01_17_213210_add_torrent_filters_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (106,'2019_01_23_034500_alter_bon_transactions_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (107,'2019_01_24_033802_rename_topic_subscriptions_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (108,'2019_01_24_190220_alter_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (109,'2019_01_27_005216_create_user_privacy_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (110,'2019_01_28_031842_alter_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (111,'2019_01_28_225127_create_user_notifications_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (112,'2019_01_29_054104_alter_users_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (113,'2019_02_04_041644_create_user_echoes_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (114,'2019_02_05_220444_create_bots_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (115,'2019_02_06_005248_add_bot_id_to_messages_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (116,'2019_02_06_075938_create_bot_transactions_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (117,'2019_02_07_022409_create_user_audibles_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (118,'2019_02_10_010213_fix_chat_related_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (119,'2019_02_21_133950_add_is_owner_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (120,'2019_02_21_221047_add_request_to_user_privacy_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (121,'2019_03_20_214306_alter_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (122,'2019_06_17_172554_add_last_action_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (123,'2019_07_09_225645_add_release_year_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (124,'2019_07_30_210848_create_tv_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (125,'2019_07_30_210849_create_seasons_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (126,'2019_07_30_210850_create_cast_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (127,'2019_07_30_210850_create_collection_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (128,'2019_07_30_210850_create_companies_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (129,'2019_07_30_210850_create_episodes_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (130,'2019_07_30_210850_create_genres_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (131,'2019_07_30_210850_create_movie_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (132,'2019_07_30_210850_create_networks_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (133,'2019_07_30_210850_create_person_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (134,'2019_07_31_024816_alter_requests_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (135,'2019_07_31_210850_create_cast_episode_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (136,'2019_07_31_210850_create_cast_movie_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (137,'2019_07_31_210850_create_cast_season_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (138,'2019_07_31_210850_create_cast_tv_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (139,'2019_07_31_210850_create_company_tv_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (140,'2019_07_31_210850_create_crew_episode_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (141,'2019_07_31_210850_create_crew_movie_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (142,'2019_07_31_210850_create_crew_season_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (143,'2019_07_31_210850_create_crew_tv_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (144,'2019_07_31_210850_create_episode_guest_star_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (145,'2019_07_31_210850_create_episode_person_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (146,'2019_07_31_210850_create_genre_tv_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (147,'2019_07_31_210850_create_network_tv_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (148,'2019_07_31_210850_create_person_movie_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (149,'2019_07_31_210850_create_person_tv_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (150,'2019_07_31_210851_create_collection_movie_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (151,'2019_07_31_210851_create_company_movie_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (152,'2019_07_31_210851_create_genre_movie_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (153,'2019_07_31_210851_create_person_season_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (154,'2019_09_22_204439_create_playlists_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (155,'2019_09_22_204613_create_playlist_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (156,'2019_09_24_160123_alter_comments_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (157,'2019_11_05_233558_create_audits_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (158,'2019_11_27_025048_add_api_token_field_users',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (159,'2019_12_17_030908_create_keywords_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (160,'2020_01_02_203432_bdinfo_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (161,'2020_02_14_185120_add_foreign_key_to_options_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (162,'2020_02_14_202935_drop_ip_checking_in_polls_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (163,'2020_02_14_203001_drop_ip_address_in_voters_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (164,'2020_03_02_031656_update_comments_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (165,'2020_03_26_030235_create_subtitles_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (166,'2020_03_26_034620_create_media_languages_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (167,'2020_03_31_201107_add_is_double_upload_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (168,'2020_05_19_023939_add_type_id_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (169,'2020_05_26_053632_add_type_id_to_requests_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (170,'2020_06_06_185230_create_resolutions_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (171,'2020_06_07_023938_add_resolution_id_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (172,'2020_06_07_054632_add_resolution_id_to_requests_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (173,'2020_06_10_014256_unique_groups',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (174,'2020_06_18_115296_add_bumped_at_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (175,'2020_07_07_202935_drop_tags_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (176,'2020_10_06_143759_add_uuid_to_failed_jobs_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (177,'2020_10_07_012129_create_job_batches_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (178,'2020_10_18_235628_create_genre_torrent_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (179,'2020_11_01_165838_update_wishes_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (180,'2021_01_02_230512_update_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (181,'2021_01_06_360572_update_nfo_column_on_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (182,'2021_01_18_191121_create_tickets_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (183,'2021_01_18_191321_create_ticket_categories_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (184,'2021_01_18_191336_create_ticket_priorities_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (185,'2021_01_18_191357_create_ticket_attachments_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (186,'2021_01_18_191596_add_ticket_id_to_comments_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (187,'2021_03_04_042851_create_watchlists_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (188,'2021_03_11_024605_add_personal_release_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (189,'2021_03_14_093812_add_read_column_tickets_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (190,'2021_04_13_200421_update_about_column_on_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (191,'2021_04_18_085155_add_internals_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (192,'2021_05_26_215430_create_recommendations_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (193,'2021_06_28_123452_add_standalone_css_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (194,'2021_07_08_135537_add_flush_own_peers_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (195,'2021_07_27_140562_change_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (196,'2021_07_27_185231_create_distributors_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (197,'2021_07_27_285231_create_regions_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (198,'2021_07_31_172708_add_connectable_state_to_peers_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (199,'2021_08_20_121103_change_torrent_to_nullable_in_warning',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (200,'2021_10_03_180121_add_indexes_to_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (201,'2021_11_22_115517_add_more_torrent_promos',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (202,'2021_11_26_024738_update_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (203,'2021_12_19_202317_fix_database_indexs',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (204,'2022_01_23_232931_update_comments_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (205,'2022_02_03_080630_update_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (206,'2022_02_03_090219_update_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (207,'2022_02_06_210013_update_history_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (208,'2022_02_21_162827_create_torrent_downloads_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (209,'2022_04_27_143156_update_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (210,'2022_08_29_030244_update_history_table_add_refundable',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (211,'2022_08_29_030525_update_torrents_table_add_refundable',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (212,'2022_08_29_031309_update_groups_table_add_refundable',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (213,'2022_08_29_155715_create_client_blacklist_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (214,'2022_09_29_182332_alter_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (215,'2022_11_23_024350_update_history_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (216,'2022_11_23_195306_update_peers_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (217,'2022_11_24_032502_update_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (218,'2022_11_24_032521_update_requests_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (219,'2022_11_27_062458_drop_old_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (220,'2022_11_29_010000_alter_reports_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (221,'2022_11_29_010010_alter_bon_transactions_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (222,'2022_11_29_030020_alter_user_id',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (223,'2022_12_05_012617_drop_conversations',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (224,'2022_12_21_014703_alter_torrent_id',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (225,'2022_12_22_004317_update_peers_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (226,'2022_12_22_213142_update_history_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (227,'2022_12_23_103322_update_requests_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (228,'2022_12_24_222839_update_follows_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (229,'2022_12_30_090331_update_user_notifications_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (230,'2022_12_30_090351_update_user_privacy_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (231,'2023_01_06_194157_remove_slugs',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (232,'2023_02_03_094806_update_rss_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (233,'2023_02_09_113903_clean_torrent_files',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (234,'2023_02_27_164336_credits_refactor',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (235,'2023_04_08_053641_alter_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (236,'2023_06_13_092029_alter_invites_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (237,'2023_06_14_102346_delete_user_activations',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (238,'2023_07_16_010906_add_indexes',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (239,'2023_07_20_084446_drop_distributor_position',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (240,'2023_07_22_023920_alter_movie_and_tv_ids',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (241,'2023_07_22_043634_post_playlist_html_special_chars_decode',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (242,'2023_07_22_165745_add_active_column_to_peers',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (243,'2023_07_22_204126_rename_bon_transactions_foreign_keys',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (244,'2023_07_23_190319_drop_genre_torrent_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (245,'2023_07_23_192525_rename_graveyard_to_resurrections',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (246,'2023_07_23_220207_alter_mediahub_ids',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (247,'2023_07_29_205035_add_torrent_folder_name',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (248,'2023_07_31_043749_drop_announce_column_from_torrents',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (249,'2023_08_05_231341_swap_username_for_user_id_on_request_claims',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (250,'2023_08_13_234828_add_forum_foreign_key_constraints',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (251,'2023_09_10_234654_create_blocked_ips_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (252,'2023_11_06_152351_drop_2fa_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (253,'2023_11_12_223126_create_passkeys',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (254,'2023_11_15_170525_create_apikeys',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (255,'2023_11_16_084506_create_rsskeys',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (256,'2023_11_16_122533_create_announces',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (257,'2023_12_19_133124_create_wiki_categories_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (258,'2023_12_19_233124_create_wikis_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (259,'2023_12_22_221619_plural_table_names',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (260,'2023_12_30_092415_add_peer_id_prefix_to_blacklist_client',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (261,'2024_01_08_025430_update_meta_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (262,'2024_01_12_092724_alter_history_table_64_int_id',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (263,'2024_01_15_151522_update_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (264,'2024_01_21_062125_create_email_updates',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (265,'2024_01_23_115425_add_created_at_index_to_torrent_downloads',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (266,'2024_02_02_222845_create_automatic_torrent_freeleeches_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (267,'2024_02_04_012321_remove_user_ratings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (268,'2024_02_07_192449_add_requirements_to_groups',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (269,'2024_02_07_213520_add_visible_to_peers',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (270,'2024_02_08_095758_add_last_post_id_to_topics',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (271,'2024_02_08_144018_add_system_required_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (272,'2024_02_09_190708_remove_show_forum_from_permissions',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (273,'2024_02_10_140207_create_forum_categories',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (274,'2024_02_13_033340_create_topic_reads',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (275,'2024_02_14_022118_fix_subtitle_filepaths',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (276,'2024_02_19_100212_add_primary_keys',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (277,'2024_02_19_100813_alter_year_type',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (278,'2024_02_19_102057_alter_floats_to_decimal',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (279,'2024_02_19_233644_add_permission_indexes',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (280,'2024_02_22_015442_create_post_tips_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (281,'2024_02_22_033718_create_gifts_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (282,'2024_02_22_092555_create_torrent_tips_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (283,'2024_02_23_154435_remove_request_bon_transactions',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (284,'2024_02_23_211021_create_internal_user',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (285,'2024_02_24_233030_rename_permissions_to_forum_permissions',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (286,'2024_02_26_000850_create_whitelisted_image_domains',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (287,'2024_03_06_062526_add_open_topics_to_forums',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (288,'2024_03_06_154000_add_user_indexes_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (289,'2024_03_19_211512_create_ticket_notes_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (290,'2024_03_21_145139_add_group_description',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (291,'2024_04_30_063509_remove_casino_triva_bet_bot',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (292,'2024_05_06_212348_create_donations_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (293,'2024_05_06_212410_create_donation_packages_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (294,'2024_05_06_212446_create_donation_gateways_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (295,'2024_05_08_000014_add_min_uploads_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (296,'2024_05_23_184913_alter_wishes',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (297,'2024_05_26_034811_create_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (298,'2024_05_26_043410_drop_user_stat_hidden_peer_hidden',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (299,'2024_05_29_075428_add_torrent_sort_field_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (300,'2024_06_04_115016_add_torrent_search_autofocus_to_user_settings',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (301,'2024_06_06_042258_create_private_message_conversations',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (302,'2024_06_09_052006_drop_useless_columns_from_bots',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (303,'2024_06_13_125854_add_is_uploader_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (304,'2024_06_13_185043_add_donation_columns_to_users_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (305,'2024_06_14_005443_add_soft_deletes_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (306,'2024_06_23_202341_add_prewarned_at_to_history',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (307,'2024_07_02_082323_add_indexes_to_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (308,'2024_07_16_083832_add_composite_primary_key_to_peers',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (309,'2024_07_19_143828_add_priority_to_topics',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (310,'2024_07_23_054141_add_composite_primary_key_to_history',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (311,'2024_07_23_054751_create_torrent_trumps_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (312,'2024_07_23_153202_add_poll_expiry',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (313,'2024_07_26_211112_fix_some_user_group_perms',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (314,'2024_07_28_231553_update_cat_type_res_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (315,'2024_08_14_012412_drop_release_year_from_torrents_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (316,'2024_08_17_140412_create_password_reset_history',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (317,'2024_08_25_121227_drop_num_torrent_from_categories',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (318,'2024_08_26_085452_fix_bot_systembot_nerdbot_flags',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (319,'2024_09_02_224259_alter_reports_add_snooze_until',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (320,'2024_09_27_072554_add_indexes_to_audits',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (321,'2024_09_29_041904_add_indexes_for_top10_performance',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (322,'2024_10_10_140532_update_mediainfo_from_text_to_longtext',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (323,'2024_10_13_221353_create_events_claimed_prizes_tables',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (324,'2024_10_29_180417_add_internal_note_to_invites_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (325,'2024_11_01_013426_add_soft_deletes_to_donation_packages_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (326,'2024_11_13_044550_create_unregistered_info_hashes_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (327,'2024_11_26_170256_add_is_torrent_modo_to_groups_table',1);

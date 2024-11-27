@@ -68,6 +68,7 @@ test('store returns an ok response', function (): void {
         'is_owner'         => $group->is_owner,
         'is_admin'         => $group->is_admin,
         'is_modo'          => $group->is_modo,
+        'is_torrent_modo'  => $group->is_torrent_modo,
         'is_editor'        => $group->is_editor,
         'is_trusted'       => $group->is_trusted,
         'is_immune'        => $group->is_immune,

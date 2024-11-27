@@ -434,7 +434,7 @@
                 </li>
             @endif
 
-            @if (auth()->user()->group->is_modo)
+            @if (auth()->user()->group->is_torrent_modo)
                 <li>
                     <a
                         class="top-nav--right__icon-link"
