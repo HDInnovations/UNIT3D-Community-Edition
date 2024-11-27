@@ -54,8 +54,7 @@ class PageController extends Controller
         return view('page.staff', [
             'staff' => Group::query()
                 ->with('users.group')
-                ->where('is_modo', '=', 1)
-                ->orWhere('is_admin', '=', 1)
+                ->where('is_torrent_modo', '=', 1)
                 ->orderByDesc('position')
                 ->get(),
         ]);

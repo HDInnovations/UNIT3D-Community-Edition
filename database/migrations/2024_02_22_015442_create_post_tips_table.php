@@ -42,7 +42,7 @@ return new class () extends Migration {
                     'cost',
                     'sender_id',
                     'receiver_id',
-                    DB::raw('CASE WHEN EXISTS(SELECT * FROM posts WHERE id = post_id) THEN post_id END)'),
+                    DB::raw('CASE WHEN EXISTS(SELECT * FROM posts WHERE id = post_id) THEN post_id END'),
                     'created_at',
                 ])
                 ->where('name', '=', 'tip')
