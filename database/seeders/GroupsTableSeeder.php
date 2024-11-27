@@ -694,7 +694,7 @@ class GroupsTableSeeder extends Seeder
                 'is_trusted'       => true,
                 'is_freeleech'     => true,
                 'is_immune'        => true,
-                'can_upload'       => false,
+                'can_upload'       => true,
                 'can_chat'         => true,
                 'can_comment'      => true,
                 'can_invite'       => true,
