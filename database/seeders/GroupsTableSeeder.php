@@ -737,6 +737,35 @@ class GroupsTableSeeder extends Seeder
                 'min_ratio'        => null,
                 'min_age'          => null,
             ]
-        ], ['slug'], []);
+        ], ['slug'], [
+            'name',
+            'position',
+            'color',
+            'icon',
+            'effect',
+            'autogroup',
+            'system_required',
+            'is_owner',
+            'is_admin',
+            'is_modo',
+            'is_torrent_modo',
+            'is_editor',
+            'is_internal',
+            'is_uploader',
+            'is_trusted',
+            'is_freeleech',
+            'is_immune',
+            'can_chat',
+            'can_comment',
+            'can_invite',
+            'can_request',
+            'can_upload',
+            'level',
+            'min_uploaded',
+            'min_seedsize',
+            'min_avg_seedtime',
+            'min_ratio',
+            'min_age'
+        ]);
     }
 }

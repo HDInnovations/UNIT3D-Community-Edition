@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Models\Forum;
-use App\Models\ForumPermission;
-use App\Models\Group;
-use App\Services\Unit3dAnnounce;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,8 +14,7 @@ return new class () extends Migration {
             $table->index(['is_torrent_modo']);
         });
 
-        Group::updateOrCreate(
-            ['slug' => 'torrent-mod'],
+        DB::table('groups')->upsert([
             [
                 'name'            => 'Torrent Moderator',
                 'slug'            => 'torrent-moderator',
@@ -40,13 +35,15 @@ return new class () extends Migration {
                 'can_upload'      => true,
                 'level'           => 0,
             ]
-        );
+        ], 'slug');
 
-        $group = Group::where('slug', '=', 'torrent-moderator')->first();
+        $group = DB::table('groups')->where('slug', '=', 'torrent-moderator')->first();
 
-        foreach (Forum::pluck('id') as $collection) {
-            ForumPermission::create([
-                'forum_id'    => $collection,
+        $forumIds = DB::table('forums')->pluck('id');
+
+        foreach ($forumIds as $forumId) {
+            DB::table('forum_permissions')->insert([
+                'forum_id'    => $forumId,
                 'group_id'    => $group->id,
                 'read_topic'  => false,
                 'reply_topic' => false,
@@ -54,12 +51,10 @@ return new class () extends Migration {
             ]);
         }
 
-        Unit3dAnnounce::addGroup($group);
-
-        $staffGroups = Group::where('is_modo', '=', true)->get();
+        $staffGroups = DB::table('groups')->where('is_modo', '=', true)->get();
 
         foreach ($staffGroups as $staffGroup) {
-            $staffGroup->update(['is_torrent_modo' => true]);
+            DB::table('groups')->where('id', $staffGroup->id)->update(['is_torrent_modo' => true]);
         }
     }
 };
