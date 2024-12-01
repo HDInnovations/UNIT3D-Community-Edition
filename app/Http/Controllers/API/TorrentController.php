@@ -323,20 +323,6 @@ class TorrentController extends BaseController
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
 
-        Unit3dAnnounce::addTorrent($torrent);
-
-        if ($torrent->getAttribute('featured')) {
-            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
-        }
-
-        // Set torrent to featured
-        if ($torrent->getAttribute('featured')) {
-            $featuredTorrent = new FeaturedTorrent();
-            $featuredTorrent->user_id = $user->id;
-            $featuredTorrent->torrent_id = $torrent->id;
-            $featuredTorrent->save();
-        }
-
         // Backup the files contained in the torrent
         $files = TorrentTools::getTorrentFiles($decodedTorrent);
 
@@ -349,6 +335,24 @@ class TorrentController extends BaseController
         foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
             TorrentFile::insert($files->toArray());
         }
+
+        // Set torrent to featured
+        if ($torrent->getAttribute('featured')) {
+            $featuredTorrent = new FeaturedTorrent();
+            $featuredTorrent->user_id = $user->id;
+            $featuredTorrent->torrent_id = $torrent->id;
+            $featuredTorrent->save();
+        }
+
+        // Tracker updates come after database updates in case tracker's offline
+
+        Unit3dAnnounce::addTorrent($torrent);
+
+        if ($torrent->getAttribute('featured')) {
+            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
+        }
+
+        // TMDB updates come after tracker updates in case TMDB's offline
 
         $tmdbScraper = new TMDBScraper();
 
