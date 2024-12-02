@@ -21,7 +21,6 @@ use App\Http\Requests\UpdateTorrentRequestRequest;
 use App\Models\Category;
 use App\Models\Movie;
 use App\Models\Resolution;
-use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\TorrentRequestBounty;
 use App\Models\Tv;

@@ -18,7 +18,6 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreWatchedUserRequest;
-use App\Models\User;
 use App\Models\Watchlist;
 use Exception;
 
