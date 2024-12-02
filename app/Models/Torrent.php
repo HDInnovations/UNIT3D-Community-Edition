@@ -723,13 +723,23 @@ class Torrent extends Model
     }
 
     /**
-     * Bookmarks.
+     * Resurrections.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany<Resurrection, $this>
      */
     public function resurrections(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Resurrection::class);
+    }
+
+    /**
+     * Reports.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Report, $this>
+     */
+    public function reports(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Report::class);
     }
 
     /**

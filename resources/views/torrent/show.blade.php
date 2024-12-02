@@ -54,9 +54,10 @@
         @include('torrent.partials.tools')
     @endif
 
-    {{-- Audits Block --}}
+    {{-- Audits, Reports, Downloads Block --}}
     @if (auth()->user()->group->is_modo)
         @include('torrent.partials.audits')
+        @include('torrent.partials.reports')
         @include('torrent.partials.downloads')
     @endif
 
