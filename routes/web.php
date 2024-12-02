@@ -234,6 +234,18 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Torrents System
+        Route::prefix('torrents')->group(function (): void {
+            Route::prefix('moderation')->name('staff.')->group(function (): void {
+                Route::name('moderation.')->group(function (): void {
+                    Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
+                    Route::post(
+                        '/{id}/update',
+                        [App\Http\Controllers\Staff\ModerationController::class, 'update']
+                    )->name('update')->whereNumber('id');
+                });
+            });
+        });
+
         Route::prefix('torrents')->name('torrents.')->group(function (): void {
             Route::get('/', [App\Http\Controllers\TorrentController::class, 'index'])->name('index');
             Route::get('/create', [App\Http\Controllers\TorrentController::class, 'create'])->name('create');
@@ -988,14 +1000,6 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
-        // Moderation System
-        Route::prefix('moderation')->group(function (): void {
-            Route::name('moderation.')->group(function (): void {
-                Route::get('/', [App\Http\Controllers\Staff\ModerationController::class, 'index'])->name('index');
-                Route::post('/{id}/update', [App\Http\Controllers\Staff\ModerationController::class, 'update'])->name('update')->whereNumber('id');
-            });
-        });
-
         //Pages System
         Route::prefix('pages')->group(function (): void {
             Route::name('pages.')->group(function (): void {
@@ -1125,6 +1129,13 @@ Route::middleware('language')->group(function (): void {
                 Route::get('/{type}/edit', [App\Http\Controllers\Staff\TypeController::class, 'edit'])->name('edit');
                 Route::patch('/{type}', [App\Http\Controllers\Staff\TypeController::class, 'update'])->name('update');
                 Route::delete('/{type}', [App\Http\Controllers\Staff\TypeController::class, 'destroy'])->name('destroy');
+            });
+        });
+
+        // Unregistered Torrents
+        Route::prefix('unregistered-info-hashes')->group(function (): void {
+            Route::name('unregistered_info_hashes.')->group(function (): void {
+                Route::get('/', [App\Http\Controllers\Staff\UnregisteredInfoHashController::class, 'index'])->name('index');
             });
         });
 

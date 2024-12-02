@@ -32,12 +32,6 @@ if (token) {
 import Swal from 'sweetalert2';
 window.Swal = Swal;
 
-// ChartJS
-import { Chart, registerables } from 'chart.js';
-import 'chartjs-adapter-date-fns';
-Chart.register(...registerables);
-window.Chart = Chart;
-
 // Vite Import
 import.meta.glob(['/public/img/pipes/**', '/resources/sass/vendor/webfonts/font-awesome/**']);
 

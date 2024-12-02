@@ -34,28 +34,32 @@ class InviteTreeController extends Controller
         $inviters = User::query()
             ->withTrashed()
             ->join(
-                DB::raw('
+                DB::raw(<<<'SQL'
                 (
                     WITH RECURSIVE cte AS (
                         SELECT invites.user_id
                         FROM invites
-                        WHERE invites.user_id != '.(int) User::SYSTEM_USER_ID.'
-                            AND invites.accepted_by = '.(int) $user->id.'
+                        WHERE invites.user_id != ?
+                            AND invites.accepted_by = ?
                         UNION ALL
                         SELECT invites.user_id
                         FROM invites
                             JOIN cte
                                 ON cte.user_id = invites.accepted_by
-                        WHERE invites.user_id != '.(int) User::SYSTEM_USER_ID.'
+                        WHERE invites.user_id != ?
                             AND invites.accepted_by IS NOT NULL
-                            AND invites.accepted_by != '.(int) User::SYSTEM_USER_ID.'
+                            AND invites.accepted_by != ?
                     )
                     SELECT cte.*
                     FROM cte
                 ) AS tree
-            '),
+            SQL),
                 fn ($join) => $join->on('users.id', '=', 'tree.user_id')
             )
+            ->addBinding(User::SYSTEM_USER_ID, 'join')
+            ->addBinding($user->id, 'join')
+            ->addBinding(User::SYSTEM_USER_ID, 'join')
+            ->addBinding(User::SYSTEM_USER_ID, 'join')
             ->with('group')
             ->withCount([
                 'warnings' => function ($query): void {
@@ -66,30 +70,34 @@ class InviteTreeController extends Controller
 
         $invites = Invite::query()
             ->join(
-                DB::raw('
+                DB::raw(<<<'SQL'
                 (
                     WITH RECURSIVE cte AS (
                         SELECT invites.id, invites.accepted_by, 0 as depth, CAST(invites.accepted_by AS CHAR(200)) AS path
                         FROM invites
-                        WHERE invites.user_id = '.(int) $user->id.'
+                        WHERE invites.user_id = ?
                             AND invites.accepted_by IS NOT NULL
-                            AND invites.accepted_by != '.(int) User::SYSTEM_USER_ID.'
+                            AND invites.accepted_by != ?
                         UNION ALL
-                        SELECT invites.id, invites.accepted_by, cte.depth + 1, CONCAT(cte.path, ", ", invites.accepted_by)
+                        SELECT invites.id, invites.accepted_by, cte.depth + 1, CONCAT(cte.path, ', ', invites.accepted_by)
                         FROM invites
                             JOIN cte
                                 ON cte.accepted_by = invites.user_id
-                        WHERE invites.user_id != '.(int) User::SYSTEM_USER_ID.'
+                        WHERE invites.user_id != ?
                             AND invites.accepted_by IS NOT NULL
-                            AND invites.accepted_by != '.(int) User::SYSTEM_USER_ID.'
+                            AND invites.accepted_by != ?
                     )
                     SELECT cte.*
                     FROM cte
                     ORDER BY path
                 ) AS tree
-            '),
+            SQL),
                 fn ($join) => $join->on('invites.id', '=', 'tree.id')
             )
+            ->addBinding($user->id, 'join')
+            ->addBinding(User::SYSTEM_USER_ID, 'join')
+            ->addBinding(User::SYSTEM_USER_ID, 'join')
+            ->addBinding(User::SYSTEM_USER_ID, 'join')
             ->with([
                 'receiver' => fn ($query) => $query
                     ->withTrashed()

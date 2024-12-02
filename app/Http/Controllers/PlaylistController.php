@@ -94,21 +94,21 @@ class PlaylistController extends Controller
      */
     public function show(Request $request, Playlist $playlist): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        abort_if($playlist->is_private && $playlist->user_id !== $request->user()->id, 403, trans('playlist.private-error'));
+        abort_if($playlist->is_private && $playlist->user_id !== $request->user()->id && !$request->user()->group->is_modo, 403, trans('playlist.private-error'));
 
         $randomTorrent = $playlist->torrents()->inRandomOrder()->with('category')->first();
 
         $torrents = $playlist->torrents()
             ->select('*')
-            ->selectRaw("
+            ->selectRaw(<<<'SQL'
                 CASE
-                    WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                    WHEN category_id IN (SELECT `id` from `categories` where `game_meta` = 1) THEN 'game'
-                    WHEN category_id IN (SELECT `id` from `categories` where `music_meta` = 1) THEN 'music'
-                    WHEN category_id IN (SELECT `id` from `categories` where `no_meta` = 1) THEN 'no'
+                    WHEN category_id IN (SELECT id from categories where movie_meta = TRUE) THEN 'movie'
+                    WHEN category_id IN (SELECT id from categories where tv_meta = TRUE) THEN 'tv'
+                    WHEN category_id IN (SELECT id from categories where game_meta = TRUE) THEN 'game'
+                    WHEN category_id IN (SELECT id from categories where music_meta = TRUE) THEN 'music'
+                    WHEN category_id IN (SELECT id from categories where no_meta = TRUE) THEN 'no'
                 END as meta
-            ")
+            SQL)
             ->with(['category', 'resolution', 'type', 'user.group'])
             ->orderBy('name')
             ->paginate(26);
@@ -154,9 +154,11 @@ class PlaylistController extends Controller
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
             $path = public_path('/files/img/'.$filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
-        }
 
-        $playlist->update(['cover_image' => $filename ?? null] + $request->validated());
+            $playlist->update(['cover_image' => $filename] + $request->validated());
+        } else {
+            $playlist->update($request->validated());
+        }
 
         return to_route('playlists.show', ['playlist' => $playlist])
             ->withSuccess(trans('playlist.update-success'));
@@ -172,6 +174,7 @@ class PlaylistController extends Controller
         abort_unless($request->user()->id == $playlist->user_id || $request->user()->group->is_modo, 403);
 
         $playlist->torrents()->detach();
+        $playlist->comments()->delete();
         $playlist->delete();
 
         return to_route('playlists.index')

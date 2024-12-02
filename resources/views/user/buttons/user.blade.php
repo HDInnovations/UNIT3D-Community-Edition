@@ -346,91 +346,81 @@
     </li>
 @endif
 
-@if (auth()
-    ->user()
-    ->isAllowed($user, 'achievement', 'show_achievement') ||
-    auth()
-        ->user()
-        ->isAllowed($user, 'forum', 'show_topic') ||
-    auth()
-        ->user()
-        ->isAllowed($user, 'forum', 'show_post') ||
-    auth()
-        ->user()
-        ->isAllowed($user, 'follower', 'show_follower'))
-    <li class="nav-tab-menu">
-        <span
-            tabindex="-1"
-            class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-        >
-            {{ __('forum.activity') }}
-        </span>
-        <ul class="nav-tab-menu__items">
-            @if (auth()->user()->isAllowed($user, 'achievement', 'show_achievement'))
-                <li
-                    class="{{ Route::is('users.achievements.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+<li class="nav-tab-menu">
+    <span
+        tabindex="-1"
+        class="{{ Route::is('users.achievements.*', 'users.topics.index', 'users.posts.index', 'users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+    >
+        {{ __('forum.activity') }}
+    </span>
+    <ul class="nav-tab-menu__items">
+        @if (auth()->user()->isAllowed($user, 'achievement', 'show_achievement'))
+            <li
+                class="{{ Route::is('users.achievements.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+            >
+                <a
+                    class="{{ Route::is('users.achievements.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.achievements.index', ['user' => $user]) }}"
                 >
-                    <a
-                        class="{{ Route::is('users.achievements.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('users.achievements.index', ['user' => $user]) }}"
-                    >
-                        {{ __('user.achievements') }}
-                    </a>
-                </li>
-            @endif
+                    {{ __('user.achievements') }}
+                </a>
+            </li>
+        @endif
 
-            @if (auth()->user()->isAllowed($user, 'forum', 'show_topic'))
-                <li
-                    class="{{ Route::is('users.topics.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+        <li class="nav-tavV2">
+            <a
+                class="nav-tab__link"
+                href="{{ route('playlists.index', ['username' => $user->username]) }}"
+            >
+                {{ __('playlist.playlists') }}
+            </a>
+        </li>
+
+        @if (auth()->user()->isAllowed($user, 'forum', 'show_topic'))
+            <li class="{{ Route::is('users.topics.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <a
+                    class="{{ Route::is('users.topics.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.topics.index', ['user' => $user]) }}"
                 >
-                    <a
-                        class="{{ Route::is('users.topics.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('users.topics.index', ['user' => $user]) }}"
-                    >
-                        {{ __('user.topics') }}
-                    </a>
-                </li>
-            @endif
+                    {{ __('user.topics') }}
+                </a>
+            </li>
+        @endif
 
-            @if (auth()->user()->isAllowed($user, 'forum', 'show_post'))
-                <li class="{{ Route::is('users.posts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
-                    <a
-                        class="{{ Route::is('users.posts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('users.posts.index', ['user' => $user]) }}"
-                    >
-                        {{ __('user.posts') }}
-                    </a>
-                </li>
-            @endif
-
-            @if (auth()->user()->isAllowed($user, 'follower', 'show_follower'))
-                <li
-                    class="{{ Route::is('users.followers.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+        @if (auth()->user()->isAllowed($user, 'forum', 'show_post'))
+            <li class="{{ Route::is('users.posts.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <a
+                    class="{{ Route::is('users.posts.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.posts.index', ['user' => $user]) }}"
                 >
-                    <a
-                        class="{{ Route::is('users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('users.followers.index', ['user' => $user]) }}"
-                    >
-                        {{ __('user.followers') }}
-                    </a>
-                </li>
-            @endif
+                    {{ __('user.posts') }}
+                </a>
+            </li>
+        @endif
 
-            @if (auth()->user()->group->is_modo || auth()->id() === $user->id)
-                <li
-                    class="{{ Route::is('users.following.index') ? 'nav-tab--active' : 'nav-tavV2' }}"
+        @if (auth()->user()->isAllowed($user, 'follower', 'show_follower'))
+            <li class="{{ Route::is('users.followers.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <a
+                    class="{{ Route::is('users.followers.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.followers.index', ['user' => $user]) }}"
                 >
-                    <a
-                        class="{{ Route::is('users.following.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
-                        href="{{ route('users.following.index', ['user' => $user]) }}"
-                    >
-                        {{ __('user.following') }}
-                    </a>
-                </li>
-            @endif
-        </ul>
-    </li>
-@endif
+                    {{ __('user.followers') }}
+                </a>
+            </li>
+        @endif
+
+        @if (auth()->user()->group->is_modo || auth()->id() === $user->id)
+            <li class="{{ Route::is('users.following.index') ? 'nav-tab--active' : 'nav-tavV2' }}">
+                <a
+                    class="{{ Route::is('users.following.index') ? 'nav-tab--active__link' : 'nav-tab__link' }}"
+                    href="{{ route('users.following.index', ['user' => $user]) }}"
+                >
+                    {{ __('user.following') }}
+                </a>
+            </li>
+        @endif
+    </ul>
+</li>
 
 @if ($isProfileOwner || $isModo)
     <li class="nav-tab-menu">

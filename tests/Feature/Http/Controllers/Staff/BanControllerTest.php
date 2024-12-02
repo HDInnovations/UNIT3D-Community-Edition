@@ -16,22 +16,12 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Staff\BanController;
 use App\Http\Requests\Staff\StoreBanRequest;
-use App\Models\Group;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
-
-beforeEach(function (): void {
-    $this->staffUser = User::factory()->create([
-        'group_id' => fn () => Group::factory()->create([
-            'is_owner' => true,
-            'is_admin' => true,
-            'is_modo'  => true,
-        ])->id,
-    ]);
-});
+use Illuminate\Support\Facades\Auth;
 
 test('index returns an ok response', function (): void {
-    $response = $this->actingAs($this->staffUser)->get(route('staff.bans.index'));
+    $response = $this->get(route('staff.bans.index'));
     $response->assertOk();
     $response->assertViewIs('Staff.ban.index');
     $response->assertViewHas('bans');
@@ -50,7 +40,7 @@ test('store returns an ok response', function (): void {
 
     $user = User::factory()->create();
 
-    $response = $this->actingAs($this->staffUser)->post(route('staff.bans.store'), [
+    $response = $this->post(route('staff.bans.store'), [
         'owned_by'   => $user->id,
         'ban_reason' => 'Test Ban Reason',
     ]);
@@ -64,7 +54,7 @@ test('store aborts with a 403', function (): void {
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)->post(route('staff.bans.store'), [
-        'owned_by'   => $this->staffUser->id,
+        'owned_by'   => Auth::id(),
         'ban_reason' => 'Test Ban Reason',
     ]);
     $response->assertForbidden();

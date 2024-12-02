@@ -75,18 +75,6 @@
                 </p>
             </div>
             <p class="form__group">
-                <input type="hidden" name="active" value="0" />
-                <input
-                    type="checkbox"
-                    class="form__checkbox"
-                    id="active"
-                    name="active"
-                    value="1"
-                    @checked(old('active'))
-                />
-                <label class="form__label" for="active">{{ __('common.active') }}?</label>
-            </p>
-            <p class="form__group">
                 <button class="form__button form__button--filled" wire:click="store">
                     {{ __('common.save') }}
                 </button>

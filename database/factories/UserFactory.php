@@ -19,8 +19,8 @@ namespace Database\Factories;
 use App\Models\Chatroom;
 use App\Models\ChatStatus;
 use App\Models\Group;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Str;
 
@@ -73,5 +73,14 @@ class UserFactory extends Factory
             'chat_status_id' => ChatStatus::factory(),
             'own_flushes'    => $this->faker->boolean(),
         ];
+    }
+
+    public function system(): self
+    {
+        return $this->state(fn (array $attributes) => [
+            'id'       => User::SYSTEM_USER_ID,
+            'email'    => config('unit3d.default-owner-email'),
+            'group_id' => 9,
+        ]);
     }
 }

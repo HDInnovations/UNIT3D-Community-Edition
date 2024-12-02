@@ -53,23 +53,23 @@ class HomeController extends Controller
 
         return view('Staff.dashboard.index', [
             'users' => cache()->remember('dashboard_users', 300, fn () => DB::table('users')
-                ->selectRaw('count(*) as total')
-                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as banned', $bannedGroup[0]))
-                ->selectRaw(\sprintf('count(case when group_id = %s then 1 end) as validating', $validatingGroup[0]))
+                ->selectRaw('COUNT(*) AS total')
+                ->selectRaw('SUM(group_id = ?) AS banned', [$bannedGroup[0]])
+                ->selectRaw('SUM(group_id = ?) AS validating', [$validatingGroup[0]])
                 ->first()),
             'torrents' => cache()->remember('dashboard_torrents', 300, fn () => DB::table('torrents')
-                ->selectRaw('count(*) as total')
-                ->selectRaw('count(case when status = 0 then 1 end) as pending')
-                ->selectRaw('count(case when status = 1 then 1 end) as approved')
-                ->selectRaw('count(case when status = 2 then 1 end) as rejected')
-                ->selectRaw('count(case when status = 3 then 1 end) as postponed')
+                ->selectRaw('COUNT(*) AS total')
+                ->selectRaw('SUM(status = 0) AS pending')
+                ->selectRaw('SUM(status = 1) AS approved')
+                ->selectRaw('SUM(status = 2) AS rejected')
+                ->selectRaw('SUM(status = 3) AS postponed')
                 ->first()),
             'peers' => cache()->remember('dashboard_peers', 300, fn () => DB::table('peers')
-                ->selectRaw('count(*) as total')
-                ->selectRaw('sum(active = 1) as active')
-                ->selectRaw('sum(active = 0) as inactive')
-                ->selectRaw('sum(seeder = 0 AND active = 1) as leechers')
-                ->selectRaw('sum(seeder = 1 AND active = 1) as seeders')
+                ->selectRaw('COUNT(*) AS total')
+                ->selectRaw('SUM(active = TRUE) AS active')
+                ->selectRaw('SUM(active = FALSE) AS inactive')
+                ->selectRaw('SUM(seeder = FALSE AND active = TRUE) AS leechers')
+                ->selectRaw('SUM(seeder = TRUE AND active = TRUE) AS seeders')
                 ->first()),
             'unsolvedReportsCount'     => DB::table('reports')->whereNull('snoozed_until')->where('solved', '=', false)->count(),
             'pendingApplicationsCount' => DB::table('applications')->where('status', '=', 0)->count(),

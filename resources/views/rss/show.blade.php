@@ -43,7 +43,7 @@
                                 {{ __('common.anonymous') }} {{ __('torrent.uploader') }}
                             @endif<br>
                             @if (($torrent['category']['movie_meta'] || $torrent['category']['tv_meta']) && $torrent['imdb'] != 0)
-                                IMDB Link:<a href="https://anon.to?http://www.imdb.com/title/tt{{ $torrent['imdb'] }}"
+                                IMDB Link:<a href="https://anon.to?http://www.imdb.com/title/tt{{ \str_pad((string) $torrent['imdb'], \max(\strlen((string) $torrent['imdb']), 7), '0', STR_PAD_LEFT) }}"
                                              target="_blank">tt{{ $torrent['imdb'] }}</a><br>
                             @endif
                             @if ($torrent['category']['movie_meta'] && $torrent['tmdb'] != 0)

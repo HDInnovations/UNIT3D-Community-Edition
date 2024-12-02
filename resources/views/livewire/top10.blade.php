@@ -1,4 +1,10 @@
-<section class="panelV2">
+<section
+    @class([
+        'panelV2',
+        'top10',
+        'top10--weekly' => $this->interval === 'weekly',
+    ])
+>
     <header class="panel__header">
         <h2 class="panel__heading">Top Titles</h2>
         <div class="panel__actions">
@@ -16,6 +22,7 @@
                         <option value="month">Past Month</option>
                         <option value="year">Past Year</option>
                         <option value="all">All-time</option>
+                        <option value="weekly">Weekly</option>
                         <option value="custom">Custom</option>
                     </select>
                     <label class="form__label form__label--floating" for="interval">Interval</label>
@@ -65,46 +72,100 @@
             </div>
         </div>
     </header>
-    <div class="panel__body torrent-search--poster__results">
-        <div wire:loading.delay>Computing...</div>
+    @if ($this->interval === 'weekly')
+        <div class="data-table-wrapper">
+            <div wire:loading.delay class="panel__body">Computing...</div>
 
-        @switch($this->metaType)
-            @case('movie_meta')
-                @foreach ($works as $work)
-                    <figure class="top10-poster">
-                        <x-movie.poster
-                            :movie="$work->movie"
-                            :categoryId="$work->category_id"
-                            :tmdb="$work->tmdb"
-                        />
-                        <figcaption
-                            class="top10-poster__download-count"
-                            title="{{ __('torrent.completed-times') }}"
-                        >
-                            {{ $work->download_count }}
-                        </figcaption>
-                    </figure>
-                @endforeach
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Rankings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($works as $weeklyRankings)
+                        <tr>
+                            <th>
+                                {{ $weeklyRankings->first()?->week_start?->format('Y-m-d') }}
+                            </th>
+                            <td class="panel__body top10-weekly__row">
+                                @foreach ($weeklyRankings as $ranking)
+                                    <figure class="top10-poster">
+                                        @switch($this->metaType)
+                                            @case('movie_meta')
+                                                <x-movie.poster
+                                                    :movie="$ranking->movie"
+                                                    :categoryId="$ranking->category_id"
+                                                    :tmdb="$ranking->tmdb"
+                                                />
 
-                @break
-            @case('tv_meta')
-                @foreach ($works as $work)
-                    <figure class="top10-poster">
-                        <x-tv.poster
-                            :tv="$work->tv"
-                            :categoryId="$work->category_id"
-                            :tmdb="$work->tmdb"
-                        />
-                        <figcaption
-                            class="top10-poster__download-count"
-                            title="{{ __('torrent.completed-times') }}"
-                        >
-                            {{ $work->download_count }}
-                        </figcaption>
-                    </figure>
-                @endforeach
+                                                @break
+                                            @case('tv_meta')
+                                                <x-tv.poster
+                                                    :tv="$ranking->tv"
+                                                    :categoryId="$ranking->category_id"
+                                                    :tmdb="$ranking->tmdb"
+                                                />
 
-                @break
-        @endswitch
-    </div>
+                                                @break
+                                        @endswitch
+                                        <figcaption
+                                            class="top10-poster__download-count"
+                                            title="{{ __('torrent.completed-times') }}"
+                                        >
+                                            {{ $ranking->download_count }}
+                                        </figcaption>
+                                    </figure>
+                                @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @else
+        <div class="panel__body torrent-search--poster__results">
+            <div wire:loading.delay>Computing...</div>
+
+            @switch($this->metaType)
+                @case('movie_meta')
+                    @foreach ($works as $work)
+                        <figure class="top10-poster">
+                            <x-movie.poster
+                                :movie="$work->movie"
+                                :categoryId="$work->category_id"
+                                :tmdb="$work->tmdb"
+                            />
+                            <figcaption
+                                class="top10-poster__download-count"
+                                title="{{ __('torrent.completed-times') }}"
+                            >
+                                {{ $work->download_count }}
+                            </figcaption>
+                        </figure>
+                    @endforeach
+
+                    @break
+                @case('tv_meta')
+                    @foreach ($works as $work)
+                        <figure class="top10-poster">
+                            <x-tv.poster
+                                :tv="$work->tv"
+                                :categoryId="$work->category_id"
+                                :tmdb="$work->tmdb"
+                            />
+                            <figcaption
+                                class="top10-poster__download-count"
+                                title="{{ __('torrent.completed-times') }}"
+                            >
+                                {{ $work->download_count }}
+                            </figcaption>
+                        </figure>
+                    @endforeach
+
+                    @break
+            @endswitch
+        </div>
+    @endif
 </section>

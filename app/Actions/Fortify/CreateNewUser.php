@@ -19,7 +19,6 @@ namespace App\Actions\Fortify;
 use App\Models\Group;
 use App\Models\Invite;
 use App\Models\User;
-use App\Repositories\ChatRepository;
 use App\Rules\EmailBlacklist;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -32,10 +31,6 @@ use Laravel\Fortify\Contracts\CreatesNewUsers;
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
-
-    public function __construct(private readonly ChatRepository $chatRepository)
-    {
-    }
 
     /**
      * Validate and create a newly registered user.
@@ -93,34 +88,19 @@ class CreateNewUser implements CreatesNewUsers
         $user->emailUpdates()->create();
 
         if (config('other.invite-only') === true) {
-            Invite::where('code', '=', $input['code'])->update([
+            $invite = Invite::where('code', '=', $input['code'])->first();
+            $invite->update([
                 'accepted_by' => $user->id,
                 'accepted_at' => now(),
             ]);
+
+            if ($invite->internal_note !== null) {
+                $user->notes()->create([
+                    'message'  => $invite->internal_note,
+                    'staff_id' => $invite->user_id,
+                ]);
+            }
         }
-
-        // Select A Random Welcome Message
-        $profileUrl = href_profile($user);
-
-        $welcomeArray = [
-            \sprintf('[url=%s]%s[/url], Welcome to ', $profileUrl, $user->username).config('other.title').'! Hope you enjoy the community.',
-            \sprintf("[url=%s]%s[/url], We've been expecting you.", $profileUrl, $user->username),
-            \sprintf("[url=%s]%s[/url] has arrived. Party's over.", $profileUrl, $user->username),
-            \sprintf("It's a bird! It's a plane! Nevermind, it's just [url=%s]%s[/url].", $profileUrl, $user->username),
-            \sprintf('Ready player [url=%s]%s[/url].', $profileUrl, $user->username),
-            \sprintf('A wild [url=%s]%s[/url] appeared.', $profileUrl, $user->username),
-            'Welcome to '.config('other.title').\sprintf(' [url=%s]%s[/url]. We were expecting you.', $profileUrl, $user->username),
-        ];
-
-        $this->chatRepository->systemMessage(
-            $welcomeArray[array_rand($welcomeArray)]
-        );
-
-        // Send Welcome PM
-        $user->sendSystemNotification(
-            subject: config('welcomepm.subject'),
-            message: config('welcomepm.message'),
-        );
 
         return $user;
     }

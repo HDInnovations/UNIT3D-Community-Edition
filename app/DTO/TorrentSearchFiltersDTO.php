@@ -16,14 +16,15 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
+use App\Models\PlaylistTorrent;
 use App\Models\User;
-use App\Traits\TorrentFilter;
+use App\Models\Wish;
 use Illuminate\Database\Eloquent\Builder;
 use Closure;
+use Illuminate\Support\Facades\DB;
 
 readonly class TorrentSearchFiltersDTO
 {
-    use TorrentFilter;
     private ?User $user;
 
     public function __construct(
@@ -103,56 +104,299 @@ readonly class TorrentSearchFiltersDTO
             && @preg_match($field, 'Validate regex') !== false;
 
         return fn ($query) => $query
-            ->when($this->name !== '', fn ($query) => $query->ofName($this->name, $isRegex($this->name)))
-            ->when($this->description !== '', fn ($query) => $query->ofDescription($this->description, $isRegex($this->description)))
-            ->when($this->mediainfo !== '', fn ($query) => $query->ofMediainfo($this->mediainfo, $isRegex($this->mediainfo)))
-            ->when($this->uploader !== '', fn ($query) => $query->ofUploader($this->uploader))
-            ->when($this->keywords !== [], fn ($query) => $query->ofKeyword($this->keywords))
-            ->when($this->startYear !== null, fn ($query) => $query->releasedAfterOrIn($this->startYear))
-            ->when($this->endYear !== null, fn ($query) => $query->releasedBeforeOrIn($this->endYear))
-            ->when($this->minSize !== null, fn ($query) => $query->ofSizeGreaterOrEqualto($this->minSize))
-            ->when($this->maxSize !== null, fn ($query) => $query->ofSizeLesserOrEqualTo($this->maxSize))
-            ->when($this->categoryIds !== [], fn ($query) => $query->ofCategory($this->categoryIds))
-            ->when($this->typeIds !== [], fn ($query) => $query->ofType($this->typeIds))
-            ->when($this->resolutionIds !== [], fn ($query) => $query->ofResolution($this->resolutionIds))
-            ->when($this->genreIds !== [], fn ($query) => $query->ofGenre($this->genreIds))
-            ->when($this->regionIds !== [], fn ($query) => $query->ofRegion($this->regionIds))
-            ->when($this->distributorIds !== [], fn ($query) => $query->ofDistributor($this->distributorIds))
-            ->when($this->tmdbId !== null, fn ($query) => $query->ofTmdb($this->tmdbId))
-            ->when($this->imdbId !== null, fn ($query) => $query->ofImdb($this->imdbId))
-            ->when($this->tvdbId !== null, fn ($query) => $query->ofTvdb($this->tvdbId))
-            ->when($this->malId !== null, fn ($query) => $query->ofMal($this->malId))
-            ->when($this->episodeNumber !== null, fn ($query) => $query->ofEpisode($this->episodeNumber))
-            ->when($this->seasonNumber !== null, fn ($query) => $query->ofSeason($this->seasonNumber))
-            ->when($this->playlistId !== null, fn ($query) => $query->ofPlaylist($this->playlistId))
-            ->when($this->collectionId !== null, fn ($query) => $query->ofCollection($this->collectionId))
-            ->when($this->companyId !== null, fn ($query) => $query->ofCompany($this->companyId))
-            ->when($this->networkId !== null, fn ($query) => $query->ofNetwork($this->networkId))
-            ->when($this->primaryLanguageNames !== [], fn ($query) => $query->ofPrimaryLanguage($this->primaryLanguageNames))
-            ->when($this->free !== [], fn ($query) => $query->ofFreeleech($this->free))
-            ->when($this->filename !== '', fn ($query) => $query->ofFilename($this->filename))
-            ->when($this->adult === true, fn ($query) => $query->ofAdult(true))
-            ->when($this->adult === false, fn ($query) => $query->ofAdult(false))
-            ->when($this->doubleup, fn ($query) => $query->doubleup())
-            ->when($this->featured, fn ($query) => $query->featured())
-            ->when($this->refundable, fn ($query) => $query->refundable())
-            ->when($this->stream, fn ($query) => $query->streamOptimized())
-            ->when($this->sd, fn ($query) => $query->sd())
-            ->when($this->highspeed, fn ($query) => $query->highspeed())
-            ->when($this->userBookmarked, fn ($query) => $query->bookmarkedBy($this->user))
-            ->when($this->userWished, fn ($query) => $query->wishedBy($this->user))
-            ->when($this->internal, fn ($query) => $query->internal())
-            ->when($this->personalRelease, fn ($query) => $query->personalRelease())
-            ->when($this->trumpable, fn ($query) => $query->trumpable())
-            ->when($this->alive, fn ($query) => $query->alive())
-            ->when($this->dying, fn ($query) => $query->dying())
-            ->when($this->dead, fn ($query) => $query->dead())
-            ->when($this->graveyard, fn ($query) => $query->graveyard())
-            ->when($this->userDownloaded === false, fn ($query) => $query->notDownloadedBy($this->user))
-            ->when($this->userDownloaded === true, fn ($query) => $query->downloadedBy($this->user))
-            ->when($this->userSeeder === true && $this->userActive === true, fn ($query) => $query->seededBy($this->user))
-            ->when($this->userSeeder === false && $this->userActive === true, fn ($query) => $query->leechedBy($this->user))
-            ->when($this->userSeeder === false && $this->userActive === false, fn ($query) => $query->uncompletedBy($this->user));
+            ->when(
+                $this->name !== '',
+                fn ($query) => $query
+                    ->when(
+                        $isRegex($this->name),
+                        fn ($query) => $query->where('name', 'REGEXP', substr($this->name, 1, -1)),
+                        fn ($query) => $query->where('name', 'LIKE', '%'.str_replace(' ', '%', $this->name).'%')
+                    )
+            )
+            ->when(
+                $this->description !== '',
+                fn ($query) => $query
+                    ->when(
+                        $isRegex($this->description),
+                        fn ($query) => $query->where('description', 'REGEXP', substr($this->description, 1, -1)),
+                        fn ($query) => $query->where('description', 'LIKE', '%'.$this->description.'%')
+                    )
+            )
+            ->when(
+                $this->mediainfo !== '',
+                fn ($query) => $query
+                    ->when(
+                        $isRegex($this->mediainfo),
+                        fn ($query) => $query->where('mediainfo', 'REGEXP', substr($this->mediainfo, 1, -1)),
+                        fn ($query) => $query->where('mediainfo', 'LIKE', '%'.$this->mediainfo.'%')
+                    )
+            )
+            ->when(
+                $this->uploader !== '',
+                fn ($query) => $query
+                    ->whereRelation('user', 'username', '=', $this->uploader)
+                    ->when(
+                        $this->user === null,
+                        fn ($query) => $query->where('anon', '=', false),
+                        fn ($query) => $query
+                            ->when(
+                                !$this->user->group->is_modo,
+                                fn ($query) => $query
+                                    ->where(
+                                        fn ($query) => $query
+                                            ->where('anon', '=', false)
+                                            ->orWhere('user_id', '=', $this->user->id)
+                                    )
+                            )
+                    )
+            )
+            ->when(
+                $this->keywords !== [],
+                fn ($query) => $query->whereHas('keywords', fn ($query) => $query->whereIn('name', $this->keywords))
+            )
+            ->when(
+                $this->startYear !== null,
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereRelation('movie', 'release_date', '>=', $this->startYear.'-01-01 00:00:00')
+                                    ->whereRelation('category', 'movie_meta', '=', true)
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
+                                    ->whereRelation('tv', 'first_air_date', '>=', $this->startYear.'-01-01 00:00:00')
+                                    ->whereRelation('category', 'tv_meta', '=', true)
+                            )
+                    )
+            )
+            ->when(
+                $this->endYear !== null,
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereRelation('movie', 'release_date', '<=', $this->endYear.'-12-31 23:59:59')
+                                    ->whereRelation('category', 'movie_meta', '=', true)
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
+                                    ->orWhereRelation('tv', 'first_air_date', '<=', $this->endYear.'-12-31 23:59:59')
+                                    ->whereRelation('category', 'tv_meta', '=', true)
+                            )
+                    )
+            )
+            ->when($this->minSize !== null, fn ($query) => $query->where('size', '>=', $this->minSize))
+            ->when($this->maxSize !== null, fn ($query) => $query->where('size', '<=', $this->maxSize))
+            ->when($this->categoryIds !== [], fn ($query) => $query->whereIntegerInRaw('category_id', $this->categoryIds))
+            ->when($this->typeIds !== [], fn ($query) => $query->whereIntegerInRaw('type_id', $this->typeIds))
+            ->when($this->resolutionIds !== [], fn ($query) => $query->whereIntegerInRaw('resolution_id', $this->resolutionIds))
+            ->when(
+                $this->genreIds !== [],
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'movie_meta', '=', true)
+                                    ->whereIn('tmdb', DB::table('genre_movie')->select('movie_id')->whereIn('genre_id', $this->genreIds))
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'tv_meta', '=', true)
+                                    ->whereIn('tmdb', DB::table('genre_tv')->select('tv_id')->whereIn('genre_id', $this->genreIds))
+                            )
+                    )
+            )
+            ->when(
+                $this->regionIds !== [],
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->whereIntegerInRaw('region_id', $this->regionIds)
+                            ->when(\in_array(0, $this->regionIds), fn ($query) => $query->orWhereNull('region_id'))
+                    )
+            )
+            ->when(
+                $this->distributorIds !== [],
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->whereIntegerInRaw('distributor_id', $this->distributorIds)
+                            ->when(\in_array(0, $this->distributorIds), fn ($query) => $query->orWhereNull('distributor_id'))
+                    )
+            )
+            ->when($this->tmdbId !== null, fn ($query) => $query->where('tmdb', '=', $this->tmdbId))
+            ->when($this->imdbId !== null, fn ($query) => $query->where('imdb', '=', $this->imdbId))
+            ->when($this->tvdbId !== null, fn ($query) => $query->where('tvdb', '=', $this->tvdbId))
+            ->when($this->malId !== null, fn ($query) => $query->where('mal', '=', $this->malId))
+            ->when($this->episodeNumber !== null, fn ($query) => $query->where('episode_number', '=', $this->episodeNumber))
+            ->when($this->seasonNumber !== null, fn ($query) => $query->where('season_number', '=', $this->seasonNumber))
+            ->when(
+                $this->playlistId !== null,
+                fn ($query) => $query
+                    ->whereIn(
+                        'id',
+                        PlaylistTorrent::select('torrent_id')
+                            ->where('playlist_id', '=', $this->playlistId)
+                            ->when(
+                                $this->user === null,
+                                fn ($query) => $query->whereRelation('playlist', 'is_private', '=', false),
+                                fn ($query) => $query->when(
+                                    ! $this->user->group->is_modo,
+                                    fn ($query) => $query
+                                        ->where(
+                                            fn ($query) => $query
+                                                ->whereRelation('playlist', 'is_private', '=', false)
+                                                ->orWhereRelation('playlist', 'user_id', '=', $this->user->id)
+                                        )
+                                )
+                            )
+                    )
+            )
+            ->when(
+                $this->collectionId !== null,
+                fn ($query) => $query
+                    ->whereRelation('category', 'movie_meta', '=', true)
+                    ->whereIn('tmdb', DB::table('collection_movie')->select('movie_id')->where('collection_id', '=', $this->collectionId))
+            )
+            ->when(
+                $this->companyId !== null,
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'movie_meta', '=', true)
+                                    ->whereIn('tmdb', DB::table('company_movie')->select('movie_id')->where('company_id', '=', $this->companyId))
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'tv_meta', '=', true)
+                                    ->whereIn('tmdb', DB::table('company_tv')->select('tv_id')->where('company_id', '=', $this->companyId))
+                            )
+                    )
+            )
+            ->when(
+                $this->networkId !== null,
+                fn ($query) => $query
+                    ->whereRelation('category', 'tv_meta', '=', true)
+                    ->whereIn('tmdb', DB::table('network_tv')->select('tv_id')->where('network_id', '=', $this->networkId))
+            )
+            ->when(
+                $this->primaryLanguageNames !== [],
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'movie_meta', '=', true)
+                                    ->whereHas('movie', fn ($query) => $query->whereIn('original_language', $this->primaryLanguageNames))
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'tv_meta', '=', true)
+                                    ->whereHas('tv', fn ($query) => $query->whereIn('original_language', $this->primaryLanguageNames))
+                            )
+                    )
+            )
+            ->when(
+                $this->free !== [],
+                fn ($query) => $query
+                    ->when(
+                        config('other.freeleech'),
+                        fn ($query) => $query->whereBetween('free', [0, 100]),
+                        fn ($query) => $query->whereIntegerInRaw('free', (array) $this->free)
+                    )
+            )
+            ->when($this->filename !== '', fn ($query) => $query->whereRelation('files', 'name', '=', $this->filename))
+            ->when(
+                $this->adult === true,
+                fn ($query) => $query
+                    ->whereRelation('category', 'movie_meta', '=', true)
+                    ->whereRelation('movie', 'adult', '=', true)
+            )
+            // Currently, only movies have an `adult` column.
+            ->when(
+                $this->adult === false,
+                fn ($query) => $query
+                    ->where(
+                        fn ($query) => $query
+                            ->where(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'movie_meta', '=', true)
+                                    ->whereRelation('movie', 'adult', '=', false)
+                            )
+                            ->orWhere(
+                                fn ($query) => $query
+                                    ->whereRelation('category', 'movie_meta', '=', false)
+                            )
+                    )
+            )
+            ->when($this->doubleup, fn ($query) => $query->where('doubleup', '=', 1))
+            ->when($this->featured, fn ($query) => $query->where('featured', '=', 1))
+            ->when($this->refundable, fn ($query) => $query->where('refundable', '=', true))
+            ->when($this->stream, fn ($query) => $query->where('stream', '=', 1))
+            ->when($this->sd, fn ($query) => $query->where('sd', '=', 1))
+            ->when($this->highspeed, fn ($query) => $query->where('highspeed', '=', 1))
+            ->when($this->userBookmarked, fn ($query) => $query->whereRelation('bookmarks', 'user_id', '=', $this->user->id))
+            ->when($this->userWished, fn ($query) => $query->whereIn('tmdb', Wish::select('tmdb')->where('user_id', '=', $this->user->id)))
+            ->when($this->internal, fn ($query) => $query->where('internal', '=', 1))
+            ->when($this->personalRelease, fn ($query) => $query->where('personal_release', '=', 1))
+            ->when($this->trumpable, fn ($query) => $query->has('trump'))
+            ->when($this->alive, fn ($query) => $query->where('seeders', '>', 0))
+            ->when($this->dying, fn ($query) => $query->where('seeders', '=', 1)->where('times_completed', '>=', 3))
+            ->when($this->dead, fn ($query) => $query->where('seeders', '=', 0))
+            ->when($this->graveyard, fn ($query) => $query->where('seeders', '=', 0)->where('created_at', '<', now()->subDays(30)))
+            ->when(
+                $this->userDownloaded === false,
+                fn ($query) => $query
+                    ->whereDoesntHave(
+                        'history',
+                        fn ($query) => $query
+                            ->where('user_id', '=', $this->user->id)
+                    )
+            )
+            ->when(
+                $this->userDownloaded === true,
+                fn ($query) => $query->whereRelation('history', 'user_id', '=', $this->user->id)
+            )
+            ->when(
+                $this->userSeeder === true && $this->userActive === true,
+                fn ($query) => $query
+                    ->whereHas(
+                        'history',
+                        fn ($query) => $query
+                            ->where('user_id', '=', $this->user->id)
+                            ->where('active', '=', 1)
+                            ->where('seeder', '=', 1)
+                    )
+            )
+            ->when(
+                $this->userSeeder === false && $this->userActive === true,
+                fn ($query) => $query
+                    ->whereHas(
+                        'history',
+                        fn ($query) => $query
+                            ->where('user_id', '=', $this->user->id)
+                            ->where('active', '=', 1)
+                            ->where('seeder', '=', 0)
+                    )
+            )
+            ->when(
+                $this->userSeeder === false && $this->userActive === false,
+                fn ($query) => $query
+                    ->whereHas(
+                        'history',
+                        fn ($query) => $query
+                            ->where('user_id', '=', $this->user->id)
+                            ->where('active', '=', 0)
+                            ->where('seeder', '=', 0)
+                            ->where('seedtime', '=', 0)
+                    )
+            );
     }
 
     /**

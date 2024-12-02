@@ -34,7 +34,9 @@ class DonationController extends Controller
     {
         abort_unless($request->user()->group->is_owner, 403);
 
-        $donations = Donation::with('package')->latest()->paginate(25);
+        $donations = Donation::with(['package' => function ($query): void {
+            $query->withTrashed();
+        }])->latest()->paginate(25);
 
         $dailyDonations = Donation::selectRaw('DATE(donations.created_at) as date, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
@@ -43,7 +45,7 @@ class DonationController extends Controller
             ->orderBy('date')
             ->get();
 
-        $monthlyDonations = Donation::selectRaw('YEAR(donations.created_at) as year, MONTH(donations.created_at) as month, SUM(donation_packages.cost) as total')
+        $monthlyDonations = Donation::selectRaw('EXTRACT(YEAR FROM donations.created_at) as year, EXTRACT(MONTH FROM donations.created_at) as month, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
             ->where('donations.status', '=', Donation::APPROVED)
             ->groupBy('year', 'month')

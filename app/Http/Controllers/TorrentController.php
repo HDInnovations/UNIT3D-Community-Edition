@@ -82,7 +82,7 @@ class TorrentController extends Controller
         $user = $request->user();
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])
+            ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists', 'reports'])
             ->withCount([
                 'bookmarks',
                 'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
@@ -415,12 +415,6 @@ class TorrentController extends Controller
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
 
-        Unit3dAnnounce::addTorrent($torrent);
-
-        if ($torrent->getAttribute('featured')) {
-            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
-        }
-
         $category = Category::findOrFail($request->integer('category_id'));
 
         // Backup the files contained in the torrent
@@ -435,6 +429,38 @@ class TorrentController extends Controller
         foreach (collect($files)->chunk(intdiv(65_000, 3)) as $files) {
             TorrentFile::insert($files->toArray());
         }
+
+        // Cover Image for No-Meta Torrents
+        if ($request->hasFile('torrent-cover')) {
+            $image_cover = $request->file('torrent-cover');
+
+            abort_if(\is_array($image_cover), 400);
+
+            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
+            $path_cover = public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
+        }
+
+        // Banner Image for No-Meta Torrents
+        if ($request->hasFile('torrent-banner')) {
+            $image_cover = $request->file('torrent-banner');
+
+            abort_if(\is_array($image_cover), 400);
+
+            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
+            $path_cover = public_path('/files/img/'.$filename_cover);
+            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
+        }
+
+        // Tracker updates come after initial database updates in case tracker's offline
+
+        Unit3dAnnounce::addTorrent($torrent);
+
+        if ($torrent->getAttribute('featured')) {
+            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
+        }
+
+        // TMDB updates come after tracker updates in case TMDB's offline
 
         // TMDB Meta
         if ($torrent->tmdb != 0) {
@@ -459,28 +485,6 @@ class TorrentController extends Controller
 
         foreach (collect($keywords)->chunk(intdiv(65_000, 2)) as $keywords) {
             Keyword::upsert($keywords->toArray(), ['torrent_id', 'name']);
-        }
-
-        // Cover Image for No-Meta Torrents
-        if ($request->hasFile('torrent-cover')) {
-            $image_cover = $request->file('torrent-cover');
-
-            abort_if(\is_array($image_cover), 400);
-
-            $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = public_path('/files/img/'.$filename_cover);
-            Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
-        }
-
-        // Banner Image for No-Meta Torrents
-        if ($request->hasFile('torrent-banner')) {
-            $image_cover = $request->file('torrent-banner');
-
-            abort_if(\is_array($image_cover), 400);
-
-            $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = public_path('/files/img/'.$filename_cover);
-            Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
         // check for trusted user and update torrent

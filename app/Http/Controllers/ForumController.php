@@ -42,9 +42,21 @@ class ForumController extends Controller
                 ->orderBy('position')
                 ->get()
                 ->filter(fn ($category) => $category->forums->isNotEmpty()),
-            'num_posts'  => Post::count(),
-            'num_forums' => Forum::count(),
-            'num_topics' => Topic::count(),
+            'num_posts' => cache()->remember(
+                'post-count:by-group-id:'.$request->user()->group_id,
+                3600,
+                fn () => Post::query()->authorized(canReadTopic: true)->count()
+            ),
+            'num_forums' => cache()->remember(
+                'forum-count:by-group-id:'.$request->user()->group_id,
+                3600,
+                fn () => Forum::query()->authorized(canReadTopic: true)->count()
+            ),
+            'num_topics' => cache()->remember(
+                'topic-count:by-group-id:'.$request->user()->group_id,
+                3600,
+                fn () => Topic::query()->authorized(canReadTopic: true)->count()
+            ),
         ]);
     }
 

@@ -42,6 +42,8 @@ class BookmarkButton extends Component
         $this->isBookmarked = true;
         $this->bookmarksCount++;
         $this->dispatch('success', type: 'success', message: 'Torrent Has Been Bookmarked Successfully!');
+
+        Torrent::query()->whereKey($this->torrent->id)->searchable();
     }
 
     final public function destroy(): void
@@ -50,6 +52,8 @@ class BookmarkButton extends Component
         $this->isBookmarked = false;
         $this->bookmarksCount--;
         $this->dispatch('success', type: 'success', message: 'Torrent Has Been Unbookmarked Successfully!');
+
+        Torrent::query()->whereKey($this->torrent->id)->searchable();
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

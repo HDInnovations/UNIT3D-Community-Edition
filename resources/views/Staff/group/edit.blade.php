@@ -171,6 +171,18 @@
                     <label class="form__label" for="is_editor">Editor</label>
                 </p>
                 <p class="form__group">
+                    <input name="is_torrent_modo" type="hidden" value="0" />
+                    <input
+                        id="is_torrent_modo"
+                        class="form__checkbox"
+                        name="is_torrent_modo"
+                        type="checkbox"
+                        value="1"
+                        @checked($group->is_torrent_modo)
+                    />
+                    <label class="form__label" for="is_torrent_modo">Torrent Modo</label>
+                </p>
+                <p class="form__group">
                     <input name="is_modo" type="hidden" value="0" />
                     <input
                         id="is_modo"

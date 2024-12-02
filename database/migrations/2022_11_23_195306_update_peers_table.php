@@ -30,7 +30,7 @@ return new class () extends Migration {
                 'torrent_id',
                 'user_id',
                 'peer_id',
-                DB::raw('COUNT(*) as `count`')
+                DB::raw('COUNT(*) as "count"')
             )
             ->groupBy('torrent_id', 'user_id', 'peer_id')
             ->having('count', '>', 1)

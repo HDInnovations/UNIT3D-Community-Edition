@@ -200,7 +200,7 @@
             <a tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
-                    @if ($events->contains(fn ($event) => ! $event->claimed_prizes_exists && $event->ends_at->isFuture()))
+                    @if ($events->contains(fn ($event) => ! $event->claimed_prizes_exists && $event->ends_at->endOfDay()->isFuture()))
                         <x-animation.notification />
                     @endif
                 </div>
@@ -434,7 +434,7 @@
                 </li>
             @endif
 
-            @if (auth()->user()->group->is_modo)
+            @if (auth()->user()->group->is_torrent_modo)
                 <li>
                     <a
                         class="top-nav--right__icon-link"
@@ -618,6 +618,14 @@
                         <a href="{{ route('torrents.index', ['bookmarked' => 1]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-bookmark"></i>
                             {{ __('user.my-bookmarks') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="{{ route('playlists.index', ['username' => auth()->user()->username]) }}"
+                        >
+                            <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
+                            {{ __('user.my-playlists') }}
                         </a>
                     </li>
                     <li>
