@@ -20,7 +20,6 @@ use App\Achievements\UserFilled100Requests;
 use App\Achievements\UserFilled25Requests;
 use App\Achievements\UserFilled50Requests;
 use App\Achievements\UserFilled75Requests;
-use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Notifications\NewRequestFillApprove;
 use App\Repositories\ChatRepository;
