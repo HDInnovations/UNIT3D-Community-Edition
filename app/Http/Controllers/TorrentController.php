@@ -82,7 +82,7 @@ class TorrentController extends Controller
         $user = $request->user();
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists'])
+            ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists', 'reports'])
             ->withCount([
                 'bookmarks',
                 'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
