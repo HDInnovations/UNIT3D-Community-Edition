@@ -19,9 +19,8 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\StoreGroupRequest;
 use App\Http\Requests\Staff\UpdateGroupRequest;
-use App\Models\Forum;
+use App\Models\ForumCategory;
 use App\Models\Group;
-use App\Models\ForumPermission;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Support\Str;
 
@@ -45,7 +44,14 @@ class GroupController extends Controller
      */
     public function create(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        return view('Staff.group.create');
+        return view('Staff.group.create', [
+            'forumCategories' => ForumCategory::query()
+                ->with([
+                    'forums' => fn ($query) => $query->orderBy('position')
+                ])
+                ->orderBy('position')
+                ->get(),
+        ]);
     }
 
     /**
@@ -53,17 +59,9 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request): \Illuminate\Http\RedirectResponse
     {
-        $group = Group::create(['slug' => Str::slug($request->name)] + $request->validated());
+        $group = Group::create(['slug' => Str::slug($request->validated('group.name'))] + $request->validated('group'));
 
-        foreach (Forum::pluck('id') as $collection) {
-            ForumPermission::create([
-                'forum_id'    => $collection,
-                'group_id'    => $group->id,
-                'read_topic'  => false,
-                'reply_topic' => false,
-                'start_topic' => false,
-            ]);
-        }
+        $group->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
 
         Unit3dAnnounce::addGroup($group);
 
@@ -77,7 +75,13 @@ class GroupController extends Controller
     public function edit(Group $group): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('Staff.group.edit', [
-            'group' => $group,
+            'group'           => $group,
+            'forumCategories' => ForumCategory::query()
+                ->with([
+                    'forums' => fn ($query) => $query->orderBy('position')
+                ])
+                ->orderBy('position')
+                ->get(),
         ]);
     }
 
@@ -86,7 +90,9 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, Group $group): \Illuminate\Http\RedirectResponse
     {
-        $group->update(['slug' => Str::slug($request->name)] + $request->validated());
+        $group->update(['slug' => Str::slug($request->validated('group.name'))] + $request->validated('group'));
+
+        $group->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
 
         cache()->forget('group:'.$group->id);
 
