@@ -48,15 +48,15 @@ class ModerationController extends Controller
         return view('Staff.moderation.index', [
             'current' => now(),
             'pending' => Torrent::withoutGlobalScope(ApprovedScope::class)
-                ->with(['user.group', 'category', 'type', 'resolution', 'category'])
+                ->with(['user.group', 'category', 'type', 'resolution'])
                 ->where('status', '=', Torrent::PENDING)
                 ->get(),
             'postponed' => Torrent::withoutGlobalScope(ApprovedScope::class)
-                ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution', 'category'])
+                ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution'])
                 ->where('status', '=', Torrent::POSTPONED)
                 ->get(),
             'rejected' => Torrent::withoutGlobalScope(ApprovedScope::class)
-                ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution', 'category'])
+                ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution'])
                 ->where('status', '=', Torrent::REJECTED)
                 ->get(),
         ]);
