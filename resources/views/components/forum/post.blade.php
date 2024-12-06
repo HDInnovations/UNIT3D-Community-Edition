@@ -11,6 +11,28 @@
         >
             {{ $post->created_at?->diffForHumans() }}
         </time>
+
+        @if ($post->updated_at > $post->created_at)
+            <span class="post__edited">
+                &bull; edited
+                <i class="{{ config('other.font-awesome') }} fa-caret-down"></i>
+                <div class="post__edited-dropdown">
+                    {{ $post->updated_at?->diffForHumans() }}
+                    by
+                    <a
+                        class="user-tag__link {{ $post->updatedBy->group->icon ?? $post->user->group->icon }}"
+                        href="{{ route('users.show', ['user' => $post->updatedBy ?? $post->user]) }}"
+                        style="
+                            color: {{ $post->updatedBy->group->color ?? $post->user->group->color }};
+                        "
+                        title="{{ $post->updatedBy->group->name ?? $post->user->group->name }}"
+                    >
+                        {{ $post->updatedBy?->username ?? $post->user->username }}
+                    </a>
+                </div>
+            </span>
+        @endif
+
         @if (! Route::is('topics.show'))
             <span class="post__topic">
                 {{ __('forum.in') }}
