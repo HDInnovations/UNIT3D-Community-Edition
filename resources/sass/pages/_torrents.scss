@@ -1074,3 +1074,20 @@ th.similar-torrents__type {
         grid-template-columns: 13% 0.5fr 1fr 0.5fr 0.5fr 1fr 0.5fr 1fr;
     }
 }
+
+/* Torrent Moderation */
+.torrent--approved {
+    color: green;
+}
+
+.torrent--pending {
+    color: yellow;
+}
+
+.torrent--postponed {
+    color: orange;
+}
+
+.torrent--rejected {
+    color: red;
+}
