@@ -36,4 +36,5 @@ return [
     'title'             => 'Title',
     'titles'            => 'Titles',
     'update-success'    => 'Your Playlist Has Successfully Been Updated!',
+    'last-addition-at'  => 'Last addition at',
 ];
