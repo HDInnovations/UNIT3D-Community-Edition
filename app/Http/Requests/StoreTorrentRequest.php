@@ -223,19 +223,19 @@ class StoreTorrentRequest extends FormRequest
             'internal' => [
                 'sometimes',
                 'boolean',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->internals()->exists(), 'prohibited'),
             ],
             'free' => [
                 'sometimes',
                 'integer',
                 'numeric',
                 'between:0,100',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->internals()->exists(), 'prohibited'),
             ],
             'refundable' => [
                 'sometimes',
                 'boolean',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$request->user()->group->is_modo && !$request->user()->internals()->exists(), 'prohibited'),
             ],
         ];
     }
