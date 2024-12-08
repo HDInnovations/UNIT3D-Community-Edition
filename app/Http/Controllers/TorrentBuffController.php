@@ -45,7 +45,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
@@ -78,7 +78,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->sticky = !$torrent->sticky;
         $torrent->save();
@@ -94,7 +94,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
@@ -138,7 +138,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
         if ($torrent->featured()->doesntExist()) {
@@ -201,7 +201,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
@@ -275,7 +275,7 @@ class TorrentBuffController extends Controller
     public function setRefundable(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent_url = href_torrent($torrent);

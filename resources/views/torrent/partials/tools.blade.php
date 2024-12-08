@@ -113,7 +113,7 @@
                 </li>
             @endif
 
-            @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+            @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                 <menu
                     style="
                         display: flex;
