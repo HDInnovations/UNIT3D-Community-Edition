@@ -303,14 +303,14 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 1290px) {
     .post {
         grid-template-areas: 'aside' 'header' 'content' 'footer';
         grid-template-columns: 100%;
     }
 
     .post__header {
-        grid-template-areas: 'datetime edited topic . tip-stats overflow' '. . . . toolbar';
+        grid-template-areas: 'datetime edited topic tip-stats overflow' '. . . . toolbar';
         grid-template-columns: auto auto auto 1fr auto auto;
         gap: 0 6px;
     }
