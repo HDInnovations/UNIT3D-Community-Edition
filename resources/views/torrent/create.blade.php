@@ -460,7 +460,7 @@
                     />
                     <label class="form__label" for="sd">{{ __('torrent.sd-content') }}?</label>
                 </p>
-                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
                         <input type="hidden" name="internal" value="0" />
                         <input
@@ -506,7 +506,7 @@
                     </p>
                 @endif
 
-                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
                         <input type="hidden" name="refundable" value="0" />
                         <input
@@ -523,7 +523,7 @@
                     </p>
                 @endif
 
-                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
                         <select name="free" id="free" class="form__select">
                             <option
