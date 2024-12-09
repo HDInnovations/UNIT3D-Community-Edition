@@ -21,14 +21,14 @@ use Illuminate\Support\Facades\Schema;
 return new class () extends Migration {
     public function up(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('comments', function (Blueprint $table): void {
             $table->index('created_at');
         });
     }
 
     public function down(): void
     {
-        Schema::table('comments', function (Blueprint $table) {
+        Schema::table('comments', function (Blueprint $table): void {
             $table->dropIndex(['created_at']);
         });
     }
