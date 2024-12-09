@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Comment;
 use App\Models\FeaturedTorrent;
 use App\Models\Group;
 use App\Models\Poll;
@@ -100,6 +101,17 @@ class HomeController extends Controller
                         'dislikes' => fn ($query) => $query->where('user_id', '=', auth()->id()),
                     ])
                     ->authorized(canReadTopic: true)
+                    ->latest()
+                    ->take(5)
+                    ->get(),
+            ),
+            'comments' => cache()->remember(
+                'latest_comments',
+                $expiresAt,
+                fn () => Comment::query()
+                    ->with('user', 'user.group', 'commentable')
+                    ->whereHasMorph('commentable', [\App\Models\Torrent::class])
+                    ->orWhereHasMorph('commentable', [\App\Models\TorrentRequest::class])
                     ->latest()
                     ->take(5)
                     ->get(),
