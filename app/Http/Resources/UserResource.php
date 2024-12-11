@@ -35,8 +35,8 @@ class UserResource extends JsonResource
             'downloaded'   => str_replace("\u{00A0}", ' ', $this->formatted_downloaded),
             'ratio'        => $this->formatted_ratio,
             'buffer'       => str_replace("\u{00A0}", ' ', $this->formatted_buffer),
-            'seeding'      => \count($this->seedingTorrents) ? $this->seedingTorrents : 0,
-            'leeching'     => \count($this->leechingTorrents) ? $this->leechingTorrents : 0,
+            'seeding'      => \count($this->seedingTorrents),
+            'leeching'     => \count($this->leechingTorrents),
             'seedbonus'    => $this->seedbonus,
             'hit_and_runs' => $this->hitandruns,
         ];
