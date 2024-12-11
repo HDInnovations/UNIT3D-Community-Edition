@@ -97,9 +97,7 @@ class TorrentHelper
 
         if ($torrent->anon == 0 && $uploader !== null) {
             foreach ($uploader->followers()->get() as $follower) {
-                if ($follower->acceptsNotification($uploader, $follower, 'following', 'show_following_upload')) {
-                    $follower->notify(new NewUpload('follower', $torrent));
-                }
+                $follower->notify(new NewUpload('follower', $torrent));
             }
         }
 
