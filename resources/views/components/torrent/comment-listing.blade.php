@@ -58,7 +58,7 @@
                 </a>
             </x-slot>
         </x-user_tag>
-        @if (! empty($comment->user->title))
+        @if (! empty($comment->user->title) && ! $comment->anon)
             <p class="comment__author-title">
                 {{ $comment->user->title }}
             </p>
