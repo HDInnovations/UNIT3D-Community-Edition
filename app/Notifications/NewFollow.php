@@ -43,6 +43,32 @@ class NewFollow extends Notification implements ShouldQueue
     }
 
     /**
+     * Determine if the notification should be sent.
+     *
+     * @return bool
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        $targetGroup = 'json_following_groups';
+
+        if ($notifiable->notification?->block_notifications == 1) {
+            return false;
+        }
+
+        if (!$notifiable->notification?->show_account_follow) {
+            return false;
+        }
+
+        if (\is_array($notifiable->notification->$targetGroup)) {
+            // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+            // the expression will return false.
+            return !\in_array($this->follower->group->id, $notifiable->notification->$targetGroup, true);
+        }
+
+        return true;
+    }
+
+    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>
