@@ -110,7 +110,8 @@ test('upload a torrent creates a notification for followers', function (): void 
     $response->assertViewIs('torrent.download_check');
 
     Notification::assertSentTo(
-        [$follower], NewUpload::class
+        [$follower],
+        NewUpload::class
     );
     Notification::assertCount(1);
 });
