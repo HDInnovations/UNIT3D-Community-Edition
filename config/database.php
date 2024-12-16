@@ -177,7 +177,7 @@ return [
             'username'           => env('REDIS_USERNAME'),
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
-            'database'           => env('REDIS_BROADCAST_DB', 4),
+            'database'           => env('REDIS_SESSION_DB', 4),
             'read_write_timeout' => -1,
         ],
 
@@ -187,7 +187,7 @@ return [
             'username'           => env('REDIS_USERNAME'),
             'password'           => env('REDIS_PASSWORD', null),
             'port'               => env('REDIS_PORT', 6379),
-            'database'           => env('REDIS_BROADCAST_DB', 5),
+            'database'           => env('REDIS_ANNOUNCE_DB', 5),
             'read_write_timeout' => -1,
         ],
     ],
