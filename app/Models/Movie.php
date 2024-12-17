@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null                     $overview
  * @property string|null                     $popularity
  * @property string|null                     $poster
- * @property string|null                     $release_date
+ * @property \Illuminate\Support\Carbon|null $release_date
  * @property string|null                     $revenue
  * @property string|null                     $runtime
  * @property string|null                     $status
