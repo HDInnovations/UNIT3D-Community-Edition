@@ -1,8 +1,6 @@
-<section class="panelV2 blocks__posts">
+<section class="panelV2 blocks__comments">
     <h2 class="panel__heading">
-        <a href="{{ route('posts.index') }}">
-            {{ __('blocks.latest-comments') }}
-        </a>
+        {{ __('blocks.latest-comments') }}
     </h2>
     <div class="panel__body">
         <ul class="comment-list">
