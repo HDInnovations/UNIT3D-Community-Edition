@@ -42,150 +42,174 @@ class UpdateGroupRequest extends FormRequest
         $group = $request->route('group');
 
         return [
-            'name' => [
+            'group.name' => [
                 Rule::when(! $group->system_required, [
                     'required',
                     'string',
                 ]),
-                Rule::prohibitedIf($group->system_required && $request->name !== $group->name),
+                Rule::prohibitedIf($group->system_required && $request->group->name !== $group->name),
             ],
-            'position' => [
+            'group.position' => [
                 'required',
                 'integer',
             ],
-            'level' => [
+            'group.level' => [
                 'required',
                 'integer',
             ],
-            'download_slots' => [
+            'group.download_slots' => [
                 'nullable',
                 'integer',
             ],
-            'description' => [
+            'group.description' => [
                 'nullable',
             ],
-            'color' => [
+            'group.color' => [
                 'required',
             ],
-            'icon' => [
+            'group.icon' => [
                 'required',
             ],
-            'effect' => [
+            'group.effect' => [
                 'sometimes',
             ],
-            'is_uploader' => [
+            'group.is_uploader' => [
                 'required',
                 'boolean',
             ],
-            'is_internal' => [
+            'group.is_internal' => [
                 'required',
                 'boolean',
             ],
-            'is_editor' => [
+            'group.is_editor' => [
                 'required',
                 'boolean',
             ],
-            'is_torrent_modo' => [
+            'group.is_torrent_modo' => [
                 'required',
                 'boolean',
             ],
-            'is_modo' => [
+            'group.is_modo' => [
                 'required',
                 'boolean',
             ],
-            'is_admin' => [
+            'group.is_admin' => [
                 'required',
                 'boolean',
             ],
-            'is_owner' => [
+            'group.is_owner' => [
                 'required',
                 'boolean',
             ],
-            'is_trusted' => [
+            'group.is_trusted' => [
                 'required',
                 'boolean',
             ],
-            'is_immune' => [
+            'group.is_immune' => [
                 'required',
                 'boolean',
             ],
-            'is_freeleech' => [
+            'group.is_freeleech' => [
                 'required',
                 'boolean',
             ],
-            'is_double_upload' => [
+            'group.is_double_upload' => [
                 'required',
                 'boolean',
             ],
-            'is_incognito' => [
+            'group.is_incognito' => [
                 'required',
                 'boolean',
             ],
-            'can_chat' => [
+            'group.can_chat' => [
                 'required',
                 'boolean',
             ],
-            'can_comment' => [
+            'group.can_comment' => [
                 'required',
                 'boolean',
             ],
-            'can_invite' => [
+            'group.can_invite' => [
                 'required',
                 'boolean',
             ],
-            'can_request' => [
+            'group.can_request' => [
                 'required',
                 'boolean',
             ],
-            'can_upload' => [
+            'group.can_upload' => [
                 'required',
                 'boolean',
             ],
-            'autogroup' => [
+            'group.autogroup' => [
                 'required',
                 'boolean',
             ],
-            'min_uploaded' => [
+            'group.min_uploaded' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
-            'min_ratio' => [
+            'group.min_ratio' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'min:0',
                     'max:99.99',
                 ], 'nullable'),
             ],
-            'min_age' => [
+            'group.min_age' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
-            'min_avg_seedtime' => [
+            'group.min_avg_seedtime' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
-            'min_seedsize' => [
+            'group.min_seedsize' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
             ],
-            'min_uploads' => [
+            'group.min_uploads' => [
                 Rule::when($request->boolean('autogroup'), [
                     'sometimes',
                     'integer',
                     'min:0',
                 ], 'nullable'),
+            ],
+            'permissions' => [
+                'required',
+                'array',
+            ],
+            'permissions.*' => [
+                'required',
+                'array:forum_id,read_topic,reply_topic,start_topic',
+            ],
+            'permissions.*.forum_id' => [
+                'required',
+                'exists:forums,id',
+            ],
+            'permissions.*.read_topic' => [
+                'required',
+                'boolean',
+            ],
+            'permissions.*.reply_topic' => [
+                'required',
+                'boolean',
+            ],
+            'permissions.*.start_topic' => [
+                'required',
+                'boolean',
             ],
         ];
     }
