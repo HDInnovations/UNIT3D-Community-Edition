@@ -52,9 +52,7 @@ class RequestFillController extends Controller
         $sender = $request->boolean('filled_anon') ? 'Anonymous' : $request->user()->username;
         $requester = $torrentRequest->user;
 
-        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_fill')) {
-            $requester->notify(new NewRequestFill($torrentRequest));
-        }
+        $requester->notify(new NewRequestFill($torrentRequest));
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->with('success', trans('request.pending-approval'));
