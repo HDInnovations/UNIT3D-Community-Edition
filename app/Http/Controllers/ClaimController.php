@@ -62,8 +62,6 @@ class ClaimController extends Controller
     {
         abort_unless($request->user()->group->is_modo || $request->user()->id == $claim->user_id, 403);
 
-        $claim->delete();
-
         $torrentRequest->update([
             'claimed' => null,
         ]);
@@ -71,9 +69,9 @@ class ClaimController extends Controller
         $claimer = $claim->anon ? 'Anonymous' : $request->user()->username;
         $requester = $torrentRequest->user;
 
-        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_unclaim')) {
-            $requester->notify(new NewRequestUnclaim('torrent', $claimer, $torrentRequest));
-        }
+        $requester->notify((new NewRequestUnclaim('torrent', $claimer, $claim)));
+
+        $claim->delete();
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->with('success', trans('request.unclaimed-success'));
