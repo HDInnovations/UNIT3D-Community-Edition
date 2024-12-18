@@ -47,9 +47,7 @@ class ClaimController extends Controller
 
         $requester = $torrentRequest->user;
 
-        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_claim')) {
-            $requester->notify(new NewRequestClaim($claim));
-        }
+        $requester->notify(new NewRequestClaim($claim));
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->with('success', trans('request.claimed-success'));
