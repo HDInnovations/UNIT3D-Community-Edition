@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Notifications;
 
 use App\Models\TorrentRequest;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -40,6 +41,32 @@ class NewRequestFill extends Notification implements ShouldQueue
     public function via(object $notifiable): array
     {
         return ['database'];
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     *
+     * @return bool
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        $targetGroup = 'json_request_groups';
+
+        if ($notifiable->notification?->block_notifications == 1) {
+            return false;
+        }
+
+        if (!$notifiable->notification?->show_request_fill) {
+            return false;
+        }
+
+        if (\is_array($notifiable->notification->$targetGroup)) {
+            // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+            // the expression will return false.
+            return !\in_array($this->torrentRequest->filler->group->id, $notifiable->notification->$targetGroup, true);
+        }
+
+        return true;
     }
 
     /**
