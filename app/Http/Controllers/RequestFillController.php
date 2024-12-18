@@ -75,9 +75,7 @@ class RequestFillController extends Controller
             'torrent_id'  => null,
         ]);
 
-        if ($filler->acceptsNotification($approver, $filler, 'request', 'show_request_fill_reject')) {
-            $filler->notify(new NewRequestFillReject('torrent', $approver->is($requester) ? ($torrentRequest->anon ? 'Anonymous' : $requester->username) : $approver->username, $torrentRequest));
-        }
+        $filler->notify(new NewRequestFillReject('torrent', $approver->is($requester) ? ($torrentRequest->anon ? 'Anonymous' : $requester->username) : $approver->username, $torrentRequest));
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->with('success', trans('request.request-reset'));
