@@ -44,6 +44,7 @@ class StoreTorrentRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
+        $user = $request->user();
         $category = Category::findOrFail($request->integer('category_id'));
 
         return [
@@ -223,19 +224,19 @@ class StoreTorrentRequest extends FormRequest
             'internal' => [
                 'sometimes',
                 'boolean',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$user->group->is_modo && !$user->internals()->exists(), 'prohibited'),
             ],
             'free' => [
                 'sometimes',
                 'integer',
                 'numeric',
                 'between:0,100',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$user->group->is_modo && !$user->internals()->exists(), 'prohibited'),
             ],
             'refundable' => [
                 'sometimes',
                 'boolean',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                Rule::when(!$user->group->is_modo && !$user->internals()->exists(), 'prohibited'),
             ],
         ];
     }
