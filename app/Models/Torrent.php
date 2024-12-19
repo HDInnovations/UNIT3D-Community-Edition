@@ -36,6 +36,8 @@ use voku\helper\AntiXSS;
  *
  * @property string                          $info_hash
  * @property int                             $id
+ * @property string|null                     $cover_url
+ * @property string|null                     $banner_url
  * @property string                          $name
  * @property string                          $description
  * @property string|null                     $mediainfo
@@ -140,6 +142,8 @@ class Torrent extends Model
     public const string SEARCHABLE = <<<'SQL'
             torrents.id,
             torrents.name,
+            torrents.cover_url,
+            torrents.banner_url,
             torrents.description,
             torrents.mediainfo,
             torrents.bdinfo,
@@ -832,6 +836,8 @@ class Torrent extends Model
         $missingRequiredAttributes = array_diff([
             'id',
             'name',
+            'cover_url',
+            'banner_url',
             'description',
             'mediainfo',
             'bdinfo',
@@ -904,6 +910,8 @@ class Torrent extends Model
         return [
             'id'                 => $torrent->id,
             'name'               => $torrent->name,
+            'cover_url'          => $torrent->cover_url,
+            'banner_url'         => $torrent->banner_url,
             'description'        => $torrent->description,
             'mediainfo'          => $torrent->mediainfo,
             'bdinfo'             => $torrent->bdinfo,

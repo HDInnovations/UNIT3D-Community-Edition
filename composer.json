@@ -42,7 +42,8 @@
         "symfony/dom-crawler": "^6.4.12",
         "theodorejb/polycast": "dev-master",
         "voku/anti-xss": "^4.1.42",
-        "vstelmakh/url-highlight": "^3.1.1"
+        "vstelmakh/url-highlight": "^3.1.1",
+        "ext-imagick": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.14.6",
