@@ -128,24 +128,27 @@ class Comments extends Component
         // New Comment Notification
         switch (true) {
             case $this->model instanceof Ticket:
-                $ticket = $this->model;
+                // Notify assigned staff if needed
+                User::find($this->model->staff_id)?->notify(new NewComment($this->model, $comment));
 
-                if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
-                    User::find($ticket->staff_id)?->notify(new NewComment($this->model, $comment));
-                }
-
-                if ($this->user->id !== $ticket->user_id) {
-                    User::find($ticket->user_id)?->notify(new NewComment($this->model, $comment));
-                }
+                // Notify ticket creator if needed
+                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
 
                 break;
             case $this->model instanceof Article:
+                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
+
+                break;
             case $this->model instanceof Playlist:
+                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
+
+                break;
             case $this->model instanceof TorrentRequest:
+                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
+
+                break;
             case $this->model instanceof Torrent:
-                if ($this->user->id !== $this->model->user_id) {
-                    User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
-                }
+                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
 
                 break;
         }
