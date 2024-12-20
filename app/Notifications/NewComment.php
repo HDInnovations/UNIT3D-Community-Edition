@@ -23,6 +23,7 @@ use App\Models\Playlist;
 use App\Models\Ticket;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
@@ -45,6 +46,61 @@ class NewComment extends Notification
     public function via(object $notifiable): array
     {
         return ['database'];
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     *
+     * @return bool
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        // Evaluate general settings
+        if ($this->comment->user_id === $notifiable->id || $notifiable->notification?->block_notifications == 1) {
+            return false;
+        }
+
+        // Initialize target variables
+        $targetGroup = '';
+        $targetSetting = '';
+
+        // Evaluate model based settings
+        switch (true) {
+            case $this->model instanceof Torrent:
+                $targetGroup = 'json_torrent_groups';
+                $targetSetting = 'show_torrent_comment';
+
+                break;
+            case $this->model instanceof TorrentRequest:
+                $targetGroup = 'json_request_groups';
+                $targetSetting = 'show_request_comment';
+
+                break;
+            case $this->model instanceof Ticket:
+                return ! ($this->comment->staff_id === $notifiable->id && $this->comment->staff_id !== null)
+                ;
+
+            case $this->model instanceof Playlist:
+            case $this->model instanceof Article:
+                return true;
+            case $this->model instanceof Collection:
+                break;
+            default:
+                // In the unlikely case none matches, fallback to true to not lose a notification
+                return true;
+        }
+
+        if (!$notifiable->notification?->$targetSetting) {
+            return false;
+        }
+
+        if (\is_array($notifiable->notification->$targetGroup)) {
+            // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+            // the expression will return false.
+            return !\in_array($this->comment->user->group->id, $notifiable->notification->$targetGroup, true);
+        }
+
+        return true;
     }
 
     /**
