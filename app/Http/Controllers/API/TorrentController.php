@@ -166,21 +166,35 @@ class TorrentController extends BaseController
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
         $torrent->personal_release = $request->input('personal_release') ?? 0;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->internal = $user->group->is_modo || $user->internals_exists ? ($request->input('internal') ?? 0) : 0;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->featured = $user->group->is_modo || $user->internals_exists ? ($request->input('featured') ?? false) : false;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->doubleup = $user->group->is_modo || $user->internals_exists ? ($request->input('doubleup') ?? 0) : 0;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->refundable = $user->group->is_modo || $user->internals_exists ? ($request->input('refundable') ?? false) : false;
         $du_until = $request->input('du_until');
 
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         if (($user->group->is_modo || $user->internals_exists) && isset($du_until)) {
             $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
         }
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->free = $user->group->is_modo || $user->internals_exists ? ($request->input('free') ?? 0) : 0;
         $fl_until = $request->input('fl_until');
 
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         if (($user->group->is_modo || $user->internals_exists) && isset($fl_until)) {
             $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
         }
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->sticky = $user->group->is_modo || $user->internals_exists ? ($request->input('sticky') ?? 0) : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::SYSTEM_USER_ID;
