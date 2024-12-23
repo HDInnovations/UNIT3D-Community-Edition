@@ -115,10 +115,12 @@
                             <a href="{{ route('tickets.show', ['ticket' => $ticket]) }}">
                                 {{ $ticket->subject }}
                             </a>
-                            @if ((auth()->user()->group->is_modo &&
-                                (($ticket->staff_id === auth()->id() && $ticket->staff_read === 0) ||
-                                    ($ticket->staff_id === null && $ticket->closed_at === null))) ||
-                                ($ticket->user_id === auth()->id() && $ticket->user_read === 0))
+                            @if (
+
+                                (auth()->user()->group->is_modo &&
+                                    (($ticket->staff_id === auth()->id() && $ticket->staff_read === 0) ||
+                                        ($ticket->staff_id === null && $ticket->closed_at === null))) ||
+                                ($ticket->user_id === auth()->id() && $ticket->user_read === 0)                            )
                                 <i
                                     style="color: #0dffff; vertical-align: 1px"
                                     class="fas fa-circle fa-xs"

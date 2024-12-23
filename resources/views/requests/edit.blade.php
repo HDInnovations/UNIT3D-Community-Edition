@@ -187,12 +187,15 @@
                             </label>
                         </p>
                     </div>
-                    @livewire('bbcode-input', [
-                        'name' => 'description',
-                        'label' => __('request.description'),
-                        'required' => true,
-                        'content' => $torrentRequest->description
-                    ])
+                    @livewire(
+                        'bbcode-input',
+                        [
+                            'name' => 'description',
+                            'label' => __('request.description'),
+                            'required' => true,
+                            'content' => $torrentRequest->description,
+                        ]
+                    )
                     <p class="form__group">
                         <input type="hidden" name="anon" value="0" />
                         <input

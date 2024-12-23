@@ -46,18 +46,18 @@
         <main class="@yield('page')">
             @hasSection('main')
                 @hasSection('sidebar')
-                <article class="sidebar2">
-                    <div>
-                        @yield('main')
-                    </div>
-                    <aside>
-                        @yield('sidebar')
-                    </aside>
-                </article>
+                    <article class="sidebar2">
+                        <div>
+                            @yield('main')
+                        </div>
+                        <aside>
+                            @yield('sidebar')
+                        </aside>
+                    </article>
                 @else
-                <article>
-                    @yield('main')
-                </article>
+                    <article>
+                        @yield('main')
+                    </article>
                 @endif
             @else
                 <article>
