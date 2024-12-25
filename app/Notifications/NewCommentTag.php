@@ -23,6 +23,7 @@ use App\Models\Playlist;
 use App\Models\Ticket;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
@@ -46,6 +47,66 @@ class NewCommentTag extends Notification implements ShouldQueue
     public function via(object $notifiable): array
     {
         return ['database'];
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        // Do not notify self
+        if ($this->comment->user_id === $notifiable->id) {
+            return false;
+        }
+
+        // Enforce non-anonymous staff notifications to be sent
+        if ($this->comment->user->group->is_modo &&
+            ! $this->comment->anon) {
+            return true;
+        }
+
+        // Evaluate general settings
+        if ($notifiable->notification?->block_notifications == 1) {
+            return false;
+        }
+
+        // Evaluate model based settings
+        switch (true) {
+            case $this->model instanceof Torrent:
+                if (!$notifiable->notification?->show_mention_torrent_comment) {
+                    return false;
+                }
+
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true);
+
+            case $this->model instanceof TorrentRequest:
+                if (!$notifiable->notification?->show_mention_request_comment) {
+                    return false;
+                }
+
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true);
+
+            case $this->model instanceof Ticket:
+                return ! ($this->model->staff_id === $this->comment->id);
+            case $this->model instanceof Playlist:
+            case $this->model instanceof Article:
+                if (!$notifiable->notification?->show_mention_article_comment) {
+                    return false;
+                }
+
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true);
+
+            case $this->model instanceof Collection:
+                break;
+        }
+
+        return true;
     }
 
     /**
