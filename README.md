@@ -57,37 +57,8 @@ HDInnovations offers a variety of services to help you with your UNIT3D instance
 
 If you would like to support the development of UNIT3D, please consider donating to keep the project alive. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Funding]%20UNIT3D%20)
 
-<div>
-  <div style="
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  width: 259px;
-  background: #030303;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: -2px 10px 5px rgba(0, 0, 0, 0);
-  border-radius: 10px;
-  font-family: SQ Market, SQ Market, Helvetica, Arial, sans-serif;
-  ">
-    <img src="https://items-images-production.s3.us-west-2.amazonaws.com/files/1cb14a84aec068bf919e717a044b82a5531d3db4/original.png" alt="Donation" onerror="this.style.display='none'" style="width: 100%;">
-  <div style="padding: 20px;">
-    <a target="_blank" data-url="https://square.link/u/VjB1CNfm?src=embd" href="https://square.link/u/VjB1CNfm?src=embed" style="
-    display: inline-block;
-    font-size: 18px;
-    line-height: 48px;
-    height: 48px;
-    color: #ffffff;
-    min-width: 212px;
-    background-color: #644e3a;
-    text-align: center;
-    box-shadow: 0 0 0 1px rgba(0,0,0,.1) inset;
-    border-radius: 50px;
-  ">Donate</a>
-  </div>
-</div>
-</div>
+<a href="https://square.link/u/VjB1CNfm" target="_blank"><img alt="unit3d-donate.png" src="public/img/unit3d-donate.png" width="200px"/></a>&nbsp;&nbsp;&nbsp;
+<img alt="unit3d-qr-code.png" src="public/img/unit3d-qr-code.png" width="169px"/>
 
 ## <a name="discord"></a> 📞 Discord Community
 
