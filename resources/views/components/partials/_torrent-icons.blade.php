@@ -69,7 +69,7 @@
     @endif
 
     @php
-        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || auth()->user()->is_donor || config('other.freeleech')
+        $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || auth()->user()->is_donor || config('other.freeleech');
     @endphp
 
     @if ($torrent->featured)

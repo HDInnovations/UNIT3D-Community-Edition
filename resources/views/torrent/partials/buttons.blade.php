@@ -237,12 +237,12 @@
                         </span>
                     @endif
 
-                    @foreach ($files = $torrent->files->sortBy(fn ($file) => (($dir = dirname($file->name)) === '.' ? chr(0xFF) : $dir."/".chr(0xFF)).basename($file->name), SORT_NATURAL)->values() as $file)
+                    @foreach ($files = $torrent->files->sortBy(fn ($file) => (($dir = dirname($file->name)) === '.' ? chr(0xff) : $dir . '/' . chr(0xff)) . basename($file->name), SORT_NATURAL)->values() as $file)
                         @php
                             $prevNodes = explode('/', $files[$loop->index - 1]->name ?? ' ');
                         @endphp
 
-                        @foreach ($nodes = explode("/", $file->name) as $node)
+                        @foreach ($nodes = explode('/', $file->name) as $node)
                             @if (($prevNodes[$loop->index] ?? '') != $node)
                                 @for ($depth = count($prevNodes); $depth > $loop->index; $depth--)
                                     {{-- format-ignore-start --}}
@@ -355,12 +355,15 @@
         </dialog>
     </li>
     <li class="form__group form__group--short-horizontal">
-        @livewire('bookmark-button', [
-            'torrent' => $torrent,
-            'isBookmarked' => $torrent->bookmarks_exists,
-            'user' => auth()->user(),
-            'bookmarksCount' => $torrent->bookmarks_count ?? 0,
-        ])
+        @livewire(
+            'bookmark-button',
+            [
+                'torrent' => $torrent,
+                'isBookmarked' => $torrent->bookmarks_exists,
+                'user' => auth()->user(),
+                'bookmarksCount' => $torrent->bookmarks_count ?? 0,
+            ]
+        )
     </li>
     @if ($playlists->count() > 0)
         <li x-data="dialog" class="form__group form__group--short-horizontal">
@@ -408,7 +411,9 @@
         </li>
     @endif
 
-    @if ($torrent->seeders <= 2 &&
+    @if (
+
+        $torrent->seeders <= 2 &&
         /* $history is used inside the resurrection code below and assumes is set if torrent->seeders are equal to 0 */
         null !==
             ($history = $user
@@ -416,7 +421,7 @@
                 ->where('torrent_id', $torrent->id)
                 ->first()) &&
         $history->seeder == 0 &&
-        $history->active == 1)
+        $history->active == 1    )
         <li class="form__group form__group--short-horizontal">
             <form
                 action="{{ route('reseed', ['id' => $torrent->id]) }}"

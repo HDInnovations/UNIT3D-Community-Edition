@@ -60,7 +60,7 @@
                         {{ __('forum.topic-title') }}
                     </label>
                 </p>
-                @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'required' => true ])
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('forum.post'), 'required' => true])
                 <button class="form__button form__button--filled">
                     {{ __('forum.send-new-topic') }}
                 </button>

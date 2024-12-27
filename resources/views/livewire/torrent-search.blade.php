@@ -817,7 +817,8 @@
                             <tr
                                 @class([
                                     'torrent-search--list__headers' => auth()->user()->settings?->show_poster,
-                                    'torrent-search--list__no-poster-headers' => ! auth()->user()->settings?->show_poster,
+                                    'torrent-search--list__no-poster-headers' => ! auth()->user()->settings
+                                        ?->show_poster,
                                 ])
                             >
                                 @if (auth()->user()->settings?->show_poster)

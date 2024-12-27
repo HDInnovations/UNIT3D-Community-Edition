@@ -200,7 +200,7 @@
                             ->where('created_at', '>', now()->startOfDay())
                             ->where('user_id', '=', auth()->id()),
                     ])
-                    ->get()
+                    ->get();
             @endphp
 
             <a tabindex="0">
@@ -430,7 +430,7 @@
                             $unsolvedReportsCount = DB::table('reports')
                                 ->whereNull('snoozed_until')
                                 ->where('solved', '=', false)
-                                ->count()
+                                ->count();
                         @endphp
 
                         @if ($unsolvedReportsCount > 0)
