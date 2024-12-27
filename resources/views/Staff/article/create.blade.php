@@ -43,7 +43,7 @@
                     <label for="image" class="form__label">{{ __('common.image') }}</label>
                     <input class="form__file" type="file" name="image" id="image" />
                 </p>
-                @livewire('bbcode-input', ['name' => 'content', 'label' => __('content'), 'required' => true])
+                @livewire('bbcode-input', ['name' => 'content', 'label' => __('content'), 'required' => true ])
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}

@@ -56,15 +56,12 @@
                     </label>
                 </p>
                 <p class="form__group">
-                    @livewire(
-                        'bbcode-input',
-                        [
-                            'name' => 'description',
-                            'label' => __('common.description'),
-                            'required' => true,
-                            'content' => $playlist->description,
-                        ]
-                    )
+                    @livewire('bbcode-input', [
+                        'name'     => 'description',
+                        'label'    => __('common.description'),
+                        'required' => true,
+                        'content'  => $playlist->description
+                    ])
                 </p>
                 <p class="form__group">
                     <label for="cover_image" class="form__label">
