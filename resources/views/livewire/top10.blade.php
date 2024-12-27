@@ -1,5 +1,9 @@
 <section
-    @class(['panelV2', 'top10', 'top10--weekly' => in_array($this->interval, ['weekly', 'monthly'])])
+    @class([
+        'panelV2',
+        'top10',
+        'top10--weekly' => in_array($this->interval, ['weekly', 'monthly']),
+    ])
 >
     <header class="panel__header">
         <h2 class="panel__heading">Top Titles</h2>

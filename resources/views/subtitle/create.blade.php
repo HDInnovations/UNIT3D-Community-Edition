@@ -113,7 +113,7 @@
         <h2 class="panel__heading">{{ __('subtitle.rules-title') }}</h2>
         <div class="panel__body">
             <ol>
-                @foreach (Str::of(__('subtitle.rules'))->replace(['<ul>', '</ul>', '<li>', '</li>'], '')->trim()->explode("\n")as $rule)
+                @foreach (Str::of(__('subtitle.rules'))->replace(['<ul>', '</ul>', '<li>', '</li>'], '')->trim()->explode("\n") as $rule)
                     <li>{{ $rule }}</li>
                 @endforeach
             </ol>

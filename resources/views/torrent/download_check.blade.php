@@ -141,10 +141,8 @@
             </div>
         </dl>
         <div class="panel__body">
-            @if (
-
-                $user->ratio < config('other.ratio') ||
-                ($user->can_download == 0 && $torrent->user_id != $user->id)            )
+            @if ($user->ratio < config('other.ratio') ||
+                ($user->can_download == 0 && $torrent->user_id != $user->id))
                 <span class="text-red text-bold">{{ __('torrent.no-privileges-desc') }}</span>
             @else
                 <p class="form__group form__group--horizontal">
