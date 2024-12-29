@@ -285,8 +285,8 @@ class PersonCredit extends Component
     }
 
     /**
-     * @param  \Illuminate\Support\Collection<int, \App\Models\Torrent>                                         $torrents
-     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, \App\Models\Torrent>>
+     * @param  \Illuminate\Support\Collection<int, Torrent>                                         $torrents
+     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, Torrent>>
      */
     private function groupByTypeAndSort($torrents): \Illuminate\Support\Collection
     {

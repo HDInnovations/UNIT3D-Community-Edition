@@ -8,11 +8,10 @@
     <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/compile-assets-test.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/larastan.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/larastan.yml/badge.svg?branch=master" /></a>
     <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/prettier-blade.yml/badge.svg?branch=master"><img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/actions/workflows/prettier-blade.yml/badge.svg?branch=master" /></a>
-    <a href="https://polar.sh/HDInnovations"><img src="https://polar.sh/embed/seeks-funding-shield.svg?org=HDInnovations" /></a>
 </p>
 
 <p align="center">
-    🎉 <b>A Big Thanks To All Our <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/graphs/contributors">Contributors</a> and <a href="https://polar.sh/HDInnovations">Subscribers</a></b> 🎉
+    🎉 <b>A Big Thanks To All Our <a href="https://github.com/HDInnovations/UNIT3D-Community-Edition/graphs/contributors">Contributors</a> and <a href="https://square.link/u/VjB1CNfm">Donors</a></b> 🎉
 </p>
 
 ## 📝 Table of Contents
@@ -20,66 +19,56 @@
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Updating](#updating)
-4. [Support UNIT3D](#support)
-5. [Funding Issues/Requests](#funding)
-6. [Special Thanks](#thanks)
+4. [Contributing](#contributing)
+5. [License](#license)
+6. [Services](#services)
+7. [Donations](#donations)
+8. [Discord Support](#discord)
+9. [Special Thanks](#thanks)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-We have been developing a Private Torrent Tracker Software called `UNIT3D`. This is a PHP software based on Laravel 11, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.3 Ready. The code is well-designed and follows the PSR-2 coding style. It uses an MVC Architecture to ensure clarity between logic and presentation. As a hashing algorithm of Bcrypt or Argon2 is used, to ensure a safe and proper way to store the passwords for the users. A lightweight Blade Templating Engine. Caching System Supporting: "apc,” "array,” "database,” "file," "memcached," and "redis" methods. Eloquent and much more!
+We have been developing a Private Torrent Tracker Software called `UNIT3D`. This is a PHP software based on Laravel 11, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.3 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
 
 ## <a name="installation"></a> 🖥️ Installation
 
 Check it out here for more information: https://github.com/HDInnovations/UNIT3D-Installer
 
-### Demo Data
-
-Use this command to generate demo users and torrents for testing purposes in a dev environment:
-
-`php artisan demo:seed`
-
 ## <a name="updating"></a> 🖥️ Updating
+
+To update your installation to the latest version, run the following command. This will pull the latest changes from the repository and update your instance:
+
 `php artisan git:update`
 
+## <a name="contributing"></a> 🤝 Contributing
 
-## <a name="support"></a> ✨ Support UNIT3D
+Please read [CONTRIBUTING.md](https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-You can support our work if you are enjoying UNIT3D. Sponsors will recieve an email with a Discord invite link to UNIT3Ds Discord server which is used for support and more.
+## <a name="license"></a> 📜 License
 
-<a href="https://polar.sh/HDInnovations"><picture><source media="(prefers-color-scheme: dark)" srcset="https://polar.sh/embed/subscribe.svg?org=HDInnovations&label=Subscribe&darkmode"><img alt="Subscribe on Polar" src="https://polar.sh/embed/subscribe.svg?org=HDInnovations&label=Subscribe"></picture></a>
+This project is licensed under the AGPL v3.0 License - see the [LICENSE](https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/LICENSE.md) file for details.
 
-Some folks have asked me if it's possible to do a donation via Crypto. Yes!
-```
-Monero (XMR) - 85WrXRzmbF9fTp9UHLHhhEVeF5VBCHSen9suSvK4FkKqcyhXeikS1zM4u5gfa5gyQV9dS8yuoDwMGBJ1rQ8w1CWkJXN9kSo
+## <a name="services"></a> 🛠️ Services
 
-Bitcoin (BTC) - 3HUVkv3Q8b5nbxa9DtXG1dm4RdTJaTFRfc
+HDInnovations offers a variety of services to help you with your UNIT3D instance. We offer services such as installation, updating, server tuning, dependency tuning, themes and custom plugin development. For more information, please visit our email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Services]%20UNIT3D%20)
 
-Bitcoin Cash (BCH) - qp3wgpnwzpj4v9sq90wflsca8p5s75glrvga9tweu2
+## <a name="donations"></a> 💰 Donations
 
-Ether (ETH) - 0x5eFF42F65234aD9c6A0CA5B9495f3c6D205bBC27
+If you would like to support the development of UNIT3D, please consider donating to keep the project alive. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Funding]%20UNIT3D%20)
 
-ETC - 0xd644C7C7009eC3824f3305ff6C7E2Ee90497d56e
+<a href="https://square.link/u/VjB1CNfm" target="_blank"><img alt="unit3d-donate.png" src="public/img/unit3d-donate.png" width="200px"/></a>&nbsp;&nbsp;&nbsp;
+<img alt="unit3d-qr-code.png" src="public/img/unit3d-qr-code.png" width="169px"/>
 
-Litecoin (LTC) - MDLKyHzupt1mchuo8mrjW9mihkKp1LD4nG
+## <a name="discord"></a> 📞 Discord Community
 
-USDC - 0xB32102d9104d2bfd0D4E3E4069618ADD985a4e2E
+We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Discord]%20UNIT3D%20)
 
-USDT (ERC-20) - 0x24c79c41EEAd9d81203ee567fE4bA3a6c81374DB
-
-DOGE - DJ78fQspiu879y3adLbTZVSFABKhKqHE7B
-```
-
-## <a name="funding"></a> ✨ Funding issues and feature requests
-
-<a href="https://polar.sh/HDInnovations"><img src="https://polar.sh/embed/fund-our-backlog.svg?org=HDInnovations" /></a>
-
-## <a name="thanks"></a> 🎉 Special Thanks
+## <a name="thanks"></a> 🎉 Shoutouts
 
 <a href="https://scoutapm.com/?utm_source=github&utm_medium=referral&utm_campaign=opensource_referral"><img src="https://i.postimg.cc/g29XCJDh/Logo-rounded-square-495x495-1.png" height="50px;"></a>
 <a href="https://www.jetbrains.com/?from=UNIT3D"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>
-<a href="https://www.themoviedb.org/"><img src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg" height="50px;"></a>
-<a href="https://github.com"><img src="https://i.imgur.com/NVWhzrU.png" height="50px;"></a>
-<a href="https://laravel.com"><img src="https://i.postimg.cc/cCDBswfK/1200px-Laravel-svg.png" height="50px;"></a>
-<a href="https://laravel-livewire.com"><img src="https://i.postimg.cc/jjsNyBbh/Livewire.png" height="50px;"></a>
-<a href="https://alpinejs.dev"><img src="https://i.postimg.cc/28pWk0M1/alpinejs-logo.png" height="50px;"></a>
+
+
+
+

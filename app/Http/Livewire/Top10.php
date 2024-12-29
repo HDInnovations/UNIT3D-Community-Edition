@@ -30,8 +30,8 @@ use Livewire\Component;
 use Throwable;
 
 /**
- * @property \Illuminate\Database\Eloquent\Collection<int, Torrent> $works
- * @property array<string, string>                                  $metaTypes
+ * @property Collection<int, Torrent> $works
+ * @property array<string, string>    $metaTypes
  */
 class Top10 extends Component
 {
@@ -42,7 +42,7 @@ class Top10 extends Component
     public string $metaType = 'movie_meta';
 
     #[Url(history: true)]
-    #[Validate('in:day,week,weekly,month,year,all,custom')]
+    #[Validate('in:day,week,weekly,month,monthly,year,all,custom')]
     public string $interval = 'day';
 
     #[Url(history: true)]
@@ -72,7 +72,7 @@ class Top10 extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Torrent>
+     * @return Collection<int, Torrent>
      */
     #[Computed]
     final public function works(): Collection
@@ -112,7 +112,7 @@ class Top10 extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int|string, \Illuminate\Database\Eloquent\Collection<int, Torrent>>
+     * @return Collection<int|string, Collection<int, Torrent>>
      * @phpstan-ignore generics.notSubtype (I can't figure out the correct return type to silence this error)
      */
     #[Computed]
@@ -156,6 +156,47 @@ class Top10 extends Component
     }
 
     /**
+     * @return Collection<int|string, Collection<int, Torrent>>
+     * @phpstan-ignore generics.notSubtype (I can't figure out the correct return type to silence this error)
+     */
+    #[Computed]
+    final public function monthly(): Collection
+    {
+        $this->validate();
+
+        return cache()->remember(
+            'monthly-charts:'.$this->metaType,
+            24 * 3600,
+            fn () => Torrent::query()
+                ->withoutGlobalScopes()
+                ->with($this->metaType === 'movie_meta' ? 'movie' : 'tv')
+                ->fromSub(
+                    History::query()
+                        ->withoutGlobalScopes()
+                        ->join('torrents', 'torrents.id', '=', 'history.torrent_id')
+                        ->join('categories', fn (JoinClause $join) => $join->on('torrents.category_id', '=', 'categories.id')->where($this->metaType, '=', true))
+                        ->select([
+                            DB::raw('EXTRACT(YEAR_MONTH FROM history.created_at) AS the_year_month'),
+                            'tmdb',
+                            DB::raw('MIN(categories.id) as category_id'),
+                            DB::raw('COUNT(*) AS download_count'),
+                            DB::raw('ROW_NUMBER() OVER (PARTITION BY EXTRACT(YEAR_MONTH FROM history.created_at) ORDER BY COUNT(*) DESC) AS place'),
+                        ])
+                        ->where('tmdb', '!=', 0)
+                        // Small torrents screw the stats since users download them only to farm bon.
+                        ->where('torrents.size', '>', 1024 * 1024 * 1024)
+                        ->groupBy('the_year_month', 'tmdb'),
+                    'ranked_groups',
+                )
+                ->where('place', '<=', 10)
+                ->orderByDesc('the_year_month')
+                ->orderBy('place')
+                ->get()
+                ->groupBy('the_year_month')
+        );
+    }
+
+    /**
      * @return array<string, string>
      */
     #[Computed]
@@ -187,8 +228,12 @@ class Top10 extends Component
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.top10', [
-            'user'      => auth()->user(),
-            'works'     => $this->interval === 'weekly' ? $this->weekly : $this->works,
+            'user'  => auth()->user(),
+            'works' => match ($this->interval) {
+                'weekly'  => $this->weekly,
+                'monthly' => $this->monthly,
+                default   => $this->works,
+            },
             'metaTypes' => $this->metaTypes,
         ]);
     }

@@ -201,11 +201,6 @@ parameters:
 			path: app/Helpers/SystemInformation.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\TorrentTools\\:\\:getTorrentFiles\\(\\) should return array\\<int, array\\{name\\: string, size\\: int\\}\\> but returns array\\<int\\|string, array\\{name\\: mixed, size\\: mixed\\}\\>\\.$#"
-			count: 1
-			path: app/Helpers/TorrentTools.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\BaseController\\:\\:sendError\\(\\) has parameter \\$code with no type specified\\.$#"
 			count: 1
 			path: app/Http/Controllers/API/BaseController.php
@@ -579,11 +574,6 @@ parameters:
 			message: "#^Empty array passed to foreach\\.$#"
 			count: 1
 			path: app/Repositories/ChatRepository.php
-
-		-
-			message: "#^Offset 'namesort' does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, namesort\\?\\: string, 2\\?\\: string, seperator\\?\\: string, 3\\?\\: string, remaining\\?\\: string, 4\\?\\: string, \\.\\.\\.\\}\\.$#"
-			count: 1
-			path: app/Services/Tmdb/Client/Movie.php
 
 		-
 			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, bool\\|string given\\.$#"

@@ -291,7 +291,7 @@ class Movie
                 $titleSort = addslashes(str_replace(
                     ['The ', 'An ', 'A ', '"'],
                     [''],
-                    Str::limit($matches['namesort'] ? $matches['namesort'].' '.$year : $this->data['title'], 100)
+                    Str::limit($matches['namesort'] ?? $this->data['title'].' '.$year, 100)
                 ));
             }
 

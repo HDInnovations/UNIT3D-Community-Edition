@@ -36,11 +36,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $count_total_episodes
  * @property int|null                        $number_of_seasons
  * @property string|null                     $episode_run_time
- * @property string|null                     $first_air_date
+ * @property \Illuminate\Support\Carbon|null $first_air_date
  * @property string|null                     $status
  * @property string|null                     $homepage
  * @property int|null                        $in_production
- * @property string|null                     $last_air_date
+ * @property \Illuminate\Support\Carbon|null $last_air_date
  * @property string|null                     $next_episode_to_air
  * @property string|null                     $origin_country
  * @property string|null                     $original_language
