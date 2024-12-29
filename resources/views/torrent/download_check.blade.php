@@ -1,4 +1,4 @@
-@extends('layout.default')
+Ï@extends('layout.default')
 
 @section('title')
     <title>{{ __('torrent.download-check') }} - {{ config('other.title') }}</title>
