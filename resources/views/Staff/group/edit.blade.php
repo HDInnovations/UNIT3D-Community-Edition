@@ -22,7 +22,7 @@
 @section('page', 'page__groups--edit')
 
 @section('main')
-    <section class="panelV2" x-data="{ autogroup: {{ $group->autogroup }} }">
+    <section class="panelV2" x-data="{ autogroup: {{ Js::from($group->autogroup) }} }">
         <h2 class="panel__heading">Edit Group: {{ $group->name }}</h2>
         <div class="panel__body">
             <form
