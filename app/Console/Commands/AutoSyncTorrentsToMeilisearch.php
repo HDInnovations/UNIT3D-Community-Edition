@@ -48,7 +48,7 @@ class AutoSyncTorrentsToMeilisearch extends Command
 
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
 
-        $index = $client->getIndex('torrents');
+        $index = $client->getIndex(config('scout.prefix').'torrents');
 
         $index->updatePagination([
             'maxTotalHits' => max(1, Torrent::query()->count()) + 1000,
