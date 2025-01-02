@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Notifications;
 
 use App\Models\Article;
-use App\Models\Collection;
 use App\Models\Comment;
 use App\Models\Playlist;
 use App\Models\Ticket;
@@ -34,7 +33,7 @@ class NewComment extends Notification
     /**
      * NewComment Constructor.
      */
-    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|Collection|Article $model, public Comment $comment)
+    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|Article $model, public Comment $comment)
     {
     }
 
@@ -50,8 +49,6 @@ class NewComment extends Notification
 
     /**
      * Determine if the notification should be sent.
-     *
-     * @return bool
      */
     public function shouldSend(User $notifiable): bool
     {
@@ -60,44 +57,35 @@ class NewComment extends Notification
             return false;
         }
 
-        // Initialize target variables
-        $targetGroup = '';
-        $targetSetting = '';
-
         // Evaluate model based settings
         switch (true) {
             case $this->model instanceof Torrent:
-                $targetGroup = 'json_torrent_groups';
-                $targetSetting = 'show_torrent_comment';
+                if (!$notifiable->notification?->show_torrent_comment) {
+                    return false;
+                }
 
-                break;
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! (\is_array($notifiable->notification->json_torrent_groups) && \in_array($this->comment->user->group_id, $notifiable->notification->json_torrent_groups, true))
+                ;
+
             case $this->model instanceof TorrentRequest:
-                $targetGroup = 'json_request_groups';
-                $targetSetting = 'show_request_comment';
+                if (!$notifiable->notification?->show_request_comment) {
+                    return false;
+                }
 
-                break;
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! (\is_array($notifiable->notification->json_request_groups) && \in_array($this->comment->user->group_id, $notifiable->notification->json_request_groups, true))
+                ;
+
             case $this->model instanceof Ticket:
                 return ! ($this->model->staff_id === $this->comment->id && $this->model->staff_id !== null)
                 ;
 
             case $this->model instanceof Playlist:
             case $this->model instanceof Article:
-                return true;
-            case $this->model instanceof Collection:
                 break;
-            default:
-                // In the unlikely case none matches, fallback to true to not lose a notification
-                return true;
-        }
-
-        if (!$notifiable->notification?->$targetSetting) {
-            return false;
-        }
-
-        if (\is_array($notifiable->notification->$targetGroup)) {
-            // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
-            // the expression will return false.
-            return !\in_array($this->comment->user->group->id, $notifiable->notification->$targetGroup, true);
         }
 
         return true;
@@ -132,11 +120,6 @@ class NewComment extends Notification
                 'title' => 'New Playlist Comment Received',
                 'body'  => $username.' has left you a comment on Playlist '.$this->model->name,
                 'url'   => '/playlists/'.$this->model->id.'#comment-'.$this->comment->id,
-            ],
-            $this->model instanceof Collection => [
-                'title' => 'New Collection Comment Received',
-                'body'  => $username.' has left you a comment on Collection '.$this->model->name,
-                'url'   => '/mediahub/collections/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Article => [
                 'title' => 'New Article Comment Received',
