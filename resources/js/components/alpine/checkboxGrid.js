@@ -16,14 +16,16 @@ document.addEventListener('alpine:init', () => {
             ['x-bind:style']() {
                 return {
                     cursor: 'pointer',
+                    userSelect: 'none',
                 };
             },
         },
         rowHeader: {
             ['x-on:click']() {
+                let rowspan = Number(this.$el.rowSpan);
                 let rowIndex = this.$el.parentElement.sectionRowIndex + 1;
                 let cells = this.$root.querySelectorAll(
-                    `tbody tr:nth-child(${rowIndex}) td > input[type="checkbox"]`,
+                    `tbody tr:nth-child(n + ${rowIndex}):nth-child(-n + ${rowIndex + (rowspan ? rowspan - 1 : 0)}) td > input[type="checkbox"]`,
                 );
 
                 if (Array.from(cells).some((el) => el.checked)) {
@@ -35,7 +37,15 @@ document.addEventListener('alpine:init', () => {
             ['x-bind:style']() {
                 return {
                     cursor: 'pointer',
+                    userSelect: 'none',
                 };
+            },
+        },
+        cell: {
+            ['x-on:click.self']() {
+                let checkbox = this.$el.querySelector('input[type="checkbox"');
+
+                checkbox.checked = !checkbox.checked;
             },
         },
     }));

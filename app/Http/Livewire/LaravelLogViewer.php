@@ -64,7 +64,7 @@ class LaravelLogViewer extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<\Illuminate\Support\Collection<string|int, mixed>>
+     * @return LengthAwarePaginator<\Illuminate\Support\Collection<string|int, mixed>>
      */
     #[Computed]
     final public function entries(): LengthAwarePaginator

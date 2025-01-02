@@ -17,6 +17,7 @@ declare(strict_types=1);
 use App\Http\Controllers\Staff\GroupController;
 use App\Http\Requests\Staff\StoreGroupRequest;
 use App\Http\Requests\Staff\UpdateGroupRequest;
+use App\Models\Forum;
 use App\Models\Group;
 
 use function Pest\Laravel\assertDatabaseHas;
@@ -55,33 +56,44 @@ test('store validates with a form request', function (): void {
 
 test('store returns an ok response', function (): void {
     $group = Group::factory()->make();
+    $forum = Forum::factory()->create();
 
     $this->post(route('staff.groups.store'), [
-        'name'             => $group->name,
-        'position'         => $group->position,
-        'level'            => $group->level,
-        'color'            => $group->color,
-        'icon'             => $group->icon,
-        'effect'           => $group->effect,
-        'is_uploader'      => $group->is_uploader,
-        'is_internal'      => $group->is_internal,
-        'is_owner'         => $group->is_owner,
-        'is_admin'         => $group->is_admin,
-        'is_modo'          => $group->is_modo,
-        'is_torrent_modo'  => $group->is_torrent_modo,
-        'is_editor'        => $group->is_editor,
-        'is_trusted'       => $group->is_trusted,
-        'is_immune'        => $group->is_immune,
-        'is_freeleech'     => $group->is_freeleech,
-        'is_double_upload' => $group->is_double_upload,
-        'is_refundable'    => $group->is_refundable,
-        'can_chat'         => $group->can_chat,
-        'can_comment'      => $group->can_comment,
-        'can_invite'       => $group->can_invite,
-        'can_request'      => $group->can_request,
-        'can_upload'       => $group->can_upload,
-        'is_incognito'     => $group->is_incognito,
-        'autogroup'        => $group->autogroup,
+        'group' => [
+            'name'             => $group->name,
+            'position'         => $group->position,
+            'level'            => $group->level,
+            'color'            => $group->color,
+            'icon'             => $group->icon,
+            'effect'           => $group->effect,
+            'is_uploader'      => $group->is_uploader,
+            'is_internal'      => $group->is_internal,
+            'is_owner'         => $group->is_owner,
+            'is_admin'         => $group->is_admin,
+            'is_modo'          => $group->is_modo,
+            'is_torrent_modo'  => $group->is_torrent_modo,
+            'is_editor'        => $group->is_editor,
+            'is_trusted'       => $group->is_trusted,
+            'is_immune'        => $group->is_immune,
+            'is_freeleech'     => $group->is_freeleech,
+            'is_double_upload' => $group->is_double_upload,
+            'is_refundable'    => $group->is_refundable,
+            'can_chat'         => $group->can_chat,
+            'can_comment'      => $group->can_comment,
+            'can_invite'       => $group->can_invite,
+            'can_request'      => $group->can_request,
+            'can_upload'       => $group->can_upload,
+            'is_incognito'     => $group->is_incognito,
+            'autogroup'        => $group->autogroup,
+        ],
+        'permissions' => [
+            [
+                'forum_id'    => $forum->id,
+                'read_topic'  => true,
+                'start_topic' => true,
+                'reply_topic' => true,
+            ],
+        ]
     ])
         ->assertRedirect(route('staff.groups.index'))
         ->assertSessionHasNoErrors();
@@ -102,12 +114,23 @@ test('update validates with a form request', function (): void {
 
 test('update returns an ok response', function (): void {
     $group = Group::factory()->create();
+    $forum = Forum::factory()->create();
 
     $this->patch(route('staff.groups.update', ['group' => $group]), [
-        ...$group->toArray(),
-        'name'     => 'new name',
-        'position' => -2,
-        'level'    => 1000,
+        'group' => [
+            ...$group->toArray(),
+            'name'     => 'new name',
+            'position' => -2,
+            'level'    => 1000,
+        ],
+        'permissions' => [
+            [
+                'forum_id'    => $forum->id,
+                'read_topic'  => true,
+                'start_topic' => true,
+                'reply_topic' => true,
+            ],
+        ]
     ])
         ->assertRedirect(route('staff.groups.index'))
         ->assertSessionHasNoErrors();
@@ -117,5 +140,12 @@ test('update returns an ok response', function (): void {
         'slug'     => 'new-name',
         'position' => -2,
         'level'    => 1000,
+    ]);
+
+    assertDatabaseHas('forum_permissions', [
+        'forum_id'    => $forum->id,
+        'read_topic'  => true,
+        'start_topic' => true,
+        'reply_topic' => true,
     ]);
 });

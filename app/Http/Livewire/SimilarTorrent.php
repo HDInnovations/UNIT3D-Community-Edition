@@ -355,8 +355,8 @@ class SimilarTorrent extends Component
     }
 
     /**
-     * @param  \Illuminate\Support\Collection<int, \App\Models\Torrent>                                         $torrents
-     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, \App\Models\Torrent>>
+     * @param  \Illuminate\Support\Collection<int, Torrent>                                         $torrents
+     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, Torrent>>
      */
     private function groupByTypeAndSort(\Illuminate\Support\Collection $torrents): \Illuminate\Support\Collection
     {
@@ -423,9 +423,9 @@ class SimilarTorrent extends Component
         $names = [];
         $users = [];
         $title = match (true) {
-            $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date.')',
-            $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date.')',
-            $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date.')',
+            $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date->format('Y').')',
+            $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date->format('Y').')',
+            $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date->format('Y').')',
             default                     => $torrents->pluck('name')->join(', '),
         };
 

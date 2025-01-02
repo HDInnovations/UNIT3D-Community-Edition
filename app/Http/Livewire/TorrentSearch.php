@@ -487,7 +487,7 @@ class TorrentSearch extends Component
             $torrents = $torrents->paginate(min($this->perPage, 100));
         } else {
             $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
-            $index = $client->getIndex('torrents');
+            $index = $client->getIndex(config('scout.prefix').'torrents');
 
             $results = $index->search($this->name, [
                 'sort' => [
@@ -722,8 +722,8 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @param  \Illuminate\Support\Collection<int, \App\Models\Torrent>                                         $torrents
-     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, \App\Models\Torrent>>
+     * @param  \Illuminate\Support\Collection<int, Torrent>                                         $torrents
+     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, Torrent>>
      */
     private function groupByTypeAndSort($torrents): \Illuminate\Support\Collection
     {

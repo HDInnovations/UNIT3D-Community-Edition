@@ -2,7 +2,7 @@
     @class([
         'panelV2',
         'top10',
-        'top10--weekly' => $this->interval === 'weekly',
+        'top10--weekly' => in_array($this->interval, ['weekly', 'monthly']),
     ])
 >
     <header class="panel__header">
@@ -23,6 +23,7 @@
                         <option value="year">Past Year</option>
                         <option value="all">All-time</option>
                         <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
                         <option value="custom">Custom</option>
                     </select>
                     <label class="form__label form__label--floating" for="interval">Interval</label>
@@ -91,6 +92,58 @@
                             </th>
                             <td class="panel__body top10-weekly__row">
                                 @foreach ($weeklyRankings as $ranking)
+                                    <figure class="top10-poster">
+                                        @switch($this->metaType)
+                                            @case('movie_meta')
+                                                <x-movie.poster
+                                                    :movie="$ranking->movie"
+                                                    :categoryId="$ranking->category_id"
+                                                    :tmdb="$ranking->tmdb"
+                                                />
+
+                                                @break
+                                            @case('tv_meta')
+                                                <x-tv.poster
+                                                    :tv="$ranking->tv"
+                                                    :categoryId="$ranking->category_id"
+                                                    :tmdb="$ranking->tmdb"
+                                                />
+
+                                                @break
+                                        @endswitch
+                                        <figcaption
+                                            class="top10-poster__download-count"
+                                            title="{{ __('torrent.completed-times') }}"
+                                        >
+                                            {{ $ranking->download_count }}
+                                        </figcaption>
+                                    </figure>
+                                @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @elseif ($this->interval === 'monthly')
+        <div class="data-table-wrapper">
+            <div wire:loading.delay class="panel__body">Computing...</div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Rankings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($works as $monthlyRankings)
+                        <tr>
+                            <th>
+                                {{ substr($monthlyRankings->first()?->the_year_month, 0, 4) }}-{{ substr($monthlyRankings->first()?->the_year_month, 4) }}
+                            </th>
+                            <td class="panel__body top10-weekly__row">
+                                @foreach ($monthlyRankings as $ranking)
                                     <figure class="top10-poster">
                                         @switch($this->metaType)
                                             @case('movie_meta')

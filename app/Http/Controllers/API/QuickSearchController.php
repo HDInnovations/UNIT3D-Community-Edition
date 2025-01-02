@@ -59,7 +59,7 @@ class QuickSearchController extends Controller
         // Prepare the search queries
         $searchQueries = [
             (new SearchQuery())
-                ->setIndexUid('torrents')
+                ->setIndexUid(config('scout.prefix').'torrents')
                 ->setQuery($searchById ? '' : $query)
                 ->setFilter($filters)
                 ->setDistinct('imdb')
@@ -68,7 +68,7 @@ class QuickSearchController extends Controller
         // Add the people search query only if it's not an ID search
         if (!$searchById) {
             $searchQueries[] = (new SearchQuery())
-                ->setIndexUid('people')
+                ->setIndexUid(config('scout.prefix').'people')
                 ->setQuery($query);
             //->setFederationOptions((new FederationOptions())->setWeight(0.9));
         }
@@ -80,7 +80,7 @@ class QuickSearchController extends Controller
 
         // Process the hits from the multiSearchResults
         foreach ($multiSearchResults['hits'] as $hit) {
-            if ($hit['_federation']['indexUid'] === 'torrents') {
+            if ($hit['_federation']['indexUid'] === config('scout.prefix').'torrents') {
                 $type = $hit['category']['movie_meta'] === true ? 'movie' : 'tv';
 
                 $results[] = [
@@ -91,7 +91,7 @@ class QuickSearchController extends Controller
                     'url'   => route('torrents.similar', ['category_id' => $hit['category']['id'], 'tmdb' => $hit['tmdb']]),
                     'type'  => $type === 'movie' ? 'Movie' : 'TV Series',
                 ];
-            } elseif ($hit['_federation']['indexUid'] === 'people') {
+            } elseif ($hit['_federation']['indexUid'] === config('scout.prefix').'people') {
                 $results[] = [
                     'id'    => $hit['id'],
                     'name'  => $hit['name'],

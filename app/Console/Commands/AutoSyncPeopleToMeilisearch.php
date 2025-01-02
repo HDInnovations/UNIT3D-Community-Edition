@@ -47,7 +47,7 @@ class AutoSyncPeopleToMeilisearch extends Command
         $start = now();
 
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
-        $index = $client->index('people');
+        $index = $client->index(config('scout.prefix').'people');
 
         $people = Person::all(['id', 'name', 'birthday', 'still']);
 
