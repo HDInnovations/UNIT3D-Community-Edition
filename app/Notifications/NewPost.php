@@ -45,21 +45,28 @@ class NewPost extends Notification implements ShouldQueue
 
     /**
      * Determine if the notification should be sent.
-     *
-     * @return bool
      */
     public function shouldSend(User $notifiable): bool
     {
         $targetGroup = '';
 
-        if ($this->type == 'subscription') {
-            $targetGroup = 'json_subscription_groups';
-        } elseif ($this->type == 'staff') {
-            $targetGroup = '';
-        } elseif ($this->type == 'topic') {
-            $targetGroup = 'json_forum_groups';
-        } else {
-            $targetGroup = 'json_forum_groups';
+        switch ($this->type) {
+            case 'subscription':
+                $targetGroup = 'json_subscription_groups';
+
+                break;
+            case 'staff':
+                $targetGroup = '';
+
+                break;
+            case 'topic':
+                $targetGroup = 'json_forum_groups';
+
+                break;
+            default:
+                $targetGroup = 'json_forum_groups';
+
+                break;
         }
 
         // Do not notify the poster theirself
@@ -78,7 +85,7 @@ class NewPost extends Notification implements ShouldQueue
         if (\is_array($notifiable->notification->$targetGroup)) {
             // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
             // the expression will return false.
-            return !\in_array($this->user->group->id, $notifiable->notification->$targetGroup, true);
+            return !\in_array($this->user->group_id, $notifiable->notification->$targetGroup, true);
         }
 
         return true;
