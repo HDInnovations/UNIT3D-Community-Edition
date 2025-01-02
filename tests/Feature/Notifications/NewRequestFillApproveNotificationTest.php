@@ -255,7 +255,7 @@ test('accept a request fill creates a notification for the filler when fill appr
     Notification::assertCount(0);
 });
 
-test('accept a request fill creates a notification for the filler when reqeust notifications are disabled for specific group', function (): void {
+test('accept a request fill creates a notification for the filler when request notifications are disabled for specific group', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()

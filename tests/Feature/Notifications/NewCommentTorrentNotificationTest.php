@@ -73,7 +73,7 @@ test('comment own torrent does not create a notification for self', function ():
     Notification::assertCount(0);
 });
 
-test('comment a torent creates a notification for the uploader', function (): void {
+test('comment a torrent creates a notification for the uploader', function (): void {
     Notification::fake();
 
     // Required for ChatRepository()

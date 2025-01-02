@@ -80,7 +80,6 @@ class NewCommentTag extends Notification implements ShouldQueue
                 // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
                 // the expression will return false.
                 return ! \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true);
-
             case $this->model instanceof TorrentRequest:
                 if (!$notifiable->notification?->show_mention_request_comment) {
                     return false;
@@ -89,7 +88,6 @@ class NewCommentTag extends Notification implements ShouldQueue
                 // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
                 // the expression will return false.
                 return ! \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true);
-
             case $this->model instanceof Ticket:
                 return ! ($this->model->staff_id === $this->comment->id);
             case $this->model instanceof Playlist:
@@ -101,7 +99,6 @@ class NewCommentTag extends Notification implements ShouldQueue
                 // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
                 // the expression will return false.
                 return ! \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true);
-
             case $this->model instanceof Collection:
                 break;
         }

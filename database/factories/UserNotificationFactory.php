@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\Group;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\UserNotification;
@@ -57,14 +58,14 @@ class UserNotificationFactory extends Factory
             'show_torrent_thank'           => $this->faker->boolean(),
             'show_account_follow'          => $this->faker->boolean(),
             'show_account_unfollow'        => $this->faker->boolean(),
-            'json_account_groups'          => $this->faker->word(),
-            'json_bon_groups'              => $this->faker->word(),
-            'json_mention_groups'          => $this->faker->word(),
-            'json_request_groups'          => $this->faker->word(),
-            'json_torrent_groups'          => $this->faker->word(),
-            'json_forum_groups'            => $this->faker->word(),
-            'json_following_groups'        => $this->faker->word(),
-            'json_subscription_groups'     => $this->faker->word(),
+            'json_account_groups'          => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_bon_groups'              => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_mention_groups'          => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_request_groups'          => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_torrent_groups'          => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_forum_groups'            => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_following_groups'        => Group::factory()->count(3)->create()->pluck('id')->toArray(),
+            'json_subscription_groups'     => Group::factory()->count(3)->create()->pluck('id')->toArray(),
         ];
     }
 }

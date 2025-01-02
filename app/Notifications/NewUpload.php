@@ -45,8 +45,6 @@ class NewUpload extends Notification implements ShouldQueue
 
     /**
      * Determine if the notification should be sent.
-     *
-     * @return bool
      */
     public function shouldSend(User $notifiable): bool
     {

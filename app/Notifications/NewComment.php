@@ -78,7 +78,6 @@ class NewComment extends Notification
                 // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
                 // the expression will return false.
                 return ! \in_array($this->comment->user->group_id, $notifiable->notification->json_torrent_groups, true);
-
             case $this->model instanceof TorrentRequest:
                 if (!$notifiable->notification?->show_request_comment) {
                     return false;
@@ -87,7 +86,6 @@ class NewComment extends Notification
                 // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
                 // the expression will return false.
                 return ! \in_array($this->comment->user->group_id, $notifiable->notification->json_request_groups, true);
-
             case $this->model instanceof Ticket:
                 return ! ($this->model->staff_id === $this->comment->id && $this->model->staff_id !== null)
                 ;
