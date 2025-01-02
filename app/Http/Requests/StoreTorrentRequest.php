@@ -44,7 +44,7 @@ class StoreTorrentRequest extends FormRequest
      */
     public function rules(Request $request): array
     {
-        $user = $request->user();
+        $user = $request->user()->loadExists('internals');
         $category = Category::findOrFail($request->integer('category_id'));
 
         return [
@@ -224,19 +224,22 @@ class StoreTorrentRequest extends FormRequest
             'internal' => [
                 'sometimes',
                 'boolean',
-                Rule::when(!$user->group->is_modo && !$user->internals()->exists(), 'prohibited'),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::when(!$user->group->is_modo && !$user->internals_exists, 'prohibited'),
             ],
             'free' => [
                 'sometimes',
                 'integer',
                 'numeric',
                 'between:0,100',
-                Rule::when(!$user->group->is_modo && !$user->internals()->exists(), 'prohibited'),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::when(!$user->group->is_modo && !$user->internals_exists, 'prohibited'),
             ],
             'refundable' => [
                 'sometimes',
                 'boolean',
-                Rule::when(!$user->group->is_modo && !$user->internals()->exists(), 'prohibited'),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::when(!$user->group->is_modo && !$user->internals_exists, 'prohibited'),
             ],
         ];
     }
