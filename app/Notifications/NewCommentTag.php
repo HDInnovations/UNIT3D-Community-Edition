@@ -51,8 +51,6 @@ class NewCommentTag extends Notification implements ShouldQueue
 
     /**
      * Determine if the notification should be sent.
-     *
-     * @return bool
      */
     public function shouldSend(User $notifiable): bool
     {
@@ -61,42 +59,43 @@ class NewCommentTag extends Notification implements ShouldQueue
             return false;
         }
 
-        // Initialize target variables
-        $targetGroup = 'json_mention_groups';
-        $targetSetting = '';
-
         // Evaluate model based settings
         switch (true) {
             case $this->model instanceof Torrent:
-                $targetSetting = 'show_mention_torrent_comment';
+                if (!$notifiable->notification?->show_mention_torrent_comment) {
+                    return false;
+                }
 
-                break;
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! (\is_array($notifiable->notification->json_mention_groups) && \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true))
+                ;
+
             case $this->model instanceof TorrentRequest:
-                $targetSetting = 'show_mention_request_comment';
+                if (!$notifiable->notification?->show_mention_request_comment) {
+                    return false;
+                }
 
-                break;
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! (\is_array($notifiable->notification->json_mention_groups) && \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true))
+                ;
+
             case $this->model instanceof Ticket:
                 return ! ($this->model->staff_id === $this->comment->id);
             case $this->model instanceof Playlist:
             case $this->model instanceof Article:
-                $targetSetting = 'show_mention_article_comment';
+                if (!$notifiable->notification?->show_mention_article_comment) {
+                    return false;
+                }
 
-                break;
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! (\is_array($notifiable->notification->json_mention_groups) && \in_array($this->comment->user->group_id, $notifiable->notification->json_mention_groups, true))
+                ;
+
             case $this->model instanceof Collection:
                 break;
-            default:
-                // In the unlikely case none matches, fallback to true to not lose a notification
-                return true;
-        }
-
-        if (!$notifiable->notification?->$targetSetting) {
-            return false;
-        }
-
-        if (\is_array($notifiable->notification->$targetGroup)) {
-            // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
-            // the expression will return false.
-            return !\in_array($this->comment->user->group->id, $notifiable->notification->$targetGroup, true);
         }
 
         return true;

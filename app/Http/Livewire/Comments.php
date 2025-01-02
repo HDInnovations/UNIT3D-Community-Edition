@@ -136,17 +136,8 @@ class Comments extends Component
 
                 break;
             case $this->model instanceof Article:
-                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
-
-                break;
             case $this->model instanceof Playlist:
-                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
-
-                break;
             case $this->model instanceof TorrentRequest:
-                User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
-
-                break;
             case $this->model instanceof Torrent:
                 User::find($this->model->user_id)?->notify(new NewComment($this->model, $comment));
 

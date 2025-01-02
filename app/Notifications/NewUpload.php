@@ -45,13 +45,9 @@ class NewUpload extends Notification implements ShouldQueue
 
     /**
      * Determine if the notification should be sent.
-     *
-     * @return bool
      */
     public function shouldSend(User $notifiable): bool
     {
-        $targetGroup = 'json_following_groups';
-
         // Do not notify the uploader theirself
         if ($this->torrent->user_id === $notifiable->id) {
             return false;
