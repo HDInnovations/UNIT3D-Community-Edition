@@ -117,7 +117,7 @@ class PostController extends Controller
             $topicStarter = $topic->user;
 
             // Notify All Subscribers Of New Reply
-            if ($topicStarter->isNot($user) && $topicStarter->acceptsNotification($user, $topicStarter, 'forum', 'show_forum_topic')) {
+            if ($topicStarter && $topicStarter->isNot($user) && $topicStarter->acceptsNotification($user, $topicStarter, 'forum', 'show_forum_topic')) {
                 $topicStarter->notify(new NewPost('topic', $user, $post));
             }
 
