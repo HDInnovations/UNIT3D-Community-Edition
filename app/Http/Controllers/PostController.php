@@ -117,9 +117,7 @@ class PostController extends Controller
             $topicStarter = $topic->user;
 
             // Notify All Subscribers Of New Reply
-            if ($topicStarter && $topicStarter->isNot($user) && $topicStarter->acceptsNotification($user, $topicStarter, 'forum', 'show_forum_topic')) {
-                $topicStarter->notify(new NewPost('topic', $user, $post));
-            }
+            $topicStarter->notify(new NewPost('topic', $user, $post));
 
             $subscribers = User::query()
                 ->where('id', '!=', $user->id)
@@ -136,9 +134,7 @@ class PostController extends Controller
                 ->get();
 
             foreach ($subscribers as $subscriber) {
-                if ($subscriber->acceptsNotification($user, $subscriber, 'subscription', 'show_subscription_topic')) {
-                    $subscriber->notify(new NewPost('subscription', $user, $post));
-                }
+                $subscriber->notify(new NewPost('subscription', $user, $post));
             }
 
             // Achievements

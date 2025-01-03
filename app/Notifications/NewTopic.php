@@ -44,6 +44,25 @@ class NewTopic extends Notification implements ShouldQueue
     }
 
     /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        if ($notifiable->notification?->block_notifications == 1) {
+            return false;
+        }
+
+        if (!$notifiable->notification?->show_forum_topic) {
+            return false;
+        }
+
+        // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+        // the expression will return false.
+        return ! (\is_array($notifiable->notification->json_forum_groups) && \in_array($this->user->group_id, $notifiable->notification->json_forum_groups, true))
+        ;
+    }
+
+    /**
      * Get the array representation of the notification.
      *
      * @return array<string, mixed>
