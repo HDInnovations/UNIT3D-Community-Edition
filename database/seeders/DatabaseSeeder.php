@@ -46,6 +46,8 @@ class DatabaseSeeder extends Seeder
             DistributorsTableSeeder::class,
             RegionsTableSeeder::class,
             OccupationSeeder::class,
+            BonEarningTableSeeder::class,
+            BonEarningConditionTableSeeder::class,
         ]);
     }
 }
