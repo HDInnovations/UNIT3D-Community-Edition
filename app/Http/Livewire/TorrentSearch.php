@@ -487,7 +487,7 @@ class TorrentSearch extends Component
             $torrents = $torrents->paginate(min($this->perPage, 100));
         } else {
             $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
-            $index = $client->getIndex('torrents');
+            $index = $client->getIndex(config('scout.prefix').'torrents');
 
             $results = $index->search($this->name, [
                 'sort' => [

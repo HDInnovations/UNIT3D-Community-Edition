@@ -47,7 +47,7 @@ class UpdateGroupRequest extends FormRequest
                     'required',
                     'string',
                 ]),
-                Rule::prohibitedIf($group->system_required && $request->group->name !== $group->name),
+                Rule::prohibitedIf($group->system_required && $request->group['name'] !== $group->name),
             ],
             'group.position' => [
                 'required',
