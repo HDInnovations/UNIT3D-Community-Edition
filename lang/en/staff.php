@@ -26,6 +26,7 @@ return [
     'blocked-ips'              => 'Blocked IPs',
     'blocks'                   => 'Blocks',
     'bon-exchange'             => 'BON Exchange',
+    'bon-earnings'             => 'BON Earnings',
     'bot'                      => 'Bot',
     'bots'                     => 'Bots',
     'chat'                     => 'Chat',
