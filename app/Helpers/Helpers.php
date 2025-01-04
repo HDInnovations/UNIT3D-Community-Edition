@@ -191,6 +191,8 @@ if (!\function_exists('language_flag')) {
             'Spanish', 'Spanish (ES)', 'Spanish (CA)', 'Spanish (EU)', 'Spanish (150)' => 'es',
             'Spanish (Latin America)', 'Spanish (LA)', 'Spanish (MX)' => 'mx',
             'Spanish (AR)' => 'ar',
+            'Spanish (CL)' => 'cl',
+            'Spanish (VE)' => 've',
             'Basque', 'Basque (ES)' => 'es-pv',
             'Catalan', 'Catalan (ES)' => 'es-ct',
             'Galician', 'Galician (ES)' => 'es-ga',
