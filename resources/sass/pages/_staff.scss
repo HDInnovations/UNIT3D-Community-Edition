@@ -58,3 +58,94 @@
         flex: 1;
     }
 }
+
+/* Torrent Moderation */
+// Table Header
+.moderation-queue-table thead tr {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* Ensures rows can grow */
+    grid-template-rows: auto auto;
+}
+
+.moderation-queue-table thead tr th {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Name
+.moderation-queue-table thead tr th:nth-child(2) {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+}
+
+// Action
+.moderation-queue-table thead tr th:nth-child(9) {
+    grid-column: 5 / span 7;
+    grid-row: 3;
+}
+
+// Moderation Message
+.moderation-queue-table thead tr th:nth-child(10) {
+    /* Span the last 4 columns */
+    grid-column: 1 / span 4;
+    /* Stay in the first row */
+    grid-row: 3;
+}
+
+/* Define the rest of the header columns to be in the grid */
+.moderation-queue-table
+    thead
+    tr
+    th:not(:nth-child(2)):not(:nth-child(9)):not(:nth-child(10)) {
+    /* This can stay as the default */
+    grid-column: span 1;
+    grid-row: 2;
+}
+
+// Table Body
+.moderation-queue-table tr {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* Ensures rows can grow */
+    grid-template-rows: auto auto;
+}
+
+.moderation-queue-table td {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Keep 2nd column in the first row and span across 4 columns */
+.moderation-queue-table tr td:nth-child(2) {
+    /* Span the first 4 columns */
+    grid-column: 1 / span 10;
+    /* Stay in the first row */
+    grid-row: 1;
+}
+
+// Action
+.moderation-queue-table tr td:nth-child(9) {
+    /* Span the last 4 columns */
+    grid-column: 5 / span 7;
+    /* Stay in the first row */
+    grid-row: 3;
+}
+
+// Moderation Message
+.moderation-queue-table tr td:nth-child(10) {
+    /* Span the last 4 columns */
+    grid-column: 1 / span 4;
+    /* Stay in the first row */
+    grid-row: 3;
+}
+
+/* Move all other columns to the second row */
+.moderation-queue-table
+    tr
+    td:not(:nth-child(2)):not(:nth-child(9)):not(:nth-child(10)) {
+    /* Move to the second row */
+    grid-row: 2;
+}

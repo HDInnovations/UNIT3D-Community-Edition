@@ -54,6 +54,10 @@
         @include('torrent.partials.tools')
     @endif
 
+    @if ($torrent->status !== App\Models\Torrent::APPROVED && (auth()->user()->group->is_editor || auth()->user()->group->is_modo))
+        @include('torrent.partials.moderations')
+    @endif
+
     {{-- Audits, Reports, Downloads Block --}}
     @if (auth()->user()->group->is_modo)
         @include('torrent.partials.audits')
