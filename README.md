@@ -1,4 +1,8 @@
-<h1 align="center">UNIT3D Community Edition</h1>
+<h1 align="center">
+    <img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/public/img/hdinnovations.png?raw=true" alt="UNIT3D Logo" width="50px" />
+    <br />
+    UNIT3D Community Edition
+</h1>
 
 <p align="center">
     <a href="http://laravel.com"><img src="https://img.shields.io/badge/Laravel-11-f4645f.svg" /></a>
@@ -24,7 +28,7 @@
 6. [Services](#services)
 7. [Donations](#donations)
 8. [Discord Support](#discord)
-9. [Special Thanks](#thanks)
+9. [Shoutouts](#shoutouts)
 
 
 ## <a name="introduction"></a> 🧐 Introduction
@@ -55,19 +59,36 @@ HDInnovations offers a variety of services to help you with your UNIT3D instance
 
 ## <a name="donations"></a> 💰 Donations
 
-If you would like to support the development of UNIT3D, please consider donating to keep the project alive. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Funding]%20UNIT3D%20)
+If you would like to support the development of UNIT3D, please consider donating to keep the project alive. Donors will receive a README [shoutout](#shoutouts) unless chosen to be anonymous. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Funding]%20UNIT3D%20)
+
+### **Credit / Debit (Square)**
 
 <a href="https://square.link/u/VjB1CNfm" target="_blank"><img alt="unit3d-donate.png" src="public/img/unit3d-donate.png" width="200px"/></a>&nbsp;&nbsp;&nbsp;
 <img alt="unit3d-qr-code.png" src="public/img/unit3d-qr-code.png" width="169px"/>
+
+### **Crypto**
+
+- **Bitcoin (BTC):** `bc1qzgrgfrw2y4x20ywzu49q50ptxg8jeuqv3tmx9v`
+- **Bitcoin via Email (Proton Wallet Only):** `hdinnovations@protonmail.com`
 
 ## <a name="discord"></a> 📞 Discord Community
 
 We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Discord]%20UNIT3D%20)
 
-## <a name="thanks"></a> 🎉 Shoutouts
+## <a name="shoutouts"></a> 🎉 Shoutouts
 
-<a href="https://scoutapm.com/?utm_source=github&utm_medium=referral&utm_campaign=opensource_referral"><img src="https://i.postimg.cc/g29XCJDh/Logo-rounded-square-495x495-1.png" height="50px;"></a>
-<a href="https://www.jetbrains.com/?from=UNIT3D"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>
+We would like to extend our heartfelt thanks to the following companies, sites and individuals for their generous donations and support in keeping UNIT3D alive:
+
+### 👤 Individuals
+**Poppers,** **x264**
+
+### 🌐 Sites
+**Coming Soon**
+
+### 🏢 Companies
+<a href="https://scoutapm.com/?utm_source=github&utm_medium=referral&utm_campaign=opensource_referral"><img src="https://i.postimg.cc/g29XCJDh/Logo-rounded-square-495x495-1.png" height="50px;"></a>&nbsp;
+<a href="https://www.jetbrains.com/?from=UNIT3D"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>&nbsp;
+
 
 
 
