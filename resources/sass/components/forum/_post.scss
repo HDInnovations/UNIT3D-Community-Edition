@@ -253,6 +253,7 @@
 }
 
 .post__timestamps {
+    grid-area: timestamps;
     display: grid;
     grid-template-areas: '. datetime updated';
     grid-template-columns: 1fr auto auto;
