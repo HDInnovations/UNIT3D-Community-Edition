@@ -26,8 +26,8 @@
 4. [Contributing](#contributing)
 5. [License](#license)
 6. [Services](#services)
-7. [Donations](#donations)
-8. [Discord Support](#discord)
+7. [Discord](#discord)
+8. [Donations](#donations)
 9. [Shoutouts](#shoutouts)
 
 
@@ -55,7 +55,11 @@ This project is licensed under the AGPL v3.0 License - see the [LICENSE](https:/
 
 ## <a name="services"></a> 🛠️ Services
 
-HDInnovations offers a variety of services to help you with your UNIT3D instance. We offer services such as installation, updating, server tuning, dependency tuning, themes and custom plugin development. For more information, please visit our email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Services]%20UNIT3D%20)
+HDInnovations offers a variety of services to help you with your UNIT3D instance. We offer services such as installation, updating, server tuning, dependency tuning, themes, porting from different codebase and more. For more information, please visit our email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Services]%20UNIT3D%20)
+
+## <a name="discord"></a> 💬 Discord
+
+We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Discord]%20UNIT3D%20)
 
 ## <a name="donations"></a> 💰 Donations
 
@@ -71,23 +75,21 @@ If you would like to support the development of UNIT3D, please consider donating
 - **Bitcoin (BTC):** `bc1qzgrgfrw2y4x20ywzu49q50ptxg8jeuqv3tmx9v`
 - **Bitcoin via Email (Proton Wallet Only):** `hdinnovations@protonmail.com`
 
-## <a name="discord"></a> 📞 Discord Community
-
-We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Discord]%20UNIT3D%20)
-
 ## <a name="shoutouts"></a> 🎉 Shoutouts
 
 We would like to extend our heartfelt thanks to the following companies, sites and individuals for their generous donations and support in keeping UNIT3D alive:
 
 ### 👤 Individuals
-**Poppers,** **x264**
+**Poppers,** **x64**
 
 ### 🌐 Sites
-**Coming Soon**
+<img src="https://i.postimg.cc/BQJmGYMt/blu.png" height="30px;">&nbsp;
+<img src="https://i.postimg.cc/PrK2fWRy/tik.png" height="30px;">&nbsp;
+<img src="https://i.postimg.cc/zDCx6Zw9/fnp.png" height="27px;">&nbsp;
 
 ### 🏢 Companies
-<a href="https://scoutapm.com/?utm_source=github&utm_medium=referral&utm_campaign=opensource_referral"><img src="https://i.postimg.cc/g29XCJDh/Logo-rounded-square-495x495-1.png" height="50px;"></a>&nbsp;
-<a href="https://www.jetbrains.com/?from=UNIT3D"><img src="https://i.imgur.com/KgDXZV8.png" height="50px;"></a>&nbsp;
+<a href="https://scoutapm.com/?utm_source=github&utm_medium=referral&utm_campaign=opensource_referral"><img src="https://i.postimg.cc/g29XCJDh/Logo-rounded-square-495x495-1.png" height="30px;"></a>&nbsp;
+<a href="https://www.jetbrains.com/?from=UNIT3D"><img src="https://i.imgur.com/KgDXZV8.png" height="30px;"></a>&nbsp;
 
 
 
