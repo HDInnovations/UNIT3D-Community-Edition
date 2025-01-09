@@ -151,6 +151,14 @@
                                 Material Design 3 Dark
                             </option>
                             <option
+                            class="form__option"
+                                value="15"
+                                @selected(($user->settings?->style ?? config('other.default_style', 0)) === 15)
+                            >
+                                Material Design 3 Navy
+                            </option>
+
+                            <option
                                 class="form__option"
                                 value="14"
                                 @selected(($user->settings?->style ?? config('other.default_style', 0)) === 14)
