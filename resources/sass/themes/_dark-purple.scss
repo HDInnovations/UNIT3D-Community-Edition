@@ -1,3 +1,4 @@
+@use 'sass:meta';
 /* 2014 material design colors from https://material.io/design/color/the-color-system.html#tools-for-picking-colors */
 
 /*
@@ -49,4 +50,4 @@ A700 #AA00FF
     --gradient-background: radial-gradient(at 30% top, #20284a 0%, #081c24 70%);
 }
 
-@import 'dark-base';
+@include meta.load-css('dark-base');
