@@ -46,8 +46,17 @@
                 @endif
 
                 @if ($torrent->category->music_meta)
+                    @php
+                        $coverPath = 'files/img/torrent-cover_' . $torrent->id;
+                        $coverFile = collect(glob(public_path($coverPath . '.*')))->first();
+                        $imageSrc = $coverFile !== null
+                            ? asset(str_replace(public_path(), '', $coverFile))
+                            : ($torrent->cover_url && filter_var($torrent->cover_url, FILTER_VALIDATE_URL)
+                                ? $torrent->cover_url
+                                : 'https://via.placeholder.com/90x135');
+                    @endphp
                     <img
-                        src="https://via.placeholder.com/90x135"
+                        src="{{ $imageSrc }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
                         alt="{{ __('torrent.similar') }}"
@@ -55,21 +64,21 @@
                 @endif
 
                 @if ($torrent->category->no_meta)
-                    @if (file_exists(public_path() . '/files/img/torrent-cover_' . $torrent->id . '.jpg'))
-                        <img
-                            src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
-                            class="torrent-search--list__poster-img"
-                            loading="lazy"
-                            alt="{{ __('torrent.similar') }}"
-                        />
-                    @else
-                        <img
-                            src="https://via.placeholder.com/400x600"
-                            class="torrent-search--list__poster-img"
-                            loading="lazy"
-                            alt="{{ __('torrent.similar') }}"
-                        />
-                    @endif
+                    @php
+                        $coverPath = 'files/img/torrent-cover_' . $torrent->id;
+                        $coverFile = collect(glob(public_path($coverPath . '.*')))->first();
+                        $imageSrc = $coverFile !== null
+                            ? asset(str_replace(public_path(), '', $coverFile))
+                            : ($torrent->cover_url && filter_var($torrent->cover_url, FILTER_VALIDATE_URL)
+                                ? $torrent->cover_url
+                                : 'https://via.placeholder.com/400x600');
+                    @endphp
+                    <img
+                        src="{{ $imageSrc }}"
+                        class="torrent-search--list__poster-img"
+                        loading="lazy"
+                        alt="{{ __('torrent.similar') }}"
+                    />
                 @endif
             </a>
         </td>

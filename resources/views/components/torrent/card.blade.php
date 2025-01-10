@@ -44,23 +44,40 @@
             <figure class="torrent-card__figure">
                 <img
                     class="torrent-card__image"
-                                @switch(true)
+                    @switch(true)
                         @case($torrent->category->movie_meta || $torrent->category->tv_meta)
                             src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
-                    
-                            @break
-                        @case($torrent->category->game_meta && isset($torrent->meta) && $meta->cover->image_id && $meta->name)
-                            src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $torrent->meta->cover->image_id }}.jpg"
-                    
-                            @break
-                        @case($torrent->category->music_meta)
-                            src="https://via.placeholder.com/160x240"
-                    
-                            @break
-                        @case($torrent->category->no_meta && file_exists(public_path() . '/files/img/torrent-cover_' . $torrent->id . '.jpg'))
-                            src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
-                    
-                            @break
+
+                    @break
+                    @case($torrent->category->game_meta && isset($torrent->meta) && $meta->cover->image_id && $meta->name)
+                        src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $torrent->meta->cover->image_id }}.jpg"
+
+                    @break
+                    @case($torrent->category->music_meta) {{--Could combine music_meta||no_meta , left seperate to ease special handling if needed--}}
+                    @php
+                        $coverPath = 'files/img/torrent-cover_' . $torrent->id;
+                        $coverFile = collect(glob(public_path($coverPath . '.*')))->first();
+                        $imageSrc = $coverFile !== null
+                            ? asset(str_replace(public_path(), '', $coverFile))
+                            : ($torrent->cover_url && filter_var($torrent->cover_url, FILTER_VALIDATE_URL)
+                                ? $torrent->cover_url
+                                : 'https://via.placeholder.com/160x240');
+                    @endphp
+                    src="{{ $imageSrc }}"
+
+                    @break
+                    @case($torrent->category->no_meta)
+                        @php
+                            $coverPath = 'files/img/torrent-cover_' . $torrent->id;
+                            $coverFile = collect(glob(public_path($coverPath . '.*')))->first();
+                            $imageSrc = $coverFile !== null
+                                ? asset(str_replace(public_path(), '', $coverFile))
+                                : ($torrent->cover_url && filter_var($torrent->cover_url, FILTER_VALIDATE_URL)
+                                    ? $torrent->cover_url
+                                    : 'https://via.placeholder.com/160x240');
+                        @endphp
+                        src="{{ $imageSrc }}"
+                    @break
                     @endswitch
 
                     alt="{{ __('torrent.similar') }}"

@@ -2835,3 +2835,4 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (324,'2024_10_29_18
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (325,'2024_11_01_013426_add_soft_deletes_to_donation_packages_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (326,'2024_11_13_044550_create_unregistered_info_hashes_table',1);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (327,'2024_11_26_170256_add_is_torrent_modo_to_groups_table',1);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (328, '2024_12_16_183945_add_cover_and_banner_url_to_torrents_table.php', 1);

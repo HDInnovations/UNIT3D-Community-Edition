@@ -20,6 +20,7 @@ use App\DTO\TorrentSearchFiltersDTO;
 use App\Helpers\Bencode;
 use App\Helpers\TorrentHelper;
 use App\Helpers\TorrentTools;
+use App\Helpers\UrlHelper;
 use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
@@ -97,6 +98,17 @@ class TorrentController extends BaseController
         return new TorrentsResource($torrents);
     }
 
+    // handle cover_url or banner_url
+    private function handleImage($url, $type, $torrentId)
+    {
+        if (UrlHelper::isTrustedExternalHost($url)) {
+            return $url; // Directly store the URL if it's in Trusted External Hosts
+        } else {
+            return $this->downloadAndStoreImage($url, $type, $torrentId);
+        }
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
@@ -172,6 +184,24 @@ class TorrentController extends BaseController
         $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? ($request->input('refundable') ?? false) : false;
         $du_until = $request->input('du_until');
 
+        // Check and set if it's in safe external hosts
+        if ($request->has('cover_url')) {
+            $coverUrl = $request->input('cover_url');
+            if (UrlHelper::isTrustedExternalHost($coverUrl)) {
+                $torrent->cover_url = $coverUrl;
+            }
+            // Note: We don't set it here if not safe external host because we need the torrent ID at save
+        }
+
+        // Check and set banner_url if it's safe external hosts
+        if ($request->has('banner_url')) {
+            $bannerUrl = $request->input('banner_url');
+            if (UrlHelper::isTrustedExternalHost($bannerUrl)) {
+                $torrent->banner_url = $bannerUrl;
+            }
+            // Note: We don't set it here if not safe external host because we need the torrent ID at save
+        }
+
         if (($user->group->is_modo || $user->group->is_internal) && isset($du_until)) {
             $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
         }
@@ -193,6 +223,8 @@ class TorrentController extends BaseController
 
         // Validation
         $v = validator($torrent->toArray(), [
+            'cover_url' => ['nullable', 'url', 'regex:/\.(avif|bmp|eps|heic|heif|jpe?g|png|svg|tiff?|webp)$/i'],
+            'banner_url' => ['nullable', 'url', 'regex:/\.(avif|bmp|eps|heic|heif|jpe?g|png|svg|tiff?|webp)$/i'],
             'name' => [
                 'required',
                 Rule::unique('torrents')->whereNull('deleted_at'),
@@ -319,6 +351,15 @@ class TorrentController extends BaseController
 
         // Save The Torrent
         $torrent->save();
+
+        // Set cover and/or banner _ if not safe2host externally
+        if ($request->has('cover_url') && !$torrent->cover_url) {
+            $torrent->cover_url = $this->handleImage($request->input('cover_url'), 'cover', $torrent->id);
+        }
+
+        if ($request->has('banner_url') && !$torrent->banner_url) {
+            $torrent->banner_url = $this->handleImage($request->input('banner_url'), 'banner', $torrent->id);
+        }
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();
@@ -447,6 +488,83 @@ class TorrentController extends BaseController
 
         return $this->sendResponse(route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth('api')->user()->rsskey]), 'Torrent uploaded successfully.');
     }
+
+    /**
+     * Download image from URL and store it locally, returning the URL to stored image.
+     * If size cannot be checked beforehand, temporarily download, check size (discard if oversized) else compress then rename.
+     *
+     * @param string $url
+     * @param string $type ('cover' or 'banner')
+     * @param int $torrentId
+     * @return string|null
+     */
+    private function downloadAndStoreImage($url, $type, int $torrentId)
+    {
+        try {
+            $headers = get_headers($url, true);
+            $contentLength = isset($headers['Content-Length']) ? (int)$headers['Content-Length'] : null;
+
+            $prefix = ($type === 'cover') ? 'torrent-cover' : 'torrent-banner';
+            $tempName = "{$prefix}_{$torrentId}_temp";
+            $finalName = "{$prefix}_{$torrentId}.webp";
+            $tempPath = public_path('/files/img/') . $tempName;
+            $finalPath = public_path('/files/img/') . $finalName;
+
+            // Skip if over 12MB -- should be easily configurable. Note: 10MB PNG can be crunched to 200-400Kb in WebP
+            if ($contentLength !== null && $contentLength > 12 * 1024 * 1024) {
+                \Log::warning("Image from URL {$url} exceeds the 12MB size limit. Skipping download.");
+                return null;
+            }
+
+            $contents = file_get_contents($url);
+            if ($contents === false) {
+                throw new \Exception("Failed to fetch image from URL");
+            }
+
+            if (!file_put_contents($tempPath, $contents)) {
+                throw new \Exception("Failed to save temporary image");
+            }
+
+            $imageInfo = getimagesize($tempPath);
+            $mimeType = $imageInfo['mime'];
+            if ($mimeType === 'image/webp') { // No need to convert if already webP
+                rename($tempPath, $finalPath);
+                return asset('files/img/' . $finalName);
+            }
+
+            // Convert and compress based on size
+            $actualSize = $contentLength ?? filesize($tempPath);
+            $image = new \Imagick($tempPath);
+
+            // Preserve Alpha Channels (Transparency)
+            if ($image->getImageAlphaChannel() !== \Imagick::ALPHACHANNEL_ACTIVATE) {
+                $image->setImageAlphaChannel(\Imagick::ALPHACHANNEL_ACTIVATE);
+            }
+
+            // Strip all metadata
+            $image->stripImage();
+
+            // Ensure alpha channel remains active after stripping
+            $image->setImageAlphaChannel(\Imagick::ALPHACHANNEL_ACTIVATE);
+
+            // Convert to WebP with appropriate quality
+            $quality = $actualSize <= 2 * 1024 * 1024 ? 100 : 80;
+            $image->setImageFormat('webp');
+            $image->setImageCompressionQuality($quality);
+            $image->setOption('webp:lossless', 'false');
+            $image->writeImage($finalPath);
+            unlink($tempPath); // Remove the temporary file
+
+            return asset('files/img/' . $finalName);
+        } catch (\Exception $e) {
+            \Log::error("Failed to download and store image: " . $e->getMessage() . " in " . $e->getFile() . " on line " . $e->getLine());
+            if (isset($tempPath) && file_exists($tempPath)) {
+                unlink($tempPath);
+            }
+            return null;
+        }
+    }
+
 
     /**
      * Display the specified resource.

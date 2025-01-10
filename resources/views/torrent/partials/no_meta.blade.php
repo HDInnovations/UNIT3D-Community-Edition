@@ -1,17 +1,24 @@
+
 <section class="meta">
-    @if (file_exists(public_path() . '/files/img/torrent-banner_' . $torrent->id . '.jpg'))
-        <img
-            class="meta__backdrop"
-            src="{{ url('/files/img/torrent-banner_' . $torrent->id . '.jpg') }}"
-            alt=""
-        />
-    @endif
+    @php
+        $bannerPath = 'files/img/torrent-banner_' . $torrent->id;
+        $coverPath = 'files/img/torrent-cover_' . $torrent->id;
+
+        function setImageSrc($path, $urlField, $placeholder) {
+            $file = collect(glob(public_path($path . '.*')))->first();
+            return $file
+                ? asset(str_replace(public_path(), '', $file))
+                : ($urlField && filter_var($urlField, FILTER_VALIDATE_URL) ? $urlField : $placeholder);
+        }
+
+        $bannerSrc = setImageSrc($bannerPath, $torrent->banner_url, 'https://via.placeholder.com/1280x720');
+        $coverSrc = setImageSrc($coverPath, $torrent->cover_url, 'https://via.placeholder.com/400x600');
+    @endphp
+
+    <img class="meta__backdrop" src="{{ $bannerSrc }}" alt="Banner Image" />
 
     <span class="meta__poster-link">
-        <img
-            src="{{ file_exists(public_path() . '/files/img/torrent-cover_' . $torrent->id . '.jpg') ? url('/files/img/torrent-cover_' . $torrent->id . '.jpg') : 'https://via.placeholder.com/400x600' }}"
-            class="meta__poster"
-        />
+        <img src="{{ $coverSrc }}" class="meta__poster" alt="Cover Image" />
     </span>
     <div class="meta__actions">
         <a class="meta__dropdown-button" href="#">
