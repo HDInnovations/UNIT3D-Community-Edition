@@ -86,6 +86,10 @@
             @vite('resources/sass/themes/_material-design-v3-amoled.scss')
 
             @break
+        @case(15)
+            @vite('resources/sass/themes/_material-design-v3-navy.scss')
+
+            @break
     @endswitch
 
     @if (isset(auth()->user()->settings?->custom_css))

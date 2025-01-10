@@ -21,6 +21,7 @@ export default defineConfig({
         'resources/sass/themes/_light.scss',
         'resources/sass/themes/_material-design-v3-amoled.scss',
         'resources/sass/themes/_material-design-v3-dark.scss',
+        'resources/sass/themes/_material-design-v3-navy.scss',
         'resources/sass/themes/_material-design-v3-light.scss',
         'resources/sass/themes/_nord.scss',
         'resources/sass/themes/_revel.scss',
