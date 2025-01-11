@@ -109,22 +109,19 @@
                                     <li class="data-table__action">
                                         @php
                                             $revive =
-                                                    (
-                                                        $invite->accepted_at === null &&
-                                                        (
-                                                            ( $invite->deleted_at !== null && config('other.modo_revive_deleted_invites') ) ||
-                                                            ( $invite->expires_on < now() && config('other.modo_revive_expired_invites') )
-                                                        ) && auth()->user()->group->is_modo
-                                                    );
+                                                $invite->accepted_at === null &&
+                                                (($invite->deleted_at !== null && config('other.modo_revive_deleted_invites')) ||
+                                                    ($invite->expires_on < now() && config('other.modo_revive_expired_invites'))) &&
+                                                auth()->user()->group->is_modo;
                                         @endphp
+
                                         <form
                                             action="{{ route('users.invites.send', ['user' => $user, 'sentInvite' => $invite]) }}"
                                             method="POST"
                                             x-data="confirmation"
                                         >
                                             @csrf
-                                            @if($revive)
-
+                                            @if ($revive)
                                                 <button
                                                     x-on:click.prevent="confirmAction"
                                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to revive the invite for ' . $invite->email . ' and resend it?') }}"
@@ -132,9 +129,7 @@
                                                 >
                                                     {{ __('common.revive') }}
                                                 </button>
-
                                             @else
-
                                                 <button
                                                     x-on:click.prevent="confirmAction"
                                                     data-b64-deletion-message="{{ base64_encode('Are you sure you want to resend the email to: ' . $invite->email . '?') }}"
@@ -143,9 +138,7 @@
                                                 >
                                                     {{ __('common.resend') }}
                                                 </button>
-
                                             @endif
-
                                         </form>
                                     </li>
                                     <li class="data-table__action">
