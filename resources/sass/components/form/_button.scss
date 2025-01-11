@@ -13,13 +13,17 @@
     align-items: center;
     gap: 0.5ch;
     user-select: none;
+    pointer-events: auto;
     &:hover {
         filter: brightness(1.1);
     }
-
     &:active {
         filter: brightness(0.9);
         transition: none;
+    }
+    &[disabled] {
+        pointer-events: none;
+        filter: brightness(0.7);
     }
 }
 
