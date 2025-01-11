@@ -167,6 +167,11 @@ class InviteController extends Controller
                 ->withErrors(trans('user.invite-already-used'));
         }
 
+        if ($sentInvite->deleted_at !== null) {
+            return to_route('users.invites.index', ['user' => $user])
+                ->withErrors(trans('user.invite-deleted'));
+        }
+
         if ($sentInvite->expires_on < now()) {
             return to_route('users.invites.index', ['user' => $user])
                 ->withErrors(trans('user.invite-expired'));
@@ -176,5 +181,26 @@ class InviteController extends Controller
 
         return to_route('users.invites.index', ['user' => $user])
             ->withSuccess(trans('user.invite-resent-success'));
+    }
+
+    public function revive(Request $request, User $user, Invite $sentInvite): \Illuminate\Http\RedirectResponse
+    {
+        abort_unless($request->user()->group->is_modo && (config('other.modo_revive_expired_invites') || config('other.modo_revive_deleted_invites')), 403);
+
+        if (($sentInvite->deleted_at !== null && config('other.modo_revive_deleted_invites')) ||
+            ($sentInvite->expires_on < now() && config('other.modo_revive_expired_invites'))) {
+            $sentInvite->update(
+                [
+                    'expires_on' => now()->addDays(config('other.invite_expire')),
+                    'deleted_at' => null,
+                ]
+            );
+        } else {
+            return to_route('users.invites.index', ['user' => $user])
+                ->withErrors(trans('user.invite-revive-failed'));
+        }
+
+        return to_route('users.invites.index', ['user' => $user])
+            ->withSuccess(trans('user.invite-revive-success'));
     }
 }
