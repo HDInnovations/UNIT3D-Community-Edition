@@ -328,6 +328,8 @@
                                     </td>
                                 </tr>
                             @endforelse
+                        </tbody>
+                        <tfoot>
                             <tr>
                                 <td
                                     colspan="{{ 7 + (int) config('announce.connectable_check') }}"
@@ -339,7 +341,7 @@
                                     </a>
                                 </td>
                             </tr>
-                        </tbody>
+                        </tfoot>
                     </table>
                 </div>
             </section>
