@@ -37,13 +37,6 @@ class PlaylistTorrent extends Pivot
     use HasFactory;
 
     /**
-     * Indicates If The Model Should Be Timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
-    /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool

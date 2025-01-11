@@ -123,7 +123,8 @@ class PlaylistController extends Controller
                 $randomTorrent?->category?->movie_meta => Movie::find($randomTorrent->tmdb),
                 default                                => null,
             },
-            'torrents' => $torrents,
+            'latestPlaylistTorrent' => $playlist->torrents()->orderByPivot('created_at', 'desc')->first(),
+            'torrents'              => $torrents,
         ]);
     }
 
