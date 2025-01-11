@@ -156,6 +156,8 @@ return [
     'invite-expired'                       => 'The invite you are trying to resend has expired.',
     'invite-friend'                        => 'Invite your friend (Email + Message Required)',
     'invite-resent-success'                => 'Invite was resent successfully!',
+    'invite-revive-success'                => 'Invite was revived successfully!',
+    'invite-revive-failed'                 => 'Invite was not able to be revived.',
     'invite-sent-success'                  => 'Invite was sent successfully!',
     'invite-tree'                          => 'Invite Tree',
     'invites'                              => 'Invites',

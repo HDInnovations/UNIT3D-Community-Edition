@@ -107,39 +107,41 @@
                             <td>
                                 <menu class="data-table__actions">
                                     <li class="data-table__action">
-                                        @php
-                                            $revive =
-                                                $invite->accepted_at === null &&
-                                                (($invite->deleted_at !== null && config('other.modo_revive_deleted_invites')) ||
-                                                    ($invite->expires_on < now() && config('other.modo_revive_expired_invites'))) &&
-                                                auth()->user()->group->is_modo;
-                                        @endphp
-
-                                        <form
-                                            action="{{ route('users.invites.send', ['user' => $user, 'sentInvite' => $invite]) }}"
-                                            method="POST"
-                                            x-data="confirmation"
-                                        >
-                                            @csrf
-                                            @if ($revive)
+                                        @if ($invite->accepted_at === null &&
+                                            (($invite->deleted_at !== null && config('other.modo_revive_deleted_invites')) ||
+                                                ($invite->expires_on < now() && config('other.modo_revive_expired_invites'))) &&
+                                            auth()->user()->group->is_modo)
+                                            <form
+                                                action="{{ route('users.invites.revive', ['user' => $user, 'sentInvite' => $invite]) }}"
+                                                method="POST"
+                                                x-data="confirmation"
+                                            >
+                                                @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to revive the invite for ' . $invite->email . ' and resend it?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to revive the invite for ' . $invite->email .'?') }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('common.revive') }}
                                                 </button>
-                                            @else
+                                            </form>
+                                        @else
+                                            <form
+                                                action="{{ route('users.invites.send', ['user' => $user, 'sentInvite' => $invite]) }}"
+                                                method="POST"
+                                                x-data="confirmation"
+                                            >
+                                                @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to resend the email to: ' . $invite->email . '?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to resend the invite email to ' . $invite->email . '?') }}"
                                                     class="form__button form__button--text"
                                                     @disabled($invite->accepted_at !== null || $invite->expires_on < now() || $invite->deleted_at !== null)
                                                 >
                                                     {{ __('common.resend') }}
                                                 </button>
-                                            @endif
-                                        </form>
+                                            </form>
+                                        @endif
                                     </li>
                                     <li class="data-table__action">
                                         <form
