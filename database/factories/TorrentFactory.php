@@ -47,7 +47,7 @@ class TorrentFactory extends Factory
             'file_name'       => $this->faker->word(),
             'num_file'        => $this->faker->randomNumber(),
             'size'            => $this->faker->randomFloat(),
-            'nfo'             => $this->faker->text(),
+            'nfo'             => '',
             'leechers'        => $this->faker->randomNumber(),
             'seeders'         => $this->faker->randomNumber(),
             'times_completed' => $this->faker->randomNumber(),
