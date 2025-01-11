@@ -328,8 +328,6 @@
                                     </td>
                                 </tr>
                             @endforelse
-                        </tbody>
-                        <tfoot>
                             <tr>
                                 <td
                                     colspan="{{ 7 + (int) auth()->user()->group->is_modo + (int) config('announce.connectable_check') }}"
@@ -341,7 +339,7 @@
                                     </a>
                                 </td>
                             </tr>
-                        </tfoot>
+                        </tbody>
                     </table>
                 </div>
             </section>
