@@ -119,7 +119,7 @@
                                                 @csrf
                                                 <button
                                                     x-on:click.prevent="confirmAction"
-                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to revive the invite for ' . $invite->email .'?') }}"
+                                                    data-b64-deletion-message="{{ base64_encode('Are you sure you want to revive the invite for ' . $invite->email . '?') }}"
                                                     class="form__button form__button--text"
                                                 >
                                                     {{ __('common.revive') }}
