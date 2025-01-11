@@ -322,7 +322,7 @@
                             @empty
                                 <tr>
                                     <td
-                                        colspan="{{ \config('announce.connectable_check') === true ? 7 : 6 }}"
+                                        colspan="{{ \config('announce.connectable_check') === true ? 8 : 7 }}"
                                     >
                                         No Clients
                                     </td>
@@ -332,7 +332,7 @@
                         <tfoot>
                             <tr>
                                 <td
-                                    colspan="{{ 5 + (int) auth()->user()->group->is_modo + (int) config('announce.connectable_check') }}"
+                                    colspan="{{ 7 + (int) auth()->user()->group->is_modo + (int) config('announce.connectable_check') }}"
                                 >
                                     If you don't recognize a torrent client or IP address in the
                                     list, please
