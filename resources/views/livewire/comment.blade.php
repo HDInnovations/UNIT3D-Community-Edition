@@ -28,7 +28,8 @@
                             input = document.getElementById(
                                 '{{ $comment->isParent() ? 'new-comment__textarea' : 'reply-comment' }}'
                             );
-                            input.value += '[quote={{ \htmlspecialchars('@' . $comment->user->username) }}]';
+                            input.value +=
+                                '[quote={{ \htmlspecialchars('@' . ($comment->anon ? 'Anonymous' : $comment->user->username)) }}]';
                             input.value += (() => {
                                 var text = document.createElement('textarea');
                                 text.innerHTML = decodeURIComponent(
