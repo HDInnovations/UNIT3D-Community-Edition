@@ -30,7 +30,7 @@
                             );
                             input.value +=
                                 '[quote={{ \htmlspecialchars('@' . ($comment->anon ? 'Anonymous' : $comment->user->username)) }}]';
-                            input.value += atob('{{ base64_encode($comment->content) }}');
+                            input.value += decodeURIComponent(escape(atob('{{ base64_encode(\htmlspecialchars($comment->content)) }}')));
                             input.value += '[/quote]';
                             input.dispatchEvent(new Event('input'));
                             input.focus();
