@@ -540,17 +540,26 @@
                         @switch($torrent->status)
                             @case(\App\Models\Torrent::APPROVED)
                                 Approved By:
-                                <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                <x-user_tag
+                                    :user="$torrent->moderationMessages()->latest()->first()->moderator"
+                                    :anon="false"
+                                />
 
                                 @break
                             @case(\App\Models\Torrent::POSTPONED)
                                 Postponed By:
-                                <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                <x-user_tag
+                                    :user="$torrent->moderationMessages()->latest()->first()->moderator"
+                                    :anon="false"
+                                />
 
                                 @break
                             @case(\App\Models\Torrent::REJECTED)
                                 Rejected By:
-                                <x-user_tag :user="$torrent->moderated" :anon="false" />
+                                <x-user_tag
+                                    :user="$torrent->moderationMessages()->latest()->first()->moderator"
+                                    :anon="false"
+                                />
 
                                 @break
                             @default

@@ -66,8 +66,6 @@ class TorrentFactory extends Factory
             'highspeed'       => $this->faker->boolean(),
             'featured'        => false,
             'status'          => Torrent::APPROVED,
-            'moderated_at'    => now(),
-            'moderated_by'    => 1,
             'anon'            => $this->faker->boolean(),
             'sticky'          => $this->faker->boolean(),
             'sd'              => $this->faker->boolean(),

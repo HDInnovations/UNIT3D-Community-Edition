@@ -50,9 +50,10 @@ class TorrentHelper
         $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
+        // Update the status on this torrent.
+        // The moderation table status for this torrent is set to approved in this stage already.
+        // Both places are kept in order to have the torrent status quickly accesible for the announce.
         $torrent->status = Torrent::APPROVED;
-        $torrent->moderated_at = now();
-        $torrent->moderated_by = (int) auth()->id();
 
         if (!$torrent->free) {
             $autoFreeleechs = AutomaticTorrentFreeleech::query()
