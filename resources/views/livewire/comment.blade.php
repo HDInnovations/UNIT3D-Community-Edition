@@ -19,12 +19,15 @@
                         </button>
                     </li>
                 @endif
-                    <li class="comment__toolbar-item">
-                        <button
-                            class="post__quote"
-                            title="{{ __('forum.quote') }}"
-                            x-on:click="
-                            input = document.getElementById('{{ $comment->isParent() ? "new-comment__textarea" : "reply-comment" }}');
+
+                <li class="comment__toolbar-item">
+                    <button
+                        class="post__quote"
+                        title="{{ __('forum.quote') }}"
+                        x-on:click="
+                            input = document.getElementById(
+                                '{{ $comment->isParent() ? 'new-comment__textarea' : 'reply-comment' }}'
+                            );
                             input.value += '[quote={{ \htmlspecialchars('@' . $comment->user->username) }}]';
                             input.value += (() => {
                                 var text = document.createElement('textarea');
@@ -40,10 +43,10 @@
                             input.dispatchEvent(new Event('input'));
                             input.focus();
                         "
-                        >
-                            <i class="{{ \config('other.font-awesome') }} fa-quote-left"></i>
-                        </button>
-                    </li>
+                    >
+                        <i class="{{ \config('other.font-awesome') }} fa-quote-left"></i>
+                    </button>
+                </li>
                 @if ($comment->user_id === auth()->id() || auth()->user()->group->is_modo)
                     <li class="comment__toolbar-item">
                         <button wire:click="$toggle('isEditing')" class="comment__edit">
