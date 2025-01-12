@@ -32,12 +32,7 @@
                                 '[quote={{ \htmlspecialchars('@' . ($comment->anon ? 'Anonymous' : $comment->user->username)) }}]';
                             input.value += (() => {
                                 var text = document.createElement('textarea');
-                                text.innerHTML = decodeURIComponent(
-                                    atob('{{ base64_encode($comment->content) }}')
-                                        .split('')
-                                        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-                                        .join('')
-                                );
+                                text.innerHTML = atob('{{ base64_encode($comment->content) }}');
                                 return text.value;
                             })();
                             input.value += '[/quote]';
