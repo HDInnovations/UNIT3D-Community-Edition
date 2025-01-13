@@ -84,6 +84,10 @@
                         {{ __('ticket.priority') }}
                         @include('livewire.includes._sort-icon', ['field' => 'priority_id'])
                     </th>
+                    <th wire:click="sortBy('category_id')" role="columnheader button">
+                        {{ __('ticket.category') }}
+                        @include('livewire.includes._sort-icon', ['field' => 'category_id'])
+                    </th>
                     <th wire:click="sortBy('user_id')" role="columnheader button">
                         {{ __('common.username') }}
                         @include('livewire.includes._sort-icon', ['field' => 'user_id'])
@@ -128,19 +132,67 @@
                         <td>
                             @switch($ticket->priority->name)
                                 @case('Low')
-                                    <i class="fas fa-circle text-yellow"></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-circle text-yellow"></i>
 
                                     @break
                                 @case('Medium')
-                                    <i class="fas fa-circle text-orange"></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-circle text-orange"></i>
 
                                     @break
                                 @case('High')
-                                    <i class="fas fa-circle text-red"></i>
+                                    <i class="{{ config('other.font-awesome') }} fa-circle text-red"></i>
 
                                     @break
                             @endswitch
                             {{ $ticket->priority->name }}
+                        </td>
+                        <td>
+                            @switch($ticket->category->name)
+                                @case('Accounts')
+                                    <i class="{{ config('other.font-awesome') }} fa-user-circle"></i>
+                                    @break
+
+                                @case('Appeals')
+                                    <i class="{{ config('other.font-awesome') }} fa-gavel"></i>
+                                    @break
+
+                                @case('Forums')
+                                    <i class="{{ config('other.font-awesome') }} fa-comments"></i>
+                                    @break
+
+                                @case('Requests')
+                                    <i class="{{ config('other.font-awesome') }} fa-hands-helping"></i>
+                                    @break
+
+                                @case('Subtitles')
+                                    <i class="{{ config('other.font-awesome') }} fa-closed-captioning"></i>
+                                    @break
+
+                                @case('Torrents')
+                                    <i class="{{ config('other.font-awesome') }} fa-download"></i>
+                                    @break
+
+                                @case('MediaHub')
+                                    <i class="{{ config('other.font-awesome') }} fa-database"></i>
+                                    @break
+
+                                @case('Technical')
+                                    <i class="{{ config('other.font-awesome') }} fa-tools"></i>
+                                    @break
+
+                                @case('Playlists')
+                                    <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
+                                    @break
+
+                                @case('Bugs')
+                                    <i class="{{ config('other.font-awesome') }} fa-bug"></i>
+                                    @break
+
+                                @case('Other')
+                                    <i class="{{ config('other.font-awesome') }} fa-ellipsis-h"></i>
+                                    @break
+                            @endswitch
+                            {{ $ticket->category->name }}
                         </td>
                         <td>
                             <x-user_tag :user="$ticket->user" :anon="false" />
