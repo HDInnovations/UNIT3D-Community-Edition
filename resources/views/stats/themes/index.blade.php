@@ -85,6 +85,10 @@
                                     Material Design 3 Amoled Theme
 
                                     @break
+                                @case('15')
+                                    Material Design 3 Navy Theme
+
+                                    @break
                             @endswitch
                         </td>
                         <td>Used By {{ $siteTheme->value }} Users</td>
