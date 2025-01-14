@@ -132,15 +132,21 @@
                         <td>
                             @switch($ticket->priority->name)
                                 @case('Low')
-                                    <i class="{{ config('other.font-awesome') }} fa-circle text-yellow"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-circle text-yellow"
+                                    ></i>
 
                                     @break
                                 @case('Medium')
-                                    <i class="{{ config('other.font-awesome') }} fa-circle text-orange"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-circle text-orange"
+                                    ></i>
 
                                     @break
                                 @case('High')
-                                    <i class="{{ config('other.font-awesome') }} fa-circle text-red"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-circle text-red"
+                                    ></i>
 
                                     @break
                             @endswitch
@@ -149,47 +155,56 @@
                         <td>
                             @switch($ticket->category->name)
                                 @case('Accounts')
-                                    <i class="{{ config('other.font-awesome') }} fa-user-circle"></i>
-                                    @break
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-user-circle"
+                                    ></i>
 
+                                    @break
                                 @case('Appeals')
                                     <i class="{{ config('other.font-awesome') }} fa-gavel"></i>
-                                    @break
 
+                                    @break
                                 @case('Forums')
                                     <i class="{{ config('other.font-awesome') }} fa-comments"></i>
-                                    @break
 
+                                    @break
                                 @case('Requests')
-                                    <i class="{{ config('other.font-awesome') }} fa-hands-helping"></i>
-                                    @break
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-hands-helping"
+                                    ></i>
 
+                                    @break
                                 @case('Subtitles')
-                                    <i class="{{ config('other.font-awesome') }} fa-closed-captioning"></i>
-                                    @break
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-closed-captioning"
+                                    ></i>
 
+                                    @break
                                 @case('Torrents')
                                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                                    @break
 
+                                    @break
                                 @case('MediaHub')
                                     <i class="{{ config('other.font-awesome') }} fa-database"></i>
-                                    @break
 
+                                    @break
                                 @case('Technical')
                                     <i class="{{ config('other.font-awesome') }} fa-tools"></i>
-                                    @break
 
+                                    @break
                                 @case('Playlists')
                                     <i class="{{ config('other.font-awesome') }} fa-list-ol"></i>
-                                    @break
 
+                                    @break
                                 @case('Bugs')
                                     <i class="{{ config('other.font-awesome') }} fa-bug"></i>
-                                    @break
 
+                                    @break
                                 @case('Other')
-                                    <i class="{{ config('other.font-awesome') }} fa-ellipsis-h"></i>
+                                    <i
+                                        class="{{ config('other.font-awesome') }} fa-ellipsis-h"
+                                    ></i>
+
                                     @break
                             @endswitch
                             {{ $ticket->category->name }}

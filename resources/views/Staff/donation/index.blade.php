@@ -51,7 +51,9 @@
                             <td>
                                 <x-user_tag :user="$donation->user" :anon="false" />
                             </td>
-                            <td style="max-width: 80ch; word-wrap: break-word; white-space: normal;">{{ $donation->transaction }}</td>
+                            <td style="max-width: 80ch; word-wrap: break-word; white-space: normal">
+                                {{ $donation->transaction }}
+                            </td>
                             <td
                                 class="{{ $donation->package->trashed() ? 'text-danger' : '' }}"
                                 title="{{ $donation->package->trashed() ? 'Package has been deleted' : '' }}"
