@@ -19,6 +19,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\History.
@@ -44,6 +45,7 @@ class History extends Model
 {
     /** @use HasFactory<\Database\Factories\HistoryFactory> */
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The Database Table Used By The Model.
