@@ -236,6 +236,7 @@ return [
                     'typo',
                     'proximity',
                 ],
+                'facetSearch' => false,
             ],
         ],
     ],
