@@ -37,7 +37,7 @@ We have been developing a Private Torrent Tracker Software called `UNIT3D`. This
 
 ## <a name="installation"></a> 🖥️ Installation
 
-Check it out here for more information: https://github.com/HDInnovations/UNIT3D-Installer
+No public script or documentation is available at this time.
 
 ## <a name="updating"></a> 🖥️ Updating
 
