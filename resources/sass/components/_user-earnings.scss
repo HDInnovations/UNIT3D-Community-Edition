@@ -1,0 +1,67 @@
+.user-earnings__name-header,
+.user-earnings__size-header,
+.user-earnings__seeders-header,
+.user-earnings__leechers-header,
+.user-earnings__times-header,
+.user-earnings__internal-header,
+.user-earnings__personal-release-header,
+.user-earnings__type-header,
+.user-earnings__connectable-header,
+.user-earnings__seedtime-header,
+.user-earnings__age-header,
+.user-earnings__hourly-header,
+.user-earnings__daily-header,
+.user-earnings__weekly-header,
+.user-earnings__monthly-header {
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.user-earnings__name,
+.user-earnings__size,
+.user-earnings__seeders,
+.user-earnings__leechers,
+.user-earnings__times,
+.user-earnings__seedtime,
+.user-earnings__age,
+.user-earnings__hourly,
+.user-earnings__daily,
+.user-earnings__weekly,
+.user-earnings__monthly {
+    font-size: 14px;
+}
+
+.user-earnings__internal,
+.user-earnings__personal-release,
+.user-earnings__connectable {
+    font-size: 11px !important;
+    text-align: center;
+}
+
+.user-earnings__type {
+    white-space: nowrap;
+}
+
+.user-earnings__seeders-header,
+.user-earnings__leechers-header,
+.user-earnings__times-header,
+.user-earnings__ip-header,
+.user-earnings__hourly-header,
+.user-earnings__daily-header,
+.user-earnings__weekly-header,
+.user-earnings__monthly-header,
+.user-earnings__size {
+    text-align: right;
+}
+
+.user-earnings__internal-header,
+.user-earnings__personal-release-header,
+.user-earnings__connectable-header {
+    text-align: center;
+}
+
+.user-earnings__name {
+    font-weight: bolder;
+    color: var(--text-color);
+}

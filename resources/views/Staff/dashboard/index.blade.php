@@ -180,6 +180,15 @@
                 <p class="form__group form__group--horizontal">
                     <a
                         class="form__button form__button--text"
+                        href="{{ route('staff.bon_earnings.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-coins"></i>
+                        {{ __('staff.bon-earnings') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
                         href="{{ route('staff.blacklisted_clients.index') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-ban"></i>
