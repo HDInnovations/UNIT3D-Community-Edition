@@ -125,6 +125,11 @@ return [
     'invite-only'   => true,
     'invite_expire' => 14,
 
+    /* Allow Modo Staff to Revive (Restore & Renew) Deleted Invites */
+    'modo_revive_deleted_invites' => true,
+    /* Allow Modo Staff to Revive (Restore & Renew) Expired Invites */
+    'modo_revive_expired_invites' => true,
+
     'invites_restriced' => false,
     'invite_groups'     => [
         'Administrator',
