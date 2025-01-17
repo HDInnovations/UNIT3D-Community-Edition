@@ -57,7 +57,10 @@ class AutoGroup extends Command
 
         User::query()
             ->withSum('seedingTorrents as seedsize', 'size')
-            ->withCount('torrents as uploads')
+            ->withCount([
+                'torrents as uploads',
+                'warnings' => fn ($query) => $query->where('active', '=', true),
+            ])
             ->withAvg('history as avg_seedtime', 'seedtime')
             ->whereIntegerInRaw('group_id', $groups->pluck('id'))
             ->chunkById(100, function ($users) use ($groups, $timestamp): void {
@@ -78,7 +81,7 @@ class AutoGroup extends Command
                                 // Keep these as 0/1 instead of false/true
                                 // because it reduces 6% custom casting overhead
                                 $user->can_download = 0;
-                            } else {
+                            } elseif ($user->warnings_count < config('hitrun.max_warnings')) {
                                 $user->can_download = 1;
                             }
 
