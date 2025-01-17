@@ -1,13 +1,13 @@
 # Basic Tuning
 
+> [!IMPORTANT]
+> These guides are intended for UNIT3D v8.0.0 + instances. While these are better than defaults be careful blindly following them. Proper tuning requires understanding your server, running tests and monitoring the results.
+
 ## Redis Single Server
 
 | Category       | Severity   | Time To Fix  |
 | -------------  |:----------:| ------------:|
 | :rocket: Performance | Major | 30 minutes  |
-
-> [!IMPORTANT]
-> This guide is intended for UNIT3D v7.0.0 + instances.
 
 ### Introduction
 
@@ -69,6 +69,13 @@ Ensure that you have your `config/database.php` file refer to the above variable
     ],
 ],
 ```
+
+Once that's all done simply restart redis.
+
+```bash
+sudo systemctl restart redis
+```
+
 
 ### References
 
@@ -140,7 +147,7 @@ php artisan set:all_cache
 ```
 
 ```bash
-sudo service mysql restart && sudo systemctl restart php8.2-fpm && sudo service nginx restart
+sudo systemctl restart mysql && sudo systemctl restart php8.3-fpm && sudo systemctl restart nginx
 ```
 
 ### References
@@ -181,8 +188,6 @@ composer dump-autoload --optimize
 | -------------  |:----------:| ------------:|
 | :rocket: Performance | Major | 10 minutes  |
 
-> [!IMPORTANT]
-> This guide is intended for UNIT3D v7.0.0 + instances.
 
 ### Introduction
 
@@ -192,7 +197,7 @@ Opcache provides massive performance gains. One of the benchmarks suggest it can
 Every time you execute a PHP script, the script needs to be compiled to byte code. OPCache leverages a cache for this bytecode, so the next time the same script is requested, it doesn’t have to recompile it. This can save some precious execution time, and thus make UNIT3D faster.
 
 `Sounds awesome, so how can you use it?`
-Easy. SSH to your server and run the following command. `sudo nano /etc/php/8.2/fpm/php.ini` This is assuming your on PHP 8.2. If not then adjust the command. Once you have the config open search for `opcache`.
+Easy. SSH to your server and run the following command. `sudo nano /etc/php/8.3/fpm/php.ini` This is assuming your on PHP 8.3. If not then adjust the command. Once you have the config open search for `opcache`.
 
 Now you can change some values, I will walk you through the most important ones.
 
@@ -214,7 +219,7 @@ This will revalidate the script. If you set this to 0 (best performance), you ne
 `opcache.save_comments=1`
 This will preserve comments in your script, I recommend to keep this enabled, as some libraries depend on it, and I couldn’t find any benefits from disabling it (except from saving a few bytes RAM). Make sure it is uncommented. AKA remove the`;`
 
-And there you have it folks. Experiment with these values, depending the resources of your server. Save the file and exit and restart PHP `sudo systemctl restart php8.2-fpm`.
+And there you have it folks. Experiment with these values, depending on the resources of your server. Save the file and exit and restart PHP `sudo systemctl restart php8.3-fpm`.
 
 Enjoy! 🖖
 
@@ -224,8 +229,6 @@ Enjoy! 🖖
 | -------------  |:----------:| ------------:|
 | :rocket: Performance | Major | 5 minutes  |
 
-> [!IMPORTANT]
-> This guide is intended for UNIT3D v7.0.0 + instances.
 
 ### Introduction
 
@@ -235,7 +238,7 @@ PHP preloading for PHP >=7.4. Preloading is a feature of php that will pre-compi
 
 ### Enabling Preloading
 
-SSH to your server and run the following command. `sudo nano /etc/php/8.2/fpm/php.ini` This is assuming your on PHP 8.1. If not then adjust the command. Once you have the config open search for `preload`.
+SSH to your server and run the following command. `sudo nano /etc/php/8.3/fpm/php.ini` This is assuming your on PHP 8.3. If not then adjust the command. Once you have the config open search for `preload`.
 
 Now you can change some values.
 
@@ -254,16 +257,13 @@ opcache.preload_user=ubuntu
 As you can see we are calling the preload file included in UNIT3D located in `/var/www/html/preload.php`.
 `opcache.preload_user=ubuntu` you should changed to your server user. Not root!!!!
 
-And there you have it folks. Save the file and exit and restart PHP `sudo systemctl restart php8.2-fpm`. You are now preloading Laravel thus making UNIT3D faster.
+And there you have it folks. Save the file and exit and restart PHP `sudo systemctl restart php8.3-fpm`. You are now preloading Laravel thus making UNIT3D faster.
 
 ## PHP8 JIT
 
 | Category       | Severity   | Time To Fix  |
 | -------------  |:----------:| ------------:|
 | :rocket: Performance | Moderate | 5 minutes  |
-
-> [!IMPORTANT]
-> This guide is intended for UNIT3D v7.0.0 + instances.
 
 ### Introduction
 
@@ -272,7 +272,7 @@ PHP 8 adds a JIT compiler to PHP's core which has the potential to speed up perf
 First of all, the JIT will only work if opcache is enabled, this is the default for most PHP installations, but you should make sure that `opcache.enable` is set to `1` in your php.ini file. Enabling the JIT itself is done by specifying `opcache.jit_buffer_size` in php.ini. **_So I recommend checking the OPcache guide I made first then coming back here._**
 
 ### How To Enable JIT
-SSH to your server and run the following command. `sudo nano /etc/php/8.2/fpm/php.ini` This is assuming your on PHP 8.2. If not then adjust the command. Once you have the config open search for `opcache.jit`.
+SSH to your server and run the following command. `sudo nano /etc/php/8.3/fpm/php.ini` This is assuming your on PHP 8.2. If not then adjust the command. Once you have the config open search for `opcache.jit`.
 
 If you do not get any results then search for `[curl]` you should see the following.
 
@@ -314,14 +314,12 @@ The PHP-FPM pm static setting depends heavily on how much free memory your serve
 
 ### Enabling Static
 
-Lets open up our PHP configuration file. `sudo nano /etc/php/8.2/fpm/pool.d/www.conf`
+Lets open up our PHP configuration file. `sudo nano /etc/php/8.3/fpm/pool.d/www.conf`
 
 Set `pm = static`
-Set `pm.max_children = 100`
+Set `pm.max_children = 25`
 
-This will use around 10GB.
-
-Save, Exit and Restart `sudo systemctl restart php8.2-fpm`
+Save, Exit and Restart `sudo systemctl restart php8.3-fpm`
 
 ### Conclusion
 

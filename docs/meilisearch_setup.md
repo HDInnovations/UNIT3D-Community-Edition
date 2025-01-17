@@ -117,7 +117,7 @@
     - **Reload Data:** Whenever Meilisearch is upgraded or during the initial setup, the database must be reloaded:
 
         ```sh
-        sudo php artisan scout:import "App\Models\Torrent"
+        sudo php artisan auto:sync_torrents_to_meilisearch --wipe && sudo php artisan auto:sync_people_to_meilisearch
         ```
 
 ## See Also
