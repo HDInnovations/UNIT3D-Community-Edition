@@ -27,6 +27,7 @@ use App\Models\FeaturedTorrent;
 use App\Models\Keyword;
 use App\Models\Movie;
 use App\Models\Torrent;
+use App\Models\TorrentModerationMessage;
 use App\Models\TorrentFile;
 use App\Models\Tv;
 use App\Models\User;
@@ -182,8 +183,14 @@ class TorrentController extends BaseController
             $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
         }
         $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? 0) : 0;
-        $torrent->moderated_at = Carbon::now();
-        $torrent->moderated_by = User::SYSTEM_USER_ID;
+
+        // Update the status on this torrent moderation message table.
+        // The status on the torrent itself will be updated with the TorrentHelper().
+        // Both places are kept in order to have the torrent status quickly accesible for the announce.
+        TorrentModerationMessage::create([
+            'moderated_by' => User::SYSTEM_USER_ID,
+            'torrent_id'   => $torrent->id,
+        ]);
 
         // Set freeleech and doubleup if featured
         if ($torrent->featured === true) {

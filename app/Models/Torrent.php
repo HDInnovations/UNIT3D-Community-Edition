@@ -64,8 +64,6 @@ use voku\helper\AntiXSS;
  * @property int                             $highspeed
  * @property bool                            $featured
  * @property int                             $status
- * @property \Illuminate\Support\Carbon|null $moderated_at
- * @property int|null                        $moderated_by
  * @property int                             $anon
  * @property bool                            $sticky
  * @property int                             $sd
@@ -99,21 +97,20 @@ class Torrent extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{tmdb: 'int', igdb: 'int', bumped_at: 'datetime', fl_until: 'datetime', du_until: 'datetime', doubleup: 'bool', refundable: 'bool', featured: 'bool', moderated_at: 'datetime', sticky: 'bool'}
+     * @return array{tmdb: 'int', igdb: 'int', bumped_at: 'datetime', fl_until: 'datetime', du_until: 'datetime', doubleup: 'bool', refundable: 'bool', featured: 'bool', sticky: 'bool'}
      */
     protected function casts(): array
     {
         return [
-            'tmdb'         => 'int',
-            'igdb'         => 'int',
-            'bumped_at'    => 'datetime',
-            'fl_until'     => 'datetime',
-            'du_until'     => 'datetime',
-            'doubleup'     => 'bool',
-            'refundable'   => 'bool',
-            'featured'     => 'bool',
-            'moderated_at' => 'datetime',
-            'sticky'       => 'bool',
+            'tmdb'       => 'int',
+            'igdb'       => 'int',
+            'bumped_at'  => 'datetime',
+            'fl_until'   => 'datetime',
+            'du_until'   => 'datetime',
+            'doubleup'   => 'bool',
+            'refundable' => 'bool',
+            'featured'   => 'bool',
+            'sticky'     => 'bool',
         ];
     }
 
@@ -561,16 +558,13 @@ class Torrent extends Model
     }
 
     /**
-     * Torrent Has Been Moderated By.
+     * Has Many Moderation Messages.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<User, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<TorrentModerationMessage, $this>
      */
-    public function moderated(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function moderationMessages(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->belongsTo(User::class, 'moderated_by')->withDefault([
-            'username' => 'System',
-            'id'       => User::SYSTEM_USER_ID,
-        ]);
+        return $this->hasMany(TorrentModerationMessage::class)->orderBy('created_at', 'desc');
     }
 
     /**

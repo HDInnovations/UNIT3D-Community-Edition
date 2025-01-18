@@ -105,7 +105,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.postponed-torrents') }}</h2>
         <div class="data-table-wrapper">
-            <table class="data-table">
+            <table class="data-table moderation-queue-table">
                 <thead>
                     <tr>
                         <th>{{ __('staff.moderation-since') }}</th>
@@ -117,6 +117,7 @@
                         <th>{{ __('torrent.uploader') }}</th>
                         <th>{{ __('common.staff') }}</th>
                         <th>{{ __('common.action') }}</th>
+                        <th>{{ __('torrent.moderation') }} {{ __('common.message') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -124,10 +125,10 @@
                         <tr>
                             <td>
                                 <time
-                                    datetime="{{ $torrent->moderated_at }}"
-                                    title="{{ $torrent->moderated_at }}"
+                                    datetime="{{ $torrent->moderationMessages()->latest()->first()->created_at }}"
+                                    title="{{ $torrent->moderationMessages()->latest()->first()->created_at }}"
                                 >
-                                    {{ $torrent->moderated_at->diffForHumans() }}
+                                    {{ $torrent->moderationMessages()->latest()->first()->created_at->diffForHumans() }}
                                 </time>
                             </td>
                             <td>
@@ -148,7 +149,10 @@
                                 <x-user_tag :anon="false" :user="$torrent->user" />
                             </td>
                             <td>
-                                <x-user_tag :anon="false" :user="$torrent->moderated" />
+                                <x-user_tag
+                                    :anon="false"
+                                    :user="$torrent->moderationMessages()->latest()->first()->moderator"
+                                />
                             </td>
                             <td>
                                 <menu class="data-table__actions">
@@ -190,6 +194,9 @@
                                     @include('Staff.moderation.partials._delete_dialog', ['torrent' => $torrent])
                                 </menu>
                             </td>
+                            <td>
+                                {{ Str::limit($torrent->moderationMessages()->latest()->first()->message ?? 'N/A', 300) }}
+                            </td>
                         </tr>
                     @empty
                         <tr>
@@ -203,7 +210,7 @@
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('torrent.rejected') }}</h2>
         <div class="data-table-wrapper">
-            <table class="data-table">
+            <table class="data-table moderation-queue-table">
                 <thead>
                     <tr>
                         <th>{{ __('staff.moderation-since') }}</th>
@@ -215,6 +222,7 @@
                         <th>{{ __('torrent.uploader') }}</th>
                         <th>{{ __('common.staff') }}</th>
                         <th>{{ __('common.action') }}</th>
+                        <th>{{ __('torrent.moderation') }} {{ __('common.message') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -222,10 +230,10 @@
                         <tr>
                             <td>
                                 <time
-                                    datetime="{{ $torrent->moderated_at }}"
-                                    title="{{ $torrent->moderated_at }}"
+                                    datetime="{{ $torrent->moderationMessages()->latest()->first()->created_at }}"
+                                    title="{{ $torrent->moderationMessages()->latest()->first()->created_at }}"
                                 >
-                                    {{ $torrent->moderated_at->diffForHumans() }}
+                                    {{ $torrent->moderationMessages()->latest()->first()->created_at->diffForHumans() }}
                                 </time>
                             </td>
                             <td>
@@ -246,7 +254,10 @@
                                 <x-user_tag :anon="false" :user="$torrent->user" />
                             </td>
                             <td>
-                                <x-user_tag :anon="false" :user="$torrent->moderated" />
+                                <x-user_tag
+                                    :anon="false"
+                                    :user="$torrent->moderationMessages()->latest()->first()->moderator"
+                                />
                             </td>
                             <td>
                                 <menu class="data-table__actions">
@@ -288,6 +299,9 @@
                                     </li>
                                     @include('Staff.moderation.partials._delete_dialog', ['torrent' => $torrent])
                                 </menu>
+                            </td>
+                            <td>
+                                {{ Str::limit($torrent->moderationMessages()->latest()->first()->message ?? 'N/A', 300) }}
                             </td>
                         </tr>
                     @empty
