@@ -27,7 +27,7 @@
     --bbcode-input-bg: #0c0e15;
 
     --bbcode-rendered-fg-default: #c9d1d9;
-    --bbcode-rendered-fg-muted: #fff;
+    --bbcode-rendered-fg-muted: #808080;
     --bbcode-rendered-fg-subtle: #484f58;
     --bbcode-rendered-canvas-default: transparent;
     --bbcode-rendered-canvas-subtle: #313131;
@@ -253,14 +253,15 @@
 
     --scrollbar-color: #0004;
 
-    --secondary-nav-bg: #0c0e15;
+    --secondary-nav-bg: #08090f;
+    --secondary-nav-box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.3);
     --secondary-nav-tab-fg: #fff;
     --secondary-nav-tab-bg: inherit;
     --secondary-nav-tab-active-text-decoration: underline #0099ff 2px;
     --secondary-nav-tab-hover-fg: #fff;
     --secondary-nav-tab-hover-bg: transparent;
     --secondary-nav-tab-hover-text-decoration: underline #0088ff 2px;
-    --secondary-nav-tab-menu-bg: #0c0e15;
+    --secondary-nav-tab-menu-bg: #08090f;
     --secondary-nav-tab-menu-fg: inherit;
     --secondary-nav-tab-menu-border: none;
     --secondary-nav-tab-menu-border-radius: 6px;
@@ -330,7 +331,7 @@
     --torrent-group-bg: #0f111a;
     --torrent-group-header-bg: #0f111a;
     --torrent-group-text: #fff;
-    --torrent-group-text-muted: #fff;
+    --torrent-group-text-muted: #999999;
     --torrent-group-table-stripe-even: rgba(0, 0, 0, 0.18);
     --torrent-group-table-stripe-odd: rgba(0, 0, 0, 0.1);
     --torrent-group-hover-brightness-emphasis: 1.13;
@@ -560,7 +561,7 @@ a {
 }
 
 .text-muted {
-    color: #0e111c;
+    color: #808080;
 }
 
 hr {
