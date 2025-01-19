@@ -542,12 +542,12 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->free !== []) {
             if (!config('other.freeleech')) {
-                $filters[] = 'free IN '.json_encode(array_map('intval', $this->free));
+                $filters[] = '(free IN ' . json_encode(array_map('intval', $this->free)) . ' OR featured = true)';
             }
         }
 
         if ($this->doubleup) {
-            $filters[] = 'doubleup = true';
+            $filters[] = '(doubleup = true OR featured = true)';
         }
 
         if ($this->featured) {
