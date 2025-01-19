@@ -550,7 +550,10 @@ readonly class TorrentSearchFiltersDTO
         }
 
         if ($this->doubleup) {
-            $filters[] = '(doubleup = true OR featured = true)';
+            $filters[] = [
+                'doubleup = true',
+                'featured = true',
+            ];
         }
 
         if ($this->featured) {
