@@ -7,7 +7,7 @@ jobs:
         operating-system:
           - ubuntu-22.04
         php-version:
-          - '8.3'
+          - '8.4'
     name: php ${{ matrix.php-version }} on ${{ matrix.operating-system }}
     services:
       mysql:
@@ -33,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup PHP 8.3
+      - name: Setup PHP 8.4
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}

@@ -28,7 +28,7 @@ readonly class TorrentSearchFiltersDTO
     private ?User $user;
 
     public function __construct(
-        User $user = null,
+        ?User $user = null,
         private string $name = '',
         private string $description = '',
         private string $mediainfo = '',
