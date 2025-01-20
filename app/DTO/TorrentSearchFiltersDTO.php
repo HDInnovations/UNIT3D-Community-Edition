@@ -312,7 +312,7 @@ readonly class TorrentSearchFiltersDTO
                             $query
                                 ->whereIntegerInRaw('free', (array) $this->free)
                                 ->when(
-                                    in_array(100, $this->free, true),
+                                    in_array(100, $this->free, false),
                                     fn ($query) => $query->orWhere('featured', '=', true)
                                 )
                         )
