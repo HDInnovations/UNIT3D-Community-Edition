@@ -172,7 +172,6 @@ return [
     'remove'               => 'Remove',
     'report'               => 'Report',
     'resend'               => 'Resend',
-    'revive'               => 'Revive',
     'resolution'           => 'Resolution',
     'resolutions'          => 'Resolutions',
     'reporter'             => 'Reporter',
