@@ -121,12 +121,12 @@ return new class () extends Migration {
         DB::table('users')
             ->lazyById()
             ->each(function (object $user): void {
-                /** @var object{id: int, about: string, signature: string} $user */
+                /** @var object{id: int, about: ?string, signature: ?string} $user */
                 DB::table('users')
                     ->where('id', '=', $user->id)
                     ->update([
-                        'about'     => htmlspecialchars_decode($user->about),
-                        'signature' => htmlspecialchars_decode($user->signature),
+                        'about'     => htmlspecialchars_decode($user->about ?? ''),
+                        'signature' => htmlspecialchars_decode($user->signature ?? ''),
                     ]);
             });
     }
