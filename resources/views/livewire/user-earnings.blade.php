@@ -125,18 +125,28 @@
                                 <i class="fas fa-user-plus"></i>
                                 @include('livewire.includes._sort-icon', ['field' => 'personal_release'])
                             </th>
-                            <th class="user-earnings__connectable-header">
+                            <th
+                                class="user-earnings__connectable-header"
+                                wire:click="sortBy('connectable')"
+                                role="columnheader button"
+                            >
                                 <i
                                     class="{{ config('other.font-awesome') }} fa-wifi"
                                     title="Connectable"
                                 ></i>
+                                @include('livewire.includes._sort-icon', ['field' => 'connectable'])
                             </th>
-                            <th class="user-earnings__seedtime-header">
+                            <th
+                                class="user-earnings__seedtime-header"
+                                wire:click="sortBy('seedtime')"
+                                role="columnheader button"
+                            >
                                 {{ __('torrent.seedtime') }}
+                                @include('livewire.includes._sort-icon', ['field' => 'seedtime'])
                             </th>
                             <th
                                 class="user-earnings__age-header"
-                                wire:click="sortBy('created_at')"
+                                wire:click="sortBy('torrents.created_at')"
                                 role="columnheader button"
                             >
                                 {{ __('torrent.age') }}
