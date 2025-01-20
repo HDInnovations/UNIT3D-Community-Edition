@@ -308,11 +308,11 @@ readonly class TorrentSearchFiltersDTO
                     ->when(
                         config('other.freeleech'),
                         fn ($query) => $query->whereBetween('free', [0, 100]),
-                        fn ($query) => $query->where(fn ($query) =>
-                            $query
+                        fn ($query) => $query->where(
+                            fn ($query) => $query
                                 ->whereIntegerInRaw('free', (array) $this->free)
                                 ->when(
-                                    in_array(100, $this->free, false),
+                                    \in_array(100, $this->free, false),
                                     fn ($query) => $query->orWhere('featured', '=', true)
                                 )
                         )
@@ -344,8 +344,8 @@ readonly class TorrentSearchFiltersDTO
             )
             ->when(
                 $this->doubleup,
-                fn ($query) => $query->where(fn ($query) =>
-                    $query
+                fn ($query) => $query->where(
+                    fn ($query) => $query
                         ->where('doubleup', '=', 1)
                         ->orWhere('featured', '=', 1)
                 )
@@ -556,7 +556,7 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->free !== []) {
             if (!config('other.freeleech')) {
-                if (in_array(100, $this->free, false)) {
+                if (\in_array(100, $this->free, false)) {
                     $filters[] = [
                         'free IN '.json_encode(array_map('intval', $this->free)),
                         'featured = true',
