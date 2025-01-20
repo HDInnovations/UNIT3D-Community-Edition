@@ -30,6 +30,7 @@ To create a tarball that includes only the modified source code and excludes sen
 
    Add the following to the file:
 
+<!-- cspell:disable -->
    ```plaintext
    .env
    node_modules
@@ -79,6 +80,7 @@ To create a tarball that includes only the modified source code and excludes sen
    lib/js/tests.html
    lib/js/tests/npm-debug.log
    ```
+<!-- cspell:enable -->
 
 ### 2.2 Create the Tarball
 

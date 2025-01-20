@@ -69,7 +69,7 @@
                             id="sorting"
                             class="form__select"
                             name="sorting"
-                            wire:mode.livel="label"
+                            wire:mode.live="label"
                         >
                             <option value="" selected default>Any</option>
                             <option value="approved">

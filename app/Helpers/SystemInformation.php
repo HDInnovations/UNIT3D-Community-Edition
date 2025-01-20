@@ -45,6 +45,7 @@ class SystemInformation
      */
     public function avg(): ?array
     {
+        // cspell:ignore loadavg
         if (is_readable('/proc/loadavg')) {
             $file = file_get_contents('/proc/loadavg');
 
@@ -160,7 +161,7 @@ class SystemInformation
     private function getDatabase(): string
     {
         if (!\in_array(config('database.default'), self::KNOWN_DATABASES, true)) {
-            return 'Unkown';
+            return 'Unknown';
         }
 
         return DB::select('select version()')[0]->{'version()'};

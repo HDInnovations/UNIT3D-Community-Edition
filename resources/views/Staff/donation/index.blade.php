@@ -39,7 +39,7 @@
                         <th>Upload #</th>
                         <th>Invite #</th>
                         <th>Bonus #</th>
-                        <th>Lenght</th>
+                        <th>Length</th>
                         <th>Status</th>
                         <th>{{ __('common.actions') }}</th>
                     </tr>

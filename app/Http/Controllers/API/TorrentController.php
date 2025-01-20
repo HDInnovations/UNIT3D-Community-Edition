@@ -115,7 +115,7 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        // Deplace and decode the torrent temporarily
+        // Move and decode the torrent temporarily
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
 

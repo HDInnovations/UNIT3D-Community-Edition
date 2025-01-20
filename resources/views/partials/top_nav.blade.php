@@ -119,7 +119,7 @@
                             $tickets = DB::table('tickets')
                                 ->whereNull('closed_at')
                                 ->whereNull('staff_id')
-                                ->orwhere(function ($query) {
+                                ->orWhere(function ($query) {
                                     $query
                                         ->where('staff_id', '=', auth()->id())
                                         ->Where('staff_read', '=', false);

@@ -41,7 +41,7 @@ return [
     | Max Warnings
     |--------------------------------------------------------------------------
     |
-    | Max Warnings Before Download Privliges Disabled
+    | Max Warnings Before Download Privileges Disabled
     |
     */
 

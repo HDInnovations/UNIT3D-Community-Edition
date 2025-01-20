@@ -351,9 +351,9 @@ class ChatRepository
             }
         }
 
-        foreach (config('censor.replace') as $word => $rword) {
+        foreach (config('censor.replace') as $word => $replacementWord) {
             if (Str::contains($message, $word)) {
-                $message = str_replace($word, $rword, (string) $message);
+                $message = str_replace($word, $replacementWord, (string) $message);
             }
         }
 

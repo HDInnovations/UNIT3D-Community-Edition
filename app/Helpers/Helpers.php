@@ -129,6 +129,7 @@ if (!\function_exists('rating_color')) {
 if (!\function_exists('language_flag')) {
     function language_flag(?string $language): ?string
     {
+        // cspell:words Bokmal, Limburgish, Sinhala,
         $flag = match ($language) {
             'English', 'English (US)' => 'us',
             'English (GB)' => 'gb',
@@ -145,7 +146,7 @@ if (!\function_exists('language_flag')) {
             'Bosnian', 'Bosnian (BA)' => 'ba',
             'Bulgarian', 'Bulgarian (BG)' => 'bg',
             'Burmese' => 'mm',
-            'Chinese', 'Mandarin', 'Mandarin (Hans)', 'Mandarin (Hant)', 'Cantonese', 'Cantonese (Hant)', 'Chinese (Simplied)', 'Chinese (Traditional)', 'Chinese (Simplified)', 'Chinese-yue-Hant', 'Chinese-cmn-Hans', 'Chinese-cmn-Hant' => 'cn',
+            'Chinese', 'Mandarin', 'Mandarin (Hans)', 'Mandarin (Hant)', 'Cantonese', 'Cantonese (Hant)', /* cspell:disable */ 'Chinese (Simplied)' /* cspell:enable */, 'Chinese (Traditional)', 'Chinese (Simplified)', 'Chinese-yue-Hant', 'Chinese-cmn-Hans', 'Chinese-cmn-Hant' => 'cn',
             'Chinese (HK)', 'Chinese-Hant-HK', 'Mandarin (HK)', 'Cantonese (HK)', 'Chinese-cmn-HK' => 'hk',
             'Chinese (Taiwan)' => 'tw',
             'Croatian', 'Croatian (HR)' => 'hr',

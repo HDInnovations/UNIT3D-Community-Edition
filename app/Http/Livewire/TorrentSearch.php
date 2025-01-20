@@ -755,7 +755,7 @@ class TorrentSearch extends Component
             ->values()
             ->groupBy(fn ($torrent) => $torrent->type->name)
             ->map(
-                fn ($torrentsBytype) => $torrentsBytype
+                fn ($torrentsByType) => $torrentsByType
                     ->sortBy([
                         ['resolution.position', 'asc'],
                         ['name', 'asc'],

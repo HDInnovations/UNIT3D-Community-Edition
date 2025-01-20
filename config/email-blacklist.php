@@ -16,7 +16,7 @@ declare(strict_types=1);
 return [
     /*
     |--------------------------------------------------------------------------
-    | Email Domain Blackist Validation
+    | Email Domain Blacklist Validation
     |--------------------------------------------------------------------------
     |
     | The email domain blacklist validation rule uses a remote or local source

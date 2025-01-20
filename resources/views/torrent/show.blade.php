@@ -82,6 +82,6 @@
     {{-- Extra Meta Block --}}
     @include('torrent.partials.extra_meta')
 
-    {{-- Commments Block --}}
+    {{-- Comments Block --}}
     @include('torrent.partials.comments')
 @endsection

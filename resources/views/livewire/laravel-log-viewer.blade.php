@@ -121,7 +121,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr x-cloack x-show="isToggledOn">
+                                            <tr x-cloak x-show="isToggledOn">
                                                 <td colspan="2">
                                                     <div class="bbcode-rendered">
                                                         <pre><code x-ref="stacktrace">{{ $entry['stacktrace'] }}</code></pre>

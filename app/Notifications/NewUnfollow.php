@@ -26,7 +26,7 @@ class NewUnfollow extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * NewUnfolllow Constructor.
+     * NewUnfollow Constructor.
      */
     public function __construct(public string $type, public User $unfollower)
     {

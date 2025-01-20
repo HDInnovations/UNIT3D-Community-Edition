@@ -41,7 +41,7 @@
                                     type="number"
                                     name="position"
                                     value=""
-                                    placerholder="0"
+                                    placeholder="0"
                                     class="form__text"
                                 />
                             </td>

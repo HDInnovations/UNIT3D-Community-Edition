@@ -70,7 +70,7 @@ class TorrentController extends Controller
     }
 
     /**
-     * Display The Torrent reasource.
+     * Display The Torrent resource.
      *
      * @throws JsonException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException

@@ -1,0 +1,6 @@
+llen
+lpop
+lpush
+rpush
+sadd
+srandmember

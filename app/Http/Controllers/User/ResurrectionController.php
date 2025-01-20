@@ -79,7 +79,7 @@ class ResurrectionController extends Controller
     }
 
     /**
-     * Cancel A Ressurection.
+     * Cancel A Resurrection.
      */
     public function destroy(Request $request, User $user, Resurrection $resurrection): \Illuminate\Http\RedirectResponse
     {

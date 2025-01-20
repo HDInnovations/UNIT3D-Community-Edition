@@ -126,7 +126,7 @@ class GitUpdater extends Command
 
                 $this->backup($paths);
 
-                $this->header('Reseting Repository');
+                $this->header('Resetting Repository');
 
                 $this->commands([
                     'git fetch origin',

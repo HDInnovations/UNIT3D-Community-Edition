@@ -864,8 +864,8 @@ Route::middleware('language')->group(function (): void {
         // Commands
         Route::prefix('commands')->middleware('owner')->group(function (): void {
             Route::get('/', [App\Http\Controllers\Staff\CommandController::class, 'index'])->name('commands.index');
-            Route::post('/maintance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceEnable']);
-            Route::post('/maintance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintanceDisable']);
+            Route::post('/maintenance-enable', [App\Http\Controllers\Staff\CommandController::class, 'maintenanceEnable']);
+            Route::post('/maintenance-disable', [App\Http\Controllers\Staff\CommandController::class, 'maintenanceDisable']);
             Route::post('/clear-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearCache']);
             Route::post('/clear-view-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearView']);
             Route::post('/clear-route-cache', [App\Http\Controllers\Staff\CommandController::class, 'clearRoute']);
@@ -977,7 +977,7 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Laravel Log Viewer
-        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('laravellog.index');
+        Route::get('/laravel-log', App\Http\Livewire\LaravelLogViewer::class)->middleware('owner')->name('laravel-log.index');
 
         // Leakers
         Route::prefix('leakers')->group(function (): void {
@@ -1001,7 +1001,7 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
-        // Media Lanuages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
+        // Media Languages (Languages Used To Populate Language Dropdowns For Subtitles / Audios / Etc.)
         Route::prefix('media-languages')->group(function (): void {
             Route::name('media_languages.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\MediaLanguageController::class, 'index'])->name('index');
@@ -1187,7 +1187,7 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
-        // Internal Useres
+        // Internal Users
         Route::prefix('internal-users')->group(function (): void {
             Route::name('internal_users.')->group(function (): void {
                 Route::post('/', [App\Http\Controllers\Staff\InternalUserController::class, 'store'])->name('store');
