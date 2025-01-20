@@ -80,7 +80,7 @@ class TrackerException extends Exception
     /**
      * TrackerException constructor.
      */
-    public function __construct(int $code = 999, array $replace = null, Throwable $throwable = null)
+    public function __construct(int $code = 999, ?array $replace = null, ?Throwable $throwable = null)
     {
         $message = self::ERROR_MSG[$code];
 
