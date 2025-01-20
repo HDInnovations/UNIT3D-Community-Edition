@@ -35,7 +35,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Closure;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
 
@@ -341,9 +340,6 @@ class TorrentSearch extends Component
             ->pluck('original_language');
     }
 
-    /**
-     * @return Closure(Builder<Torrent>): Builder<Torrent>
-     */
     final public function filters(): TorrentSearchFiltersDTO
     {
         return (new TorrentSearchFiltersDTO(
