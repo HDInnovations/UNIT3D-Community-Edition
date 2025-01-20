@@ -534,7 +534,9 @@ class TorrentSearch extends Component
             $this->reset('sortField');
         }
 
-        $groups = Torrent::query()
+        $isSqlAllowed = (($user->group->is_modo || $user->group->is_editor) && $this->driver === 'sql') || $this->description || $this->mediainfo;
+
+        $groupQuery = Torrent::query()
             ->select('tmdb')
             ->selectRaw('MAX(sticky) as sticky')
             ->selectRaw('MAX(bumped_at) as bumped_at')
@@ -550,8 +552,33 @@ class TorrentSearch extends Component
             ->where($this->filters()->toSqlQueryBuilder())
             ->groupBy('tmdb', 'meta')
             ->latest('sticky')
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(min($this->perPage, 100));
+            ->orderBy($this->sortField, $this->sortDirection);
+
+        if ($isSqlAllowed) {
+            $groups = $groupQuery
+                ->paginate(min($this->perPage, 100));
+        } else {
+            $results = (new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key')))
+                ->index(config('scout.prefix').'torrents')
+                ->search($this->name, [
+                    'sort'                 => ['sticky:desc', $this->sortField.':'.$this->sortDirection,],
+                    'filter'               => $this->filters()->toMeilisearchFilter(),
+                    'matchingStrategy'     => 'all',
+                    'page'                 => (int) $this->getPage(),
+                    'hitsPerPage'          => min($this->perPage, 100),
+                    'attributesToRetrieve' => ['imdb'],
+                    'distinct'             => 'imdb',
+                ]);
+
+            $imdbIds = array_column($results->getHits(), 'imdb');
+
+            $groups = $groupQuery
+                ->whereIntegerInRaw('imdb', $imdbIds)
+                ->get()
+                ->sortBy(fn ($group) => array_search($group->imdb, $imdbIds));
+
+            $groups = new LengthAwarePaginator($groups, $results->getTotalHits(), $this->perPage, $this->getPage());
+        }
 
         $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
         $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
