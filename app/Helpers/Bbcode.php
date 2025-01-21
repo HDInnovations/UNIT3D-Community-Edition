@@ -291,7 +291,7 @@ class Bbcode
         );
         $source = preg_replace_callback(
             '/\[url=(.*?)](.*?)\[\/url]/i',
-            fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.e($matches[2]).'</a>',
+            fn ($matches) => '<a href="'.$this->sanitizeUrl($matches[1]).'">'.$matches[2].'</a>',
             $source ?? ''
         );
         $source = preg_replace_callback(
