@@ -51,7 +51,7 @@ class RegionController extends Controller
         Region::create($request->validated());
 
         return to_route('staff.regions.index')
-            ->withSuccess('Region Successfully Added');
+            ->with('success', 'Region Successfully Added');
     }
 
     /**
@@ -72,7 +72,7 @@ class RegionController extends Controller
         $region->update($request->validated());
 
         return to_route('staff.regions.index')
-            ->withSuccess('Region Successfully Modified');
+            ->with('success', 'Region Successfully Modified');
     }
 
     /**
@@ -86,6 +86,6 @@ class RegionController extends Controller
         $region->delete();
 
         return to_route('staff.regions.index')
-            ->withSuccess('Region Successfully Deleted');
+            ->with('success', 'Region Successfully Deleted');
     }
 }

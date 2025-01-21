@@ -67,7 +67,7 @@ class ArticleController extends Controller
         Article::create(['user_id' => $request->user()->id, 'image' => $filename ?? null] + $request->validated());
 
         return to_route('staff.articles.index')
-            ->withSuccess('Your article has successfully published!');
+            ->with('success', 'Your article has successfully published!');
     }
 
     /**
@@ -98,7 +98,7 @@ class ArticleController extends Controller
         $article->update(['image' => $filename ?? null,] + $request->validated());
 
         return to_route('staff.articles.index')
-            ->withSuccess('Your article changes have successfully published!');
+            ->with('success', 'Your article changes have successfully published!');
     }
 
     /**
@@ -112,6 +112,6 @@ class ArticleController extends Controller
         $article->delete();
 
         return to_route('staff.articles.index')
-            ->withSuccess('Article has successfully been deleted');
+            ->with('success', 'Article has successfully been deleted');
     }
 }

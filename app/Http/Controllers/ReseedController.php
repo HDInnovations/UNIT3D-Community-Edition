@@ -55,7 +55,7 @@ class ReseedController extends Controller
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withSuccess('A notification has been sent to all users that downloaded this torrent along with original uploader!');
+                ->with('success', 'A notification has been sent to all users that downloaded this torrent along with original uploader!');
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])

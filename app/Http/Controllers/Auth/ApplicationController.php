@@ -45,6 +45,6 @@ class ApplicationController extends Controller
         $application->urlProofs()->createMany($request->validated('links'));
 
         return to_route('login')
-            ->withSuccess(trans('auth.application-submitted'));
+            ->with('success', trans('auth.application-submitted'));
     }
 }

@@ -100,7 +100,7 @@ test('store returns an ok response', function (): void {
         // TODO: send request data
     ]);
 
-    $response->assertRedirect(withSuccess(trans('bon.gift-sent')));
+    $response->assertRedirect(with('success', trans('bon.gift-sent')));
 
     // TODO: perform additional assertions
 });

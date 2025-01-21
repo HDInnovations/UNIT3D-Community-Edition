@@ -52,7 +52,7 @@ class RsskeyController extends Controller
         });
 
         return to_route('users.rsskeys.index', ['user' => $user])
-            ->withSuccess('Your RSS key was changed successfully.');
+            ->with('success', 'Your RSS key was changed successfully.');
     }
 
     /**

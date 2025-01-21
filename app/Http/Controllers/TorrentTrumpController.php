@@ -34,7 +34,7 @@ class TorrentTrumpController extends Controller
         ]);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent Flagged As Trumpable!');
+            ->with('success', 'Torrent Flagged As Trumpable!');
     }
 
     public function destroy(Request $request, Torrent $torrent): \Illuminate\Http\RedirectResponse
@@ -46,6 +46,6 @@ class TorrentTrumpController extends Controller
         $torrent->trump()->delete();
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent Trump Flag Removed!');
+            ->with('success', 'Torrent Trump Flag Removed!');
     }
 }

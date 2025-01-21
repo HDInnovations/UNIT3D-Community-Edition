@@ -35,7 +35,7 @@ class GeneralSettingController extends Controller
         cache()->forget('user-settings:by-user-id:'.$user->id);
 
         return to_route('users.general_settings.edit', ['user' => $user])
-            ->withSuccess('Your general settings have been successfully saved.');
+            ->with('success', 'Your general settings have been successfully saved.');
     }
 
     /**

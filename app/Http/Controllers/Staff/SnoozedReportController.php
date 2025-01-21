@@ -30,7 +30,7 @@ class SnoozedReportController extends Controller
         $report->update($request->validated());
 
         return to_route('staff.reports.show', ['report' => $report])
-            ->withSuccess('Report has been snoozed');
+            ->with('success', 'Report has been snoozed');
     }
 
     /**
@@ -41,6 +41,6 @@ class SnoozedReportController extends Controller
         $report->update(['snoozed_until' => null]);
 
         return to_route('staff.reports.show', ['report' => $report])
-            ->withSuccess('Report has been un-snoozed');
+            ->with('success', 'Report has been un-snoozed');
     }
 }

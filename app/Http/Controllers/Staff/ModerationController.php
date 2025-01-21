@@ -109,7 +109,7 @@ class ModerationController extends Controller
                 TorrentHelper::approveHelper($id);
 
                 return to_route('staff.moderation.index')
-                    ->withSuccess('Torrent Approved');
+                    ->with('success', 'Torrent Approved');
 
             case Torrent::REJECTED:
                 $torrent->update([
@@ -133,7 +133,7 @@ class ModerationController extends Controller
                 Unit3dAnnounce::addTorrent($torrent);
 
                 return to_route('staff.moderation.index')
-                    ->withSuccess('Torrent Rejected');
+                    ->with('success', 'Torrent Rejected');
 
             case Torrent::POSTPONED:
                 $torrent->update([
@@ -157,7 +157,7 @@ class ModerationController extends Controller
                 Unit3dAnnounce::addTorrent($torrent);
 
                 return to_route('staff.moderation.index')
-                    ->withSuccess('Torrent Postponed');
+                    ->with('success', 'Torrent Postponed');
 
             default: // Undefined status
                 return to_route('torrents.show', ['id' => $id])

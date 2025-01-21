@@ -67,6 +67,6 @@ class BanController extends Controller
         $user->notify(new UserBan($ban));
 
         return to_route('users.show', ['user' => $user])
-            ->withSuccess('User Is Now Banned!');
+            ->with('success', 'User Is Now Banned!');
     }
 }

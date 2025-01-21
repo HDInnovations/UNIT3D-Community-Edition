@@ -83,7 +83,7 @@ class BountyController extends Controller
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(trans('request.added-bonus'));
+            ->with('success', trans('request.added-bonus'));
     }
 
     public function update(UpdateTorrentRequestBountyRequest $request, TorrentRequest $torrentRequest, TorrentRequestBounty $torrentRequestBounty): \Illuminate\Http\RedirectResponse

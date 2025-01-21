@@ -35,7 +35,7 @@ class InternalUserController extends Controller
         return to_route('staff.internals.edit', [
             'internal' => $request->integer('internal_id')
         ])
-            ->withSuccess('User added to group.');
+            ->with('success', 'User added to group.');
     }
 
     public function update(UpdateInternalUserRequest $request, InternalUser $internalUser): \Illuminate\Http\RedirectResponse
@@ -45,7 +45,7 @@ class InternalUserController extends Controller
         return to_route('staff.internals.edit', [
             'internal' => $internalUser->internal_id
         ])
-            ->withSuccess('User updated.');
+            ->with('success', 'User updated.');
     }
 
     public function destroy(InternalUser $internalUser): \Illuminate\Http\RedirectResponse
@@ -55,6 +55,6 @@ class InternalUserController extends Controller
         return to_route('staff.internals.edit', [
             'internal' => $internalUser->internal_id
         ])
-            ->withSuccess('User removed from group.');
+            ->with('success', 'User removed from group.');
     }
 }

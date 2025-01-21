@@ -70,7 +70,7 @@ class RssController extends Controller
         $rss->save();
 
         return to_route('staff.rss.index')
-            ->withSuccess('Public RSS Feed Created');
+            ->with('success', 'Public RSS Feed Created');
     }
 
     /**
@@ -104,7 +104,7 @@ class RssController extends Controller
         ]);
 
         return to_route('staff.rss.index')
-            ->withSuccess('Public RSS Feed Updated');
+            ->with('success', 'Public RSS Feed Updated');
     }
 
     /**
@@ -119,6 +119,6 @@ class RssController extends Controller
         $rss->delete();
 
         return to_route('staff.rss.index')
-            ->withSuccess('RSS Feed Deleted!');
+            ->with('success', 'RSS Feed Deleted!');
     }
 }

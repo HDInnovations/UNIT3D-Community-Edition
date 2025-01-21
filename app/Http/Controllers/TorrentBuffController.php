@@ -68,7 +68,7 @@ class TorrentBuffController extends Controller
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent Has Been Bumped To The Top Successfully!');
+            ->with('success', 'Torrent Has Been Bumped To The Top Successfully!');
     }
 
     /**
@@ -84,7 +84,7 @@ class TorrentBuffController extends Controller
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent Sticky Status Has Been Adjusted!');
+            ->with('success', 'Torrent Sticky Status Has Been Adjusted!');
     }
 
     /**
@@ -128,7 +128,7 @@ class TorrentBuffController extends Controller
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent FL Has Been Adjusted!');
+            ->with('success', 'Torrent FL Has Been Adjusted!');
     }
 
     /**
@@ -161,7 +161,7 @@ class TorrentBuffController extends Controller
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withSuccess('Torrent Is Now Featured!');
+                ->with('success', 'Torrent Is Now Featured!');
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -196,7 +196,7 @@ class TorrentBuffController extends Controller
         cache()->forget('featured-torrent-ids');
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Revoked featured from Torrent!');
+            ->with('success', 'Revoked featured from Torrent!');
     }
 
     /**
@@ -238,7 +238,7 @@ class TorrentBuffController extends Controller
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
+            ->with('success', 'Torrent DoubleUpload Has Been Adjusted!');
     }
 
     /**
@@ -267,7 +267,7 @@ class TorrentBuffController extends Controller
             $torrent->searchable();
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
+                ->with('success', 'You Have Successfully Activated A Freeleech Token For This Torrent!');
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -302,6 +302,6 @@ class TorrentBuffController extends Controller
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent\'s Refundable Status Has Been Adjusted!');
+            ->with('success', 'Torrent\'s Refundable Status Has Been Adjusted!');
     }
 }

@@ -71,6 +71,6 @@ class PostTipController extends Controller
             $tip->recipient->notify((new NewPostTip($tip))->afterCommit());
         });
 
-        return redirect()->back()->withSuccess(trans('bon.success-tip'));
+        return redirect()->back()->with('success', trans('bon.success-tip'));
     }
 }

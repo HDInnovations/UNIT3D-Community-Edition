@@ -100,7 +100,7 @@ test('store returns an ok response', function (): void {
         // TODO: send request data
     ]);
 
-    $response->assertRedirect(withSuccess(trans('forum.reply-topic-success')));
+    $response->assertRedirect(with('success', trans('forum.reply-topic-success')));
 
     // TODO: perform additional assertions
 });
@@ -115,7 +115,7 @@ test('update returns an ok response', function (): void {
         // TODO: send request data
     ]);
 
-    $response->assertRedirect(withSuccess(trans('forum.edit-post-success')));
+    $response->assertRedirect(with('success', trans('forum.edit-post-success')));
 
     // TODO: perform additional assertions
 });

@@ -78,7 +78,7 @@ class PollController extends Controller
         );
 
         return to_route('staff.polls.index')
-            ->withSuccess('Your poll has been created.');
+            ->with('success', 'Your poll has been created.');
     }
 
     /**
@@ -111,7 +111,7 @@ class PollController extends Controller
         );
 
         return to_route('staff.polls.index')
-            ->withSuccess('Your poll has been edited.');
+            ->with('success', 'Your poll has been edited.');
     }
 
     /**
@@ -125,6 +125,6 @@ class PollController extends Controller
         $poll->delete();
 
         return to_route('staff.polls.index')
-            ->withSuccess('Poll has successfully been deleted');
+            ->with('success', 'Poll has successfully been deleted');
     }
 }

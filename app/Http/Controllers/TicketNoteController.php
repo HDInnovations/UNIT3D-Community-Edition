@@ -34,7 +34,7 @@ class TicketNoteController extends Controller
         TicketNote::create(['ticket_id' => $ticket->id, 'user_id' => $user->id] + $request->validated());
 
         return to_route('tickets.show', ['ticket' => $ticket])
-            ->withSuccess(trans('ticket.note-create-success'));
+            ->with('success', trans('ticket.note-create-success'));
     }
 
     /**
@@ -47,6 +47,6 @@ class TicketNoteController extends Controller
         $ticket->notes()->delete();
 
         return to_route('tickets.show', ['ticket' => $ticket])
-            ->withSuccess(trans('ticket.note-destroy-success'));
+            ->with('success', trans('ticket.note-destroy-success'));
     }
 }

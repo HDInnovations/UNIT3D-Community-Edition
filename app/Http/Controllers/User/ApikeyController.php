@@ -53,7 +53,7 @@ class ApikeyController extends Controller
         });
 
         return to_route('users.apikeys.index', ['user' => $user])
-            ->withSuccess('Your API key was changed successfully.');
+            ->with('success', 'Your API key was changed successfully.');
     }
 
     /**

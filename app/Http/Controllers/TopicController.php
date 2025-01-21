@@ -189,7 +189,7 @@ class TopicController extends Controller
         }
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->withSuccess('Topic Created Successfully!');
+            ->with('success', 'Topic Created Successfully!');
     }
 
     /**
@@ -277,7 +277,7 @@ class TopicController extends Controller
         }
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->withSuccess('Topic Successfully Edited');
+            ->with('success', 'Topic Successfully Edited');
     }
 
     /**
@@ -307,7 +307,7 @@ class TopicController extends Controller
         ]);
 
         return to_route('forums.show', ['id' => $forum->id])
-            ->withSuccess('This Topic Is Now Deleted!');
+            ->with('success', 'This Topic Is Now Deleted!');
     }
 
     /**
@@ -320,7 +320,7 @@ class TopicController extends Controller
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->withSuccess('This Topic Is Now Closed!');
+            ->with('success', 'This Topic Is Now Closed!');
     }
 
     /**
@@ -333,7 +333,7 @@ class TopicController extends Controller
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->withSuccess('This Topic Is Now Open!');
+            ->with('success', 'This Topic Is Now Open!');
     }
 
     /**
@@ -346,7 +346,7 @@ class TopicController extends Controller
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->withSuccess('This Topic Is Now Pinned!');
+            ->with('success', 'This Topic Is Now Pinned!');
     }
 
     /**
@@ -359,7 +359,7 @@ class TopicController extends Controller
         $topic->save();
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->withSuccess('This Topic Is Now Unpinned!');
+            ->with('success', 'This Topic Is Now Unpinned!');
     }
 
     /**

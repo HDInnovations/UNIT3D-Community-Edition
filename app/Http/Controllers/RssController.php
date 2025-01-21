@@ -119,7 +119,7 @@ class RssController extends Controller
             $rss->save();
 
             return to_route('rss.index', ['hash' => 'private'])
-                ->withSuccess(trans('rss.created'));
+                ->with('success', trans('rss.created'));
         }
 
         return to_route('rss.create')
@@ -290,7 +290,7 @@ class RssController extends Controller
             $rss->save();
 
             return to_route('rss.index', ['hash' => 'private'])
-                ->withSuccess(trans('rss.created'));
+                ->with('success', trans('rss.created'));
         }
 
         return to_route('rss.create', ['id' => $id])
@@ -312,6 +312,6 @@ class RssController extends Controller
         $rss->delete();
 
         return to_route('rss.index', ['hash' => 'private'])
-            ->withSuccess(trans('rss.deleted'));
+            ->with('success', trans('rss.deleted'));
     }
 }

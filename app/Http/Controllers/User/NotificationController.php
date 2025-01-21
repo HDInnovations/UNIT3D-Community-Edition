@@ -47,7 +47,7 @@ class NotificationController extends Controller
         $notification->markAsRead();
 
         return redirect()->to($notification->data['url'])
-            ->withSuccess(trans('notification.marked-read'));
+            ->with('success', trans('notification.marked-read'));
     }
 
     /**
@@ -60,7 +60,7 @@ class NotificationController extends Controller
         $notification->markAsRead();
 
         return to_route('users.notifications.index', ['user' => $user])
-            ->withSuccess(trans('notification.marked-read'));
+            ->with('success', trans('notification.marked-read'));
     }
 
     /**
@@ -75,7 +75,7 @@ class NotificationController extends Controller
         $user->unreadNotifications()->update(['read_at' => now()]);
 
         return to_route('users.notifications.index', ['user' => $user])
-            ->withSuccess(trans('notification.all-marked-read'));
+            ->with('success', trans('notification.all-marked-read'));
     }
 
     /**
@@ -88,7 +88,7 @@ class NotificationController extends Controller
         $notification->delete();
 
         return to_route('users.notifications.index', ['user' => $user])
-            ->withSuccess(trans('notification.deleted'));
+            ->with('success', trans('notification.deleted'));
     }
 
     /**
@@ -101,6 +101,6 @@ class NotificationController extends Controller
         $user->notifications()->delete();
 
         return to_route('users.notifications.index', ['user' => $user])
-            ->withSuccess(trans('notification.all-deleted'));
+            ->with('success', trans('notification.all-deleted'));
     }
 }
