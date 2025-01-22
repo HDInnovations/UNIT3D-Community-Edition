@@ -67,7 +67,7 @@ class EmailController extends Controller
         $user->sendEmailVerificationNotification();
 
         return to_route('users.email.edit', ['user' => $user])
-            ->withSuccess('Your email was updated successfully.');
+            ->with('success', 'Your email was updated successfully.');
     }
 
     /**

@@ -86,7 +86,7 @@ class PlaylistController extends Controller
         }
 
         return to_route('playlists.show', ['playlist' => $playlist])
-            ->withSuccess(trans('playlist.published-success'));
+            ->with('success', trans('playlist.published-success'));
     }
 
     /**
@@ -162,7 +162,7 @@ class PlaylistController extends Controller
         }
 
         return to_route('playlists.show', ['playlist' => $playlist])
-            ->withSuccess(trans('playlist.update-success'));
+            ->with('success', trans('playlist.update-success'));
     }
 
     /**
@@ -179,6 +179,6 @@ class PlaylistController extends Controller
         $playlist->delete();
 
         return to_route('playlists.index')
-            ->withSuccess(trans('playlist.deleted'));
+            ->with('success', trans('playlist.deleted'));
     }
 }

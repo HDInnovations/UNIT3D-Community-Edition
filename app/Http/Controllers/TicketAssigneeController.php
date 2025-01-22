@@ -32,7 +32,7 @@ class TicketAssigneeController extends Controller
         ]);
 
         return to_route('tickets.show', ['ticket' => $ticket])
-            ->withSuccess(trans('ticket.assigned-success'));
+            ->with('success', trans('ticket.assigned-success'));
     }
 
     final public function destroy(Request $request, Ticket $ticket): \Illuminate\Http\RedirectResponse
@@ -44,6 +44,6 @@ class TicketAssigneeController extends Controller
         ]);
 
         return to_route('tickets.show', ['ticket' => $ticket])
-            ->withSuccess(trans('ticket.unassigned-success'));
+            ->with('success', trans('ticket.unassigned-success'));
     }
 }

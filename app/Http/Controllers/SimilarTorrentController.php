@@ -156,6 +156,6 @@ class SimilarTorrentController extends Controller
                 break;
         }
 
-        return back()->withSuccess('Metadata update queued successfully.');
+        return back()->with('success', 'Metadata update queued successfully.');
     }
 }

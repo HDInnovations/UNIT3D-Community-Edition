@@ -52,7 +52,7 @@ class ClaimController extends Controller
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(trans('request.claimed-success'));
+            ->with('success', trans('request.claimed-success'));
     }
 
     /**
@@ -78,6 +78,6 @@ class ClaimController extends Controller
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(trans('request.unclaimed-success'));
+            ->with('success', trans('request.unclaimed-success'));
     }
 }

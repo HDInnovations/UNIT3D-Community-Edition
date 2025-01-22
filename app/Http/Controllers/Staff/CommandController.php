@@ -40,7 +40,7 @@ class CommandController extends Controller
         Artisan::call('down');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -51,7 +51,7 @@ class CommandController extends Controller
         Artisan::call('up');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -62,7 +62,7 @@ class CommandController extends Controller
         Artisan::call('cache:clear');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -73,7 +73,7 @@ class CommandController extends Controller
         Artisan::call('view:clear');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -84,7 +84,7 @@ class CommandController extends Controller
         Artisan::call('route:clear');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -95,7 +95,7 @@ class CommandController extends Controller
         Artisan::call('config:clear');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -106,7 +106,7 @@ class CommandController extends Controller
         Artisan::call('clear:all_cache');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -117,7 +117,7 @@ class CommandController extends Controller
         Artisan::call('set:all_cache');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -130,6 +130,6 @@ class CommandController extends Controller
         ]);
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(str_replace(["\r", "\n", '*'], '', Artisan::output())));
+            ->with('info', trim(str_replace(["\r", "\n", '*'], '', Artisan::output())));
     }
 }

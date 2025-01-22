@@ -45,6 +45,6 @@ class ContactController extends Controller
         Mail::to($user->email)->send(new Contact($request->string('email')));
 
         return to_route('home.index')
-            ->withSuccess('Your Message Was Successfully Sent');
+            ->with('success', 'Your Message Was Successfully Sent');
     }
 }

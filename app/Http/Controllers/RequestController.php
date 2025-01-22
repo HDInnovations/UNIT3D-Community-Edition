@@ -173,7 +173,7 @@ class RequestController extends Controller
         }
 
         return to_route('requests.index')
-            ->withSuccess(trans('request.added-request'));
+            ->with('success', trans('request.added-request'));
     }
 
     /**
@@ -229,7 +229,7 @@ class RequestController extends Controller
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(trans('request.edited-request'));
+            ->with('success', trans('request.edited-request'));
     }
 
     /**
@@ -259,6 +259,6 @@ class RequestController extends Controller
         $torrentRequest->delete();
 
         return to_route('requests.index')
-            ->withSuccess(\sprintf(trans('request.deleted'), $torrentRequest->name));
+            ->with('success', \sprintf(trans('request.deleted'), $torrentRequest->name));
     }
 }

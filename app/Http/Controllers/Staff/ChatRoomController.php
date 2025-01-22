@@ -54,7 +54,7 @@ class ChatRoomController extends Controller
         Chatroom::create($request->validated());
 
         return to_route('staff.chatrooms.index')
-            ->withSuccess('Chatroom Successfully Added');
+            ->with('success', 'Chatroom Successfully Added');
     }
 
     /**
@@ -75,7 +75,7 @@ class ChatRoomController extends Controller
         $chatroom->update($request->validated());
 
         return to_route('staff.chatrooms.index')
-            ->withSuccess('Chatroom Successfully Modified');
+            ->with('success', 'Chatroom Successfully Modified');
     }
 
     /**
@@ -98,6 +98,6 @@ class ChatRoomController extends Controller
         $chatroom->delete();
 
         return to_route('staff.chatrooms.index')
-            ->withSuccess('Chatroom Successfully Deleted');
+            ->with('success', 'Chatroom Successfully Deleted');
     }
 }

@@ -47,6 +47,6 @@ class DonationController extends Controller
         ]);
 
         return redirect()->route('donations.index')
-            ->withSuccess('Thank You For Supporting Us! Please allow for up to 48 hours for staff to confirm the transaction.');
+            ->with('success', 'Thank You For Supporting Us! Please allow for up to 48 hours for staff to confirm the transaction.');
     }
 }

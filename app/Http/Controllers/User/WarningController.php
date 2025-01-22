@@ -50,7 +50,7 @@ class WarningController extends Controller
         );
 
         return to_route('users.show', ['user' => $user])
-            ->withSuccess('Warning issued successfully!');
+            ->with('success', 'Warning issued successfully!');
     }
 
     /**
@@ -77,7 +77,7 @@ class WarningController extends Controller
         $warning->delete();
 
         return to_route('users.show', ['user' => $user])
-            ->withSuccess('Warning Was Successfully Deleted');
+            ->with('success', 'Warning Was Successfully Deleted');
     }
 
     /**
@@ -101,7 +101,7 @@ class WarningController extends Controller
         );
 
         return to_route('users.show', ['user' => $user])
-            ->withSuccess('All Warnings Were Successfully Deleted');
+            ->with('success', 'All Warnings Were Successfully Deleted');
     }
 
     /**
@@ -114,6 +114,6 @@ class WarningController extends Controller
         $warning->restore();
 
         return to_route('users.show', ['user' => $user])
-            ->withSuccess('Warning Was Successfully Restored');
+            ->with('success', 'Warning Was Successfully Restored');
     }
 }

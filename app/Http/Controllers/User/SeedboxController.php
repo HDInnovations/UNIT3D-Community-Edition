@@ -80,7 +80,7 @@ class SeedboxController extends Controller
         ]);
 
         return to_route('users.seedboxes.index', ['user' => $user])
-            ->withSuccess(trans('user.seedbox-added-success'));
+            ->with('success', trans('user.seedbox-added-success'));
     }
 
     /**
@@ -95,6 +95,6 @@ class SeedboxController extends Controller
         $seedbox->delete();
 
         return to_route('users.seedboxes.index', ['user' => $user])
-            ->withSuccess(trans('user.seedbox-deleted-success'));
+            ->with('success', trans('user.seedbox-deleted-success'));
     }
 }

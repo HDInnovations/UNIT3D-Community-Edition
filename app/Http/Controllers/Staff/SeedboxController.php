@@ -45,6 +45,6 @@ class SeedboxController extends Controller
         $seedbox->delete();
 
         return to_route('staff.seedboxes.index')
-            ->withSuccess('Seedbox Record Has Successfully Been Deleted');
+            ->with('success', 'Seedbox Record Has Successfully Been Deleted');
     }
 }

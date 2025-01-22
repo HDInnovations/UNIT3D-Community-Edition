@@ -65,7 +65,7 @@ class PasswordController extends Controller
         });
 
         return to_route('users.password.edit', ['user' => $user])
-            ->withSuccess('Your new password has been saved successfully.');
+            ->with('success', 'Your new password has been saved successfully.');
     }
 
     /**

@@ -53,7 +53,7 @@ class PageController extends Controller
         Page::create($request->validated());
 
         return to_route('staff.pages.index')
-            ->withSuccess('Page has been created successfully');
+            ->with('success', 'Page has been created successfully');
     }
 
     /**
@@ -74,7 +74,7 @@ class PageController extends Controller
         $page->update($request->validated());
 
         return to_route('staff.pages.index')
-            ->withSuccess('Page has been edited successfully');
+            ->with('success', 'Page has been edited successfully');
     }
 
     /**
@@ -87,6 +87,6 @@ class PageController extends Controller
         $page->delete();
 
         return to_route('staff.pages.index')
-            ->withSuccess('Page has been deleted successfully');
+            ->with('success', 'Page has been deleted successfully');
     }
 }

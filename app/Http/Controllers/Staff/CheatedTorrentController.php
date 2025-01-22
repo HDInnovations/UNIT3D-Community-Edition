@@ -80,7 +80,7 @@ class CheatedTorrentController extends Controller
         ]);
 
         return to_route('staff.cheated_torrents.index')
-            ->withSuccess('Balance successfully reset');
+            ->with('success', 'Balance successfully reset');
     }
 
     /**
@@ -93,6 +93,6 @@ class CheatedTorrentController extends Controller
         ]);
 
         return to_route('staff.cheated_torrents.index')
-            ->withSuccess('All balances successfully reset');
+            ->with('success', 'All balances successfully reset');
     }
 }

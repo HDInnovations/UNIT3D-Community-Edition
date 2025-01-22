@@ -55,7 +55,7 @@ class ReportController extends Controller
         ]);
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(trans('user.report-sent'));
+            ->with('success', trans('user.report-sent'));
     }
 
     /**
@@ -86,7 +86,7 @@ class ReportController extends Controller
         ]);
 
         return to_route('torrents.show', ['id' => $id])
-            ->withSuccess(trans('user.report-sent'));
+            ->with('success', trans('user.report-sent'));
     }
 
     /**
@@ -116,6 +116,6 @@ class ReportController extends Controller
         ]);
 
         return to_route('users.show', ['user' => $reportedUser])
-            ->withSuccess(trans('user.report-sent'));
+            ->with('success', trans('user.report-sent'));
     }
 }

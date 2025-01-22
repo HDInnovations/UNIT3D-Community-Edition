@@ -137,7 +137,7 @@ test('show returns an ok response', function (): void {
 
     $response = $this->actingAs($authUser)->get(route('users.notifications.show', [$user, $notification]));
 
-    $response->assertRedirect(withSuccess(trans('notification.marked-read')));
+    $response->assertRedirect(with('success', trans('notification.marked-read')));
 
     // TODO: perform additional assertions
 });

@@ -94,7 +94,7 @@ class ConversationController extends Controller
         $conversation->users()->sync([$user->id => ['read' => true], $recipient->id]);
 
         return to_route('users.conversations.show', ['user' => $user, 'conversation' => $conversation])
-            ->withSuccess(trans('pm.sent-success'));
+            ->with('success', trans('pm.sent-success'));
     }
 
     /**
@@ -123,7 +123,7 @@ class ConversationController extends Controller
             'user'         => $user,
             'conversation' => $conversation
         ])
-            ->withSuccess(trans('pm.sent-success'));
+            ->with('success', trans('pm.sent-success'));
     }
 
     /**
@@ -138,7 +138,7 @@ class ConversationController extends Controller
         $conversation->participants()->whereBelongsTo($user)->delete();
 
         return to_route('users.conversations.index', ['user' => $user])
-            ->withSuccess(trans('pm.delete-success'));
+            ->with('success', trans('pm.delete-success'));
     }
 
     /**
@@ -151,7 +151,7 @@ class ConversationController extends Controller
         $user->participations()->delete();
 
         return to_route('users.conversations.index', ['user' => $user])
-            ->withSuccess(trans('pm.delete-success'));
+            ->with('success', trans('pm.delete-success'));
     }
 
     /**
@@ -166,6 +166,6 @@ class ConversationController extends Controller
         ]);
 
         return to_route('users.conversations.index', ['user' => $user])
-            ->withSuccess(trans('pm.all-marked-read'));
+            ->with('success', trans('pm.all-marked-read'));
     }
 }

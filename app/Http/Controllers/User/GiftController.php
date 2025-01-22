@@ -105,6 +105,6 @@ class GiftController extends Controller
             )
         );
 
-        return redirect()->back()->withSuccess(trans('bon.gift-sent'));
+        return redirect()->back()->with('success', trans('bon.gift-sent'));
     }
 }

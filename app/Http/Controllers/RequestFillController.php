@@ -57,7 +57,7 @@ class RequestFillController extends Controller
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(trans('request.pending-approval'));
+            ->with('success', trans('request.pending-approval'));
     }
 
     /**
@@ -82,6 +82,6 @@ class RequestFillController extends Controller
         }
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(trans('request.request-reset'));
+            ->with('success', trans('request.request-reset'));
     }
 }

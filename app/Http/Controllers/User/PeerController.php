@@ -73,6 +73,6 @@ class PeerController extends Controller
 
         $user->decrement('own_flushes');
 
-        return redirect()->back()->withSuccess('All peers last announced from the client over 70 minutes ago have been flushed successfully!');
+        return redirect()->back()->with('success', 'All peers last announced from the client over 70 minutes ago have been flushed successfully!');
     }
 }

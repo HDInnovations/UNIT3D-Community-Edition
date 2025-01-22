@@ -34,7 +34,7 @@ class PrizeController extends Controller
         return to_route('staff.events.edit', [
             'event' => $event
         ])
-            ->withSuccess('Prize added to event.');
+            ->with('success', 'Prize added to event.');
     }
 
     /**
@@ -47,7 +47,7 @@ class PrizeController extends Controller
         return to_route('staff.events.edit', [
             'event' => $event
         ])
-            ->withSuccess('Prize updated.');
+            ->with('success', 'Prize updated.');
     }
 
     /**
@@ -60,6 +60,6 @@ class PrizeController extends Controller
         return to_route('staff.events.edit', [
             'event' => $event
         ])
-            ->withSuccess('Prize removed from event.');
+            ->with('success', 'Prize removed from event.');
     }
 }

@@ -32,6 +32,6 @@ class TopicLabelController extends Controller
         $topic->update($request->validated());
 
         return to_route('topics.show', ['id' => $topic->id])
-            ->withInfo('Label Change Has Been Applied');
+            ->with('info', 'Label Change Has Been Applied');
     }
 }

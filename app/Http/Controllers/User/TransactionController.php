@@ -127,7 +127,7 @@ class TransactionController extends Controller
 
             $user->decrement('seedbonus', $bonExchange->cost);
 
-            return back()->withSuccess(trans('bon.success'));
+            return back()->with('success', trans('bon.success'));
         }, 5);
     }
 }

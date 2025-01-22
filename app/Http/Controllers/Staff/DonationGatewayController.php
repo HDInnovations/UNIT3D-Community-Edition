@@ -54,7 +54,7 @@ class DonationGatewayController extends Controller
         DonationGateway::create($request->validated());
 
         return redirect()->route('staff.gateways.index')
-            ->withSuccess('Donation Gateway Added Successfully!');
+            ->with('success', 'Donation Gateway Added Successfully!');
     }
 
     /**
@@ -77,7 +77,7 @@ class DonationGatewayController extends Controller
         $gateway->update($request->validated());
 
         return redirect()->route('staff.gateways.index')
-            ->withSuccess('Donation Gateway Edited Successfully!');
+            ->with('success', 'Donation Gateway Edited Successfully!');
     }
 
     /**
@@ -90,6 +90,6 @@ class DonationGatewayController extends Controller
         $gateway->delete();
 
         return redirect()->route('staff.gateways.index')
-            ->withSuccess('Donation Gateway Deleted Successfully!');
+            ->with('success', 'Donation Gateway Deleted Successfully!');
     }
 }

@@ -162,7 +162,7 @@ class PostController extends Controller
         Notification::send($users, new NewPostTag($post));
 
         return redirect()->to($realUrl)
-            ->withSuccess(trans('forum.reply-topic-success'));
+            ->with('success', trans('forum.reply-topic-success'));
     }
 
     /**
@@ -211,7 +211,7 @@ class PostController extends Controller
         ]);
 
         return redirect()->to($postUrl)
-            ->withSuccess(trans('forum.edit-post-success'));
+            ->with('success', trans('forum.edit-post-success'));
     }
 
     /**
@@ -262,10 +262,10 @@ class PostController extends Controller
 
         if ($isTopicDeleted === true) {
             return to_route('forums.show', ['id' => $forum->id])
-                ->withSuccess(trans('forum.delete-post-success'));
+                ->with('success', trans('forum.delete-post-success'));
         }
 
         return to_route('topics.show', ['id' => $post->topic->id])
-            ->withSuccess(trans('forum.delete-post-success'));
+            ->with('success', trans('forum.delete-post-success'));
     }
 }
