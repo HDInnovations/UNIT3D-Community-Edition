@@ -32,6 +32,7 @@ class StoreBonEarningRequest extends FormRequest
             'bon_earning.position' => [
                 'required',
                 'numeric',
+                'unique:bon_earnings,position',
             ],
             'bon_earning.name' => [
                 'required',
