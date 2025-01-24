@@ -45,6 +45,7 @@ class UpdateBonEarningRequest extends FormRequest
                     'seedtime',
                     'personal_release',
                     'internal',
+                    'connectable',
                 ]),
             ],
             'bon_earning.multiplier' => [
@@ -76,6 +77,7 @@ class UpdateBonEarningRequest extends FormRequest
                     'personal_release',
                     'seedtime',
                     'type_id',
+                    'connectable',
                 ]),
             ],
             'conditions.*.operator' => [
