@@ -519,6 +519,6 @@ class Bbcode
             }
         }
 
-        return htmlspecialchars($url, ENT_QUOTES | ENT_HTML5);
+        return $url;
     }
 }
