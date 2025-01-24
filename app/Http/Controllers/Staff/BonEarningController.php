@@ -50,7 +50,7 @@ class BonEarningController extends Controller
     {
         $bonEarning = BonEarning::create($request->validated('bon_earning'));
 
-        $bonEarning->conditions()->upsert($request->validated('conditions'), ['id']);
+        $bonEarning->conditions()->upsert($request->validated('conditions', []), ['id']);
 
         return to_route('staff.bon_earnings.index')
             ->with('success', 'Bon Exchange Successfully Added');
@@ -77,7 +77,7 @@ class BonEarningController extends Controller
             ->whereNotIn('id', Arr::flatten($request->validated('conditions.*.id')))
             ->delete();
 
-        $bonEarning->conditions()->upsert($request->validated('conditions'), ['id']);
+        $bonEarning->conditions()->upsert($request->validated('conditions', []), ['id']);
 
         return to_route('staff.bon_earnings.index')
             ->with('success', 'Bon Exchange Successfully Modified');
