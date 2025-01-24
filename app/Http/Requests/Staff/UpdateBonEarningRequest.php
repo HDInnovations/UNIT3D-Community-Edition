@@ -33,6 +33,16 @@ class UpdateBonEarningRequest extends FormRequest
                 'required',
                 'numeric',
             ],
+            'bon_earning.name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'bon_earning.description' => [
+                'required',
+                'string',
+                'max:255',
+            ],
             'bon_earning.variable' => [
                 'required',
                 Rule::in([

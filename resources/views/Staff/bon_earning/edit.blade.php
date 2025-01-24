@@ -48,9 +48,9 @@
                 </p>
                 <p class="form__group">
                     <input
-                        id="bon_earning[description]"
+                        id="description"
                         class="form__text"
-                        name="description"
+                        name="bon_earning[description]"
                         required
                         type="text"
                         maxlength="255"
