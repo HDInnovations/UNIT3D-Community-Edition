@@ -80,7 +80,7 @@ If you would like to support the development of UNIT3D, please consider donating
 We would like to extend our heartfelt thanks to the following companies, sites and individuals for their generous donations and support in keeping UNIT3D alive:
 
 ### 👤 Individuals
-**Poppers,** **x64**
+**airclay**, **Poppers**, **x64**
 
 ### 🌐 Sites
 <img src="https://i.postimg.cc/BQJmGYMt/blu.png" height="30px;">&nbsp;
