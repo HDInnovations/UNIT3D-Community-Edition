@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Listeners;
 
 use App\Models\User;
+use App\Notifications\NewWelcome;
 use App\Repositories\ChatRepository;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Arr;
@@ -23,10 +24,7 @@ readonly class RegisteredListener
         $this->chatRepository->systemMessage($this->getWelcomeMessage($user));
 
         // Send Welcome PM
-        $user->sendSystemNotification(
-            subject: config('welcomepm.subject'),
-            message: config('welcomepm.message'),
-        );
+        $user->notify(new NewWelcome());
     }
 
     private function getWelcomeMessage(User $user): string

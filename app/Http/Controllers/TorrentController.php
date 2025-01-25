@@ -37,6 +37,7 @@ use App\Models\TorrentFile;
 use App\Models\Tv;
 use App\Models\Type;
 use App\Models\User;
+use App\Notifications\TorrentDeleted;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
@@ -46,6 +47,7 @@ use Intervention\Image\Facades\Image;
 use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 use Exception;
+use Illuminate\Support\Facades\Notification;
 use ReflectionException;
 use JsonException;
 
@@ -298,13 +300,10 @@ class TorrentController extends Controller
 
         abort_unless($user->group->is_modo || ($user->id === $torrent->user_id && Carbon::now()->lt($torrent->created_at->addDay())), 403);
 
-        foreach (History::where('torrent_id', '=', $torrent->id)->pluck('user_id') as $user_id) {
-            User::sendSystemNotificationTo(
-                userId: $user_id,
-                subject: 'Torrent Deleted! - '.$torrent->name,
-                message: '[b]Attention:[/b] Torrent '.$torrent->name." has been removed from our site. Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.\n\n[b]Removal Reason:[/b] ".$request->message,
-            );
-        }
+        Notification::send(
+            User::query()->whereHas('history', fn ($query) => $query->where('torrent_id', '=', $torrent->id))->get(),
+            new TorrentDeleted($torrent, $request->message),
+        );
 
         // Reset Requests
         $torrent->requests()->update([

@@ -27,10 +27,11 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Type;
-use App\Models\User;
+use App\Notifications\TorrentsDeleted;
 use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -420,7 +421,6 @@ class SimilarTorrent extends Component
         }
 
         $torrents = Torrent::whereKey($this->checked)->get();
-        $names = [];
         $users = [];
         $title = match (true) {
             $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date->format('Y').')',
@@ -430,8 +430,6 @@ class SimilarTorrent extends Component
         };
 
         foreach ($torrents as $torrent) {
-            $names[] = $torrent->name;
-
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
                 if (!\in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
@@ -471,18 +469,7 @@ class SimilarTorrent extends Component
             $torrent->delete();
         }
 
-        foreach ($users as $user) {
-            User::sendSystemNotificationTo(
-                userId: $user,
-                subject: 'Bulk Torrents Deleted - '.$title.'! ',
-                message: '[b]Attention: [/b] The following torrents have been removed from our site.
-            [list]
-                [*]'.implode(' [*]', $names).'
-            [/list]
-            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-                                    [b]Removal Reason: [/b] '.$this->reason,
-            );
-        }
+        Notification::send($users, new TorrentsDeleted($torrents, $title, $this->reason));
 
         $this->checked = [];
         $this->selectPage = false;

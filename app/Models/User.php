@@ -976,32 +976,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Donation::class);
     }
 
-    public function sendSystemNotification(string $subject, string $message): void
-    {
-        $conversation = Conversation::create(['subject' => $subject]);
-
-        $conversation->users()->sync([User::SYSTEM_USER_ID => ['read' => true], $this->id]);
-
-        PrivateMessage::create([
-            'conversation_id' => $conversation->id,
-            'sender_id'       => self::SYSTEM_USER_ID,
-            'message'         => $message
-        ]);
-    }
-
-    public static function sendSystemNotificationTo(int $userId, string $subject, string $message): void
-    {
-        $conversation = Conversation::create(['subject' => $subject]);
-
-        $conversation->users()->sync([User::SYSTEM_USER_ID => ['read' => true], $userId]);
-
-        PrivateMessage::create([
-            'conversation_id' => $conversation->id,
-            'sender_id'       => self::SYSTEM_USER_ID,
-            'message'         => $message
-        ]);
-    }
-
     /**
      * Has many conversations.
      *

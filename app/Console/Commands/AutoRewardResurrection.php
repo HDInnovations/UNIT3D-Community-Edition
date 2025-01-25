@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Resurrection;
+use App\Notifications\ResurrectionCompleted;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 use Exception;
@@ -96,10 +97,7 @@ class AutoRewardResurrection extends Command
                     Unit3dAnnounce::addTorrent($resurrection->torrent);
 
                     // Send Private Message
-                    $resurrection->user->sendSystemNotification(
-                        subject: 'Successful Graveyard Resurrection',
-                        message: \sprintf('You have successfully resurrected [url=%s/torrents/', $appurl).$resurrection->torrent->id.']'.$resurrection->torrent->name.'[/url] ! Thank you for bringing a torrent back from the dead! Enjoy the freeleech tokens!',
-                    );
+                    $resurrection->user->notify(new ResurrectionCompleted($resurrection->torrent));
                 }
             });
 
