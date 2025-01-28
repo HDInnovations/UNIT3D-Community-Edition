@@ -110,7 +110,9 @@
                                         {{ __('common.unknown') }}
                                 @endswitch
                             </td>
-                            <td>{{ rtrim($bonEarning->multiplier, '.0') }}</td>
+                            <td>
+                                {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}
+                            </td>
                             <td>
                                 <ul>
                                     @forelse ($bonEarning->conditions as $condition)
@@ -122,7 +124,7 @@
                                                     'size' => \App\Helpers\StringHelper::formatBytes($condition->operand2),
                                                     'seedtime' => \App\Helpers\StringHelper::timeElapsed($condition->operand2),
                                                     'type_id' => \App\Models\Type::find($condition->operand2)?->name ?? __('common.unknown'),
-                                                    default => rtrim($condition->operand2, '.0'),
+                                                    default => preg_replace('/(\.\d+?)0+$/', '$1', $condition->operand2),
                                                 }
                                             }}
                                         </li>

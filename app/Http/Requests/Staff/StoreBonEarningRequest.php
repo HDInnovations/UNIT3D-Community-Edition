@@ -32,6 +32,7 @@ class StoreBonEarningRequest extends FormRequest
             'bon_earning.position' => [
                 'required',
                 'numeric',
+                'unique:bon_earnings,position',
             ],
             'bon_earning.name' => [
                 'required',
@@ -55,6 +56,7 @@ class StoreBonEarningRequest extends FormRequest
                     'seedtime',
                     'personal_release',
                     'internal',
+                    'connectable',
                 ]),
             ],
             'bon_earning.multiplier' => [
@@ -86,6 +88,7 @@ class StoreBonEarningRequest extends FormRequest
                     'personal_release',
                     'seedtime',
                     'type_id',
+                    'connectable',
                 ]),
             ],
             'conditions.*.operator' => [

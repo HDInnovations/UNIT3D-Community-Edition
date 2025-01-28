@@ -115,10 +115,10 @@
                 </p>
                 <p class="form__group">
                     <input
-                        id="bon_earning[multiplier]"
+                        id="multiplier"
                         class="form__text"
                         inputmode="numeric"
-                        name="multiplier"
+                        name="bon_earning[multiplier]"
                         pattern="[0-9.]*"
                         required
                         type="text"

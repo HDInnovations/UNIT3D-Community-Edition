@@ -24,7 +24,7 @@
                                     @endif
 
                                     {{ $bonEarning->variable }} &times;
-                                    {{ rtrim($bonEarning->multiplier, '.0') }}
+                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}
                                 </td>
                             </tr>
                         @endforeach
@@ -259,16 +259,16 @@
                                     {{ \App\Helpers\StringHelper::timeElapsed($torrent->age) }}
                                 </td>
                                 <td class="user-earnings__hourly">
-                                    {{ rtrim($torrent->hourly_earnings, '.0') }}
+                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}
                                 </td>
                                 <td class="user-earnings__daily" x-cloak x-show="isToggledOn">
-                                    {{ rtrim($torrent->hourly_earnings, '.0') * 24 }}
+                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) * 24 }}
                                 </td>
                                 <td class="user-earnings__weekly" x-cloak x-show="isToggledOn">
-                                    {{ rtrim($torrent->hourly_earnings, '.0') * 24 * 7 }}
+                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) * 24 * 7 }}
                                 </td>
                                 <td class="user-earnings__monthly" x-cloak x-show="isToggledOn">
-                                    {{ rtrim($torrent->hourly_earnings, '.0') * 24 * 30 }}
+                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) * 24 * 30 }}
                                 </td>
                             </tr>
                         @endforeach

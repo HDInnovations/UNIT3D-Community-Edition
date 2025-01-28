@@ -33,6 +33,16 @@ class UpdateBonEarningRequest extends FormRequest
                 'required',
                 'numeric',
             ],
+            'bon_earning.name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'bon_earning.description' => [
+                'required',
+                'string',
+                'max:255',
+            ],
             'bon_earning.variable' => [
                 'required',
                 Rule::in([
@@ -45,6 +55,7 @@ class UpdateBonEarningRequest extends FormRequest
                     'seedtime',
                     'personal_release',
                     'internal',
+                    'connectable',
                 ]),
             ],
             'bon_earning.multiplier' => [
@@ -76,6 +87,7 @@ class UpdateBonEarningRequest extends FormRequest
                     'personal_release',
                     'seedtime',
                     'type_id',
+                    'connectable',
                 ]),
             ],
             'conditions.*.operator' => [

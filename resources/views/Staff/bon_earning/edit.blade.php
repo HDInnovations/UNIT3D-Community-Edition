@@ -48,9 +48,9 @@
                 </p>
                 <p class="form__group">
                     <input
-                        id="bon_earning[description]"
+                        id="description"
                         class="form__text"
-                        name="description"
+                        name="bon_earning[description]"
                         required
                         type="text"
                         maxlength="255"
@@ -157,7 +157,7 @@
                         pattern="[0-9.]*"
                         required
                         type="text"
-                        value="{{ rtrim($bonEarning->multiplier, '.0') }}"
+                        value="{{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}"
                     />
                     <label class="form__label form__label--floating" for="multiplier">
                         Multiplier
@@ -357,7 +357,7 @@
                                 x-bind:name="'conditions[' + i + '][operand2]'"
                                 required
                                 type="text"
-                                x-bind:value="condition['operand2'].replace(/[.0]*$/, '')"
+                                x-bind:value="condition['operand2'].replace(/(\.\d+?)0+$/, '$1')"
                             />
                             <label
                                 class="form__label form__label--floating"
