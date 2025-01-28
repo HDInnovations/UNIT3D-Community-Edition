@@ -96,6 +96,6 @@ class AutoDeactivateWarning extends Command
                 }
             }, 'user_id');
 
-        $this->comment('Automated Warning Deativation Command Complete');
+        $this->comment('Automated Warning Deactivation Command Complete');
     }
 }

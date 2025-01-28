@@ -47,12 +47,12 @@ class UserBan extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $chatdUrl = config('unit3d.chat-link-url');
+        $chatUrl = config('unit3d.chat-link-url');
 
         return (new MailMessage())
             ->greeting('You have been banned 😭')
             ->line('You have been banned from '.config('other.title').' for '.$this->ban->ban_reason)
-            ->action('Need Support?', $chatdUrl)
+            ->action('Need Support?', $chatUrl)
             ->line('Thank you for using 🚀'.config('other.title'));
     }
 }

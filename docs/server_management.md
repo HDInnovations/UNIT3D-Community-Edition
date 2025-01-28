@@ -1,5 +1,7 @@
 # Server Management
 
+<!-- cspell:ignore certbot,chgrp,usermod -->
+
 > [!IMPORTANT]
 > The following assumptions are made:
 >
@@ -61,7 +63,7 @@ bun run build
    Use `certbot` to refresh the TLS certificate:
 
     ```sh
-    certbot --redirect --nginx -n --agree-tos --email=sysop@yourdomain.tld -d yourdomain.tld -d www.yourdomain.tld --rsa-key-size 2048
+    certbot --redirect --nginx -n --agree-tos --email=sysop@your_domain.tld -d your_domain.tld -d www.your_domain.tld --rsa-key-size 2048
     ```
 
 3. **Update the WebSocket Configuration:**

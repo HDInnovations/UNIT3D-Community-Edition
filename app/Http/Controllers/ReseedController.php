@@ -59,6 +59,6 @@ class ReseedController extends Controller
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withErrors('This torrent doesnt meet the rules for a reseed request.');
+            ->withErrors('This torrent doesn\'t meet the rules for a reseed request.');
     }
 }

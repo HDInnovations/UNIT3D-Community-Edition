@@ -21,28 +21,28 @@ use ZipArchive;
 class BackupEncryption
 {
     /**
-     * Default encryption contants.
+     * Default encryption constants.
      *
      * @var int
      */
     final public const ENCRYPTION_DEFAULT = ZipArchive::EM_AES_128;
 
     /**
-     * AES-128 encryption contants.
+     * AES-128 encryption constants.
      *
      * @var int
      */
     final public const ENCRYPTION_WINZIP_AES_128 = ZipArchive::EM_AES_128;
 
     /**
-     * AES-192 encryption contants.
+     * AES-192 encryption constants.
      *
      * @var int
      */
     final public const ENCRYPTION_WINZIP_AES_192 = ZipArchive::EM_AES_192;
 
     /**
-     * AES-256 encryption contants.
+     * AES-256 encryption constants.
      *
      * @var int
      */

@@ -121,7 +121,7 @@ class Comment extends Model
     }
 
     /**
-     * Nootify Staff There Is Stale Tickets.
+     * Notify Staff There Is Stale Tickets.
      */
     public static function checkForStale(Ticket $ticket): void
     {

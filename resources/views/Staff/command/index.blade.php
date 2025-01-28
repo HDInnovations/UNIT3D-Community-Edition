@@ -34,7 +34,7 @@
                     <form
                         role="form"
                         method="POST"
-                        action="{{ url('/dashboard/commands/maintance-enable') }}"
+                        action="{{ url('/dashboard/commands/maintenance-enable') }}"
                     >
                         @csrf
                         <button
@@ -49,7 +49,7 @@
                     <form
                         role="form"
                         method="POST"
-                        action="{{ url('/dashboard/commands/maintance-disable') }}"
+                        action="{{ url('/dashboard/commands/maintenance-disable') }}"
                     >
                         @csrf
                         <button

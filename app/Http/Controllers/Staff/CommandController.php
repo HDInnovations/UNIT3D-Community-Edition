@@ -35,7 +35,7 @@ class CommandController extends Controller
     /**
      * Bring Site Into Maintenance Mode.
      */
-    public function maintanceEnable(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
+    public function maintenanceEnable(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         Artisan::call('down');
 
@@ -46,7 +46,7 @@ class CommandController extends Controller
     /**
      * Bring Site Out Of Maintenance Mode.
      */
-    public function maintanceDisable(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
+    public function maintenanceDisable(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         Artisan::call('up');
 

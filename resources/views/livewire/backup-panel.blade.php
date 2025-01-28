@@ -164,7 +164,6 @@
               gravity: 'bottom',
               position: 'right',
               backgroundColor: 'red',
-              className: 'toastify-custom',
             })
           })
         })

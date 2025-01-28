@@ -1,5 +1,7 @@
 # Upgrading PHP Version
 
+<!-- cspell:ignore ondrej,autoremove,debconf-utils,dpkg -->
+
 ## Upgrade to PHP 8
 
 `sudo apt update`
@@ -28,7 +30,7 @@ Next lets edit NGINX to use new PHP8
 
 Find `fastcgi_pass unix:/var/run/php/***.sock;`
 
-`***` will be your sitename, unit3d or php7.4 for the most part
+`***` will be your site name, unit3d or php7.4 for the most part
 
 Replace `fastcgi_pass unix:/var/run/php/***.sock;` with `fastcgi_pass unix:/var/run/php/php8.0-fpm.sock;`.
 
@@ -36,7 +38,7 @@ Save and exit.
 
 Test config `sudo nginx -t`
 
-*If you didnt mess up you will see
+*If you didn't mess up you will see
 ```
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
@@ -78,7 +80,7 @@ Next lets edit NGINX to use new PHP 8.1
 
 Find `fastcgi_pass unix:/var/run/php/***.sock;`
 
-`***` will be your sitename, unit3d or php8.0 for the most part
+`***` will be your site name, unit3d or php8.0 for the most part
 
 Replace `fastcgi_pass unix:/var/run/php/***.sock;` with `fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;`.
 
@@ -86,7 +88,7 @@ Save and exit.
 
 Test config `sudo nginx -t`
 
-*If you didnt mess up you will see
+*If you didn't mess up you will see
 ```
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
@@ -129,7 +131,7 @@ Next lets edit NGINX to use new PHP 8.2
 
 Find `fastcgi_pass unix:/var/run/php/***.sock;`
 
-`***` will be your sitename, unit3d or php8.1 for the most part
+`***` will be your site name, unit3d or php8.1 for the most part
 
 Replace `fastcgi_pass unix:/var/run/php/***.sock;` with `fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;`.
 
@@ -137,7 +139,7 @@ Save and exit.
 
 Test config `sudo nginx -t`
 
-*If you didnt mess up you will see
+*If you didn't mess up you will see
 ```
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
@@ -176,7 +178,7 @@ Next lets edit NGINX to use new PHP 8.3
 
 Find `fastcgi_pass unix:/var/run/php/***.sock;`
 
-`***` will be your sitename, unit3d or php8.2 for the most part
+`***` will be your site name, unit3d or php8.2 for the most part
 
 Replace `fastcgi_pass unix:/var/run/php/***.sock;` with `fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;`.
 
@@ -184,7 +186,7 @@ Save and exit.
 
 Test config `sudo nginx -t`
 
-*If you didnt mess up you will see
+*If you didn't mess up you will see
 ```
 nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful

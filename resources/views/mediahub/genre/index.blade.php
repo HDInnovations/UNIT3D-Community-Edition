@@ -27,7 +27,7 @@
                 @foreach ($genres as $genre)
                     <li class="mediahub-card__list-item">
                         <a
-                            href="{{ route('torrents.index', ['view' => 'group', 'genreids' => [$genre->id]]) }}"
+                            href="{{ route('torrents.index', ['view' => 'group', 'genreIds' => [$genre->id]]) }}"
                             class="mediahub-card"
                         >
                             <h2 class="mediahub-card__heading">{{ $genre->name }}</h2>

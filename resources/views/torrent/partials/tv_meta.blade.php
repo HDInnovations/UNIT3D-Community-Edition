@@ -155,6 +155,7 @@
             <li class="meta__rotten">
                 <a
                     class="meta-id-tag"
+                    {{-- cspell:disable-next-line --}}
                     href="https://html.duckduckgo.com/html/?q=\{{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})+site%3Arottentomatoes.com"
                     title="Rotten Tomatoes: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
                     target="_blank"
@@ -173,14 +174,14 @@
         @endif
 
         @if (($meta->imdb_id ?? 0) > 0)
-            <li class="meta__bluray">
+            <li class="meta__blu-ray">
                 <a
                     class="meta-id-tag"
                     href="https://www.blu-ray.com/search/?quicksearch=1&quicksearch_keyword=tt{{ $meta->imdb_id ?? '' }}&section=theatrical"
                     title="Blu-ray: {{ $meta->name ?? '' }}  ({{ substr($meta->first_air_date ?? '', 0, 4) ?? '' }})"
                     target="_blank"
                 >
-                    <img class="" src="{{ url('/img/meta/bluray.svg') }}" style="width: 40px" />
+                    <img class="" src="{{ url('/img/meta/blu-ray.svg') }}" style="width: 40px" />
                 </a>
             </li>
         @endif

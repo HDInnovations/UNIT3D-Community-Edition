@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are **welcome**. Please make all pull requests agaist the development branch (currently 8.x.x) and NOT master which is only for releases.
+Contributions are **welcome**. Please make all pull requests against the development branch (currently 8.x.x) and NOT master which is only for releases.
 
 We accept contributions via Pull Requests on [Github](https://github.com/HDInnovations/UNIT3D).
 
@@ -104,7 +104,7 @@ Any new pages should use the existing component styles unless a new block, eleme
 
 ## Other
 
-- **Document any change in behaviour** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
+- **Document any change in behavior** - Make sure the `README.md` and any other relevant documentation are kept up-to-date.
 
 - **Create feature branches** - Don't ask us to pull from your master branch.
 

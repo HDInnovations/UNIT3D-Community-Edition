@@ -1,5 +1,7 @@
 # Basic Tuning
 
+<!-- cspell:ignore unixsocket,unixsocketperm,usermod,ondemand,curlopt,cainfo -->
+
 > [!IMPORTANT]
 > These guides are intended for UNIT3D v8.0.0 + instances. While these are better than defaults be careful blindly following them. Proper tuning requires understanding your server, running tests and monitoring the results.
 
@@ -13,7 +15,7 @@
 
 If your Redis service is running on your web server, it is highly recommended that you use **Unix sockets** instead of **TCP ports** to communicate with your web server.
 
-Based on the Redis official benchmark, you can **improve performance by upto 50%** using unix sockets (versus TCP ports) on Redis.
+Based on the Redis official benchmark, you can **improve performance by up to 50%** using unix sockets (versus TCP ports) on Redis.
 
 Of course, unix sockets can only be used if both your Laravel application and Redis are running on the same server.
 
@@ -96,7 +98,7 @@ sudo systemctl restart redis
 
 If your MySQL database is running on your web server, it is highly recommended that you use **Unix sockets** instead of **TCP ports** to communicate with your web server.
 
-Based on Percona's benchmark, you can **improve performance by upto 50%** using unix sockets (versus TCP portson MySQL.
+Based on Percona's benchmark, you can **improve performance by up to 50%** using unix sockets (versus TCP ports on MySQL).
 
 Of course, unix sockets can only be used if both your UNIT3D application and database are running on the same server which is by default.
 

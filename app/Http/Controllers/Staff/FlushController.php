@@ -39,7 +39,7 @@ class FlushController extends Controller
     }
 
     /**
-     * Flsuh All Old Peers From Database.
+     * Flush All Old Peers From Database.
      *
      * @throws Exception
      */

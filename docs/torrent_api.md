@@ -20,7 +20,7 @@ There are several ways of passing the API token to UNIT3D. We'll discuss each of
     UNIT3D's API consumers may specify their token as an `api_token` query string value:
 
     ```php
-    $response = $client->request('GET', '/api/torrents?api_token=YOURTOKENHERE);
+    $response = $client->request('GET', '/api/torrents?api_token=YOUR_TOKEN_HERE);
     ```
 
 -   **Request Payload**
@@ -33,7 +33,7 @@ There are several ways of passing the API token to UNIT3D. We'll discuss each of
             'Accept' => 'application/json',
         ],
         'form_params' => [
-            'api_token' => YOURTOKENHERE,
+            'api_token' => 'YOUR_TOKEN_HERE',
         ],
     ]);
     ```
@@ -45,7 +45,7 @@ There are several ways of passing the API token to UNIT3D. We'll discuss each of
     ```php
     $response = $client->request('POST', '/api/torrents', [
         'headers' => [
-            'Authorization' => 'Bearer YOURTOKENHERE,
+            'Authorization' => 'Bearer YOUR_TOKEN_HERE',
             'Accept' => 'application/json',
         ],
     ]);
@@ -78,9 +78,9 @@ Parameters:
 | `imdb`             | int    | IMDB ID
 | `tvdb`             | int    | TVDB ID
 | `mal`              | int    | MAL ID
-| `igdb`             | int    | IGBD ID (Games only)
+| `igdb`             | int    | IGDB ID (Games only)
 | `anonymous`        | bool   | Should the uploader's username be hidden?
-| `stream`           | bool   | Is the torrent's content stream-optimised?
+| `stream`           | bool   | Is the torrent's content stream-optimized?
 | `sd`               | bool   | Is the torrent's content standard definition?
 | `personal_release` | bool   | Is the torrent's content created by the uploader?
 | `internal`*        | bool   | Is the torrent an internal release?
@@ -147,7 +147,7 @@ Optional Parameters:
 | `doubleup`         | bool   | Filter by if the torrent offers double upload
 | `featured`         | bool   | Filter by if the torrent is featured on the front page
 | `refundable`       | bool   | Filter by if the torrent is refundable
-| `stream`           | bool   | Filter by if the torrent's content is stream-optimised
+| `stream`           | bool   | Filter by if the torrent's content is stream-optimized
 | `sd`               | bool   | Filter by if the torrent's content is standard definition
 | `highspeed`        | bool   | Filter by if the torrent has seeders whose IP address has been registered as a seedbox
 | `internal`         | bool   | Filter by if the torrent is an internal release

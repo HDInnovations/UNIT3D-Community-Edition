@@ -271,11 +271,11 @@ class TorrentBuffController extends Controller
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
+            ->withErrors('You Don\'t Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
     }
 
     /**
-     * Set Torrents Refudable Status.
+     * Set Torrents Refundable Status.
      */
     public function setRefundable(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {

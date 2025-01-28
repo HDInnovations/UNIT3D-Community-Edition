@@ -45,7 +45,6 @@ class TorrentHelper
     public static function approveHelper(int $id): void
     {
         $appurl = config('app.url');
-        $appname = config('app.name');
 
         $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->created_at = Carbon::now();
@@ -55,7 +54,7 @@ class TorrentHelper
         $torrent->moderated_by = (int) auth()->id();
 
         if (!$torrent->free) {
-            $autoFreeleechs = AutomaticTorrentFreeleech::query()
+            $autoFreeleeches = AutomaticTorrentFreeleech::query()
                 ->orderBy('position')
                 ->where(fn ($query) => $query->whereNull('category_id')->orWhere('category_id', '=', $torrent->category_id))
                 ->where(fn ($query) => $query->whereNull('type_id')->orWhere('type_id', '=', $torrent->type_id))
@@ -63,7 +62,7 @@ class TorrentHelper
                 ->where(fn ($query) => $query->whereNull('size')->orWhere('size', '<', $torrent->size))
                 ->get();
 
-            foreach ($autoFreeleechs as $autoFreeleech) {
+            foreach ($autoFreeleeches as $autoFreeleech) {
                 if ($autoFreeleech->name_regex === null || preg_match($autoFreeleech->name_regex, $torrent->name)) {
                     $torrent->free = $autoFreeleech->freeleech_percentage;
 

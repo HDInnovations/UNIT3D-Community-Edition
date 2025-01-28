@@ -664,7 +664,7 @@
                     <p class="form__group form__group--horizontal">
                         <a
                             class="form__button form__button--text"
-                            href="{{ route('staff.laravellog.index') }}"
+                            href="{{ route('staff.laravel-log.index') }}"
                         >
                             <i class="fa fa-file"></i>
                             {{ __('staff.laravel-log') }}

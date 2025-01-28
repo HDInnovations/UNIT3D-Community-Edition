@@ -36,7 +36,7 @@ class AutoRecycleClaimedTorrentRequests extends Command
      *
      * @var string
      */
-    protected $description = 'Recycle Torrent Requests That Wwere Claimed But Not Filled Within 7 Days.';
+    protected $description = 'Recycle Torrent Requests That Were Claimed But Not Filled Within 7 Days.';
 
     /**
      * AutoRecycleClaimedTorrentRequests Constructor.
