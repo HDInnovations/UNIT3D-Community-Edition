@@ -59,7 +59,7 @@ HDInnovations offers a variety of services to help you with your UNIT3D instance
 
 ## <a name="discord"></a> 💬 Discord
 
-We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Discord]%20UNIT3D%20)
+We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. For more information about purchasing a Discord Pass, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Discord]%20UNIT3D%20)
 
 ## <a name="donations"></a> 💰 Donations
 
@@ -82,7 +82,7 @@ We would like to extend our heartfelt thanks to the following companies, sites a
 ### 👤 Individuals
 
 <!-- cspell:disable-next-line -->
-**airclay**, **Poppers**, **x64**
+**airclay**, **Poppers**, **schizobolic**, **x64**
 
 ### 🌐 Sites
 <img src="https://i.postimg.cc/BQJmGYMt/blu.png" height="30px;">&nbsp;
