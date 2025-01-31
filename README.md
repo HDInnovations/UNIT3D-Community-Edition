@@ -63,7 +63,7 @@ We have a Discord server for support and general discussion. This is a private s
 
 ## <a name="donations"></a> 💰 Donations
 
-If you would like to support the development of UNIT3D, please consider donating to keep the project alive. Donors will receive a README [shoutout](#shoutouts) unless chosen to be anonymous. They will also recieve a Donor role if present in Discord server via a Discord Pass. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Funding]%20UNIT3D%20)
+If you would like to support the development of UNIT3D, please consider donating to keep the project alive. Donors will receive a README [shoutout](#shoutouts) unless chosen to be anonymous. They will also receive a Donor role if present in Discord server via a Discord Pass. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Funding]%20UNIT3D%20)
 
 *Donations are non-refundable and made voluntarily without exchange of goods or services. It is support the project as a whole.*
 
