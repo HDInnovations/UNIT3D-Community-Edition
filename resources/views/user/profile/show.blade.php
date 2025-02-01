@@ -164,7 +164,7 @@
                     @if (auth()->user()->isAllowed($user, 'profile', 'show_profile_about') && $user->about)
                         <div class="profile__about">
                             {{ __('user.about') }}:
-                            <div class="bbcode-rendered">@joypixels($user->about_html)</div>
+                            <div class="bbcode-rendered">@bbcode($user->about ?? 'N/A')</div>
                         </div>
                     @endif
                 </article>

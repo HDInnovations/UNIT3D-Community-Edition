@@ -16,8 +16,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
 use App\Models\Scopes\ApprovedScope;
 use App\Notifications\NewComment;
@@ -748,16 +746,6 @@ class Torrent extends Model
     public function trump(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(TorrentTrump::class);
-    }
-
-    /**
-     * Parse Description And Return Valid HTML.
-     */
-    public function getDescriptionHtml(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->description));
     }
 
     /**

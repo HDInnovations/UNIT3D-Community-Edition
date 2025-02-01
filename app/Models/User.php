@@ -16,8 +16,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
@@ -1178,30 +1176,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $bytes = round(($this->uploaded / config('other.ratio')) - $this->downloaded);
 
         return StringHelper::formatBytes($bytes);
-    }
-
-    /**
-     * Returns the HTML of the user's signature.
-     */
-    public function getSignatureHtmlAttribute(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->signature));
-    }
-
-    /**
-     * Parse About Me And Return Valid HTML.
-     */
-    public function getAboutHtmlAttribute(): string
-    {
-        if (empty($this->about)) {
-            return 'N/A';
-        }
-
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->about));
     }
 
     /**

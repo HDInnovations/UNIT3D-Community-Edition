@@ -38,7 +38,7 @@
             </div>
         </header>
         <div class="panel__body bbcode-rendered">
-            @joypixels($article->getContentHtml())
+            @bbcode($article->content)
         </div>
     </section>
     <livewire:comments :model="$article" />

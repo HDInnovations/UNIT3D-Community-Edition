@@ -213,7 +213,7 @@
     </menu>
     <div class="bbcode-input__tab-pane">
         <div class="bbcode-input__preview bbcode-rendered" x-show="isPreviewEnabled">
-            @joypixels($contentHtml)
+            @bbcode($contentBbcode)
         </div>
         <p class="form__group" x-show="isPreviewDisabled">
             <textarea

@@ -65,6 +65,6 @@
         @endif
     </aside>
     <div class="comment__content bbcode-rendered">
-        @joypixels($comment->getContentHtml())
+        @bbcode($comment->content)
     </div>
 </article>

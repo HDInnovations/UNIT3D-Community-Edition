@@ -194,7 +194,7 @@
                     <x-user_tag :user="$playlist->user" :anon="false" />
                 </p>
                 <p class="playlist__description bbcode-rendered">
-                    @joypixels($playlist->getDescriptionHtml())
+                    @bbcode($playlist->description)
                 </p>
             </div>
         </div>

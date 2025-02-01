@@ -17,7 +17,7 @@
         </div>
     </header>
     <div class="panel__body bbcode-rendered">
-        @joypixels($torrent->getDescriptionHtml())
+        @bbcode($torrent->description)
     </div>
     <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce('script') }}">
         document.addEventListener('alpine:init', () => {

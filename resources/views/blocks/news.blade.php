@@ -46,7 +46,7 @@
                     />
                 </header>
                 <p class="article-preview__content">
-                    @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit($article->content, 500, '...'), 150))
+                    @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150))
                 </p>
                 <a
                     href="{{ route('articles.show', ['article' => $article]) }}"

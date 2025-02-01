@@ -36,7 +36,7 @@
             </header>
 
             <div class="panel__body bbcode-rendered">
-                @joypixels($message->getMessageHtml())
+                @bbcode($message->message)
             </div>
         </section>
     @endforeach

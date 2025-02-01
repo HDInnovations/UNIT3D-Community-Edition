@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -88,13 +87,5 @@ class Message extends Model
     public function chatroom(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Chatroom::class);
-    }
-
-    /**
-     * Parse Content And Return Valid HTML.
-     */
-    public static function getMessageHtml(string $message): string
-    {
-        return (new Bbcode())->parse($message);
     }
 }

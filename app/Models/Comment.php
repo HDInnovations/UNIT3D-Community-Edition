@@ -17,8 +17,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Events\TicketWentStale;
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -108,16 +106,6 @@ class Comment extends Model
     public function scopeParent(Builder $builder): void
     {
         $builder->whereNull('parent_id');
-    }
-
-    /**
-     * Parse Content And Return Valid HTML.
-     */
-    public function getContentHtml(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->content));
     }
 
     /**
