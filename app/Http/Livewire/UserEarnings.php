@@ -68,7 +68,56 @@ class UserEarnings extends Component
     #[Computed]
     final public function bonEarnings(): \Illuminate\Database\Eloquent\Collection
     {
-        return BonEarning::query()->orderBy('position')->get()->keyBy('id');
+        $query = '';
+
+        foreach (BonEarning::with('conditions')->orderBy('position')->get() as $bonEarning) {
+            // Raw bindings are fine since all database values are either enums or numeric
+            $conditionQuery = '1=1';
+
+            foreach ($bonEarning->conditions as $condition) {
+                $conditionQuery .= ' AND '.match ($condition->operand1) {
+                    '1'                => '1',
+                    'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
+                    'size'             => 'torrents.size',
+                    'seeders'          => 'torrents.seeders',
+                    'leechers'         => 'torrents.leechers',
+                    'times_completed'  => 'torrents.times_completed',
+                    'internal'         => 'torrents.internal',
+                    'personal_release' => 'torrents.personal_release',
+                    'type_id'          => 'torrents.type_id',
+                    'seedtime'         => 'history.seedtime',
+                    'connectable'      => 'peers.connectable',
+                }.' '.$condition->operator.' '.$condition->operand2;
+            }
+
+            $query .= " WHEN bon_earnings.id = {$bonEarning->id} THEN MAX({$conditionQuery})";
+        }
+
+        return BonEarning::query()
+            ->addSelect([
+                'torrents_count' => DB::query()->fromSub(
+                    DB::table('peers')
+                        ->select([
+                            'peers.torrent_id',
+                            DB::raw("CASE {$query} END AS torrent_count"),
+                        ])
+                        ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
+                        ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
+                        ->where('peers.seeder', '=', true)
+                        ->where('peers.active', '=', true)
+                        ->where('peers.user_id', '=', $this->user->id)
+                        ->where('peers.created_at', '<', now()->subMinutes(30))
+                        ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
+                        ->groupBy(['peers.user_id', 'peers.torrent_id']),
+                    'peers_per_torrent'
+                )
+                    ->select([
+                        DB::raw('SUM(torrent_count)')
+                    ])
+            ])
+            ->orderBy('position')
+            ->get()
+            ->keyBy('id');
     }
 
     /**
