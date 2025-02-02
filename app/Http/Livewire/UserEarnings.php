@@ -68,7 +68,7 @@ class UserEarnings extends Component
     #[Computed]
     final public function bonEarnings(): \Illuminate\Database\Eloquent\Collection
     {
-        return BonEarning::all()->keyBy('id');
+        return BonEarning::query()->orderBy('position')->get()->keyBy('id');
     }
 
     /**
