@@ -68,7 +68,7 @@ class UserEarnings extends Component
     #[Computed]
     final public function bonEarnings(): \Illuminate\Database\Eloquent\Collection
     {
-        return BonEarning::all()->keyBy('id');
+        return BonEarning::query()->orderBy('position')->get()->keyBy('id');
     }
 
     /**
@@ -77,9 +77,11 @@ class UserEarnings extends Component
     #[Computed]
     final public function query(): \Illuminate\Database\Query\Builder
     {
-        $earningsQuery = '0';
+        $bonEarnings = BonEarning::with('conditions')->orderBy('position')->get();
 
-        foreach (BonEarning::with('conditions')->orderBy('position')->get() as $bonEarning) {
+        $earningsQuery = str_repeat('(', $bonEarnings->count()).'0';
+
+        foreach ($bonEarnings as $bonEarning) {
             // Raw bindings are fine since all database values are either enums or numeric
             $conditionQuery = '1=1';
 
@@ -113,8 +115,8 @@ class UserEarnings extends Component
             };
 
             $earningsQuery .= match ($bonEarning->operation) {
-                'append'   => " + CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 0 END",
-                'multiply' => " * CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 1 END",
+                'append'   => " + CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 0 END)",
+                'multiply' => " * CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 1 END)",
             };
         }
 

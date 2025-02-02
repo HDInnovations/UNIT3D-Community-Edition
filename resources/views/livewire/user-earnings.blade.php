@@ -259,16 +259,16 @@
                                     {{ \App\Helpers\StringHelper::timeElapsed($torrent->age) }}
                                 </td>
                                 <td class="user-earnings__hourly">
-                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}
+                                    {{ number_format($torrent->hourly_earnings, 4) }}
                                 </td>
                                 <td class="user-earnings__daily" x-cloak x-show="isToggledOn">
-                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) * 24 }}
+                                    {{ number_format($torrent->hourly_earnings * 24, 4) }}
                                 </td>
                                 <td class="user-earnings__weekly" x-cloak x-show="isToggledOn">
-                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) * 24 * 7 }}
+                                    {{ number_format($torrent->hourly_earnings * 24 * 7, 4) }}
                                 </td>
                                 <td class="user-earnings__monthly" x-cloak x-show="isToggledOn">
-                                    {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) * 24 * 30 }}
+                                    {{ number_format($torrent->hourly_earnings * 24 * 30, 4) }}
                                 </td>
                             </tr>
                         @endforeach
