@@ -48,9 +48,11 @@ class AutoBonAllocation extends Command
     {
         $now = now();
 
-        $earningsQuery = '0';
+        $bonEarnings = BonEarning::with('conditions')->orderBy('position')->get();
 
-        foreach (BonEarning::with('conditions')->orderBy('position')->get() as $bonEarning) {
+        $earningsQuery = str_repeat('(', $bonEarnings->count()).'0';
+
+        foreach ($bonEarnings as $bonEarning) {
             // Raw bindings are fine since all database values are either enums or numeric
             $conditionQuery = '1=1';
 
@@ -84,8 +86,8 @@ class AutoBonAllocation extends Command
             };
 
             $earningsQuery .= match ($bonEarning->operation) {
-                'append'   => " + CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 0 END",
-                'multiply' => " * CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 1 END",
+                'append'   => " + CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 0 END)",
+                'multiply' => " * CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 1 END)",
             };
         }
 
