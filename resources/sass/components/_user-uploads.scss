@@ -1,20 +1,8 @@
 .user-uploads {
-    margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
+    margin: 0 calc(-1 * max(0px, 10vw - 60px, 25vw - 300px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
     width: max-content;
     max-width: 100vw;
     align-self: center;
-}
-
-@media only screen and (min-width: 1600px) {
-    .user-uploads {
-        margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
-    }
-}
-
-@media only screen and (min-width: 2500px) {
-    .user-uploads {
-        margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
-    }
 }
 
 .user-uploads__filters {
