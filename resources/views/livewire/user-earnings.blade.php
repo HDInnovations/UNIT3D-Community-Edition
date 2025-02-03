@@ -9,6 +9,7 @@
                             <th>{{ __('common.name') }}</th>
                             <th>{{ __('common.description') }}</th>
                             <th>Per torrent per hour</th>
+                            <th>{{ __('torrent.torrents') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,9 +24,13 @@
                                             &plus;
                                     @endif
 
-                                    {{ $bonEarning->variable }} &times;
                                     {{ preg_replace('/(\.\d+?)0+$/', '$1', $bonEarning->multiplier) }}
+
+                                    @if ($bonEarning->variable != 1)
+                                            &times; {{ $bonEarning->variable }}
+                                    @endif
                                 </td>
+                                <td>{{ $bonEarning->torrents_count }}</td>
                             </tr>
                         @endforeach
                     </tbody>
