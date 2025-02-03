@@ -18,10 +18,12 @@ namespace App\Console\Commands;
 
 use App\Models\PersonalFreeleech;
 use App\Models\User;
+use App\Notifications\PersonalFreeleechDeleted;
 use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
 use Throwable;
 
 class AutoRemovePersonalFreeleech extends Command
@@ -51,12 +53,7 @@ class AutoRemovePersonalFreeleech extends Command
         $personalFreeleech = PersonalFreeleech::where('created_at', '<', $current->copy()->subDays(1))->get();
 
         foreach ($personalFreeleech as $pfl) {
-            // Send Private Message
-            User::sendSystemNotificationTo(
-                userId: $pfl->user_id,
-                subject: 'Personal 24 Hour Freeleech Expired',
-                message: 'Your [b]Personal 24 Hour Freeleech[/b] has expired! Feel free to reenable it in the BON Store!',
-            );
+            Notification::send(new User(['id' => $pfl->user_id]), new PersonalFreeleechDeleted());
 
             // Delete The Record From DB
             $pfl->delete();

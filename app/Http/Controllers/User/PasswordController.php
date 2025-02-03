@@ -18,6 +18,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\PasswordUpdate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -57,10 +58,7 @@ class PasswordController extends Controller
             $user->passwordResetHistories()->create();
 
             if ($changedByStaff) {
-                $user->sendSystemNotification(
-                    subject: 'ATTENTION - Your password has been changed',
-                    message: "Your password has been changed by staff. You will need to update your password manager with the new password.\n\nFor more information, please create a helpdesk ticket.",
-                );
+                $user->notify(new PasswordUpdate());
             }
         });
 

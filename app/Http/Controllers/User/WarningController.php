@@ -19,6 +19,9 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Warning;
+use App\Notifications\WarningCreated;
+use App\Notifications\WarningTorrentDeleted;
+use App\Notifications\WarningsDeleted;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Carbon;
@@ -44,10 +47,7 @@ class WarningController extends Controller
             'active'     => true,
         ]);
 
-        $user->sendSystemNotification(
-            subject: 'Received warning',
-            message: 'You have received a [b]warning[/b]. Reason: '.$request->string('message'),
-        );
+        $user->notify(new WarningCreated($request->string('message')->toString()));
 
         return to_route('users.show', ['user' => $user])
             ->with('success', 'Warning issued successfully!');
@@ -65,10 +65,7 @@ class WarningController extends Controller
 
         $staff = $request->user();
 
-        $user->sendSystemNotification(
-            subject: 'Hit and Run Warning Deleted',
-            message: $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out!',
-        );
+        $user->notify(new WarningTorrentDeleted($staff, $warning));
 
         $warning->update([
             'deleted_by' => $staff->id,
@@ -95,10 +92,7 @@ class WarningController extends Controller
 
         $user->warnings()->delete();
 
-        $user->sendSystemNotification(
-            subject: 'All Hit and Run Warnings Deleted',
-            message: $staff->username.' has decided to delete all of your warnings. You lucked out!',
-        );
+        $user->notify(new WarningsDeleted($staff));
 
         return to_route('users.show', ['user' => $user])
             ->with('success', 'All Warnings Were Successfully Deleted');
