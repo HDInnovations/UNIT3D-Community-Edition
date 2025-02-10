@@ -157,6 +157,7 @@ class PersonCredit extends Component
         $torrents = Torrent::query()
             ->with('type:id,name,position', 'resolution:id,name,position')
             ->withExists([
+                'featured as featured',
                 'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
             ])
             ->select([
@@ -176,7 +177,6 @@ class PersonCredit extends Component
                 'free',
                 'doubleup',
                 'highspeed',
-                'featured',
                 'sticky',
                 'sd',
                 'internal',

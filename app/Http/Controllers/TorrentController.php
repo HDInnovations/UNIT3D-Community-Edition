@@ -84,7 +84,7 @@ class TorrentController extends Controller
         $user = $request->user();
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)
-            ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists', 'reports'])
+            ->with(['user', 'comments', 'category', 'type', 'resolution', 'subtitles', 'playlists', 'reports', 'featured'])
             ->withCount([
                 'bookmarks',
                 'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
@@ -158,7 +158,7 @@ class TorrentController extends Controller
             'platforms'          => $platforms,
             'total_tips'         => $torrent->tips()->sum('bon'),
             'user_tips'          => $torrent->tips()->where('sender_id', '=', $user->id)->sum('bon'),
-            'featured'           => $torrent->featured === true ? FeaturedTorrent::where('torrent_id', '=', $id)->first() : null,
+            'featured'           => FeaturedTorrent::where('torrent_id', '=', $id)->first(),
             'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
             'last_seed_activity' => History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first(),
             'playlists'          => $user->playlists,
@@ -454,10 +454,6 @@ class TorrentController extends Controller
         // Tracker updates come after initial database updates in case tracker's offline
 
         Unit3dAnnounce::addTorrent($torrent);
-
-        if ($torrent->getAttribute('featured')) {
-            Unit3dAnnounce::addFeaturedTorrent($torrent->id);
-        }
 
         // TMDB updates come after tracker updates in case TMDB's offline
 

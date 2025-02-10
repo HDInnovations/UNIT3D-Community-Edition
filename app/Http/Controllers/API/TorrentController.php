@@ -72,6 +72,9 @@ class TorrentController extends BaseController
             $torrents = Torrent::with(
                 ['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files']
             )
+                ->withExists([
+                    'featured as featured'
+                ])
                 ->select('*')
                 ->selectRaw(
                     "
@@ -167,7 +170,6 @@ class TorrentController extends BaseController
         $torrent->sd = $request->input('sd');
         $torrent->personal_release = $request->input('personal_release') ?? 0;
         $torrent->internal = $user->group->is_modo || $user->group->is_internal ? ($request->input('internal') ?? 0) : 0;
-        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? ($request->input('featured') ?? false) : false;
         $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? ($request->input('doubleup') ?? 0) : 0;
         $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? ($request->input('refundable') ?? false) : false;
         $du_until = $request->input('du_until');
@@ -184,12 +186,6 @@ class TorrentController extends BaseController
         $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? 0) : 0;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::SYSTEM_USER_ID;
-
-        // Set freeleech and doubleup if featured
-        if ($torrent->featured === true) {
-            $torrent->free = 100;
-            $torrent->doubleup = true;
-        }
 
         // Validation
         $v = validator($torrent->toArray(), [
@@ -291,9 +287,6 @@ class TorrentController extends BaseController
             'internal' => [
                 'required',
             ],
-            'featured' => [
-                'required',
-            ],
             'free' => [
                 'required',
                 'between:0,100',
@@ -337,7 +330,7 @@ class TorrentController extends BaseController
         }
 
         // Set torrent to featured
-        if ($torrent->getAttribute('featured')) {
+        if ($user->group->is_modo || $user->group->is_internal && $request->input('featured')) {
             $featuredTorrent = new FeaturedTorrent();
             $featuredTorrent->user_id = $user->id;
             $featuredTorrent->torrent_id = $torrent->id;
@@ -348,7 +341,7 @@ class TorrentController extends BaseController
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        if ($torrent->getAttribute('featured')) {
+        if ($user->group->is_modo || $user->group->is_internal && $request->input('featured')) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
@@ -381,7 +374,7 @@ class TorrentController extends BaseController
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
-            $featured = $torrent->getAttribute('featured');
+            $featured = $user->group->is_modo || $user->group->is_internal && $request->input('featured');
             $free = $torrent->free;
             $doubleup = $torrent->doubleup;
 
