@@ -1,4 +1,4 @@
-<div class="sidebar2 sidebar--inverse">
+<article class="sidebar2 sidebar--inverse">
     <div>
         <section class="panelV2">
             <header class="panel__header">
@@ -456,4 +456,4 @@
             </dl>
         </section>
     </aside>
-</div>
+</article>

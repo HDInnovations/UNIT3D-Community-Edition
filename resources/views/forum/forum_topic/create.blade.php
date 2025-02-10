@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('forum.create-new-topic') }} - {{ config('other.title') }}</title>
@@ -36,7 +36,7 @@
     @include('forum.partials.buttons')
 @endsection
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('forum.create-new-topic') }}</h2>
         <div class="panel__body">

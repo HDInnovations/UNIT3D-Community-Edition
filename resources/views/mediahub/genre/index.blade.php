@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('common.genres') }} - {{ config('other.title') }}</title>
@@ -19,7 +19,7 @@
     </li>
 @endsection
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.genres') }}</h2>
         <div class="panel__body">

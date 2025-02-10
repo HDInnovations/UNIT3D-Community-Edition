@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ $user->username }} {{ __('user.followers') }} - {{ config('other.title') }}</title>
@@ -19,7 +19,7 @@
     @include('user.buttons.user')
 @endsection
 
-@section('content')
+@section('main')
     @if (auth()->user()->isAllowed($user, 'follower', 'show_follower'))
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.followers') }}</h2>

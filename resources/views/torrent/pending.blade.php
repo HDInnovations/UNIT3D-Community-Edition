@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('common.pending-torrents') }} - {{ config('other.title') }}</title>

@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
@@ -9,7 +9,7 @@
     <li class="breadcrumb--active">Packages</li>
 @endsection
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <header class="panel__header">
             <h2 class="panel__heading">Packages</h2>

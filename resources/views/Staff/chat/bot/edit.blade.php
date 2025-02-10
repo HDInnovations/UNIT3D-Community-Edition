@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('bot.edit-bot') }} - {{ config('other.title') }}</title>

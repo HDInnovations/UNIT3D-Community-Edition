@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('auth.password-confirm.title') }} - {{ config('other.title') }}</title>
@@ -17,7 +17,7 @@
     </li>
 @endsection
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('auth.password-confirmation') }}</h2>
         <div class="panel__body">

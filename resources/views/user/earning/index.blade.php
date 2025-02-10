@@ -22,6 +22,6 @@
 
 @section('page', 'page__bonus--index')
 
-@section('main')
+@section('content')
     @livewire('user-earnings', ['userId' => $user->id])
 @endsection

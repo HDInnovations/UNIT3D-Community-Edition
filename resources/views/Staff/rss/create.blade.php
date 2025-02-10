@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('rss.create-public-feed') }} - {{ config('other.title') }}</title>

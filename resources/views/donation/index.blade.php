@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>Donate - {{ config('other.title') }}</title>
@@ -12,7 +12,7 @@
     <li class="breadcrumb--active">Donate</li>
 @endsection
 
-@section('content')
+@section('main')
     <section x-data class="panelV2">
         <h2 class="panel__heading">Support {{ config('other.title') }}</h2>
         <div class="panel__body">

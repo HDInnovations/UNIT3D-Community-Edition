@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>Request - {{ config('other.title') }} - {{ $torrentRequest->name }}</title>
