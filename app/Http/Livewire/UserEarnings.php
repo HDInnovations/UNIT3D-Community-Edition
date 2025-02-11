@@ -18,6 +18,7 @@ namespace App\Http\Livewire;
 
 use App\Models\BonEarning;
 use App\Models\User;
+use App\Models\Peer;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
@@ -63,12 +64,21 @@ class UserEarnings extends Component
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int|string, BonEarning>
+     * @return \Illuminate\Database\Eloquent\Collection<int, BonEarning>
      */
     #[Computed]
-    final public function bonEarnings(): \Illuminate\Database\Eloquent\Collection
+    final public function bonEarnings(): \Illuminate\Support\Collection
     {
-        $query = '';
+        $outerQuery = DB::query();
+        $innerQuery = Peer::query()
+            ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
+            ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
+            ->where('peers.seeder', '=', true)
+            ->where('peers.active', '=', true)
+            ->where('peers.user_id', '=', $this->user->id)
+            ->where('peers.created_at', '<', now()->subMinutes(30))
+            ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
+            ->groupBy('peers.torrent_id');
 
         foreach (BonEarning::with('conditions')->orderBy('position')->get() as $bonEarning) {
             // Raw bindings are fine since all database values are either enums or numeric
@@ -90,34 +100,20 @@ class UserEarnings extends Component
                 }.' '.$condition->operator.' '.$condition->operand2;
             }
 
-            $query .= " WHEN bon_earnings.id = {$bonEarning->id} THEN MAX({$conditionQuery})";
+            $innerQuery->selectRaw("MAX({$conditionQuery}) AS bon_earning_{$bonEarning->id}");
+            $outerQuery->selectRaw("SUM(bon_earning_{$bonEarning->id}) AS bon_earning_{$bonEarning->id}");
         }
 
+        $torrentCounts = $outerQuery->fromSub($innerQuery, 'peers_per_torrent')->first();
+
         return BonEarning::query()
-            ->addSelect([
-                'torrents_count' => DB::query()->fromSub(
-                    DB::table('peers')
-                        ->select([
-                            'peers.torrent_id',
-                            DB::raw("CASE {$query} END AS torrent_count"),
-                        ])
-                        ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
-                        ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
-                        ->where('peers.seeder', '=', true)
-                        ->where('peers.active', '=', true)
-                        ->where('peers.user_id', '=', $this->user->id)
-                        ->where('peers.created_at', '<', now()->subMinutes(30))
-                        ->where('torrents.name', 'LIKE', '%'.str_replace(' ', '%', $this->torrentName).'%')
-                        ->groupBy(['peers.user_id', 'peers.torrent_id']),
-                    'peers_per_torrent'
-                )
-                    ->select([
-                        DB::raw('SUM(torrent_count)')
-                    ])
-            ])
             ->orderBy('position')
             ->get()
-            ->keyBy('id');
+            ->map(function ($bonEarning) use ($torrentCounts) {
+                $bonEarning->setAttribute('torrents_count', $torrentCounts->{"bon_earning_{$bonEarning->id}"});
+
+                return $bonEarning;
+            });
     }
 
     /**
@@ -200,7 +196,7 @@ class UserEarnings extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\Peer>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
      */
     #[Computed]
     final public function torrents(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
