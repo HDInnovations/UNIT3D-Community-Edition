@@ -25,7 +25,7 @@ return [
     'announce-url-desc2'       => 'TMDB und IMDB sind für alle Film/TV Uploads erforderlich! Es wird verwendet, um Poster/Hintergrundbildern und andere Meta-Daten zu parsen',
     'approved'                 => 'Genehmigt',
     'audio'                    => 'Audio',
-    'bon-tipped'               => 'Bonus Tringeld',
+    'bon-tipped'               => 'Bonus Trinkgeld',
     'bookmark'                 => 'Lesezeichen',
     'bookmarks'                => 'Lesezeichen',
     'bump'                     => 'Torrent an erster Stelle verschieben',
