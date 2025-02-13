@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>
@@ -44,7 +44,7 @@
     @include('forum.partials.buttons')
 @endsection
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             {{ __('common.edit') }} {{ __('forum.post') }} {{ strtolower(__('forum.in')) }}:

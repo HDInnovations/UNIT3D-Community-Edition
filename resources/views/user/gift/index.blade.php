@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main-and-sidebar')
 
 @section('title')
     <title>{{ $user->username }} {{ __('user.gifts') }} - {{ config('other.title') }}</title>

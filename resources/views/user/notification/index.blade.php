@@ -10,6 +10,6 @@
     </li>
 @endsection
 
-@section('main')
+@section('content')
     @livewire('notification-search')
 @endsection

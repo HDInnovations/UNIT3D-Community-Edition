@@ -1,4 +1,4 @@
-<div class="sidebar2">
+<article class="sidebar2">
     <div>
         <section class="panelV2">
             <h2 class="panel__heading">{{ $forum->description }}</h2>
@@ -220,4 +220,4 @@
             </div>
         </section>
     </aside>
-</div>
+</article>

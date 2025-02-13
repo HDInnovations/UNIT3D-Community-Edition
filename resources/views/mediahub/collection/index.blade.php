@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('mediahub.collections') }} - {{ config('other.title') }}</title>
@@ -19,6 +19,6 @@
     </li>
 @endsection
 
-@section('content')
+@section('main')
     @livewire('collection-search')
 @endsection

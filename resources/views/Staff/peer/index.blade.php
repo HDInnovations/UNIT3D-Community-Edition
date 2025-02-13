@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>Peers - {{ config('other.title') }}</title>
@@ -19,6 +19,6 @@
 
 @section('page', 'page__peers--index')
 
-@section('content')
+@section('main')
     @livewire('peer-search')
 @endsection

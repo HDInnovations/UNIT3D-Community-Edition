@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('playlist.edit-playlist') }} - {{ config('other.title') }}</title>

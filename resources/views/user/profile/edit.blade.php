@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ $user->username }} {{ __('user.profile') }} - {{ config('other.title') }}</title>
@@ -19,7 +19,7 @@
     @include('user.buttons.user')
 @endsection
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('user.edit-profile') }}</h2>
         <div class="panel__body">

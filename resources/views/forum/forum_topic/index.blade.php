@@ -33,6 +33,6 @@
 
 @section('page', 'page__forum--display')
 
-@section('main')
+@section('content')
     @livewire('forum-topic-search', ['forum' => $forum])
 @endsection

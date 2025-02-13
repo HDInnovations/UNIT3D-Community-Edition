@@ -1,4 +1,4 @@
-<div class="sidebar2">
+<article class="sidebar2">
     <div>
         <section class="panelV2" x-data="toggle">
             <h2 class="panel__heading">{{ __('bon.earnings') }}</h2>
@@ -322,4 +322,4 @@
             </dl>
         </section>
     </aside>
-</div>
+</article>

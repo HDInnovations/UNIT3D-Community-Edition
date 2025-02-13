@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('ticket.helpdesk') }} - {{ config('other.title') }}</title>

@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('breadcrumbs')
     <li class="breadcrumb--active">
@@ -6,6 +6,6 @@
     </li>
 @endsection
 
-@section('content')
+@section('main')
     @livewire('playlist-search')
 @endsection

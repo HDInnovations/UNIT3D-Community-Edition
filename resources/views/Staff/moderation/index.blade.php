@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>Moderation - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>

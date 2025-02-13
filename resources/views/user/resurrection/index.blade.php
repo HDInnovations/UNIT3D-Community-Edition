@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>
@@ -23,6 +23,6 @@
 
 @section('page', 'page__user-resurrections--index')
 
-@section('content')
+@section('main')
     @livewire('user-resurrections', ['userId' => $user->id])
 @endsection

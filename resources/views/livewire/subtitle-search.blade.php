@@ -1,4 +1,4 @@
-<div class="sidebar2 sidebar--inverse">
+<article class="sidebar2 sidebar--inverse">
     <div>
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('common.subtitles') }}</h2>
@@ -193,4 +193,4 @@
             </div>
         </section>
     </aside>
-</div>
+</article>
