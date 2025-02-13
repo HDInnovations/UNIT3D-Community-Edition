@@ -23,7 +23,7 @@ return [
     'delete'              => 'Löschen',
     'delete-all'          => 'Lösche alle Benachrichtigungen',
     'deleted'             => 'Benachrichtigung gelöscht!',
-    'filter-by-type'      => 'Filtere alles nach Benachrichtigungstyp',
+    'filter-by-type'      => 'Filtere nach Benachrichtigungstyp',
     'mark-all-read'       => 'Alles als gelesen markieren',
     'mark-read'           => 'Als gelesen markieren',
     'marked-read'         => 'Benachrichtigung als gelesen markiert!',
