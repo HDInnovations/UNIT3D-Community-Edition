@@ -87,7 +87,7 @@ return new class () extends Migration {
                 'multiplier'  => 0.75,
                 'operation'   => 'append',
                 'name'        => 'Huge Torrent',
-                'description' => 'Torrent Size > 100 GiB',
+                'description' => 'Torrent Size ≥ 100 GiB',
             ],
             [
                 'id'          => 5,
@@ -96,7 +96,7 @@ return new class () extends Migration {
                 'multiplier'  => 0.5,
                 'operation'   => 'append',
                 'name'        => 'Large Torrent',
-                'description' => 'Torrent Size ≥ 25 GiB but < 50 GiB',
+                'description' => 'Torrent Size ≥ 25 GiB but < 100 GiB',
             ],
             [
                 'id'          => 6,
