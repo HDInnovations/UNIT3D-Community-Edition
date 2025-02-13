@@ -1,6 +1,6 @@
 .quick-search {
     position: relative;
-    max-width: 250px;
+    max-width: 400px;
     flex-grow: 1;
     z-index: 5;
 
@@ -16,6 +16,7 @@
 }
 
 .quick-search__inputs {
+    position: absolute;
     display: flex;
     /* Ordered backwards for better keyboard navigation */
     flex-direction: row-reverse;
@@ -33,6 +34,7 @@
     border-radius: var(--quick-search-border-radius)
         var(--quick-search-border-radius) 0 0;
     border-bottom: 1px solid transparent;
+    width: 400px;
 }
 
 .quick-search__input {
