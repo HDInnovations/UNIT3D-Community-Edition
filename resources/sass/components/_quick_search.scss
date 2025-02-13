@@ -18,10 +18,6 @@
 .quick-search__inputs {
     position: absolute;
     display: flex;
-    /* Ordered backwards for better keyboard navigation */
-    flex-direction: row-reverse;
-    align-items: stretch;
-    gap: 2px;
     background-color: var(--quick-search-bg);
     border-radius: var(--quick-search-border-radius);
     overflow: hidden;
