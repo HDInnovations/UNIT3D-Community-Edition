@@ -29,15 +29,21 @@
                         <a class="quick-search__result-link" :href="result.url">
                             <img class="quick-search__image" :src="result.image" alt="" />
                             <h2 class="quick-search__result-text">
-                                <span x-text="result.name"></span>
-                                <time
-                                    class="quick-search__result-year"
-                                    x-text="result.year"
-                                ></time>
                                 <span
-                                    class="quick-search__result-type"
-                                    x-text="result.type"
+                                    class="quick-search__result-name"
+                                    x-text="result.name"
                                 ></span>
+                                <span x-show="result.type != 'Person'">
+                                    <time
+                                        class="quick-search__result-year"
+                                        x-text="result.year"
+                                    ></time>
+                                    &bull;
+                                    <span
+                                        class="quick-search__result-type"
+                                        x-text="result.type"
+                                    ></span>
+                                </span>
                             </h2>
                         </a>
                     </article>
