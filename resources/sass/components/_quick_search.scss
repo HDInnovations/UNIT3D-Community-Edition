@@ -18,10 +18,6 @@
 .quick-search__inputs {
     position: absolute;
     display: flex;
-    background-color: var(--quick-search-bg);
-    border-radius: var(--quick-search-border-radius);
-    overflow: hidden;
-    border: var(--quick-search-border);
     height: 100%;
 }
 
@@ -29,17 +25,25 @@
 .quick-search:focus-within .quick-search__inputs {
     border-radius: var(--quick-search-border-radius)
         var(--quick-search-border-radius) 0 0;
-    border-bottom: 1px solid transparent;
     width: 400px;
 }
 
 .quick-search__input {
     width: 100%;
-    background-color: inherit;
-    border: none;
+    background-color: var(--quick-search-bg);
+    border: var(--quick-search-border);
+    border-radius: var(--quick-search-border-radius);
+    background-clip: padding-box;
     font-size: 13px;
     padding: 1px 0 1px 8px;
     color: var(--quick-search-fg);
+}
+
+.quick-search:active .quick-search__input,
+.quick-search:focus-within .quick-search__input {
+    border-radius: var(--quick-search-border-radius)
+        var(--quick-search-border-radius) 0 0;
+    border-bottom: none;
 }
 
 .quick-search__input::placeholder {
