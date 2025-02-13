@@ -27,7 +27,7 @@
                         x-on:keydown.up.prevent="focusPreviousResult"
                     >
                         <a class="quick-search__result-link" :href="result.url">
-                            <img class="quick-search__image" :src="result.image" alt="" />
+                            <img class="quick-search__image" :src="getSrc(result.image)" alt="" />
                             <h2 class="quick-search__result-text">
                                 <span
                                     class="quick-search__result-name"
@@ -101,6 +101,31 @@
                     } else {
                         el.previousElementSibling?.firstElementChild?.focus();
                     }
+                },
+                getSrc(image) {
+                    return image.length > 2
+                        ? image
+                        : 'data:image/svg+xml;charset=utf-8,' +
+                              `<svg viewBox='0 0 40 60' width='40' height='60' xmlns='http://www.w3.org/2000/svg'>
+                                <defs>
+                                    <linearGradient id='grad' gradientTransform='rotate(90)'>
+                                        <stop offset='0%' stop-color='%23a5abb8' />
+                                        <stop offset='100%' stop-color='%23848993' />
+                                    </linearGradient>
+                                </defs>
+                                <rect width='40' height='60' fill='url(%23grad)'></rect>
+                                <text
+                                    x='50%'
+                                    y='50%'
+                                    dominant-baseline='central'
+                                    text-anchor='middle'
+                                    fill='white'
+                                    font-family='Arial'
+                                    font-size='16px'
+                                >
+                                    ${image}
+                                </text>
+                            </svg>`;
                 },
             };
         }
