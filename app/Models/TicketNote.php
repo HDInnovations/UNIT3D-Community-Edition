@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Linkify;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -56,13 +55,5 @@ class TicketNote extends Model
     public function ticket(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Ticket::class);
-    }
-
-    /**
-     * Parse Message And Return Valid HTML.
-     */
-    public function getMessageHtml(): string
-    {
-        return (new Linkify())->linky($this->message);
     }
 }

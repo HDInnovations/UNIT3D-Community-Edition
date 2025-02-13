@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
-use App\Helpers\Bbcode;
 use Livewire\Component;
 
 class BbcodeInput extends Component
@@ -41,18 +40,11 @@ class BbcodeInput extends Component
         $this->contentBbcode = $content ?? old($name) ?? '';
     }
 
-    final public function updatedIsPreviewEnabled(): void
-    {
-        if ($this->isPreviewEnabled) {
-            $this->contentHtml = (new Bbcode())->parse($this->contentBbcode);
-        }
-    }
-
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.bbcode-input', [
-            'contentHtml' => $this->contentHtml,
-            'label'       => $this->label,
+            'contentBbcode' => $this->contentBbcode,
+            'label'         => $this->label,
         ]);
     }
 }

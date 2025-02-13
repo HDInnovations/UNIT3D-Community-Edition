@@ -85,7 +85,7 @@
                                 <td>
                                     <x-user_tag :anon="false" :user="$note->user" />
                                 </td>
-                                {{-- format-ignore-start --}}<td style="white-space: pre-wrap">@joypixels($note->getMessageHtml())</td>{{-- format-ignore-end --}}
+                                {{-- format-ignore-start --}}<td style="white-space: pre-wrap">@linkify($note->message)</td>{{-- format-ignore-end --}}
                                 <td>
                                     <time
                                         datetime="{{ $note->created_at }}"

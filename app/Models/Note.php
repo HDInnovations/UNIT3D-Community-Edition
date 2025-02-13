@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -76,13 +75,5 @@ class Note extends Model
             'username' => 'System',
             'id'       => User::SYSTEM_USER_ID,
         ]);
-    }
-
-    /**
-     * Parse Message And Return Valid HTML.
-     */
-    public function getMessageHtml(): string
-    {
-        return (new Linkify())->linky($this->message);
     }
 }
