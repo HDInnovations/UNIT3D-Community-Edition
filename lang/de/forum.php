@@ -29,7 +29,7 @@ return [
     'delete-topic'              => 'Dieses Thema löschen',
     'delete-post-success'       => 'Post wurde gelöscht!',
     'denied'                    => 'Verweigert',
-    'dislike-post'              => 'Den Post disliken',
+    'dislike-post'              => 'Diesen Post disliken',
     'display-forum'             => 'Themen anzeigen in ',
     'edit-post'                 => 'Beitrag bearbeiten',
     'edit-post-success'         => 'Post erfolgreich bearbeitet!',
