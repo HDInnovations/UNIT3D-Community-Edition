@@ -308,7 +308,14 @@ readonly class TorrentSearchFiltersDTO
                     ->when(
                         config('other.freeleech'),
                         fn ($query) => $query->whereBetween('free', [0, 100]),
-                        fn ($query) => $query->whereIntegerInRaw('free', (array) $this->free)
+                        fn ($query) => $query->where(
+                            fn ($query) => $query
+                                ->whereIntegerInRaw('free', (array) $this->free)
+                                ->when(
+                                    \in_array(100, $this->free, false),
+                                    fn ($query) => $query->orWhere('featured', '=', true)
+                                )
+                        )
                     )
             )
             ->when($this->filename !== '', fn ($query) => $query->whereRelation('files', 'name', '=', $this->filename))
@@ -335,7 +342,14 @@ readonly class TorrentSearchFiltersDTO
                             )
                     )
             )
-            ->when($this->doubleup, fn ($query) => $query->where('doubleup', '=', 1))
+            ->when(
+                $this->doubleup,
+                fn ($query) => $query->where(
+                    fn ($query) => $query
+                        ->where('doubleup', '=', 1)
+                        ->orWhere('featured', '=', 1)
+                )
+            )
             ->when($this->featured, fn ($query) => $query->where('featured', '=', 1))
             ->when($this->refundable, fn ($query) => $query->where('refundable', '=', true))
             ->when($this->stream, fn ($query) => $query->where('stream', '=', 1))
@@ -542,12 +556,22 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->free !== []) {
             if (!config('other.freeleech')) {
-                $filters[] = 'free IN '.json_encode(array_map('intval', $this->free));
+                if (\in_array(100, $this->free, false)) {
+                    $filters[] = [
+                        'free IN '.json_encode(array_map('intval', $this->free)),
+                        'featured = true',
+                    ];
+                } else {
+                    $filters[] = 'free IN '.json_encode(array_map('intval', $this->free));
+                }
             }
         }
 
         if ($this->doubleup) {
-            $filters[] = 'doubleup = true';
+            $filters[] = [
+                'doubleup = true',
+                'featured = true',
+            ];
         }
 
         if ($this->featured) {
