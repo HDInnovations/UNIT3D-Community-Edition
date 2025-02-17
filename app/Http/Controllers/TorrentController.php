@@ -33,6 +33,7 @@ use App\Models\Region;
 use App\Models\Resolution;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use App\Models\TorrentModerationMessage;
 use App\Models\TorrentFile;
 use App\Models\Tv;
 use App\Models\Type;
@@ -399,17 +400,23 @@ class TorrentController extends Controller
         file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::create([
-            'mediainfo'    => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
-            'info_hash'    => Bencode::get_infohash($decodedTorrent),
-            'file_name'    => $fileName,
-            'num_file'     => $meta['count'],
-            'folder'       => Bencode::get_name($decodedTorrent),
-            'size'         => $meta['size'],
-            'nfo'          => $request->hasFile('nfo') ? TorrentTools::getNfo($request->file('nfo')) : '',
-            'user_id'      => $user->id,
-            'moderated_at' => now(),
-            'moderated_by' => User::SYSTEM_USER_ID,
+            'mediainfo' => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
+            'info_hash' => Bencode::get_infohash($decodedTorrent),
+            'file_name' => $fileName,
+            'num_file'  => $meta['count'],
+            'folder'    => Bencode::get_name($decodedTorrent),
+            'size'      => $meta['size'],
+            'nfo'       => $request->hasFile('nfo') ? TorrentTools::getNfo($request->file('nfo')) : '',
+            'user_id'   => $user->id,
         ] + $request->safe()->except(['torrent']));
+
+        // Update the status on this torrent moderation message table.
+        // The status on the torrent itself will be updated with the TorrentHelper().
+        // Both places are kept in order to have the torrent status quickly accesible for the announce.
+        TorrentModerationMessage::create([
+            'moderated_by' => User::SYSTEM_USER_ID,
+            'torrent_id'   => $torrent->id,
+        ]);
 
         // Populate the status/seeders/leechers/times_completed fields for the external tracker
         $torrent->refresh();

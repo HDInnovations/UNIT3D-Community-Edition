@@ -23,6 +23,7 @@ use App\Models\Conversation;
 use App\Models\PrivateMessage;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use App\Models\TorrentModerationMessage;
 use App\Repositories\ChatRepository;
 use App\Services\Unit3dAnnounce;
 
@@ -52,11 +53,11 @@ class ModerationController extends Controller
                 ->where('status', '=', Torrent::PENDING)
                 ->get(),
             'postponed' => Torrent::withoutGlobalScope(ApprovedScope::class)
-                ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution'])
+                ->with(['user.group', 'category', 'type', 'resolution'])
                 ->where('status', '=', Torrent::POSTPONED)
                 ->get(),
             'rejected' => Torrent::withoutGlobalScope(ApprovedScope::class)
-                ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution'])
+                ->with(['user.group', 'category', 'type', 'resolution'])
                 ->where('status', '=', Torrent::REJECTED)
                 ->get(),
         ]);
@@ -108,14 +109,25 @@ class ModerationController extends Controller
 
                 TorrentHelper::approveHelper($id);
 
+                TorrentModerationMessage::create([
+                    'moderated_by' => $staff->id,
+                    'torrent_id'   => $torrent->id,
+                    'status'       => Torrent::APPROVED,
+                ]);
+
                 return to_route('staff.moderation.index')
                     ->with('success', 'Torrent Approved');
 
             case Torrent::REJECTED:
                 $torrent->update([
-                    'status'       => Torrent::REJECTED,
-                    'moderated_at' => now(),
+                    'status' => Torrent::REJECTED,
+                ]);
+
+                TorrentModerationMessage::create([
                     'moderated_by' => $staff->id,
+                    'torrent_id'   => $torrent->id,
+                    'status'       => Torrent::REJECTED,
+                    'message'      => $request->message,
                 ]);
 
                 $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.', has been rejected by '.$staff->username]);
@@ -137,9 +149,14 @@ class ModerationController extends Controller
 
             case Torrent::POSTPONED:
                 $torrent->update([
-                    'status'       => Torrent::POSTPONED,
-                    'moderated_at' => now(),
+                    'status' => Torrent::POSTPONED,
+                ]);
+
+                TorrentModerationMessage::create([
                     'moderated_by' => $staff->id,
+                    'torrent_id'   => $torrent->id,
+                    'status'       => Torrent::POSTPONED,
+                    'message'      => $request->message,
                 ]);
 
                 $conversation = Conversation::create(['subject' => 'Your upload, '.$torrent->name.', has been postponed by '.$staff->username]);
