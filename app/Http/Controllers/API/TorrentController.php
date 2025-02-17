@@ -168,7 +168,7 @@ class TorrentController extends BaseController
         $torrent->anon = $request->input('anonymous');
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
-        $torrent->personal_release = $request->input('personal_release') ?? 0;
+        $torrent->personal_release = $request->input('personal_release') ?? false;
         $torrent->internal = $user->group->is_modo || $user->group->is_internal ? ($request->input('internal') ?? 0) : 0;
         $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? ($request->input('doubleup') ?? 0) : 0;
         $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? ($request->input('refundable') ?? false) : false;
@@ -183,7 +183,7 @@ class TorrentController extends BaseController
         if (($user->group->is_modo || $user->group->is_internal) && isset($fl_until)) {
             $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
         }
-        $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? 0) : 0;
+        $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? false) : false;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::SYSTEM_USER_ID;
 
@@ -379,7 +379,7 @@ class TorrentController extends BaseController
             $doubleup = $torrent->doubleup;
 
             // Announce To Shoutbox
-            if ($anon == 0) {
+            if (!$anon) {
                 $this->chatRepository->systemMessage(
                     \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
                 );
@@ -389,11 +389,11 @@ class TorrentController extends BaseController
                 );
             }
 
-            if ($anon == 1 && $featured == 1) {
+            if ($anon && $featured == 1) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can!'
                 );
-            } elseif ($anon == 0 && $featured == 1) {
+            } elseif (!$anon && $featured == 1) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.\sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can!'
                 );

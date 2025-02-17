@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $verified
  * @property int                             $user_id
  * @property int                             $torrent_id
- * @property int                             $anon
+ * @property bool                            $anon
  * @property int                             $status
  * @property \Illuminate\Support\Carbon|null $moderated_at
  * @property int|null                        $moderated_by
@@ -57,11 +57,12 @@ class Subtitle extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{moderated_at: 'datetime'}
+     * @return array{anon: 'bool', moderated_at: 'datetime'}
      */
     protected function casts(): array
     {
         return [
+            'anon'         => 'bool',
             'moderated_at' => 'datetime',
         ];
     }

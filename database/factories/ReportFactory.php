@@ -41,7 +41,7 @@ class ReportFactory extends Factory
             'staff_id'      => User::factory(),
             'title'         => $this->faker->sentence(),
             'message'       => $this->faker->text(),
-            'solved'        => $this->faker->randomNumber(),
+            'solved'        => $this->faker->boolean(),
             'verdict'       => $this->faker->text(),
             'reported_user' => User::factory(),
             'torrent_id'    => Torrent::factory(),

@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null                        $staff_id
  * @property string                          $title
  * @property string                          $message
- * @property int                             $solved
+ * @property bool                            $solved
  * @property string|null                     $verdict
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -55,11 +55,12 @@ class Report extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{snoozed_until: 'datetime'}
+     * @return array{solved: 'bool', snoozed_until: 'datetime'}
      */
     protected function casts(): array
     {
         return [
+            'solved'        => 'bool',
             'snoozed_until' => 'datetime',
         ];
     }

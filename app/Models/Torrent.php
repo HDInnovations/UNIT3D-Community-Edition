@@ -62,7 +62,7 @@ use Laravel\Scout\Searchable;
  * @property int                             $status
  * @property \Illuminate\Support\Carbon|null $moderated_at
  * @property int|null                        $moderated_by
- * @property int                             $anon
+ * @property bool                            $anon
  * @property bool                            $sticky
  * @property int                             $sd
  * @property int                             $internal
@@ -76,7 +76,7 @@ use Laravel\Scout\Searchable;
  * @property int|null                        $resolution_id
  * @property int|null                        $distributor_id
  * @property int|null                        $region_id
- * @property int                             $personal_release
+ * @property bool                            $personal_release
  * @property int|null                        $balance
  * @property int|null                        $balance_offset
  */
@@ -95,20 +95,34 @@ class Torrent extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{tmdb: 'int', igdb: 'int', bumped_at: 'datetime', fl_until: 'datetime', du_until: 'datetime', doubleup: 'bool', refundable: 'bool', moderated_at: 'datetime', sticky: 'bool'}
+     * @return array{
+     *     tmdb: 'int',
+     *     igdb: 'int',
+     *     bumped_at: 'datetime',
+     *     fl_until: 'datetime',
+     *     du_until: 'datetime',
+     *     doubleup: 'bool',
+     *     refundable: 'bool',
+     *     moderated_at: 'datetime',
+     *     anon: 'bool',
+     *     sticky: 'bool',
+     *     personal_release: 'bool'
+     * }
      */
     protected function casts(): array
     {
         return [
-            'tmdb'         => 'int',
-            'igdb'         => 'int',
-            'bumped_at'    => 'datetime',
-            'fl_until'     => 'datetime',
-            'du_until'     => 'datetime',
-            'doubleup'     => 'bool',
-            'refundable'   => 'bool',
-            'moderated_at' => 'datetime',
-            'sticky'       => 'bool',
+            'tmdb'             => 'int',
+            'igdb'             => 'int',
+            'bumped_at'        => 'datetime',
+            'fl_until'         => 'datetime',
+            'du_until'         => 'datetime',
+            'doubleup'         => 'bool',
+            'refundable'       => 'bool',
+            'moderated_at'     => 'datetime',
+            'anon'             => 'bool',
+            'sticky'           => 'bool',
+            'personal_release' => 'bool',
         ];
     }
 

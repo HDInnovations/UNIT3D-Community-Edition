@@ -277,7 +277,7 @@
                         @endif
                     </li>
                     <li>
-                        @if ($torrent->sticky == 0)
+                        @if (! $torrent->sticky)
                             <form
                                 action="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
                                 method="POST"

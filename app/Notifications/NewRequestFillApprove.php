@@ -49,7 +49,7 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
      */
     public function toArray(object $notifiable): array
     {
-        if ($this->torrentRequest->anon == 0) {
+        if (!$this->torrentRequest->anon) {
             $this->torrentRequest->load('approver');
 
             return [

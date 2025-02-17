@@ -147,7 +147,7 @@ class RequestController extends Controller
         ]);
 
         // Auto Shout
-        if ($torrentRequest->anon == 0) {
+        if (!$torrentRequest->anon) {
             $this->chatRepository->systemMessage(
                 \sprintf('[url=%s]%s[/url] has created a new request [url=%s]%s[/url]', href_profile($user), $user->username, href_request($torrentRequest), $torrentRequest->name)
             );

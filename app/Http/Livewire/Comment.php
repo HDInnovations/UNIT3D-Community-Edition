@@ -157,10 +157,12 @@ class Comment extends Component
 
                 if ($this->user->id !== $ticket->staff_id && $ticket->staff_id !== null) {
                     User::find($ticket->staff_id)->notify(new NewComment($this->model, $reply));
+                    $this->model->update(['staff_read' => false]);
                 }
 
                 if ($this->user->id !== $ticket->user_id) {
                     User::find($ticket->user_id)->notify(new NewComment($this->model, $reply));
+                    $this->model->update(['user_read' => false]);
                 }
 
                 if (!\in_array($this->comment->user_id, [$ticket->staff_id, $ticket->user_id, $this->user->id])) {
