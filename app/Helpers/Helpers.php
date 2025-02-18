@@ -185,7 +185,7 @@ if (!\function_exists('language_flag')) {
             'Portuguese (BR)' => 'br',
             'Romanian', 'Romanian (RO)' => 'ro',
             'Russian', 'Russian (RU)' => 'ru',
-            'Serbian', 'Serbian-Latn-RS', 'Serbian (RS)' => 'rs',
+            'Serbian', 'Serbian-Latn-RS', 'Serbian (RS)', 'Serbian (Cyrl)', 'Serbian (Latn)' => 'rs',
             'Sinhala' => 'lk',
             'Slovak', 'Slovak (SK)' => 'sk',
             'Slovenian', 'Slovenian (SI)' => 'si',
