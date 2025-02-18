@@ -27,6 +27,7 @@ use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Type;
+use App\Models\User;
 use App\Notifications\TorrentsDeleted;
 use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
@@ -469,7 +470,10 @@ class SimilarTorrent extends Component
             $torrent->delete();
         }
 
-        Notification::send($users, new TorrentsDeleted($torrents, $title, $this->reason));
+        Notification::send(
+            array_map(fn ($userId) => new User(['id' => $userId]), $users),
+            new TorrentsDeleted($torrents, $title, $this->reason)
+        );
 
         $this->checked = [];
         $this->selectPage = false;
