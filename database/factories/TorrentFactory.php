@@ -64,7 +64,6 @@ class TorrentFactory extends Factory
             'free'            => $freeleech[$selected],
             'doubleup'        => $this->faker->boolean(),
             'highspeed'       => $this->faker->boolean(),
-            'featured'        => false,
             'status'          => Torrent::APPROVED,
             'moderated_at'    => now(),
             'moderated_by'    => 1,

@@ -589,6 +589,7 @@ class TorrentSearch extends Component
                 'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
             ])
             ->withExists([
+                'featured as featured',
                 'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                 'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
@@ -626,7 +627,6 @@ class TorrentSearch extends Component
                 'free',
                 'doubleup',
                 'highspeed',
-                'featured',
                 'sticky',
                 'sd',
                 'internal',

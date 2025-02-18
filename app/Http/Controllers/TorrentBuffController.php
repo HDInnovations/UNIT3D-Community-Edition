@@ -141,10 +141,7 @@ class TorrentBuffController extends Controller
         abort_unless($user->group->is_modo || $user->group->is_internal, 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        if ($torrent->featured === false) {
-            $torrent->featured = true;
-            $torrent->save();
-
+        if ($torrent->featured()->doesntExist()) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
 
             $featured = new FeaturedTorrent();
@@ -180,8 +177,6 @@ class TorrentBuffController extends Controller
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->featured = false;
-        $torrent->save();
 
         Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 

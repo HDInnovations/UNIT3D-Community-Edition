@@ -59,7 +59,6 @@ use Laravel\Scout\Searchable;
  * @property bool                            $doubleup
  * @property bool                            $refundable
  * @property int                             $highspeed
- * @property bool                            $featured
  * @property int                             $status
  * @property \Illuminate\Support\Carbon|null $moderated_at
  * @property int|null                        $moderated_by
@@ -96,7 +95,7 @@ class Torrent extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{tmdb: 'int', igdb: 'int', bumped_at: 'datetime', fl_until: 'datetime', du_until: 'datetime', doubleup: 'bool', refundable: 'bool', featured: 'bool', moderated_at: 'datetime', sticky: 'bool'}
+     * @return array{tmdb: 'int', igdb: 'int', bumped_at: 'datetime', fl_until: 'datetime', du_until: 'datetime', doubleup: 'bool', refundable: 'bool', moderated_at: 'datetime', sticky: 'bool'}
      */
     protected function casts(): array
     {
@@ -108,7 +107,6 @@ class Torrent extends Model
             'du_until'     => 'datetime',
             'doubleup'     => 'bool',
             'refundable'   => 'bool',
-            'featured'     => 'bool',
             'moderated_at' => 'datetime',
             'sticky'       => 'bool',
         ];
@@ -163,7 +161,6 @@ class Torrent extends Model
             torrents.doubleup,
             torrents.refundable,
             torrents.highspeed,
-            torrents.featured,
             torrents.status,
             torrents.anon,
             torrents.sticky,
@@ -303,6 +300,11 @@ class Torrent extends Model
                 FROM torrent_trumps
                 WHERE torrents.id = torrent_trumps.torrent_id
             ) AS trumpable,
+            EXISTS(
+                SELECT *
+                FROM featured_torrents
+                WHERE torrents.id = featured_torrents.torrent_id
+            ) AS featured,
             (
                 SELECT JSON_OBJECT(
                     'id', movies.id,

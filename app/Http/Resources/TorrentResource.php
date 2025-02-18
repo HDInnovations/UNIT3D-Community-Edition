@@ -59,7 +59,7 @@ class TorrentResource extends JsonResource
                 'double_upload'    => $this->doubleup,
                 'refundable'       => $this->refundable,
                 'internal'         => $this->internal,
-                'featured'         => $this->featured,
+                'featured'         => $this->whenHas('featured'),
                 'personal_release' => $this->personal_release,
                 'uploader'         => $this->anon ? 'Anonymous' : $this->user->username,
                 'seeders'          => $this->seeders,
