@@ -113,36 +113,9 @@
             <a tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.support') }}
-                    <!-- Notifications for Mods -->
-                    @if (auth()->user()->group->is_modo)
-                        @php
-                            $tickets = DB::table('tickets')
-                                ->whereNull('closed_at')
-                                ->whereNull('staff_id')
-                                ->orWhere(function ($query) {
-                                    $query
-                                        ->where('staff_id', '=', auth()->id())
-                                        ->Where('staff_read', '=', false);
-                                })
-                                ->exists();
-                        @endphp
 
-                        @if ($tickets)
-                            <x-animation.notification />
-                        @endif
-
-                        <!-- Notification for Users -->
-                    @else
-                        @php
-                            $ticket_unread = DB::table('tickets')
-                                ->where('user_id', '=', auth()->id())
-                                ->where('user_read', '=', false)
-                                ->exists();
-                        @endphp
-
-                        @if ($ticket_unread)
-                            <x-animation.notification />
-                        @endif
+                    @if ($hasUnreadTicket)
+                        <x-animation.notification />
                     @endif
                 </div>
             </a>
@@ -169,17 +142,8 @@
                     <a href="{{ route('tickets.index') }}">
                         <i class="{{ config('other.font-awesome') }} fa-life-ring"></i>
                         {{ __('ticket.helpdesk') }}
-                        <!-- Notifications for Mods -->
-                        @if (auth()->user()->group->is_modo)
-                            @if ($tickets > 0)
-                                <x-animation.notification />
-                            @endif
-
-                            <!-- Notification for Users -->
-                        @else
-                            @if ($ticket_unread > 0)
-                                <x-animation.notification />
-                            @endif
+                        @if ($hasUnreadTicket)
+                            <x-animation.notification />
                         @endif
                     </a>
                 </li>
@@ -192,17 +156,6 @@
             </ul>
         </li>
         <li class="top-nav__dropdown">
-            @php
-                $events = \App\Models\Event::query()
-                    ->where('active', '=', true)
-                    ->withExists([
-                        'claimedPrizes' => fn ($query) => $query
-                            ->where('created_at', '>', now()->startOfDay())
-                            ->where('user_id', '=', auth()->id()),
-                    ])
-                    ->get()
-            @endphp
-
             <a tabindex="0">
                 <div class="top-nav--left__container">
                     {{ __('common.other') }}
@@ -252,22 +205,10 @@
         </li>
         @if (config('donation.is_enabled'))
             <li class="top-nav__dropdown">
-                @php
-                    $sum = App\Models\Donation::whereMonth('created_at', date('m'))
-                        ->whereYear('created_at', date('Y'))
-                        ->where('status', App\Models\Donation::APPROVED)
-                        ->with('package')
-                        ->get()
-                        ->sum(function ($donation) {
-                            return $donation->package->cost;
-                        });
-                    $percentage = $sum ? min(100, number_format(($sum / config('donation.monthly_goal')) * 100)) : 0;
-                @endphp
-
-                <a tabindex="0" title="{{ $percentage }}% filled">
+                <a tabindex="0" title="{{ $donationPercentage }}% filled">
                     <div class="top-nav--left__container">
                         <span
-                            class="{{ $percentage < 100 ? 'fa-fade' : '' }}"
+                            class="{{ $donationPercentage < 100 ? 'fa-fade' : '' }}"
                             style="color: lightcoral"
                         >
                             Donate
@@ -277,12 +218,12 @@
                                 class="progress-bar"
                                 role="progressbar"
                                 style="
-                                    width: {{ $percentage ?? 0 }}%;
+                                    width: {{ $donationPercentage }}%;
                                     background-color: slategray;
                                     border-bottom: 2px solid lightcoral !important;
                                     max-width: 100%;
                                 "
-                                aria-valuenow="{{ $percentage ?? 0 }}"
+                                aria-valuenow="{{ $donationPercentage }}"
                                 aria-valuemin="0"
                                 aria-valuemax="{{ config('donation.monthly_goal') }}"
                             ></div>
@@ -293,7 +234,7 @@
                     <li>
                         <a href="{{ route('donations.index') }}">
                             <i class="fas fa-display-chart-up-circle-dollar"></i>
-                            Support {{ config('other.title') }} ({{ $percentage ?? 0 }}%)
+                            Support {{ config('other.title') }} ({{ $donationPercentage }}%)
                         </a>
                     </li>
                     <li>
@@ -310,22 +251,22 @@
         <ul class="top-nav__stats" x-bind:class="expanded && 'mobile'">
             <li class="top-nav__stats-up" title="{{ __('common.upload') }}">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                {{ auth()->user()->formatted_uploaded }}
+                {{ $user->formatted_uploaded }}
             </li>
             <li class="top-nav__stats-down" title="{{ __('common.download') }}">
                 <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                {{ auth()->user()->formatted_downloaded }}
+                {{ $user->formatted_downloaded }}
             </li>
             <li class="top-nav__stats-ratio" title="{{ __('common.ratio') }}">
                 <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                {{ auth()->user()->formatted_ratio }}
+                {{ $user->formatted_ratio }}
             </li>
         </ul>
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
                 <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-arrow-up"></i>
-                    {{ auth()->user()->formatted_uploaded }}
+                    {{ $user->formatted_uploaded }}
                 </a>
             </li>
             <li class="ratio-bar__downloaded" title="{{ __('common.download') }}">
@@ -333,34 +274,14 @@
                     href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-arrow-down"></i>
-                    {{ auth()->user()->formatted_downloaded }}
+                    {{ $user->formatted_downloaded }}
                 </a>
             </li>
-            @php
-                // Generally sites have more seeders than leechers, so it ends up being faster (by approximately 50%) to compute these stats instead of computing them individually
-                $peer_count = Cache::remember(
-                    'users:' . auth()->id() . ':peer_count',
-                    60,
-                    fn () => DB::table('peers')
-                        ->where('user_id', '=', auth()->id())
-                        ->where('active', '=', 1)
-                        ->count() ?? 0
-                );
-                $leech_count = Cache::remember(
-                    'users:' . auth()->id() . ':leech_count',
-                    60,
-                    fn () => DB::table('peers')
-                        ->where('seeder', '=', false)
-                        ->where('user_id', '=', auth()->id())
-                        ->where('active', '=', 1)
-                        ->count() ?? 0
-                );
-            @endphp
 
             <li class="ratio-bar__seeding" title="{{ __('torrent.seeding') }}">
                 <a href="{{ route('users.peers.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                    {{ $peer_count - $leech_count }}
+                    {{ $peerCount - $leechCount }}
                 </a>
             </li>
             <li class="ratio-bar__leeching" title="{{ __('torrent.leeching') }}">
@@ -368,31 +289,31 @@
                     href="{{ route('users.peers.index', ['user' => auth()->user(), 'seeding' => 'exclude']) }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                    {{ $leech_count }}
+                    {{ $leechCount }}
                 </a>
             </li>
             <li class="ratio-bar__buffer" title="{{ __('common.buffer') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-exchange"></i>
-                    {{ auth()->user()->formatted_buffer }}
+                    {{ $user->formatted_buffer }}
                 </a>
             </li>
             <li class="ratio-bar__points" title="{{ __('user.my-bonus-points') }}">
                 <a href="{{ route('users.earnings.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-coins"></i>
-                    {{ auth()->user()->formatted_seedbonus }}
+                    {{ $user->formatted_seedbonus }}
                 </a>
             </li>
             <li class="ratio-bar__ratio" title="{{ __('common.ratio') }}">
                 <a href="{{ route('users.history.index', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-sync-alt"></i>
-                    {{ auth()->user()->formatted_ratio }}
+                    {{ $user->formatted_ratio }}
                 </a>
             </li>
             <li class="ratio-bar__tokens" title="{{ __('user.my-fl-tokens') }}">
                 <a href="{{ route('users.show', ['user' => auth()->user()]) }}">
                     <i class="{{ config('other.font-awesome') }} fa-star"></i>
-                    {{ auth()->user()->fl_tokens }}
+                    {{ $user->fl_tokens }}
                 </a>
             </li>
         </ul>
@@ -408,8 +329,8 @@
                 "
             >
                 <i class="{{ auth()->user()->group->icon }}"></i>
-                {{ auth()->user()->username }}
-                @if ($warningsExists = auth()->user()->warnings()->active()->exists())
+                {{ $user->username }}
+                @if ($hasActiveWarning)
                     <i
                         class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                         title="{{ __('common.active-warning') }}"
@@ -418,7 +339,7 @@
             </span>
         </a>
         <ul class="top-nav__icon-bar" x-bind:class="expanded && 'mobile'">
-            @if (auth()->user()->group->is_modo)
+            @if ($user->group->is_modo)
                 <li>
                     <a
                         class="top-nav--right__icon-link"
@@ -426,21 +347,14 @@
                         title="{{ __('staff.staff-dashboard') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-cogs"></i>
-                        @php
-                            $unsolvedReportsCount = DB::table('reports')
-                                ->whereNull('snoozed_until')
-                                ->where('solved', '=', false)
-                                ->count()
-                        @endphp
-
-                        @if ($unsolvedReportsCount > 0)
+                        @if ($hasUnresolvedReport)
                             <x-animation.notification />
                         @endif
                     </a>
                 </li>
             @endif
 
-            @if (auth()->user()->group->is_torrent_modo)
+            @if ($user->group->is_torrent_modo)
                 <li>
                     <a
                         class="top-nav--right__icon-link"
@@ -448,14 +362,8 @@
                         title="{{ __('staff.torrent-moderation') }}"
                     >
                         <i class="{{ config('other.font-awesome') }} fa-tasks"></i>
-                        @php
-                            $torrents_unmoderated = DB::table('torrents')
-                                ->where('status', '=', \App\Models\Torrent::PENDING)
-                                ->whereNull('deleted_at')
-                                ->exists();
-                        @endphp
 
-                        @if ($torrents_unmoderated)
+                        @if ($hasUnmoderatedTorrent)
                             <x-animation.notification />
                         @endif
                     </a>
@@ -463,21 +371,13 @@
             @endif
 
             <li>
-                @php
-                    $pm = DB::table('participants')
-                        ->where('user_id', '=', auth()->id())
-                        ->where('read', '=', false)
-                        ->whereNull('deleted_at')
-                        ->exists();
-                @endphp
-
                 <a
                     class="top-nav--right__icon-link"
                     href="{{ route('users.conversations.index', ['user' => auth()->user()]) }}"
                     title="{{ __('pm.inbox') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-envelope"></i>
-                    @if ($pm)
+                    @if ($hasUnreadPm)
                         <x-animation.notification />
                     @endif
                 </a>
@@ -489,7 +389,7 @@
                     title="{{ __('user.notifications') }}"
                 >
                     <i class="{{ config('other.font-awesome') }} fa-bell"></i>
-                    @if (auth()->user()->unreadNotifications()->exists())
+                    @if ($hasUnreadNotification)
                         <x-animation.notification />
                     @endif
                 </a>
@@ -500,14 +400,14 @@
                     href="{{ route('users.show', ['user' => auth()->user()]) }}"
                 >
                     <img
-                        src="{{ url(auth()->user()->image ? 'files/img/' . auth()->user()->image : 'img/profile.png') }}"
+                        src="{{ $avatarUrl }}"
                         alt="{{ __('user.my-profile') }}"
                         class="top-nav__profile-image"
                     />
                 </a>
                 <a class="top-nav__dropdown--touch" tabindex="0">
                     <img
-                        src="{{ url(auth()->user()->image ? 'files/img/' . auth()->user()->image : 'img/profile.png') }}"
+                        src="{{ $avatarUrl }}"
                         alt="{{ __('user.my-profile') }}"
                         class="top-nav__profile-image"
                     />
@@ -526,8 +426,8 @@
                                 "
                             >
                                 <i class="{{ auth()->user()->group->icon }}"></i>
-                                {{ auth()->user()->username }}
-                                @if ($warningsExists)
+                                {{ $user->username }}
+                                @if ($hasActiveWarning)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-exclamation-circle text-orange"
                                         title="{{ __('common.active-warning') }}"
@@ -570,17 +470,6 @@
                     <li>
                         <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
                             <i class="{{ config('other.font-awesome') }} fa-upload"></i>
-                            @php
-                                $uploadCount = Cache::remember(
-                                    'users:' . auth()->id() . ':upload_count',
-                                    60,
-                                    fn () => auth()
-                                        ->user()
-                                        ->torrents()
-                                        ->count() ?? 0
-                                );
-                            @endphp
-
                             {{ __('user.my-uploads') }}
 
                             @if ($uploadCount > 0)
@@ -593,18 +482,6 @@
                             href="{{ route('users.history.index', ['user' => auth()->user(), 'downloaded' => 'include']) }}"
                         >
                             <i class="{{ config('other.font-awesome') }} fa-download"></i>
-                            @php
-                                $downloadCount = Cache::remember(
-                                    'users:' . auth()->id() . ':download_count',
-                                    60,
-                                    fn () => auth()
-                                        ->user()
-                                        ->history()
-                                        ->where('actual_downloaded', '>', 0)
-                                        ->count() ?? 0
-                                );
-                            @endphp
-
                             {{ __('user.my-downloads') }}
 
                             @if ($downloadCount > 0)
