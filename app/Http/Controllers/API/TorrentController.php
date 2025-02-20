@@ -171,8 +171,10 @@ class TorrentController extends BaseController
         $torrent->personal_release = $request->input('personal_release') ?? false;
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->internal = $user->group->is_modo || $user->internals_exists ? ($request->input('internal') ?? 0) : 0;
+
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->doubleup = $user->group->is_modo || $user->internals_exists ? ($request->input('doubleup') ?? 0) : 0;
+
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->refundable = $user->group->is_modo || $user->internals_exists ? ($request->input('refundable') ?? false) : false;
         $du_until = $request->input('du_until');
