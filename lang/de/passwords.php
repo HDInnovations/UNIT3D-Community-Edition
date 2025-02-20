@@ -25,7 +25,7 @@ return [
     |
     */
 
-    'password' => 'Passwörter müssen mindestens 6 Zeichen lang sein und mit der Passwortwiederholung übereinstimmen.',
+    'password' => 'Passwörter müssen mindestens 6 Zeichen lang sein und mit der Wiederholung übereinstimmen.',
     'reset'    => 'Das Passwort wurde zurückgesetzt!',
     'sent'     => 'Wir haben dir den Link zum Zurücksetzen des Passworts per E-Mail zugeschickt!',
     'token'    => 'Der Passwort-Reset-Token ist ungültig oder abgelaufen.',
