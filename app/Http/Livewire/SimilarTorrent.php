@@ -242,6 +242,7 @@ class SimilarTorrent extends Component
             ->with('user:id,username,group_id', 'category', 'type', 'resolution')
             ->withCount(['thanks', 'comments'])
             ->withExists([
+                'featured as featured',
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                 'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 1)

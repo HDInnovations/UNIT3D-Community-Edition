@@ -25,7 +25,6 @@ use App\Http\Requests\UpdateTorrentRequest;
 use App\Models\Audit;
 use App\Models\Category;
 use App\Models\Distributor;
-use App\Models\FeaturedTorrent;
 use App\Models\History;
 use App\Models\Keyword;
 use App\Models\Movie;
@@ -91,6 +90,7 @@ class TorrentController extends Controller
                 'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
             ])
             ->withExists([
+                'featured as featured',
                 'bookmarks'       => fn ($query) => $query->where('user_id', '=', $user->id),
                 'freeleechTokens' => fn ($query) => $query->where('user_id', '=', $user->id),
                 'trump'
@@ -158,7 +158,6 @@ class TorrentController extends Controller
             'platforms'          => $platforms,
             'total_tips'         => $torrent->tips()->sum('bon'),
             'user_tips'          => $torrent->tips()->where('sender_id', '=', $user->id)->sum('bon'),
-            'featured'           => FeaturedTorrent::where('torrent_id', '=', $id)->first(),
             'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,
             'last_seed_activity' => History::where('torrent_id', '=', $torrent->id)->where('seeder', '=', 1)->latest('updated_at')->first(),
             'playlists'          => $user->playlists,
