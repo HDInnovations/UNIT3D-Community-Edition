@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $bounty
  * @property int                             $votes
  * @property int|null                        $claimed
- * @property int                             $anon
+ * @property bool                            $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null                        $filled_by
@@ -72,7 +72,7 @@ class TorrentRequest extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{filled_when: 'datetime', approved_when: 'datetime', tmdb: 'int', igdb: 'int', bounty: 'decimal:2'}
+     * @return array{filled_when: 'datetime', approved_when: 'datetime', tmdb: 'int', igdb: 'int', bounty: 'decimal:2', anon: 'bool'}
      */
     protected function casts(): array
     {
@@ -82,6 +82,7 @@ class TorrentRequest extends Model
             'tmdb'          => 'int',
             'igdb'          => 'int',
             'bounty'        => 'decimal:2',
+            'anon'          => 'bool',
         ];
     }
 

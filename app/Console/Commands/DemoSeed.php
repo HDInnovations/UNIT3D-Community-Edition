@@ -89,7 +89,7 @@ class DemoSeed extends Command
                         'region_id'      => random_int(1, 242),
                         'distributor_id' => random_int(1, 965),
                         'free'           => $freeleech[$selected],
-                        'sticky'         => 0,
+                        'sticky'         => false,
                         'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska
@@ -284,7 +284,8 @@ Menu
                         'region_id'      => random_int(1, 242),
                         'distributor_id' => random_int(1, 965),
                         'free'           => $freeleech[$selected],
-                        'sticky'         => 0,
+                        'featured'       => false,
+                        'sticky'         => false,
                         'mediainfo'      => '
 Complete name                            : Double.Impact.1991.1080p.BluRay.DD+5.1.x264-LoRD.mkv
 Format                                   : Matroska

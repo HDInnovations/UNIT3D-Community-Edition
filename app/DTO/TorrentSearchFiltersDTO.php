@@ -358,7 +358,7 @@ readonly class TorrentSearchFiltersDTO
             ->when($this->userBookmarked, fn ($query) => $query->whereRelation('bookmarks', 'user_id', '=', $this->user->id))
             ->when($this->userWished, fn ($query) => $query->whereIn('tmdb', Wish::select('tmdb')->where('user_id', '=', $this->user->id)))
             ->when($this->internal, fn ($query) => $query->where('internal', '=', 1))
-            ->when($this->personalRelease, fn ($query) => $query->where('personal_release', '=', 1))
+            ->when($this->personalRelease, fn ($query) => $query->where('personal_release', '=', true))
             ->when($this->trumpable, fn ($query) => $query->has('trump'))
             ->when($this->alive, fn ($query) => $query->where('seeders', '>', 0))
             ->when($this->dying, fn ($query) => $query->where('seeders', '=', 1)->where('times_completed', '>=', 3))

@@ -121,7 +121,7 @@ class StatsController extends Controller
     {
         return view('stats.users.uploaders', [
             'uploaders' => Torrent::with('user')
-                ->where('anon', '=', 0)
+                ->where('anon', '=', false)
                 ->select(DB::raw('user_id, count(*) as value'))
                 ->groupBy('user_id')
                 ->orderByDesc('value')

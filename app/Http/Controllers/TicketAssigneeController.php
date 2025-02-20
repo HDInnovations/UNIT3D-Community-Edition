@@ -28,7 +28,7 @@ class TicketAssigneeController extends Controller
 
         $ticket->update([
             'staff_id'   => $request->staff_id,
-            'staff_read' => 0,
+            'staff_read' => false,
         ]);
 
         return to_route('tickets.show', ['ticket' => $ticket])

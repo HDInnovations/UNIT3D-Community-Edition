@@ -184,7 +184,7 @@ class TopUsers extends Component
             ->select(DB::raw('user_id, COUNT(user_id) as value'))
             ->where('user_id', '!=', User::SYSTEM_USER_ID)
             ->where('anon', '=', false)
-            ->where('personal_release', '=', 1)
+            ->where('personal_release', '=', true)
             ->groupBy('user_id')
             ->orderByDesc('value')
             ->take(8)

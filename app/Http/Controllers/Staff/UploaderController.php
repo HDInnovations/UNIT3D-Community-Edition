@@ -36,11 +36,11 @@ class UploaderController extends Controller
                 ])
                 // Count total personal releases for current user
                 ->withCount(['torrents as total_personal_releases' => fn ($query) => $query
-                    ->where('personal_release', '=', 1)
+                    ->where('personal_release', '=', true)
                 ])
                 // Count recent personal releases for current user
                 ->withCount(['torrents as recent_personal_releases' => fn ($query) => $query
-                    ->where('personal_release', '=', 1)
+                    ->where('personal_release', '=', true)
                     ->where('created_at', '>', now()->subDays(60))
                 ])
                 ->orderBy('group_id')

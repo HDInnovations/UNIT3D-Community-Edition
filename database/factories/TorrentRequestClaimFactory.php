@@ -37,7 +37,7 @@ class TorrentRequestClaimFactory extends Factory
         return [
             'request_id' => TorrentRequest::factory(),
             'username'   => User::factory(),
-            'anon'       => $this->faker->randomNumber(),
+            'anon'       => $this->faker->boolean(),
         ];
     }
 }

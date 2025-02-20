@@ -66,11 +66,11 @@ class TicketController extends Controller
         abort_unless($request->user()->group->is_modo || $request->user()->id === $ticket->user_id, 403);
 
         if ($request->user()->id === $ticket->user_id) {
-            $ticket->user_read = 1;
+            $ticket->user_read = true;
         }
 
         if ($request->user()->id === $ticket->staff_id) {
-            $ticket->staff_read = 1;
+            $ticket->staff_read = true;
         }
 
         $ticket->save();
