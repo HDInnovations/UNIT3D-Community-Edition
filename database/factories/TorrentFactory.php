@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\ModerationStatus;
 use App\Models\Category;
 use App\Models\Resolution;
 use App\Models\Torrent;
@@ -64,7 +65,7 @@ class TorrentFactory extends Factory
             'free'            => $freeleech[$selected],
             'doubleup'        => $this->faker->boolean(),
             'highspeed'       => $this->faker->boolean(),
-            'status'          => Torrent::APPROVED,
+            'status'          => ModerationStatus::APPROVED,
             'moderated_at'    => now(),
             'moderated_by'    => 1,
             'anon'            => $this->faker->boolean(),

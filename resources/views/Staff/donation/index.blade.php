@@ -89,9 +89,9 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($donation->status === App\Models\Donation::PENDING)
+                                @if ($donation->status === App\Enums\ModerationStatus::PENDING)
                                     <span class="text-warning">Pending</span>
-                                @elseif ($donation->status === App\Models\Donation::APPROVED)
+                                @elseif ($donation->status === App\Enums\ModerationStatus::APPROVED)
                                     <span class="text-success">Approved</span>
                                 @else
                                     <span class="text-danger">Rejected</span>
@@ -99,7 +99,7 @@
                             </td>
 
                             <td>
-                                @if ($donation->status === App\Models\Donation::PENDING)
+                                @if ($donation->status === App\Enums\ModerationStatus::PENDING)
                                     <menu class="data-table__actions">
                                         <li class="data-table__action">
                                             <form

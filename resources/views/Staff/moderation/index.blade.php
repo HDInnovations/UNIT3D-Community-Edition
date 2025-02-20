@@ -78,7 +78,7 @@
                                             <input
                                                 type="hidden"
                                                 name="status"
-                                                value="{{ \App\Models\Torrent::APPROVED }}"
+                                                value="{{ \App\Enums\ModerationStatus::APPROVED }}"
                                             />
                                             <button class="form__button form__button--filled">
                                                 <i
@@ -166,7 +166,7 @@
                                             <input
                                                 type="hidden"
                                                 name="status"
-                                                value="{{ \App\Models\Torrent::APPROVED }}"
+                                                value="{{ \App\Enums\ModerationStatus::APPROVED }}"
                                             />
                                             <button class="form__button form__button--filled">
                                                 <i
@@ -264,7 +264,7 @@
                                             <input
                                                 type="hidden"
                                                 name="status"
-                                                value="{{ \App\Models\Torrent::APPROVED }}"
+                                                value="{{ \App\Enums\ModerationStatus::APPROVED }}"
                                             />
                                             <button class="form__button form__button--filled">
                                                 <i

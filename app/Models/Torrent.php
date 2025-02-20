@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\ModerationStatus;
 use App\Helpers\StringHelper;
 use App\Models\Scopes\ApprovedScope;
 use App\Notifications\NewComment;
@@ -59,7 +60,7 @@ use Laravel\Scout\Searchable;
  * @property bool                            $doubleup
  * @property bool                            $refundable
  * @property int                             $highspeed
- * @property int                             $status
+ * @property ModerationStatus                $status
  * @property \Illuminate\Support\Carbon|null $moderated_at
  * @property int|null                        $moderated_by
  * @property bool                            $anon
@@ -98,6 +99,7 @@ class Torrent extends Model
      * @return array{
      *     tmdb: 'int',
      *     igdb: 'int',
+     *     status: class-string<ModerationStatus>,
      *     bumped_at: 'datetime',
      *     fl_until: 'datetime',
      *     du_until: 'datetime',
@@ -122,6 +124,7 @@ class Torrent extends Model
             'moderated_at'     => 'datetime',
             'anon'             => 'bool',
             'sticky'           => 'bool',
+            'status'           => ModerationStatus::class,
             'personal_release' => 'bool',
         ];
     }
@@ -134,11 +137,6 @@ class Torrent extends Model
     protected $discarded = [
         'info_hash',
     ];
-
-    final public const PENDING = 0;
-    final public const APPROVED = 1;
-    final public const REJECTED = 2;
-    final public const POSTPONED = 3;
 
     /**
      * This query is to be added to a raw select from the torrents table.
@@ -926,7 +924,7 @@ class Torrent extends Model
             'refundable'         => (bool) $torrent->refundable,
             'highspeed'          => (bool) $torrent->highspeed,
             'featured'           => (bool) $torrent->featured,
-            'status'             => $torrent->status,
+            'status'             => $torrent->status->value,
             'anon'               => (bool) $torrent->anon,
             'sticky'             => (int) $torrent->sticky,
             'sd'                 => (bool) $torrent->sd,

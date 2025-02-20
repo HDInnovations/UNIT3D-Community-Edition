@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Meilisearch\Client;
@@ -30,7 +31,7 @@ class QuickSearchController extends Controller
 
         $filters = [
             'deleted_at IS NULL',
-            'status = 1',
+            'status = '.ModerationStatus::APPROVED->value,
             [
                 'category.movie_meta = true',
                 'category.tv_meta = true',

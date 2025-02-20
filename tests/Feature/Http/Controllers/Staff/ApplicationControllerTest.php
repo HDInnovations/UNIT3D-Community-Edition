@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
+use App\Enums\ModerationStatus;
 use App\Http\Controllers\Staff\ApplicationController;
 use App\Http\Livewire\ApplicationSearch;
 use App\Http\Requests\Staff\ApproveApplicationRequest;
@@ -42,11 +43,11 @@ test('approve validates with a form request', function (): void {
 
 test('approve returns an ok response', function (): void {
     $application = Application::factory()->create([
-        'status' => Application::PENDING,
+        'status' => ModerationStatus::PENDING,
     ]);
 
     $response = $this->actingAs($this->staffUser)->post(route('staff.applications.approve', ['id' => $application->id]), [
-        'status'       => Application::APPROVED,
+        'status'       => ModerationStatus::APPROVED->value,
         'moderated_by' => $this->staffUser->id,
         'moderated_at' => now(),
         'approve'      => 'Approved',
@@ -73,11 +74,11 @@ test('reject validates with a form request', function (): void {
 
 test('reject returns an ok response', function (): void {
     $application = Application::factory()->create([
-        'status' => Application::PENDING,
+        'status' => ModerationStatus::PENDING,
     ]);
 
     $response = $this->actingAs($this->staffUser)->post(route('staff.applications.reject', ['id' => $application->id]), [
-        'status'       => Application::REJECTED,
+        'status'       => ModerationStatus::REJECTED->value,
         'moderated_by' => $this->staffUser->id,
         'moderated_at' => now(),
         'deny'         => 'Denied',
@@ -88,7 +89,7 @@ test('reject returns an ok response', function (): void {
 
 test('show returns an ok response', function (): void {
     $application = Application::factory()->create([
-        'status' => Application::APPROVED,
+        'status' => ModerationStatus::APPROVED,
     ]);
 
     $response = $this->actingAs($this->staffUser)->get(route('staff.applications.show', ['id' => $application->id]));

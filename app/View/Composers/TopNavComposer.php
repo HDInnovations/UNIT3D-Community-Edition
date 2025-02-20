@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\View\Composers;
 
+use App\Enums\ModerationStatus;
 use App\Models\Donation;
 use App\Models\Event;
 use App\Models\Page;
@@ -56,7 +57,7 @@ class TopNavComposer
                 $sum = Donation::query()
                     ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
                     ->where('donations.created_at', '>=', now()->startOfMonth())
-                    ->where('donations.status', Donation::APPROVED)
+                    ->where('donations.status', ModerationStatus::APPROVED)
                     ->sum('donation_packages.cost');
 
                 return $sum ? min(100, number_format(($sum / config('donation.monthly_goal')) * 100)) : 0;
@@ -79,7 +80,7 @@ class TopNavComposer
             'hasUnmoderatedTorrent' => $user->group->is_torrent_modo
                 ? Torrent::query()
                     ->withoutGlobalScope(ApprovedScope::class)
-                    ->where('status', '=', Torrent::PENDING)
+                    ->where('status', '=', ModerationStatus::PENDING)
                     ->exists()
                 : false,
             'hasUnreadPm'           => $user->participations()->where('read', '=', false)->exists(),

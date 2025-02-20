@@ -29,6 +29,7 @@ use App\Achievements\UserUploaded700Subtitles;
 use App\Achievements\UserUploaded800Subtitles;
 use App\Achievements\UserUploaded900Subtitles;
 use App\Achievements\UserUploadedFirstSubtitle;
+use App\Enums\ModerationStatus;
 use App\Http\Requests\StoreSubtitleRequest;
 use App\Http\Requests\UpdateSubtitleRequest;
 use App\Models\MediaLanguage;
@@ -91,7 +92,7 @@ class SubtitleController extends Controller
             'downloads'    => 0,
             'verified'     => 0,
             'user_id'      => $user->id,
-            'status'       => Subtitle::APPROVED,
+            'status'       => ModerationStatus::APPROVED,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
         ] + $request->safe()->except('subtitle_file'));

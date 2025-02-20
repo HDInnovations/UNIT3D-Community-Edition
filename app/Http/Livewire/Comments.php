@@ -28,6 +28,7 @@ use App\Achievements\UserMade800Comments;
 use App\Achievements\UserMade900Comments;
 use App\Achievements\UserMadeComment;
 use App\Achievements\UserMadeTenComments;
+use App\Enums\ModerationStatus;
 use App\Models\Article;
 use App\Models\Collection;
 use App\Models\Playlist;
@@ -114,7 +115,7 @@ class Comments extends Component
         // Authorization
         abort_unless($this->model instanceof Ticket || ($this->user->can_comment ?? $this->user->group->can_comment), 403, __('comment.rights-revoked'));
 
-        abort_if($this->model instanceof Torrent && $this->model->status !== Torrent::APPROVED, 403, __('comment.torrent-status'));
+        abort_if($this->model instanceof Torrent && $this->model->status !== ModerationStatus::APPROVED, 403, __('comment.torrent-status'));
 
         // Validation
         $this->validate();

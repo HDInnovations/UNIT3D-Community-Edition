@@ -29,6 +29,7 @@ use App\Achievements\UserMade800Uploads;
 use App\Achievements\UserMade900Uploads;
 use App\Achievements\UserMadeUpload;
 use App\Bots\IRCAnnounceBot;
+use App\Enums\ModerationStatus;
 use App\Models\AutomaticTorrentFreeleech;
 use App\Models\Movie;
 use App\Models\Scopes\ApprovedScope;
@@ -49,7 +50,7 @@ class TorrentHelper
         $torrent = Torrent::with('user')->withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->created_at = Carbon::now();
         $torrent->bumped_at = Carbon::now();
-        $torrent->status = Torrent::APPROVED;
+        $torrent->status = ModerationStatus::APPROVED;
         $torrent->moderated_at = now();
         $torrent->moderated_by = (int) auth()->id();
 

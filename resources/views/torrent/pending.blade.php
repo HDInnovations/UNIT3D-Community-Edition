@@ -41,13 +41,13 @@
                             <td>{{ $torrent->created_at->diffForHumans() }}</td>
                             <td>
                                 @switch($torrent->status)
-                                    @case(\App\Models\Torrent::PENDING)
+                                    @case(\App\Enums\ModerationStatus::PENDING)
                                         <span class="torrent--pending">
                                             {{ __('torrent.pending') }}
                                         </span>
 
                                         @break
-                                    @case(\App\Models\Torrent::POSTPONED)
+                                    @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span class="torrent--postponed">
                                             {{ __('torrent.postponed') }}
                                         </span>

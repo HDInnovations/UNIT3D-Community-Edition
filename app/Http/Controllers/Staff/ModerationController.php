@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Staff;
 
+use App\Enums\ModerationStatus;
 use App\Helpers\TorrentHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\UpdateModerationRequest;
@@ -49,15 +50,15 @@ class ModerationController extends Controller
             'current' => now(),
             'pending' => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->with(['user.group', 'category', 'type', 'resolution'])
-                ->where('status', '=', Torrent::PENDING)
+                ->where('status', '=', ModerationStatus::PENDING)
                 ->get(),
             'postponed' => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution'])
-                ->where('status', '=', Torrent::POSTPONED)
+                ->where('status', '=', ModerationStatus::POSTPONED)
                 ->get(),
             'rejected' => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->with(['user.group', 'moderated.group', 'category', 'type', 'resolution'])
-                ->where('status', '=', Torrent::REJECTED)
+                ->where('status', '=', ModerationStatus::REJECTED)
                 ->get(),
         ]);
     }
@@ -71,30 +72,29 @@ class ModerationController extends Controller
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->with('user')->findOrFail($id);
 
-        if ($request->integer('old_status') !== $torrent->status) {
+        if (ModerationStatus::from($request->integer('old_status')) !== $torrent->status) {
             return to_route('torrents.show', ['id' => $id])
                 ->withInput()
                 ->withErrors('Torrent has already been moderated since this page was loaded.');
         }
 
-        if ($request->integer('status') === $torrent->status) {
+        if (ModerationStatus::from($request->integer('status')) === $torrent->status) {
             return to_route('torrents.show', ['id' => $id])
                 ->withInput()
                 ->withErrors(
                     match ($torrent->status) {
-                        Torrent::PENDING   => 'Torrent already pending.',
-                        Torrent::APPROVED  => 'Torrent already approved.',
-                        Torrent::REJECTED  => 'Torrent already rejected.',
-                        Torrent::POSTPONED => 'Torrent already postponed.',
-                        default            => 'Invalid moderation status.'
+                        ModerationStatus::PENDING   => 'Torrent already pending.',
+                        ModerationStatus::APPROVED  => 'Torrent already approved.',
+                        ModerationStatus::REJECTED  => 'Torrent already rejected.',
+                        ModerationStatus::POSTPONED => 'Torrent already postponed.',
                     }
                 );
         }
 
         $staff = auth()->user();
 
-        switch ($request->status) {
-            case Torrent::APPROVED:
+        switch (ModerationStatus::from($request->integer('status'))) {
+            case ModerationStatus::APPROVED:
                 // Announce To Shoutbox
                 if (!$torrent->anon) {
                     $this->chatRepository->systemMessage(
@@ -111,9 +111,9 @@ class ModerationController extends Controller
                 return to_route('staff.moderation.index')
                     ->with('success', 'Torrent Approved');
 
-            case Torrent::REJECTED:
+            case ModerationStatus::REJECTED:
                 $torrent->update([
-                    'status'       => Torrent::REJECTED,
+                    'status'       => ModerationStatus::REJECTED,
                     'moderated_at' => now(),
                     'moderated_by' => $staff->id,
                 ]);
@@ -135,9 +135,9 @@ class ModerationController extends Controller
                 return to_route('staff.moderation.index')
                     ->with('success', 'Torrent Rejected');
 
-            case Torrent::POSTPONED:
+            case ModerationStatus::POSTPONED:
                 $torrent->update([
-                    'status'       => Torrent::POSTPONED,
+                    'status'       => ModerationStatus::POSTPONED,
                     'moderated_at' => now(),
                     'moderated_by' => $staff->id,
                 ]);
