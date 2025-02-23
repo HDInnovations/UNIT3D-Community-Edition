@@ -84,7 +84,7 @@ We would like to extend our heartfelt thanks to the following companies, sites a
 ### 👤 Individuals
 
 <!-- cspell:disable-next-line -->
-**airclay**, **Poppers**, **schizobolic**, **x64**
+**airclay**, **Henriette**, **Jocelyn**, **Marcus**, **Poppers**, **sam**, **samual**, **schizobolic**, **x64**
 
 ### 🌐 Sites
 <img src="https://i.postimg.cc/BQJmGYMt/blu.png" height="30px;">&nbsp;
