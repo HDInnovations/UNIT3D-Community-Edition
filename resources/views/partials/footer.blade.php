@@ -45,11 +45,11 @@
                 <li><a href="{{ route('wikis.index') }}">Wikis</a></li>
             </ul>
         </section>
-        @if ($footer_pages = cache()->remember('cached-pages',3600,fn () => \App\Models\Page::select(['id', 'name', 'created_at'])->take(6)->get()))
+        @if ($pages->isNotEmpty())
             <section class="footer__section">
                 <h2 class="footer__section-title">{{ __('common.pages') }}</h2>
                 <ul class="footer__section-list">
-                    @foreach ($footer_pages as $page)
+                    @foreach ($pages as $page)
                         <li>
                             <a href="{{ route('pages.show', ['page' => $page]) }}">
                                 {{ $page->name }}

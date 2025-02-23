@@ -21,7 +21,10 @@ use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
 use App\Models\User;
 use App\Observers\UserObserver;
+use App\View\Composers\FooterComposer;
+use App\View\Composers\TopNavComposer;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
@@ -84,5 +87,8 @@ class AppServiceProvider extends ServiceProvider
         Vite::useStyleTagAttributes([
             'crossorigin' => 'anonymous',
         ]);
+
+        View::composer('partials.footer', FooterComposer::class);
+        View::composer('partials.top_nav', TopNavComposer::class);
     }
 }
