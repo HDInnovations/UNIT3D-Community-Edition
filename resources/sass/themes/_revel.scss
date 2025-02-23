@@ -589,6 +589,10 @@ a:hover {
     grid-area: quick-search;
 }
 
+.quick-search__inputs {
+    position: static;
+}
+
 .top-nav__right {
     display: contents;
 }
