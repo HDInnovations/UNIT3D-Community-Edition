@@ -19,6 +19,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Bencode;
 use App\Models\Playlist;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
 /**
@@ -41,7 +42,7 @@ class PlaylistZipController extends Controller
         $user = auth()->user();
 
         // Define Dir Folder
-        $path = getcwd().'/files/tmp_zip/';
+        $path = Storage::disk('temporary-zips')->path('');
 
         // Check Directory exists
         if (!File::isDirectory($path)) {
@@ -58,7 +59,7 @@ class PlaylistZipController extends Controller
             $announceUrl = route('announce', ['passkey' => $user->passkey]);
 
             foreach ($playlist->torrents()->get() as $torrent) {
-                $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
+                $dict = Bencode::bdecode(Storage::disk('torrent-files')->get($torrent->file_name));
 
                 // Set the announce key and add the user passkey
                 $dict['announce'] = $announceUrl;
@@ -80,8 +81,8 @@ class PlaylistZipController extends Controller
             $zipArchive->close();
         }
 
-        if (file_exists($path.$zipFileName)) {
-            return response()->download($path.$zipFileName)->deleteFileAfterSend(true);
+        if (Storage::disk('temporary-zips')->exists($zipFileName)) {
+            return response()->download(Storage::disk('temporary-zips')->path($zipFileName))->deleteFileAfterSend(true);
         }
 
         return redirect()->back()->withErrors(trans('common.something-went-wrong'));

@@ -118,7 +118,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($uploader->user->image === null ? 'img/profile.png' : 'files/img/' . $uploader->user->image) }}"
+                                    src="{{ $uploader->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $uploader->user]) }}"
                                 />
                             @endif
                         </article>
@@ -151,7 +151,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($downloader->user->image === null ? 'img/profile.png' : 'files/img/' . $downloader->user->image) }}"
+                                    src="{{ $downloader->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $downloader->user]) }}"
                                 />
                             @endif
                         </article>
@@ -185,7 +185,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($upload->image === null ? 'img/profile.png' : 'files/img/' . $upload->image) }}"
+                                    src="{{ $upload->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $upload]) }}"
                                 />
                             @endif
                         </article>
@@ -219,7 +219,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($download->image === null ? 'img/profile.png' : 'files/img/' . $download->image) }}"
+                                    src="{{ $download->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $download]) }}"
                                 />
                             @endif
                         </article>
@@ -250,7 +250,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($seeder->user->image === null ? 'img/profile.png' : 'files/img/' . $seeder->user->image) }}"
+                                    src="{{ $seeder->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $seeder->user]) }}"
                                 />
                             @endif
                         </article>
@@ -284,7 +284,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($seedtime->image === null ? 'img/profile.png' : 'files/img/' . $seedtime->image) }}"
+                                    src="{{ $seedtime->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $seedtime]) }}"
                                 />
                             @endif
                         </article>
@@ -317,7 +317,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($serve->image === null ? 'img/profile.png' : 'files/img/' . $serve->image) }}"
+                                    src="{{ $serve->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $serve]) }}"
                                 />
                             @endif
                         </article>
@@ -350,7 +350,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($commenter->user->image === null ? 'img/profile.png' : 'files/img/' . $commenter->user->image) }}"
+                                    src="{{ $commenter->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $commenter->user]) }}"
                                 />
                             @endif
                         </article>
@@ -381,7 +381,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($poster->user->image === null ? 'img/profile.png' : 'files/img/' . $poster->user->image) }}"
+                                    src="{{ $poster->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $poster->user]) }}"
                                 />
                             @endif
                         </article>
@@ -414,7 +414,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($thanker->user->image === null ? 'img/profile.png' : 'files/img/' . $thanker->user->image) }}"
+                                    src="{{ $thanker->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $thanker->user]) }}"
                                 />
                             @endif
                         </article>
@@ -447,7 +447,7 @@
                                 <img
                                     class="user-stat-card__avatar"
                                     alt=""
-                                    src="{{ url($personal->user->image === null ? 'img/profile.png' : 'files/img/' . $personal->user->image) }}"
+                                    src="{{ $personal->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $personal->user]) }}"
                                 />
                             @endif
                         </article>

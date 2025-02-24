@@ -26,7 +26,7 @@
             </a>
             @if($user->icon !== null)
                 <i>
-                    <img style="@if(request()->route()->getName() === 'users.show') max-height: 22px; @else max-height: 17px; @endif vertical-align: text-bottom;" title="Custom User Icon" src="{{ url('files/img/' . $user->icon) }}">
+                    <img style="@if(request()->route()->getName() === 'users.show') max-height: 22px; @else max-height: 17px; @endif vertical-align: text-bottom;" title="Custom User Icon" src="{{ route('authenticated_images.user_icon', ['user' => $user]) }}">
                 </i>
             @endif
             @if($user->is_lifetime == 1)
@@ -62,7 +62,7 @@
         </a>
         @if($user->icon !== null)
             <i>
-                <img style="@if(request()->route()->getName() === 'users.show') max-height: 22px; @else max-height: 17px; @endif vertical-align: text-bottom;" title="Custom User Icon" src="{{ url('files/img/' . $user->icon) }}">
+                <img style="@if(request()->route()->getName() === 'users.show') max-height: 22px; @else max-height: 17px; @endif vertical-align: text-bottom;" title="Custom User Icon" src="{{ route('authenticated_images.user_icon', ['user' => $user]) }}">
             </i>
         @endif
         @if($user->is_lifetime == 1)

@@ -91,19 +91,65 @@ return [
             'root'   => storage_path('backups'),
         ],
 
-        'torrents' => [
+        // UNIT3D Custom Disks (Alphabetical Order)
+        'article-images' => [
             'driver' => 'local',
-            'root'   => public_path('files/torrents'),
+            'root'   => storage_path('app/images/articles/images'),
         ],
 
-        'subtitles' => [
+        'attachment-files' => [
             'driver' => 'local',
-            'root'   => public_path('files/subtitles'),
+            'root'   => storage_path('app/files/attachments/files'),
         ],
 
-        'attachments' => [
+        'user-avatars' => [
             'driver' => 'local',
-            'root'   => public_path('files/attachments'),
+            'root'   => storage_path('app/images/users/avatars'),
+        ],
+
+        'user-icons' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/users/icons'),
+        ],
+
+        'category-images' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/categories/images'),
+        ],
+
+        'playlist-images' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/playlists/images'),
+        ],
+
+        'subtitle-files' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/files/subtitles/files'),
+        ],
+
+        'temporary-zips' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/tmp/zips'),
+        ],
+
+        'temporary-nfos' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/tmp/nfos'),
+        ],
+
+        'torrent-banners' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/torrents/banners'),
+        ],
+
+        'torrent-covers' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/torrents/covers'),
+        ],
+
+        'torrent-files' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/files/torrents/files'),
         ],
     ],
 

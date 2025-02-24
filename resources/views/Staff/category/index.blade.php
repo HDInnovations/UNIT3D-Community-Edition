@@ -57,7 +57,10 @@
                             </td>
                             <td>
                                 @if ($category->image != null)
-                                    <img alt="" src="{{ url('files/img/' . $category->image) }}" />
+                                    <img
+                                        alt=""
+                                        src="{{ route('authenticated_images.category_image', ['category' => $category]) }}"
+                                    />
                                 @else
                                     <span>N/A</span>
                                 @endif

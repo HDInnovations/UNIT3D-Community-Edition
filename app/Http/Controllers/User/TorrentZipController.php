@@ -22,6 +22,7 @@ use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 
 class TorrentZipController extends Controller
@@ -59,7 +60,7 @@ class TorrentZipController extends Controller
         }
 
         // Define Dir For Zip
-        $zipPath = getcwd().'/files/tmp_zip/';
+        $zipPath = Storage::disk('temporary-zips')->path('');
 
         // Check Directory exists
         if (!File::isDirectory($zipPath)) {
@@ -73,8 +74,8 @@ class TorrentZipController extends Controller
             $announceUrl = route('announce', ['passkey' => $user->passkey]);
 
             foreach ($torrents as $torrent) {
-                if (file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
-                    $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
+                if (Storage::disk('torrent-files')->exists($torrent->file_name)) {
+                    $dict = Bencode::bdecode(Storage::disk('torrent-files')->get($torrent->file_name));
 
                     // Set the announce key and add the user passkey
                     $dict['announce'] = $announceUrl;
@@ -101,8 +102,8 @@ class TorrentZipController extends Controller
             $zipArchive->close();
         }
 
-        if (file_exists($zipPath.$zipFileName)) {
-            return response()->download($zipPath.$zipFileName)->deleteFileAfterSend(true);
+        if (Storage::disk('temporary-zips')->exists($zipFileName)) {
+            return response()->download(Storage::disk('temporary-zips')->path($zipFileName))->deleteFileAfterSend(true);
         }
 
         return redirect()->back()->withErrors(trans('common.something-went-wrong'));

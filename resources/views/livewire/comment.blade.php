@@ -82,7 +82,7 @@
                 <img
                     class="comment__avatar"
                     style="width: 50%"
-                    src="{{ url(! $comment->anon && $comment->user->image !== null ? 'files/img/' . $comment->user->image : '/img/profile.png') }}"
+                    src="{{ ! $comment->anon && $comment->user->image !== null ? route('authenticated_images.user_avatar', ['user' => $comment->user]) : url('/img/profile.png') }}"
                     alt=""
                 />
             </figure>

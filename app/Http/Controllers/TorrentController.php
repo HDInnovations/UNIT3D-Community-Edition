@@ -47,6 +47,7 @@ use MarcReichel\IGDBLaravel\Models\Game;
 use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 use Exception;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use ReflectionException;
 use JsonException;
 
@@ -232,7 +233,7 @@ class TorrentController extends Controller
             abort_if(\is_array($image_cover), 400);
 
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = public_path('/files/img/'.$filename_cover);
+            $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
         }
 
@@ -243,7 +244,7 @@ class TorrentController extends Controller
             abort_if(\is_array($image_cover), 400);
 
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = public_path('/files/img/'.$filename_cover);
+            $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 
@@ -395,7 +396,7 @@ class TorrentController extends Controller
         $meta = Bencode::get_meta($decodedTorrent);
 
         $fileName = uniqid('', true).'.torrent'; // Generate a unique name
-        file_put_contents(getcwd().'/files/torrents/'.$fileName, Bencode::bencode($decodedTorrent));
+        Storage::disk('torrent-files')->put($fileName, Bencode::bencode($decodedTorrent));
 
         $torrent = Torrent::create([
             'mediainfo'    => TorrentTools::anonymizeMediainfo($request->filled('mediainfo') ? $request->string('mediainfo') : null),
@@ -435,7 +436,7 @@ class TorrentController extends Controller
             abort_if(\is_array($image_cover), 400);
 
             $filename_cover = 'torrent-cover_'.$torrent->id.'.jpg';
-            $path_cover = public_path('/files/img/'.$filename_cover);
+            $path_cover = Storage::disk('torrent-covers')->path($filename_cover);
             Image::make($image_cover->getRealPath())->fit(400, 600)->encode('jpg', 90)->save($path_cover);
         }
 
@@ -446,7 +447,7 @@ class TorrentController extends Controller
             abort_if(\is_array($image_cover), 400);
 
             $filename_cover = 'torrent-banner_'.$torrent->id.'.jpg';
-            $path_cover = public_path('/files/img/'.$filename_cover);
+            $path_cover = Storage::disk('torrent-banners')->path($filename_cover);
             Image::make($image_cover->getRealPath())->fit(960, 540)->encode('jpg', 90)->save($path_cover);
         }
 

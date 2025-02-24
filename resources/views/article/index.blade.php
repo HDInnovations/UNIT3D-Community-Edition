@@ -37,7 +37,7 @@
                 </time>
                 <img
                     class="article-preview__image"
-                    src="{{ url($article->image ? 'files/img/' . $article->image : 'img/missing-image.png') }}"
+                    src="{{ route('authenticated_images.article_image', ['article' => $article]) }}"
                     alt=""
                 />
             </header>
@@ -45,7 +45,7 @@
                 @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150))
             </p>
             <a
-                href="{{ route('articles.show', ['article' => $article]) }}"
+                href="{{ $article->image == null ? url('img/missing-image.png') : route('articles.show', ['article' => $article]) }}"
                 class="article-preview__read-more"
             >
                 {{ __('articles.read-more') }}

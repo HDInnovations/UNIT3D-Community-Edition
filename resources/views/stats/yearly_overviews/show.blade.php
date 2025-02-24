@@ -142,7 +142,7 @@
                     <img
                         class="user-stat-card__avatar"
                         alt=""
-                        src="{{ url($uploader->user->image === null ? 'img/profile.png' : 'files/img/' . $uploader->user->image) }}"
+                        src="{{ $uploader->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $uploader->user]) }}"
                     />
                 </article>
             @endforeach
@@ -162,7 +162,7 @@
                     <img
                         class="user-stat-card__avatar"
                         alt=""
-                        src="{{ url($requester->user->image === null ? 'img/profile.png' : 'files/img/' . $requester->user->image) }}"
+                        src="{{ $requester->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $requester->user]) }}"
                     />
                 </article>
             @endforeach
@@ -182,7 +182,7 @@
                     <img
                         class="user-stat-card__avatar"
                         alt=""
-                        src="{{ url($filler->filler->image === null ? 'img/profile.png' : 'files/img/' . $filler->filler->image) }}"
+                        src="{{ $filler->filler->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $filler->filler]) }}"
                     />
                 </article>
             @endforeach
@@ -202,7 +202,7 @@
                     <img
                         class="user-stat-card__avatar"
                         alt=""
-                        src="{{ url($commenter->user->image === null ? 'img/profile.png' : 'files/img/' . $commenter->user->image) }}"
+                        src="{{ $commenter->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $commenter->user]) }}"
                     />
                 </article>
             @endforeach
@@ -222,7 +222,7 @@
                     <img
                         class="user-stat-card__avatar"
                         alt=""
-                        src="{{ url($poster->user->image === null ? 'img/profile.png' : 'files/img/' . $poster->user->image) }}"
+                        src="{{ $poster->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $poster->user]) }}"
                     />
                 </article>
             @endforeach
@@ -242,7 +242,7 @@
                     <img
                         class="user-stat-card__avatar"
                         alt=""
-                        src="{{ url($thanker->user->image === null ? 'img/profile.png' : 'files/img/' . $thanker->user->image) }}"
+                        src="{{ $thanker->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $thanker->user]) }}"
                     />
                 </article>
             @endforeach

@@ -26,6 +26,7 @@ use App\Traits\TorrentMeta;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistControllerTest
@@ -69,7 +70,7 @@ class PlaylistController extends Controller
 
             $image = $request->file('cover_image');
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('playlist-images')->path($filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
         }
 
@@ -153,7 +154,7 @@ class PlaylistController extends Controller
             abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
 
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('playlist-images')->path($filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
 
             $playlist->update(['cover_image' => $filename] + $request->validated());

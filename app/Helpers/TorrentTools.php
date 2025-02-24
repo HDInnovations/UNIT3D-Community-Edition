@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Stringable;
 
 class TorrentTools
@@ -141,11 +142,12 @@ class TorrentTools
         }
 
         $fileName = uniqid('', true).'.nfo';
-        $inputFile->move(getcwd().'/files/tmp/', $fileName);
+        $path = Storage::disk('temporary-nfos')->path('');
+        $inputFile->move($path, $fileName);
 
-        if (file_exists(getcwd().'/files/tmp/'.$fileName)) {
-            $fileContent = file_get_contents(getcwd().'/files/tmp/'.$fileName);
-            unlink(getcwd().'/files/tmp/'.$fileName);
+        if (Storage::disk('temporary-nfos')->exists($fileName)) {
+            $fileContent = Storage::disk('temporary-nfos')->get($fileName);
+            Storage::disk('temporary-nfos')->delete($fileName);
         } else {
             $fileContent = null;
         }

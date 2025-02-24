@@ -151,7 +151,7 @@
                         {{ $user->created_at?->format('Y-m-d') ?? 'N/A' }}
                     </time>
                     <img
-                        src="{{ url($user->image === null ? 'img/profile.png' : 'files/img/' . $user->image) }}"
+                        src="{{ $user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $user]) }}"
                         alt=""
                         class="profile__avatar"
                     />
@@ -232,7 +232,7 @@
                                 class="user-search__avatar"
                                 alt="{{ $follower->username }}"
                                 height="50px"
-                                src="{{ url($follower->image === null ? 'img/profile.png' : 'files/img/' . $follower->image) }}"
+                                src="{{ $follower->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $follower]) }}"
                                 title="{{ $follower->username }}"
                             />
                         </a>

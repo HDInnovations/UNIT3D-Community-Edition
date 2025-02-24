@@ -20,6 +20,7 @@ use App\Helpers\Bencode;
 use App\Models\Torrent;
 use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
 use Throwable;
 
 class CleanTorrentFiles extends Command
@@ -47,13 +48,10 @@ class CleanTorrentFiles extends Command
     {
         $this->alert('Torrent file cleaning started');
 
-        $directory = public_path('/files/torrents/');
-
-        Torrent::withoutGlobalScopes()->select('file_name')->orderBy('id')->chunk(100, function ($torrents) use ($directory): void {
+        Torrent::withoutGlobalScopes()->select('file_name')->orderBy('id')->chunk(100, function ($torrents): void {
             foreach ($torrents as $torrent) {
-                $filePath = $directory.$torrent->file_name;
-
-                if (file_exists($filePath)) {
+                if (Storage::disk('torrent-files')->exists($torrent->file_name)) {
+                    $filePath = Storage::disk('torrent-files')->path($torrent->file_name);
                     $dict = Bencode::bdecode_file($filePath);
 
                     // Whitelisted keys
@@ -63,7 +61,7 @@ class CleanTorrentFiles extends Command
                         'info'       => '',
                     ]);
 
-                    file_put_contents($filePath, Bencode::bencode($dict));
+                    Storage::disk('torrent-files')->put($filePath, Bencode::bencode($dict));
                 }
             }
         });

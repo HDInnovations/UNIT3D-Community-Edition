@@ -57,8 +57,8 @@
                             src="https://via.placeholder.com/160x240"
                     
                             @break
-                        @case($torrent->category->no_meta && file_exists(public_path() . '/files/img/torrent-cover_' . $torrent->id . '.jpg'))
-                            src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
+                        @case($torrent->category->no_meta && Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg"))
+                            src="{{ route('authenticated_images.torrent_cover', ['torrent' => $torrent]) }}"
                     
                             @break
                     @endswitch
