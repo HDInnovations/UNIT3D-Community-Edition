@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a8afbcb1567da3d99873277bd2b3aa6",
+    "content-hash": "d5718fedbde475afdca6974c6c99b28e",
     "packages": [
         {
             "name": "assada/laravel-achievements",
@@ -2218,16 +2218,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v11.38.2",
+            "version": "v11.44.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a"
+                "reference": "e9a33da34815ac1ed46c7e4c477a775f4592f0a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9d290aa90fcad44048bedca5219d2b872e98772a",
-                "reference": "9d290aa90fcad44048bedca5219d2b872e98772a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e9a33da34815ac1ed46c7e4c477a775f4592f0a7",
+                "reference": "e9a33da34815ac1ed46c7e4c477a775f4592f0a7",
                 "shasum": ""
             },
             "require": {
@@ -2253,7 +2253,7 @@
                 "league/flysystem-local": "^3.25.1",
                 "league/uri": "^7.5.1",
                 "monolog/monolog": "^3.0",
-                "nesbot/carbon": "^2.72.2|^3.4",
+                "nesbot/carbon": "^2.72.6|^3.8.4",
                 "nunomaduro/termwind": "^2.0",
                 "php": "^8.2",
                 "psr/container": "^1.1.1|^2.0.1",
@@ -2328,17 +2328,18 @@
                 "fakerphp/faker": "^1.24",
                 "guzzlehttp/promises": "^2.0.3",
                 "guzzlehttp/psr7": "^2.4",
+                "laravel/pint": "^1.18",
                 "league/flysystem-aws-s3-v3": "^3.25.1",
                 "league/flysystem-ftp": "^3.25.1",
                 "league/flysystem-path-prefixing": "^3.25.1",
                 "league/flysystem-read-only": "^3.25.1",
                 "league/flysystem-sftp-v3": "^3.25.1",
                 "mockery/mockery": "^1.6.10",
-                "orchestra/testbench-core": "^9.6",
+                "orchestra/testbench-core": "^9.9.4",
                 "pda/pheanstalk": "^5.0.6",
                 "php-http/discovery": "^1.15",
-                "phpstan/phpstan": "^1.11.5",
-                "phpunit/phpunit": "^10.5.35|^11.3.6",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^10.5.35|^11.3.6|^12.0.1",
                 "predis/predis": "^2.3",
                 "resend/resend-php": "^0.10.0",
                 "symfony/cache": "^7.0.3",
@@ -2370,7 +2371,7 @@
                 "mockery/mockery": "Required to use mocking (^1.6).",
                 "pda/pheanstalk": "Required to use the beanstalk queue driver (^5.0).",
                 "php-http/discovery": "Required to use PSR-7 bridging features (^1.15).",
-                "phpunit/phpunit": "Required to use assertions and run tests (^10.5|^11.0).",
+                "phpunit/phpunit": "Required to use assertions and run tests (^10.5.35|^11.3.6|^12.0.1).",
                 "predis/predis": "Required to use the predis connector (^2.3).",
                 "psr/http-message": "Required to allow Storage::put to accept a StreamInterface (^1.0).",
                 "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^6.0|^7.0).",
@@ -2428,7 +2429,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-01-15T00:06:46+00:00"
+            "time": "2025-02-24T13:08:54+00:00"
         },
         {
             "name": "laravel/octane",
@@ -3722,16 +3723,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.72.3",
+            "version": "2.73.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "0c6fd108360c562f6e4fd1dedb8233b423e91c83"
+                "reference": "9228ce90e1035ff2f0db84b40ec2e023ed802075"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/0c6fd108360c562f6e4fd1dedb8233b423e91c83",
-                "reference": "0c6fd108360c562f6e4fd1dedb8233b423e91c83",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/9228ce90e1035ff2f0db84b40ec2e023ed802075",
+                "reference": "9228ce90e1035ff2f0db84b40ec2e023ed802075",
                 "shasum": ""
             },
             "require": {
@@ -3751,7 +3752,7 @@
                 "doctrine/orm": "^2.7 || ^3.0",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "kylekatarnls/multi-tester": "^2.0",
-                "ondrejmirtes/better-reflection": "*",
+                "ondrejmirtes/better-reflection": "<6",
                 "phpmd/phpmd": "^2.9",
                 "phpstan/extension-installer": "^1.0",
                 "phpstan/phpstan": "^0.12.99 || ^1.7.14",
@@ -3775,8 +3776,8 @@
                     ]
                 },
                 "branch-alias": {
-                    "dev-3.x": "3.x-dev",
-                    "dev-master": "2.x-dev"
+                    "dev-2.x": "2.x-dev",
+                    "dev-master": "3.x-dev"
                 }
             },
             "autoload": {
@@ -3825,7 +3826,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-25T10:35:09+00:00"
+            "time": "2025-01-08T20:10:23+00:00"
         },
         {
             "name": "nette/schema",
@@ -8890,37 +8891,40 @@
         },
         {
             "name": "calebdw/larastan",
-            "version": "v2.10.11",
+            "version": "v3.1.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/calebdw/larastan.git",
-                "reference": "68401d92fc7eca59e27ee94fe118863f40bebffb"
+                "reference": "78ddd37eed6829e528321af8a7c2bdc00be5ebc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/calebdw/larastan/zipball/68401d92fc7eca59e27ee94fe118863f40bebffb",
-                "reference": "68401d92fc7eca59e27ee94fe118863f40bebffb",
+                "url": "https://api.github.com/repos/calebdw/larastan/zipball/78ddd37eed6829e528321af8a7c2bdc00be5ebc6",
+                "reference": "78ddd37eed6829e528321af8a7c2bdc00be5ebc6",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/console": "^9.52.16 || ^10.28.0 || ^11.16.0",
-                "illuminate/container": "^9.52.16 || ^10.28.0 || ^11.16.0",
-                "illuminate/contracts": "^9.52.16 || ^10.28.0 || ^11.16.0",
-                "illuminate/database": "^9.52.16 || ^10.28.0 || ^11.16.0",
-                "illuminate/http": "^9.52.16 || ^10.28.0 || ^11.16.0",
-                "illuminate/pipeline": "^9.52.16 || ^10.28.0 || ^11.16.0",
-                "illuminate/support": "^9.52.16 || ^10.28.0 || ^11.16.0",
-                "php": "^8.0.2",
+                "illuminate/console": "^11.42.0 || ^12.0",
+                "illuminate/container": "^11.42.0 || ^12.0",
+                "illuminate/contracts": "^11.42.0 || ^12.0",
+                "illuminate/database": "^11.42.0 || ^12.0",
+                "illuminate/http": "^11.42.0 || ^12.0",
+                "illuminate/pipeline": "^11.42.0 || ^12.0",
+                "illuminate/support": "^11.42.0 || ^12.0",
+                "php": "^8.2",
                 "phpmyadmin/sql-parser": "^5.9.0",
-                "phpstan/phpstan": "^1.12.2"
+                "phpstan/phpstan": "^2.1.3"
             },
             "require-dev": {
                 "doctrine/coding-standard": "^12.0",
-                "nikic/php-parser": "^4.19.1",
-                "orchestra/canvas": "^7.11.1 || ^8.11.0 || ^9.0.2",
-                "orchestra/testbench": "^7.33.0 || ^8.13.0 || ^9.0.3",
-                "phpunit/phpunit": "^9.6.13 || ^10.5.16"
+                "laravel/framework": "^11.42.0 || ^12.0",
+                "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.3",
+                "orchestra/canvas": "^v9.1.3 || ^10.0",
+                "orchestra/testbench-core": "^9.5.2 || ^10.0",
+                "phpstan/phpstan-deprecation-rules": "^2.0.0",
+                "phpunit/phpunit": "^10.5.35 || ^11.3.6"
             },
             "suggest": {
                 "orchestra/testbench": "Using Larastan for analysing a package needs Testbench"
@@ -8933,7 +8937,7 @@
                     ]
                 },
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -8973,7 +8977,7 @@
             ],
             "support": {
                 "issues": "https://github.com/calebdw/larastan/issues",
-                "source": "https://github.com/calebdw/larastan/tree/v2.10.11"
+                "source": "https://github.com/calebdw/larastan/tree/v3.1.7"
             },
             "funding": [
                 {
@@ -8981,30 +8985,30 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-25T15:49:46+00:00"
+            "time": "2025-02-17T13:38:10+00:00"
         },
         {
             "name": "calebdw/larastan-livewire",
-            "version": "v1.1.0",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/calebdw/larastan-livewire.git",
-                "reference": "8b0f29d9e42eaf33dadd4870c74aabef3353223a"
+                "reference": "e15d7b79f822fa08a4d13d5367ddc8e95fc40d5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/calebdw/larastan-livewire/zipball/8b0f29d9e42eaf33dadd4870c74aabef3353223a",
-                "reference": "8b0f29d9e42eaf33dadd4870c74aabef3353223a",
+                "url": "https://api.github.com/repos/calebdw/larastan-livewire/zipball/e15d7b79f822fa08a4d13d5367ddc8e95fc40d5b",
+                "reference": "e15d7b79f822fa08a4d13d5367ddc8e95fc40d5b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^10.0 || ^11.0",
+                "illuminate/support": "^10.0 || ^11.0 || ^12.0",
                 "livewire/livewire": "^3.3",
-                "php": "^8.1",
-                "phpstan/phpstan": "^1.10"
+                "php": "^8.2",
+                "phpstan/phpstan": "^2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.5"
+                "phpunit/phpunit": "^11.5"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -9039,7 +9043,7 @@
             ],
             "support": {
                 "issues": "https://github.com/calebdw/larastan-livewire/issues",
-                "source": "https://github.com/calebdw/larastan-livewire/tree/v1.1.0"
+                "source": "https://github.com/calebdw/larastan-livewire/tree/v2.1.0"
             },
             "funding": [
                 {
@@ -9047,7 +9051,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-06T23:14:48+00:00"
+            "time": "2025-02-20T11:39:06+00:00"
         },
         {
             "name": "fakerphp/faker",
@@ -9403,6 +9407,99 @@
                 "source": "https://github.com/Jean85/pretty-package-versions/tree/2.1.0"
             },
             "time": "2024-11-18T16:19:46+00:00"
+        },
+        {
+            "name": "larastan/larastan",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/larastan/larastan.git",
+                "reference": "dbb2dc20e5c8e1ed3ff289054e1955f269187312"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/larastan/larastan/zipball/dbb2dc20e5c8e1ed3ff289054e1955f269187312",
+                "reference": "dbb2dc20e5c8e1ed3ff289054e1955f269187312",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^11.15.0 || ^12.0",
+                "illuminate/container": "^11.15.0 || ^12.0",
+                "illuminate/contracts": "^11.15.0 || ^12.0",
+                "illuminate/database": "^11.15.0 || ^12.0",
+                "illuminate/http": "^11.15.0 || ^12.0",
+                "illuminate/pipeline": "^11.15.0 || ^12.0",
+                "illuminate/support": "^11.15.0 || ^12.0",
+                "php": "^8.2",
+                "phpmyadmin/sql-parser": "^5.9.0",
+                "phpstan/phpstan": "^2.1.3"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^12.0",
+                "laravel/framework": "^11.15.0 || ^12.0",
+                "mockery/mockery": "^1.6",
+                "nikic/php-parser": "^5.3",
+                "orchestra/canvas": "^v9.1.3 || ^10.0",
+                "orchestra/testbench-core": "^9.5.2 || ^10.0",
+                "phpstan/phpstan-deprecation-rules": "^2.0.0",
+                "phpunit/phpunit": "^10.5.35 || ^11.3.6"
+            },
+            "suggest": {
+                "orchestra/testbench": "Using Larastan for analysing a package needs Testbench"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Larastan\\Larastan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Can Vural",
+                    "email": "can9119@gmail.com"
+                },
+                {
+                    "name": "Nuno Maduro",
+                    "email": "enunomaduro@gmail.com"
+                }
+            ],
+            "description": "Larastan - Discover bugs in your code without running it. A phpstan/phpstan wrapper for Laravel",
+            "keywords": [
+                "PHPStan",
+                "code analyse",
+                "code analysis",
+                "larastan",
+                "laravel",
+                "package",
+                "php",
+                "static analysis"
+            ],
+            "support": {
+                "issues": "https://github.com/larastan/larastan/issues",
+                "source": "https://github.com/larastan/larastan/tree/v3.1.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/canvural",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-20T15:25:15+00:00"
         },
         {
             "name": "laravel/pint",
@@ -10734,20 +10831,20 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.15",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "c91d4e8bc056f46cf653656e6f71004b254574d1"
+                "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c91d4e8bc056f46cf653656e6f71004b254574d1",
-                "reference": "c91d4e8bc056f46cf653656e6f71004b254574d1",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
+                "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2|^8.0"
+                "php": "^7.4|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -10788,7 +10885,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-05T16:40:22+00:00"
+            "time": "2025-02-19T15:46:42+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -12817,34 +12914,35 @@
         },
         {
             "name": "tomasvotruba/bladestan",
-            "version": "0.5.0",
+            "version": "0.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bladestan/bladestan.git",
-                "reference": "593c05f8940981e6ca8860555e273d135cec2aa6"
+                "reference": "7009ce3d224806ea60496f49d12844f803385648"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bladestan/bladestan/zipball/593c05f8940981e6ca8860555e273d135cec2aa6",
-                "reference": "593c05f8940981e6ca8860555e273d135cec2aa6",
+                "url": "https://api.github.com/repos/bladestan/bladestan/zipball/7009ce3d224806ea60496f49d12844f803385648",
+                "reference": "7009ce3d224806ea60496f49d12844f803385648",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^9.0 || ^10.0 || ^11.0",
-                "illuminate/filesystem": "^9.0 || ^10.0 || ^11.0",
-                "illuminate/view": "^9.0 || ^10.0 || ^11.0",
-                "php": "^8.1",
-                "phpstan/phpstan": "^1.10"
+                "illuminate/contracts": "^11.15",
+                "illuminate/filesystem": "^11.15",
+                "illuminate/mail": "^11.15",
+                "illuminate/notifications": "^11.15",
+                "illuminate/view": "^11.15",
+                "larastan/larastan": "^3.0",
+                "livewire/livewire": "^3.3.5",
+                "php": "^8.2",
+                "phpstan/phpstan": "^2.0.1"
             },
             "require-dev": {
-                "laravel/framework": "^10.40",
-                "nikic/php-parser": "^4.18",
-                "phpunit/phpunit": "^10.0",
-                "rector/rector": "^0.19",
-                "symplify/easy-ci": "^11.3",
-                "symplify/easy-coding-standard": "^12.1",
-                "tomasvotruba/class-leak": "^0.2.6",
-                "tracy/tracy": "^2.9"
+                "orchestra/testbench": "^9.9",
+                "phpunit/phpunit": "^11.3.6",
+                "rector/rector": "^2.0",
+                "symplify/easy-coding-standard": "^12.1.1",
+                "tomasvotruba/class-leak": "^0.2.6"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -12856,7 +12954,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "TomasVotruba\\Bladestan\\": "src"
+                    "Bladestan\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -12870,7 +12968,7 @@
             ],
             "support": {
                 "issues": "https://github.com/bladestan/bladestan/issues",
-                "source": "https://github.com/bladestan/bladestan/tree/0.5.0"
+                "source": "https://github.com/bladestan/bladestan/tree/0.11.0"
             },
             "funding": [
                 {
@@ -12882,7 +12980,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-10T21:54:16+00:00"
+            "time": "2025-02-19T17:24:24+00:00"
         }
     ],
     "aliases": [],

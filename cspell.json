@@ -188,6 +188,7 @@
 		"composer.json",
 		"package.json",
 		"phpstan.neon",
+		"phpstan-baseline.neon",
 		"pint.json",
 		"*.svg",
 	],

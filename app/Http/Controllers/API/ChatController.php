@@ -328,8 +328,8 @@ class ChatController extends Controller
         event(new Chatter('echo', $user->id, UserEchoResource::collection($senderEchoes)));
 
         /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
          * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
+         * @phpstan-ignore-next-line Laravel automatically converts models to json
          */
         return response($user);
     }
@@ -347,8 +347,8 @@ class ChatController extends Controller
         event(new Chatter('echo', $user->id, UserEchoResource::collection($senderEchoes)));
 
         /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
          * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
+         * @phpstan-ignore-next-line Laravel automatically converts models to json
          */
         return response($user);
     }
