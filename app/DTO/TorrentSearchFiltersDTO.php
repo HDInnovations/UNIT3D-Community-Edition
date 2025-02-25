@@ -313,7 +313,7 @@ readonly class TorrentSearchFiltersDTO
                                 ->whereIntegerInRaw('free', (array) $this->free)
                                 ->when(
                                     \in_array(100, $this->free, false),
-                                    fn ($query) => $query->orWhere('featured', '=', true)
+                                    fn ($query) => $query->orWhereHas('featured')
                                 )
                         )
                     )
@@ -347,10 +347,10 @@ readonly class TorrentSearchFiltersDTO
                 fn ($query) => $query->where(
                     fn ($query) => $query
                         ->where('doubleup', '=', 1)
-                        ->orWhere('featured', '=', 1)
+                        ->orWhereHas('featured')
                 )
             )
-            ->when($this->featured, fn ($query) => $query->where('featured', '=', 1))
+            ->when($this->featured, fn ($query) => $query->has('featured'))
             ->when($this->refundable, fn ($query) => $query->where('refundable', '=', true))
             ->when($this->stream, fn ($query) => $query->where('stream', '=', 1))
             ->when($this->sd, fn ($query) => $query->where('sd', '=', 1))
