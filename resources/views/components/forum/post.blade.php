@@ -168,7 +168,7 @@
         <figure class="post__figure">
             <img
                 class="post__avatar"
-                src="{{ url($post->user->image === null ? 'img/profile.png' : 'files/img/' . $post->user->image) }}"
+                src="{{ $post->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $post->user]) }}"
                 alt=""
             />
         </figure>

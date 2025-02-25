@@ -97,7 +97,7 @@ class SubtitleController extends Controller
         ] + $request->safe()->except('subtitle_file'));
 
         // Save Subtitle
-        Storage::disk('subtitles')->putFileAs('', $subtitleFile, $filename);
+        Storage::disk('subtitle-files')->putFileAs('', $subtitleFile, $filename);
 
         // Announce To Shoutbox
         if (!$subtitle->anon) {
@@ -165,8 +165,8 @@ class SubtitleController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $subtitle->user_id, 403);
 
-        if (Storage::disk('subtitles')->exists($subtitle->file_name)) {
-            Storage::disk('subtitles')->delete($subtitle->file_name);
+        if (Storage::disk('subtitle-files')->exists($subtitle->file_name)) {
+            Storage::disk('subtitle-files')->delete($subtitle->file_name);
         }
 
         $subtitle->delete();
@@ -194,8 +194,8 @@ class SubtitleController extends Controller
         // Increment downloads count
         $subtitle->increment('downloads');
 
-        $headers = ['Content-Type: '.Storage::disk('subtitles')->mimeType($subtitle->file_name)];
+        $headers = ['Content-Type: '.Storage::disk('subtitle-files')->mimeType($subtitle->file_name)];
 
-        return Storage::disk('subtitles')->download($subtitle->file_name, $tempFilename, $headers);
+        return Storage::disk('subtitle-files')->download($subtitle->file_name, $tempFilename, $headers);
     }
 }

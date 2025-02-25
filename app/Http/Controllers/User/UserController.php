@@ -27,6 +27,7 @@ use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
@@ -163,7 +164,7 @@ class UserController extends Controller
             }
 
             $filename = $user->username.'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('user-avatars')->path($filename);
 
             if ($image->getClientOriginalExtension() !== 'gif') {
                 Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
@@ -174,7 +175,7 @@ class UserController extends Controller
                     'image.dimensions' => 'Only square avatars are accepted.',
                 ])->validate();
 
-                $image->move(public_path('/files/img/'), $filename);
+                $image->storeAs('', $filename, 'user-avatars');
             }
 
             $avatar = $user->username.'.'.$image->getClientOriginalExtension();
@@ -208,7 +209,7 @@ class UserController extends Controller
             }
 
             $filename = uniqid('', true).'_icon.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('user-icons')->path($filename);
 
             if ($image->getClientOriginalExtension() !== 'gif') {
                 Image::make($image->getRealPath())->fit(30, 30)->encode('png', 100)->save($path);
@@ -217,7 +218,7 @@ class UserController extends Controller
                     'image' => 'dimensions:ratio=1/1',
                 ]);
 
-                $image->move(public_path('/files/img/'), $filename);
+                $image->storeAs('', $filename, 'user-icons');
             }
 
             if ($user->icon !== $filename) {

@@ -41,7 +41,7 @@
                     </time>
                     <img
                         class="article-preview__image"
-                        src="{{ url($article->image ? 'files/img/' . $article->image : 'img/missing-image.png') }}"
+                        src="{{ $article->image ? route('authenticated_images.article_image', ['article' => $article]) : url('img/missing-image.png') }}"
                         alt=""
                     />
                 </header>

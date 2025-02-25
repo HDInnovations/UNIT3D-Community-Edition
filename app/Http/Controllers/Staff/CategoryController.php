@@ -22,6 +22,7 @@ use App\Http\Requests\Staff\UpdateCategoryRequest;
 use App\Models\Category;
 use Intervention\Image\Facades\Image;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @see \Tests\Feature\Http\Controllers\CategoryControllerTest
@@ -57,7 +58,7 @@ class CategoryController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('category-images')->path($filename);
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 
@@ -95,7 +96,7 @@ class CategoryController extends Controller
             abort_if(\is_array($image), 400);
 
             $filename = 'category-'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('category-images')->path($filename);
             Image::make($image->getRealPath())->fit(50, 50)->encode('png', 100)->save($path);
         }
 

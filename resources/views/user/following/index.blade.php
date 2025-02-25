@@ -37,7 +37,7 @@
                             <tr>
                                 <td>
                                     <img
-                                        src="{{ url($following->image === null ? 'img/profile.png' : 'files/img/' . $following->image) }}"
+                                        src="{{ $following->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $following]) }}"
                                         alt=""
                                         class="user-search__avatar"
                                     />

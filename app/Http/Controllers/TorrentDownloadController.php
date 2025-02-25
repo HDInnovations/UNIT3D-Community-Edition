@@ -22,6 +22,7 @@ use App\Models\Torrent;
 use App\Models\TorrentDownload;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TorrentDownloadController extends Controller
 {
@@ -68,7 +69,7 @@ class TorrentDownloadController extends Controller
         }
 
         // The torrent file exist ?
-        if (!file_exists(getcwd().'/files/torrents/'.$torrent->file_name)) {
+        if (!Storage::disk('torrents')->exists($torrent->file_name)) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('Torrent File Not Found! Please Report This Torrent!');
         }
@@ -85,7 +86,7 @@ class TorrentDownloadController extends Controller
 
         return response()->streamDownload(
             function () use ($id, $user, $torrent): void {
-                $dict = Bencode::bdecode(file_get_contents(getcwd().'/files/torrents/'.$torrent->file_name));
+                $dict = Bencode::bdecode(Storage::disk('torrents')->get($torrent->file_name));
 
                 // Set the announce key and add the user passkey
                 $dict['announce'] = route('announce', ['passkey' => $user->passkey]);

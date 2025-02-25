@@ -400,14 +400,14 @@
                     href="{{ route('users.show', ['user' => auth()->user()]) }}"
                 >
                     <img
-                        src="{{ $avatarUrl }}"
+                        src="{{ $user->image ? route('authenticated_images.user_avatar', ['user' => $user]) : url('img/profile.png') }}"
                         alt="{{ __('user.my-profile') }}"
                         class="top-nav__profile-image"
                     />
                 </a>
                 <a class="top-nav__dropdown--touch" tabindex="0">
                     <img
-                        src="{{ $avatarUrl }}"
+                        src="{{ $user->image ? route('authenticated_images.user_avatar', ['user' => $user]) : url('img/profile.png') }}"
                         alt="{{ __('user.my-profile') }}"
                         class="top-nav__profile-image"
                     />

@@ -20,6 +20,7 @@ use App\Models\User;
 use App\Models\Ticket;
 use App\Models\TicketAttachment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TicketAttachmentController extends Controller
 {
@@ -30,7 +31,7 @@ class TicketAttachmentController extends Controller
     {
         abort_unless($request->user()->group->is_modo || $request->user()->id === $ticket->user_id, 403);
 
-        return response()->download(getcwd().'/files/attachments/attachments/'.$attachment->file_name)->deleteFileAfterSend(false);
+        return response()->download(Storage::disk('attachment-files')->path($attachment->file_name))->deleteFileAfterSend(false);
     }
 
     /**

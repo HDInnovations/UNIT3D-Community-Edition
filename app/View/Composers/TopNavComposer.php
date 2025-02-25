@@ -84,7 +84,6 @@ class TopNavComposer
                 : false,
             'hasUnreadPm'           => $user->participations()->where('read', '=', false)->exists(),
             'hasUnreadNotification' => $user->unreadNotifications()->exists(),
-            'avatarUrl'             => url($user->image ? 'files/img/'.$user->image : 'img/profile.png'),
             'uploadCount'           => cache()->remember(
                 "users:{$user->id}:upload-count",
                 60,

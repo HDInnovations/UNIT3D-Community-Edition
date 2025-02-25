@@ -49,7 +49,7 @@
                                         ></i>
                                     @else
                                         <img
-                                            src="{{ url('files/img/' . $subtitle->torrent->category->image) }}"
+                                            src="{{ route('authenticated_images.category_image', ['category' => $subtitle->torrent->category]) }}"
                                             title="{{ $subtitle->torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                                             alt="{{ $subtitle->torrent->category->name }}"
                                         />
