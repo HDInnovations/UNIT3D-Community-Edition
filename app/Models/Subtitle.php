@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\StringHelper;
 use App\Models\Scopes\ApprovedScope;
@@ -43,6 +44,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[ScopedBy([ApprovedScope::class])]
 class Subtitle extends Model
 {
     use Auditable;
@@ -65,11 +67,6 @@ class Subtitle extends Model
             'anon'         => 'bool',
             'moderated_at' => 'datetime',
         ];
-    }
-
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new ApprovedScope());
     }
 
     /**
