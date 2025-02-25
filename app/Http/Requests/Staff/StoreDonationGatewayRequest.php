@@ -25,7 +25,7 @@ class StoreDonationGatewayRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return $this->user()->group->is_owner;
     }
