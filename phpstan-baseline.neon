@@ -1,686 +1,2317 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$avg_seedtime\\.$#"
+			message: '#^Instanceof between App\\Models\\User and Illuminate\\Contracts\\Auth\\MustVerifyEmail will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: app/Actions/Fortify/UpdateUserProfileInformation.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoDeactivateWarning.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$avg_seedtime\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$seedsize\\.$#"
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$seedsize\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\User\\:\\:\\$uploads\\.$#"
+			message: '#^Access to an undefined property App\\Models\\User\:\:\$uploads\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Binary operation \"\\-\" between float\\|int\\|string and float\\|int\\|string results in an error\\.$#"
+			message: '#^Binary operation "\-" between float\|int\|string and float\|int\|string results in an error\.$#'
+			identifier: binaryOp.invalid
 			count: 1
 			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$can_download \\(bool\\) does not accept int\\.$#"
+			message: '#^Property App\\Models\\User\:\:\$can_download \(bool\) does not accept int\.$#'
+			identifier: assign.propertyType
 			count: 2
 			path: app/Console/Commands/AutoGroup.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, int\\|string\\)\\: bool\\)\\|null, Closure\\(mixed\\)\\: \\(non\\-falsy\\-string\\|false\\) given\\.$#"
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:filter\(\) expects \(callable\(mixed, int\|string\)\: bool\)\|null, Closure\(mixed\)\: \(non\-falsy\-string\|false\) given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Console/Commands/AutoHighspeedTag.php
 
 		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoPreWarning.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequest\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRecycleClaimedTorrentRequests.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoRewardResurrection.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Console/Commands/AutoWarning.php
+
+		-
+			message: '#^Call to function is_countable\(\) with array\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:commands\\(\\) has parameter \\$commands with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Console\\Commands\\GitUpdater\:\:commands\(\) has parameter \$commands with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Console\\\\Commands\\\\GitUpdater\\:\\:manualUpdate\\(\\) has parameter \\$updating with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Console\\Commands\\GitUpdater\:\:manualUpdate\(\) has parameter \$updating with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(string\\)\\: bool\\)\\|null, 'strlen' given\\.$#"
+			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(string\)\: bool\)\|null, ''strlen'' given\.$#'
+			identifier: argument.type
 			count: 2
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Property Illuminate\\\\Console\\\\Command\\:\\:\\$output \\(Illuminate\\\\Console\\\\OutputStyle\\) does not accept Symfony\\\\Component\\\\Console\\\\Output\\\\ConsoleOutput\\.$#"
+			message: '#^Property Illuminate\\Console\\Command\:\:\$output \(Illuminate\\Console\\OutputStyle\) does not accept Symfony\\Component\\Console\\Output\\ConsoleOutput\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: app/Console/Commands/GitUpdater.php
 
 		-
-			message: "#^Method App\\\\Events\\\\Chatter\\:\\:__construct\\(\\) has parameter \\$payload with no type specified\\.$#"
+			message: '#^Method App\\Events\\Chatter\:\:__construct\(\) has parameter \$payload with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Events/Chatter.php
 
 		-
-			message: "#^Method App\\\\Events\\\\Chatter\\:\\:__construct\\(\\) has parameter \\$target with no type specified\\.$#"
+			message: '#^Method App\\Events\\Chatter\:\:__construct\(\) has parameter \$target with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Events/Chatter.php
 
 		-
-			message: "#^Property App\\\\Events\\\\Chatter\\:\\:\\$audibles has no type specified\\.$#"
+			message: '#^Property App\\Events\\Chatter\:\:\$audibles has no type specified\.$#'
+			identifier: missingType.property
 			count: 1
 			path: app/Events/Chatter.php
 
 		-
-			message: "#^Property App\\\\Events\\\\Chatter\\:\\:\\$echoes has no type specified\\.$#"
+			message: '#^Property App\\Events\\Chatter\:\:\$echoes has no type specified\.$#'
+			identifier: missingType.property
 			count: 1
 			path: app/Events/Chatter.php
 
 		-
-			message: "#^Property App\\\\Events\\\\Chatter\\:\\:\\$message has no type specified\\.$#"
+			message: '#^Property App\\Events\\Chatter\:\:\$message has no type specified\.$#'
+			identifier: missingType.property
 			count: 1
 			path: app/Events/Chatter.php
 
 		-
-			message: "#^Property App\\\\Events\\\\Chatter\\:\\:\\$ping has no type specified\\.$#"
+			message: '#^Property App\\Events\\Chatter\:\:\$ping has no type specified\.$#'
+			identifier: missingType.property
 			count: 1
 			path: app/Events/Chatter.php
 
 		-
-			message: "#^Method App\\\\Events\\\\Ping\\:\\:__construct\\(\\) has parameter \\$room with no type specified\\.$#"
+			message: '#^Method App\\Events\\Ping\:\:__construct\(\) has parameter \$room with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Events/Ping.php
 
 		-
-			message: "#^Property App\\\\Events\\\\Ping\\:\\:\\$ping type has no value type specified in iterable type array\\.$#"
+			message: '#^Property App\\Events\\Ping\:\:\$ping type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Events/Ping.php
 
 		-
-			message: "#^Method App\\\\Exceptions\\\\TrackerException\\:\\:__construct\\(\\) has parameter \\$replace with no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Exceptions\\TrackerException\:\:__construct\(\) has parameter \$replace with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Exceptions/TrackerException.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:bdecode\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has parameter \\$pos with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:bdecode\(\) has parameter \$pos with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode\\(\\) has parameter \\$s with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:bdecode\(\) has parameter \$s with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode_file\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:bdecode_file\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bdecode_file\\(\\) has parameter \\$filename with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:bdecode_file\(\) has parameter \$filename with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bencode\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:bencode\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:bencode\\(\\) has parameter \\$d with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:bencode\(\) has parameter \$d with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:get_infohash\\(\\) has parameter \\$t with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:get_infohash\(\) has parameter \$t with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:get_meta\\(\\) has parameter \\$t with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:get_meta\(\) has parameter \$t with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:get_meta\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:get_meta\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:get_name\\(\\) has parameter \\$t with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:get_name\(\) has parameter \$t with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:is_v2_or_hybrid\\(\\) has parameter \\$t with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:is_v2_or_hybrid\(\) has parameter \$t with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:parse_integer\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:parse_integer\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:parse_integer\\(\\) has parameter \\$pos with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:parse_integer\(\) has parameter \$pos with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:parse_integer\\(\\) has parameter \\$s with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:parse_integer\(\) has parameter \$s with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:parse_string\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:parse_string\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:parse_string\\(\\) has parameter \\$pos with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:parse_string\(\) has parameter \$pos with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\Bencode\\:\\:parse_string\\(\\) has parameter \\$s with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\Bencode\:\:parse_string\(\) has parameter \$s with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Helpers/Bencode.php
 
 		-
-			message: "#^Method App\\\\Helpers\\\\CacheUser\\:\\:user\\(\\) should return App\\\\Models\\\\User\\|null but returns App\\\\Models\\\\User\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\User\\>\\|null\\.$#"
+			message: '#^Method App\\Helpers\\CacheUser\:\:user\(\) should return App\\Models\\User\|null but returns App\\Models\\User\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\User\>\|null\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Helpers/CacheUser.php
 
 		-
-			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|numeric\\-string\\}\\.$#"
+			message: '#^Offset 1 might not exist on array\{0\?\: string, 1\?\: ''''\|numeric\-string\}\.$#'
+			identifier: offsetAccess.notFound
 			count: 2
 			path: app/Helpers/SystemInformation.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\BaseController\\:\\:sendError\\(\\) has parameter \\$code with no type specified\\.$#"
+			message: '#^Method App\\Helpers\\TorrentTools\:\:normalizeTorrent\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Helpers/TorrentTools.php
+
+		-
+			message: '#^PHPDoc tag @return has invalid value \(array\<mixed\>\>\)\: Unexpected token "\>", expected TOKEN_HORIZONTAL_WS at offset 76 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Helpers/TorrentTools.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\API\\BaseController\:\:sendError\(\) has parameter \$code with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\BaseController\\:\\:sendError\\(\\) has parameter \\$error with no type specified\\.$#"
+			message: '#^Method App\\Http\\Controllers\\API\\BaseController\:\:sendError\(\) has parameter \$error with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\BaseController\\:\\:sendError\\(\\) has parameter \\$errorMessages with no type specified\\.$#"
+			message: '#^Method App\\Http\\Controllers\\API\\BaseController\:\:sendError\(\) has parameter \$errorMessages with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\BaseController\\:\\:sendResponse\\(\\) has parameter \\$message with no type specified\\.$#"
+			message: '#^Method App\\Http\\Controllers\\API\\BaseController\:\:sendResponse\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\BaseController\\:\\:sendResponse\\(\\) has parameter \\$result with no type specified\\.$#"
+			message: '#^Method App\\Http\\Controllers\\API\\BaseController\:\:sendResponse\(\) has parameter \$result with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Http/Controllers/API/BaseController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\API\\\\ChatController\\:\\:createMessage\\(\\) should return App\\\\Http\\\\Resources\\\\ChatMessageResource\\|bool\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response but returns bool\\|Illuminate\\\\Contracts\\\\Foundation\\\\Application\\|Illuminate\\\\Contracts\\\\Routing\\\\ResponseFactory\\|Illuminate\\\\Http\\\\Response\\.$#"
+			message: '#^Method App\\Http\\Controllers\\API\\ChatController\:\:createMessage\(\) should return App\\Http\\Resources\\ChatMessageResource\|bool\|Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response but returns bool\|Illuminate\\Contracts\\Foundation\\Application\|Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept bool\\.$#"
+			message: '#^Property App\\Models\\UserAudible\:\:\$status \(int\) does not accept bool\.$#'
+			identifier: assign.propertyType
 			count: 3
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\UserAudible\\:\\:\\$status \\(int\\) does not accept true\\.$#"
+			message: '#^Property App\\Models\\UserAudible\:\:\$status \(int\) does not accept true\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: app/Http/Controllers/API/ChatController.php
 
 		-
-			message: "#^Cannot call method getClientOriginalExtension\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
+			message: '#^Cannot call method getClientOriginalExtension\(\) on array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Cannot call method getError\\(\\) on array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\.$#"
+			message: '#^Cannot call method getError\(\) on array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Parameter \\#1 \\$inputFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:getNfo\\(\\) expects Illuminate\\\\Http\\\\UploadedFile\\|null, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Parameter \\#1 \\$torrentFile of static method App\\\\Helpers\\\\TorrentTools\\:\\:normalizeTorrent\\(\\) expects Illuminate\\\\Http\\\\UploadedFile, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\>\\|Illuminate\\\\Http\\\\UploadedFile\\|null given\\.$#"
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
 			count: 1
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$banned_id\\.$#"
+			message: '#^Method App\\Http\\Controllers\\API\\TorrentController\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\CursorPaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
-			path: app/Http/Controllers/AnnounceController.php
+			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$disabled_id\\.$#"
+			message: '#^Method App\\Http\\Controllers\\API\\TorrentController\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
-			path: app/Http/Controllers/AnnounceController.php
+			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$validating_id\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
+			message: '#^Method App\\Http\\Controllers\\API\\TorrentController\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\CursorPaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 2
+			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Cannot access property \\$id on App\\\\Models\\\\Torrent\\|string\\.$#"
-			count: 1
-			path: app/Http/Controllers/AnnounceController.php
+			message: '#^Method App\\Http\\Controllers\\API\\TorrentController\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 2
+			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Cannot access property \\$status on App\\\\Models\\\\Torrent\\|string\\.$#"
+			message: '#^Parameter \#1 \$inputFile of static method App\\Helpers\\TorrentTools\:\:getNfo\(\) expects Illuminate\\Http\\UploadedFile\|null, array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Parameter \#1 \$torrentFile of static method App\\Helpers\\TorrentTools\:\:normalizeTorrent\(\) expects Illuminate\\Http\\UploadedFile, array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Parameter \#1 \$value of function collect expects Illuminate\\Contracts\\Support\\Arrayable\<\(int\|string\), mixed\>\|iterable\<\(int\|string\), mixed\>\|null, array\<App\\Models\\Torrent\|int\|string, mixed\> given\.$#'
+			identifier: argument.type
 			count: 3
-			path: app/Http/Controllers/AnnounceController.php
+			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: "#^Cannot call method setRelation\\(\\) on App\\\\Models\\\\Torrent\\|string\\.$#"
+			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:remember\(\) contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
+			count: 3
+			path: app/Http/Controllers/API/TorrentController.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$banned_id\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\AnnounceController\\:\\:checkTorrent\\(\\) should return App\\\\Models\\\\Torrent but returns App\\\\Models\\\\Torrent\\|string\\.$#"
+			message: '#^Access to an undefined property object\:\:\$disabled_id\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Http/Controllers/AnnounceController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\DonationController\\:\\:store\\(\\) has no return type specified\\.$#"
+			message: '#^Access to an undefined property object\:\:\$validating_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\AnnounceController\:\:index\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: app/Http/Controllers/AnnounceController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\DonationController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: app/Http/Controllers/DonationController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Article\\:\\:\\$newNews\\.$#"
+			message: '#^Access to an undefined property App\\Models\\Article\:\:\$newNews\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Http/Controllers/HomeController.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\CursorPaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\CursorPaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 2
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 2
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Parameter \#1 \$value of function collect expects Illuminate\\Contracts\\Support\\Arrayable\<\(int\|string\), mixed\>\|iterable\<\(int\|string\), mixed\>\|null, array\<App\\Models\\Torrent\|int\|string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 3
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
+			count: 3
+			path: app/Http/Controllers/PlaylistController.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequestBounty\>\.$#'
+			identifier: return.type
+			count: 3
+			path: app/Http/Controllers/RequestController.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Illuminate\\Support\\Carbon and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
 			count: 2
 			path: app/Http/Controllers/SimilarTorrentController.php
 
 		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
 			count: 2
 			path: app/Http/Controllers/SimilarTorrentController.php
 
 		-
-			message: "#^Call to function is_int\\(\\) with string\\|null will always evaluate to false\\.$#"
+			message: '#^Unable to resolve the template type TValue in call to function collect$#'
+			identifier: argument.templateType
+			count: 2
+			path: app/Http/Controllers/SimilarTorrentController.php
+
+		-
+			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
+			identifier: function.impossibleType
 			count: 1
 			path: app/Http/Controllers/Staff/ChatRoomController.php
 
 		-
-			message: "#^Binary operation \"\\+\\=\" between string and int results in an error\\.$#"
+			message: '#^Binary operation "\+\=" between string and int results in an error\.$#'
+			identifier: assignOp.invalid
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Donation\\:\\:\\$ends_at \\(Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\Carbon\\.$#"
+			message: '#^Property App\\Models\\Donation\:\:\$ends_at \(Illuminate\\Support\\Carbon\) does not accept Carbon\\Carbon\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Donation\\:\\:\\$ends_at \\(Illuminate\\\\Support\\\\Carbon\\) does not accept null\\.$#"
+			message: '#^Property App\\Models\\Donation\:\:\$ends_at \(Illuminate\\Support\\Carbon\) does not accept null\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Donation\\:\\:\\$starts_at \\(Illuminate\\\\Support\\\\Carbon\\) does not accept Carbon\\\\Carbon\\.$#"
+			message: '#^Property App\\Models\\Donation\:\:\$starts_at \(Illuminate\\Support\\Carbon\) does not accept Carbon\\Carbon\.$#'
+			identifier: assign.propertyType
 			count: 1
 			path: app/Http/Controllers/Staff/DonationController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\DonationGatewayController\\:\\:destroy\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Http\\Controllers\\Staff\\DonationGatewayController\:\:destroy\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: app/Http/Controllers/Staff/DonationGatewayController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Staff\\\\DonationGatewayController\\:\\:store\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Http\\Controllers\\Staff\\DonationGatewayController\:\:store\(\) has no return type specified\.$#'
+			identifier: missingType.return
 			count: 1
 			path: app/Http/Controllers/Staff/DonationGatewayController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Group\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Group\\>\\:\\:\\$level\\.$#"
+			message: '#^Access to an undefined property App\\Models\\Group\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Group\>\:\:\$level\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Http/Controllers/Staff/UserController.php
 
 		-
-			message: "#^Offset 0 does not exist on Illuminate\\\\Http\\\\Client\\\\Response\\.$#"
+			message: '#^Offset 0 does not exist on Illuminate\\Http\\Client\\Response\.$#'
+			identifier: offsetAccess.notFound
 			count: 1
 			path: app/Http/Controllers/Staff/VersionController.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Post\\:\\:\\$post_count\\.$#"
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
+			identifier: return.type
+			count: 3
+			path: app/Http/Controllers/StatsController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Post\:\:\$post_count\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Http/Controllers/TopicController.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Controllers/TorrentController.php
+
+		-
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
 			count: 2
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
+			message: '#^Unable to resolve the template type TValue in call to function collect$#'
+			identifier: argument.templateType
 			count: 2
 			path: app/Http/Controllers/TorrentController.php
 
 		-
-			message: "#^Binary operation \"\\+\" between string\\|null and int results in an error\\.$#"
+			message: '#^Binary operation "\+" between string\|null and int results in an error\.$#'
+			identifier: binaryOp.invalid
 			count: 1
 			path: app/Http/Controllers/User/ResurrectionController.php
 
 		-
-			message: "#^Binary operation \"/\" between string\\|null and 1000000 results in an error\\.$#"
+			message: '#^Using nullsafe property access "\?\-\>seedtime" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Http/Controllers/User/ResurrectionController.php
+
+		-
+			message: '#^Binary operation "/" between string\|null and 1000000 results in an error\.$#'
+			identifier: binaryOp.invalid
 			count: 2
 			path: app/Http/Controllers/User/UserController.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$attachment has no type specified\\.$#"
+			message: '#^Method App\\Http\\Livewire\\AnnounceSearch\:\:announces\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/AnnounceSearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\AnnounceSearch\:\:\$announces contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/AnnounceSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\ApikeySearch\:\:apikeys\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/ApikeySearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\ApikeySearch\:\:\$apikeys contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/ApikeySearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\ApplicationSearch\:\:applications\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/ApplicationSearch.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\AttachmentUpload\:\:\$attachment has no type specified\.$#'
+			identifier: missingType.property
 			count: 1
 			path: app/Http/Livewire/AttachmentUpload.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\AttachmentUpload\\:\\:\\$storedImage has no type specified\\.$#"
+			message: '#^Property App\\Http\\Livewire\\AttachmentUpload\:\:\$storedImage has no type specified\.$#'
+			identifier: missingType.property
 			count: 1
 			path: app/Http/Livewire/AttachmentUpload.php
 
 		-
-			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			message: '#^Argument of an invalid type list\<string\>\|false supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
 			count: 1
 			path: app/Http/Livewire/AuditLogSearch.php
 
 		-
-			message: "#^Cannot call method sizeInBytes\\(\\) on class\\-string\\|object\\.$#"
+			message: '#^Method App\\Http\\Livewire\\AuditLogSearch\:\:audits\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/AuditLogSearch.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Spatie\\Backup\\BackupDestination\\Backup and ''sizeInBytes'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\BackupPanel\\:\\:backups\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Cannot call method sizeInBytes\(\) on class\-string\|object\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: app/Http/Livewire/BackupPanel.php
 
 		-
-			message: "#^Cannot access offset 0 on array\\<int, string\\>\\|false\\.$#"
+			message: '#^Method App\\Http\\Livewire\\BackupPanel\:\:backups\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Livewire/BackupPanel.php
+
+		-
+			message: '#^Property App\\Http\\Livewire\\BbcodeInput\:\:\$contentBbcode \(string\) does not accept array\|string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Http/Livewire/BbcodeInput.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\BlockIpAddress\:\:ipAddresses\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/BlockIpAddress.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\CollectionSearch\:\:collections\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/CollectionSearch.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Comment\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Livewire/Comments.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\Comments\:\:comments\(\) should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Comment\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Comment\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/Comments.php
+
+		-
+			message: '#^Type App\\Models\\Comment in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Comment\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Livewire/Comments.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\CompanySearch\:\:companies\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/CompanySearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Participant\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/ConversationSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\PrivateMessage\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/ConversationSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\ConversationSearch\:\:conversations\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/ConversationSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\EmailUpdateSearch\:\:emailUpdates\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/EmailUpdateSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\FailedLoginSearch\:\:failedLogins\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/FailedLoginSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
+			identifier: return.type
+			count: 3
+			path: app/Http/Livewire/ForumCategoryTopicSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/ForumCategoryTopicSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\ForumCategoryTopicSearch\:\:topics\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/ForumCategoryTopicSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
+			identifier: return.type
+			count: 3
+			path: app/Http/Livewire/ForumTopicSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/ForumTopicSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\ForumTopicSearch\:\:topics\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/ForumTopicSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\GiftLogSearch\:\:gifts\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/GiftLogSearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\GiftLogSearch\:\:\$gifts contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/GiftLogSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\HistorySearch\:\:histories\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\HistorySearch\:\:\$histories contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/HistorySearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\InviteLogSearch\:\:invites\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/InviteLogSearch.php
+
+		-
+			message: '#^Cannot access offset 0 on list\<string\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Livewire\\\\LaravelLogViewer\\:\\:logFiles\\(\\) has no return type specified\\.$#"
+			message: '#^Method App\\Http\\Livewire\\LaravelLogViewer\:\:entries\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_shift expects array, array\\<int, string\\>\\|false given\\.$#"
+			message: '#^Method App\\Http\\Livewire\\LaravelLogViewer\:\:entries\(\) should return Illuminate\\Pagination\\LengthAwarePaginator&iterable\<Illuminate\\Support\\Collection\<int\|string, mixed\>\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<string, Illuminate\\Support\\Collection\<int, mixed\>\>\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: "#^Property App\\\\Http\\\\Livewire\\\\MissingMediaSearch\\:\\:\\$categories type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Livewire\\LaravelLogViewer\:\:logFiles\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\LaravelLogViewer\:\:\$entries contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\LaravelLogViewer\:\:\$logFiles contains generic class Illuminate\\Support\\Collection but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_shift expects array, list\<string\>\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Http/Livewire/LaravelLogViewer.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\LeakerSearch\:\:leakers\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/LeakerSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\MissingMediaSearch\:\:medias\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
-			message: "#^Access to an undefined property MarcReichel\\\\IGDBLaravel\\\\Models\\\\Game\\:\\:\\$first_release_date\\.$#"
+			message: '#^Property App\\Http\\Livewire\\MissingMediaSearch\:\:\$categories type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Livewire/MissingMediaSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\NetworkSearch\:\:networks\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/NetworkSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\NoteSearch\:\:notes\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/NoteSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\NotificationSearch\:\:notifications\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/NotificationSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\PasskeySearch\:\:passkeys\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/PasskeySearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\PasskeySearch\:\:\$passkeys contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/PasskeySearch.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\PasswordResetHistory\> in PHPDoc tag @property for property App\\Http\\Livewire\\PasswordResetHistorySearch\:\:\$passwordResetHistories does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Livewire/PasswordResetHistorySearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\PasswordResetHistorySearch\:\:passwordResetHistories\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/PasswordResetHistorySearch.php
+
+		-
+			message: '#^Type App\\Models\\PasswordResetHistory in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\PasswordResetHistory\> in PHPDoc tag @property for property App\\Http\\Livewire\\PasswordResetHistorySearch\:\:\$passwordResetHistories is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Livewire/PasswordResetHistorySearch.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Livewire/PeerSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\PeerSearch\:\:peers\(\) should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Peer\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/PeerSearch.php
+
+		-
+			message: '#^Type App\\Models\\Peer in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Livewire/PeerSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Credit\>\.$#'
+			identifier: return.type
+			count: 2
+			path: app/Http/Livewire/PersonSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\PersonSearch\:\:persons\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/PersonSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\PlaylistSearch\:\:playlists\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/PlaylistSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\PostSearch\:\:posts\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/PostSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\ReportSearch\:\:reports\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/ReportSearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\ReportSearch\:\:\$reports contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/ReportSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\RsskeySearch\:\:rsskeys\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/RsskeySearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\RsskeySearch\:\:\$rsskeys contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/RsskeySearch.php
+
+		-
+			message: '#^Access to an undefined property MarcReichel\\IGDBLaravel\\Models\\Game\:\:\$first_release_date\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Access to an undefined property MarcReichel\\\\IGDBLaravel\\\\Models\\\\Game\\:\\:\\$name\\.$#"
+			message: '#^Access to an undefined property MarcReichel\\IGDBLaravel\\Models\\Game\:\:\$name\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/Stats/UserStats.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\SubscribedForum\:\:forums\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/SubscribedForum.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\SubscribedTopic\:\:topics\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/SubscribedTopic.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/SubtitleSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\SubtitleSearch\:\:subtitles\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/SubtitleSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TicketSearch\:\:tickets\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TicketSearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\TicketSearch\:\:\$tickets contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TicketSearch.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TopTorrents\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\CursorPaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TopTorrents\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TopTorrents\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\CursorPaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 2
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TopTorrents\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 2
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Parameter \#1 \$value of function collect expects Illuminate\\Contracts\\Support\\Arrayable\<\(int\|string\), mixed\>\|iterable\<\(int\|string\), mixed\>\|null, array\<App\\Models\\Torrent\|int\|string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 3
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
+			count: 3
+			path: app/Http/Livewire/TopTorrents.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
+			identifier: return.type
+			count: 4
+			path: app/Http/Livewire/TopUsers.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TopicPostSearch\:\:posts\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TopicPostSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
+			identifier: return.type
+			count: 3
+			path: app/Http/Livewire/TopicSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TopicSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TopicSearch\:\:topics\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TopicSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TorrentDownloadSearch\:\:torrentDownloads\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TorrentDownloadSearch.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\TorrentDownloadSearch\:\:\$announces contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TorrentDownloadSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Movie\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Tv\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TorrentRequestSearch\:\:torrentRequests\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TorrentRequestSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TorrentTrumpSearch\:\:torrentTrumps\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TorrentTrumpSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\TvSearch\:\:shows\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/TvSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\UnregisteredInfoHashSearch\:\:unregisteredInfoHashes\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UnregisteredInfoHashSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\UserActive\:\:actives\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\UserActive\:\:\$actives contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UserActive.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Livewire/UserEarnings.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\UserEarnings\:\:\$bonEarnings contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UserEarnings.php
+
+		-
+			message: '#^Type App\\Models\\Peer in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Livewire/UserEarnings.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\UserNotes\:\:notes\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UserNotes.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Resurrection\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Livewire/UserResurrections.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\UserResurrections\:\:resurrections\(\) should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Resurrection\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Resurrection\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/UserResurrections.php
+
+		-
+			message: '#^Type App\\Models\\Resurrection in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Resurrection\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Livewire/UserResurrections.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\UserSearch\:\:users\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UserSearch.php
+
+		-
+			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\History\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
+			identifier: generics.lessTypes
+			count: 1
+			path: app/Http/Livewire/UserTorrents.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\UserTorrents\:\:history\(\) should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\History\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\History\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Http/Livewire/UserTorrents.php
+
+		-
+			message: '#^Type App\\Models\\History in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\History\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
+			identifier: generics.notSubtype
+			count: 1
+			path: app/Http/Livewire/UserTorrents.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\UserUploads\:\:uploads\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UserUploads.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\UserWarnings\:\:warnings\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UserWarnings.php
+
+		-
+			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\UserWarnings\:\:\$warnings contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/UserWarnings.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\WarningLogSearch\:\:warnings\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/WarningLogSearch.php
+
+		-
+			message: '#^Method App\\Http\\Livewire\\WatchlistSearch\:\:users\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Http/Livewire/WatchlistSearch.php
+
+		-
+			message: '#^Call to function is_countable\(\) with Illuminate\\Support\\Collection\<\(int\|string\), mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: app/Http/Middleware/CheckIfBanned.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\SetLanguage\\:\\:setSystemLocale\\(\\) has parameter \\$request with no type specified\\.$#"
+			message: '#^Method App\\Http\\Middleware\\SetLanguage\:\:setSystemLocale\(\) has parameter \$request with no type specified\.$#'
+			identifier: missingType.parameter
 			count: 1
 			path: app/Http/Middleware/SetLanguage.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\TrustHosts\\:\\:hosts\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Middleware\\TrustHosts\:\:hosts\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Middleware/TrustHosts.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\BotResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Requests\\Staff\\UpdateAutomaticTorrentFreeleechRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Requests/Staff/UpdateAutomaticTorrentFreeleechRequest.php
+
+		-
+			message: '#^PHPDoc tag @return has invalid value \(array\<string, array\<int, \(Closure\)\|string\>\>\.\)\: Unexpected token "\.", expected TOKEN_HORIZONTAL_WS at offset 128 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Http/Requests/Staff/UpdateAutomaticTorrentFreeleechRequest.php
+
+		-
+			message: '#^Method App\\Http\\Requests\\StoreRequestFillRequest\:\:rules\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Http/Requests/StoreRequestFillRequest.php
+
+		-
+			message: '#^PHPDoc tag @return has invalid value \(array\<string, \\Illuminate\\Contracts\\Validation\\Rule\|array\<\\Illuminate\\Contracts\\Validation\\Rule\|string\>\|string\>s\)\: Unexpected token "s", expected TOKEN_HORIZONTAL_WS at offset 196 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: app/Http/Requests/StoreRequestFillRequest.php
+
+		-
+			message: '#^Method App\\Http\\Resources\\BotResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/BotResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\BotResource\\:\\:toArray\\(\\) return type with generic interface Illuminate\\\\Contracts\\\\Support\\\\Arrayable does not specify its types\\: TKey, TValue$#"
+			message: '#^Method App\\Http\\Resources\\BotResource\:\:toArray\(\) return type with generic interface Illuminate\\Contracts\\Support\\Arrayable does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: app/Http/Resources/BotResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\ChatMessageResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\ChatMessageResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/ChatMessageResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\ChatRoomResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\ChatRoomResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/ChatRoomResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\ChatUserResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\ChatUserResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/ChatUserResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\TorrentResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\TorrentResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between int\\|null and true will always evaluate to false\\.$#"
+			message: '#^Strict comparison using \=\=\= between int\|null and true will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
 
 		-
-			message: "#^Unable to resolve the template type TKey in call to function collect$#"
+			message: '#^Unable to resolve the template type TKey in call to function collect$#'
+			identifier: argument.templateType
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
 
 		-
-			message: "#^Unable to resolve the template type TValue in call to function collect$#"
+			message: '#^Unable to resolve the template type TValue in call to function collect$#'
+			identifier: argument.templateType
 			count: 1
 			path: app/Http/Resources/TorrentResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\TorrentsResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\TorrentsResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/TorrentsResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\TorrentsResource\\:\\:with\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\TorrentsResource\:\:with\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/TorrentsResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\UserAudibleResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\UserAudibleResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/UserAudibleResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\UserEchoResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\UserEchoResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/UserEchoResource.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Resources\\\\UserResource\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Method App\\Http\\Resources\\UserResource\:\:toArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Resources/UserResource.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between float\\|null and 0 will always evaluate to false\\.$#"
+			message: '#^Using nullsafe property access "\?\-\>downloaded" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Jobs/ProcessAnnounce.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>uploaded" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Jobs/ProcessAnnounce.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Listeners/AchievementUnlocked.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Application.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\ApplicationImageProof\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/ApplicationImageProof.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/ApplicationImageProof.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\ApplicationUrlProof\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/ApplicationUrlProof.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/ApplicationUrlProof.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Article.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Audit\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Audit.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/AutomaticTorrentFreeleech.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Bookmark.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Bot.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Category.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/ChatStatus.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Chatroom\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Chatroom.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Chatroom.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Comment.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Distributor.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Event.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\FailedLoginAttempt\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/FailedLoginAttempt.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/FeaturedTorrent.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Forum.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/ForumCategory.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/ForumPermission.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/FreeleechToken.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Group.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Internal.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/InternalUser.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Invite.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Keyword\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Keyword.php
+
+		-
+			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Models/Language.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Like.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/MediaLanguage.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Message\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Message.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Note.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Notification.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Occupation.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Option\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Option.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Option.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Page.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/PersonalFreeleech.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Playlist.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/PlaylistTorrent.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Poll.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Post\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Post.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Post.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Region.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Report.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Resolution.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Resurrection.php
+
+		-
+			message: '#^Class App\\Models\\Rss has PHPDoc tag @property for property \$json_torrent with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/Rss.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Rss.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Seedbox.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Subscription.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Subtitle.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Thank.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Ticket.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/TicketAttachment.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/TicketCategory.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/TicketPriority.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Topic.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>read_topic" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Models/Topic.php
+
+		-
+			message: '#^Instanceof between App\\Models\\Comment and App\\Models\\Comment will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Torrent.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/TorrentRequest.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/TorrentRequestBounty.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/TorrentRequestClaim.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Type.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\User\:\:\$hidden is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$hidden\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: app/Models/User.php
 
 		-
-			message: "#^Cannot access offset 'validator' on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
+			message: '#^Strict comparison using \=\=\= between float\|null and 0 will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Class App\\Models\\UserNotification has PHPDoc tag @property for property \$json_account_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: '#^Class App\\Models\\UserNotification has PHPDoc tag @property for property \$json_bon_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: '#^Class App\\Models\\UserNotification has PHPDoc tag @property for property \$json_following_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: '#^Class App\\Models\\UserNotification has PHPDoc tag @property for property \$json_forum_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: '#^Class App\\Models\\UserNotification has PHPDoc tag @property for property \$json_mention_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: '#^Class App\\Models\\UserNotification has PHPDoc tag @property for property \$json_request_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: '#^Class App\\Models\\UserNotification has PHPDoc tag @property for property \$json_subscription_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: '#^Class App\\Models\\UserNotification has PHPDoc tag @property for property \$json_torrent_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserNotification.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_achievement_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_bon_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_comment_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_follower_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_forum_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_other_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_profile_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_rank_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_request_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_torrent_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Class App\\Models\\UserPrivacy has PHPDoc tag @property for property \$json_wishlist_groups with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: app/Models/UserPrivacy.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Voter.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Warning.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Watchlist.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/WhitelistedImageUrl.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Wiki.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/WikiCategory.php
+
+		-
+			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
+			identifier: arrayFilter.same
+			count: 1
+			path: app/Models/Wish.php
+
+		-
+			message: '#^Cannot access offset ''validator'' on Illuminate\\Contracts\\Foundation\\Application\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
 			count: 1
 			path: app/Providers/AppServiceProvider.php
 
 		-
-			message: "#^Parameter \\#2 \\$minLimit of static method App\\\\Helpers\\\\HiddenCaptcha\\:\\:check\\(\\) expects int, float\\|int\\|string given\\.$#"
+			message: '#^Parameter \#2 \$minLimit of static method App\\Helpers\\HiddenCaptcha\:\:check\(\) expects int, float\|int\|string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Providers/AppServiceProvider.php
 
 		-
-			message: "#^Parameter \\#3 \\$maxLimit of static method App\\\\Helpers\\\\HiddenCaptcha\\:\\:check\\(\\) expects int, float\\|int\\|string given\\.$#"
+			message: '#^Parameter \#3 \$maxLimit of static method App\\Helpers\\HiddenCaptcha\:\:check\(\) expects int, float\|int\|string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: app/Providers/AppServiceProvider.php
 
 		-
-			message: "#^Method class@anonymous/app/Providers/FortifyServiceProvider\\.php\\:51\\:\\:toResponse\\(\\) should return Illuminate\\\\Http\\\\RedirectResponse but returns Illuminate\\\\Http\\\\RedirectResponse\\|true\\.$#"
+			message: '#^Method Laravel\\Fortify\\Contracts\\LoginResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:51\:\:toResponse\(\) should return Illuminate\\Http\\RedirectResponse but returns Illuminate\\Http\\RedirectResponse\|true\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function rtrim expects string, true given\\.$#"
+			message: '#^Method Laravel\\Fortify\\Contracts\\RegisterViewResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:99\:\:toResponse\(\) never returns Illuminate\\Http\\RedirectResponse so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
 
 		-
-			message: "#^Access to an undefined property Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Chatroom\\>\\:\\:\\$id\\.$#"
+			message: '#^Method Laravel\\Fortify\\Contracts\\VerifyEmailResponse@anonymous/app/Providers/FortifyServiceProvider\.php\:110\:\:toResponse\(\) never returns Illuminate\\View\\View so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: '#^Parameter \#1 \$string of function rtrim expects string, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between true and true will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Chatroom\>\:\:\$id\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Call to function is_int\\(\\) with string\\|null will always evaluate to false\\.$#"
+			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
+			identifier: function.impossibleType
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Empty array passed to foreach\\.$#"
+			message: '#^Empty array passed to foreach\.$#'
+			identifier: foreach.emptyArray
 			count: 1
 			path: app/Repositories/ChatRepository.php
 
 		-
-			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, bool\\|string given\\.$#"
+			message: '#^Call to function array_key_exists\(\) with ''job'' and array\{adult\: bool\|null, gender\: int\|null, id\: int\|null, known_for_department\: string\|null, name\: string\|null, original_name\: string\|null, popularity\: float\|null, profile_path\: string\|null, \.\.\.\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Services/Tmdb/Client/Movie.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''job'' and array\{credit_id\: string\|null, job\: string\|null, episode_count\: int\|null\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: app/Services/Tmdb/Client/TV.php
+
+		-
+			message: '#^Parameter \#1 \$title of static method Illuminate\\Support\\Str\:\:slug\(\) expects string, bool\|string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: config/cache.php
 
 		-
-			message: "#^Parameter \\#1 \\$url of function parse_url expects string, bool\\|string\\|null given\\.$#"
+			message: '#^Parameter \#1 \$url of function parse_url expects string, bool\|string\|null given\.$#'
+			identifier: argument.type
 			count: 2
 			path: config/secure-headers.php
 
 		-
-			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, bool\\|string given\\.$#"
+			message: '#^Parameter \#1 \$title of static method Illuminate\\Support\\Str\:\:slug\(\) expects string, bool\|string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: config/session.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
+			message: '#^Access to an undefined property object\:\:\$default_groups\.$#'
+			identifier: property.notFound
 			count: 1
 			path: database/migrations/2022_12_30_090331_update_user_notifications_table.php
 
 		-
-			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
+			message: '#^Argument of an invalid type object supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
 			count: 1
 			path: database/migrations/2022_12_30_090331_update_user_notifications_table.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$default_groups\\.$#"
+			message: '#^Access to an undefined property object\:\:\$default_groups\.$#'
+			identifier: property.notFound
 			count: 1
 			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
 
 		-
-			message: "#^Argument of an invalid type object supplied for foreach, only iterables are supported\\.$#"
+			message: '#^Argument of an invalid type object supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
 			count: 1
 			path: database/migrations/2022_12_30_090351_update_user_privacy_table.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$file_name\\.$#"
+			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
+			identifier: property.notFound
 			count: 3
 			path: database/migrations/2023_02_09_113903_clean_torrent_files.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$content\\.$#"
+			message: '#^Access to an undefined property object\:\:\$content\.$#'
+			identifier: property.notFound
 			count: 1
 			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$description\\.$#"
+			message: '#^Access to an undefined property object\:\:\$description\.$#'
+			identifier: property.notFound
 			count: 1
 			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
 			count: 2
 			path: database/migrations/2023_07_22_043634_post_playlist_html_special_chars_decode.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$file_name\\.$#"
+			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
+			identifier: property.notFound
 			count: 2
 			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
 			count: 1
 			path: database/migrations/2023_07_29_205035_add_torrent_folder_name.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: database/migrations/2023_11_12_223126_create_passkeys.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$passkey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: database/migrations/2023_11_12_223126_create_passkeys.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$api_token\.$#'
+			identifier: property.notFound
+			count: 1
+			path: database/migrations/2023_11_15_170525_create_apikeys.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: database/migrations/2023_11_15_170525_create_apikeys.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: database/migrations/2023_11_16_084506_create_rsskeys.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$rsskey\.$#'
+			identifier: property.notFound
+			count: 1
+			path: database/migrations/2023_11_16_084506_create_rsskeys.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
 			count: 1
 			path: database/migrations/2024_01_15_151522_update_groups_table.php
 
 		-
-			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: database/migrations/2024_01_21_062125_create_email_updates.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$file_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: database/migrations/2024_02_14_022118_fix_subtitle_filepaths.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$id\.$#'
+			identifier: property.notFound
 			count: 1
 			path: database/migrations/2024_11_26_170256_add_is_torrent_modo_to_groups_table.php
 
 		-
-			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
+			message: '#^Variable \$level might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: resources/views/vendor/notifications/email.blade.php
+
+		-
+			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: routes/announce.php
 
 		-
-			message: "#^Parameter \\#1 \\$scheme of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceScheme\\(\\) expects string\\|null, true given\\.$#"
+			message: '#^Parameter \#1 \$scheme of static method Illuminate\\Support\\Facades\\URL\:\:forceScheme\(\) expects string\|null, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: routes/announce.php
 
 		-
-			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
+			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: routes/api.php
 
 		-
-			message: "#^Parameter \\#1 \\$scheme of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceScheme\\(\\) expects string\\|null, true given\\.$#"
+			message: '#^Parameter \#1 \$scheme of static method Illuminate\\Support\\Facades\\URL\:\:forceScheme\(\) expects string\|null, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: routes/api.php
 
 		-
-			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
+			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: routes/rss.php
 
 		-
-			message: "#^Parameter \\#1 \\$scheme of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceScheme\\(\\) expects string\\|null, true given\\.$#"
+			message: '#^Parameter \#1 \$scheme of static method Illuminate\\Support\\Facades\\URL\:\:forceScheme\(\) expects string\|null, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: routes/rss.php
 
 		-
-			message: "#^Parameter \\#1 \\$root of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceRootUrl\\(\\) expects string\\|null, true given\\.$#"
+			message: '#^Parameter \#1 \$root of static method Illuminate\\Routing\\UrlGenerator\:\:forceRootUrl\(\) expects string\|null, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: routes/web.php
 
 		-
-			message: "#^Parameter \\#1 \\$scheme of static method Illuminate\\\\Support\\\\Facades\\\\URL\\:\\:forceScheme\\(\\) expects string\\|null, true given\\.$#"
+			message: '#^Parameter \#1 \$scheme of static method Illuminate\\Support\\Facades\\URL\:\:forceScheme\(\) expects string\|null, true given\.$#'
+			identifier: argument.type
 			count: 1
 			path: routes/web.php
