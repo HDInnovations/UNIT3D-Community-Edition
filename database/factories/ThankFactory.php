@@ -25,11 +25,6 @@ use App\Models\Thank;
 class ThankFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Thank::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

@@ -23,11 +23,6 @@ use App\Models\Notification;
 class NotificationFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Notification::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

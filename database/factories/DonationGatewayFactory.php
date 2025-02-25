@@ -23,11 +23,6 @@ use App\Models\DonationGateway;
 class DonationGatewayFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = DonationGateway::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

@@ -23,11 +23,6 @@ use App\Models\BonExchange;
 class BonExchangeFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = BonExchange::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

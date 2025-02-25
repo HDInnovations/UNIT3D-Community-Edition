@@ -23,11 +23,6 @@ use App\Models\Movie;
 class MovieFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Movie::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

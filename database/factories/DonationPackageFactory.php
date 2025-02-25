@@ -23,11 +23,6 @@ use App\Models\DonationPackage;
 class DonationPackageFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = DonationPackage::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

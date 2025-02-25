@@ -23,11 +23,6 @@ use App\Models\BlacklistClient;
 class BlacklistClientFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = BlacklistClient::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

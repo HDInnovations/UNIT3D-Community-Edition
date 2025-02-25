@@ -27,11 +27,6 @@ use App\Models\Credit;
 class CreditFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Credit::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array
