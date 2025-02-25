@@ -43,24 +43,24 @@ return [
         'array'   => 'The :attribute must have between :min and :max items.',
     ],
 
-    'confirmed'        => 'The :attribute confirmation does not match.',
+    'confirmed' => 'The :attribute confirmation does not match.',
 
-    'date'             => 'The :attribute is not a valid date.',
-    'date_equals'      => 'The :attribute must be a date equal to :date.',
-    'date_format'      => 'The :attribute does not match the format :format.',
-    'declined'         => 'The :attribute must be declined.',
-    'declined_if'      => 'The :attribute must be declined when :other is :value.',
-    'different'        => 'The :attribute and :other must be different.',
-    'digits'           => 'The :attribute must be :digits digits.',
-    'digits_between'   => 'The :attribute must be between :min and :max digits.',
-    'dimensions'       => 'The :attribute has invalid image dimensions.',
+    'date'           => 'The :attribute is not a valid date.',
+    'date_equals'    => 'The :attribute must be a date equal to :date.',
+    'date_format'    => 'The :attribute does not match the format :format.',
+    'declined'       => 'The :attribute must be declined.',
+    'declined_if'    => 'The :attribute must be declined when :other is :value.',
+    'different'      => 'The :attribute and :other must be different.',
+    'digits'         => 'The :attribute must be :digits digits.',
+    'digits_between' => 'The :attribute must be between :min and :max digits.',
+    'dimensions'     => 'The :attribute has invalid image dimensions.',
 
-    'email'            => 'The :attribute must be a valid email address.',
-    'ends_with'        => 'The :attribute must end with one of the following: :values.',
+    'email'     => 'The :attribute must be a valid email address.',
+    'ends_with' => 'The :attribute must end with one of the following: :values.',
 
-    'file'             => 'The :attribute must be a file.',
+    'file' => 'The :attribute must be a file.',
 
-    'gt'               => [
+    'gt' => [
         'numeric' => 'The :attribute must be greater than :value.',
         'file'    => 'The :attribute must be greater than :value kilobytes.',
         'string'  => 'The :attribute must be greater than :value characters.',
@@ -72,7 +72,7 @@ return [
         'string'  => 'The :attribute must be greater than or equal to :value characters.',
         'array'   => 'The :attribute must have :value items or more.',
     ],
-    'image'       => 'The :attribute must be an image.',
+    'image' => 'The :attribute must be an image.',
 
     'in_array'    => 'The :attribute field does not exist in :other.',
     'integer'     => 'The :attribute must be an integer.',
@@ -109,20 +109,19 @@ return [
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
 
-    'not_regex'   => 'The :attribute format is invalid.',
-    'numeric'     => 'The :attribute must be a number.',
-    'password'    => [
-        'letters'       => 'The :attribute must contain at least one letter.',
-        'mixed'         => 'The :attribute must contain at least one uppercase and one lowercase letter.',
-        'numbers'       => 'The :attribute must contain at least one number.',
-        'symbols'       => 'The :attribute must contain at least one symbol.',
-
+    'not_regex' => 'The :attribute format is invalid.',
+    'numeric'   => 'The :attribute must be a number.',
+    'password'  => [
+        'letters' => 'The :attribute must contain at least one letter.',
+        'mixed'   => 'The :attribute must contain at least one uppercase and one lowercase letter.',
+        'numbers' => 'The :attribute must contain at least one number.',
+        'symbols' => 'The :attribute must contain at least one symbol.',
     ],
 
-    'regex'                => 'The :attribute format is invalid.',
+    'regex' => 'The :attribute format is invalid.',
 
-    'same'                 => 'The :attribute and :other must match.',
-    'size'                 => [
+    'same' => 'The :attribute and :other must match.',
+    'size' => [
         'numeric' => 'The :attribute must be :size.',
         'file'    => 'The :attribute must be :size kilobytes.',
         'string'  => 'The :attribute must be :size characters.',
@@ -132,8 +131,8 @@ return [
     'string'      => 'The :attribute must be a string.',
     'timezone'    => 'The :attribute must be a valid timezone.',
 
-    'url'         => 'The :attribute must be a valid URL.',
-    'uuid'        => 'The :attribute must be a valid UUID.',
+    'url'  => 'The :attribute must be a valid URL.',
+    'uuid' => 'The :attribute must be a valid UUID.',
 
     /*
     |--------------------------------------------------------------------------
@@ -151,7 +150,6 @@ return [
 
     'custom' => [
         'attribute-name' => [
-
         ],
     ],
 
