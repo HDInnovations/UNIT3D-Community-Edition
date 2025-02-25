@@ -47,8 +47,10 @@
 
 .torrent-icons {
     grid-area: icons;
-    letter-spacing: 3px;
     font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .torrent-icons__thanks {
@@ -58,11 +60,6 @@
 .torrent-icons__comments {
     font: inherit;
     color: var(--torrent-row-comments-fg);
-}
-
-.torrent-icons__thanks::before,
-.torrent-icons__comments::before {
-    letter-spacing: 2px;
 }
 
 .torrent-icons__internal {
