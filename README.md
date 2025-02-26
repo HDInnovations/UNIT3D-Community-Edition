@@ -33,7 +33,7 @@
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-We have been developing a Private Torrent Tracker Software called `UNIT3D`. This is a PHP software based on Laravel 11, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.3 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
+We have been developing a Private Torrent Tracker Software called `UNIT3D` (pronounced "united"). This is a PHP software based on Laravel 11, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.3 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
 
 ## <a name="installation"></a> 🖥️ Installation
 
