@@ -1,12 +1,12 @@
 @php
     if (! isset($scrollTo)) {
-        $scrollTo = 'body';
+        $scrollTo = '.panelV2';
     }
 
     $scrollIntoViewJsSnippet =
         $scrollTo !== false
             ? <<<JS
-       (\$el.closest('{$scrollTo}') || document.querySelector('{$scrollTo}')).scrollIntoView()
+       window.scroll({ top: ((\$el.closest('{$scrollTo}') || document.querySelector('{$scrollTo}')).offsetTop - 80)})
     JS
             : '';
 @endphp
