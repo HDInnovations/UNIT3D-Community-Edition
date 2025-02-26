@@ -174,7 +174,7 @@
         ></i>
     @endif
 
-    @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
+    @if ($torrent->bumped_at?->notEqualTo($torrent->created_at) && $torrent->bumped_at?->isBefore(now()->addDay(2)))
         <i
             class="{{ config('other.font-awesome') }} fa-level-up-alt torrent-icons__bumped"
             title="{{ __('torrent.recent-bumped') }}: {{ $torrent->bumped_at }}"
