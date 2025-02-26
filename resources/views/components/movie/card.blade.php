@@ -59,7 +59,7 @@
     </header>
     <section>
         <table class="torrent-search--grouped__torrents">
-            @foreach ($media->torrents as $type => $torrents)
+            @foreach ($media->torrents['Movie'] as $type => $torrents)
                 <tbody>
                     @foreach ($torrents as $torrent)
                         <tr>

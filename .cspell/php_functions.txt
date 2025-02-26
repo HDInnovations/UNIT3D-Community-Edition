@@ -17,6 +17,7 @@ inet_pton
 intdiv
 intval
 isset
+krsort
 ksort
 ltrim
 microtime
@@ -39,6 +40,8 @@ strtolower
 strtotime
 strtoupper
 sys_getloadavg
+uasort
+usort
 uniqid
 unserialize
 urldecode
