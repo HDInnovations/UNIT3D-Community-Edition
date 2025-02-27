@@ -16,18 +16,15 @@ declare(strict_types=1);
 return [
     /*
     |--------------------------------------------------------------------------
-    | Password Reset Language Lines
+    | Pagination Language Lines
     |--------------------------------------------------------------------------
     |
-    | The following language lines are the default lines which match reasons
-    | that are given by the password broker for a password update attempt
-    | has failed, such as for an invalid token or invalid new password.
+    | The following language lines are used by the paginator library to build
+    | the simple pagination links. You are free to change them to anything
+    | you want to customize your views to better match your application.
     |
     */
 
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset'    => 'Your password has been reset!',
-    'sent'     => 'Thanks! If the email address matches an account, a password reset link will be sent.',
-    'token'    => 'This password reset token is invalid.',
-    'user'     => 'We can\'t find a user with that e-mail address.',
+    'previous' => '&laquo; Previous',
+    'next'     => 'Next &raquo;',
 ];
