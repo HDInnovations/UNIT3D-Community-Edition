@@ -35,42 +35,42 @@ return new class () extends Migration {
             ->whereNotNull('torrent_id')
             ->update([
                 'commentable_id'   => DB::raw('torrent_id'),
-                'commentable_type' => App\Models\Torrent::class,
+                'commentable_type' => 'App\Models\Torrent',
             ]);
 
         DB::table('comments')
             ->whereNotNull('article_id')
             ->update([
                 'commentable_id'   => DB::raw('article_id'),
-                'commentable_type' => App\Models\Article::class,
+                'commentable_type' => 'App\Models\Article',
             ]);
 
         DB::table('comments')
             ->whereNotNull('requests_id')
             ->update([
                 'commentable_id'   => DB::raw('requests_id'),
-                'commentable_type' => App\Models\TorrentRequest::class,
+                'commentable_type' => 'App\Models\TorrentRequest',
             ]);
 
         DB::table('comments')
             ->whereNotNull('collection_id')
             ->update([
                 'commentable_id'   => DB::raw('collection_id'),
-                'commentable_type' => App\Models\Collection::class,
+                'commentable_type' => 'App\Models\Collection',
             ]);
 
         DB::table('comments')
             ->whereNotNull('playlist_id')
             ->update([
                 'commentable_id'   => DB::raw('playlist_id'),
-                'commentable_type' => App\Models\Playlist::class,
+                'commentable_type' => 'App\Models\Playlist',
             ]);
 
         DB::table('comments')
             ->whereNotNull('ticket_id')
             ->update([
                 'commentable_id'   => DB::raw('ticket_id'),
-                'commentable_type' => App\Models\Ticket::class,
+                'commentable_type' => 'App\Models\Ticket',
             ]);
 
         Schema::table('comments', function (Blueprint $table): void {
