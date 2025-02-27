@@ -61,7 +61,6 @@
         "ryoluo/sail-ssl": "^1.3.2",
         "spatie/laravel-ignition": "^2.9.0",
         "tomasvotruba/bladestan": "^0.11.0",
-        "laravel/pail": "^1.2.2"
     },
     "config": {
         "preferred-install": "dist",
@@ -112,10 +111,6 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
-        ],
-        "dev": [
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
         ]
     }
 }
