@@ -50,8 +50,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // User Observer For Cache
-
         // Hidden Captcha
         Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => \sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
