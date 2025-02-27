@@ -48,8 +48,12 @@ class NewRequestFillReject extends Notification implements ShouldQueue
      */
     public function shouldSend(User $notifiable): bool
     {
-        if ($this->torrentRequest->user_id === $notifiable->id ||
-            $notifiable->notification?->block_notifications == 1) {
+        // Do not notify self
+        if ($this->torrentRequest->user_id === $notifiable->id) {
+            return false;
+        }
+
+        if ($notifiable->notification?->block_notifications == 1) {
             return false;
         }
 

@@ -49,8 +49,11 @@ class NewPost extends Notification implements ShouldQueue
     public function shouldSend(User $notifiable): bool
     {
         // Do not notify self
-        if ($this->post->user_id === $notifiable->id ||
-            $notifiable->notification?->block_notifications == 1) {
+        if ($this->post->user_id === $notifiable->id) {
+            return false;
+        }
+
+        if ($notifiable->notification?->block_notifications == 1) {
             return false;
         }
 

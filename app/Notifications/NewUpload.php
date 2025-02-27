@@ -48,7 +48,11 @@ class NewUpload extends Notification implements ShouldQueue
      */
     public function shouldSend(User $notifiable): bool
     {
-        if ($this->torrent->anon || $notifiable->notification?->block_notifications == 1) {
+        if ($this->torrent->anon) {
+            return false;
+        }
+
+        if ($notifiable->notification?->block_notifications == 1) {
             return false;
         }
 
