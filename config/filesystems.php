@@ -90,11 +90,7 @@ return [
             // 'timeout' => 30,
         ],
 
-        'backups' => [
-            'driver' => 'local',
-            'root'   => storage_path('backups'),
-        ],
-
+        // UNIT3D Custom Disks (Alphabetical Order)
         'article-images' => [
             'driver' => 'local',
             'root'   => storage_path('app/images/articles/images'),
@@ -105,14 +101,9 @@ return [
             'root'   => storage_path('app/files/attachments/files'),
         ],
 
-        'user-avatars' => [
+        'backups' => [
             'driver' => 'local',
-            'root'   => storage_path('app/images/users/avatars'),
-        ],
-
-        'user-icons' => [
-            'driver' => 'local',
-            'root'   => storage_path('app/images/users/icons'),
+            'root'   => storage_path('backups'),
         ],
 
         'category-images' => [
@@ -123,6 +114,16 @@ return [
         'playlist-images' => [
             'driver' => 'local',
             'root'   => storage_path('app/images/playlists/images'),
+        ],
+
+        'user-avatars' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/users/avatars'),
+        ],
+
+        'user-icons' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/users/icons'),
         ],
 
         'subtitle-files' => [
