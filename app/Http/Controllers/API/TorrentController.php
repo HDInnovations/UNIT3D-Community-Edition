@@ -169,6 +169,7 @@ class TorrentController extends BaseController
         $torrent->stream = $request->input('stream');
         $torrent->sd = $request->input('sd');
         $torrent->personal_release = $request->input('personal_release') ?? false;
+
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->internal = $user->group->is_modo || $user->internals_exists ? ($request->input('internal') ?? 0) : 0;
 
@@ -192,6 +193,7 @@ class TorrentController extends BaseController
         if (($user->group->is_modo || $user->internals_exists) && isset($fl_until)) {
             $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
         }
+
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
         $torrent->sticky = $user->group->is_modo || $user->internals_exists ? ($request->input('sticky') ?? false) : false;
         $torrent->moderated_at = Carbon::now();
