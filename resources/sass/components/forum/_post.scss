@@ -324,8 +324,8 @@
     }
 
     .post__header {
-        grid-template-areas: 'topic tip-stats overflow' '. . . . toolbar';
-        grid-template-columns: auto 1fr auto auto;
+        grid-template-areas: '. overflow' '. toolbar';
+        grid-template-columns: 1fr auto;
         gap: 0 6px;
     }
 
