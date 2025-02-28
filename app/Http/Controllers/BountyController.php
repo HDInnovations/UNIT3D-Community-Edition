@@ -78,9 +78,7 @@ class BountyController extends Controller
 
         $requester = $torrentRequest->user;
 
-        if ($requester->acceptsNotification($request->user(), $requester, 'request', 'show_request_bounty')) {
-            $requester->notify(new NewRequestBounty($bounty));
-        }
+        $requester->notify(new NewRequestBounty($bounty));
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->with('success', trans('request.added-bonus'));

@@ -168,9 +168,7 @@ class TopicController extends Controller
                 ->get();
 
             foreach ($subscribers as $subscriber) {
-                if ($subscriber->acceptsNotification($user, $subscriber, 'subscription', 'show_subscription_forum')) {
-                    $subscriber->notify(new NewTopic('forum', $user, $topic));
-                }
+                $subscriber->notify(new NewTopic('forum', $user, $topic));
             }
 
             //Achievements
