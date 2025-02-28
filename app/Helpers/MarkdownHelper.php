@@ -41,8 +41,8 @@ class MarkdownHelper
     /**
      * @throws \League\CommonMark\Exception\CommonMarkException
      */
-    public function convertToHtml(string $markdown): \League\CommonMark\Output\RenderedContentInterface
+    public function convertToHtml(string $markdown): string
     {
-        return $this->converter->convert($markdown);
+        return $this->converter->convert($markdown)->getContent();
     }
 }

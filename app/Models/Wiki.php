@@ -49,9 +49,11 @@ class Wiki extends Model
 
     /**
      * Parse Content And Return Valid HTML.
+     *
+     * @throws \League\CommonMark\Exception\CommonMarkException
      */
     public function getContentHtml(): string
     {
-        return MarkdownHelper::convertToHtml(htmlspecialchars_decode((new Bbcode())->parse($this->content, false)))->getContent();
+        return new MarkdownHelper()->convertToHtml(htmlspecialchars_decode(new Bbcode()->parse($this->content, false)));
     }
 }
