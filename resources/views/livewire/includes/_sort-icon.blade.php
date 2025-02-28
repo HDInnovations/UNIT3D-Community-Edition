@@ -1,7 +1,7 @@
 @if ($sortField === $field)
     <i
-        class="{{ config('other.font-awesome') }} fa-sort-amount-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"
+        class="{{ config('other.font-awesome') }} fa-sort-{{ $sortDirection === 'asc' ? 'up' : 'down' }}"
     ></i>
 @else
-    <i class="{{ config('other.font-awesome') }} fa-sort-alt" style="opacity: 0.35"></i>
+    <i class="{{ config('other.font-awesome') }} fa-sort" style="opacity: 0.35"></i>
 @endif
