@@ -17,8 +17,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Helpers\Bbcode;
+use App\Helpers\MarkdownHelper;
 use App\Traits\Auditable;
-use GrahamCampbell\Markdown\Facades\Markdown;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -58,6 +58,6 @@ class Page extends Model
      */
     public function getContentHtml(): string
     {
-        return Markdown::convert(htmlspecialchars_decode((new Bbcode())->parse($this->content, false)))->getContent();
+        return MarkdownHelper::convertToHtml(htmlspecialchars_decode((new Bbcode())->parse($this->content, false)))->getContent();
     }
 }

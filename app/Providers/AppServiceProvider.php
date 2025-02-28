@@ -19,7 +19,6 @@ namespace App\Providers;
 use App\Helpers\ByteUnits;
 use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
-use App\Models\User;
 use App\View\Composers\FooterComposer;
 use App\View\Composers\TopNavComposer;
 use Illuminate\Support\Facades\Blade;
