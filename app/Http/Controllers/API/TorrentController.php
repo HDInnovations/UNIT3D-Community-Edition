@@ -135,7 +135,7 @@ class TorrentController extends BaseController
         }
 
         $fileName = \sprintf('%s.torrent', uniqid('', true)); // Generate a unique name
-        Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
+        Storage::disk('torrent-files')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->integer('category_id'));
@@ -303,8 +303,8 @@ class TorrentController extends BaseController
         ]);
 
         if ($v->fails()) {
-            if (Storage::disk('torrents')->exists($fileName)) {
-                Storage::disk('torrents')->delete($fileName);
+            if (Storage::disk('torrent-files')->exists($fileName)) {
+                Storage::disk('torrent-files')->delete($fileName);
             }
 
             return $this->sendError('Validation Error.', $v->errors());
