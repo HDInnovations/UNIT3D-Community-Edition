@@ -239,10 +239,24 @@ class SimilarTorrent extends Component
         $user = auth()->user();
 
         return Torrent::query()
-            ->with('user:id,username,group_id', 'category', 'type', 'resolution')
-            ->withCount(['thanks', 'comments'])
+            ->with('type:id,name,position', 'resolution:id,name,position')
+            ->withCount([
+                'comments',
+            ])
+            ->when(
+                !config('announce.external_tracker.is_enabled'),
+                fn ($query) => $query->withCount([
+                    'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                    'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                ]),
+            )
+            ->when(
+                config('other.thanks-system.is_enabled'),
+                fn ($query) => $query->withCount('thanks')
+            )
             ->withExists([
                 'featured as featured',
+                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                 'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 1)
