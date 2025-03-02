@@ -32,10 +32,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator $warnings
- * @property int                                         $automatedWarningsCount
- * @property int                                         $manualWarningsCount
- * @property int                                         $deletedWarningsCount
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Warning> $warnings
+ * @property int                                                       $automatedWarningsCount
+ * @property int                                                       $manualWarningsCount
+ * @property int                                                       $deletedWarningsCount
  */
 class UserWarnings extends Component
 {
@@ -64,7 +64,7 @@ class UserWarnings extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Warning>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
      */
     #[Computed]
     final public function warnings(): \Illuminate\Pagination\LengthAwarePaginator

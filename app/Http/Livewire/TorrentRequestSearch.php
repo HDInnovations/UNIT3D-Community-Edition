@@ -194,7 +194,7 @@ class TorrentRequestSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<TorrentRequest>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TorrentRequest>
      */
     #[Computed]
     final public function torrentRequests(): \Illuminate\Pagination\LengthAwarePaginator

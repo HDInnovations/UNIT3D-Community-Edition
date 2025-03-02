@@ -50,7 +50,7 @@ class MissingMediaSearch extends Component
     public int $perPage = 50;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Movie>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Movie>
      */
     #[Computed]
     final public function medias(): \Illuminate\Pagination\LengthAwarePaginator

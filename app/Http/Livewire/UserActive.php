@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator $actives
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Peer> $actives
  */
 class UserActive extends Component
 {
@@ -80,7 +80,7 @@ class UserActive extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Peer>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Peer>
      */
     #[Computed]
     final public function actives(): \Illuminate\Pagination\LengthAwarePaginator

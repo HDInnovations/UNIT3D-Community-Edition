@@ -60,7 +60,7 @@ class SubtitleSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Subtitle>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Subtitle>
      */
     #[Computed]
     final public function subtitles(): \Illuminate\Pagination\LengthAwarePaginator

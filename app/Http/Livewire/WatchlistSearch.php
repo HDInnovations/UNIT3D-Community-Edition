@@ -55,7 +55,7 @@ class WatchlistSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Watchlist>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Watchlist>
      */
     #[Computed]
     final public function users(): \Illuminate\Pagination\LengthAwarePaginator

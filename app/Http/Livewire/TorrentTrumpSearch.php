@@ -46,7 +46,7 @@ class TorrentTrumpSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<TorrentTrump>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TorrentTrump>
      */
     #[Computed]
     final public function torrentTrumps(): \Illuminate\Pagination\LengthAwarePaginator

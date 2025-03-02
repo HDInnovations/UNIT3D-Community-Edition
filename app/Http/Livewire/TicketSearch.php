@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator $tickets
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Ticket> $tickets
  */
 class TicketSearch extends Component
 {
@@ -71,7 +71,7 @@ class TicketSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Ticket>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Ticket>
      */
     #[Computed]
     final public function tickets(): \Illuminate\Pagination\LengthAwarePaginator

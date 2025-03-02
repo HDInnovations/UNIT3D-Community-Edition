@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator<Apikey> $apikeys
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Apikey> $apikeys
  */
 class ApikeySearch extends Component
 {
@@ -50,7 +50,7 @@ class ApikeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Apikey>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Apikey>
      */
     #[Computed]
     final public function apikeys(): \Illuminate\Pagination\LengthAwarePaginator

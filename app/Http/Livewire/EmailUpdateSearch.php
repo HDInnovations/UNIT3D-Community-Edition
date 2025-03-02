@@ -44,7 +44,7 @@ class EmailUpdateSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<EmailUpdate>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, EmailUpdate>
      */
     #[Computed]
     final public function emailUpdates(): \Illuminate\Pagination\LengthAwarePaginator

@@ -27,7 +27,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator $bonEarnings
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, BonEarning> $bonEarnings
  */
 class UserEarnings extends Component
 {
@@ -196,7 +196,7 @@ class UserEarnings extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
      */
     #[Computed]
     final public function torrents(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

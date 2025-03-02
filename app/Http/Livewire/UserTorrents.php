@@ -89,7 +89,7 @@ class UserTorrents extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<History>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, History>
      */
     #[Computed]
     final public function history(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

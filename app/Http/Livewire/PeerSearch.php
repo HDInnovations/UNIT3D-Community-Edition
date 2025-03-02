@@ -98,7 +98,7 @@ class PeerSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Peer>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Peer>
      */
     #[Computed]
     final public function peers(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

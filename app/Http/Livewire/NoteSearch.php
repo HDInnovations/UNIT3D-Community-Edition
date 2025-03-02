@@ -40,7 +40,7 @@ class NoteSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Note>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Note>
      */
     #[Computed]
     final public function notes(): \Illuminate\Pagination\LengthAwarePaginator

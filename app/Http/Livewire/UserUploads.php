@@ -69,7 +69,7 @@ class UserUploads extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Torrent>
      */
     #[Computed]
     final public function uploads(): \Illuminate\Pagination\LengthAwarePaginator

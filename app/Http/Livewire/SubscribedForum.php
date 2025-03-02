@@ -26,7 +26,7 @@ class SubscribedForum extends Component
     use WithPagination;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Forum>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Forum>
      */
     #[Computed]
     final public function forums()

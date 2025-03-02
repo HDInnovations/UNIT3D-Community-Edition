@@ -349,42 +349,6 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\API\\TorrentController\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\CursorPaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\API\\TorrentController\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\API\\TorrentController\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\CursorPaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 2
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\API\\TorrentController\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 2
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: '#^Parameter \#1 \$inputFile of static method App\\Helpers\\TorrentTools\:\:getNfo\(\) expects Illuminate\\Http\\UploadedFile\|null, array\<int, Illuminate\\Http\\UploadedFile\>\|Illuminate\\Http\\UploadedFile\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -397,33 +361,9 @@ parameters:
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
-			message: '#^Parameter \#1 \$value of function collect expects Illuminate\\Contracts\\Support\\Arrayable\<\(int\|string\), mixed\>\|iterable\<\(int\|string\), mixed\>\|null, array\<App\\Models\\Torrent\|int\|string, mixed\> given\.$#'
-			identifier: argument.type
-			count: 3
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
 			message: '#^Parameter \#3 \$callback of method Illuminate\\Cache\\Repository\:\:remember\(\) contains unresolvable type\.$#'
 			identifier: argument.unresolvableType
 			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Controllers/API/TorrentController.php
-
-		-
-			message: '#^Unable to resolve the template type TKey in call to function collect$#'
-			identifier: argument.templateType
-			count: 3
 			path: app/Http/Controllers/API/TorrentController.php
 
 		-
@@ -461,66 +401,6 @@ parameters:
 			identifier: property.notFound
 			count: 1
 			path: app/Http/Controllers/HomeController.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\CursorPaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\CursorPaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 2
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Method App\\Http\\Controllers\\PlaylistController\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 2
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Parameter \#1 \$value of function collect expects Illuminate\\Contracts\\Support\\Arrayable\<\(int\|string\), mixed\>\|iterable\<\(int\|string\), mixed\>\|null, array\<App\\Models\\Torrent\|int\|string, mixed\> given\.$#'
-			identifier: argument.type
-			count: 3
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Controllers/PlaylistController.php
-
-		-
-			message: '#^Unable to resolve the template type TKey in call to function collect$#'
-			identifier: argument.templateType
-			count: 3
-			path: app/Http/Controllers/PlaylistController.php
 
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TorrentRequestBounty\>\.$#'
@@ -649,36 +529,6 @@ parameters:
 			path: app/Http/Controllers/User/UserController.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\AnnounceSearch\:\:announces\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/AnnounceSearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\AnnounceSearch\:\:\$announces contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/AnnounceSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\ApikeySearch\:\:apikeys\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/ApikeySearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\ApikeySearch\:\:\$apikeys contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/ApikeySearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\ApplicationSearch\:\:applications\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/ApplicationSearch.php
-
-		-
 			message: '#^Property App\\Http\\Livewire\\AttachmentUpload\:\:\$attachment has no type specified\.$#'
 			identifier: missingType.property
 			count: 1
@@ -693,12 +543,6 @@ parameters:
 		-
 			message: '#^Argument of an invalid type list\<string\>\|false supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\AuditLogSearch\:\:audits\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
 			count: 1
 			path: app/Http/Livewire/AuditLogSearch.php
 
@@ -727,42 +571,6 @@ parameters:
 			path: app/Http/Livewire/BbcodeInput.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\BlockIpAddress\:\:ipAddresses\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/BlockIpAddress.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\CollectionSearch\:\:collections\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/CollectionSearch.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Comment\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\Comments\:\:comments\(\) should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Comment\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Comment\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: '#^Type App\\Models\\Comment in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Comment\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Livewire/Comments.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\CompanySearch\:\:companies\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/CompanySearch.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Participant\>\.$#'
 			identifier: return.type
 			count: 1
@@ -775,24 +583,6 @@ parameters:
 			path: app/Http/Livewire/ConversationSearch.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\ConversationSearch\:\:conversations\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/ConversationSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\EmailUpdateSearch\:\:emailUpdates\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/EmailUpdateSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\FailedLoginSearch\:\:failedLogins\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/FailedLoginSearch.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
 			identifier: return.type
 			count: 3
@@ -801,12 +591,6 @@ parameters:
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\User\>\.$#'
 			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/ForumCategoryTopicSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\ForumCategoryTopicSearch\:\:topics\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
 			count: 1
 			path: app/Http/Livewire/ForumCategoryTopicSearch.php
 
@@ -821,42 +605,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\ForumTopicSearch\:\:topics\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/ForumTopicSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\GiftLogSearch\:\:gifts\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\GiftLogSearch\:\:\$gifts contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/GiftLogSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\HistorySearch\:\:histories\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/HistorySearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\HistorySearch\:\:\$histories contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/HistorySearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\InviteLogSearch\:\:invites\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/InviteLogSearch.php
 
 		-
 			message: '#^Cannot access offset 0 on list\<string\>\|false\.$#'
@@ -901,136 +649,16 @@ parameters:
 			path: app/Http/Livewire/LaravelLogViewer.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\LeakerSearch\:\:leakers\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/LeakerSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\MissingMediaSearch\:\:medias\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/MissingMediaSearch.php
-
-		-
 			message: '#^Property App\\Http\\Livewire\\MissingMediaSearch\:\:\$categories type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Http/Livewire/MissingMediaSearch.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\NetworkSearch\:\:networks\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/NetworkSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\NoteSearch\:\:notes\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/NoteSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\NotificationSearch\:\:notifications\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/NotificationSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\PasskeySearch\:\:passkeys\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/PasskeySearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\PasskeySearch\:\:\$passkeys contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/PasskeySearch.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\PasswordResetHistory\> in PHPDoc tag @property for property App\\Http\\Livewire\\PasswordResetHistorySearch\:\:\$passwordResetHistories does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Livewire/PasswordResetHistorySearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\PasswordResetHistorySearch\:\:passwordResetHistories\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/PasswordResetHistorySearch.php
-
-		-
-			message: '#^Type App\\Models\\PasswordResetHistory in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\PasswordResetHistory\> in PHPDoc tag @property for property App\\Http\\Livewire\\PasswordResetHistorySearch\:\:\$passwordResetHistories is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Livewire/PasswordResetHistorySearch.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\PeerSearch\:\:peers\(\) should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Peer\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
-			message: '#^Type App\\Models\\Peer in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Livewire/PeerSearch.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Credit\>\.$#'
 			identifier: return.type
 			count: 2
 			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\PersonSearch\:\:persons\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\PlaylistSearch\:\:playlists\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/PlaylistSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\PostSearch\:\:posts\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/PostSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\ReportSearch\:\:reports\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/ReportSearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\ReportSearch\:\:\$reports contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/ReportSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\RsskeySearch\:\:rsskeys\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/RsskeySearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\RsskeySearch\:\:\$rsskeys contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/RsskeySearch.php
 
 		-
 			message: '#^Access to an undefined property MarcReichel\\IGDBLaravel\\Models\\Game\:\:\$first_release_date\.$#'
@@ -1051,112 +679,16 @@ parameters:
 			path: app/Http/Livewire/Stats/UserStats.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\SubscribedForum\:\:forums\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/SubscribedForum.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\SubscribedTopic\:\:topics\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/SubscribedTopic.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Torrent\>\.$#'
 			identifier: return.type
 			count: 1
 			path: app/Http/Livewire/SubtitleSearch.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\SubtitleSearch\:\:subtitles\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/SubtitleSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TicketSearch\:\:tickets\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\TicketSearch\:\:\$tickets contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TicketSearch.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TopTorrents\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\CursorPaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TopTorrents\:\:scopeMeta\(\) has parameter \$torrents with generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TopTorrents\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\CursorPaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 2
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TopTorrents\:\:scopeMeta\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 2
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Parameter \#1 \$value of function collect expects Illuminate\\Contracts\\Support\\Arrayable\<\(int\|string\), mixed\>\|iterable\<\(int\|string\), mixed\>\|null, array\<App\\Models\\Torrent\|int\|string, mixed\> given\.$#'
-			identifier: argument.type
-			count: 3
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @param for parameter \$torrents is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Type App\\Models\\Torrent in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Torrent\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
-			message: '#^Unable to resolve the template type TKey in call to function collect$#'
-			identifier: argument.templateType
-			count: 3
-			path: app/Http/Livewire/TopTorrents.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'
 			identifier: return.type
 			count: 4
 			path: app/Http/Livewire/TopUsers.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TopicPostSearch\:\:posts\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TopicPostSearch.php
 
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\TopicRead\>\.$#'
@@ -1171,24 +703,6 @@ parameters:
 			path: app/Http/Livewire/TopicSearch.php
 
 		-
-			message: '#^Method App\\Http\\Livewire\\TopicSearch\:\:topics\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TopicSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TorrentDownloadSearch\:\:torrentDownloads\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TorrentDownloadSearch.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\TorrentDownloadSearch\:\:\$announces contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TorrentDownloadSearch.php
-
-		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Movie\>\.$#'
 			identifier: return.type
 			count: 1
@@ -1199,138 +713,6 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TorrentRequestSearch\:\:torrentRequests\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TorrentRequestSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TorrentTrumpSearch\:\:torrentTrumps\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TorrentTrumpSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\TvSearch\:\:shows\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/TvSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\UnregisteredInfoHashSearch\:\:unregisteredInfoHashes\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UnregisteredInfoHashSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\UserActive\:\:actives\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\UserActive\:\:\$actives contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UserActive.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Livewire/UserEarnings.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\UserEarnings\:\:\$bonEarnings contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UserEarnings.php
-
-		-
-			message: '#^Type App\\Models\\Peer in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Peer\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Livewire/UserEarnings.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\UserNotes\:\:notes\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UserNotes.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Resurrection\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\UserResurrections\:\:resurrections\(\) should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Resurrection\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\Resurrection\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: '#^Type App\\Models\\Resurrection in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\Resurrection\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Livewire/UserResurrections.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\UserSearch\:\:users\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UserSearch.php
-
-		-
-			message: '#^Generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\History\> in PHPDoc tag @return does not specify all template types of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\: TKey, TValue$#'
-			identifier: generics.lessTypes
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\UserTorrents\:\:history\(\) should return Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\History\> but returns Illuminate\\Pagination\\LengthAwarePaginator\<int, App\\Models\\History\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: '#^Type App\\Models\\History in generic type Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\<App\\Models\\History\> in PHPDoc tag @return is not subtype of template type TKey of \(int\|string\) of interface Illuminate\\Contracts\\Pagination\\LengthAwarePaginator\.$#'
-			identifier: generics.notSubtype
-			count: 1
-			path: app/Http/Livewire/UserTorrents.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\UserUploads\:\:uploads\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UserUploads.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\UserWarnings\:\:warnings\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UserWarnings.php
-
-		-
-			message: '#^PHPDoc tag @property for property App\\Http\\Livewire\\UserWarnings\:\:\$warnings contains generic class Illuminate\\Pagination\\LengthAwarePaginator but does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/UserWarnings.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\WarningLogSearch\:\:warnings\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/WarningLogSearch.php
-
-		-
-			message: '#^Method App\\Http\\Livewire\\WatchlistSearch\:\:users\(\) return type with generic class Illuminate\\Pagination\\LengthAwarePaginator does not specify its types\: TKey, TValue$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Http/Livewire/WatchlistSearch.php
 
 		-
 			message: '#^Call to function is_countable\(\) with Illuminate\\Support\\Collection\<\(int\|string\), mixed\> will always evaluate to true\.$#'

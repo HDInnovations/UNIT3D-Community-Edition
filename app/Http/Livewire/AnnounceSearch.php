@@ -24,7 +24,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator<Announce> $announces
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Announce> $announces
  */
 class AnnounceSearch extends Component
 {
@@ -59,7 +59,7 @@ class AnnounceSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Announce>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Announce>
      */
     #[Computed]
     final public function announces(): \Illuminate\Pagination\LengthAwarePaginator

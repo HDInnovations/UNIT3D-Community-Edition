@@ -25,7 +25,7 @@ use ReflectionException;
 trait TorrentMeta
 {
     /**
-     * @param \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent>|\Illuminate\Pagination\CursorPaginator<\App\Models\Torrent>|\Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent>|\Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\Torrent> $torrents
+     * @param \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent>|\Illuminate\Pagination\CursorPaginator<int, \App\Models\Torrent>|\Illuminate\Pagination\LengthAwarePaginator<int, \App\Models\Torrent>|\Illuminate\Contracts\Pagination\LengthAwarePaginator<int, \App\Models\Torrent> $torrents
      *
      * @throws \MarcReichel\IGDBLaravel\Exceptions\MissingEndpointException
      * @throws \MarcReichel\IGDBLaravel\Exceptions\InvalidParamsException
@@ -33,9 +33,9 @@ trait TorrentMeta
      * @throws JsonException
      * @return (
      *        $torrents is \Illuminate\Database\Eloquent\Collection<int, \App\Models\Torrent> ? \Illuminate\Support\Collection<int, \App\Models\Torrent>
-     *     : ($torrents is \Illuminate\Pagination\CursorPaginator<\App\Models\Torrent> ? \Illuminate\Pagination\CursorPaginator<\App\Models\Torrent>
-     *     : ($torrents is \Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent> ? \Illuminate\Pagination\LengthAwarePaginator<\App\Models\Torrent>
-     *     : \Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\Torrent>
+     *     : ($torrents is \Illuminate\Pagination\CursorPaginator<int, \App\Models\Torrent> ? \Illuminate\Pagination\CursorPaginator<int, \App\Models\Torrent>
+     *     : ($torrents is \Illuminate\Pagination\LengthAwarePaginator<int, \App\Models\Torrent> ? \Illuminate\Pagination\LengthAwarePaginator<int, \App\Models\Torrent>
+     *     : \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, \App\Models\Torrent>
      * )))
      */
     public function scopeMeta(\Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator $torrents): \Illuminate\Support\Collection|\Illuminate\Pagination\CursorPaginator|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Contracts\Pagination\LengthAwarePaginator
