@@ -1477,64 +1477,10 @@ parameters:
 			path: app/Listeners/AchievementUnlocked.php
 
 		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\ApplicationImageProof\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\ApplicationUrlProof\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Audit\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/Audit.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Chatroom\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\FailedLoginAttempt\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/FailedLoginAttempt.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Keyword\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/Keyword.php
-
-		-
 			message: '#^Parameter \#1 \$view of function view expects view\-string\|null, string given\.$#'
 			identifier: argument.type
 			count: 2
 			path: app/Models/Language.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Message\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/Message.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Option\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Post\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/Post.php
 
 		-
 			message: '#^Class App\\Models\\Rss has PHPDoc tag @property for property \$json_torrent with no value type specified in iterable type array\.$#'
@@ -1553,12 +1499,6 @@ parameters:
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: app/Models/Torrent.php
-
-		-
-			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\User\:\:\$hidden is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$hidden\.$#'
-			identifier: property.phpDocType
-			count: 1
-			path: app/Models/User.php
 
 		-
 			message: '#^Strict comparison using \=\=\= between float\|null and 0 will always evaluate to false\.$#'

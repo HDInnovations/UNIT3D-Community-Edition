@@ -88,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The Attributes Excluded From The Model's JSON Form.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $hidden = [
         'email',
