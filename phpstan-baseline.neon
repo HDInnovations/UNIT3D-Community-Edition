@@ -1477,20 +1477,8 @@ parameters:
 			path: app/Listeners/AchievementUnlocked.php
 
 		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Application.php
-
-		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\ApplicationImageProof\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
 			identifier: property.phpDocType
-			count: 1
-			path: app/Models/ApplicationImageProof.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
 			count: 1
 			path: app/Models/ApplicationImageProof.php
 
@@ -1501,52 +1489,10 @@ parameters:
 			path: app/Models/ApplicationUrlProof.php
 
 		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/ApplicationUrlProof.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Article.php
-
-		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Audit\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
 			identifier: property.phpDocType
 			count: 1
 			path: app/Models/Audit.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/AutomaticTorrentFreeleech.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Bookmark.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Bot.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Category.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/ChatStatus.php
 
 		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Chatroom\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
@@ -1555,88 +1501,10 @@ parameters:
 			path: app/Models/Chatroom.php
 
 		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Chatroom.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Comment.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Distributor.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Event.php
-
-		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\FailedLoginAttempt\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
 			identifier: property.phpDocType
 			count: 1
 			path: app/Models/FailedLoginAttempt.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/FeaturedTorrent.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Forum.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/ForumCategory.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/ForumPermission.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/FreeleechToken.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Group.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Internal.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/InternalUser.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Invite.php
 
 		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Keyword\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
@@ -1651,40 +1519,10 @@ parameters:
 			path: app/Models/Language.php
 
 		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Like.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/MediaLanguage.php
-
-		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Message\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
 			identifier: property.phpDocType
 			count: 1
 			path: app/Models/Message.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Notification.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Occupation.php
 
 		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Option\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
@@ -1693,142 +1531,16 @@ parameters:
 			path: app/Models/Option.php
 
 		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Option.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Page.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/PersonalFreeleech.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Playlist.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/PlaylistTorrent.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Poll.php
-
-		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Post\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
 			identifier: property.phpDocType
 			count: 1
 			path: app/Models/Post.php
 
 		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Post.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Region.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Report.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Resolution.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Resurrection.php
-
-		-
 			message: '#^Class App\\Models\\Rss has PHPDoc tag @property for property \$json_torrent with no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Models/Rss.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Rss.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Seedbox.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Subscription.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Subtitle.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Thank.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Ticket.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/TicketAttachment.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/TicketCategory.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/TicketPriority.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Topic.php
 
 		-
 			message: '#^Using nullsafe property access "\?\-\>read_topic" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
@@ -1841,36 +1553,6 @@ parameters:
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: app/Models/Torrent.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Torrent.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/TorrentRequest.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/TorrentRequestBounty.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/TorrentRequestClaim.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Type.php
 
 		-
 			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\User\:\:\$hidden is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$hidden\.$#'
@@ -1997,48 +1679,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Models/UserPrivacy.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Voter.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Warning.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Watchlist.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/WhitelistedImageUrl.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Wiki.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/WikiCategory.php
-
-		-
-			message: '#^Parameter \#1 \$array \(array\<array\{old\: mixed, new\: mixed\}\>\) to function array_filter does not contain falsy values, the array will always stay the same\.$#'
-			identifier: arrayFilter.same
-			count: 1
-			path: app/Models/Wish.php
 
 		-
 			message: '#^Cannot access offset ''validator'' on Illuminate\\Contracts\\Foundation\\Application\.$#'

@@ -97,9 +97,7 @@ trait Auditable
                 throw new InvalidArgumentException(\sprintf('Unknown action `%s`.', $action));
         }
 
-        $clean = array_filter($data);
-
-        return json_encode($clean, JSON_THROW_ON_ERROR);
+        return json_encode($data, JSON_THROW_ON_ERROR);
     }
 
     /**
