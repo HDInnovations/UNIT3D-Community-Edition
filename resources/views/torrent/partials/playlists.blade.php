@@ -27,7 +27,7 @@
                 >
                     <img
                         class="playlists__playlist-avatar"
-                        src="{{ $playlist->user->image ? route('authenticated_images.user_avatar', ['user' => $playlist->user]) : url'img/profile.png') }}"
+                        src="{{ $playlist->user->image ? route('authenticated_images.user_avatar', ['user' => $playlist->user]) : url('img/profile.png') }}"
                         alt="{{ $playlist->user->username }}"
                     />
                 </a>
