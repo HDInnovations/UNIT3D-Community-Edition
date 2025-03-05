@@ -38,10 +38,7 @@
                     <ul class="auth-form__important-infos">
                         <li class="auth-form__important-info">Almost done...</li>
                         <li class="auth-form__important-info">
-                            Click the button below and we'll email you shortly.
-                        </li>
-                        <li class="auth-form__important-info">
-                            Open it up to activate your account.
+                            Click the verification link sent to your email to activate your account.
                         </li>
                         @if (Session::has('warning'))
                             <li class="auth-form__important-info">
@@ -65,9 +62,10 @@
                         @hiddencaptcha
                     @endif
 
-                    <button class="auth-form__primary-button">
-                        {{ __('auth.send-verification-email') }}
-                    </button>
+                    <details class="auth-form__dropdown">
+                        <summary class="auth-form__dropdown-text">Having issues?</summary>
+                        <button class="auth-form__primary-button">Resend verification email</button>
+                    </details>
                     @if (Session::has('errors') || Session::has('status'))
                         <ul class="auth-form__errors">
                             @foreach ($errors->all() as $error)
