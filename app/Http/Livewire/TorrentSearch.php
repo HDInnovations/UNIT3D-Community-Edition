@@ -526,6 +526,7 @@ class TorrentSearch extends Component
         // Whitelist which columns are allowed to be ordered by
         if (!\in_array($this->sortField, [
             'bumped_at',
+            'created_at',
             'times_completed',
         ])) {
             $this->reset('sortField');
@@ -537,6 +538,7 @@ class TorrentSearch extends Component
             ->select('tmdb')
             ->selectRaw('MAX(sticky) as sticky')
             ->selectRaw('MAX(bumped_at) as bumped_at')
+            ->selectRaw('MAX(created_at) as created_at')
             ->selectRaw('SUM(times_completed) as times_completed')
             ->selectRaw(<<<'SQL'
                 CASE

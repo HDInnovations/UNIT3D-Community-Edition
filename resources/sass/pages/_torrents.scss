@@ -47,8 +47,10 @@
 
 .torrent-icons {
     grid-area: icons;
-    letter-spacing: 3px;
     font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .torrent-icons__thanks {
@@ -58,11 +60,6 @@
 .torrent-icons__comments {
     font: inherit;
     color: var(--torrent-row-comments-fg);
-}
-
-.torrent-icons__thanks::before,
-.torrent-icons__comments::before {
-    letter-spacing: 2px;
 }
 
 .torrent-icons__internal {
@@ -623,7 +620,7 @@ a.torrent-search--grouped__edit {
     background: initial;
     display: inline-block;
     width: 100%;
-    height: 100%;
+    color: var(--icon-button-fg);
 }
 
 .torrent-search--grouped__download a:hover,
@@ -636,7 +633,6 @@ a.torrent-search--grouped__edit:hover {
 }
 
 /* Table cells */
-.torrent-search--grouped__torrents tr:last-child,
 th.torrent-search--grouped__type,
 td.torrent-search--grouped__overview,
 td.torrent-search--grouped__download,
