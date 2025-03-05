@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\ModerationStatus;
 use App\Helpers\Bencode;
 use App\Helpers\MediaInfo;
 use App\Helpers\TorrentHelper;
@@ -150,7 +151,7 @@ class TorrentController extends Controller
                 || (
                     $user->id === $torrent->user_id
                     && (
-                        $torrent->status !== Torrent::APPROVED
+                        $torrent->status !== ModerationStatus::APPROVED
                         || now()->isBefore($torrent->created_at->addDay())
                     )
                 ),
@@ -217,7 +218,7 @@ class TorrentController extends Controller
             || (
                 $user->id === $torrent->user_id
                 && (
-                    $torrent->status !== Torrent::APPROVED
+                    $torrent->status !== ModerationStatus::APPROVED
                     || now()->isBefore($torrent->created_at->addDay())
                 )
             ),

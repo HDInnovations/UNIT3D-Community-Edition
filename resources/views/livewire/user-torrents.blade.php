@@ -185,7 +185,7 @@
                                     <input
                                         class="user-torrents__checkbox"
                                         type="checkbox"
-                                        value="{{ \App\Models\Torrent::PENDING }}"
+                                        value="{{ \App\Enums\ModerationStatus::PENDING }}"
                                         wire:model.live="status"
                                     />
                                     {{ __('torrent.pending') }}
@@ -196,7 +196,7 @@
                                     <input
                                         class="user-torrents__checkbox"
                                         type="checkbox"
-                                        value="{{ \App\Models\Torrent::APPROVED }}"
+                                        value="{{ \App\Enums\ModerationStatus::APPROVED }}"
                                         wire:model.live="status"
                                     />
                                     {{ __('torrent.approved') }}
@@ -207,7 +207,7 @@
                                     <input
                                         class="user-torrents__checkbox"
                                         type="checkbox"
-                                        value="{{ \App\Models\Torrent::REJECTED }}"
+                                        value="{{ \App\Enums\ModerationStatus::REJECTED }}"
                                         wire:model.live="status"
                                     />
                                     {{ __('torrent.rejected') }}
@@ -218,7 +218,7 @@
                                     <input
                                         class="user-torrents__checkbox"
                                         type="checkbox"
-                                        value="{{ \App\Models\Torrent::POSTPONED }}"
+                                        value="{{ \App\Enums\ModerationStatus::POSTPONED }}"
                                         wire:model.live="status"
                                     />
                                     Postponed
@@ -701,28 +701,28 @@
                             </td>
                             <td class="user-torrents__status">
                                 @switch($history->status)
-                                    @case(\App\Models\Torrent::PENDING)
+                                    @case(\App\Enums\ModerationStatus::PENDING)
                                         <span
                                             title="{{ __('torrent.pending') }}"
                                             class="{{ config('other.font-awesome') }} fa-tasks text-orange"
                                         ></span>
 
                                         @break
-                                    @case(\App\Models\Torrent::APPROVED)
+                                    @case(\App\Enums\ModerationStatus::APPROVED)
                                         <span
                                             title="{{ __('torrent.approved') }}"
                                             class="{{ config('other.font-awesome') }} fa-check text-green"
                                         ></span>
 
                                         @break
-                                    @case(\App\Models\Torrent::REJECTED)
+                                    @case(\App\Enums\ModerationStatus::REJECTED)
                                         <span
                                             title="{{ __('torrent.rejected') }}"
                                             class="{{ config('other.font-awesome') }} fa-times text-red"
                                         ></span>
 
                                         @break
-                                    @case(\App\Models\Torrent::POSTPONED)
+                                    @case(\App\Enums\ModerationStatus::POSTPONED)
                                         <span
                                             title="Postponed"
                                             class="{{ config('other.font-awesome') }} fa-hourglass text-red"

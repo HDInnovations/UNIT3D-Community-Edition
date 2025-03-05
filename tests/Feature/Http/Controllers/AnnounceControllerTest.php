@@ -14,6 +14,7 @@ declare(strict_types=1);
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
+use App\Enums\ModerationStatus;
 use App\Models\Torrent;
 use App\Models\User;
 use Illuminate\Support\Facades\Redis;
@@ -29,7 +30,7 @@ test('index returns an ok response', function (): void {
 
     Torrent::factory()->create([
         'info_hash' => $info_hash,
-        'status'    => Torrent::APPROVED,
+        'status'    => ModerationStatus::APPROVED,
     ]);
 
     $headers = [

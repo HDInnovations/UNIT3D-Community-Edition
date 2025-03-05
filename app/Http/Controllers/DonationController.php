@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\ModerationStatus;
 use App\Http\Requests\StoreDonationRequest;
 use App\Models\Donation;
 use App\Models\DonationGateway;
@@ -40,7 +41,7 @@ class DonationController extends Controller
     public function store(StoreDonationRequest $request)
     {
         Donation::create([
-            'status'      => Donation::PENDING,
+            'status'      => ModerationStatus::PENDING,
             'package_id'  => $request->package_id,
             'user_id'     => auth()->user()->id,
             'transaction' => $request->transaction,

@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use App\Models\Torrent;
+use App\Enums\ModerationStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -34,21 +34,21 @@ class UpdateModerationRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<int, \Illuminate\Validation\Rules\In|\Illuminate\Validation\Rules\RequiredIf|string>>
+     * @return array<string, array<int, \Illuminate\Validation\Rules\Enum|\Illuminate\Validation\Rules\RequiredIf|string>>
      */
     public function rules(Request $request): array
     {
         return [
             'old_status' => [
                 'required',
-                Rule::in([Torrent::PENDING, Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED]),
+                Rule::enum(ModerationStatus::class),
             ],
             'status' => [
                 'required',
-                Rule::in([Torrent::APPROVED, Torrent::REJECTED, Torrent::POSTPONED]),
+                Rule::enum(ModerationStatus::class)->only([ModerationStatus::APPROVED, ModerationStatus::REJECTED, ModerationStatus::POSTPONED]),
             ],
             'message' => [
-                Rule::requiredIf(\in_array($request->integer('status'), [Torrent::REJECTED, Torrent::POSTPONED])),
+                Rule::requiredIf(\in_array($request->integer('status'), [ModerationStatus::REJECTED->value, ModerationStatus::POSTPONED], true)),
             ]
         ];
     }

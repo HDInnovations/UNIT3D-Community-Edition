@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Staff;
 
+use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Staff\ApproveApplicationRequest;
 use App\Http\Requests\Staff\RejectApplicationRequest;
@@ -60,7 +61,7 @@ class ApplicationController extends Controller
     {
         $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        $application->status = Application::APPROVED;
+        $application->status = ModerationStatus::APPROVED;
         $application->moderated_at = now();
         $application->moderated_by = $request->user()->id;
         $application->save();
@@ -86,7 +87,7 @@ class ApplicationController extends Controller
     {
         $application = Application::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $application->update([
-            'status'       => Application::REJECTED,
+            'status'       => ModerationStatus::REJECTED,
             'moderated_at' => now(),
             'moderated_by' => $request->user()->id,
         ]);

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\ModerationStatus;
 use App\Helpers\Bencode;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
@@ -63,7 +64,7 @@ class TorrentDownloadController extends Controller
         }
 
         // Torrent Status Is Rejected
-        if ($torrent->status === Torrent::REJECTED) {
+        if ($torrent->status === ModerationStatus::REJECTED) {
             return to_route('torrents.show', ['id' => $torrent->id])
                 ->withErrors('This Torrent Has Been Rejected By Staff');
         }

@@ -90,15 +90,15 @@
                 <dt>{{ __('common.status') }}</dt>
                 <dd>
                     @switch($application->status)
-                        @case(\App\Models\Application::PENDING)
+                        @case(\App\Enums\ModerationStatus::PENDING)
                             <span class="application--pending">Pending</span>
 
                             @break
-                        @case(\App\Models\Application::APPROVED)
+                        @case(\App\Enums\ModerationStatus::APPROVED)
                             <span class="application--approved">Approved</span>
 
                             @break
-                        @case(\App\Models\Application::REJECTED)
+                        @case(\App\Enums\ModerationStatus::REJECTED)
                             <span class="application--rejected">Rejected</span>
 
                             @break
@@ -110,7 +110,7 @@
         </dl>
     </section>
     <section class="panelV2">
-        @if ($application->status !== \App\Models\Application::PENDING)
+        @if ($application->status !== \App\Enums\ModerationStatus::PENDING)
             <h2 class="panel__heading">{{ __('common.moderated-by') }}</h2>
             <div class="panel__body">
                 <x-user_tag :anon="false" :user="$application->moderated" />

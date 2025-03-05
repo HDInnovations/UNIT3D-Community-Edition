@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
+use App\Enums\ModerationStatus;
 use App\Models\PlaylistTorrent;
 use App\Models\User;
 use App\Models\Wish;
@@ -422,7 +423,7 @@ readonly class TorrentSearchFiltersDTO
 
         $filters = [
             'deleted_at IS NULL',
-            'status = 1',
+            'status = '.ModerationStatus::APPROVED->value,
         ];
 
         if ($this->uploader !== '') {

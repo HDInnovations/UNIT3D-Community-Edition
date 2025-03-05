@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\ModerationStatus;
 use App\Traits\Encryptable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                        $id
  * @property int                        $user_id
  * @property int                        $gifted_user_id
- * @property int                        $status
+ * @property ModerationStatus           $status
  * @property int                        $package_id
  * @property string                     $transaction
  * @property bool                       $is_gifted
@@ -45,14 +46,14 @@ class Donation extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{user_id: 'int', gifted_user_id: 'int', status: 'int', package_id: 'int', transaction: 'string', is_gifted: 'bool', starts_at: 'datetime', ends_at: 'datetime', created_at: 'datetime', updated_at: 'datetime'}
+     * @return array{user_id: 'int', gifted_user_id: 'int', status: class-string<ModerationStatus>, package_id: 'int', transaction: 'string', is_gifted: 'bool', starts_at: 'datetime', ends_at: 'datetime', created_at: 'datetime', updated_at: 'datetime'}
      */
     protected function casts(): array
     {
         return [
             'user_id'        => 'int',
             'gifted_user_id' => 'int',
-            'status'         => 'int',
+            'status'         => ModerationStatus::class,
             'package_id'     => 'int',
             'transaction'    => 'string',
             'is_gifted'      => 'bool',

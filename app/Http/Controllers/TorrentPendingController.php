@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\ModerationStatus;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
 
@@ -26,8 +27,8 @@ class TorrentPendingController extends Controller
         return view('torrent.pending', [
             'torrents' => Torrent::withoutGlobalScope(ApprovedScope::class)
                 ->with(['category', 'type', 'resolution'])
-                ->where('status', '=', Torrent::PENDING)
-                ->orWhere('status', '=', Torrent::POSTPONED)
+                ->where('status', '=', ModerationStatus::PENDING)
+                ->orWhere('status', '=', ModerationStatus::POSTPONED)
                 ->get(),
         ]);
     }

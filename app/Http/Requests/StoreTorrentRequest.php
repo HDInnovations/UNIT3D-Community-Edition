@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Enums\ModerationStatus;
 use App\Helpers\Bencode;
 use App\Helpers\TorrentTools;
 use App\Models\Category;
@@ -80,11 +81,10 @@ class StoreTorrentRequest extends FormRequest
 
                     if ($torrent !== null) {
                         match ($torrent->status) {
-                            Torrent::PENDING   => $fail('A torrent with the same info_hash has already been uploaded and is pending moderation.'),
-                            Torrent::APPROVED  => $fail('A torrent with the same info_hash has already been uploaded and has been approved.'),
-                            Torrent::REJECTED  => $fail('A torrent with the same info_hash has already been uploaded and has been rejected.'),
-                            Torrent::POSTPONED => $fail('A torrent with the same info_hash has already been uploaded and is currently postponed.'),
-                            default            => null,
+                            ModerationStatus::PENDING   => $fail('A torrent with the same info_hash has already been uploaded and is pending moderation.'),
+                            ModerationStatus::APPROVED  => $fail('A torrent with the same info_hash has already been uploaded and has been approved.'),
+                            ModerationStatus::REJECTED  => $fail('A torrent with the same info_hash has already been uploaded and has been rejected.'),
+                            ModerationStatus::POSTPONED => $fail('A torrent with the same info_hash has already been uploaded and is currently postponed.'),
                         };
                     }
                 }

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\BonTransactions;
 use App\Models\Donation;
@@ -118,7 +119,7 @@ class UserController extends Controller
                 ->first(),
             'watch'        => $user->watchlist,
             'externalUser' => ! $user->trashed() && $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : false,
-            'donation'     => Donation::where('status', '=', Donation::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
+            'donation'     => Donation::where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
         ]);
     }
 

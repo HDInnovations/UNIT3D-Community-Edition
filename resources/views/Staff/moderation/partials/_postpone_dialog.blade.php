@@ -18,7 +18,11 @@
             <input type="hidden" name="type" value="{{ __('torrent.torrent') }}" />
             <input type="hidden" name="id" value="{{ $torrent->id }}" />
             <input type="hidden" name="old_status" value="{{ $torrent->status }}" />
-            <input type="hidden" name="status" value="{{ \App\Models\Torrent::POSTPONED }}" />
+            <input
+                type="hidden"
+                name="status"
+                value="{{ \App\Enums\ModerationStatus::POSTPONED }}"
+            />
             <p class="form__group">
                 <textarea class="form__textarea" name="message" id="message">
 {{ old('message') }}</textarea

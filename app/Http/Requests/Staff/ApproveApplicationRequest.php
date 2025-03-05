@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Staff;
 
-use App\Models\Application;
+use App\Enums\ModerationStatus;
 use App\Rules\EmailBlacklist;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -26,13 +26,13 @@ class ApproveApplicationRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\In|string>|string>
+     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Enum|string>|string>
      */
     public function rules(): array
     {
         return [
             'status' => [
-                Rule::in([Application::APPROVED]),
+                Rule::enum(ModerationStatus::class)->only([ModerationStatus::APPROVED]),
             ],
             'email' => [
                 'required',
