@@ -73,7 +73,7 @@ class TopNavComposer
                 60,
                 fn () => $user->peers()->where('active', '=', 1)->where('seeder', '=', false)->count(),
             ),
-            'hasActiveWarning'    => $user->warnings()->exists(),
+            'hasActiveWarning'    => $user->warnings()->where('active', '=', true)->exists(),
             'hasUnresolvedReport' => $user->group->is_modo && Report::query()->whereNull('snoozed_until')->where(
                 'solved',
                 '=',
