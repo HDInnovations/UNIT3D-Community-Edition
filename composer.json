@@ -28,7 +28,7 @@
         "laravel/tinker": "^v2.10.1",
         "league/commonmark": "^2.6",
         "livewire/livewire": "^v3.6.0",
-        "marcreichel/igdb-laravel": "dev-l12-compatibility",
+        "marcreichel/igdb-laravel": "^5.2.0",
         "meilisearch/meilisearch-php": "^v1.13.0",
         "nesbot/carbon": "^3.8.6",
         "paragonie/constant_time_encoding": "^2.7.0",
@@ -60,12 +60,6 @@
         "spatie/laravel-ignition": "^2.9.1",
         "tomasvotruba/bladestan": "^0.11.1"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/laravel-shift/igdb-laravel.git"
-        }
-    ],
     "config": {
         "preferred-install": "dist",
         "sort-packages": true,

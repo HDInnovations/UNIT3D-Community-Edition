@@ -18,6 +18,7 @@ namespace App\Helpers;
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\DescriptionList\DescriptionListExtension;
 use League\CommonMark\Extension\Footnote\FootnoteExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
@@ -30,6 +31,7 @@ class MarkdownHelper
     public function __construct()
     {
         $environment = new Environment();
+        $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new AttributesExtension());
         $environment->addExtension(new DescriptionListExtension());
         $environment->addExtension(new FootnoteExtension());

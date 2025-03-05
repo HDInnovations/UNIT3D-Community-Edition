@@ -26,6 +26,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Spatie\Backup\BackupDestination\Backup;
 use Spatie\Backup\BackupDestination\BackupDestination;
+use Spatie\Backup\Config\MonitoredBackupsConfig;
 use Spatie\Backup\Helpers\Format;
 use Spatie\Backup\Tasks\Monitor\BackupDestinationStatus;
 use Spatie\Backup\Tasks\Monitor\BackupDestinationStatusFactory;
@@ -45,7 +46,7 @@ class BackupPanel extends Component
     #[Computed]
     final public function backupStatuses(): array
     {
-        return BackupDestinationStatusFactory::createForMonitorConfig(config('backup.monitor_backups'))
+        return BackupDestinationStatusFactory::createForMonitorConfig(MonitoredBackupsConfig::fromArray(config('backup.monitor_backups')))
             ->map(fn (BackupDestinationStatus $backupDestinationStatus) => [
                 'name'      => $backupDestinationStatus->backupDestination()->backupName(),
                 'disk'      => $backupDestinationStatus->backupDestination()->diskName(),
