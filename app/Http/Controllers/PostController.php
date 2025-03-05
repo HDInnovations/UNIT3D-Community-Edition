@@ -105,7 +105,10 @@ class PostController extends Controller
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
                 ->where('id', '!=', $user->id)
-                ->whereRelation('group', 'is_modo', '=', true)
+                ->whereRelation('forumPermissions', [
+                    ['read_topic', '=', 1],
+                    ['forum_id', '=', $forum->id],
+                ])
                 ->get();
 
             foreach ($staffers as $staffer) {
