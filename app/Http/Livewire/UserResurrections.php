@@ -59,7 +59,7 @@ class UserResurrections extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Resurrection>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Resurrection>
      */
     #[Computed]
     final public function resurrections(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

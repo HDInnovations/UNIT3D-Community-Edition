@@ -97,7 +97,7 @@ class NotificationSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<\Illuminate\Notifications\DatabaseNotification>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, \Illuminate\Notifications\DatabaseNotification>
      */
     #[Computed]
     final public function notifications(): \Illuminate\Pagination\LengthAwarePaginator

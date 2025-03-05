@@ -46,7 +46,7 @@ class ApplicationSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Application>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Application>
      */
     #[Computed]
     final public function applications(): \Illuminate\Pagination\LengthAwarePaginator

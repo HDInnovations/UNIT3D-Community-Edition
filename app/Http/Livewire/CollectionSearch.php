@@ -37,7 +37,7 @@ class CollectionSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Collection>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Collection>
      */
     #[Computed]
     final public function collections(): \Illuminate\Pagination\LengthAwarePaginator

@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator<Passkey> $passkeys
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Passkey> $passkeys
  */
 class PasskeySearch extends Component
 {
@@ -50,7 +50,7 @@ class PasskeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Passkey>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Passkey>
      */
     #[Computed]
     final public function passkeys(): \Illuminate\Pagination\LengthAwarePaginator

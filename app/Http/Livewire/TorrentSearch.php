@@ -410,7 +410,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
      */
     #[Computed]
     final public function torrents(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -516,7 +516,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
      */
     #[Computed]
     final public function groupedTorrents()
@@ -819,7 +819,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
      */
     #[Computed]
     final public function groupedPosters()

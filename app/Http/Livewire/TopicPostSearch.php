@@ -47,7 +47,7 @@ class TopicPostSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Post>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Post>
      */
     #[Computed]
     final public function posts(): \Illuminate\Pagination\LengthAwarePaginator

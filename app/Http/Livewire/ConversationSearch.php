@@ -49,7 +49,7 @@ class ConversationSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Conversation>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Conversation>
      */
     #[Computed]
     final public function conversations(): \Illuminate\Pagination\LengthAwarePaginator

@@ -87,7 +87,7 @@ class InviteLogSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Invite>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Invite>
      */
     #[Computed]
     final public function invites(): \Illuminate\Pagination\LengthAwarePaginator

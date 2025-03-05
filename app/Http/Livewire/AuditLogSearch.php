@@ -77,7 +77,7 @@ class AuditLogSearch extends Component
 
     /**
      * @throws JsonException
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Audit>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Audit>
      */
     #[Computed]
     final public function audits(): \Illuminate\Pagination\LengthAwarePaginator

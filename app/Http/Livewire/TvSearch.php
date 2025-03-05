@@ -37,7 +37,7 @@ class TvSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Tv>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Tv>
      */
     #[Computed]
     final public function shows(): \Illuminate\Pagination\LengthAwarePaginator

@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator<PasswordResetHistory> $passwordResetHistories
+ * @property \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, PasswordResetHistory> $passwordResetHistories
  */
 class PasswordResetHistorySearch extends Component
 {
@@ -47,7 +47,7 @@ class PasswordResetHistorySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<PasswordResetHistory>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, PasswordResetHistory>
      */
     #[Computed]
     final public function passwordResetHistories(): \Illuminate\Pagination\LengthAwarePaginator

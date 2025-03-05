@@ -198,7 +198,7 @@ class Comments extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<\App\Models\Comment>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, \App\Models\Comment>
      */
     #[Computed]
     final public function comments(): \Illuminate\Contracts\Pagination\LengthAwarePaginator

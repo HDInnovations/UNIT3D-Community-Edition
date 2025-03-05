@@ -58,7 +58,7 @@ class UnregisteredInfoHashSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<UnregisteredInfoHash>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, UnregisteredInfoHash>
      */
     #[Computed]
     final public function unregisteredInfoHashes(): \Illuminate\Pagination\LengthAwarePaginator

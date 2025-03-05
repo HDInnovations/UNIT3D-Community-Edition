@@ -75,7 +75,7 @@ class UserSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<User>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, User>
      */
     #[Computed]
     final public function users(): \Illuminate\Pagination\LengthAwarePaginator

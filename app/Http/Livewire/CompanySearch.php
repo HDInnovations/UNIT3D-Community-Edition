@@ -37,7 +37,7 @@ class CompanySearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Company>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Company>
      */
     #[Computed]
     final public function companies(): \Illuminate\Pagination\LengthAwarePaginator

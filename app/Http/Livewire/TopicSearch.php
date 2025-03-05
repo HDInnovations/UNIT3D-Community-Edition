@@ -74,7 +74,7 @@ class TopicSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Topic>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Topic>
      */
     #[Computed]
     final public function topics(): \Illuminate\Pagination\LengthAwarePaginator
