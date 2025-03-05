@@ -363,7 +363,7 @@ class Movie
                 'movie_id'      => $this->data['id'] ?? null,
                 'person_id'     => $person['id'] ?? null,
                 'occupation_id' => Occupation::ACTOR->value,
-                'character'     => $person['character'] ?? '',
+                'character'     => Str::limit($person['character'] ?? '', 200),
                 'order'         => $person['order'] ?? null
             ];
         }
