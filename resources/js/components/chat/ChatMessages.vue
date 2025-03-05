@@ -83,7 +83,9 @@
                   v-if="message.user?.id != 1"
                   class="chatbox-message__avatar"
                   :src="
-                    message.user?.image ? `/authenticated-images/user-avatars/${message.user.username}` : '/img/profile.png'
+                    message.user?.image
+                      ? `/authenticated-images/user-avatars/${message.user.username}`
+                      : '/img/profile.png'
                   "
                   :style="`border: 2px solid ${message.user?.chat_status?.color};`"
                   :title="message.user?.chat_status?.name"
