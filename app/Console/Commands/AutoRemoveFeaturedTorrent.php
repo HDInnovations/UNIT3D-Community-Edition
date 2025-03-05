@@ -57,23 +57,22 @@ class AutoRemoveFeaturedTorrent extends Command
     final public function handle(): void
     {
         $current = Carbon::now();
-        $featuredTorrents = FeaturedTorrent::where('created_at', '<', $current->copy()->subDays(7))->get();
+        $featuredTorrents = FeaturedTorrent::with('torrent')->where('created_at', '<', $current->copy()->subDays(7))->get();
 
         foreach ($featuredTorrents as $featuredTorrent) {
             // Find The Torrent
-            $torrent = Torrent::where('featured', '=', 1)->find($featuredTorrent->torrent_id);
 
-            if (isset($torrent)) {
-                $torrent->update(['featured' => false]);
+            if ($featuredTorrent->torrent !== null) {
+                $featuredTorrent->delete();
 
                 // Auto Announce Featured Expired
                 $appurl = config('app.url');
 
                 $this->chatRepository->systemMessage(
-                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $torrent->id, $torrent->name)
+                    \sprintf('Ladies and Gents, [url=%s/torrents/%s]%s[/url] is no longer featured.', $appurl, $featuredTorrent->torrent_id, $featuredTorrent->torrent->name)
                 );
 
-                Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
+                Unit3dAnnounce::removeFeaturedTorrent($featuredTorrent->torrent_id);
             }
 
             // Delete The Record From DB
