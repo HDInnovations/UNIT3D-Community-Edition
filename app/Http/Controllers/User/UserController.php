@@ -241,12 +241,12 @@ class UserController extends Controller
 
         // Remove avatar's old file format
         if (isset($oldAvatar)) {
-            File::delete(public_path('/files/img/').$oldAvatar);
+            Storage::disk('user-avatars')->delete($oldAvatar);
         }
 
         // Remove icon's old file format
         if (isset($oldIcon)) {
-            File::delete(public_path('/files/img/').$oldIcon);
+            Storage::disk('user-icons')->delete($oldIcon);
         }
 
         return to_route('users.show', ['user' => $user])
