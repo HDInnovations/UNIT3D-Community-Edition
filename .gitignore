@@ -11,6 +11,7 @@
 /public/storage
 /public/vendor
 /storage/backups
+/storage/pail
 /storage/debugbar
 /storage/gitupdate
 /storage/*.key
@@ -29,6 +30,7 @@ laravel-echo-server.lock
 
 # IDEs
 /.idea
+/.nova
 /.vscode
 /nbproject
 /.phpunit.cache

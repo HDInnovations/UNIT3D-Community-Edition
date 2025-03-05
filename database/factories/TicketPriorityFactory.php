@@ -23,11 +23,6 @@ use App\Models\TicketPriority;
 class TicketPriorityFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = TicketPriority::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

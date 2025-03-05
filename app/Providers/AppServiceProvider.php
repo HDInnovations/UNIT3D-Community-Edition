@@ -19,8 +19,6 @@ namespace App\Providers;
 use App\Helpers\ByteUnits;
 use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
-use App\Models\User;
-use App\Observers\UserObserver;
 use App\View\Composers\FooterComposer;
 use App\View\Composers\TopNavComposer;
 use Illuminate\Support\Facades\Blade;
@@ -51,9 +49,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // User Observer For Cache
-        User::observe(UserObserver::class);
-
         // Hidden Captcha
         Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => \sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 

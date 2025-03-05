@@ -10,7 +10,7 @@ return [
     |
     | Here you may specify the default filesystem disk that should be used
     | by the framework. The "local" disk, as well as a variety of cloud
-    | based disks are available to your application. Just store away!
+    | based disks are available to your application for file storage.
     |
     */
 
@@ -21,11 +21,11 @@ return [
     | Filesystem Disks
     |--------------------------------------------------------------------------
     |
-    | Here you may configure as many filesystem "disks" as you wish, and you
-    | may even configure multiple disks of the same driver. Defaults have
-    | been set up for each driver as an example of the required values.
+    | Below you may configure as many filesystem disks as necessary, and you
+    | may even configure multiple disks for the same driver. Examples for
+    | most supported storage drivers are configured here for reference.
     |
-    | Supported Drivers: "local", "ftp", "sftp", "s3"
+    | Supported drivers: "local", "ftp", "sftp", "s3"
     |
     */
 
@@ -33,7 +33,9 @@ return [
         'local' => [
             'driver' => 'local',
             'root'   => storage_path('app'),
+            'serve'  => true,
             'throw'  => false,
+            'report' => false,
         ],
 
         'public' => [
@@ -42,6 +44,7 @@ return [
             'url'        => env('APP_URL').'/storage',
             'visibility' => 'public',
             'throw'      => false,
+            'report'     => false,
         ],
 
         's3' => [
@@ -54,6 +57,7 @@ return [
             'endpoint'                => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw'                   => false,
+            'report'                  => false,
         ],
 
         'ftp' => [
@@ -86,11 +90,6 @@ return [
             // 'timeout' => 30,
         ],
 
-        'backups' => [
-            'driver' => 'local',
-            'root'   => storage_path('backups'),
-        ],
-
         // UNIT3D Custom Disks (Alphabetical Order)
         'article-images' => [
             'driver' => 'local',
@@ -102,14 +101,9 @@ return [
             'root'   => storage_path('app/files/attachments/files'),
         ],
 
-        'user-avatars' => [
+        'backups' => [
             'driver' => 'local',
-            'root'   => storage_path('app/images/users/avatars'),
-        ],
-
-        'user-icons' => [
-            'driver' => 'local',
-            'root'   => storage_path('app/images/users/icons'),
+            'root'   => storage_path('backups'),
         ],
 
         'category-images' => [
@@ -120,6 +114,16 @@ return [
         'playlist-images' => [
             'driver' => 'local',
             'root'   => storage_path('app/images/playlists/images'),
+        ],
+
+        'user-avatars' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/users/avatars'),
+        ],
+
+        'user-icons' => [
+            'driver' => 'local',
+            'root'   => storage_path('app/images/users/icons'),
         ],
 
         'subtitle-files' => [

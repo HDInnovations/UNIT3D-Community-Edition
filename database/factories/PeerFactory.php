@@ -25,11 +25,6 @@ use App\Models\Peer;
 class PeerFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Peer::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

@@ -25,11 +25,6 @@ use App\Models\Like;
 class LikeFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Like::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

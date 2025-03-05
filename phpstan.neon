@@ -15,8 +15,6 @@ parameters:
         - resources
         - routes
     excludePaths:
-        - app/Helpers/Markdown.php
-        - app/Helpers/MarkdownExtra.php
         - app/Http/Livewire/PersonCredit.php
         - app/Http/Livewire/TorrentSearch.php
         - bootstrap/cache

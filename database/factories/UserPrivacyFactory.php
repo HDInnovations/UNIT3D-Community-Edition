@@ -24,11 +24,6 @@ use App\Models\UserPrivacy;
 class UserPrivacyFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = UserPrivacy::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

@@ -23,11 +23,6 @@ use App\Models\Occupation;
 class OccupationFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = Occupation::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array

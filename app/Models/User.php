@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\UserObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
@@ -74,6 +76,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property int                             $own_flushes
  * @property string|null                     $email_verified_at
  */
+#[ObservedBy([UserObserver::class])]
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Achiever;

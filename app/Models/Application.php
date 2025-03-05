@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,6 +36,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
+#[ScopedBy([ApprovedScope::class])]
 class Application extends Model
 {
     use Auditable;
@@ -64,11 +66,6 @@ class Application extends Model
      * @var string[]
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
-
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new ApprovedScope());
-    }
 
     /**
      * Belongs To A User.

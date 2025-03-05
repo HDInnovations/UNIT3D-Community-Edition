@@ -32,13 +32,11 @@ use App\Listeners\NotifyUserTicketIsStale;
 use App\Listeners\NotifyUserTicketWasAssigned;
 use App\Listeners\NotifyUserTicketWasClosed;
 use App\Listeners\NotifyUserTicketWasCreated;
-use App\Listeners\PasswordProtectBackup;
 use App\Listeners\RegisteredListener;
 use Assada\Achievements\Event\Unlocked;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Spatie\Backup\Events\BackupZipWasCreated;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -60,11 +58,6 @@ class EventServiceProvider extends ServiceProvider
         // Achievements System
         Unlocked::class => [
             AchievementUnlocked::class,
-        ],
-
-        // Backups System
-        BackupZipWasCreated::class => [
-            PasswordProtectBackup::class,
         ],
 
         // Ticket System

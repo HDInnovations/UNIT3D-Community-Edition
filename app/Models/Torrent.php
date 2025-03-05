@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\ScopedBy;
 use App\Helpers\StringHelper;
 use App\Models\Scopes\ApprovedScope;
 use App\Notifications\NewComment;
@@ -80,6 +81,7 @@ use Laravel\Scout\Searchable;
  * @property int|null                        $balance
  * @property int|null                        $balance_offset
  */
+#[ScopedBy([ApprovedScope::class])]
 class Torrent extends Model
 {
     use Auditable;
@@ -474,11 +476,6 @@ class Torrent extends Model
                 WHERE torrents.id = keywords.torrent_id
             ) AS json_keywords
     SQL;
-
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new ApprovedScope());
-    }
 
     /**
      * Belongs To A User.

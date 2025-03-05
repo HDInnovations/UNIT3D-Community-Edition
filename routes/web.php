@@ -792,7 +792,7 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Bon Exchanges
-        Route::group(['prefix' => 'bon-earnings'], function (): void {
+        Route::prefix('bon-earnings')->group(function (): void {
             Route::name('bon_earnings.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\BonEarningController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\BonEarningController::class, 'create'])->name('create');
@@ -1257,7 +1257,7 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Donation System
-        Route::group(['prefix' => 'donations'], function (): void {
+        Route::prefix('donations')->group(function (): void {
             Route::name('donations.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\DonationController::class, 'index'])->name('index');
                 Route::post('/{donation}/update', [App\Http\Controllers\Staff\DonationController::class, 'update'])->name('update');
@@ -1265,7 +1265,7 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
-        Route::group(['prefix' => 'packages'], function (): void {
+        Route::prefix('packages')->group(function (): void {
             Route::name('packages.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\DonationPackageController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\DonationPackageController::class, 'create'])->name('create');
@@ -1276,7 +1276,7 @@ Route::middleware('language')->group(function (): void {
             });
         });
 
-        Route::group(['prefix' => 'gateways'], function (): void {
+        Route::prefix('gateways')->group(function (): void {
             Route::name('gateways.')->group(function (): void {
                 Route::get('/', [App\Http\Controllers\Staff\DonationGatewayController::class, 'index'])->name('index');
                 Route::get('/create', [App\Http\Controllers\Staff\DonationGatewayController::class, 'create'])->name('create');

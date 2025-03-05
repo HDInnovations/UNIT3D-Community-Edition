@@ -23,11 +23,6 @@ use App\Models\GuestStar;
 class GuestStarFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     */
-    protected $model = GuestStar::class;
-
-    /**
      * Define the model's default state.
      */
     public function definition(): array
