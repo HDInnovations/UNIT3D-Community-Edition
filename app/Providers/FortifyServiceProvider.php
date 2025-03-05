@@ -128,6 +128,13 @@ class FortifyServiceProvider extends ServiceProvider
                         Unit3dAnnounce::addUser($user);
                     }
 
+                    // Check if user has read the rules
+                    if ($user->read_rules == 0) {
+                        return redirect()->to(config('other.rules_url'))
+                            ->with('success', trans('auth.activation-success'))
+                            ->with('warning', trans('auth.require-rules'));
+                    }
+
                     return to_route('login')
                         ->with('success', trans('auth.activation-success'));
                 }
