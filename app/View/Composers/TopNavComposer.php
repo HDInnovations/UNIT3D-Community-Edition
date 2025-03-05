@@ -74,15 +74,15 @@ class TopNavComposer
                 fn () => $user->peers()->where('active', '=', 1)->where('seeder', '=', false)->count(),
             ),
             'hasActiveWarning'    => $user->warnings()->exists(),
-            'hasUnresolvedReport' => $user->group->is_modo
-                ? Report::query()->whereNull('snoozed_until')->where('solved', '=', false)
-                : false,
-            'hasUnmoderatedTorrent' => $user->group->is_torrent_modo
-                ? Torrent::query()
-                    ->withoutGlobalScope(ApprovedScope::class)
-                    ->where('status', '=', ModerationStatus::PENDING)
-                    ->exists()
-                : false,
+            'hasUnresolvedReport' => $user->group->is_modo && Report::query()->whereNull('snoozed_until')->where(
+                'solved',
+                '=',
+                false
+            )->exists(),
+            'hasUnmoderatedTorrent' => $user->group->is_torrent_modo && Torrent::query()
+                ->withoutGlobalScope(ApprovedScope::class)
+                ->where('status', '=', ModerationStatus::PENDING)
+                ->exists(),
             'hasUnreadPm'           => $user->participations()->where('read', '=', false)->exists(),
             'hasUnreadNotification' => $user->unreadNotifications()->exists(),
             'uploadCount'           => cache()->remember(
