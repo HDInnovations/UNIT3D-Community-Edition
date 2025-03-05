@@ -60,7 +60,7 @@ class AuthenticatedImageController extends Controller
 
     public function torrentBanner(Torrent $torrent): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        $path = Storage::disk('torrent-banners')->path("torrent-banner_{$torrent->id}");
+        $path = Storage::disk('torrent-banners')->path("torrent-banner_{$torrent->id}.jpg");
 
         abort_unless(file_exists($path), 404);
 
@@ -69,7 +69,7 @@ class AuthenticatedImageController extends Controller
 
     public function torrentCover(Torrent $torrent): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
-        $path = Storage::disk('torrent-covers')->path("torrent-cover_{$torrent->id}");
+        $path = Storage::disk('torrent-covers')->path("torrent-cover_{$torrent->id}.jpg");
 
         abort_unless(file_exists($path), 404);
 
