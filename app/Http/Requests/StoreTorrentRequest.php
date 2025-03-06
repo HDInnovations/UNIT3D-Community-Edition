@@ -41,7 +41,7 @@ class StoreTorrentRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<Closure(string, mixed, Closure(string): never): void|\Illuminate\Validation\Rules\ProhibitedIf|\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Unique|string>>
+     * @return array<string, array<Closure(string, mixed, Closure(string): never): void|\Illuminate\Validation\Rules\ProhibitedIf|\Illuminate\Validation\Rules\RequiredIf|\Illuminate\Validation\Rules\ExcludeIf|\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Unique|string>>
      */
     public function rules(Request $request): array
     {
@@ -225,7 +225,9 @@ class StoreTorrentRequest extends FormRequest
                 'sometimes',
                 'boolean',
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::when(!$user->group->is_modo && !$user->internals_exists, 'prohibited'),
+                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'free' => [
                 'sometimes',
@@ -233,13 +235,17 @@ class StoreTorrentRequest extends FormRequest
                 'numeric',
                 'between:0,100',
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::when(!$user->group->is_modo && !$user->internals_exists, 'prohibited'),
+                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'refundable' => [
                 'sometimes',
                 'boolean',
                 /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
-                Rule::when(!$user->group->is_modo && !$user->internals_exists, 'prohibited'),
+                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
         ];
     }
