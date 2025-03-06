@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Stats;
 
 use App\Models\Category;
+use App\Models\Resolution;
 use App\Models\Torrent;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Lazy;
@@ -31,10 +32,13 @@ class TorrentStats extends Component
         return Torrent::query()->count();
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection<int, Resolution>
+     */
     #[Computed(cache: true, seconds: 10 * 60)]
-    final public function sdCount(): int
+    final public function resolutions(): \Illuminate\Database\Eloquent\Collection
     {
-        return Torrent::query()->where('sd', '=', 1)->count();
+        return Resolution::query()->withCount('torrents')->orderBy('position')->get();
     }
 
     /**
@@ -67,8 +71,7 @@ class TorrentStats extends Component
         return view('livewire.stats.torrent-stats', [
             'num_torrent'  => $this->totalCount,
             'categories'   => $this->categories,
-            'num_hd'       => $this->totalCount - $this->sdCount,
-            'num_sd'       => $this->sdCount,
+            'resolutions'  => $this->resolutions,
             'torrent_size' => $this->sizeSum,
         ]);
     }

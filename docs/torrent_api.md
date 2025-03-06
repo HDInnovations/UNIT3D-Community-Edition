@@ -80,8 +80,6 @@ Parameters:
 | `mal`              | int    | MAL ID
 | `igdb`             | int    | IGDB ID (Games only)
 | `anonymous`        | bool   | Should the uploader's username be hidden?
-| `stream`           | bool   | Is the torrent's content stream-optimized?
-| `sd`               | bool   | Is the torrent's content standard definition?
 | `personal_release` | bool   | Is the torrent's content created by the uploader?
 | `internal`*        | bool   | Is the torrent an internal release?
 | `refundable`*      | bool   | Is the torrent refundable?
@@ -147,8 +145,6 @@ Optional Parameters:
 | `doubleup`         | bool   | Filter by if the torrent offers double upload
 | `featured`         | bool   | Filter by if the torrent is featured on the front page
 | `refundable`       | bool   | Filter by if the torrent is refundable
-| `stream`           | bool   | Filter by if the torrent's content is stream-optimized
-| `sd`               | bool   | Filter by if the torrent's content is standard definition
 | `highspeed`        | bool   | Filter by if the torrent has seeders whose IP address has been registered as a seedbox
 | `internal`         | bool   | Filter by if the torrent is an internal release
 | `personalRelease`  | bool   | Filter by if the torrent's content is created by the uploader

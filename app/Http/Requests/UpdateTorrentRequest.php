@@ -128,14 +128,6 @@ class UpdateTorrentRequest extends FormRequest
                 'boolean',
                 Rule::when(Torrent::withoutGlobalScope(ApprovedScope::class)->find($request->route('id'))->user_id !== $request->user()->id && !$request->user()->group->is_modo, 'exclude'),
             ],
-            'stream' => [
-                'required',
-                'boolean',
-            ],
-            'sd' => [
-                'required',
-                'boolean',
-            ],
             'personal_release' => [
                 'required',
                 'boolean',

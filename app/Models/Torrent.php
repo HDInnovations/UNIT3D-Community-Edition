@@ -55,7 +55,6 @@ use Laravel\Scout\Searchable;
  * @property int                             $igdb
  * @property int|null                        $season_number
  * @property int|null                        $episode_number
- * @property int                             $stream
  * @property int                             $free
  * @property bool                            $doubleup
  * @property bool                            $refundable
@@ -65,7 +64,6 @@ use Laravel\Scout\Searchable;
  * @property int|null                        $moderated_by
  * @property bool                            $anon
  * @property bool                            $sticky
- * @property int                             $sd
  * @property int                             $internal
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -168,7 +166,6 @@ class Torrent extends Model
             torrents.igdb,
             torrents.season_number,
             torrents.episode_number,
-            torrents.stream,
             torrents.free,
             torrents.doubleup,
             torrents.refundable,
@@ -176,7 +173,6 @@ class Torrent extends Model
             torrents.status,
             torrents.anon,
             torrents.sticky,
-            torrents.sd,
             torrents.internal,
             UNIX_TIMESTAMP(torrents.deleted_at) AS deleted_at,
             torrents.distributor_id,
@@ -846,7 +842,6 @@ class Torrent extends Model
             'igdb',
             'season_number',
             'episode_number',
-            'stream',
             'free',
             'doubleup',
             'refundable',
@@ -855,7 +850,6 @@ class Torrent extends Model
             'status',
             'anon',
             'sticky',
-            'sd',
             'internal',
             'deleted_at',
             'distributor_id',
@@ -918,7 +912,6 @@ class Torrent extends Model
             'igdb'               => $torrent->igdb,
             'season_number'      => $torrent->season_number,
             'episode_number'     => $torrent->episode_number,
-            'stream'             => (bool) $torrent->stream,
             'free'               => $torrent->free,
             'doubleup'           => (bool) $torrent->doubleup,
             'refundable'         => (bool) $torrent->refundable,
@@ -927,7 +920,6 @@ class Torrent extends Model
             'status'             => $torrent->status->value,
             'anon'               => (bool) $torrent->anon,
             'sticky'             => (int) $torrent->sticky,
-            'sd'                 => (bool) $torrent->sd,
             'internal'           => (bool) $torrent->internal,
             'deleted_at'         => $torrent->deleted_at?->timestamp,
             'distributor_id'     => $torrent->distributor_id,

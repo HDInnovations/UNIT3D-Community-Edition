@@ -171,12 +171,6 @@ class TorrentSearch extends Component
     public bool $refundable = false;
 
     #[Url(history: true)]
-    public bool $stream = false;
-
-    #[Url(history: true)]
-    public bool $sd = false;
-
-    #[Url(history: true)]
     public bool $highspeed = false;
 
     #[Url(history: true)]
@@ -378,8 +372,6 @@ class TorrentSearch extends Component
             doubleup: $this->doubleup,
             featured: $this->featured,
             refundable: $this->refundable,
-            stream: $this->stream,
-            sd: $this->sd,
             highspeed: $this->highspeed,
             internal: $this->internal,
             trumpable: $this->trumpable,
@@ -600,12 +592,10 @@ class TorrentSearch extends Component
                 'season_number',
                 'episode_number',
                 'tmdb',
-                'stream',
                 'free',
                 'doubleup',
                 'highspeed',
                 'sticky',
-                'sd',
                 'internal',
                 'created_at',
                 'bumped_at',

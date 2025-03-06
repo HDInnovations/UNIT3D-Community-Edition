@@ -61,13 +61,6 @@
         ></i>
     @endif
 
-    @if ($torrent->stream)
-        <i
-            class="{{ config('other.font-awesome') }} fa-play torrent-icons__stream-optimized"
-            title="{{ __('torrent.stream-optimized') }}"
-        ></i>
-    @endif
-
     @php
         $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || auth()->user()->is_donor || config('other.freeleech')
     @endphp
@@ -164,13 +157,6 @@
         <i
             class="{{ config('other.font-awesome') }} fa-bolt-lightning torrent-icons__highspeed"
             title="{{ __('common.high-speeds') }}"
-        ></i>
-    @endif
-
-    @if ($torrent->sd)
-        <i
-            class="{{ config('other.font-awesome') }} fa-standard-definition torrent-icons__sd"
-            title="{{ __('torrent.sd-content') }}"
         ></i>
     @endif
 

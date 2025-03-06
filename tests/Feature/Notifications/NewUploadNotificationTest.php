@@ -100,8 +100,6 @@ test('upload a torrent creates a notification for followers', function (): void 
         'description'      => 'One song that represents the elements of being lost, abandoned, sadness and innocence.',
         'mediainfo'        => 'Video: Length: 00:00:10',
         'anon'             => $torrent->anon,
-        'stream'           => $torrent->stream,
-        'sd'               => $torrent->sd,
         'personal_release' => false,
     ]);
 
@@ -185,8 +183,6 @@ test('upload a torrent does not create a notification for followers when all not
         'description'      => 'One song that represents the elements of being lost, abandoned, sadness and innocence.',
         'mediainfo'        => 'Video: Length: 00:00:10',
         'anon'             => $torrent->anon,
-        'stream'           => $torrent->stream,
-        'sd'               => $torrent->sd,
         'personal_release' => false,
     ]);
 
@@ -266,8 +262,6 @@ test('upload a torrent does not create a notification for followers when followi
         'description'      => 'One song that represents the elements of being lost, abandoned, sadness and innocence.',
         'mediainfo'        => 'Video: Length: 00:00:10',
         'anon'             => $torrent->anon,
-        'stream'           => $torrent->stream,
-        'sd'               => $torrent->sd,
         'personal_release' => false,
     ]);
 
@@ -348,8 +342,6 @@ test('upload a torrent does not create a notification for followers when followi
         'description'      => 'One song that represents the elements of being lost, abandoned, sadness and innocence.',
         'mediainfo'        => 'Video: Length: 00:00:10',
         'anon'             => $torrent->anon,
-        'stream'           => $torrent->stream,
-        'sd'               => $torrent->sd,
         'personal_release' => false,
     ]);
 

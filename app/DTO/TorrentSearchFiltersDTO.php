@@ -70,8 +70,6 @@ readonly class TorrentSearchFiltersDTO
         private bool $doubleup = false,
         private bool $featured = false,
         private bool $refundable = false,
-        private bool $stream = false,
-        private bool $sd = false,
         private bool $highspeed = false,
         private bool $internal = false,
         private bool $trumpable = false,
@@ -353,8 +351,6 @@ readonly class TorrentSearchFiltersDTO
             )
             ->when($this->featured, fn ($query) => $query->has('featured'))
             ->when($this->refundable, fn ($query) => $query->where('refundable', '=', true))
-            ->when($this->stream, fn ($query) => $query->where('stream', '=', 1))
-            ->when($this->sd, fn ($query) => $query->where('sd', '=', 1))
             ->when($this->highspeed, fn ($query) => $query->where('highspeed', '=', 1))
             ->when($this->userBookmarked, fn ($query) => $query->whereRelation('bookmarks', 'user_id', '=', $this->user->id))
             ->when($this->userWished, fn ($query) => $query->whereIn('tmdb', Wish::select('tmdb')->where('user_id', '=', $this->user->id)))
@@ -581,14 +577,6 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->refundable) {
             $filters[] = 'refundable = true';
-        }
-
-        if ($this->stream) {
-            $filters[] = 'stream = true';
-        }
-
-        if ($this->sd) {
-            $filters[] = 'sd = true';
         }
 
         if ($this->highspeed) {
