@@ -517,12 +517,6 @@ parameters:
 			path: app/Http/Controllers/User/ResurrectionController.php
 
 		-
-			message: '#^Using nullsafe property access "\?\-\>seedtime" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Http/Controllers/User/ResurrectionController.php
-
-		-
 			message: '#^Binary operation "/" between string\|null and 1000000 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 2
@@ -841,18 +835,6 @@ parameters:
 			path: app/Http/Resources/UserResource.php
 
 		-
-			message: '#^Using nullsafe property access "\?\-\>downloaded" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
-			message: '#^Using nullsafe property access "\?\-\>uploaded" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Jobs/ProcessAnnounce.php
-
-		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
 			identifier: property.notFound
 			count: 2
@@ -869,12 +851,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Models/Rss.php
-
-		-
-			message: '#^Using nullsafe property access "\?\-\>read_topic" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Models/Topic.php
 
 		-
 			message: '#^Instanceof between App\\Models\\Comment and App\\Models\\Comment will always evaluate to true\.$#'
@@ -935,12 +911,6 @@ parameters:
 			identifier: identical.alwaysTrue
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
-
-		-
-			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
-			count: 1
-			path: app/Providers/RouteServiceProvider.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Chatroom\>\:\:\$id\.$#'
