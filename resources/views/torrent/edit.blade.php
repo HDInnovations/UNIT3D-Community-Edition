@@ -416,9 +416,8 @@
                         />
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
-                @else
-                    <input type="hidden" name="anon" value="{{ $torrent->anon }}" />
                 @endif
+
                 <p
                     class="form__group"
                     x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
@@ -481,13 +480,8 @@
                         />
                         <label class="form__label" for="personal_release">Personal Release?</label>
                     </p>
-                @else
-                    <input
-                        type="hidden"
-                        name="personal_release"
-                        value="{{ $torrent->personal_release }}"
-                    />
                 @endif
+
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}
