@@ -31,6 +31,7 @@ use App\Achievements\UserMadeTenComments;
 use App\Models\Article;
 use App\Models\Collection;
 use App\Models\Playlist;
+use App\Models\Report;
 use App\Models\Ticket;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
@@ -48,7 +49,7 @@ class Comment extends Component
 
     protected ChatRepository $chatRepository;
 
-    public null|Article|Collection|Playlist|Ticket|Torrent|TorrentRequest $model;
+    public null|Article|Collection|Playlist|Report|Ticket|Torrent|TorrentRequest $model;
 
     public \App\Models\Comment $comment;
 
@@ -131,7 +132,7 @@ class Comment extends Component
 
     final public function postReply(): void
     {
-        abort_unless($this->model instanceof Ticket || (auth()->user()->can_comment ?? auth()->user()->group->can_comment), 403, __('comment.rights-revoked'));
+        abort_unless($this->model instanceof Ticket || $this->model instanceof Report || (auth()->user()->can_comment ?? auth()->user()->group->can_comment), 403, __('comment.rights-revoked'));
 
         abort_if($this->model instanceof Torrent && $this->model->status !== Torrent::APPROVED, 403, __('comment.torrent-status'));
 
@@ -183,7 +184,7 @@ class Comment extends Component
         $users = User::whereIn('username', $this->taggedUsers())->get();
         Notification::sendNow($users, new NewCommentTag($this->model, $reply));
 
-        if (!$this->model instanceof Ticket) {
+        if (!$this->model instanceof Ticket && !$this->model instanceof Report) {
             // Auto Shout
             $username = $reply->anon ? 'An anonymous user' : '[url='.href_profile($this->user).']'.$this->user->username.'[/url]';
 

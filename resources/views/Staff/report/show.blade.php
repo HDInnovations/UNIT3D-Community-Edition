@@ -19,7 +19,9 @@
             {{ __('staff.reports-log') }}
         </a>
     </li>
-    <li class="breadcrumb--active">{{ __('common.report') }} Details</li>
+    <li class="breadcrumb--active">
+        {{ __('common.report') }} Details
+    </li>
 @endsection
 
 @section('page', 'page__poll--show')
@@ -68,6 +70,8 @@
         </section>
     @endif
 
+    <livewire:comments :model="$report" />
+
     @if ($report->solved)
         <section class="panelV2">
             <h2 class="panel__heading">Verdict</h2>
@@ -97,6 +101,7 @@
 @endsection
 
 @section('sidebar')
+
     <section class="panelV2">
         <h2 class="panel__heading">Reported {{ __('common.user') }}</h2>
         <div class="panel__body">
@@ -122,6 +127,7 @@
             @endif
         </div>
     </section>
+
     <section class="panelV2">
         <h2 class="panel__heading">Snooze</h2>
         @if ($report->snoozed_until !== null)
