@@ -53,17 +53,17 @@ class NewRequestFillApprove extends Notification implements ShouldQueue
             return false;
         }
 
-        if ($notifiable->notification?->block_notifications == 1) {
+        if ($notifiable->notification?->block_notifications === 1) {
             return false;
         }
 
-        if (!$notifiable->notification?->show_request_fill_approve) {
+        if ($notifiable->notification?->show_request_fill_approve === 0) {
             return false;
         }
 
         // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
         // the expression will return false.
-        return ! \in_array($this->torrentRequest->approver->group_id, $notifiable->notification->json_request_groups, true);
+        return ! \in_array($this->torrentRequest->approver->group_id, $notifiable->notification?->json_request_groups ?? [], true);
     }
 
     /**

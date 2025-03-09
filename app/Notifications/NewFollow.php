@@ -47,17 +47,17 @@ class NewFollow extends Notification implements ShouldQueue
      */
     public function shouldSend(User $notifiable): bool
     {
-        if ($notifiable->notification?->block_notifications == 1) {
+        if ($notifiable->notification?->block_notifications === 1) {
             return false;
         }
 
-        if (!$notifiable->notification?->show_account_follow) {
+        if ($notifiable->notification?->show_account_follow === 0) {
             return false;
         }
 
         // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
         // the expression will return false.
-        return ! \in_array($this->follower->group_id, $notifiable->notification->json_following_groups, true);
+        return ! \in_array($this->follower->group_id, $notifiable->notification?->json_following_groups ?? [], true);
     }
 
     /**

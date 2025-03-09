@@ -64,7 +64,7 @@ class NewPost extends Notification implements ShouldQueue
             default        => 'show_forum_topic',
         };
 
-        if (!$notifiable->notification?->$targetNotification) {
+        if ($notifiable->notification?->$targetNotification === 0) {
             return false;
         }
 
@@ -80,7 +80,7 @@ class NewPost extends Notification implements ShouldQueue
             return true;
         }
 
-        return ! \in_array($this->post->user->group_id, $notifiable->notification->$targetGroup, true);
+        return ! \in_array($this->post->user->group_id, $notifiable->notification?->$targetGroup ?? [], true);
     }
 
     /**

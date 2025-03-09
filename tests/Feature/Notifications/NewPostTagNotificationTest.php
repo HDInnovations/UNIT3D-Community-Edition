@@ -93,11 +93,11 @@ test('user tags user in forum topic creates a notification for tagged user', fun
         'user_id'  => $poster->id,
     ]);
 
-    Notification::assertSentTo(
-        [$user],
-        NewPostTag::class
+    Notification::assertSentToTimes(
+        $user,
+        NewPostTag::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('user tags user in forum topic creates a notification for tagged user when post mention notifications are not disabled for specific group', function (): void {
@@ -166,11 +166,11 @@ test('user tags user in forum topic creates a notification for tagged user when 
         'user_id'  => $poster->id,
     ]);
 
-    Notification::assertSentTo(
-        [$user],
-        NewPostTag::class
+    Notification::assertSentToTimes(
+        $user,
+        NewPostTag::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('user tags user in forum topic does not create a notification for tagged user when all notifications disabled', function (): void {
@@ -241,7 +241,6 @@ test('user tags user in forum topic does not create a notification for tagged us
         [$user],
         NewPostTag::class
     );
-    Notification::assertCount(0);
 });
 
 test('staff tags user in forum topic creates a notification for tagged user even when post mention notifications are disabled', function (): void {
@@ -309,11 +308,11 @@ test('staff tags user in forum topic creates a notification for tagged user even
         'user_id'  => $poster->id,
     ]);
 
-    Notification::assertSentTo(
-        [$user],
-        NewPostTag::class
+    Notification::assertSentToTimes(
+        $user,
+        NewPostTag::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('user tags user in forum topic does not create a notification for tagged user when post mention notifications are disabled', function (): void {
@@ -384,7 +383,6 @@ test('user tags user in forum topic does not create a notification for tagged us
         [$user],
         NewPostTag::class
     );
-    Notification::assertCount(0);
 });
 
 test('user tags user in forum topic does not create a notification for tagged user when post mention notifications are not disabled for specific group', function (): void {
@@ -456,5 +454,4 @@ test('user tags user in forum topic does not create a notification for tagged us
         [$user],
         NewPostTag::class
     );
-    Notification::assertCount(0);
 });
