@@ -417,6 +417,7 @@
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
                 @endif
+
                 @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
                         <input type="hidden" name="internal" value="0" />
