@@ -16,11 +16,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\PrivateMessage.
@@ -62,23 +59,5 @@ class PrivateMessage extends Model
     public function conversation(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Conversation::class);
-    }
-
-    /**
-     * Set The PM Message After Its Been Purified.
-     */
-    public function setMessageAttribute(string $value): void
-    {
-        $this->attributes['message'] = htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
-    }
-
-    /**
-     * Parse Content And Return Valid HTML.
-     */
-    public function getMessageHtml(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->message));
     }
 }

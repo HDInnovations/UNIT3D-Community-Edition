@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main-and-sidebar')
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">

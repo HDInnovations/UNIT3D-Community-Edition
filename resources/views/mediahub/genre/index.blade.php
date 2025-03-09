@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('common.genres') }} - {{ config('other.title') }}</title>
@@ -19,7 +19,7 @@
     </li>
 @endsection
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">{{ __('common.genres') }}</h2>
         <div class="panel__body">
@@ -27,7 +27,7 @@
                 @foreach ($genres as $genre)
                     <li class="mediahub-card__list-item">
                         <a
-                            href="{{ route('torrents.index', ['view' => 'group', 'genreids' => [$genre->id]]) }}"
+                            href="{{ route('torrents.index', ['view' => 'group', 'genreIds' => [$genre->id]]) }}"
                             class="mediahub-card"
                         >
                             <h2 class="mediahub-card__heading">{{ $genre->name }}</h2>

@@ -16,12 +16,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\TorrentRequest.
@@ -39,7 +36,7 @@ use voku\helper\AntiXSS;
  * @property string                          $bounty
  * @property int                             $votes
  * @property int|null                        $claimed
- * @property int                             $anon
+ * @property bool                            $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null                        $filled_by
@@ -75,7 +72,7 @@ class TorrentRequest extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{filled_when: 'datetime', approved_when: 'datetime', tmdb: 'int', igdb: 'int', bounty: 'decimal:2'}
+     * @return array{filled_when: 'datetime', approved_when: 'datetime', tmdb: 'int', igdb: 'int', bounty: 'decimal:2', anon: 'bool'}
      */
     protected function casts(): array
     {
@@ -85,6 +82,7 @@ class TorrentRequest extends Model
             'tmdb'          => 'int',
             'igdb'          => 'int',
             'bounty'        => 'decimal:2',
+            'anon'          => 'bool',
         ];
     }
 
@@ -213,23 +211,5 @@ class TorrentRequest extends Model
     public function claim(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne(TorrentRequestClaim::class, 'request_id');
-    }
-
-    /**
-     * Set The Requests Description After Its Been Purified.
-     */
-    public function setDescriptionAttribute(?string $value): void
-    {
-        $this->attributes['description'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
-    }
-
-    /**
-     * Parse Description And Return Valid HTML.
-     */
-    public function getDescriptionHtml(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->description));
     }
 }

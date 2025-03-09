@@ -74,7 +74,7 @@ class TopicSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Topic>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Topic>
      */
     #[Computed]
     final public function topics(): \Illuminate\Pagination\LengthAwarePaginator
@@ -85,7 +85,7 @@ class TopicSearch extends Component
                 'user.group',
                 'latestPoster',
                 'forum',
-                'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
+                'reads' => fn ($query) => $query->whereBelongsTo(auth()->user()),
             ])
             ->authorized(canReadTopic: true)
             ->when($this->search !== '', fn ($query) => $query->where('name', 'LIKE', '%'.$this->search.'%'))
@@ -107,7 +107,7 @@ class TopicSearch extends Component
                     ->whereHas(
                         'reads',
                         fn ($query) => $query
-                            ->whereBelongsto(auth()->user())
+                            ->whereBelongsTo(auth()->user())
                             ->whereColumn('last_post_id', '>', 'last_read_post_id')
                     )
             )
@@ -117,7 +117,7 @@ class TopicSearch extends Component
                     ->whereHas(
                         'reads',
                         fn ($query) => $query
-                            ->whereBelongsto(auth()->user())
+                            ->whereBelongsTo(auth()->user())
                             ->whereColumn('last_post_id', '=', 'last_read_post_id')
                     )
             )

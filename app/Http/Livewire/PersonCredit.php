@@ -156,9 +156,6 @@ class PersonCredit extends Component
 
         $torrents = Torrent::query()
             ->with('type:id,name,position', 'resolution:id,name,position')
-            ->withExists([
-                'freeleechTokens' => fn ($query) => $query->where('user_id', '=', auth()->id()),
-            ])
             ->select([
                 'id',
                 'name',
@@ -172,13 +169,10 @@ class PersonCredit extends Component
                 'season_number',
                 'episode_number',
                 'tmdb',
-                'stream',
                 'free',
                 'doubleup',
                 'highspeed',
-                'featured',
                 'sticky',
-                'sd',
                 'internal',
                 'created_at',
                 'bumped_at',
@@ -186,12 +180,49 @@ class PersonCredit extends Component
                 'resolution_id',
                 'personal_release',
             ])
-            ->selectRaw(
-                "CASE
+            ->selectRaw(<<<'SQL'
+                CASE
                     WHEN category_id IN (SELECT `id` from `categories` where `movie_meta` = 1) THEN 'movie'
                     WHEN category_id IN (SELECT `id` from `categories` where `tv_meta` = 1) THEN 'tv'
-                END as meta"
+                END as meta
+            SQL)
+            ->withCount([
+                'comments',
+            ])
+            ->when(
+                !config('announce.external_tracker.is_enabled'),
+                fn ($query) => $query->withCount([
+                    'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                    'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                ]),
             )
+            ->when(
+                config('other.thanks-system.is-enabled'),
+                fn ($query) => $query->withCount('thanks')
+            )
+            ->withExists([
+                'featured as featured',
+                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'bookmarks'          => fn ($query) => $query->where('user_id', '=', auth()->id()),
+                'history as seeding' => fn ($query) => $query->where('user_id', '=', auth()->id())
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 1),
+                'history as leeching' => fn ($query) => $query->where('user_id', '=', auth()->id())
+                    ->where('active', '=', 1)
+                    ->where('seeder', '=', 0),
+                'history as not_completed' => fn ($query) => $query->where('user_id', '=', auth()->id())
+                    ->where('active', '=', 0)
+                    ->where('seeder', '=', 0)
+                    ->whereNull('completed_at'),
+                'history as not_seeding' => fn ($query) => $query->where('user_id', '=', auth()->id())
+                    ->where('active', '=', 0)
+                    ->where(
+                        fn ($query) => $query
+                            ->where('seeder', '=', 1)
+                            ->orWhereNotNull('completed_at')
+                    ),
+                'trump',
+            ])
             ->where(
                 fn ($query) => $query
                     ->where(
@@ -205,78 +236,113 @@ class PersonCredit extends Component
                             ->whereIntegerInRaw('tmdb', $tvIds)
                     )
             )
-            ->get()
-            ->groupBy('meta')
-            ->map(fn ($movieOrTv, $key) => match ($key) {
-                'movie' => $movieOrTv
-                    ->groupBy('tmdb')
-                    ->map(
-                        function ($movie) {
-                            $category_id = $movie->first()->category_id;
-                            $movie = $this->groupByTypeAndSort($movie);
-                            $movie->put('category_id', $category_id);
+            ->get();
 
-                            return $movie;
-                        }
-                    ),
-                'tv' => $movieOrTv
-                    ->groupBy([
-                        fn ($torrent) => $torrent->tmdb,
-                    ])
-                    ->map(
-                        function ($tv) {
-                            $category_id = $tv->first()->category_id;
-                            $tv = $tv
-                                ->groupBy(fn ($torrent) => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
-                                ->map(fn ($packOrSpecialOrSeasons, $key) => match ($key) {
-                                    'Complete Pack' => $this->groupByTypeAndSort($packOrSpecialOrSeasons),
-                                    'Specials'      => $packOrSpecialOrSeasons
-                                        ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
-                                        ->sortKeys(SORT_NATURAL)
-                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
-                                    'Seasons' => $packOrSpecialOrSeasons
-                                        ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
-                                        ->sortKeys(SORT_NATURAL)
-                                        ->map(
-                                            fn ($season) => $season
-                                                ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
-                                                ->map(fn ($packOrEpisodes, $key) => match ($key) {
-                                                    'Season Pack' => $this->groupByTypeAndSort($packOrEpisodes),
-                                                    'Episodes'    => $packOrEpisodes
-                                                        ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
-                                                        ->sortKeys(SORT_NATURAL)
-                                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
-                                                    default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
-                                                })
-                                        ),
-                                    default => abort(500, 'Group found that isn\'t one of: Complete Pack, Specials, Seasons'),
-                                });
-                            $tv->put('category_id', $category_id);
+        $groupedTorrents = [];
 
-                            return $tv;
+        foreach ($torrents as &$torrent) {
+            // Memoizing and avoiding casts reduces runtime duration from 70ms to 40ms.
+            // If accessing laravel's attributes array directly, it's reduced to 11ms,
+            // but the attributes array is marked as protected so we can't access it.
+            $tmdb = $torrent->getAttributeValue('tmdb');
+            $type = $torrent->getRelationValue('type')->getAttributeValue('name');
+
+            switch ($torrent->getAttributeValue('meta')) {
+                case 'movie':
+                    $groupedTorrents['movie'][$tmdb]['Movie'][$type][] = $torrent;
+                    $groupedTorrents['movie'][$tmdb]['category_id'] = $torrent->getAttributeValue('category_id');
+
+                    break;
+                case 'tv':
+                    $episode = $torrent->getAttributeValue('episode_number');
+                    $season = $torrent->getAttributeValue('season_number');
+
+                    if ($season == 0) {
+                        if ($episode == 0) {
+                            $groupedTorrents['tv'][$tmdb]['Complete Pack'][$type][] = $torrent;
+                        } else {
+                            $groupedTorrents['tv'][$tmdb]['Specials']["Special {$episode}"][$type][] = $torrent;
                         }
-                    ),
-                default => abort(500, 'Group found that isn\'t one of: movie, tv'),
-            });
+                    } else {
+                        if ($episode == 0) {
+                            $groupedTorrents['tv'][$tmdb]['Seasons']["Season {$season}"]['Season Pack'][$type][] = $torrent;
+                        } else {
+                            $groupedTorrents['tv'][$tmdb]['Seasons']["Season {$season}"]['Episodes']["Episode {$episode}"][$type][] = $torrent;
+                        }
+                    }
+                    $groupedTorrents['tv'][$tmdb]['category_id'] = $torrent->getAttributeValue('category_id');
+            }
+        }
+
+        foreach ($groupedTorrents as $mediaType => &$workTorrents) {
+            switch ($mediaType) {
+                case 'movie':
+                    foreach ($workTorrents as &$movieTorrents) {
+                        $this->sortTorrentTypes($movieTorrents['Movie']);
+                    }
+
+                    break;
+                case 'tv':
+                    foreach ($workTorrents as &$tvTorrents) {
+                        foreach ($tvTorrents as $packOrSpecialOrSeasonsType => &$packOrSpecialOrSeasons) {
+                            switch ($packOrSpecialOrSeasonsType) {
+                                case 'Complete Pack':
+                                    $this->sortTorrentTypes($packOrSpecialOrSeasons);
+
+                                    break;
+                                case 'Specials':
+                                    krsort($packOrSpecialOrSeasons, SORT_NATURAL);
+
+                                    foreach ($packOrSpecialOrSeasons as &$specialTorrents) {
+                                        $this->sortTorrentTypes($specialTorrents);
+                                    }
+
+                                    break;
+                                case 'Seasons':
+                                    krsort($packOrSpecialOrSeasons, SORT_NATURAL);
+
+                                    foreach ($packOrSpecialOrSeasons as &$season) {
+                                        foreach ($season as $packOrEpisodesType => &$packOrEpisodes) {
+                                            switch ($packOrEpisodesType) {
+                                                case 'Season Pack':
+                                                    $this->sortTorrentTypes($packOrEpisodes);
+
+                                                    break;
+                                                case 'Episodes':
+                                                    krsort($packOrEpisodes, SORT_NATURAL);
+
+                                                    foreach ($packOrEpisodes as &$episodeTorrents) {
+                                                        $this->sortTorrentTypes($episodeTorrents);
+                                                    }
+
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                        }
+                    }
+            }
+        }
 
         $medias = collect();
 
         foreach ($movies as $movie) {
-            if ($torrents->has('movie') && $torrents['movie']->has($movie->id)) {
+            if (\array_key_exists('movie', $groupedTorrents) && \array_key_exists($movie->id, $groupedTorrents['movie'])) {
                 $media = $movie;
                 $media->setAttribute('meta', 'movie');
-                $media->setRelation('torrents', $torrents['movie'][$movie->id]);
-                $media->setAttribute('category_id', $media->torrents->pop());
+                $media->setRelation('torrents', $groupedTorrents['movie'][$movie->id]);
+                $media->setAttribute('category_id', $media->torrents['category_id']);
                 $medias->add($media);
             }
         }
 
         foreach ($tv as $show) {
-            if ($torrents->has('tv') && $torrents['tv']->has($show->id)) {
+            if (\array_key_exists('tv', $groupedTorrents) && \array_key_exists($show->id, $groupedTorrents['tv'])) {
                 $media = $show;
                 $media->setAttribute('meta', 'tv');
-                $media->setRelation('torrents', $torrents['tv'][$show->id]);
-                $media->setAttribute('category_id', $media->torrents->pop());
+                $media->setRelation('torrents', $groupedTorrents['tv'][$show->id]);
+                $media->setAttribute('category_id', $media->torrents['category_id']);
                 $medias->add($media);
             }
         }
@@ -285,24 +351,28 @@ class PersonCredit extends Component
     }
 
     /**
-     * @param  \Illuminate\Support\Collection<int, Torrent>                                         $torrents
-     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, Torrent>>
+     * @param array<string, array<Torrent>> $torrentTypeTorrents
      */
-    private function groupByTypeAndSort($torrents): \Illuminate\Support\Collection
+    private function sortTorrentTypes(&$torrentTypeTorrents): void
     {
-        return $torrents
-            ->sortBy('type.position')
-            ->values()
-            ->groupBy(fn ($torrent) => $torrent->type->name)
-            ->map(
-                fn ($torrentsBytype) => $torrentsBytype
-                    ->sortBy([
-                        ['resolution.position', 'asc'],
-                        ['internal', 'desc'],
-                        ['size', 'desc']
-                    ])
-                    ->values()
+        uasort(
+            $torrentTypeTorrents,
+            fn ($a, $b) => $a[0]->getRelationValue('type')->getAttributeValue('position')
+                <=> $b[0]->getRelationValue('type')->getAttributeValue('position')
+        );
+
+        foreach ($torrentTypeTorrents as &$torrents) {
+            usort(
+                $torrents,
+                fn ($a, $b) => [
+                    $a->getRelationValue('resolution')->getAttributeValue('position'),
+                    $a->getAttributeValue('name')
+                ] <=> [
+                    $b->getRelationValue('resolution')->getAttributeValue('position'),
+                    $b->getAttributeValue('name')
+                ]
             );
+        }
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application

@@ -17,13 +17,10 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Events\TicketWentStale;
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\Comment.
@@ -112,25 +109,7 @@ class Comment extends Model
     }
 
     /**
-     * Set The Articles Content After Its Been Purified.
-     */
-    public function setContentAttribute(?string $value): void
-    {
-        $this->attributes['content'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
-    }
-
-    /**
-     * Parse Content And Return Valid HTML.
-     */
-    public function getContentHtml(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->content));
-    }
-
-    /**
-     * Nootify Staff There Is Stale Tickets.
+     * Notify Staff There Is Stale Tickets.
      */
     public static function checkForStale(Ticket $ticket): void
     {

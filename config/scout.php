@@ -43,7 +43,7 @@ return [
     |
     */
 
-    'queue' => env('SCOUT_QUEUE', true),
+    'queue' => env('SCOUT_QUEUE', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -165,7 +165,6 @@ return [
                     'igdb',
                     'season_number',
                     'episode_number',
-                    'stream',
                     'free',
                     'doubleup',
                     'refundable',
@@ -174,7 +173,6 @@ return [
                     'status',
                     'anon',
                     'sticky',
-                    'sd',
                     'internal',
                     'deleted_at',
                     'personal_release',
@@ -236,6 +234,8 @@ return [
                     'typo',
                     'proximity',
                 ],
+                'facetSearch'        => false,
+                'proximityPrecision' => 'byAttribute',
             ],
         ],
     ],

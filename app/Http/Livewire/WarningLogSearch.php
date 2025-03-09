@@ -55,7 +55,7 @@ class WarningLogSearch extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Warning>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
      */
     #[Computed]
     final public function warnings(): \Illuminate\Pagination\LengthAwarePaginator

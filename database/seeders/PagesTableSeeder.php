@@ -20,6 +20,8 @@ use App\Models\Page;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+// cspell:ignore orwill
+
 class PagesTableSeeder extends Seeder
 {
     public function run(): void

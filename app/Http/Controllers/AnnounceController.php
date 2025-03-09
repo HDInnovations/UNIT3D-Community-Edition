@@ -21,6 +21,7 @@ use App\DTO\AnnounceGroupDTO;
 use App\DTO\AnnounceQueryDTO;
 use App\DTO\AnnounceTorrentDTO;
 use App\DTO\AnnounceUserDTO;
+use App\Enums\ModerationStatus;
 use App\Exceptions\TrackerException;
 use App\Jobs\ProcessAnnounce;
 use App\Models\BlacklistClient;
@@ -38,13 +39,10 @@ use Throwable;
 use Exception;
 use Illuminate\Support\Facades\Redis;
 
+// cspell:ignore completei,downloadedi,incompletei,intervali
+
 final class AnnounceController extends Controller
 {
-    // Torrent Moderation Codes
-    protected const int PENDING = 0;
-    protected const int REJECTED = 2;
-    protected const int POSTPONED = 3;
-
     // Announce Intervals
     private const int MIN = 1_800;
     private const int MAX = 3_600;
@@ -118,7 +116,7 @@ final class AnnounceController extends Controller
                 $visible = true;
             }
 
-            // Process Annnounce Job.
+            // Process Announce Job.
             $this->processAnnounceJob($queries, $user, $group, $torrent, $visible);
 
             if ($visible) {
@@ -130,6 +128,7 @@ final class AnnounceController extends Controller
         } catch (TrackerException $exception) {
             $response = $this->generateFailedAnnounceResponse($exception);
         } catch (Exception) {
+            // spell:disable-next-line
             $response = 'd14:failure reason21:Internal Server Error8:intervali5400e12:min intervali5400ee';
         }
 
@@ -409,17 +408,17 @@ final class AnnounceController extends Controller
         }
 
         // If Torrent Is Pending Moderation Return Error to Client
-        if ($torrent->status === self::PENDING) {
+        if ($torrent->status === ModerationStatus::PENDING) {
             throw new TrackerException(151, [':status' => 'PENDING In Moderation']);
         }
 
         // If Torrent Is Rejected Return Error to Client
-        if ($torrent->status === self::REJECTED) {
+        if ($torrent->status === ModerationStatus::REJECTED) {
             throw new TrackerException(151, [':status' => 'REJECTED In Moderation']);
         }
 
         // If Torrent Is Postponed Return Error to Client
-        if ($torrent->status === self::POSTPONED) {
+        if ($torrent->status === ModerationStatus::POSTPONED) {
             throw new TrackerException(151, [':status' => 'POSTPONED In Moderation']);
         }
 
@@ -455,7 +454,7 @@ final class AnnounceController extends Controller
     }
 
     /**
-     * Check A Peers Min Annnounce Interval.
+     * Check A Peers Min Announce Interval.
      *
      * @throws TrackerException
      * @throws Exception

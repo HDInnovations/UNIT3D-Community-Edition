@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main-and-sidebar')
 
 @section('title')
     <title>Forums - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>

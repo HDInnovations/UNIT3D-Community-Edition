@@ -48,7 +48,7 @@ test('destroy aborts with a 403', function (): void {
     $response->assertForbidden();
 });
 
-test('massupsert validates with a form request', function (): void {
+test('mass upsert validates with a form request', function (): void {
     $this->assertActionUsesFormRequest(
         PlaylistTorrentController::class,
         'massUpsert',

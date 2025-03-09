@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main-and-sidebar')
 
 @section('title')
     <title>Upload - {{ config('other.title') }}</title>
@@ -428,39 +428,7 @@
                     />
                     <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                 </p>
-                <p
-                    class="form__group"
-                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
-                >
-                    <input type="hidden" name="stream" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="stream"
-                        name="stream"
-                        x-bind:value="cats[cat].type === 'movie' || cats[cat].type === 'tv' ? '1' : '0'"
-                        @checked(old('stream'))
-                    />
-                    <label class="form__label" for="stream">
-                        {{ __('torrent.stream-optimized') }}?
-                    </label>
-                </p>
-                <p
-                    class="form__group"
-                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
-                >
-                    <input type="hidden" name="sd" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="sd"
-                        name="sd"
-                        x-bind:value="cats[cat].type === 'movie' || cats[cat].type === 'tv' ? '1' : '0'"
-                        @checked(old('sd'))
-                    />
-                    <label class="form__label" for="sd">{{ __('torrent.sd-content') }}?</label>
-                </p>
-                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
                         <input type="hidden" name="internal" value="0" />
                         <input
@@ -506,7 +474,7 @@
                     </p>
                 @endif
 
-                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
                         <input type="hidden" name="refundable" value="0" />
                         <input
@@ -523,7 +491,7 @@
                     </p>
                 @endif
 
-                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
                         <select name="free" id="free" class="form__select">
                             <option

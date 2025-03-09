@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('breadcrumbs')
     <li class="breadcrumb--active">Pages</li>
@@ -6,7 +6,7 @@
 
 @section('page', 'page__page--index')
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">Pages</h2>
         <div class="data-table-wrapper">

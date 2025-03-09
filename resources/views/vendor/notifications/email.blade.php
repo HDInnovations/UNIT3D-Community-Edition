@@ -47,6 +47,7 @@
 {{ config('app.name') }}
 @endif
 
+{{-- cspell:words subcopy --}}
 {{-- Subcopy --}}
 @isset($actionText)
 @slot('subcopy')

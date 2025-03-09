@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main-and-sidebar')
 
 @section('title')
     <title>{{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>
@@ -175,6 +175,15 @@
                     >
                         <i class="{{ config('other.font-awesome') }} fa-coins"></i>
                         {{ __('staff.bon-exchange') }}
+                    </a>
+                </p>
+                <p class="form__group form__group--horizontal">
+                    <a
+                        class="form__button form__button--text"
+                        href="{{ route('staff.bon_earnings.index') }}"
+                    >
+                        <i class="{{ config('other.font-awesome') }} fa-coins"></i>
+                        {{ __('staff.bon-earnings') }}
                     </a>
                 </p>
                 <p class="form__group form__group--horizontal">
@@ -398,23 +407,25 @@
                     </p>
                 @endif
 
-                <div class="form__group form__group--horizontal">
-                    <form
-                        method="POST"
-                        action="{{ route('staff.flush.peers') }}"
-                        x-data="confirmation"
-                    >
-                        @csrf
-                        <button
-                            x-on:click.prevent="confirmAction"
-                            data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all ghost peers?') }}"
-                            class="form__button form__button--text"
+                @if (! config('announce.external_tracker.is_enabled'))
+                    <div class="form__group form__group--horizontal">
+                        <form
+                            method="POST"
+                            action="{{ route('staff.flush.peers') }}"
+                            x-data="confirmation"
                         >
-                            <i class="{{ config('other.font-awesome') }} fa-ghost"></i>
-                            {{ __('staff.flush-ghost-peers') }}
-                        </button>
-                    </form>
-                </div>
+                            @csrf
+                            <button
+                                x-on:click.prevent="confirmAction"
+                                data-b64-deletion-message="{{ base64_encode('Are you sure you want to delete all ghost peers?') }}"
+                                class="form__button form__button--text"
+                            >
+                                <i class="{{ config('other.font-awesome') }} fa-ghost"></i>
+                                {{ __('staff.flush-ghost-peers') }}
+                            </button>
+                        </form>
+                    </div>
+                @endif
             </div>
         </section>
         <section class="panelV2 panel--grid-item">
@@ -655,7 +666,7 @@
                     <p class="form__group form__group--horizontal">
                         <a
                             class="form__button form__button--text"
-                            href="{{ route('staff.laravellog.index') }}"
+                            href="{{ route('staff.laravel-log.index') }}"
                         >
                             <i class="fa fa-file"></i>
                             {{ __('staff.laravel-log') }}

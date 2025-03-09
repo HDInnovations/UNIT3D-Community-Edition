@@ -21,7 +21,7 @@
 
         <div>
             <span class="text-muted">
-                {{ __('When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from a syncronized 2fa app such as Google Authenticator, Authy, BitWarden, etc.') }}
+                {{ __('When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from a synchronized 2fa app such as Google Authenticator, Authy, BitWarden, etc.') }}
             </span>
         </div>
 

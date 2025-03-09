@@ -4,19 +4,7 @@ body {
 }
 
 .footer {
-    padding: 20px max(20px, 10vw - 60px); /* Magic numbers - slightly increases the margins as you go from 600px up to 1600px */
-}
-
-@media only screen and (min-width: 1600px) {
-    .footer {
-        padding: 20px max(0px, 25vw - 300px); /* Magic numbers - slightly increases the margins as you go from 1600px up to 2500px */
-    }
-}
-
-@media only screen and (min-width: 2500px) {
-    .footer {
-        padding: 20px max(0px, 45vw - 800px); /* Magic numbers - slightly increases the margins as you go from 2500px to beyond 4k resolution */
-    }
+    padding: 20px max(20px, 10vw - 60px, 25vw - 300px, 45vw - 800px); /* Magic numbers - slightly increases the margins as you go from 0 to 600px to 1600px to 2500px to beyond */
 }
 
 .footer {

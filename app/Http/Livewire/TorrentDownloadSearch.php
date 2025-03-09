@@ -27,7 +27,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator<Announce> $announces
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Announce> $announces
  */
 class TorrentDownloadSearch extends Component
 {
@@ -92,7 +92,7 @@ class TorrentDownloadSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<TorrentDownload>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, TorrentDownload>
      */
     #[Computed]
     final public function torrentDownloads(): \Illuminate\Pagination\LengthAwarePaginator

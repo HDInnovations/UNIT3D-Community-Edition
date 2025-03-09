@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main-and-sidebar')
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
@@ -36,7 +36,7 @@
             </header>
 
             <div class="panel__body bbcode-rendered">
-                @joypixels($message->getMessageHtml())
+                @bbcode($message->message)
             </div>
         </section>
     @endforeach

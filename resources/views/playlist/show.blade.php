@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main-and-sidebar')
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
@@ -127,6 +127,46 @@
             </p>
         </div>
     </section>
+    <section class="panelV2">
+        <h2 class="panel__heading">{{ __('common.info') }}</h2>
+        <dl class="key-value">
+            <div class="key-value__group">
+                <dt>{{ __('common.created_at') }}</dt>
+                <dd>
+                    <time
+                        datetime="{{ $playlist->created_at }}"
+                        title="{{ $playlist->created_at }}"
+                    >
+                        {{ $playlist->created_at->diffForHumans() }}
+                    </time>
+                </dd>
+            </div>
+            <div class="key-value__group">
+                <dt>{{ __('torrent.updated_at') }}</dt>
+                <dd>
+                    <time
+                        datetime="{{ $playlist->updated_at }}"
+                        title="{{ $playlist->updated_at }}"
+                    >
+                        {{ $playlist->updated_at->diffForHumans() }}
+                    </time>
+                </dd>
+            </div>
+            @if ($latestPlaylistTorrent !== null)
+                <div class="key-value__group">
+                    <dt>{{ __('playlist.last-addition-at') }}</dt>
+                    <dd>
+                        <time
+                            datetime="{{ $latestPlaylistTorrent->pivot->created_at }}"
+                            title="{{ $latestPlaylistTorrent->pivot->created_at }}"
+                        >
+                            {{ $latestPlaylistTorrent->pivot->created_at->diffForHumans() }}
+                        </time>
+                    </dd>
+                </div>
+            @endif
+        </dl>
+    </section>
 @endsection
 
 @section('main')
@@ -146,7 +186,7 @@
                 >
                     <img
                         class="playlist__author-avatar"
-                        src="{{ url($playlist->user->image ? 'files/img/' . $playlist->user->image : 'img/profile.png') }}"
+                        src="{{ $playlist->user->image ? route('authenticated_images.user_avatar', ['user' => $playlist->user]) : url('img/profile.png') }}"
                         alt="{{ $playlist->user->username }}"
                     />
                 </a>
@@ -154,7 +194,7 @@
                     <x-user_tag :user="$playlist->user" :anon="false" />
                 </p>
                 <p class="playlist__description bbcode-rendered">
-                    @joypixels($playlist->getDescriptionHtml())
+                    @bbcode($playlist->description)
                 </p>
             </div>
         </div>

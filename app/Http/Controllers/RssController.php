@@ -98,9 +98,7 @@ class RssController extends Controller
             'freeleech',
             'doubleupload',
             'featured',
-            'stream',
             'highspeed',
-            'sd',
             'internal',
             'personalrelease',
             'bookmark',
@@ -119,7 +117,7 @@ class RssController extends Controller
             $rss->save();
 
             return to_route('rss.index', ['hash' => 'private'])
-                ->withSuccess(trans('rss.created'));
+                ->with('success', trans('rss.created'));
         }
 
         return to_route('rss.create')
@@ -170,8 +168,6 @@ class RssController extends Controller
                     free: $search->freeleech === null ? [] : [25, 50, 75, 100],
                     doubleup: (bool) ($search->doubleupload ?? false),
                     featured: (bool) ($search->featured ?? false),
-                    stream: (bool) ($search->stream ?? false),
-                    sd: (bool) ($search->sd ?? false),
                     highspeed: (bool) ($search->highspeed ?? false),
                     userBookmarked: (bool) ($search->bookmark ?? false),
                     internal: (bool) ($search->internal ?? false),
@@ -271,9 +267,7 @@ class RssController extends Controller
             'freeleech',
             'doubleupload',
             'featured',
-            'stream',
             'highspeed',
-            'sd',
             'internal',
             'personalrelease',
             'bookmark',
@@ -290,7 +284,7 @@ class RssController extends Controller
             $rss->save();
 
             return to_route('rss.index', ['hash' => 'private'])
-                ->withSuccess(trans('rss.created'));
+                ->with('success', trans('rss.created'));
         }
 
         return to_route('rss.create', ['id' => $id])
@@ -312,6 +306,6 @@ class RssController extends Controller
         $rss->delete();
 
         return to_route('rss.index', ['hash' => 'private'])
-            ->withSuccess(trans('rss.deleted'));
+            ->with('success', trans('rss.deleted'));
     }
 }

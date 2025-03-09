@@ -1,18 +1,6 @@
 @supports selector(:has(.torrent-search-grouped__results)) {
     .page__torrents:not(:has(.torrent-search--grouped__results)) {
-        margin: 0 calc(-1 * max(0px, 10vw - 60px)); /* Inverses the magic numbers used in the main layout styles */
-    }
-
-    @media only screen and (min-width: 1600px) {
-        .page__torrents:not(:has(.torrent-search--grouped__results)) {
-            margin: 0 calc(-1 * max(0px, 25vw - 300px)); /* Inverses the magic numbers used in the main layout styles */
-        }
-    }
-
-    @media only screen and (min-width: 2500px) {
-        .page__torrents:not(:has(.torrent-search--grouped__results)) {
-            margin: 0 calc(-1 * max(0px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
-        }
+        margin: 0 calc(-1 * max(0px, 10vw - 60px, 25vw - 300px, 45vw - 800px)); /* Inverses the magic numbers used in the main layout styles */
     }
 }
 
@@ -59,8 +47,10 @@
 
 .torrent-icons {
     grid-area: icons;
-    letter-spacing: 3px;
     font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .torrent-icons__thanks {
@@ -72,21 +62,12 @@
     color: var(--torrent-row-comments-fg);
 }
 
-.torrent-icons__thanks::before,
-.torrent-icons__comments::before {
-    letter-spacing: 2px;
-}
-
 .torrent-icons__internal {
     color: var(--torrent-row-internal-fg);
 }
 
 .torrent-icons__personal-release {
     color: var(--torrent-row-personal-fg);
-}
-
-.torrent-icons__stream-optimized {
-    color: var(--torrent-row-stream-optimized-fg);
 }
 
 .torrent-icons__featured {
@@ -107,10 +88,6 @@
 
 .torrent-icons__highspeed {
     color: var(--torrent-row-highspeed-fg);
-}
-
-.torrent-icons__sd {
-    color: var(--torrent-row-sd-fg);
 }
 
 .torrent-icons__bumped {
@@ -160,7 +137,9 @@
 }
 
 .torrent-search--list__poster-img {
-    width: 53px;
+    /* TMDb posters should always be a ratio of 1.5 */
+    width: 54px;
+    height: 81px;
     border-radius: 5px;
 }
 
@@ -635,7 +614,7 @@ a.torrent-search--grouped__edit {
     background: initial;
     display: inline-block;
     width: 100%;
-    height: 100%;
+    color: var(--icon-button-fg);
 }
 
 .torrent-search--grouped__download a:hover,
@@ -648,7 +627,6 @@ a.torrent-search--grouped__edit:hover {
 }
 
 /* Table cells */
-.torrent-search--grouped__torrents tr:last-child,
 th.torrent-search--grouped__type,
 td.torrent-search--grouped__overview,
 td.torrent-search--grouped__download,

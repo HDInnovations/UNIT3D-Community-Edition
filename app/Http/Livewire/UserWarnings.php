@@ -18,6 +18,11 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Models\Warning;
+use App\Notifications\WarningCreated;
+use App\Notifications\WarningDeactivated;
+use App\Notifications\WarningsDeactivated;
+use App\Notifications\WarningsDeleted;
+use App\Notifications\WarningTorrentDeleted;
 use App\Traits\LivewireSort;
 use Illuminate\Support\Carbon;
 use Livewire\Attributes\Computed;
@@ -27,10 +32,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator $warnings
- * @property int                                         $automatedWarningsCount
- * @property int                                         $manualWarningsCount
- * @property int                                         $deletedWarningsCount
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Warning> $warnings
+ * @property int                                                       $automatedWarningsCount
+ * @property int                                                       $manualWarningsCount
+ * @property int                                                       $deletedWarningsCount
  */
 class UserWarnings extends Component
 {
@@ -59,7 +64,7 @@ class UserWarnings extends Component
     public string $sortDirection = 'desc';
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Warning>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Warning>
      */
     #[Computed]
     final public function warnings(): \Illuminate\Pagination\LengthAwarePaginator
@@ -118,10 +123,7 @@ class UserWarnings extends Component
             'active'     => true,
         ]);
 
-        $this->user->sendSystemNotification(
-            subject: 'Received warning',
-            message: 'You have received a [b]warning[/b]. Reason: '.$this->message,
-        );
+        $this->user->notify(new WarningCreated($this->message));
 
         $this->message = '';
 
@@ -142,10 +144,7 @@ class UserWarnings extends Component
             'active'     => false,
         ]);
 
-        $this->user->sendSystemNotification(
-            subject: 'Hit and Run Warning Deleted',
-            message: $staff->username.' has decided to deactivate your warning for torrent '.$warning->torrent.' You lucked out!',
-        );
+        $this->user->notify(new WarningDeactivated($staff, $warning));
 
         $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Deactivated');
     }
@@ -182,10 +181,7 @@ class UserWarnings extends Component
                 'active'     => false,
             ]);
 
-        $this->user->sendSystemNotification(
-            subject: 'All Hit and Run Warnings Deleted',
-            message: $staff->username.' has decided to deactivate all of your warnings. You lucked out!',
-        );
+        $this->user->notify(new WarningsDeactivated($staff));
 
         $this->dispatch('success', type: 'success', message: 'All Warnings Were Successfully Deactivated');
     }
@@ -207,10 +203,7 @@ class UserWarnings extends Component
 
         $warning->delete();
 
-        $this->user->sendSystemNotification(
-            subject: 'Hit and Run Warning Deleted',
-            message: $staff->username.' has decided to delete your warning for torrent '.$warning->torrent.' You lucked out!',
-        );
+        $this->user->notify(new WarningTorrentDeleted($staff, $warning));
 
         $this->dispatch('success', type: 'success', message: 'Warning Was Successfully Deleted');
     }
@@ -232,10 +225,7 @@ class UserWarnings extends Component
 
         $this->user->warnings()->delete();
 
-        $this->user->sendSystemNotification(
-            subject: 'All Hit and Run Warnings Deleted',
-            message: $staff->username.' has decided to delete all of your warnings. You lucked out!',
-        );
+        $this->user->notify(new WarningsDeleted($staff));
 
         $this->dispatch('success', type: 'success', message: 'All Warnings Were Successfully Deleted');
     }

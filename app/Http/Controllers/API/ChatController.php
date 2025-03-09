@@ -47,13 +47,9 @@ class ChatController extends Controller
     }
 
     /* STATUSES */
-    public function statuses(): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function statuses(): \Illuminate\Http\JsonResponse
     {
-        /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
-         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
-         */
-        return response($this->chatRepository->statuses());
+        return response()->json($this->chatRepository->statuses());
     }
 
     /* ECHOES */
@@ -332,8 +328,8 @@ class ChatController extends Controller
         event(new Chatter('echo', $user->id, UserEchoResource::collection($senderEchoes)));
 
         /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
          * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
+         * @phpstan-ignore-next-line Laravel automatically converts models to json
          */
         return response($user);
     }
@@ -351,13 +347,13 @@ class ChatController extends Controller
         event(new Chatter('echo', $user->id, UserEchoResource::collection($senderEchoes)));
 
         /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
          * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
+         * @phpstan-ignore-next-line Laravel automatically converts models to json
          */
         return response($user);
     }
 
-    public function deleteBotEcho(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function deleteBotEcho(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
         UserEcho::where('user_id', '=', $user->id)->where('bot_id', '=', $request->input('bot_id'))->delete();
@@ -369,14 +365,10 @@ class ChatController extends Controller
         cache()->put('user-echoes'.$user->id, $senderEchoes, $expiresAt);
         event(new Chatter('echo', $user->id, UserEchoResource::collection($senderEchoes)));
 
-        /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
-         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
-         */
-        return response($user);
+        return response()->json($user);
     }
 
-    public function toggleRoomAudible(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function toggleRoomAudible(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
         $echo = UserAudible::where('user_id', '=', $user->id)->where('room_id', '=', $request->input('room_id'))->sole();
@@ -390,14 +382,10 @@ class ChatController extends Controller
         cache()->put('user-audibles'.$user->id, $senderAudibles, $expiresAt);
         event(new Chatter('audible', $user->id, UserAudibleResource::collection($senderAudibles)));
 
-        /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
-         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
-         */
-        return response($user);
+        return response()->json($user);
     }
 
-    public function toggleTargetAudible(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function toggleTargetAudible(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
         $echo = UserAudible::where('user_id', '=', $user->id)->where('target_id', '=', $request->input('target_id'))->sole();
@@ -411,14 +399,10 @@ class ChatController extends Controller
         cache()->put('user-audibles'.$user->id, $senderAudibles, $expiresAt);
         event(new Chatter('audible', $user->id, UserAudibleResource::collection($senderAudibles)));
 
-        /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
-         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
-         */
-        return response($user);
+        return response()->json($user);
     }
 
-    public function toggleBotAudible(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function toggleBotAudible(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
         $echo = UserAudible::where('user_id', '=', $user->id)->where('bot_id', '=', $request->input('bot_id'))->sole();
@@ -432,15 +416,11 @@ class ChatController extends Controller
         cache()->put('user-audibles'.$user->id, $senderAudibles, $expiresAt);
         event(new Chatter('audible', $user->id, UserAudibleResource::collection($senderAudibles)));
 
-        /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
-         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
-         */
-        return response($user);
+        return response()->json($user);
     }
 
     /* USERS */
-    public function updateUserChatStatus(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function updateUserChatStatus(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
         $user->load(['chatStatus', 'chatroom', 'group', 'echoes']);
@@ -452,14 +432,10 @@ class ChatController extends Controller
         $user->chatStatus()->associate($status);
         $user->save();
 
-        /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
-         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
-         */
-        return response($user);
+        return response()->json($user);
     }
 
-    public function updateUserRoom(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function updateUserRoom(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
         $user->load(['chatStatus', 'chatroom', 'group', 'echoes']);
@@ -490,21 +466,13 @@ class ChatController extends Controller
             Chatter::dispatch('echo', $user->id, UserEchoResource::collection($echoes));
         }
 
-        /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
-         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
-         */
-        return response($user);
+        return response()->json($user);
     }
 
-    public function updateUserTarget(Request $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+    public function updateUserTarget(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user()->load(['chatStatus', 'chatroom', 'group', 'echoes']);
 
-        /**
-         * @phpstan-ignore-next-line Laravel automatically converts models to json
-         * @see https://github.com/laravel/framework/blob/48246da2320c95a17bfae922d36264105a917906/src/Illuminate/Http/Response.php#L56
-         */
-        return response($user);
+        return response()->json($user);
     }
 }

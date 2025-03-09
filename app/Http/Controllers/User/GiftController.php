@@ -89,9 +89,7 @@ class GiftController extends Controller
                 'message'      => $request->message,
             ]);
 
-            if ($receiver->acceptsNotification($sender, $receiver, 'bon', 'show_bon_gift')) {
-                $receiver->notify((new NewBon($gift))->afterCommit());
-            }
+            $receiver->notify((new NewBon($gift))->afterCommit());
         });
 
         $this->chatRepository->systemMessage(
@@ -105,6 +103,6 @@ class GiftController extends Controller
             )
         );
 
-        return redirect()->back()->withSuccess(trans('bon.gift-sent'));
+        return redirect()->back()->with('success', trans('bon.gift-sent'));
     }
 }

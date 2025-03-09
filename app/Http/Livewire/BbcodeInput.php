@@ -10,15 +10,13 @@ declare(strict_types=1);
  *
  * @project    UNIT3D Community Edition
  *
- * @author     Raordom <roardom@protonmail.com>
+ * @author     Roardom <roardom@protonmail.com>
  * @license    https://www.gnu.org/licenses/agpl-3.0.en.html/ GNU Affero General Public License v3.0
  */
 
 namespace App\Http\Livewire;
 
-use App\Helpers\Bbcode;
 use Livewire\Component;
-use voku\helper\AntiXSS;
 
 class BbcodeInput extends Component
 {
@@ -34,26 +32,19 @@ class BbcodeInput extends Component
 
     public string $contentHtml = '';
 
-    final public function mount(string $name, string $label, bool $required = false, string $content = null): void
+    final public function mount(string $name, string $label, bool $required = false, ?string $content = null): void
     {
         $this->name = $name;
         $this->label = $label;
         $this->isRequired = $required;
-        $this->contentBbcode = $content === null ? (old($name) ?? '') : htmlspecialchars_decode($content);
-    }
-
-    final public function updatedIsPreviewEnabled(): void
-    {
-        if ($this->isPreviewEnabled) {
-            $this->contentHtml = (new Bbcode())->parse(htmlspecialchars((new AntiXSS())->xss_clean($this->contentBbcode), ENT_NOQUOTES));
-        }
+        $this->contentBbcode = $content ?? old($name) ?? '';
     }
 
     final public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('livewire.bbcode-input', [
-            'contentHtml' => $this->contentHtml,
-            'label'       => $this->label,
+            'contentBbcode' => $this->contentBbcode,
+            'label'         => $this->label,
         ]);
     }
 }

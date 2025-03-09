@@ -44,11 +44,11 @@ class InternalController extends Controller
                 ])
                 // Count total personal releases for current user
                 ->withCount(['torrents as total_personal_releases' => fn ($query) => $query
-                    ->where('personal_release', '=', 1)
+                    ->where('personal_release', '=', true)
                 ])
                 // Count recent personal releases for current user
                 ->withCount(['torrents as recent_personal_releases' => fn ($query) => $query
-                    ->where('personal_release', '=', 1)
+                    ->where('personal_release', '=', true)
                     ->where('created_at', '>', now()->subDays(60))
                 ])
                 // Count total internal releases for current user
@@ -84,7 +84,7 @@ class InternalController extends Controller
         $internal->update($request->validated());
 
         return to_route('staff.internals.index')
-            ->withSuccess('Internal Group Was Updated Successfully!');
+            ->with('success', 'Internal Group Was Updated Successfully!');
     }
 
     /**
@@ -103,7 +103,7 @@ class InternalController extends Controller
         Internal::create($request->validated());
 
         return to_route('staff.internals.index')
-            ->withSuccess('New Internal Group added!');
+            ->with('success', 'New Internal Group added!');
     }
 
     /**
@@ -114,6 +114,6 @@ class InternalController extends Controller
         $internal->delete();
 
         return to_route('staff.internals.index')
-            ->withSuccess('Group Has Been Removed.');
+            ->with('success', 'Group Has Been Removed.');
     }
 }

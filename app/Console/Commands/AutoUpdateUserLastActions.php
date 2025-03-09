@@ -49,7 +49,7 @@ class AutoUpdateUserLastActions extends Command
 
         $userIdCount = Redis::command('LLEN', [$key]);
 
-        $userIds = Redis::command('LPOP', [$key, $userIdCount]);
+        $userIds = Redis::command('LRANGE', [$key, 0, $userIdCount - 1]);
 
         if ($userIds !== false) {
             DB::transaction(static function () use ($userIds): void {
@@ -60,6 +60,8 @@ class AutoUpdateUserLastActions extends Command
                     ]);
             }, 5);
         }
+
+        Redis::command('LTRIM', [$key, $userIdCount, -1]);
 
         $this->comment('Automated upsert histories command complete');
     }

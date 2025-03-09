@@ -18,6 +18,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\ApikeyReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -45,15 +46,12 @@ class ApikeyController extends Controller
             $user->apikeys()->create(['content' => $user->api_token]);
 
             if ($changedByStaff) {
-                $user->sendSystemNotification(
-                    subject: 'ATTENTION - Your API key has been reset',
-                    message: "Your API key has been reset by staff. You will need to update your API key in all your scripts to continue using the API.\n\nFor more information, please create a helpdesk ticket.",
-                );
+                $user->notify(new ApikeyReset());
             }
         });
 
         return to_route('users.apikeys.index', ['user' => $user])
-            ->withSuccess('Your API key was changed successfully.');
+            ->with('success', 'Your API key was changed successfully.');
     }
 
     /**

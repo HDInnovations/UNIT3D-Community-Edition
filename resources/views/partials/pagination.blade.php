@@ -1,12 +1,12 @@
 @php
     if (! isset($scrollTo)) {
-        $scrollTo = 'body';
+        $scrollTo = '.panelV2';
     }
 
     $scrollIntoViewJsSnippet =
         $scrollTo !== false
             ? <<<JS
-       (\$el.closest('{$scrollTo}') || document.querySelector('{$scrollTo}')).scrollIntoView()
+       window.scroll({ top: ((\$el.closest('{$scrollTo}') || document.querySelector('{$scrollTo}')).offsetTop - 80)})
     JS
             : '';
 @endphp
@@ -65,54 +65,87 @@
                         @endif
                     @endif
 
-                    @for ($page = max(2, $paginator->currentPage() - 3); $page <= min($paginator->currentPage() + 3, $paginator->lastPage() - 1); $page++)
-                        @if ($page === $paginator->currentPage())
-                            <li class="pagination__current">{{ $page }}</li>
-                        @else
+                    @if ($paginator instanceof \Illuminate\Pagination\LengthAwarePaginator)
+                        @for ($page = max(2, $paginator->currentPage() - 3); $page <= min($paginator->currentPage() + 3, $paginator->lastPage() - 1); $page++)
+                            @if ($page === $paginator->currentPage())
+                                <li class="pagination__current">{{ $page }}</li>
+                            @else
+                                <li>
+                                    <a
+                                        class="pagination__link"
+                                        href="{{ $paginator->url($page) }}"
+                                        wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
+                                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                    >
+                                        {{ $page }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endfor
+
+                        @if ($paginator->currentPage() + 3 < $paginator->lastPage() - 1)
+                            @if ($paginator->currentPage() + 4 === $paginator->lastPage() - 1)
+                                <li>
+                                    <a
+                                        class="pagination__link"
+                                        href="{{ $paginator->url($paginator->currentPage() + 4) }}"
+                                        wire:click.prevent="gotoPage({{ $paginator->currentPage() + 4 }}, '{{ $paginator->getPageName() }}')"
+                                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                    >
+                                        {{ $paginator->currentPage() + 4 }}
+                                    </a>
+                                </li>
+                            @else
+                                <li class="pagination__ellipsis">&middot;&middot;&middot;</li>
+                            @endif
+                        @endif
+
+                        @if ($paginator->hasMorePages())
                             <li>
                                 <a
                                     class="pagination__link"
-                                    href="{{ $paginator->url($page) }}"
-                                    wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
+                                    href="{{ $paginator->url($paginator->lastPage()) }}"
+                                    wire:click.prevent="gotoPage({{ $paginator->lastPage() }}, '{{ $paginator->getPageName() }}')"
                                     x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                    rel="next"
                                 >
-                                    {{ $page }}
-                                </a>
-                            </li>
-                        @endif
-                    @endfor
-
-                    @if ($paginator->currentPage() + 3 < $paginator->lastPage() - 1)
-                        @if ($paginator->currentPage() + 4 === $paginator->lastPage() - 1)
-                            <li>
-                                <a
-                                    class="pagination__link"
-                                    href="{{ $paginator->url($paginator->currentPage() + 4) }}"
-                                    wire:click.prevent="gotoPage({{ $paginator->currentPage() + 4 }}, '{{ $paginator->getPageName() }}')"
-                                    x-on:click="{{ $scrollIntoViewJsSnippet }}"
-                                >
-                                    {{ $paginator->currentPage() + 4 }}
+                                    {{ $paginator->lastPage() }}
                                 </a>
                             </li>
                         @else
-                            <li class="pagination__ellipsis">&middot;&middot;&middot;</li>
+                            <li class="pagination__current">{{ $paginator->lastPage() }}</li>
                         @endif
-                    @endif
-
-                    @if ($paginator->hasMorePages())
-                        <li>
-                            <a
-                                class="pagination__link"
-                                href="{{ $paginator->url($paginator->lastPage()) }}"
-                                wire:click.prevent="gotoPage({{ $paginator->lastPage() }}, '{{ $paginator->getPageName() }}')"
-                                x-on:click="{{ $scrollIntoViewJsSnippet }}"
-                                rel="next"
-                            >
-                                {{ $paginator->lastPage() }}
-                            </a>
-                        </li>
                     @else
-                        <li class="pagination__current">{{ $paginator->lastPage() }}</li>
+                        @for ($page = max(2, $paginator->currentPage() - 3); $page <= $paginator->currentPage(); $page++)
+                            @if ($page === $paginator->currentPage())
+                                <li class="pagination__current">{{ $page }}</li>
+                            @else
+                                <li>
+                                    <a
+                                        class="pagination__link"
+                                        href="{{ $paginator->url($page) }}"
+                                        wire:click.prevent="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')"
+                                        x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                    >
+                                        {{ $page }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endfor
+
+                        @if ($paginator->hasMorePages())
+                            <li>
+                                <a
+                                    class="pagination__link"
+                                    href="{{ $paginator->url($paginator->currentPage() + 1) }}"
+                                    wire:click.prevent="gotoPage({{ $paginator->currentPage() + 1 }}, '{{ $paginator->getPageName() }}')"
+                                    x-on:click="{{ $scrollIntoViewJsSnippet }}"
+                                    rel="next"
+                                >
+                                    {{ $paginator->currentPage() + 1 }}
+                                </a>
+                            </li>
+                        @endif
                     @endif
                 </ul>
             </li>

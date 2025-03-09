@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
+use App\Enums\ModerationStatus;
 use App\Models\PlaylistTorrent;
 use App\Models\User;
 use App\Models\Wish;
@@ -28,7 +29,7 @@ readonly class TorrentSearchFiltersDTO
     private ?User $user;
 
     public function __construct(
-        User $user = null,
+        ?User $user = null,
         private string $name = '',
         private string $description = '',
         private string $mediainfo = '',
@@ -69,8 +70,6 @@ readonly class TorrentSearchFiltersDTO
         private bool $doubleup = false,
         private bool $featured = false,
         private bool $refundable = false,
-        private bool $stream = false,
-        private bool $sd = false,
         private bool $highspeed = false,
         private bool $internal = false,
         private bool $trumpable = false,
@@ -308,7 +307,14 @@ readonly class TorrentSearchFiltersDTO
                     ->when(
                         config('other.freeleech'),
                         fn ($query) => $query->whereBetween('free', [0, 100]),
-                        fn ($query) => $query->whereIntegerInRaw('free', (array) $this->free)
+                        fn ($query) => $query->where(
+                            fn ($query) => $query
+                                ->whereIntegerInRaw('free', (array) $this->free)
+                                ->when(
+                                    \in_array(100, $this->free, false),
+                                    fn ($query) => $query->orWhereHas('featured')
+                                )
+                        )
                     )
             )
             ->when($this->filename !== '', fn ($query) => $query->whereRelation('files', 'name', '=', $this->filename))
@@ -335,16 +341,21 @@ readonly class TorrentSearchFiltersDTO
                             )
                     )
             )
-            ->when($this->doubleup, fn ($query) => $query->where('doubleup', '=', 1))
-            ->when($this->featured, fn ($query) => $query->where('featured', '=', 1))
+            ->when(
+                $this->doubleup,
+                fn ($query) => $query->where(
+                    fn ($query) => $query
+                        ->where('doubleup', '=', 1)
+                        ->orWhereHas('featured')
+                )
+            )
+            ->when($this->featured, fn ($query) => $query->has('featured'))
             ->when($this->refundable, fn ($query) => $query->where('refundable', '=', true))
-            ->when($this->stream, fn ($query) => $query->where('stream', '=', 1))
-            ->when($this->sd, fn ($query) => $query->where('sd', '=', 1))
             ->when($this->highspeed, fn ($query) => $query->where('highspeed', '=', 1))
             ->when($this->userBookmarked, fn ($query) => $query->whereRelation('bookmarks', 'user_id', '=', $this->user->id))
             ->when($this->userWished, fn ($query) => $query->whereIn('tmdb', Wish::select('tmdb')->where('user_id', '=', $this->user->id)))
             ->when($this->internal, fn ($query) => $query->where('internal', '=', 1))
-            ->when($this->personalRelease, fn ($query) => $query->where('personal_release', '=', 1))
+            ->when($this->personalRelease, fn ($query) => $query->where('personal_release', '=', true))
             ->when($this->trumpable, fn ($query) => $query->has('trump'))
             ->when($this->alive, fn ($query) => $query->where('seeders', '>', 0))
             ->when($this->dying, fn ($query) => $query->where('seeders', '=', 1)->where('times_completed', '>=', 3))
@@ -408,7 +419,7 @@ readonly class TorrentSearchFiltersDTO
 
         $filters = [
             'deleted_at IS NULL',
-            'status = 1',
+            'status = '.ModerationStatus::APPROVED->value,
         ];
 
         if ($this->uploader !== '') {
@@ -542,12 +553,22 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->free !== []) {
             if (!config('other.freeleech')) {
-                $filters[] = 'free IN '.json_encode(array_map('intval', $this->free));
+                if (\in_array(100, $this->free, false)) {
+                    $filters[] = [
+                        'free IN '.json_encode(array_map('intval', $this->free)),
+                        'featured = true',
+                    ];
+                } else {
+                    $filters[] = 'free IN '.json_encode(array_map('intval', $this->free));
+                }
             }
         }
 
         if ($this->doubleup) {
-            $filters[] = 'doubleup = true';
+            $filters[] = [
+                'doubleup = true',
+                'featured = true',
+            ];
         }
 
         if ($this->featured) {
@@ -556,14 +577,6 @@ readonly class TorrentSearchFiltersDTO
 
         if ($this->refundable) {
             $filters[] = 'refundable = true';
-        }
-
-        if ($this->stream) {
-            $filters[] = 'stream = true';
-        }
-
-        if ($this->sd) {
-            $filters[] = 'sd = true';
         }
 
         if ($this->highspeed) {

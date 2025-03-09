@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Meilisearch\Client;
@@ -30,7 +31,7 @@ class QuickSearchController extends Controller
 
         $filters = [
             'deleted_at IS NULL',
-            'status = 1',
+            'status = '.ModerationStatus::APPROVED->value,
             [
                 'category.movie_meta = true',
                 'category.tv_meta = true',
@@ -87,7 +88,7 @@ class QuickSearchController extends Controller
                     'id'    => $hit['id'],
                     'name'  => $hit[$type]['name'],
                     'year'  => $hit[$type]['year'],
-                    'image' => $hit[$type]['poster'] ? tmdb_image('poster_small', $hit[$type]['poster']) : 'https://via.placeholder.com/90x135',
+                    'image' => $hit[$type]['poster'] ? tmdb_image('poster_small', $hit[$type]['poster']) : ($hit['name'][0] ?? '').($hit['name'][1] ?? ''),
                     'url'   => route('torrents.similar', ['category_id' => $hit['category']['id'], 'tmdb' => $hit['tmdb']]),
                     'type'  => $type === 'movie' ? 'Movie' : 'TV Series',
                 ];
@@ -96,7 +97,7 @@ class QuickSearchController extends Controller
                     'id'    => $hit['id'],
                     'name'  => $hit['name'],
                     'year'  => $hit['birthday'],
-                    'image' => $hit['still'] ? tmdb_image('poster_small', $hit['still']) : 'https://via.placeholder.com/90x135',
+                    'image' => $hit['still'] ? tmdb_image('poster_small', $hit['still']) : ($hit['name'][0] ?? '').(str($hit['name'])->explode(' ')->last()[0] ?? ''),
                     'url'   => route('mediahub.persons.show', ['id' => $hit['id']]),
                     'type'  => 'Person',
                 ];

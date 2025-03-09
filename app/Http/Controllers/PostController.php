@@ -105,7 +105,10 @@ class PostController extends Controller
         if (config('other.staff-forum-notify') && ($forum->id == config('other.staff-forum-id') || $forum->forum_category_id == config('other.staff-forum-id'))) {
             $staffers = User::query()
                 ->where('id', '!=', $user->id)
-                ->whereRelation('group', 'is_modo', '=', true)
+                ->whereRelation('forumPermissions', [
+                    ['read_topic', '=', 1],
+                    ['forum_id', '=', $forum->id],
+                ])
                 ->get();
 
             foreach ($staffers as $staffer) {
@@ -117,9 +120,7 @@ class PostController extends Controller
             $topicStarter = $topic->user;
 
             // Notify All Subscribers Of New Reply
-            if ($topicStarter && $topicStarter->isNot($user) && $topicStarter->acceptsNotification($user, $topicStarter, 'forum', 'show_forum_topic')) {
-                $topicStarter->notify(new NewPost('topic', $user, $post));
-            }
+            $topicStarter->notify(new NewPost('topic', $user, $post));
 
             $subscribers = User::query()
                 ->where('id', '!=', $user->id)
@@ -136,9 +137,7 @@ class PostController extends Controller
                 ->get();
 
             foreach ($subscribers as $subscriber) {
-                if ($subscriber->acceptsNotification($user, $subscriber, 'subscription', 'show_subscription_topic')) {
-                    $subscriber->notify(new NewPost('subscription', $user, $post));
-                }
+                $subscriber->notify(new NewPost('subscription', $user, $post));
             }
 
             // Achievements
@@ -162,7 +161,7 @@ class PostController extends Controller
         Notification::send($users, new NewPostTag($post));
 
         return redirect()->to($realUrl)
-            ->withSuccess(trans('forum.reply-topic-success'));
+            ->with('success', trans('forum.reply-topic-success'));
     }
 
     /**
@@ -211,7 +210,7 @@ class PostController extends Controller
         ]);
 
         return redirect()->to($postUrl)
-            ->withSuccess(trans('forum.edit-post-success'));
+            ->with('success', trans('forum.edit-post-success'));
     }
 
     /**
@@ -262,10 +261,10 @@ class PostController extends Controller
 
         if ($isTopicDeleted === true) {
             return to_route('forums.show', ['id' => $forum->id])
-                ->withSuccess(trans('forum.delete-post-success'));
+                ->with('success', trans('forum.delete-post-success'));
         }
 
         return to_route('topics.show', ['id' => $post->topic->id])
-            ->withSuccess(trans('forum.delete-post-success'));
+            ->with('success', trans('forum.delete-post-success'));
     }
 }

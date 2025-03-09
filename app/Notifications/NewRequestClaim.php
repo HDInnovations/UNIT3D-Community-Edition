@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Notifications;
 
+use App\Models\User;
 use App\Models\TorrentRequestClaim;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -40,6 +41,29 @@ class NewRequestClaim extends Notification implements ShouldQueue
     public function via(object $notifiable): array
     {
         return ['database'];
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        // Do not notify self
+        if ($this->claim->user_id === $notifiable->id) {
+            return false;
+        }
+
+        if ($notifiable->notification?->block_notifications === 1) {
+            return false;
+        }
+
+        if ($notifiable->notification?->show_request_claim === 0) {
+            return false;
+        }
+
+        // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+        // the expression will return false.
+        return ! \in_array($this->claim->user->group_id, $notifiable->notification?->json_request_groups ?? [], true);
     }
 
     /**

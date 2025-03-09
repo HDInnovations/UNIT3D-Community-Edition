@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>Request - {{ config('other.title') }} - {{ $torrentRequest->name }}</title>
@@ -137,7 +137,7 @@
                 {{ $torrentRequest->bounty }} {{ __('bon.bon') }}
             </h2>
             <div class="panel__body bbcode-rendered">
-                @joypixels($torrentRequest->getDescriptionHtml())
+                @bbcode($torrentRequest->description)
             </div>
         </section>
         @if ($torrentRequest->claim !== null && $torrentRequest->torrent === null)

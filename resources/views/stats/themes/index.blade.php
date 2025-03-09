@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('stat.stats') }} - {{ config('other.title') }}</title>
@@ -83,6 +83,10 @@
                                     @break
                                 @case('14')
                                     Material Design 3 Amoled Theme
+
+                                    @break
+                                @case('15')
+                                    Material Design 3 Navy Theme
 
                                     @break
                             @endswitch

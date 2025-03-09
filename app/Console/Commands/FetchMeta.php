@@ -36,7 +36,7 @@ class FetchMeta extends Command
      *
      * @var string
      */
-    protected $description = 'Fetchs Meta Data For New System On Preexxsisting Torrents';
+    protected $description = 'Fetches Meta Data For New System On Preexisting Torrents';
 
     /**
      * Execute the console command.

@@ -1,4 +1,4 @@
-<div class="sidebar2">
+<article class="sidebar2">
     <div>
         <section class="panelV2">
             <h2 class="panel__heading">{{ $category->description }}</h2>
@@ -69,7 +69,7 @@
                             id="sorting"
                             class="form__select"
                             name="sorting"
-                            wire:mode.livel="label"
+                            wire:mode.live="label"
                         >
                             <option value="" selected default>Any</option>
                             <option value="approved">
@@ -178,4 +178,4 @@
             </div>
         </section>
     </aside>
-</div>
+</article>

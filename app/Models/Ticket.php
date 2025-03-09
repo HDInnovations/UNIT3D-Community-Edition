@@ -29,8 +29,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $category_id
  * @property int                             $priority_id
  * @property int|null                        $staff_id
- * @property int|null                        $user_read
- * @property int|null                        $staff_read
+ * @property bool                            $user_read
+ * @property bool                            $staff_read
  * @property string                          $subject
  * @property string                          $body
  * @property \Illuminate\Support\Carbon|null $closed_at
@@ -51,11 +51,13 @@ class Ticket extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{closed_at: 'datetime', reminded_at: 'datetime'}
+     * @return array{user_read: 'bool', staff_read: 'bool', closed_at: 'datetime', reminded_at: 'datetime'}
      */
     protected function casts(): array
     {
         return [
+            'user_read'   => 'bool',
+            'staff_read'  => 'bool',
             'closed_at'   => 'datetime',
             'reminded_at' => 'datetime',
         ];

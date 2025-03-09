@@ -36,7 +36,7 @@ class UpdateTorrentRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\Unique|string>|string>
+     * @return array<string, list<\Illuminate\Validation\ConditionalRules|\Illuminate\Validation\Rules\ExcludeIf|\Illuminate\Validation\Rules\RequiredIf|\Illuminate\Validation\Rules\Unique|string>>
      */
     public function rules(Request $request): array
     {
@@ -44,6 +44,9 @@ class UpdateTorrentRequest extends FormRequest
 
         /** @var string $torrentId */
         $torrentId = $request->route('id');
+
+        $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->find($torrentId);
+        $user = $request->user()->load('group')->loadExists('internals');
 
         return [
             'name' => [
@@ -124,36 +127,42 @@ class UpdateTorrentRequest extends FormRequest
                 'min:0',
             ],
             'anon' => [
-                'required',
+                'sometimes',
                 'boolean',
-                Rule::when(Torrent::withoutGlobalScope(ApprovedScope::class)->find($request->route('id'))->user_id !== $request->user()->id && !$request->user()->group->is_modo, 'exclude'),
-            ],
-            'stream' => [
-                'required',
-                'boolean',
-            ],
-            'sd' => [
-                'required',
-                'boolean',
+                Rule::requiredIf($torrent->user_id === $user->id || $user->group->is_modo),
+                Rule::excludeIf(!($torrent->user_id === $user->id || $user->group->is_modo)),
             ],
             'personal_release' => [
-                'required',
+                'sometimes',
                 'boolean',
+                Rule::requiredIf($torrent->user_id === $user->id || $user->group->is_modo),
+                Rule::excludeIf(!($torrent->user_id === $user->id || $user->group->is_modo)),
             ],
             'internal' => [
                 'sometimes',
                 'boolean',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'free' => [
                 'sometimes',
+                'integer',
+                'numeric',
                 'between:0,100',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
             'refundable' => [
                 'sometimes',
                 'boolean',
-                Rule::when(!$request->user()->group->is_modo && !$request->user()->group->is_internal, 'prohibited'),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::requiredIf($user->group->is_modo || $user->internals_exists),
+                /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+                Rule::excludeIf(!($user->group->is_modo || $user->internals_exists)),
             ],
         ];
     }

@@ -59,7 +59,7 @@
                         <td>
                             <x-user_tag :anon="false" :user="$note->staffuser" />
                         </td>
-                        {{-- format-ignore-start --}}<td style="white-space: pre-wrap">@joypixels($note->getMessageHtml())</td>{{-- format-ignore-end --}}
+                        {{-- format-ignore-start --}}<td style="white-space: pre-wrap">@linkify($note->message)</td>{{-- format-ignore-end --}}
                         <td>
                             <time
                                 datetime="{{ $note->created_at }}"
@@ -82,6 +82,7 @@
                                     class="data-table__action"
                                     x-data="dialogLivewire"
                                     data-note-id="{{ $note->id }}"
+                                    vv
                                 >
                                     <button
                                         class="form__button form__button--text"
@@ -145,7 +146,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4">No notes</td>
+                        <td colspan="5">No notes</td>
                     </tr>
                 @endforelse
             </tbody>

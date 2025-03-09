@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator $histories
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, History> $histories
  */
 class HistorySearch extends Component
 {
@@ -92,7 +92,7 @@ class HistorySearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<History>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, History>
      */
     #[Computed]
     final public function histories(): \Illuminate\Pagination\LengthAwarePaginator

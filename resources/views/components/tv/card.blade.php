@@ -48,7 +48,7 @@
         <div class="torrent-search--grouped__genres">
             @foreach ($media->genres->take(3) as $genre)
                 <a
-                    href="{{ route('torrents.index', ['view' => 'group', 'genreids' => [$genre->id]]) }}"
+                    href="{{ route('torrents.index', ['view' => 'group', 'genreIds' => [$genre->id]]) }}"
                     class="torrent-search--grouped__genre"
                 >
                     {{ $genre->name }}
@@ -58,7 +58,7 @@
         <p class="torrent-search--grouped__plot">{{ $media->overview ?? '' }}</p>
     </header>
     <section>
-        @if ($media->torrents->has('Complete Pack'))
+        @if (array_key_exists('Complete Pack', $media->torrents))
             <details class="torrent-search--grouped__dropdown" open>
                 <summary x-bind="complete">Complete Pack</summary>
                 <table class="torrent-search--grouped__torrents">
@@ -85,10 +85,10 @@
             </details>
         @endif
 
-        @if ($media->torrents->has('Specials'))
+        @if (array_key_exists('Specials', $media->torrents))
             <details
                 class="torrent-search--grouped__dropdown"
-                @if (! $media->torrents->has('Complete Pack') && ! $media->torrents->has('Seasons'))
+                @if (! array_key_exists('Complete Pack', $media->torrents) && ! array_key_exists('Seasons', $media->torrents))
                     open
                 @endif
             >
@@ -135,7 +135,7 @@
                 @endif
             >
                 <summary x-bind="season">{{ $seasonName }}</summary>
-                @if ($season->has('Season Pack') && ! $season->has('Episodes'))
+                @if (array_key_exists('Season Pack', $season) && ! array_key_exists('Episodes', $season))
                     <table class="torrent-search--grouped__torrents">
                         @foreach ($season['Season Pack'] as $type => $torrents)
                             <tbody>
@@ -157,7 +157,7 @@
                             </tbody>
                         @endforeach
                     </table>
-                @elseif ($season->has('Season Pack'))
+                @elseif (array_key_exists('Season Pack', $season))
                     <details open class="torrent-search--grouped__dropdown">
                         <summary x-bind="pack">Season Pack</summary>
                         <table class="torrent-search--grouped__torrents">
@@ -187,7 +187,7 @@
                 @foreach ($season['Episodes'] ?? [] as $episodeName => $episode)
                     <details
                         class="torrent-search--grouped__dropdown"
-                        @if ($loop->first && ! $season->has('Season Pack'))
+                        @if ($loop->first && ! array_key_exists('Season Pack', $season))
                             open
                         @endif
                     >

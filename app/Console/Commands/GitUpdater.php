@@ -76,15 +76,15 @@ class GitUpdater extends Command
         ');
 
         $this->line('<fg=cyan>
-        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-        
-        IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-        SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE 
-        GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) EVEN IF ADVISED OF THE POSSIBILITY 
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+
+        IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+        SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+        GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) EVEN IF ADVISED OF THE POSSIBILITY
         OF SUCH DAMAGE.
-        
+
         WITH THAT SAID YOU CAN BE GUARANTEED THAT YOUR DATABASE WILL NOT BE ALTERED.
-        
+
         <fg=red>BY PROCEEDING YOU AGREE TO THE ABOVE DISCLAIMER! USE AT YOUR OWN RISK!</>
         </>');
 
@@ -126,7 +126,7 @@ class GitUpdater extends Command
 
                 $this->backup($paths);
 
-                $this->header('Reseting Repository');
+                $this->header('Resetting Repository');
 
                 $this->commands([
                     'git fetch origin',
@@ -153,8 +153,6 @@ class GitUpdater extends Command
                 if ($this->io->confirm('Install new packages (composer install)', true)) {
                     $this->composer();
                 }
-
-                $this->clearComposerCache();
 
                 $this->updateUNIT3DConfig();
 
@@ -306,13 +304,6 @@ class GitUpdater extends Command
     {
         $this->header('Updating UNIT3D Configuration File');
         $this->process('git fetch origin && git checkout origin/master -- config/unit3d.php');
-        $this->done();
-    }
-
-    private function clearComposerCache(): void
-    {
-        $this->header('Clearing Composer Cache');
-        $this->process('composer clear-cache --no-interaction --ansi --verbose');
         $this->done();
     }
 

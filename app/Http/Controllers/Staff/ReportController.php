@@ -40,6 +40,7 @@ class ReportController extends Controller
      */
     public function show(Report $report): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
+        // cspell:ignore punct
         preg_match_all('#\bhttps?://[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))#', (string) $report->message, $match);
 
         return view('Staff.report.show', ['report' => $report, 'urls' => $match[0]]);
@@ -52,12 +53,12 @@ class ReportController extends Controller
     {
         $staff = auth()->user();
 
-        if ($report->solved == 1) {
+        if ($report->solved) {
             return to_route('staff.reports.index')
                 ->withErrors('This Report Has Already Been Solved');
         }
 
-        $report->update(['solved' => 1, 'staff_id' => $staff->id] + $request->validated());
+        $report->update(['solved' => true, 'staff_id' => $staff->id] + $request->validated());
 
         $conversation = Conversation::create(['subject' => 'Your Report Has A New Verdict']);
 
@@ -70,6 +71,6 @@ class ReportController extends Controller
         ]);
 
         return to_route('staff.reports.index')
-            ->withSuccess('Report has been successfully resolved');
+            ->with('success', 'Report has been successfully resolved');
     }
 }

@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator<Rsskey> $rsskeys
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Rsskey> $rsskeys
  */
 class RsskeySearch extends Component
 {
@@ -50,7 +50,7 @@ class RsskeySearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Rsskey>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Rsskey>
      */
     #[Computed]
     final public function rsskeys(): \Illuminate\Pagination\LengthAwarePaginator

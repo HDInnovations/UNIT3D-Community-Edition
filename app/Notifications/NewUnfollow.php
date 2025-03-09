@@ -26,7 +26,7 @@ class NewUnfollow extends Notification implements ShouldQueue
     use Queueable;
 
     /**
-     * NewUnfolllow Constructor.
+     * NewUnfollow Constructor.
      */
     public function __construct(public string $type, public User $unfollower)
     {
@@ -40,6 +40,24 @@ class NewUnfollow extends Notification implements ShouldQueue
     public function via(object $notifiable): array
     {
         return ['database'];
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        if ($notifiable->notification?->block_notifications === 1) {
+            return false;
+        }
+
+        if ($notifiable->notification?->show_account_unfollow === 0) {
+            return false;
+        }
+
+        // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+        // the expression will return false.
+        return ! \in_array($this->unfollower->group_id, $notifiable->notification?->json_account_groups ?? [], true);
     }
 
     /**

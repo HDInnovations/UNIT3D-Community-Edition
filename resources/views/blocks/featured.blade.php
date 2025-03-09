@@ -47,7 +47,7 @@
                 "
             >
                 @foreach ($featured as $feature)
-                    @if ($feature->torrent === null || $feature->torrent->status !== \App\Models\Torrent::APPROVED)
+                    @if ($feature->torrent === null || $feature->torrent->status !== \App\Enums\ModerationStatus::APPROVED)
                         @continue
                     @endif
 

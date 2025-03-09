@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 return [
     'articles'      => 'Artikel',
-    'meta-articles' => 'Artikel und Neuigkeiten zum Tracker und zur Community',
+    'meta-articles' => 'Artikel und Neuigkeiten zum Tracker und der Community',
     'published-at'  => 'Veröffentlicht am ',
     'read-more'     => 'Weiterlesen',
 ];

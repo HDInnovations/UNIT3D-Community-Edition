@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Staff;
 
+use App\Enums\ModerationStatus;
 use App\Helpers\StringHelper;
 use App\Models\Conversation;
 use App\Services\Unit3dAnnounce;
@@ -40,14 +41,14 @@ class DonationController extends Controller
 
         $dailyDonations = Donation::selectRaw('DATE(donations.created_at) as date, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
-            ->where('donations.status', '=', Donation::APPROVED)
+            ->where('donations.status', '=', ModerationStatus::APPROVED)
             ->groupBy('date')
             ->orderBy('date')
             ->get();
 
         $monthlyDonations = Donation::selectRaw('EXTRACT(YEAR FROM donations.created_at) as year, EXTRACT(MONTH FROM donations.created_at) as month, SUM(donation_packages.cost) as total')
             ->join('donation_packages', 'donations.package_id', '=', 'donation_packages.id')
-            ->where('donations.status', '=', Donation::APPROVED)
+            ->where('donations.status', '=', ModerationStatus::APPROVED)
             ->groupBy('year', 'month')
             ->orderBy('year')
             ->orderBy('month')
@@ -70,7 +71,7 @@ class DonationController extends Controller
         $now = Carbon::now();
 
         $donation = Donation::with(['user', 'package'])->findOrFail($id);
-        $donation->status = Donation::APPROVED;
+        $donation->status = ModerationStatus::APPROVED;
         $donation->starts_at = $now;
 
         if ($donation->package->donor_value > 0) {
@@ -103,7 +104,7 @@ class DonationController extends Controller
         Unit3dAnnounce::addUser($donation->user);
 
         return redirect()->route('staff.donations.index')
-            ->withSuccess('Donation Approved!');
+            ->with('success', 'Donation Approved!');
     }
 
     /**
@@ -114,7 +115,7 @@ class DonationController extends Controller
         abort_unless($request->user()->group->is_owner, 403);
 
         $donation = Donation::findOrFail($id);
-        $donation->status = Donation::REJECTED;
+        $donation->status = ModerationStatus::REJECTED;
 
         $conversation = Conversation::create(['subject' => 'Your donation from '.$donation->created_at.', has been rejected by '.$request->user()->username]);
         $conversation->users()->sync([$request->user()->id => ['read' => true], $donation->user_id]);
@@ -128,6 +129,6 @@ class DonationController extends Controller
         $donation->save();
 
         return redirect()->route('staff.donations.index')
-            ->withSuccess('Donation Rejected!');
+            ->with('success', 'Donation Rejected!');
     }
 }

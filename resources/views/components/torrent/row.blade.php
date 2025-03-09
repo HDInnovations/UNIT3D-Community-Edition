@@ -55,9 +55,9 @@
                 @endif
 
                 @if ($torrent->category->no_meta)
-                    @if (file_exists(public_path() . '/files/img/torrent-cover_' . $torrent->id . '.jpg'))
+                    @if (Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg"))
                         <img
-                            src="{{ url('files/img/torrent-cover_' . $torrent->id . '.jpg') }}"
+                            src="{{ route('authenticated_images.torrent_cover', ['torrent' => $torrent]) }}"
                             class="torrent-search--list__poster-img"
                             loading="lazy"
                             alt="{{ __('torrent.similar') }}"
@@ -80,7 +80,7 @@
             <div class="torrent-search--list__category">
                 @if ($torrent->category->image !== null)
                     <img
-                        src="{{ url('files/img/' . $torrent->category->image) }}"
+                        src="{{ route('authenticated_images.category_image', ['category' => $torrent->category]) }}"
                         title="{{ $torrent->category->name }} {{ strtolower(__('torrent.torrent')) }}"
                         alt="{{ $torrent->category->name }}"
                         loading="lazy"
@@ -169,7 +169,7 @@
             @endif
             @if (config('torrent.magnet'))
                 <a
-                    class="torrent-search--list__maget form__contained-icon-button form__contained-icon-button--filled"
+                    class="torrent-search--list__magnet form__contained-icon-button form__contained-icon-button--filled"
                     href="magnet:?dn={{ $torrent->name }}&xt=urn:btih:{{ bin2hex($torrent->info_hash) }}&as={{ route('torrent.download.rsskey', ['id' => $torrent->id, 'rsskey' => auth()->user()->rsskey]) }}&tr={{ route('announce', ['passkey' => auth()->user()->passkey]) }}&xl={{ $torrent->size }}"
                     download
                     title="{{ __('common.magnet') }}"

@@ -21,7 +21,10 @@ use App\Helpers\HiddenCaptcha;
 use App\Interfaces\ByteUnitsInterface;
 use App\Models\User;
 use App\Observers\UserObserver;
+use App\View\Composers\FooterComposer;
+use App\View\Composers\TopNavComposer;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
@@ -54,6 +57,12 @@ class AppServiceProvider extends ServiceProvider
         // Hidden Captcha
         Blade::directive('hiddencaptcha', fn ($mustBeEmptyField = '_username') => \sprintf('<?= App\Helpers\HiddenCaptcha::render(%s); ?>', $mustBeEmptyField));
 
+        // BBcode
+        Blade::directive('bbcode', fn (?string $bbcodeString) => "<?php echo (new \hdvinnie\LaravelJoyPixels\LaravelJoyPixels())->toImage((new \App\Helpers\Linkify())->linky((new \App\Helpers\Bbcode())->parse({$bbcodeString}))); ?>");
+
+        // Linkify
+        Blade::directive('linkify', fn (?string $contentString) => "<?php echo (new \App\Helpers\Linkify)->linky(e({$contentString})); ?>");
+
         $this->app['validator']->extendImplicit(
             'hiddencaptcha',
             function ($attribute, $value, $parameters, $validator) {
@@ -78,5 +87,8 @@ class AppServiceProvider extends ServiceProvider
         Vite::useStyleTagAttributes([
             'crossorigin' => 'anonymous',
         ]);
+
+        View::composer('partials.footer', FooterComposer::class);
+        View::composer('partials.top_nav', TopNavComposer::class);
     }
 }

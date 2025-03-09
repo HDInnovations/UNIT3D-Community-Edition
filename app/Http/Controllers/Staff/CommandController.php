@@ -35,23 +35,23 @@ class CommandController extends Controller
     /**
      * Bring Site Into Maintenance Mode.
      */
-    public function maintanceEnable(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
+    public function maintenanceEnable(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         Artisan::call('down');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
      * Bring Site Out Of Maintenance Mode.
      */
-    public function maintanceDisable(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
+    public function maintenanceDisable(): \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse
     {
         Artisan::call('up');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -62,7 +62,7 @@ class CommandController extends Controller
         Artisan::call('cache:clear');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -73,7 +73,7 @@ class CommandController extends Controller
         Artisan::call('view:clear');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -84,7 +84,7 @@ class CommandController extends Controller
         Artisan::call('route:clear');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -95,7 +95,7 @@ class CommandController extends Controller
         Artisan::call('config:clear');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -106,7 +106,7 @@ class CommandController extends Controller
         Artisan::call('clear:all_cache');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -117,7 +117,7 @@ class CommandController extends Controller
         Artisan::call('set:all_cache');
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(Artisan::output()));
+            ->with('info', trim(Artisan::output()));
     }
 
     /**
@@ -130,6 +130,6 @@ class CommandController extends Controller
         ]);
 
         return to_route('staff.commands.index')
-            ->withInfo(trim(str_replace(["\r", "\n", '*'], '', Artisan::output())));
+            ->with('info', trim(str_replace(["\r", "\n", '*'], '', Artisan::output())));
     }
 }

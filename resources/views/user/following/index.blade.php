@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ $user->username }} {{ __('user.following') }} - {{ config('other.title') }}</title>
@@ -19,7 +19,7 @@
     @include('user.buttons.user')
 @endsection
 
-@section('content')
+@section('main')
     @if (auth()->id() === $user->id || auth()->user()->group->is_modo)
         <section class="panelV2">
             <h2 class="panel__heading">{{ __('user.following') }}</h2>
@@ -37,7 +37,7 @@
                             <tr>
                                 <td>
                                     <img
-                                        src="{{ url($following->image === null ? 'img/profile.png' : 'files/img/' . $following->image) }}"
+                                        src="{{ $following->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $following]) }}"
                                         alt=""
                                         class="user-search__avatar"
                                     />

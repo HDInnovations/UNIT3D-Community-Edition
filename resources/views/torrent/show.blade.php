@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>
@@ -50,7 +50,7 @@
     @include('torrent.partials.buttons')
 
     {{-- Tools Block --}}
-    @if (auth()->user()->group->is_internal || auth()->user()->group->is_editor || auth()->user()->group->is_modo || (auth()->id() === $torrent->user_id && $canEdit))
+    @if (auth()->user()->internals()->exists() ||auth()->user()->group->is_editor ||auth()->user()->group->is_modo ||(auth()->id() === $torrent->user_id && $canEdit))
         @include('torrent.partials.tools')
     @endif
 
@@ -82,6 +82,6 @@
     {{-- Extra Meta Block --}}
     @include('torrent.partials.extra_meta')
 
-    {{-- Commments Block --}}
+    {{-- Comments Block --}}
     @include('torrent.partials.comments')
 @endsection

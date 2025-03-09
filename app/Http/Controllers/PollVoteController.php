@@ -53,7 +53,7 @@ class PollVoteController extends Controller
         );
 
         return to_route('polls.votes.index', ['poll' => $poll])
-            ->withSuccess(trans('poll.vote-counted'));
+            ->with('success', trans('poll.vote-counted'));
     }
 
     /**

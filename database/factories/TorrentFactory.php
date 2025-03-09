@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Enums\ModerationStatus;
 use App\Models\Category;
 use App\Models\Resolution;
 use App\Models\Torrent;
@@ -47,7 +48,7 @@ class TorrentFactory extends Factory
             'file_name'       => $this->faker->word(),
             'num_file'        => $this->faker->randomNumber(),
             'size'            => $this->faker->randomFloat(),
-            'nfo'             => $this->faker->text(),
+            'nfo'             => '',
             'leechers'        => $this->faker->randomNumber(),
             'seeders'         => $this->faker->randomNumber(),
             'times_completed' => $this->faker->randomNumber(),
@@ -60,17 +61,14 @@ class TorrentFactory extends Factory
             'igdb'            => $this->faker->randomNumber(),
             'type_id'         => fn () => Type::factory()->create()->id,
             'resolution_id'   => fn () => Resolution::factory()->create()->id,
-            'stream'          => $this->faker->boolean(),
             'free'            => $freeleech[$selected],
             'doubleup'        => $this->faker->boolean(),
             'highspeed'       => $this->faker->boolean(),
-            'featured'        => false,
-            'status'          => Torrent::APPROVED,
+            'status'          => ModerationStatus::APPROVED,
             'moderated_at'    => now(),
             'moderated_by'    => 1,
             'anon'            => $this->faker->boolean(),
             'sticky'          => $this->faker->boolean(),
-            'sd'              => $this->faker->boolean(),
             'internal'        => $this->faker->boolean(),
         ];
     }

@@ -45,7 +45,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->bumped_at = Carbon::now();
         $torrent->save();
@@ -68,7 +68,7 @@ class TorrentBuffController extends Controller
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent Has Been Bumped To The Top Successfully!');
+            ->with('success', 'Torrent Has Been Bumped To The Top Successfully!');
     }
 
     /**
@@ -78,13 +78,13 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent->sticky = !$torrent->sticky;
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent Sticky Status Has Been Adjusted!');
+            ->with('success', 'Torrent Sticky Status Has Been Adjusted!');
     }
 
     /**
@@ -94,7 +94,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
@@ -128,7 +128,7 @@ class TorrentBuffController extends Controller
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent FL Has Been Adjusted!');
+            ->with('success', 'Torrent FL Has Been Adjusted!');
     }
 
     /**
@@ -138,13 +138,10 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
-        if ($torrent->featured === false) {
-            $torrent->featured = true;
-            $torrent->save();
-
+        if ($torrent->featured()->doesntExist()) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
 
             $featured = new FeaturedTorrent();
@@ -161,7 +158,7 @@ class TorrentBuffController extends Controller
             );
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withSuccess('Torrent Is Now Featured!');
+                ->with('success', 'Torrent Is Now Featured!');
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
@@ -180,8 +177,6 @@ class TorrentBuffController extends Controller
         $featured_torrent = FeaturedTorrent::where('torrent_id', '=', $id)->sole();
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
-        $torrent->featured = false;
-        $torrent->save();
 
         Unit3dAnnounce::removeFeaturedTorrent($torrent->id);
 
@@ -196,7 +191,7 @@ class TorrentBuffController extends Controller
         cache()->forget('featured-torrent-ids');
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Revoked featured from Torrent!');
+            ->with('success', 'Revoked featured from Torrent!');
     }
 
     /**
@@ -206,7 +201,7 @@ class TorrentBuffController extends Controller
     {
         $user = $request->user();
 
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrentUrl = href_torrent($torrent);
 
@@ -238,7 +233,7 @@ class TorrentBuffController extends Controller
         Unit3dAnnounce::addTorrent($torrent);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent DoubleUpload Has Been Adjusted!');
+            ->with('success', 'Torrent DoubleUpload Has Been Adjusted!');
     }
 
     /**
@@ -267,20 +262,20 @@ class TorrentBuffController extends Controller
             $torrent->searchable();
 
             return to_route('torrents.show', ['id' => $torrent->id])
-                ->withSuccess('You Have Successfully Activated A Freeleech Token For This Torrent!');
+                ->with('success', 'You Have Successfully Activated A Freeleech Token For This Torrent!');
         }
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withErrors('You Dont Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
+            ->withErrors('You Don\'t Have Enough Freeleech Tokens Or Already Have One Activated On This Torrent.');
     }
 
     /**
-     * Set Torrents Refudable Status.
+     * Set Torrents Refundable Status.
      */
     public function setRefundable(Request $request, int $id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        abort_unless($user->group->is_modo || $user->group->is_internal, 403);
+        abort_unless($user->group->is_modo || $user->internals()->exists(), 403);
 
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
         $torrent_url = href_torrent($torrent);
@@ -302,6 +297,6 @@ class TorrentBuffController extends Controller
         $torrent->save();
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess('Torrent\'s Refundable Status Has Been Adjusted!');
+            ->with('success', 'Torrent\'s Refundable Status Has Been Adjusted!');
     }
 }

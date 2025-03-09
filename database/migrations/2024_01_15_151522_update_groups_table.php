@@ -28,35 +28,23 @@ return new class () extends Migration {
 
         DB::table('groups')->upsert([
             [
-                'name'             => 'Editor',
-                'slug'             => 'editor',
-                'position'         => 17,
-                'color'            => '#15B097',
-                'icon'             => config('other.font-awesome').' fa-user-pen',
-                'effect'           => 'none',
-                'autogroup'        => false,
-                'system_required'  => false,
-                'is_owner'         => false,
-                'is_admin'         => false,
-                'is_modo'          => false,
-                'is_torrent_modo'  => false,
-                'is_editor'        => true,
-                'is_internal'      => false,
-                'is_uploader'      => false,
-                'is_trusted'       => true,
-                'is_freeleech'     => true,
-                'is_immune'        => true,
-                'can_upload'       => true,
-                'can_chat'         => true,
-                'can_comment'      => true,
-                'can_invite'       => true,
-                'can_request'      => true,
-                'level'            => 0,
-                'min_uploaded'     => null,
-                'min_seedsize'     => null,
-                'min_avg_seedtime' => null,
-                'min_ratio'        => null,
-                'min_age'          => null,
+                'name'         => 'Editor',
+                'slug'         => 'editor',
+                'position'     => 17,
+                'color'        => '#15B097',
+                'icon'         => config('other.font-awesome').' fa-user-pen',
+                'effect'       => 'none',
+                'autogroup'    => false,
+                'is_owner'     => false,
+                'is_admin'     => false,
+                'is_modo'      => false,
+                'is_editor'    => true,
+                'is_internal'  => false,
+                'is_trusted'   => true,
+                'is_freeleech' => true,
+                'is_immune'    => true,
+                'can_upload'   => true,
+                'level'        => 0,
             ]
         ], 'slug');
 
@@ -65,7 +53,7 @@ return new class () extends Migration {
         $forumIds = DB::table('forums')->pluck('id');
 
         foreach ($forumIds as $forumId) {
-            DB::table('forum_permissions')->insert([
+            DB::table('permissions')->insert([
                 'forum_id'    => $forumId,
                 'group_id'    => $group->id,
                 'read_topic'  => false,

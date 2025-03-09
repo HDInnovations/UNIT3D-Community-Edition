@@ -61,13 +61,6 @@
         ></i>
     @endif
 
-    @if ($torrent->stream)
-        <i
-            class="{{ config('other.font-awesome') }} fa-play torrent-icons__stream-optimized"
-            title="{{ __('torrent.stream-optimized') }}"
-        ></i>
-    @endif
-
     @php
         $alwaysFreeleech = $personalFreeleech || $torrent->freeleech_tokens_exists || auth()->user()->group->is_freeleech || auth()->user()->is_donor || config('other.freeleech')
     @endphp
@@ -167,14 +160,7 @@
         ></i>
     @endif
 
-    @if ($torrent->sd)
-        <i
-            class="{{ config('other.font-awesome') }} fa-standard-definition torrent-icons__sd"
-            title="{{ __('torrent.sd-content') }}"
-        ></i>
-    @endif
-
-    @if ($torrent->bumped_at != $torrent->created_at && $torrent->bumped_at < Illuminate\Support\Carbon::now()->addDay(2))
+    @if ($torrent->bumped_at?->notEqualTo($torrent->created_at) && $torrent->bumped_at?->isBefore(now()->addDay(2)))
         <i
             class="{{ config('other.font-awesome') }} fa-level-up-alt torrent-icons__bumped"
             title="{{ __('torrent.recent-bumped') }}: {{ $torrent->bumped_at }}"

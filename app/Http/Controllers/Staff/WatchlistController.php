@@ -41,7 +41,7 @@ class WatchlistController extends Controller
     {
         Watchlist::create(['staff_id' => $request->user()->id] + $request->validated());
 
-        return back()->withSuccess('User Successfully Being Watched');
+        return back()->with('success', 'User Successfully Being Watched');
     }
 
     /**
@@ -53,6 +53,6 @@ class WatchlistController extends Controller
     {
         $watchlist->delete();
 
-        return back()->withSuccess('Successfully Stopped Watching User');
+        return back()->with('success', 'Successfully Stopped Watching User');
     }
 }

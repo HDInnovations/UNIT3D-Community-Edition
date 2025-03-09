@@ -51,7 +51,7 @@ class PlaylistSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Playlist>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Playlist>
      */
     #[Computed]
     final public function playlists()

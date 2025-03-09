@@ -37,7 +37,7 @@ class NetworkSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Network>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Network>
      */
     #[Computed]
     final public function networks(): \Illuminate\Pagination\LengthAwarePaginator

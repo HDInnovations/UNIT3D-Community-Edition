@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire;
 
+use App\Enums\ModerationStatus;
 use App\Models\Application;
 use App\Traits\LivewireSort;
 use Livewire\Attributes\Computed;
@@ -46,7 +47,7 @@ class ApplicationSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Application>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Application>
      */
     #[Computed]
     final public function applications(): \Illuminate\Pagination\LengthAwarePaginator
@@ -58,9 +59,9 @@ class ApplicationSearch extends Component
             'urlProofs'
         ])
             ->when($this->email, fn ($query) => $query->where('email', 'LIKE', '%'.$this->email.'%'))
-            ->when($this->status === '1', fn ($query) => $query->where('status', '=', Application::APPROVED))
-            ->when($this->status === '0', fn ($query) => $query->where('status', '=', Application::PENDING))
-            ->when($this->status === '2', fn ($query) => $query->where('status', '=', Application::REJECTED))
+            ->when($this->status === '1', fn ($query) => $query->where('status', '=', ModerationStatus::APPROVED))
+            ->when($this->status === '0', fn ($query) => $query->where('status', '=', ModerationStatus::PENDING))
+            ->when($this->status === '2', fn ($query) => $query->where('status', '=', ModerationStatus::REJECTED))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

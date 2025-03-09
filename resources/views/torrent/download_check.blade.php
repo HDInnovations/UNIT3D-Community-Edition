@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main-and-sidebar')
 
 @section('title')
     <title>{{ __('torrent.download-check') }} - {{ config('other.title') }}</title>
@@ -116,17 +116,17 @@
             <div class="key-value__group">
                 <dt>{{ __('torrent.moderation') }}</dt>
                 <dd>
-                    @if ($torrent->status === \App\Models\Torrent::REJECTED)
+                    @if ($torrent->status === \App\Enums\ModerationStatus::REJECTED)
                         <span class="text-red">
                             <i class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ strtoupper(__('torrent.rejected')) }}
                         </span>
-                    @elseif ($torrent->status === \App\Models\Torrent::PENDING)
+                    @elseif ($torrent->status === \App\Enums\ModerationStatus::PENDING)
                         <span class="text-orange">
                             <i class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ strtoupper(__('torrent.pending')) }}
                         </span>
-                    @elseif ($torrent->status === \App\Models\Torrent::POSTPONED)
+                    @elseif ($torrent->status === \App\Enums\ModerationStatus::POSTPONED)
                         <span class="text-red">
                             <i class="{{ config('other.font-awesome') }} fa-times"></i>
                             {{ strtoupper(__('torrent.postponed')) }}

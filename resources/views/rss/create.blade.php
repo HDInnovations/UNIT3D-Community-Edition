@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('rss.create-private-feed') }} - {{ config('other.title') }}</title>
@@ -268,21 +268,6 @@
                                 <p class="form__group">
                                     <label class="form__label">
                                         <input
-                                            id="stream"
-                                            class="form__checkbox"
-                                            name="stream"
-                                            type="checkbox"
-                                            value="1"
-                                        />
-                                        <span
-                                            class="{{ config('other.font-awesome') }} fa-play text-red"
-                                        ></span>
-                                        {{ __('torrent.stream-optimized') }}
-                                    </label>
-                                </p>
-                                <p class="form__group">
-                                    <label class="form__label">
-                                        <input
                                             id="highspeed"
                                             class="form__checkbox"
                                             name="highspeed"
@@ -293,21 +278,6 @@
                                             class="{{ config('other.font-awesome') }} fa-tachometer text-red"
                                         ></span>
                                         {{ __('common.high-speeds') }}
-                                    </label>
-                                </p>
-                                <p class="form__group">
-                                    <label class="form__label">
-                                        <input
-                                            id="sd"
-                                            class="form__checkbox"
-                                            name="sd"
-                                            type="checkbox"
-                                            value="1"
-                                        />
-                                        <span
-                                            class="{{ config('other.font-awesome') }} fa-ticket text-orange"
-                                        ></span>
-                                        {{ __('torrent.sd-content') }}
                                     </label>
                                 </p>
                                 <p class="form__group">

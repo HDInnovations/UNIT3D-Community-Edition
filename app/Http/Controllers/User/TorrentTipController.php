@@ -75,6 +75,6 @@ class TorrentTipController extends Controller
             }
         });
 
-        return redirect()->back()->withSuccess(trans('bon.success-tip'));
+        return redirect()->back()->with('success', trans('bon.success-tip'));
     }
 }

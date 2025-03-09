@@ -26,7 +26,7 @@ class SubscribedTopic extends Component
     use WithPagination;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Topic>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Topic>
      */
     #[Computed]
     final public function topics(): \Illuminate\Pagination\LengthAwarePaginator
@@ -37,7 +37,7 @@ class SubscribedTopic extends Component
                 'user.group',
                 'latestPoster',
                 'forum',
-                'reads' => fn ($query) => $query->whereBelongsto(auth()->user()),
+                'reads' => fn ($query) => $query->whereBelongsTo(auth()->user()),
             ])
             ->whereRelation('subscribedUsers', 'users.id', '=', auth()->id())
             ->authorized(canReadTopic: true)

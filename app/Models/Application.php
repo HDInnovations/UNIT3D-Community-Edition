@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\ModerationStatus;
 use App\Models\Scopes\ApprovedScope;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string                          $type
  * @property string                          $email
  * @property string|null                     $referrer
- * @property int                             $status
+ * @property ModerationStatus                $status
  * @property \Illuminate\Support\Carbon|null $moderated_at
  * @property int|null                        $moderated_by
  * @property int|null                        $accepted_by
@@ -42,19 +43,16 @@ class Application extends Model
     /** @use HasFactory<\Database\Factories\ApplicationFactory> */
     use HasFactory;
 
-    final public const PENDING = 0;
-    final public const APPROVED = 1;
-    final public const REJECTED = 2;
-
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{moderated_at: 'datetime'}
+     * @return array{moderated_at: 'datetime', status: class-string<ModerationStatus>}
      */
     protected function casts(): array
     {
         return [
             'moderated_at' => 'datetime',
+            'status'       => ModerationStatus::class,
         ];
     }
 

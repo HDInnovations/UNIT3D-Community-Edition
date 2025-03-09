@@ -35,7 +35,7 @@ class CommentFactory extends Factory
     {
         return [
             'content'          => $this->faker->text(),
-            'anon'             => $this->faker->randomNumber(),
+            'anon'             => $this->faker->boolean(),
             'user_id'          => User::factory(),
             'parent_id'        => null,
             'commentable_type' => $this->faker->word(),

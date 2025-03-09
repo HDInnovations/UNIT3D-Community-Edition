@@ -252,6 +252,7 @@
     --scrollbar-color: #0004;
 
     --secondary-nav-bg: #000;
+    --secondary-nav-box-shadow: none;
     --secondary-nav-tab-fg: #fff;
     --secondary-nav-tab-bg: inherit;
     --secondary-nav-tab-active-text-decoration: underline #ddd 2px;
@@ -347,13 +348,11 @@
     --torrent-row-comments-fg: #3fb618;
     --torrent-row-internal-fg: #baaf94;
     --torrent-row-personal-fg: #865be9;
-    --torrent-row-stream-optimized-fg: #ff0039;
     --torrent-row-featured-fg: #f92672;
     --torrent-row-freeleech-fg: #ffb800;
     --torrent-row-double-upload-fg: #4cb828;
     --torrent-row-sticky-fg: #444;
     --torrent-row-highspeed-fg: #ff0039;
-    --torrent-row-sd-fg: #ff7518;
     --torrent-row-bumped-fg: #f9ba13;
 
     --torrent-tag-fg: #eee;
@@ -413,26 +412,39 @@
     border-bottom-right-radius: var(--panel-border-radius);
 }
 
-.data-table tr:last-of-type td:first-of-type,
-.data-table
-    > thead:not(:has(+ tbody > tr)):not(:has(tfoot))
-    > tr
-    > th:first-of-type {
+/* Bottom-left-most table header which doesn't have a following tbody, tfoot nor pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table
+    > thead:not(:has(+ tbody > tr)):not(:has(~ tfoot > tr))
+    > tr:last-of-type
+    > th:first-of-type,
+/* Bottom-left-most tbody table row cell which doesn't have a following tfoot nor pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type td:first-of-type,
+/* Bottom-left-most tfoot table row cell which doesn't have a following pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tfoot > tr:last-of-type > td:first-of-type {
     border-bottom-left-radius: var(--panel-border-radius);
 }
 
-.data-table tr:last-of-type td:last-of-type,
-.data-table
+/* Unhidden bottom-right-most table cell on bon earning calculation page */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table
     tr:last-of-type
     td:not([style='display: none;']):has(+ td[style='display: none;']),
-.data-table
-    > thead:not(:has(+ tbody > tr)):not(:has(tfoot))
-    > tr
-    > th:last-of-type {
+/* Bottom-right-most table header which doesn't have a following tbody, tfoot nor pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table
+    > thead:not(:has(+ tbody > tr)):not(:has(~ tfoot > tr))
+    > tr:last-of-type
+    > th:last-of-type,
+/* Bottom-right-most tbody table row cell which doesn't have a following tfoot nor pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tbody:not(:has(~ tfoot > tr)) > tr:last-of-type td:last-of-type,
+/* Bottom-right-most tfoot table row cell which doesn't have a following pagination */
+.data-table-wrapper:not(:has(+ .pagination)) >.data-table > tfoot > tr:last-of-type > td:last-of-type {
     border-bottom-right-radius: var(--panel-border-radius);
 }
 
-.data-table > thead:not(:has(+ tbody > tr)):not(:has(tfoot)) > tr > th {
+/* Bottom-most table header cells which don't have a following tbody nor tfoot */
+.data-table
+    > thead:not(:has(+ tbody > tr)):not(:has(~ tfoot > tr))
+    > tr:last-of-type
+    > th {
     border-bottom: none;
 }
 

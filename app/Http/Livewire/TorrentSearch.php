@@ -35,7 +35,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Closure;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Meilisearch\Client;
 
@@ -170,12 +169,6 @@ class TorrentSearch extends Component
 
     #[Url(history: true)]
     public bool $refundable = false;
-
-    #[Url(history: true)]
-    public bool $stream = false;
-
-    #[Url(history: true)]
-    public bool $sd = false;
 
     #[Url(history: true)]
     public bool $highspeed = false;
@@ -341,9 +334,6 @@ class TorrentSearch extends Component
             ->pluck('original_language');
     }
 
-    /**
-     * @return Closure(Builder<Torrent>): Builder<Torrent>
-     */
     final public function filters(): TorrentSearchFiltersDTO
     {
         return (new TorrentSearchFiltersDTO(
@@ -382,8 +372,6 @@ class TorrentSearch extends Component
             doubleup: $this->doubleup,
             featured: $this->featured,
             refundable: $this->refundable,
-            stream: $this->stream,
-            sd: $this->sd,
             highspeed: $this->highspeed,
             internal: $this->internal,
             trumpable: $this->trumpable,
@@ -414,7 +402,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
      */
     #[Computed]
     final public function torrents(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -446,6 +434,7 @@ class TorrentSearch extends Component
                 'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
             ])
             ->withExists([
+                'featured as featured',
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                 'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
                 'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
@@ -519,7 +508,7 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
      */
     #[Computed]
     final public function groupedTorrents()
@@ -529,15 +518,19 @@ class TorrentSearch extends Component
         // Whitelist which columns are allowed to be ordered by
         if (!\in_array($this->sortField, [
             'bumped_at',
+            'created_at',
             'times_completed',
         ])) {
             $this->reset('sortField');
         }
 
-        $groups = Torrent::query()
+        $isSqlAllowed = (($user->group->is_modo || $user->group->is_editor) && $this->driver === 'sql') || $this->description || $this->mediainfo;
+
+        $groupQuery = Torrent::query()
             ->select('tmdb')
             ->selectRaw('MAX(sticky) as sticky')
             ->selectRaw('MAX(bumped_at) as bumped_at')
+            ->selectRaw('MAX(created_at) as created_at')
             ->selectRaw('SUM(times_completed) as times_completed')
             ->selectRaw(<<<'SQL'
                 CASE
@@ -550,8 +543,33 @@ class TorrentSearch extends Component
             ->where($this->filters()->toSqlQueryBuilder())
             ->groupBy('tmdb', 'meta')
             ->latest('sticky')
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate(min($this->perPage, 100));
+            ->orderBy($this->sortField, $this->sortDirection);
+
+        if ($isSqlAllowed) {
+            $groups = $groupQuery
+                ->paginate(min($this->perPage, 100));
+        } else {
+            $results = (new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key')))
+                ->index(config('scout.prefix').'torrents')
+                ->search($this->name, [
+                    'sort'                 => ['sticky:desc', $this->sortField.':'.$this->sortDirection,],
+                    'filter'               => $this->filters()->toMeilisearchFilter(),
+                    'matchingStrategy'     => 'all',
+                    'page'                 => (int) $this->getPage(),
+                    'hitsPerPage'          => min($this->perPage, 100),
+                    'attributesToRetrieve' => ['imdb'],
+                    'distinct'             => 'imdb',
+                ]);
+
+            $imdbIds = array_column($results->getHits(), 'imdb');
+
+            $groups = $groupQuery
+                ->whereIntegerInRaw('imdb', $imdbIds)
+                ->get()
+                ->sortBy(fn ($group) => array_search($group->imdb, $imdbIds));
+
+            $groups = new LengthAwarePaginator($groups, $results->getTotalHits(), $this->perPage, $this->getPage());
+        }
 
         $movieIds = $groups->getCollection()->where('meta', '=', 'movie')->pluck('tmdb');
         $tvIds = $groups->getCollection()->where('meta', '=', 'tv')->pluck('tmdb');
@@ -561,11 +579,53 @@ class TorrentSearch extends Component
 
         $torrents = Torrent::query()
             ->with(['type:id,name,position', 'resolution:id,name,position'])
-            ->withCount([
-                'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
-                'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+            ->select([
+                'id',
+                'name',
+                'info_hash',
+                'size',
+                'leechers',
+                'seeders',
+                'times_completed',
+                'category_id',
+                'user_id',
+                'season_number',
+                'episode_number',
+                'tmdb',
+                'free',
+                'doubleup',
+                'highspeed',
+                'sticky',
+                'internal',
+                'created_at',
+                'bumped_at',
+                'type_id',
+                'resolution_id',
+                'personal_release',
             ])
+            ->selectRaw(<<<'SQL'
+                CASE
+                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
+                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
+                END AS meta
+            SQL)
+            ->with('user:id,username,group_id', 'category', 'type', 'resolution')
+            ->withCount([
+                'comments',
+            ])
+            ->when(
+                !config('announce.external_tracker.is_enabled'),
+                fn ($query) => $query->withCount([
+                    'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                    'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                ]),
+            )
+            ->when(
+                config('other.thanks-system.is-enabled'),
+                fn ($query) => $query->withCount('thanks')
+            )
             ->withExists([
+                'featured as featured',
                 'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $user->id),
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                 'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
@@ -585,40 +645,8 @@ class TorrentSearch extends Component
                             ->where('seeder', '=', 1)
                             ->orWhereNotNull('completed_at')
                     ),
+                'trump',
             ])
-            ->select([
-                'id',
-                'name',
-                'info_hash',
-                'size',
-                'leechers',
-                'seeders',
-                'times_completed',
-                'category_id',
-                'user_id',
-                'season_number',
-                'episode_number',
-                'tmdb',
-                'stream',
-                'free',
-                'doubleup',
-                'highspeed',
-                'featured',
-                'sticky',
-                'sd',
-                'internal',
-                'created_at',
-                'bumped_at',
-                'type_id',
-                'resolution_id',
-                'personal_release',
-            ])
-            ->selectRaw(<<<'SQL'
-                CASE
-                    WHEN category_id IN (SELECT id FROM categories WHERE movie_meta = 1) THEN 'movie'
-                    WHEN category_id IN (SELECT id FROM categories WHERE tv_meta = 1) THEN 'tv'
-                END AS meta
-            SQL)
             ->where(
                 fn ($query) => $query
                     ->where(
@@ -633,68 +661,104 @@ class TorrentSearch extends Component
                     )
             )
             ->where($this->filters()->toSqlQueryBuilder())
-            ->get()
-            ->groupBy('meta')
-            ->map(fn ($movieOrTv, $key) => match ($key) {
-                'movie' => $movieOrTv
-                    ->groupBy('tmdb')
-                    ->map(
-                        function ($movie) {
-                            $category_id = $movie->first()->category_id;
-                            $movie = $this->groupByTypeAndSort($movie);
-                            $movie->put('category_id', $category_id);
+            ->get();
 
-                            return $movie;
+        $groupedTorrents = [];
+
+        foreach ($torrents as &$torrent) {
+            // Memoizing and avoiding casts reduces runtime duration from 70ms to 40ms.
+            // If accessing laravel's attributes array directly, it's reduced to 11ms,
+            // but the attributes array is marked as protected so we can't access it.
+            $tmdb = $torrent->getAttributeValue('tmdb');
+            $type = $torrent->getRelationValue('type')->getAttributeValue('name');
+
+            switch ($torrent->getAttributeValue('meta')) {
+                case 'movie':
+                    $groupedTorrents['movie'][$tmdb]['Movie'][$type][] = $torrent;
+                    $groupedTorrents['movie'][$tmdb]['category_id'] = $torrent->getAttributeValue('category_id');
+
+                    break;
+                case 'tv':
+                    $episode = $torrent->getAttributeValue('episode_number');
+                    $season = $torrent->getAttributeValue('season_number');
+
+                    if ($season == 0) {
+                        if ($episode == 0) {
+                            $groupedTorrents['tv'][$tmdb]['Complete Pack'][$type][] = $torrent;
+                        } else {
+                            $groupedTorrents['tv'][$tmdb]['Specials']["Special {$episode}"][$type][] = $torrent;
                         }
-                    ),
-                'tv' => $movieOrTv
-                    ->groupBy([
-                        fn ($torrent) => $torrent->tmdb,
-                    ])
-                    ->map(
-                        function ($tv) {
-                            $category_id = $tv->first()->category_id;
-                            $tv = $tv
-                                ->groupBy(fn ($torrent) => $torrent->season_number === 0 ? ($torrent->episode_number === 0 ? 'Complete Pack' : 'Specials') : 'Seasons')
-                                ->map(fn ($packOrSpecialOrSeasons, $key) => match ($key) {
-                                    'Complete Pack' => $this->groupByTypeAndSort($packOrSpecialOrSeasons),
-                                    'Specials'      => $packOrSpecialOrSeasons
-                                        ->groupBy(fn ($torrent) => 'Special '.$torrent->episode_number)
-                                        ->sortKeysDesc(SORT_NATURAL)
-                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
-                                    'Seasons' => $packOrSpecialOrSeasons
-                                        ->groupBy(fn ($torrent) => 'Season '.$torrent->season_number)
-                                        ->sortKeysDesc(SORT_NATURAL)
-                                        ->map(
-                                            fn ($season) => $season
-                                                ->groupBy(fn ($torrent) => $torrent->episode_number === 0 ? 'Season Pack' : 'Episodes')
-                                                ->map(fn ($packOrEpisodes, $key) => match ($key) {
-                                                    'Season Pack' => $this->groupByTypeAndSort($packOrEpisodes),
-                                                    'Episodes'    => $packOrEpisodes
-                                                        ->groupBy(fn ($torrent) => 'Episode '.$torrent->episode_number)
-                                                        ->sortKeysDesc(SORT_NATURAL)
-                                                        ->map(fn ($episode) => $this->groupByTypeAndSort($episode)),
-                                                    default => abort(500, 'Group found that isn\'t one of: Season Pack, Episodes.'),
-                                                })
-                                        ),
-                                    default => abort(500, 'Group found that isn\'t one of: Complete Pack, Specials, Seasons'),
-                                });
-                            $tv->put('category_id', $category_id);
-
-                            return $tv;
+                    } else {
+                        if ($episode == 0) {
+                            $groupedTorrents['tv'][$tmdb]['Seasons']["Season {$season}"]['Season Pack'][$type][] = $torrent;
+                        } else {
+                            $groupedTorrents['tv'][$tmdb]['Seasons']["Season {$season}"]['Episodes']["Episode {$episode}"][$type][] = $torrent;
                         }
-                    ),
-                default => abort(500, 'Group found that isn\'t one of: movie, tv'),
-            });
+                    }
 
-        $medias = $groups->through(function ($group) use ($torrents, $movies, $tv) {
+                    $groupedTorrents['tv'][$tmdb]['category_id'] = $torrent->getAttributeValue('category_id');
+            }
+        }
+
+        foreach ($groupedTorrents as $mediaType => &$workTorrents) {
+            switch ($mediaType) {
+                case 'movie':
+                    foreach ($workTorrents as &$movieTorrents) {
+                        $this->sortTorrentTypes($movieTorrents['Movie']);
+                    }
+
+                    break;
+                case 'tv':
+                    foreach ($workTorrents as &$tvTorrents) {
+                        foreach ($tvTorrents as $packOrSpecialOrSeasonsType => &$packOrSpecialOrSeasons) {
+                            switch ($packOrSpecialOrSeasonsType) {
+                                case 'Complete Pack':
+                                    $this->sortTorrentTypes($packOrSpecialOrSeasons);
+
+                                    break;
+                                case 'Specials':
+                                    krsort($packOrSpecialOrSeasons, SORT_NATURAL);
+
+                                    foreach ($packOrSpecialOrSeasons as &$specialTorrents) {
+                                        $this->sortTorrentTypes($specialTorrents);
+                                    }
+
+                                    break;
+                                case 'Seasons':
+                                    krsort($packOrSpecialOrSeasons, SORT_NATURAL);
+
+                                    foreach ($packOrSpecialOrSeasons as &$season) {
+                                        foreach ($season as $packOrEpisodesType => &$packOrEpisodes) {
+                                            switch ($packOrEpisodesType) {
+                                                case 'Season Pack':
+                                                    $this->sortTorrentTypes($packOrEpisodes);
+
+                                                    break;
+                                                case 'Episodes':
+                                                    krsort($packOrEpisodes, SORT_NATURAL);
+
+                                                    foreach ($packOrEpisodes as &$episodeTorrents) {
+                                                        $this->sortTorrentTypes($episodeTorrents);
+                                                    }
+
+                                                    break;
+                                            }
+                                        }
+                                    }
+                            }
+                        }
+                    }
+            }
+        }
+
+        $medias = $groups->through(function ($group) use ($groupedTorrents, $movies, $tv) {
             switch ($group->meta) {
                 case 'movie':
                     if ($movies->has($group->tmdb)) {
                         $media = $movies[$group->tmdb];
                         $media->setAttribute('meta', 'movie');
-                        $media->setRelation('torrents', $torrents['movie'][$group->tmdb] ?? collect());
-                        $media->setAttribute('category_id', $media->torrents->pop());
+                        $media->setRelation('torrents', $groupedTorrents['movie'][$group->tmdb] ?? []);
+                        $media->setAttribute('category_id', $media->torrents['category_id']);
                     } else {
                         $media = null;
                     }
@@ -704,8 +768,8 @@ class TorrentSearch extends Component
                     if ($tv->has($group->tmdb)) {
                         $media = $tv[$group->tmdb];
                         $media->setAttribute('meta', 'tv');
-                        $media->setRelation('torrents', $torrents['tv'][$group->tmdb] ?? collect());
-                        $media->setAttribute('category_id', $media->torrents->pop());
+                        $media->setRelation('torrents', $groupedTorrents['tv'][$group->tmdb] ?? []);
+                        $media->setAttribute('category_id', $media->torrents['category_id']);
                     } else {
                         $media = null;
                     }
@@ -722,27 +786,32 @@ class TorrentSearch extends Component
     }
 
     /**
-     * @param  \Illuminate\Support\Collection<int, Torrent>                                         $torrents
-     * @return \Illuminate\Support\Collection<string, \Illuminate\Support\Collection<int, Torrent>>
+     * @param array<Torrent> $torrentTypeTorrents
      */
-    private function groupByTypeAndSort($torrents): \Illuminate\Support\Collection
+    private function sortTorrentTypes(&$torrentTypeTorrents): void
     {
-        return $torrents
-            ->sortBy('type.position')
-            ->values()
-            ->groupBy(fn ($torrent) => $torrent->type->name)
-            ->map(
-                fn ($torrentsBytype) => $torrentsBytype
-                    ->sortBy([
-                        ['resolution.position', 'asc'],
-                        ['name', 'asc'],
-                    ])
-                    ->values()
+        uasort(
+            $torrentTypeTorrents,
+            fn ($a, $b) => $a[0]->getRelationValue('type')->getAttributeValue('position')
+                <=> $b[0]->getRelationValue('type')->getAttributeValue('position')
+        );
+
+        foreach ($torrentTypeTorrents as &$torrents) {
+            usort(
+                $torrents,
+                fn ($a, $b) => [
+                    $a->getRelationValue('resolution')->getAttributeValue('position'),
+                    $a->getAttributeValue('name')
+                ] <=> [
+                    $b->getRelationValue('resolution')->getAttributeValue('position'),
+                    $b->getAttributeValue('name')
+                ]
             );
+        }
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator<int, Torrent>
      */
     #[Computed]
     final public function groupedPosters()

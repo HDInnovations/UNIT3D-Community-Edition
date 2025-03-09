@@ -18,6 +18,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\RsskeyReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -44,15 +45,12 @@ class RsskeyController extends Controller
             $user->rsskeys()->create(['content' => $user->rsskey]);
 
             if ($changedByStaff) {
-                $user->sendSystemNotification(
-                    subject: 'ATTENTION - Your RSS key has been reset',
-                    message: "Your RSS key has been reset by staff. You will need to update your RSS key in your torrent client to continue receiving new torrents.\n\nFor more information, please create a helpdesk ticket.",
-                );
+                $user->notify(new RsskeyReset());
             }
         });
 
         return to_route('users.rsskeys.index', ['user' => $user])
-            ->withSuccess('Your RSS key was changed successfully.');
+            ->with('success', 'Your RSS key was changed successfully.');
     }
 
     /**

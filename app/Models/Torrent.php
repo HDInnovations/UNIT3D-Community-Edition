@@ -16,8 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
+use App\Enums\ModerationStatus;
 use App\Helpers\StringHelper;
 use App\Models\Scopes\ApprovedScope;
 use App\Notifications\NewComment;
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\Torrent.
@@ -57,18 +55,15 @@ use voku\helper\AntiXSS;
  * @property int                             $igdb
  * @property int|null                        $season_number
  * @property int|null                        $episode_number
- * @property int                             $stream
  * @property int                             $free
  * @property bool                            $doubleup
  * @property bool                            $refundable
  * @property int                             $highspeed
- * @property bool                            $featured
- * @property int                             $status
+ * @property ModerationStatus                $status
  * @property \Illuminate\Support\Carbon|null $moderated_at
  * @property int|null                        $moderated_by
- * @property int                             $anon
+ * @property bool                            $anon
  * @property bool                            $sticky
- * @property int                             $sd
  * @property int                             $internal
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -80,7 +75,7 @@ use voku\helper\AntiXSS;
  * @property int|null                        $resolution_id
  * @property int|null                        $distributor_id
  * @property int|null                        $region_id
- * @property int                             $personal_release
+ * @property bool                            $personal_release
  * @property int|null                        $balance
  * @property int|null                        $balance_offset
  */
@@ -99,21 +94,36 @@ class Torrent extends Model
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{tmdb: 'int', igdb: 'int', bumped_at: 'datetime', fl_until: 'datetime', du_until: 'datetime', doubleup: 'bool', refundable: 'bool', featured: 'bool', moderated_at: 'datetime', sticky: 'bool'}
+     * @return array{
+     *     tmdb: 'int',
+     *     igdb: 'int',
+     *     status: class-string<ModerationStatus>,
+     *     bumped_at: 'datetime',
+     *     fl_until: 'datetime',
+     *     du_until: 'datetime',
+     *     doubleup: 'bool',
+     *     refundable: 'bool',
+     *     moderated_at: 'datetime',
+     *     anon: 'bool',
+     *     sticky: 'bool',
+     *     personal_release: 'bool'
+     * }
      */
     protected function casts(): array
     {
         return [
-            'tmdb'         => 'int',
-            'igdb'         => 'int',
-            'bumped_at'    => 'datetime',
-            'fl_until'     => 'datetime',
-            'du_until'     => 'datetime',
-            'doubleup'     => 'bool',
-            'refundable'   => 'bool',
-            'featured'     => 'bool',
-            'moderated_at' => 'datetime',
-            'sticky'       => 'bool',
+            'tmdb'             => 'int',
+            'igdb'             => 'int',
+            'bumped_at'        => 'datetime',
+            'fl_until'         => 'datetime',
+            'du_until'         => 'datetime',
+            'doubleup'         => 'bool',
+            'refundable'       => 'bool',
+            'moderated_at'     => 'datetime',
+            'anon'             => 'bool',
+            'sticky'           => 'bool',
+            'status'           => ModerationStatus::class,
+            'personal_release' => 'bool',
         ];
     }
 
@@ -125,11 +135,6 @@ class Torrent extends Model
     protected $discarded = [
         'info_hash',
     ];
-
-    final public const PENDING = 0;
-    final public const APPROVED = 1;
-    final public const REJECTED = 2;
-    final public const POSTPONED = 3;
 
     /**
      * This query is to be added to a raw select from the torrents table.
@@ -161,16 +166,13 @@ class Torrent extends Model
             torrents.igdb,
             torrents.season_number,
             torrents.episode_number,
-            torrents.stream,
             torrents.free,
             torrents.doubleup,
             torrents.refundable,
             torrents.highspeed,
-            torrents.featured,
             torrents.status,
             torrents.anon,
             torrents.sticky,
-            torrents.sd,
             torrents.internal,
             UNIX_TIMESTAMP(torrents.deleted_at) AS deleted_at,
             torrents.distributor_id,
@@ -306,6 +308,11 @@ class Torrent extends Model
                 FROM torrent_trumps
                 WHERE torrents.id = torrent_trumps.torrent_id
             ) AS trumpable,
+            EXISTS(
+                SELECT *
+                FROM featured_torrents
+                WHERE torrents.id = featured_torrents.torrent_id
+            ) AS featured,
             (
                 SELECT JSON_OBJECT(
                     'id', movies.id,
@@ -752,24 +759,6 @@ class Torrent extends Model
     }
 
     /**
-     * Set The Torrents Description After Its Been Purified.
-     */
-    public function setDescriptionAttribute(?string $value): void
-    {
-        $this->attributes['description'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
-    }
-
-    /**
-     * Parse Description And Return Valid HTML.
-     */
-    public function getDescriptionHtml(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->description));
-    }
-
-    /**
      * Set The Torrents MediaInfo After Its Been Purified.
      */
     public function setMediaInfoAttribute(?string $value): void
@@ -815,11 +804,11 @@ class Torrent extends Model
     /**
      * Torrent Is Freeleech.
      */
-    public function isFreeleech(User $user = null): bool
+    public function isFreeleech(?User $user = null): bool
     {
-        $pfree = $user && ($user->group->is_freeleech || cache()->get('personal_freeleech:'.$user->id));
+        $isFreeleech = $user && ($user->group->is_freeleech || cache()->get('personal_freeleech:'.$user->id));
 
-        return $this->free || config('other.freeleech') || $pfree;
+        return $this->free || config('other.freeleech') || $isFreeleech;
     }
 
     /**
@@ -853,7 +842,6 @@ class Torrent extends Model
             'igdb',
             'season_number',
             'episode_number',
-            'stream',
             'free',
             'doubleup',
             'refundable',
@@ -862,7 +850,6 @@ class Torrent extends Model
             'status',
             'anon',
             'sticky',
-            'sd',
             'internal',
             'deleted_at',
             'distributor_id',
@@ -925,16 +912,14 @@ class Torrent extends Model
             'igdb'               => $torrent->igdb,
             'season_number'      => $torrent->season_number,
             'episode_number'     => $torrent->episode_number,
-            'stream'             => (bool) $torrent->stream,
             'free'               => $torrent->free,
             'doubleup'           => (bool) $torrent->doubleup,
             'refundable'         => (bool) $torrent->refundable,
             'highspeed'          => (bool) $torrent->highspeed,
             'featured'           => (bool) $torrent->featured,
-            'status'             => $torrent->status,
+            'status'             => $torrent->status->value,
             'anon'               => (bool) $torrent->anon,
             'sticky'             => (int) $torrent->sticky,
-            'sd'                 => (bool) $torrent->sd,
             'internal'           => (bool) $torrent->internal,
             'deleted_at'         => $torrent->deleted_at?->timestamp,
             'distributor_id'     => $torrent->distributor_id,

@@ -55,7 +55,7 @@ class TicketController extends Controller
         }
 
         return to_route('tickets.show', ['ticket' => $ticket])
-            ->withSuccess(trans('ticket.created-success'));
+            ->with('success', trans('ticket.created-success'));
     }
 
     /**
@@ -66,11 +66,11 @@ class TicketController extends Controller
         abort_unless($request->user()->group->is_modo || $request->user()->id === $ticket->user_id, 403);
 
         if ($request->user()->id === $ticket->user_id) {
-            $ticket->user_read = 1;
+            $ticket->user_read = true;
         }
 
         if ($request->user()->id === $ticket->staff_id) {
-            $ticket->staff_read = 1;
+            $ticket->staff_read = true;
         }
 
         $ticket->save();
@@ -98,7 +98,7 @@ class TicketController extends Controller
         $ticket->delete();
 
         return to_route('tickets.index')
-            ->withSuccess(trans('ticket.deleted-success'));
+            ->with('success', trans('ticket.deleted-success'));
     }
 
     final public function close(Request $request, Ticket $ticket): \Illuminate\Http\RedirectResponse
@@ -110,7 +110,7 @@ class TicketController extends Controller
         ]);
 
         return to_route('tickets.index')
-            ->withSuccess(trans('ticket.closed-success'));
+            ->with('success', trans('ticket.closed-success'));
     }
 
     final public function reopen(Request $request, Ticket $ticket): \Illuminate\Http\RedirectResponse
@@ -122,6 +122,6 @@ class TicketController extends Controller
         ]);
 
         return to_route('tickets.show', ['ticket' => $ticket])
-            ->withSuccess(trans('ticket.reopened-success'));
+            ->with('success', trans('ticket.reopened-success'));
     }
 }

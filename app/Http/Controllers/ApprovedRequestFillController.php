@@ -74,12 +74,10 @@ class ApprovedRequestFillController extends Controller
             );
         }
 
-        if ($filler->acceptsNotification($approver, $filler, 'request', 'show_request_fill_approve')) {
-            $filler->notify(new NewRequestFillApprove($torrentRequest));
-        }
+        $filler->notify(new NewRequestFillApprove($torrentRequest));
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(\sprintf(trans('request.approved-user'), $torrentRequest->name, $torrentRequest->filled_anon ? 'Anonymous' : $filler->username));
+            ->with('success', \sprintf(trans('request.approved-user'), $torrentRequest->name, $torrentRequest->filled_anon ? 'Anonymous' : $filler->username));
     }
 
     /**
@@ -102,6 +100,6 @@ class ApprovedRequestFillController extends Controller
         $filler->decrement('seedbonus', (float) $refunded);
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
-            ->withSuccess(trans('request.request-reset'));
+            ->with('success', trans('request.request-reset'));
     }
 }

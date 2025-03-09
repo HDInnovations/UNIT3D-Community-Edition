@@ -33,11 +33,11 @@
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-We have been developing a Private Torrent Tracker Software called `UNIT3D`. This is a PHP software based on Laravel 11, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.3 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
+We have been developing a Private Torrent Tracker Software called `UNIT3D` (pronounced "united"). This is a PHP software based on Laravel 11, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.3 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
 
 ## <a name="installation"></a> 🖥️ Installation
 
-Check it out here for more information: https://github.com/HDInnovations/UNIT3D-Installer
+No public script or documentation is available at this time.
 
 ## <a name="updating"></a> 🖥️ Updating
 
@@ -59,11 +59,13 @@ HDInnovations offers a variety of services to help you with your UNIT3D instance
 
 ## <a name="discord"></a> 💬 Discord
 
-We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Discord]%20UNIT3D%20)
+We have a Discord server for support and general discussion. This is a private server, and you will need to be invited to join. There is a small fee to join the server to help support the development of UNIT3D. For more information about purchasing a Discord Pass, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Discord]%20UNIT3D%20)
 
 ## <a name="donations"></a> 💰 Donations
 
-If you would like to support the development of UNIT3D, please consider donating to keep the project alive. Donors will receive a README [shoutout](#shoutouts) unless chosen to be anonymous. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Funding]%20UNIT3D%20)
+If you would like to support the development of UNIT3D, please consider donating to keep the project alive. Donors will receive a README [shoutout](#shoutouts) unless chosen to be anonymous. They will also receive a Donor role if present in Discord server via a Discord Pass. For more information, please email us at [hdinnovations@protonmail.com](mailto:hdinnovations@protonmail.com?subject=[Funding]%20UNIT3D%20)
+
+*Donations are non-refundable and made voluntarily without exchange of goods or services. It is support the project as a whole.*
 
 ### **Credit / Debit (Square)**
 
@@ -80,7 +82,9 @@ If you would like to support the development of UNIT3D, please consider donating
 We would like to extend our heartfelt thanks to the following companies, sites and individuals for their generous donations and support in keeping UNIT3D alive:
 
 ### 👤 Individuals
-**Poppers,** **x64**
+
+<!-- cspell:disable-next-line -->
+**airclay**, **Henriette**, **Jocelyn**, **Marcus**, **Poppers**, **sam**, **samual**, **schizobolic**, **x64**
 
 ### 🌐 Sites
 <img src="https://i.postimg.cc/BQJmGYMt/blu.png" height="30px;">&nbsp;

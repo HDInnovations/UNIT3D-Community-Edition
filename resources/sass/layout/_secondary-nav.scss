@@ -3,6 +3,7 @@
 .secondary-nav {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
+    box-shadow: var(--secondary-nav-box-shadow);
     background-color: var(--secondary-nav-bg);
     margin: 0;
     padding: 0 18px;

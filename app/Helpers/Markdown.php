@@ -517,7 +517,7 @@ class Markdown
     //
     // List
 
-    protected function blockList($Line, array $CurrentBlock = null)
+    protected function blockList($Line, ?array $CurrentBlock = null)
     {
         [$name, $pattern] = $Line['text'][0] <= '-' ? ['ul', '[*+-]'] : ['ol', '[0-9]{1,9}+[.\)]'];
 
@@ -721,7 +721,7 @@ class Markdown
     //
     // Setext
 
-    protected function blockSetextHeader($Line, array $Block = null)
+    protected function blockSetextHeader($Line, ?array $Block = null)
     {
         if (!isset($Block) || $Block['type'] !== 'Paragraph' || isset($Block['interrupted'])) {
             return;
@@ -796,7 +796,7 @@ class Markdown
     //
     // Table
 
-    protected function blockTable($Line, array $Block = null)
+    protected function blockTable($Line, ?array $Block = null)
     {
         if (!isset($Block) || $Block['type'] !== 'Paragraph' || isset($Block['interrupted'])) {
             return;

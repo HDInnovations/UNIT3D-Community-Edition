@@ -69,7 +69,7 @@ class UserUploads extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Torrent>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Torrent>
      */
     #[Computed]
     final public function uploads(): \Illuminate\Pagination\LengthAwarePaginator
@@ -86,8 +86,8 @@ class UserUploads extends Component
                     ->where('name', 'like', '%'.str_replace(' ', '%', $this->name).'%')
             )
             ->when(!empty($this->status), fn ($query) => $query->whereIntegerInRaw('status', $this->status))
-            ->when($this->personalRelease === 'include', fn ($query) => $query->where('personal_release', '=', 1))
-            ->when($this->personalRelease === 'exclude', fn ($query) => $query->where('personal_release', '=', 0))
+            ->when($this->personalRelease === 'include', fn ($query) => $query->where('personal_release', '=', true))
+            ->when($this->personalRelease === 'exclude', fn ($query) => $query->where('personal_release', '=', false))
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
     }

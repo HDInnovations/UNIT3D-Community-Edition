@@ -75,11 +75,11 @@ class ResurrectionController extends Controller
         ]);
 
         return to_route('torrents.show', ['id' => $torrent->id])
-            ->withSuccess(trans('graveyard.resurrect-complete'));
+            ->with('success', trans('graveyard.resurrect-complete'));
     }
 
     /**
-     * Cancel A Ressurection.
+     * Cancel A Resurrection.
      */
     public function destroy(Request $request, User $user, Resurrection $resurrection): \Illuminate\Http\RedirectResponse
     {
@@ -88,6 +88,6 @@ class ResurrectionController extends Controller
         $resurrection->delete();
 
         return to_route('users.resurrections.index', ['user' => $user])
-            ->withSuccess(trans('graveyard.resurrect-canceled'));
+            ->with('success', trans('graveyard.resurrect-canceled'));
     }
 }

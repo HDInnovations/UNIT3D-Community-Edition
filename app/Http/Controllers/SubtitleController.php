@@ -29,6 +29,7 @@ use App\Achievements\UserUploaded700Subtitles;
 use App\Achievements\UserUploaded800Subtitles;
 use App\Achievements\UserUploaded900Subtitles;
 use App\Achievements\UserUploadedFirstSubtitle;
+use App\Enums\ModerationStatus;
 use App\Http\Requests\StoreSubtitleRequest;
 use App\Http\Requests\UpdateSubtitleRequest;
 use App\Models\MediaLanguage;
@@ -91,13 +92,13 @@ class SubtitleController extends Controller
             'downloads'    => 0,
             'verified'     => 0,
             'user_id'      => $user->id,
-            'status'       => Subtitle::APPROVED,
+            'status'       => ModerationStatus::APPROVED,
             'moderated_at' => now(),
             'moderated_by' => User::SYSTEM_USER_ID,
         ] + $request->safe()->except('subtitle_file'));
 
         // Save Subtitle
-        Storage::disk('subtitles')->putFileAs('', $subtitleFile, $filename);
+        Storage::disk('subtitle-files')->putFileAs('', $subtitleFile, $filename);
 
         // Announce To Shoutbox
         if (!$subtitle->anon) {
@@ -138,7 +139,7 @@ class SubtitleController extends Controller
         }
 
         return to_route('torrents.show', ['id' => $request->input('torrent_id')])
-            ->withSuccess('Subtitle Successfully Added');
+            ->with('success', 'Subtitle Successfully Added');
     }
 
     /**
@@ -151,7 +152,7 @@ class SubtitleController extends Controller
         $subtitle->update($request->validated());
 
         return to_route('torrents.show', ['id' => $request->input('torrent_id')])
-            ->withSuccess('Subtitle Successfully Updated');
+            ->with('success', 'Subtitle Successfully Updated');
     }
 
     /**
@@ -165,14 +166,14 @@ class SubtitleController extends Controller
 
         abort_unless($user->group->is_modo || $user->id === $subtitle->user_id, 403);
 
-        if (Storage::disk('subtitles')->exists($subtitle->file_name)) {
-            Storage::disk('subtitles')->delete($subtitle->file_name);
+        if (Storage::disk('subtitle-files')->exists($subtitle->file_name)) {
+            Storage::disk('subtitle-files')->delete($subtitle->file_name);
         }
 
         $subtitle->delete();
 
         return to_route('torrents.show', ['id' => $request->integer('torrent_id')])
-            ->withSuccess('Subtitle Successfully Deleted');
+            ->with('success', 'Subtitle Successfully Deleted');
     }
 
     /**
@@ -194,8 +195,8 @@ class SubtitleController extends Controller
         // Increment downloads count
         $subtitle->increment('downloads');
 
-        $headers = ['Content-Type: '.Storage::disk('subtitles')->mimeType($subtitle->file_name)];
+        $headers = ['Content-Type: '.Storage::disk('subtitle-files')->mimeType($subtitle->file_name)];
 
-        return Storage::disk('subtitles')->download($subtitle->file_name, $tempFilename, $headers);
+        return Storage::disk('subtitle-files')->download($subtitle->file_name, $tempFilename, $headers);
     }
 }

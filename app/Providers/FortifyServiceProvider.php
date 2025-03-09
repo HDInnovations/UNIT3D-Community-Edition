@@ -68,13 +68,13 @@ class FortifyServiceProvider extends ServiceProvider
                     Unit3dAnnounce::addUser($user);
 
                     return to_route('home.index')
-                        ->withSuccess(trans('auth.welcome-restore'));
+                        ->with('success', trans('auth.welcome-restore'));
                 }
 
                 // Check if user has read the rules
                 if ($request->user()->read_rules == 0) {
                     return redirect()->to(config('other.rules_url'))
-                        ->withWarning(trans('auth.require-rules'));
+                        ->with('warning', trans('auth.require-rules'));
                 }
 
                 // Fix for issue described in https://github.com/laravel/framework/pull/46133
@@ -91,7 +91,7 @@ class FortifyServiceProvider extends ServiceProvider
                 }
 
                 return redirect()->intended()
-                    ->withSuccess(trans('auth.welcome'));
+                    ->with('success', trans('auth.welcome'));
             }
         });
 
@@ -128,8 +128,15 @@ class FortifyServiceProvider extends ServiceProvider
                         Unit3dAnnounce::addUser($user);
                     }
 
+                    // Check if user has read the rules
+                    if ($user->read_rules == 0) {
+                        return redirect()->to(config('other.rules_url'))
+                            ->with('success', trans('auth.activation-success'))
+                            ->with('warning', trans('auth.require-rules'));
+                    }
+
                     return to_route('login')
-                        ->withSuccess(trans('auth.activation-success'));
+                        ->with('success', trans('auth.activation-success'));
                 }
 
                 return to_route('login')

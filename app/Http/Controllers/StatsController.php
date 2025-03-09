@@ -121,7 +121,7 @@ class StatsController extends Controller
     {
         return view('stats.users.uploaders', [
             'uploaders' => Torrent::with('user')
-                ->where('anon', '=', 0)
+                ->where('anon', '=', false)
                 ->select(DB::raw('user_id, count(*) as value'))
                 ->groupBy('user_id')
                 ->orderByDesc('value')
@@ -305,7 +305,22 @@ class StatsController extends Controller
      */
     public function clients(): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
-        $clients = cache()->get('stats:clients') ?? [];
+        $clients = cache()->remember(
+            'stats:clients',
+            3600,
+            fn () => Peer::selectRaw('agent, COUNT(*) as user_count, SUM(peer_count) as peer_count')
+                ->fromSub(
+                    Peer::query()
+                        ->select(['agent', 'user_id', DB::raw('COUNT(*) as peer_count')])
+                        ->groupBy('agent', 'user_id')
+                        ->where('active', '=', true),
+                    'distinct_agent_user'
+                )
+                ->groupBy('agent')
+                ->orderBy('agent')
+                ->get()
+                ->toArray()
+        );
 
         $groupedClients = [];
 

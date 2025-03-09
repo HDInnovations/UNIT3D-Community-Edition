@@ -175,7 +175,7 @@ class Bencode
 
             if ($isDict) {
                 $ret = 'd';
-                // this is required by the specs, and BitTornado actualy chokes on unsorted dictionaries
+                // this is required by the specs, and BitTornado actually chokes on unsorted dictionaries
                 ksort($d, SORT_STRING);
             }
 
@@ -223,7 +223,7 @@ class Bencode
         $size = 0;
         $count = 0;
 
-        // Multifile
+        // Multi-file
         if (isset($t['info']['files']) && \is_array($t['info']['files'])) {
             foreach ($t['info']['files'] as $file) {
                 $count++;

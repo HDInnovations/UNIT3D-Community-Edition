@@ -1,6 +1,6 @@
 <menu class="torrent__buttons form__group--short-horizontal">
     <li class="form__group form__group--short-horizontal">
-        @if ($fileExists = file_exists(public_path() . '/files/torrents/' . $torrent->file_name))
+        @if ($fileExists = Storage::disk('torrent-files')->exists($torrent->file_name))
             @if (config('torrent.download_check_page') == 1)
                 <a
                     class="form__button form__button--filled form__button--centered"

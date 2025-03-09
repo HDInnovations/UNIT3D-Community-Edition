@@ -20,6 +20,7 @@ use App\Models\Group;
 use App\Models\PrivateMessage;
 use App\Models\User;
 use Database\Seeders\GroupsTableSeeder;
+use Database\Seeders\UsersTableSeeder;
 
 test('create returns an ok response', function (): void {
     $response = $this->get(route('staff.mass-pm.create'));
@@ -37,6 +38,7 @@ test('store validates with a form request', function (): void {
 });
 
 test('store returns an ok response', function (): void {
+    $this->seed(UsersTableSeeder::class);
     $message = PrivateMessage::factory()->create();
 
     $response = $this->post(route('staff.mass-pm.store'), [

@@ -81,7 +81,7 @@ class Unit3dAnnounce
     {
         return self::put('torrents', [
             'id'              => $torrent->id,
-            'status'          => $torrent->status,
+            'status'          => $torrent->status->value,
             'info_hash'       => bin2hex($torrent->info_hash),
             'is_deleted'      => false,
             'seeders'         => $torrent->seeders,

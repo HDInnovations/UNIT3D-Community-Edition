@@ -52,7 +52,7 @@ class ForumController extends Controller
         $forum->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
 
         return to_route('staff.forum_categories.index')
-            ->withSuccess('Forum has been created successfully');
+            ->with('success', 'Forum has been created successfully');
     }
 
     /**
@@ -77,7 +77,7 @@ class ForumController extends Controller
         $forum->permissions()->upsert($request->validated('permissions'), ['forum_id', 'group_id']);
 
         return to_route('staff.forum_categories.index')
-            ->withSuccess('Forum has been edited successfully');
+            ->with('success', 'Forum has been edited successfully');
     }
 
     /**
@@ -90,6 +90,6 @@ class ForumController extends Controller
         $forum->delete();
 
         return to_route('staff.forum_categories.index')
-            ->withSuccess('Forum has been deleted successfully');
+            ->with('success', 'Forum has been deleted successfully');
     }
 }

@@ -168,7 +168,7 @@
         <figure class="post__figure">
             <img
                 class="post__avatar"
-                src="{{ url($post->user->image === null ? 'img/profile.png' : 'files/img/' . $post->user->image) }}"
+                src="{{ $post->user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $post->user]) }}"
                 alt=""
             />
         </figure>
@@ -232,12 +232,12 @@
         x-ref="content"
         data-base64-bbcode="{{ base64_encode($post->content) }}"
     >
-        @joypixels($post->getContentHtml())
+        @bbcode($post->content)
     </div>
     @if (! empty($post->user->signature))
         <footer class="post__footer" x-init>
             <p class="post__signature">
-                {!! $post->user->signature_html !!}
+                @bbcode($post->user->signature)
             </p>
         </footer>
     @endif

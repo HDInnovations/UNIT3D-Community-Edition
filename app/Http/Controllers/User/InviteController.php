@@ -129,7 +129,7 @@ class InviteController extends Controller
         Mail::to($request->input('email'))->send(new InviteUser($invite));
 
         return to_route('users.invites.create', ['user' => $user])
-            ->withSuccess(trans('user.invite-sent-success'));
+            ->with('success', trans('user.invite-sent-success'));
     }
 
     /**
@@ -152,7 +152,7 @@ class InviteController extends Controller
         $sentInvite->delete();
 
         return to_route('users.invites.index', ['user' => $user])
-            ->withSuccess('Invite deleted successfully.');
+            ->with('success', 'Invite deleted successfully.');
     }
 
     /**
@@ -175,6 +175,6 @@ class InviteController extends Controller
         Mail::to($sentInvite->email)->send(new InviteUser($sentInvite));
 
         return to_route('users.invites.index', ['user' => $user])
-            ->withSuccess(trans('user.invite-resent-success'));
+            ->with('success', trans('user.invite-resent-success'));
     }
 }

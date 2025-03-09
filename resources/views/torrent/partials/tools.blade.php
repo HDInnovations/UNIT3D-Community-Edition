@@ -113,7 +113,7 @@
                 </li>
             @endif
 
-            @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+            @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                 <menu
                     style="
                         display: flex;
@@ -277,7 +277,7 @@
                         @endif
                     </li>
                     <li>
-                        @if ($torrent->sticky == 0)
+                        @if (! $torrent->sticky)
                             <form
                                 action="{{ route('torrent_sticky', ['id' => $torrent->id]) }}"
                                 method="POST"
@@ -317,7 +317,7 @@
                         </form>
                     </li>
                     <li>
-                        @if ($torrent->featured === false)
+                        @if (! $torrent->featured)
                             <form
                                 method="POST"
                                 action="{{ route('torrent_feature', ['id' => $torrent->id]) }}"
@@ -361,7 +361,7 @@
                         flex-wrap: wrap;
                     "
                 >
-                    @if ($torrent->status !== \App\Models\Torrent::APPROVED)
+                    @if ($torrent->status !== \App\Enums\ModerationStatus::APPROVED)
                         <li>
                             <form
                                 role="form"
@@ -378,7 +378,7 @@
                                 <input
                                     type="hidden"
                                     name="status"
-                                    value="{{ \App\Models\Torrent::APPROVED }}"
+                                    value="{{ \App\Enums\ModerationStatus::APPROVED }}"
                                 />
                                 <button class="form__button form__button--outlined">
                                     <i class="{{ config('other.font-awesome') }} fa-thumbs-up"></i>
@@ -388,7 +388,7 @@
                         </li>
                     @endif
 
-                    @if ($torrent->status !== \App\Models\Torrent::POSTPONED)
+                    @if ($torrent->status !== \App\Enums\ModerationStatus::POSTPONED)
                         <li x-data="dialog">
                             <button
                                 class="form__button form__button--outlined"
@@ -428,7 +428,7 @@
                                     <input
                                         type="hidden"
                                         name="status"
-                                        value="{{ \App\Models\Torrent::POSTPONED }}"
+                                        value="{{ \App\Enums\ModerationStatus::POSTPONED }}"
                                     />
                                     <p class="form__group">
                                         <textarea
@@ -461,7 +461,7 @@
                         </li>
                     @endif
 
-                    @if ($torrent->status !== \App\Models\Torrent::REJECTED)
+                    @if ($torrent->status !== \App\Enums\ModerationStatus::REJECTED)
                         <li x-data="dialog">
                             <button
                                 class="form__button form__button--outlined"
@@ -503,7 +503,7 @@
                                     <input
                                         type="hidden"
                                         name="status"
-                                        value="{{ \App\Models\Torrent::REJECTED }}"
+                                        value="{{ \App\Enums\ModerationStatus::REJECTED }}"
                                     />
                                     <p class="form__group">
                                         <textarea
@@ -538,17 +538,17 @@
 
                     <li>
                         @switch($torrent->status)
-                            @case(\App\Models\Torrent::APPROVED)
+                            @case(\App\Enums\ModerationStatus::APPROVED)
                                 Approved By:
                                 <x-user_tag :user="$torrent->moderated" :anon="false" />
 
                                 @break
-                            @case(\App\Models\Torrent::POSTPONED)
+                            @case(\App\Enums\ModerationStatus::POSTPONED)
                                 Postponed By:
                                 <x-user_tag :user="$torrent->moderated" :anon="false" />
 
                                 @break
-                            @case(\App\Models\Torrent::REJECTED)
+                            @case(\App\Enums\ModerationStatus::REJECTED)
                                 Rejected By:
                                 <x-user_tag :user="$torrent->moderated" :anon="false" />
 

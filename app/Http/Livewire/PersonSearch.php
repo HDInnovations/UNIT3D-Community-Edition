@@ -46,7 +46,7 @@ class PersonSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Person>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Person>
      */
     #[Computed]
     final public function persons(): \Illuminate\Pagination\LengthAwarePaginator

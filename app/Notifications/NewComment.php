@@ -17,12 +17,12 @@ declare(strict_types=1);
 namespace App\Notifications;
 
 use App\Models\Article;
-use App\Models\Collection;
 use App\Models\Comment;
 use App\Models\Playlist;
 use App\Models\Ticket;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 
@@ -33,7 +33,7 @@ class NewComment extends Notification
     /**
      * NewComment Constructor.
      */
-    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|Collection|Article $model, public Comment $comment)
+    public function __construct(public Torrent|TorrentRequest|Ticket|Playlist|Article $model, public Comment $comment)
     {
     }
 
@@ -45,6 +45,57 @@ class NewComment extends Notification
     public function via(object $notifiable): array
     {
         return ['database'];
+    }
+
+    /**
+     * Determine if the notification should be sent.
+     */
+    public function shouldSend(User $notifiable): bool
+    {
+        // Do not notify self
+        if ($this->comment->user_id === $notifiable->id) {
+            return false;
+        }
+
+        // Enforce non-anonymous staff notifications to be sent
+        if ($this->comment->user->group->is_modo &&
+            ! $this->comment->anon) {
+            return true;
+        }
+
+        // Evaluate general settings
+        if ($notifiable->notification?->block_notifications === 1) {
+            return false;
+        }
+
+        // Evaluate model based settings
+        switch (true) {
+            case $this->model instanceof Torrent:
+                if ($notifiable->notification?->show_torrent_comment === 0) {
+                    return false;
+                }
+
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! \in_array($this->comment->user->group_id, $notifiable->notification?->json_torrent_groups ?? [], true);
+            case $this->model instanceof TorrentRequest:
+                if ($notifiable->notification?->show_request_comment === 0) {
+                    return false;
+                }
+
+                // If the sender's group ID is found in the "Block all notifications from the selected groups" array,
+                // the expression will return false.
+                return ! \in_array($this->comment->user->group_id, $notifiable->notification?->json_request_groups ?? [], true);
+            case $this->model instanceof Ticket:
+                return ! ($this->model->staff_id === $this->comment->id && $this->model->staff_id !== null)
+                ;
+
+            case $this->model instanceof Playlist:
+            case $this->model instanceof Article:
+                break;
+        }
+
+        return true;
     }
 
     /**
@@ -76,11 +127,6 @@ class NewComment extends Notification
                 'title' => 'New Playlist Comment Received',
                 'body'  => $username.' has left you a comment on Playlist '.$this->model->name,
                 'url'   => '/playlists/'.$this->model->id.'#comment-'.$this->comment->id,
-            ],
-            $this->model instanceof Collection => [
-                'title' => 'New Collection Comment Received',
-                'body'  => $username.' has left you a comment on Collection '.$this->model->name,
-                'url'   => '/mediahub/collections/'.$this->model->id.'#comment-'.$this->comment->id,
             ],
             $this->model instanceof Article => [
                 'title' => 'New Article Comment Received',

@@ -72,6 +72,9 @@ class TorrentController extends BaseController
             $torrents = Torrent::with(
                 ['user:id,username', 'category', 'type', 'resolution', 'region', 'distributor', 'files']
             )
+                ->withExists([
+                    'featured as featured'
+                ])
                 ->select('*')
                 ->selectRaw(
                     "
@@ -102,7 +105,7 @@ class TorrentController extends BaseController
      */
     public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $user = $request->user();
+        $user = $request->user()->loadExists('internals');
         abort_unless($user->can_upload ?? $user->group->can_upload, 403, __('torrent.cant-upload').' '.__('torrent.cant-upload-desc'));
 
         $requestFile = $request->file('torrent');
@@ -115,7 +118,7 @@ class TorrentController extends BaseController
             return $this->sendError('Validation Error.', 'You Must Provide A Valid Torrent File For Upload!');
         }
 
-        // Deplace and decode the torrent temporarily
+        // Move and decode the torrent temporarily
         $decodedTorrent = TorrentTools::normalizeTorrent($requestFile);
         $infohash = Bencode::get_infohash($decodedTorrent);
 
@@ -132,7 +135,7 @@ class TorrentController extends BaseController
         }
 
         $fileName = \sprintf('%s.torrent', uniqid('', true)); // Generate a unique name
-        Storage::disk('torrents')->put($fileName, Bencode::bencode($decodedTorrent));
+        Storage::disk('torrent-files')->put($fileName, Bencode::bencode($decodedTorrent));
 
         // Find the right category
         $category = Category::withCount('torrents')->findOrFail($request->integer('category_id'));
@@ -163,33 +166,36 @@ class TorrentController extends BaseController
         $torrent->season_number = $request->input('season_number');
         $torrent->episode_number = $request->input('episode_number');
         $torrent->anon = $request->input('anonymous');
-        $torrent->stream = $request->input('stream');
-        $torrent->sd = $request->input('sd');
-        $torrent->personal_release = $request->input('personal_release') ?? 0;
-        $torrent->internal = $user->group->is_modo || $user->group->is_internal ? ($request->input('internal') ?? 0) : 0;
-        $torrent->featured = $user->group->is_modo || $user->group->is_internal ? ($request->input('featured') ?? false) : false;
-        $torrent->doubleup = $user->group->is_modo || $user->group->is_internal ? ($request->input('doubleup') ?? 0) : 0;
-        $torrent->refundable = $user->group->is_modo || $user->group->is_internal ? ($request->input('refundable') ?? false) : false;
+        $torrent->personal_release = $request->input('personal_release') ?? false;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+        $torrent->internal = $user->group->is_modo || $user->internals_exists ? ($request->input('internal') ?? 0) : 0;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+        $torrent->doubleup = $user->group->is_modo || $user->internals_exists ? ($request->input('doubleup') ?? 0) : 0;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+        $torrent->refundable = $user->group->is_modo || $user->internals_exists ? ($request->input('refundable') ?? false) : false;
         $du_until = $request->input('du_until');
 
-        if (($user->group->is_modo || $user->group->is_internal) && isset($du_until)) {
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+        if (($user->group->is_modo || $user->internals_exists) && isset($du_until)) {
             $torrent->du_until = Carbon::now()->addDays($request->integer('du_until'));
         }
-        $torrent->free = $user->group->is_modo || $user->group->is_internal ? ($request->input('free') ?? 0) : 0;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+        $torrent->free = $user->group->is_modo || $user->internals_exists ? ($request->input('free') ?? 0) : 0;
         $fl_until = $request->input('fl_until');
 
-        if (($user->group->is_modo || $user->group->is_internal) && isset($fl_until)) {
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+        if (($user->group->is_modo || $user->internals_exists) && isset($fl_until)) {
             $torrent->fl_until = Carbon::now()->addDays($request->integer('fl_until'));
         }
-        $torrent->sticky = $user->group->is_modo || $user->group->is_internal ? ($request->input('sticky') ?? 0) : 0;
+
+        /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
+        $torrent->sticky = $user->group->is_modo || $user->internals_exists ? ($request->input('sticky') ?? false) : false;
         $torrent->moderated_at = Carbon::now();
         $torrent->moderated_by = User::SYSTEM_USER_ID;
-
-        // Set freeleech and doubleup if featured
-        if ($torrent->featured === true) {
-            $torrent->free = 100;
-            $torrent->doubleup = true;
-        }
 
         // Validation
         $v = validator($torrent->toArray(), [
@@ -279,19 +285,10 @@ class TorrentController extends BaseController
             'anon' => [
                 'required',
             ],
-            'stream' => [
-                'required',
-            ],
-            'sd' => [
-                'required',
-            ],
             'personal_release' => [
                 'nullable',
             ],
             'internal' => [
-                'required',
-            ],
-            'featured' => [
                 'required',
             ],
             'free' => [
@@ -310,8 +307,8 @@ class TorrentController extends BaseController
         ]);
 
         if ($v->fails()) {
-            if (Storage::disk('torrents')->exists($fileName)) {
-                Storage::disk('torrents')->delete($fileName);
+            if (Storage::disk('torrent-files')->exists($fileName)) {
+                Storage::disk('torrent-files')->delete($fileName);
             }
 
             return $this->sendError('Validation Error.', $v->errors());
@@ -337,7 +334,7 @@ class TorrentController extends BaseController
         }
 
         // Set torrent to featured
-        if ($torrent->getAttribute('featured')) {
+        if ($user->group->is_modo || $user->group->is_internal && $request->input('featured')) {
             $featuredTorrent = new FeaturedTorrent();
             $featuredTorrent->user_id = $user->id;
             $featuredTorrent->torrent_id = $torrent->id;
@@ -348,7 +345,7 @@ class TorrentController extends BaseController
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        if ($torrent->getAttribute('featured')) {
+        if ($user->group->is_modo || $user->group->is_internal && $request->input('featured')) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
@@ -381,12 +378,12 @@ class TorrentController extends BaseController
             $user = $torrent->user;
             $username = $user->username;
             $anon = $torrent->anon;
-            $featured = $torrent->getAttribute('featured');
+            $featured = $user->group->is_modo || $user->group->is_internal && $request->input('featured');
             $free = $torrent->free;
             $doubleup = $torrent->doubleup;
 
             // Announce To Shoutbox
-            if ($anon == 0) {
+            if (!$anon) {
                 $this->chatRepository->systemMessage(
                     \sprintf('User [url=%s/users/', $appurl).$username.']'.$username.\sprintf('[/url] has uploaded a new '.$torrent->category->name.'. [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url], grab it now!'
                 );
@@ -396,11 +393,11 @@ class TorrentController extends BaseController
                 );
             }
 
-            if ($anon == 1 && $featured == 1) {
+            if ($anon && $featured == 1) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.'[/url] has been added to the Featured Torrents Slider by an anonymous user! Grab It While You Can!'
                 );
-            } elseif ($anon == 0 && $featured == 1) {
+            } elseif (!$anon && $featured == 1) {
                 $this->chatRepository->systemMessage(
                     \sprintf('Ladies and Gents, [url=%s/torrents/', $appurl).$torrent->id.']'.$torrent->name.\sprintf('[/url] has been added to the Featured Torrents Slider by [url=%s/users/', $appurl).$username.']'.$username.'[/url]! Grab It While You Can!'
                 );
@@ -562,8 +559,6 @@ class TorrentController extends BaseController
                 doubleup: $request->filled('doubleup'),
                 refundable: $request->filled('refundable'),
                 featured: $request->filled('featured'),
-                stream: $request->filled('stream'),
-                sd: $request->filled('sd'),
                 highspeed: $request->filled('highspeed'),
                 internal: $request->filled('internal'),
                 personalRelease: $request->filled('personalRelease'),

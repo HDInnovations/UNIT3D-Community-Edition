@@ -75,7 +75,7 @@ test('store returns an ok response', function (): void {
         // TODO: send request data
     ]);
 
-    $response->assertRedirect(withSuccess(trans('bon.success-tip')));
+    $response->assertRedirect(with('success', trans('bon.success-tip')));
 
     // TODO: perform additional assertions
 });

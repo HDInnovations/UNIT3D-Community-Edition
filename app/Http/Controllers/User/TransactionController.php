@@ -22,9 +22,9 @@ use App\Models\BonExchange;
 use App\Models\BonTransactions;
 use App\Models\PersonalFreeleech;
 use App\Models\User;
+use App\Notifications\PersonalFreeleechCreated;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -97,10 +97,7 @@ class TransactionController extends Controller
 
                     Unit3dAnnounce::addPersonalFreeleech($user->id);
 
-                    $user->sendSystemNotification(
-                        subject: trans('bon.pm-subject'),
-                        message: \sprintf(trans('bon.pm-message'), Carbon::now()->addDays(1)->toDayDateTimeString()).config('app.timezone').'[/b]!',
-                    );
+                    $user->notify(new PersonalFreeleechCreated());
 
                     break;
                 case $bonExchange->invite:
@@ -127,7 +124,7 @@ class TransactionController extends Controller
 
             $user->decrement('seedbonus', $bonExchange->cost);
 
-            return back()->withSuccess(trans('bon.success'));
+            return back()->with('success', trans('bon.success'));
         }, 5);
     }
 }

@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
@@ -416,42 +416,9 @@
                         />
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
-                @else
-                    <input type="hidden" name="anon" value="{{ $torrent->anon }}" />
                 @endif
-                <p
-                    class="form__group"
-                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
-                >
-                    <input type="hidden" name="stream" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="stream"
-                        name="stream"
-                        x-bind:value="cats[cat].type === 'movie' || cats[cat].type === 'tv' ? '1' : '0'"
-                        @checked(old('stream') ?? $torrent->stream)
-                    />
-                    <label class="form__label" for="stream">
-                        {{ __('torrent.stream-optimized') }}?
-                    </label>
-                </p>
-                <p
-                    class="form__group"
-                    x-show="cats[cat].type === 'movie' || cats[cat].type === 'tv'"
-                >
-                    <input type="hidden" name="sd" value="0" />
-                    <input
-                        type="checkbox"
-                        class="form__checkbox"
-                        id="sd"
-                        name="sd"
-                        x-bind:value="cats[cat].type === 'movie' || cats[cat].type === 'tv' ? '1' : '0'"
-                        @checked(old('stream') ?? $torrent->sd)
-                    />
-                    <label class="form__label" for="sd">{{ __('torrent.sd-content') }}?</label>
-                </p>
-                @if (auth()->user()->group->is_modo || auth()->user()->group->is_internal)
+
+                @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
                         <input type="hidden" name="internal" value="0" />
                         <input
@@ -481,13 +448,8 @@
                         />
                         <label class="form__label" for="personal_release">Personal Release?</label>
                     </p>
-                @else
-                    <input
-                        type="hidden"
-                        name="personal_release"
-                        value="{{ $torrent->personal_release }}"
-                    />
                 @endif
+
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}

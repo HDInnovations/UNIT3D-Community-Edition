@@ -92,7 +92,7 @@ class LaravelLogViewer extends Component
             for ($i = 0; $i < $numEntries; $i++) {
                 // The context is the portion before the first stack trace
                 $context = preg_split('/^\[stacktrace\]|Stack trace\:/ms', (string) $stacktraces[$i])[0];
-                // The `context` consists of a message, an exception, a filename, and a linecount
+                // The `context` consists of a message, an exception, a filename, and a line count
                 preg_match($contextPattern, $context, $contextMatches);
 
                 $entries->push([

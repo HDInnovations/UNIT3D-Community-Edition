@@ -70,7 +70,7 @@ class FailedLoginSearch extends Component
     }
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<FailedLoginAttempt>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, FailedLoginAttempt>
      */
     #[Computed]
     final public function failedLogins(): \Illuminate\Pagination\LengthAwarePaginator

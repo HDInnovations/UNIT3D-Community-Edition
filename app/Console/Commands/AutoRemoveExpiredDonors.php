@@ -17,10 +17,12 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\User;
+use App\Notifications\DonationExpired;
 use App\Services\Unit3dAnnounce;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
 use Throwable;
 
 class AutoRemoveExpiredDonors extends Command
@@ -53,15 +55,11 @@ class AutoRemoveExpiredDonors extends Command
                 $query->where('ends_at', '>', Carbon::now());
             })->get();
 
+        Notification::send($expiredDonors, new DonationExpired());
+
         foreach ($expiredDonors as $user) {
             $user->is_donor = false;
             $user->save();
-
-            User::sendSystemNotificationTo(
-                userId: $user->id,
-                subject: 'Your Donor Status Has Expired',
-                message: 'Your donor status has expired. Feel free to donate again to regain your donor status. Thank you for your support!',
-            );
 
             cache()->forget('user:'.$user->passkey);
             Unit3dAnnounce::addUser($user);

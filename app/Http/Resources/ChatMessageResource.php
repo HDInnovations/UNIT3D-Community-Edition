@@ -19,7 +19,6 @@ namespace App\Http\Resources;
 use App\Helpers\Bbcode;
 use hdvinnie\LaravelJoyPixels\LaravelJoyPixels;
 use Illuminate\Http\Resources\Json\JsonResource;
-use voku\helper\AntiXSS;
 
 /**
  * @mixin \App\Models\Message
@@ -33,17 +32,14 @@ class ChatMessageResource extends JsonResource
      */
     public function toArray($request): array
     {
-        $emojiOne = app()->make(LaravelJoyPixels::class);
+        $emojiOne = new LaravelJoyPixels();
 
         $bbcode = new Bbcode();
+        $logger = $bbcode->parse($this->message);
+        $logger = $emojiOne->toImage($logger);
 
         if ($this->user_id == 1) {
-            $logger = $bbcode->parse('<div class="align-left"><div class="chatTriggers">'.$this->message.'</div></div>');
-            $logger = $emojiOne->toImage($logger);
             $logger = str_replace('a href="/#', 'a trigger="bot" class="chatTrigger" href="/#', $logger);
-        } else {
-            $logger = $bbcode->parse('<div class="align-left">'.$this->message.'</div>');
-            $logger = $emojiOne->toImage($logger);
         }
 
         return [
@@ -52,7 +48,7 @@ class ChatMessageResource extends JsonResource
             'user'       => new ChatUserResource($this->whenLoaded('user')),
             'receiver'   => new ChatUserResource($this->whenLoaded('receiver')),
             'chatroom'   => new ChatRoomResource($this->whenLoaded('chatroom')),
-            'message'    => (new AntiXSS())->xss_clean($logger),
+            'message'    => $logger,
             'created_at' => $this->created_at->toIso8601String(),
             'updated_at' => $this->updated_at->toIso8601String(),
         ];

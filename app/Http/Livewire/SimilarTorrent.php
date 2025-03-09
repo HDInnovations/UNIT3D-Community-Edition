@@ -28,9 +28,11 @@ use App\Models\TorrentRequest;
 use App\Models\Tv;
 use App\Models\Type;
 use App\Models\User;
+use App\Notifications\TorrentsDeleted;
 use App\Services\Unit3dAnnounce;
 use App\Traits\CastLivewireProperties;
 use App\Traits\LivewireSort;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -128,12 +130,6 @@ class SimilarTorrent extends Component
 
     #[Url(history: true)]
     public bool $refundable = false;
-
-    #[Url(history: true)]
-    public bool $stream = false;
-
-    #[Url(history: true)]
-    public bool $sd = false;
 
     #[Url(history: true)]
     public bool $highspeed = false;
@@ -237,9 +233,24 @@ class SimilarTorrent extends Component
         $user = auth()->user();
 
         return Torrent::query()
-            ->with('user:id,username,group_id', 'category', 'type', 'resolution')
-            ->withCount(['thanks', 'comments'])
+            ->with('type:id,name,position', 'resolution:id,name,position')
+            ->withCount([
+                'comments',
+            ])
+            ->when(
+                !config('announce.external_tracker.is_enabled'),
+                fn ($query) => $query->withCount([
+                    'seeds'   => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                    'leeches' => fn ($query) => $query->where('active', '=', true)->where('visible', '=', true),
+                ]),
+            )
+            ->when(
+                config('other.thanks-system.is-enabled'),
+                fn ($query) => $query->withCount('thanks')
+            )
             ->withExists([
+                'featured as featured',
+                'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', auth()->id()),
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $user->id),
                 'history as seeding' => fn ($query) => $query->where('user_id', '=', $user->id)
                     ->where('active', '=', 1)
@@ -293,8 +304,6 @@ class SimilarTorrent extends Component
                 internal: $this->internal,
                 personalRelease: $this->personalRelease,
                 trumpable: $this->trumpable,
-                stream: $this->stream,
-                sd: $this->sd,
                 highspeed: $this->highspeed,
                 userBookmarked: $this->bookmarked,
                 userWished: $this->wished,
@@ -365,7 +374,7 @@ class SimilarTorrent extends Component
             ->values()
             ->groupBy(fn ($torrent) => $torrent->type->name)
             ->map(
-                fn ($torrentsBytype) => $torrentsBytype
+                fn ($torrentsByType) => $torrentsByType
                     ->sortBy([
                         ['resolution.position', 'asc'],
                         ['name', 'asc'],
@@ -420,7 +429,6 @@ class SimilarTorrent extends Component
         }
 
         $torrents = Torrent::whereKey($this->checked)->get();
-        $names = [];
         $users = [];
         $title = match (true) {
             $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date->format('Y').')',
@@ -430,8 +438,6 @@ class SimilarTorrent extends Component
         };
 
         foreach ($torrents as $torrent) {
-            $names[] = $torrent->name;
-
             foreach (History::where('torrent_id', '=', $torrent->id)->get() as $pm) {
                 if (!\in_array($pm->user_id, $users)) {
                     $users[] = $pm->user_id;
@@ -471,18 +477,10 @@ class SimilarTorrent extends Component
             $torrent->delete();
         }
 
-        foreach ($users as $user) {
-            User::sendSystemNotificationTo(
-                userId: $user,
-                subject: 'Bulk Torrents Deleted - '.$title.'! ',
-                message: '[b]Attention: [/b] The following torrents have been removed from our site.
-            [list]
-                [*]'.implode(' [*]', $names).'
-            [/list]
-            Our system shows that you were either the uploader, a seeder or a leecher on said torrent. We just wanted to let you know you can safely remove it from your client.
-                                    [b]Removal Reason: [/b] '.$this->reason,
-            );
-        }
+        Notification::send(
+            array_map(fn ($userId) => new User(['id' => $userId]), $users),
+            new TorrentsDeleted($torrents, $title, $this->reason)
+        );
 
         $this->checked = [];
         $this->selectPage = false;

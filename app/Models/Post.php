@@ -16,12 +16,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\Post.
@@ -43,7 +40,7 @@ class Post extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'content',
@@ -154,23 +151,5 @@ class Post extends Model
                 ->when($canReplyTopic && !auth()->user()->group->is_modo, fn ($query) => $query->where('state', '=', 'open'))
                 ->select('id')
         );
-    }
-
-    /**
-     * Set The Posts Content After Its Been Purified.
-     */
-    public function setContentAttribute(?string $value): void
-    {
-        $this->attributes['content'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
-    }
-
-    /**
-     * Parse Content And Return Valid HTML.
-     */
-    public function getContentHtml(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->content));
     }
 }

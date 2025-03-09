@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>Applications - {{ __('staff.staff-dashboard') }} - {{ config('other.title') }}</title>

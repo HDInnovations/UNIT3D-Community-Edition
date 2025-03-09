@@ -1,14 +1,14 @@
 <div class="panel__body playlists torrent__playlists">
     @forelse ($torrent->playlists as $playlist)
         <article class="playlists__playlist">
-            @if (isset($playlist->cover_image) && file_exists(public_path() . '/files/img/' . $playlist->cover_image))
+            @if (isset($playlist->cover_image) && Storage::disk('playlist-images')->exists($playlist->cover_image))
                 <a
                     class="playlists__playlist-image-link"
                     href="{{ route('playlists.show', ['playlist' => $playlist]) }}"
                 >
                     <img
                         class="playlists__playlist-image"
-                        src="{{ url('files/img/' . $playlist->cover_image) }}"
+                        src="{{ route('authenticated_images.playlist_image', ['playlist' => $playlist]) }}"
                         alt=""
                     />
                 </a>
@@ -27,7 +27,7 @@
                 >
                     <img
                         class="playlists__playlist-avatar"
-                        src="{{ url($playlist->user->image ? 'files/img/' . $playlist->user->image : 'img/profile.png') }}"
+                        src="{{ $playlist->user->image ? route('authenticated_images.user_avatar', ['user' => $playlist->user]) : url('img/profile.png') }}"
                         alt="{{ $playlist->user->username }}"
                     />
                 </a>

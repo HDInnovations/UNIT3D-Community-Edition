@@ -25,6 +25,6 @@
 
 @section('page', 'page__forum--category')
 
-@section('main')
+@section('content')
     @livewire('forum-category-topic-search', ['category' => $category])
 @endsection

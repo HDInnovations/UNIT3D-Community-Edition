@@ -40,7 +40,7 @@ class NotificationSettingController extends Controller
         cache()->forget('user-notification:by-user-id:'.$user->id);
 
         return to_route('users.notification_settings.edit', ['user' => $user])
-            ->withSuccess('Your notification settings have been successfully saved.');
+            ->with('success', 'Your notification settings have been successfully saved.');
     }
 
     /**

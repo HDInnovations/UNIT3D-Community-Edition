@@ -283,7 +283,7 @@ class Movie
             $titleSort = null;
 
             if ($this->data['release_date'] !== null) {
-                $re = '/((?<namesort>.*)(?<seperator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
+                $re = '/((?<nameSort>.*)(?<separator>\:|and)(?<remaining>.*)|(?<name>.*))/m';
                 preg_match($re, $this->data['title'], $matches);
 
                 $year = (new DateTime($this->data['release_date']))->format('Y');
@@ -291,7 +291,7 @@ class Movie
                 $titleSort = addslashes(str_replace(
                     ['The ', 'An ', 'A ', '"'],
                     [''],
-                    Str::limit($matches['namesort'] ?? $this->data['title'].' '.$year, 100)
+                    Str::limit($matches['nameSort'] ?? $this->data['title'].' '.$year, 100)
                 ));
             }
 
@@ -363,7 +363,7 @@ class Movie
                 'movie_id'      => $this->data['id'] ?? null,
                 'person_id'     => $person['id'] ?? null,
                 'occupation_id' => Occupation::ACTOR->value,
-                'character'     => $person['character'] ?? '',
+                'character'     => Str::limit($person['character'] ?? '', 200),
                 'order'         => $person['order'] ?? null
             ];
         }

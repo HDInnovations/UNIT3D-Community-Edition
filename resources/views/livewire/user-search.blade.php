@@ -176,7 +176,7 @@
                             <tr>
                                 <td>
                                     <img
-                                        src="{{ url($user->image === null ? 'img/profile.png' : 'files/img/' . $user->image) }}"
+                                        src="{{ $user->image === null ? url('img/profile.png') : route('authenticated_images.user_avatar', ['user' => $user]) }}"
                                         alt=""
                                         class="user-search__avatar"
                                     />

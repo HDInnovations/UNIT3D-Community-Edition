@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models\Scopes;
 
+use App\Enums\ModerationStatus;
 use App\Models\Torrent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,6 @@ class ApprovedScope implements Scope
      */
     public function apply(Builder $builder, Model $model): void
     {
-        $builder->where('status', '=', Torrent::APPROVED);
+        $builder->where('status', '=', ModerationStatus::APPROVED);
     }
 }

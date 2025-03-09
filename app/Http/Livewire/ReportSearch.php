@@ -25,7 +25,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 /**
- * @property \Illuminate\Pagination\LengthAwarePaginator<Report> $reports
+ * @property \Illuminate\Pagination\LengthAwarePaginator<int, Report> $reports
  */
 class ReportSearch extends Component
 {
@@ -68,7 +68,7 @@ class ReportSearch extends Component
     public int $perPage = 25;
 
     /**
-     * @return \Illuminate\Pagination\LengthAwarePaginator<Report>
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, Report>
      */
     #[Computed]
     final public function reports(): \Illuminate\Pagination\LengthAwarePaginator

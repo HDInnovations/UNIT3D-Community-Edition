@@ -26,19 +26,6 @@ test('index returns an ok response', function (): void {
     $response->assertOk();
     $response->assertViewIs('user.earning.index');
     $response->assertViewHas('user', $user);
-    $response->assertViewHas('bon');
-    $response->assertViewHas('dying');
-    $response->assertViewHas('legendary');
-    $response->assertViewHas('old');
-    $response->assertViewHas('huge');
-    $response->assertViewHas('large');
-    $response->assertViewHas('regular');
-    $response->assertViewHas('participant');
-    $response->assertViewHas('teamplayer');
-    $response->assertViewHas('committed');
-    $response->assertViewHas('mvp');
-    $response->assertViewHas('legend');
-    $response->assertViewHas('total');
 });
 
 test('index aborts with a 403', function (): void {

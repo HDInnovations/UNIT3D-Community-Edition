@@ -55,7 +55,7 @@ class MassActionController extends Controller
         }
 
         return to_route('staff.mass-pm.create')
-            ->withSuccess('MassPM Sent');
+            ->with('success', 'MassPM Sent');
     }
 
     /**
@@ -82,6 +82,6 @@ class MassActionController extends Controller
         }
 
         return to_route('staff.dashboard.index')
-            ->withSuccess('Unvalidated Accounts Are Now Validated');
+            ->with('success', 'Unvalidated Accounts Are Now Validated');
     }
 }

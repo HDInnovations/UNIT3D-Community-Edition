@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('breadcrumbs')
     <li class="breadcrumbV2">
@@ -118,7 +118,7 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($rss->object_torrent?->stream || $rss->object_torrent?->highspeed || $rss->object_torrent?->sd || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
+                                @if ($rss->object_torrent?->highspeed || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>
@@ -240,7 +240,7 @@
                                 @endif
                             </td>
                             <td>
-                                @if ($rss->object_torrent?->stream || $rss->object_torrent?->highspeed || $rss->object_torrent?->sd || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
+                                @if ($rss->object_torrent?->highspeed || $rss->object_torrent?->internal || $rss->object_torrent?->personalrelease || $rss->object_torrent?->bookmark)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                     ></i>

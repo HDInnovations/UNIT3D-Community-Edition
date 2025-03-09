@@ -279,17 +279,20 @@
                         {{ __('user.bookmarks') }}
                     </a>
                 </li>
-                <form
-                    action="{{ route('users.peers.mass_destroy', ['user' => $user]) }}"
-                    method="POST"
-                    style="display: contents"
-                >
-                    @csrf()
-                    @method('DELETE')
-                    <button class="nav-tab__link" type="submit">
-                        {{ __('staff.flush-ghost-peers') }}
-                    </button>
-                </form>
+                @if (! config('announce.external_tracker.is_enabled'))
+                    <form
+                        action="{{ route('users.peers.mass_destroy', ['user' => $user]) }}"
+                        method="POST"
+                        style="display: contents"
+                    >
+                        @csrf()
+                        @method('DELETE')
+                        <button class="nav-tab__link" type="submit">
+                            {{ __('staff.flush-ghost-peers') }}
+                        </button>
+                    </form>
+                @endif
+
                 <li class="nav-tabV2" x-data="dialog">
                     <a class="nav-tab__link" x-bind="showDialog">Download Torrent Files</a>
 

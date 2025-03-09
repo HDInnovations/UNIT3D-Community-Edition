@@ -132,7 +132,7 @@ class StoreTorrentRequestRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'igdb.in'    => 'The IGBB ID must be 0 if the media doesn\'t exist on IGDB or you\'re not requesting a game.',
+            'igdb.in'    => 'The IGDB ID must be 0 if the media doesn\'t exist on IGDB or you\'re not requesting a game.',
             'tmdb.in'    => 'The TMDB ID must be 0 if the media doesn\'t exist on TMDB or you\'re not requesting a tv show or movie.',
             'imdb.in'    => 'The IMDB ID must be 0 if the media doesn\'t exist on IMDB or you\'re not requesting a tv show or movie.',
             'tvdb.in'    => 'The TVDB ID must be 0 if the media doesn\'t exist on TVDB or you\'re not requesting a tv show.',

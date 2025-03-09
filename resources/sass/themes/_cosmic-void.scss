@@ -242,6 +242,7 @@
     --scrollbar-color: #ffffff13;
 
     --secondary-nav-bg: #292929;
+    --secondary-nav-box-shadow: none;
     --secondary-nav-tab-fg: #aaa;
     --secondary-nav-tab-bg: inherit;
     --secondary-nav-tab-active-text-decoration: underline #777 2px;
@@ -336,13 +337,11 @@
     --torrent-row-comments-fg: #ddd;
     --torrent-row-internal-fg: #ddd;
     --torrent-row-personal-fg: #ddd;
-    --torrent-row-stream-optimized-fg: #ddd;
     --torrent-row-featured-fg: #ddd;
     --torrent-row-freeleech-fg: #ddd;
     --torrent-row-double-upload-fg: #ddd;
     --torrent-row-sticky-fg: #ddd;
     --torrent-row-highspeed-fg: #ddd;
-    --torrent-row-sd-fg: #ddd;
     --torrent-row-bumped-fg: #ddd;
 
     --torrent-tag-fg: #eee;

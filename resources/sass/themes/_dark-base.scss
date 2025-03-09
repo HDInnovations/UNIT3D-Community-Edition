@@ -21,7 +21,7 @@ For example dark blue,
     --color-A200: #448AFF;          A200
     --color-A400: #2979FF;          A400
     --color-purple: #2962FF;		    A700
-    
+
     --color-dark-blue: #181818;
     --color-dark-red: #181818;
 
@@ -45,13 +45,11 @@ For example dark blue,
     --torrent-row-comments-fg: #3fb618;
     --torrent-row-internal-fg: #baaf92;
     --torrent-row-personal-fg: #865be9;
-    --torrent-row-stream-optimized-fg: var(--color-light-red);
     --torrent-row-featured-fg: var(--color-400);
     --torrent-row-freeleech-fg: #ffb800;
     --torrent-row-double-upload-fg: #3fb618;
     --torrent-row-sticky-fg: var(--text-color);
     --torrent-row-highspeed-fg: var(--color-light-red);
-    --torrent-row-sd-fg: var(--color-400);
     --torrent-row-bumped-fg: #ffb800;
 }
 

@@ -30,7 +30,7 @@ return [
     'nerd-stats-desc'         => 'Wir alle lieben Statistiken. Hier einige, die wir wichtig finden',
     'place'                   => 'Ort',
     'pruned'                  => 'Deaktivierte',
-    'real'                    => '',
+    'real'                    => 'Real',
     'registration-date'       => 'Registrierungs-Datum',
     'request-fulfilled'       => 'Request erfüllt',
     'request-not-fulfilled'   => 'Request nicht erfüllt',

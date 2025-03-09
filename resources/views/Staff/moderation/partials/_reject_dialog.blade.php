@@ -18,7 +18,11 @@
             <input id="type" type="hidden" name="type" value="{{ __('torrent.torrent') }}" />
             <input id="id" type="hidden" name="id" value="{{ $torrent->id }}" />
             <input type="hidden" name="old_status" value="{{ $torrent->status }}" />
-            <input type="hidden" name="status" value="{{ \App\Models\Torrent::REJECTED }}" />
+            <input
+                type="hidden"
+                name="status"
+                value="{{ \App\Enums\ModerationStatus::REJECTED }}"
+            />
             <p class="form__group">
                 <textarea id="message" class="form__textarea" name="message">
 {{ old('message') }}</textarea

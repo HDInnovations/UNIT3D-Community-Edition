@@ -44,6 +44,7 @@ class TopTorrents extends Component
         $torrents = Torrent::query()
             ->with(['user.group', 'category', 'type', 'resolution'])
             ->withExists([
+                'featured as featured',
                 'bookmarks'          => fn ($query) => $query->where('user_id', '=', $this->user->id),
                 'freeleechTokens'    => fn ($query) => $query->where('user_id', '=', $this->user->id),
                 'history as seeding' => fn ($query) => $query->where('user_id', '=', $this->user->id)

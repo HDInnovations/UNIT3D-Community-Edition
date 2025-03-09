@@ -1,15 +1,15 @@
 <section class="meta">
-    @if (file_exists(public_path() . '/files/img/torrent-banner_' . $torrent->id . '.jpg'))
+    @if (Storage::disk('torrent-banners')->exists("torrent-banner_$torrent->id.jpg"))
         <img
             class="meta__backdrop"
-            src="{{ url('/files/img/torrent-banner_' . $torrent->id . '.jpg') }}"
+            src="{{ route('authenticated_images.torrent_banner', ['torrent' => $torrent->id]) }}"
             alt=""
         />
     @endif
 
     <span class="meta__poster-link">
         <img
-            src="{{ file_exists(public_path() . '/files/img/torrent-cover_' . $torrent->id . '.jpg') ? url('/files/img/torrent-cover_' . $torrent->id . '.jpg') : 'https://via.placeholder.com/400x600' }}"
+            src="{{ Storage::disk('torrent-covers')->exists("torrent-cover_$torrent->id.jpg") ? route('authenticated_images.torrent_cover', ['torrent' => $torrent]) : 'https://via.placeholder.com/400x600' }}"
             class="meta__poster"
         />
     </span>

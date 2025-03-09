@@ -14,9 +14,9 @@ declare(strict_types=1);
  */
 
 return [
-    'added'          => 'Dein Kommentar wurde hinzugefügt!',
+    'added'          => 'Dein Kommentar wurde gepostet!',
     'deleted'        => 'Kommentar wurde gelöscht.',
     'edited'         => 'Kommentar wurde editiert.',
     'rights-revoked' => 'Deine Kommentarrechte sind entzogen worden!',
-    'slow-down'      => 'Langsamer - Zu viele Kommentare!',
+    'slow-down'      => 'Immer mit der Ruhe. Das waren zu viele Kommentare!',
 ];

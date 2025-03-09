@@ -51,6 +51,10 @@ class PeerController extends Controller
     {
         abort_unless($request->user()->is($user), 403);
 
+        if (config('announce.external_tracker.is_enabled')) {
+            return redirect()->back()->withErrors("The external tracker doesn't support flushing peers.");
+        }
+
         // Check if User can flush
         if ($request->user()->own_flushes <= 0) {
             return redirect()->back()->withErrors('You can only flush twice a day!');
@@ -73,6 +77,6 @@ class PeerController extends Controller
 
         $user->decrement('own_flushes');
 
-        return redirect()->back()->withSuccess('All peers last announced from the client over 70 minutes ago have been flushed successfully!');
+        return redirect()->back()->with('success', 'All peers last announced from the client over 70 minutes ago have been flushed successfully!');
     }
 }

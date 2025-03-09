@@ -16,8 +16,6 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Helpers\Bbcode;
-use App\Helpers\Linkify;
 use App\Helpers\StringHelper;
 use App\Traits\UsersOnlineTrait;
 use Assada\Achievements\Achiever;
@@ -28,7 +26,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
-use voku\helper\AntiXSS;
 
 /**
  * App\Models\User.
@@ -91,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The Attributes Excluded From The Model's JSON Form.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $hidden = [
         'email',
@@ -110,7 +107,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var string[]
      */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.
@@ -977,32 +974,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Donation::class);
     }
 
-    public function sendSystemNotification(string $subject, string $message): void
-    {
-        $conversation = Conversation::create(['subject' => $subject]);
-
-        $conversation->users()->sync([User::SYSTEM_USER_ID => ['read' => true], $this->id]);
-
-        PrivateMessage::create([
-            'conversation_id' => $conversation->id,
-            'sender_id'       => self::SYSTEM_USER_ID,
-            'message'         => $message
-        ]);
-    }
-
-    public static function sendSystemNotificationTo(int $userId, string $subject, string $message): void
-    {
-        $conversation = Conversation::create(['subject' => $subject]);
-
-        $conversation->users()->sync([User::SYSTEM_USER_ID => ['read' => true], $userId]);
-
-        PrivateMessage::create([
-            'conversation_id' => $conversation->id,
-            'sender_id'       => self::SYSTEM_USER_ID,
-            'message'         => $message
-        ]);
-    }
-
     /**
      * Has many conversations.
      *
@@ -1179,46 +1150,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $bytes = round(($this->uploaded / config('other.ratio')) - $this->downloaded);
 
         return StringHelper::formatBytes($bytes);
-    }
-
-    /**
-     * Set The Users Signature After It's Been Purified.
-     */
-    public function setSignatureAttribute(?string $value): void
-    {
-        $this->attributes['signature'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
-    }
-
-    /**
-     * Returns the HTML of the user's signature.
-     */
-    public function getSignatureHtmlAttribute(): string
-    {
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->signature));
-    }
-
-    /**
-     * Set The Users About Me After It's Been Purified.
-     */
-    public function setAboutAttribute(?string $value): void
-    {
-        $this->attributes['about'] = $value === null ? null : htmlspecialchars((new AntiXSS())->xss_clean($value), ENT_NOQUOTES);
-    }
-
-    /**
-     * Parse About Me And Return Valid HTML.
-     */
-    public function getAboutHtmlAttribute(): string
-    {
-        if (empty($this->about)) {
-            return 'N/A';
-        }
-
-        $bbcode = new Bbcode();
-
-        return (new Linkify())->linky($bbcode->parse($this->about));
     }
 
     /**

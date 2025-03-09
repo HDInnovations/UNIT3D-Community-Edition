@@ -26,6 +26,7 @@ use App\Traits\TorrentMeta;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Exception;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @see \Tests\Todo\Feature\Http\Controllers\PlaylistControllerTest
@@ -69,7 +70,7 @@ class PlaylistController extends Controller
 
             $image = $request->file('cover_image');
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('playlist-images')->path($filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
         }
 
@@ -86,7 +87,7 @@ class PlaylistController extends Controller
         }
 
         return to_route('playlists.show', ['playlist' => $playlist])
-            ->withSuccess(trans('playlist.published-success'));
+            ->with('success', trans('playlist.published-success'));
     }
 
     /**
@@ -123,7 +124,8 @@ class PlaylistController extends Controller
                 $randomTorrent?->category?->movie_meta => Movie::find($randomTorrent->tmdb),
                 default                                => null,
             },
-            'torrents' => $torrents,
+            'latestPlaylistTorrent' => $playlist->torrents()->orderByPivot('created_at', 'desc')->first(),
+            'torrents'              => $torrents,
         ]);
     }
 
@@ -152,7 +154,7 @@ class PlaylistController extends Controller
             abort_unless($image->getError() === UPLOAD_ERR_OK, 500);
 
             $filename = 'playlist-cover_'.uniqid('', true).'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('playlist-images')->path($filename);
             Image::make($image->getRealPath())->fit(400, 225)->encode('png', 100)->save($path);
 
             $playlist->update(['cover_image' => $filename] + $request->validated());
@@ -161,7 +163,7 @@ class PlaylistController extends Controller
         }
 
         return to_route('playlists.show', ['playlist' => $playlist])
-            ->withSuccess(trans('playlist.update-success'));
+            ->with('success', trans('playlist.update-success'));
     }
 
     /**
@@ -178,6 +180,6 @@ class PlaylistController extends Controller
         $playlist->delete();
 
         return to_route('playlists.index')
-            ->withSuccess(trans('playlist.deleted'));
+            ->with('success', trans('playlist.deleted'));
     }
 }

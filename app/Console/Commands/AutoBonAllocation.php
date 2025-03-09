@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Helpers\ByteUnits;
+use App\Models\BonEarning;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -47,230 +48,82 @@ class AutoBonAllocation extends Command
     {
         $now = now();
 
-        $dyingTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
-            ->join('torrents', 'torrents.id', 'peers.torrent_id')
-            ->where('torrents.seeders', 1)
-            ->where('torrents.times_completed', '>', 2)
-            ->where('peers.seeder', 1)
-            ->where('peers.active', 1)
-            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
-            ->groupBy('peers.user_id')
-            ->get()
-            ->toArray();
+        $bonEarnings = BonEarning::with('conditions')->orderBy('position')->get();
 
-        $legendaryTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
-            ->join('torrents', 'torrents.id', 'peers.torrent_id')
-            ->where('peers.seeder', 1)
-            ->where('peers.active', 1)
-            ->where('torrents.created_at', '<', $now->copy()->subMonths(12))
-            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
-            ->groupBy('peers.user_id')
-            ->get()
-            ->toArray();
+        $earningsQuery = str_repeat('(', $bonEarnings->count()).'0';
 
-        $oldTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
-            ->join('torrents', 'torrents.id', 'peers.torrent_id')
-            ->where('peers.seeder', 1)
-            ->where('peers.active', 1)
-            ->where('torrents.created_at', '<', $now->copy()->subMonths(6))
-            ->where('torrents.created_at', '>', $now->copy()->subMonths(12))
-            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
-            ->groupBy('peers.user_id')
-            ->get()
-            ->toArray();
+        foreach ($bonEarnings as $bonEarning) {
+            // Raw bindings are fine since all database values are either enums or numeric
+            $conditionQuery = '1=1';
 
-        $hugeTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
-            ->join('torrents', 'torrents.id', 'peers.torrent_id')
-            ->where('peers.seeder', 1)
-            ->where('peers.active', 1)
-            ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('100GiB'))
-            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
-            ->groupBy('peers.user_id')
-            ->get()
-            ->toArray();
-
-        $largeTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
-            ->join('torrents', 'torrents.id', 'peers.torrent_id')
-            ->where('peers.seeder', 1)
-            ->where('peers.active', 1)
-            ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('25GiB'))
-            ->where('torrents.size', '<', $byteUnits->bytesFromUnit('100GiB'))
-            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
-            ->groupBy('peers.user_id')
-            ->get()
-            ->toArray();
-
-        $regularTorrent = DB::table('peers')
-            ->select(DB::raw('count(DISTINCT(peers.torrent_id)) as value'), 'peers.user_id')
-            ->join('torrents', 'torrents.id', 'peers.torrent_id')
-            ->where('peers.seeder', 1)
-            ->where('peers.active', 1)
-            ->where('torrents.size', '>=', $byteUnits->bytesFromUnit('1GiB'))
-            ->where('torrents.size', '<', $byteUnits->bytesFromUnit('25GiB'))
-            ->where('peers.created_at', '<', $now->copy()->subMinutes(30))
-            ->groupBy('peers.user_id')
-            ->get()
-            ->toArray();
-
-        $participaintSeeder = DB::table('history')
-            ->select(DB::raw('count(*) as value'), 'history.user_id')
-            ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2_592_000)
-            ->where('history.seedtime', '<', 2_592_000 * 2)
-            ->groupBy('history.user_id')
-            ->get()
-            ->toArray();
-
-        $teamplayerSeeder = DB::table('history')
-            ->select(DB::raw('count(*) as value'), 'history.user_id')
-            ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2_592_000 * 2)
-            ->where('history.seedtime', '<', 2_592_000 * 3)
-            ->groupBy('history.user_id')
-            ->get()
-            ->toArray();
-
-        $commitedSeeder = DB::table('history')
-            ->select(DB::raw('count(*) as value'), 'history.user_id')
-            ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2_592_000 * 3)
-            ->where('history.seedtime', '<', 2_592_000 * 6)
-            ->groupBy('history.user_id')
-            ->get()
-            ->toArray();
-
-        $mvpSeeder = DB::table('history')
-            ->select(DB::raw('count(*) as value'), 'history.user_id')
-            ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2_592_000 * 6)
-            ->where('history.seedtime', '<', 2_592_000 * 12)
-            ->groupBy('history.user_id')
-            ->get()
-            ->toArray();
-
-        $legendarySeeder = DB::table('history')
-            ->select(DB::raw('count(*) as value'), 'history.user_id')
-            ->where('history.active', 1)
-            ->where('history.seedtime', '>=', 2_592_000 * 12)
-            ->groupBy('history.user_id')
-            ->get()
-            ->toArray();
-
-        //Move data from SQL to array
-
-        $array = [];
-
-        foreach ($dyingTorrent as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 2;
-            } else {
-                $array[$value->user_id] = $value->value * 2;
+            foreach ($bonEarning->conditions as $condition) {
+                $conditionQuery .= ' AND '.match ($condition->operand1) {
+                    '1'                => '1',
+                    'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
+                    'size'             => 'torrents.size',
+                    'seeders'          => 'torrents.seeders',
+                    'leechers'         => 'torrents.leechers',
+                    'times_completed'  => 'torrents.times_completed',
+                    'internal'         => 'torrents.internal',
+                    'personal_release' => 'torrents.personal_release',
+                    'type_id'          => 'torrents.type_id',
+                    'seedtime'         => 'history.seedtime',
+                    'connectable'      => 'MAX(peers.connectable)',
+                }.' '.$condition->operator.' '.$condition->operand2;
             }
+
+            $variable = match ($bonEarning->variable) {
+                '1'                => '1',
+                'age'              => 'TIMESTAMPDIFF(SECOND, torrents.created_at, NOW())',
+                'size'             => 'torrents.size',
+                'seeders'          => 'torrents.seeders',
+                'leechers'         => 'torrents.leechers',
+                'times_completed'  => 'torrents.times_completed',
+                'internal'         => 'torrents.internal',
+                'personal_release' => 'torrents.personal_release',
+                'seedtime'         => 'history.seedtime',
+                'connectable'      => 'MAX(peers.connectable)',
+            };
+
+            $earningsQuery .= match ($bonEarning->operation) {
+                'append'   => " + CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 0 END)",
+                'multiply' => " * CASE WHEN ({$conditionQuery}) THEN {$variable} * {$bonEarning->multiplier} ELSE 1 END)",
+            };
         }
 
-        foreach ($legendaryTorrent as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 1.5;
-            } else {
-                $array[$value->user_id] = $value->value * 1.5;
-            }
-        }
+        DB::transaction(function () use ($earningsQuery): void {
+            User::withoutTimestamps(function () use ($earningsQuery): void {
+                DB::table('users')
+                    ->joinSub(
+                        DB::query()->fromSub(
+                            DB::table('peers')
+                                ->select([
+                                    'peers.user_id',
+                                    'peers.torrent_id',
+                                    DB::raw("({$earningsQuery}) AS hourly_earnings"),
+                                ])
+                                ->join('history', fn ($join) => $join->on('history.torrent_id', '=', 'peers.torrent_id')->on('history.user_id', '=', 'peers.user_id'))
+                                ->join('torrents', 'peers.torrent_id', '=', 'torrents.id')
+                                ->where('peers.seeder', '=', true)
+                                ->where('peers.active', '=', true)
+                                ->where('peers.created_at', '<', now()->subMinutes(30))
+                                ->groupBy(['peers.user_id', 'peers.torrent_id']),
+                            'earnings_per_user_per_torrent',
+                        )
+                            ->select([
+                                'user_id',
+                                DB::raw('SUM(hourly_earnings) AS hourly_earnings_sum'),
+                            ])
+                            ->groupBy('user_id'),
+                        'earnings_per_user',
+                        fn ($join) => $join->on('users.id', '=', 'earnings_per_user.user_id'),
+                    )
+                    ->update([
+                        'seedbonus' => DB::raw('seedbonus + hourly_earnings_sum'),
+                    ]);
+            });
+        }, 25);
 
-        foreach ($oldTorrent as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 1;
-            } else {
-                $array[$value->user_id] = $value->value * 1;
-            }
-        }
-
-        foreach ($hugeTorrent as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 0.75;
-            } else {
-                $array[$value->user_id] = $value->value * 0.75;
-            }
-        }
-
-        foreach ($largeTorrent as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 0.50;
-            } else {
-                $array[$value->user_id] = $value->value * 0.50;
-            }
-        }
-
-        foreach ($regularTorrent as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 0.25;
-            } else {
-                $array[$value->user_id] = $value->value * 0.25;
-            }
-        }
-
-        foreach ($participaintSeeder as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 0.25;
-            } else {
-                $array[$value->user_id] = $value->value * 0.25;
-            }
-        }
-
-        foreach ($teamplayerSeeder as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 0.50;
-            } else {
-                $array[$value->user_id] = $value->value * 0.50;
-            }
-        }
-
-        foreach ($commitedSeeder as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 0.75;
-            } else {
-                $array[$value->user_id] = $value->value * 0.75;
-            }
-        }
-
-        foreach ($mvpSeeder as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 1;
-            } else {
-                $array[$value->user_id] = $value->value * 1;
-            }
-        }
-
-        foreach ($legendarySeeder as $value) {
-            if (\array_key_exists($value->user_id, $array)) {
-                $array[$value->user_id] += $value->value * 2;
-            } else {
-                $array[$value->user_id] = $value->value * 2;
-            }
-        }
-
-        //Move data from array to BonTransactions table
-        /*foreach ($array as $key => $value) {
-            $log = new BonTransactions();
-            $log->bon_exchange_id = 0;
-            $log->name = "Seeding Award";
-            $log->cost = $value;
-            $log->receiver_id = $key;
-            $log->comment = "Seeding Award";
-            $log->save();
-        }*/
-
-        //Move data from array to Users table
-        foreach ($array as $key => $value) {
-            User::whereKey($key)->update([
-                'seedbonus' => DB::raw('seedbonus + '.$value),
-            ]);
-        }
-
-        $this->comment('Automated BON Allocation Command Complete');
+        $this->comment('Automated BON Allocation Command Complete in '.now()->diffInMilliseconds($now).' ms');
     }
 }

@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>
@@ -22,7 +22,7 @@
     @include('user.buttons.user')
 @endsection
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">General {{ __('user.settings') }}</h2>
         <div class="panel__body">

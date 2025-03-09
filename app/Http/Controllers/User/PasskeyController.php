@@ -18,6 +18,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\PasskeyReset;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -62,16 +63,13 @@ class PasskeyController extends Controller
             $user->passkeys()->create(['content' => $user->passkey]);
 
             if ($changedByStaff) {
-                $user->sendSystemNotification(
-                    subject: 'ATTENTION - Your passkey has been reset',
-                    message: "Your passkey has been reset by staff. You will need to update your passkey in all your torrent clients to continue seeding.\n\nFor more information, please create a helpdesk ticket.",
-                );
+                $user->notify(new PasskeyReset());
             }
         });
 
         Unit3dAnnounce::addUser($user);
 
         return to_route('users.passkeys.index', ['user' => $user])
-            ->withSuccess('Your passkey was changed successfully.');
+            ->with('success', 'Your passkey was changed successfully.');
     }
 }

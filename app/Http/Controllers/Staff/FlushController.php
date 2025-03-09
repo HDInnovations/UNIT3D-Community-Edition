@@ -39,12 +39,16 @@ class FlushController extends Controller
     }
 
     /**
-     * Flsuh All Old Peers From Database.
+     * Flush All Old Peers From Database.
      *
      * @throws Exception
      */
     public function peers(): \Illuminate\Http\RedirectResponse
     {
+        if (config('announce.external_tracker.is_enabled')) {
+            return redirect()->back()->withErrors("The external tracker doesn't support flushing peers.");
+        }
+
         $carbon = new Carbon();
         $peers = Peer::select(['torrent_id', 'user_id', 'peer_id', 'updated_at'])->where('updated_at', '<', $carbon->copy()->subHours(2))->get();
 
@@ -65,7 +69,7 @@ class FlushController extends Controller
         }
 
         return to_route('staff.dashboard.index')
-            ->withSuccess('Ghost Peers Have Been Flushed');
+            ->with('success', 'Ghost Peers Have Been Flushed');
     }
 
     /**
@@ -85,6 +89,6 @@ class FlushController extends Controller
         );
 
         return to_route('staff.dashboard.index')
-            ->withSuccess('Chatbox Has Been Flushed');
+            ->with('success', 'Chatbox Has Been Flushed');
     }
 }

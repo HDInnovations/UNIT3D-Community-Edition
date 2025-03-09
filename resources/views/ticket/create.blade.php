@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>{{ __('ticket.helpdesk') }} - {{ config('other.title') }}</title>
@@ -17,7 +17,7 @@
 
 @section('page', 'page__ticket--create')
 
-@section('content')
+@section('main')
     <section class="panelV2">
         <h2 class="panel__heading">
             <i class="fas fa-plus"></i>

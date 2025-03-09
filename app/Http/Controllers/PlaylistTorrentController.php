@@ -44,7 +44,7 @@ class PlaylistTorrentController extends Controller
         $playlistTorrent->torrent()->searchable();
 
         return to_route('playlists.show', ['playlist' => $playlist])
-            ->withSuccess(trans('playlist.attached-success'));
+            ->with('success', trans('playlist.attached-success'));
     }
 
     /**
@@ -74,7 +74,7 @@ class PlaylistTorrentController extends Controller
         $playlist->torrents()->searchable();
 
         return to_route('playlists.show', ['playlist' => $playlist])
-            ->withSuccess(trans('playlist.attached-success'));
+            ->with('success', trans('playlist.attached-success'));
     }
 
     /**
@@ -91,6 +91,6 @@ class PlaylistTorrentController extends Controller
         $playlistTorrent->torrent()->searchable();
 
         return to_route('playlists.show', ['playlist' => $playlistTorrent->playlist])
-            ->withSuccess(trans('playlist.detached-success'));
+            ->with('success', trans('playlist.detached-success'));
     }
 }

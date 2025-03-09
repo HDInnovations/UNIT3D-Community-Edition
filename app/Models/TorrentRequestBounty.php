@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $user_id
  * @property string                          $seedbonus
  * @property int                             $requests_id
- * @property int                             $anon
+ * @property bool                            $anon
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  */
@@ -61,6 +61,7 @@ class TorrentRequestBounty extends Model
     {
         return [
             'seedbonus' => 'decimal:2',
+            'anon'      => 'bool',
         ];
     }
 

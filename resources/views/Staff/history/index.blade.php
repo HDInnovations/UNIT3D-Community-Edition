@@ -1,4 +1,4 @@
-@extends('layout.default')
+@extends('layout.with-main')
 
 @section('title')
     <title>History - {{ config('other.title') }}</title>
@@ -15,6 +15,6 @@
 
 @section('page', 'page__history--index')
 
-@section('content')
+@section('main')
     @livewire('history-search')
 @endsection

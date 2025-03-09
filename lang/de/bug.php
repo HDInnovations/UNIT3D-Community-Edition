@@ -15,7 +15,7 @@ declare(strict_types=1);
 
 return [
     'bug-report'             => 'Bug Report',
-    'bug-report-description' => 'Einen Webseiten Bug melden',
+    'bug-report-description' => 'Einen Bug melden',
     'enter-description'      => 'Beschreibe das Problem so gut wie möglich',
     'enter-email'            => 'Bitte gebe deine E-Mail-Adresse ein',
     'enter-title'            => 'Bitte wähle einen passenden Titel',

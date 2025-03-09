@@ -38,7 +38,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class DonationPackage extends Model
 {
-    /** @use HasFactory<\Database\Factories\DonationPackagefactory> */
+    /** @use HasFactory<\Database\Factories\DonationPackageFactory> */
     use HasFactory;
     use SoftDeletes;
 

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\User;
 
+use App\Enums\ModerationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\BonTransactions;
 use App\Models\Donation;
@@ -27,6 +28,7 @@ use Assada\Achievements\Model\AchievementProgress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
@@ -117,7 +119,7 @@ class UserController extends Controller
                 ->first(),
             'watch'        => $user->watchlist,
             'externalUser' => ! $user->trashed() && $request->user()->group->is_modo ? Unit3dAnnounce::getUser($user->id) : false,
-            'donation'     => Donation::where('status', '=', Donation::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
+            'donation'     => Donation::where('status', '=', ModerationStatus::APPROVED)->where('user_id', '=', $user->id)->latest()->first(),
         ]);
     }
 
@@ -163,7 +165,7 @@ class UserController extends Controller
             }
 
             $filename = $user->username.'.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('user-avatars')->path($filename);
 
             if ($image->getClientOriginalExtension() !== 'gif') {
                 Image::make($image->getRealPath())->fit(150, 150)->encode('png', 100)->save($path);
@@ -174,7 +176,7 @@ class UserController extends Controller
                     'image.dimensions' => 'Only square avatars are accepted.',
                 ])->validate();
 
-                $image->move(public_path('/files/img/'), $filename);
+                $image->storeAs('', $filename, 'user-avatars');
             }
 
             $avatar = $user->username.'.'.$image->getClientOriginalExtension();
@@ -208,7 +210,7 @@ class UserController extends Controller
             }
 
             $filename = uniqid('', true).'_icon.'.$image->getClientOriginalExtension();
-            $path = public_path('/files/img/'.$filename);
+            $path = Storage::disk('user-icons')->path($filename);
 
             if ($image->getClientOriginalExtension() !== 'gif') {
                 Image::make($image->getRealPath())->fit(30, 30)->encode('png', 100)->save($path);
@@ -217,7 +219,7 @@ class UserController extends Controller
                     'image' => 'dimensions:ratio=1/1',
                 ]);
 
-                $image->move(public_path('/files/img/'), $filename);
+                $image->storeAs('', $filename, 'user-icons');
             }
 
             if ($user->icon !== $filename) {
@@ -239,16 +241,16 @@ class UserController extends Controller
 
         // Remove avatar's old file format
         if (isset($oldAvatar)) {
-            File::delete(public_path('/files/img/').$oldAvatar);
+            Storage::disk('user-avatars')->delete($oldAvatar);
         }
 
         // Remove icon's old file format
         if (isset($oldIcon)) {
-            File::delete(public_path('/files/img/').$oldIcon);
+            Storage::disk('user-icons')->delete($oldIcon);
         }
 
         return to_route('users.show', ['user' => $user])
-            ->withSuccess('Your Account Was Updated Successfully!');
+            ->with('success', 'Your Account Was Updated Successfully!');
     }
 
     /**

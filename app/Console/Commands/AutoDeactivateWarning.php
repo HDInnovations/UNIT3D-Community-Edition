@@ -50,9 +50,6 @@ class AutoDeactivateWarning extends Command
     final public function handle(): void
     {
         $current = Carbon::now();
-        $warnings = Warning::with(['warneduser', 'torrenttitle'])
-            ->where('active', '=', 1)
-            ->get();
 
         Warning::query()
             ->where('active', '=', true)
@@ -96,6 +93,6 @@ class AutoDeactivateWarning extends Command
                 }
             }, 'user_id');
 
-        $this->comment('Automated Warning Deativation Command Complete');
+        $this->comment('Automated Warning Deactivation Command Complete');
     }
 }

@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\ModerationStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Helpers\StringHelper;
 use App\Models\Scopes\ApprovedScope;
@@ -36,8 +37,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int                             $verified
  * @property int                             $user_id
  * @property int                             $torrent_id
- * @property int                             $anon
- * @property int                             $status
+ * @property bool                            $anon
+ * @property ModerationStatus                $status
  * @property \Illuminate\Support\Carbon|null $moderated_at
  * @property int|null                        $moderated_by
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -50,18 +51,18 @@ class Subtitle extends Model
     /** @use HasFactory<\Database\Factories\SubtitleFactory> */
     use HasFactory;
 
-    final public const APPROVED = 1;
-
     protected $guarded = [];
 
     /**
      * Get the attributes that should be cast.
      *
-     * @return array{moderated_at: 'datetime'}
+     * @return array{anon: 'bool', status: class-string<ModerationStatus>, moderated_at: 'datetime'}
      */
     protected function casts(): array
     {
         return [
+            'anon'         => 'bool',
+            'status'       => ModerationStatus::class,
             'moderated_at' => 'datetime',
         ];
     }

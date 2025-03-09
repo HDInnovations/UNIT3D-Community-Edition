@@ -53,6 +53,18 @@ class TorrentRequestClaim extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array{anon: 'bool'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'anon' => 'bool',
+        ];
+    }
+
+    /**
      * Belongs To A User.
      *
      * @return BelongsTo<User, $this>
