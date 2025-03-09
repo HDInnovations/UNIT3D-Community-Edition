@@ -1,7 +1,7 @@
 <div class="panel__body playlists torrent__playlists">
     @forelse ($torrent->playlists as $playlist)
         <article class="playlists__playlist">
-            @if (isset($playlist->cover_image) && Storage::disk('playlist-covers')->exists($playlist->cover_image))
+            @if (isset($playlist->cover_image) && Storage::disk('playlist-images')->exists($playlist->cover_image))
                 <a
                     class="playlists__playlist-image-link"
                     href="{{ route('playlists.show', ['playlist' => $playlist]) }}"

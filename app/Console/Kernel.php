@@ -40,7 +40,6 @@ use App\Console\Commands\AutoRemoveTimedTorrentBuffs;
 use App\Console\Commands\AutoResetUserFlushes;
 use App\Console\Commands\AutoRewardResurrection;
 use App\Console\Commands\AutoSoftDeleteDisabledUsers;
-use App\Console\Commands\AutoStatsClients;
 use App\Console\Commands\AutoSyncPeopleToMeilisearch;
 use App\Console\Commands\AutoSyncTorrentsToMeilisearch;
 use App\Console\Commands\AutoTorrentBalance;
@@ -98,7 +97,6 @@ class Kernel extends ConsoleKernel
         $schedule->command(AutoCorrectHistory::class)->daily();
         $schedule->command(EmailBlacklistUpdate::class)->weekends();
         $schedule->command(AutoResetUserFlushes::class)->daily();
-        $schedule->command(AutoStatsClients::class)->daily();
         $schedule->command(AutoRemoveTimedTorrentBuffs::class)->hourly();
         $schedule->command(AutoRefundDownload::class)->daily();
         $schedule->command(ClearResetsCommand::class)->daily();

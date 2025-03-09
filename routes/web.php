@@ -109,7 +109,7 @@ Route::middleware('language')->group(function (): void {
         Route::prefix('authenticated-images')->name('authenticated_images.')->group(function (): void {
             Route::get('/article-images/{article}', [App\Http\Controllers\AuthenticatedImageController::class, 'articleImage'])->name('article_image');
             Route::get('/category-images/{category}', [App\Http\Controllers\AuthenticatedImageController::class, 'categoryImage'])->name('category_image');
-            Route::get('/playlist-images/{torrent}', [App\Http\Controllers\AuthenticatedImageController::class, 'playlistImage'])->name('playlist_image');
+            Route::get('/playlist-images/{playlist}', [App\Http\Controllers\AuthenticatedImageController::class, 'playlistImage'])->name('playlist_image');
             Route::get('/torrent-banners/{torrent}', [App\Http\Controllers\AuthenticatedImageController::class, 'torrentBanner'])->name('torrent_banner');
             Route::get('/torrent-covers/{torrent}', [App\Http\Controllers\AuthenticatedImageController::class, 'torrentCover'])->name('torrent_cover');
             Route::get('/user-avatars/{user:username}', [App\Http\Controllers\AuthenticatedImageController::class, 'userAvatar'])->name('user_avatar');

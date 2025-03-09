@@ -286,7 +286,7 @@
                                 </time>
                             </td>
                             <td class="user-uploads__personal-release">
-                                @if ($torrent->personal_release === 1)
+                                @if ($torrent->personal_release)
                                     <i
                                         class="{{ config('other.font-awesome') }} fa-check text-green"
                                         title="{{ __('torrent.personal-release') }}"

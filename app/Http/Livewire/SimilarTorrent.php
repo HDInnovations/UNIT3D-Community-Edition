@@ -245,7 +245,7 @@ class SimilarTorrent extends Component
                 ]),
             )
             ->when(
-                config('other.thanks-system.is_enabled'),
+                config('other.thanks-system.is-enabled'),
                 fn ($query) => $query->withCount('thanks')
             )
             ->withExists([

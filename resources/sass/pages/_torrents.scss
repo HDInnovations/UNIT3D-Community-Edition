@@ -137,7 +137,9 @@
 }
 
 .torrent-search--list__poster-img {
-    width: 53px;
+    /* TMDb posters should always be a ratio of 1.5 */
+    width: 54px;
+    height: 81px;
     border-radius: 5px;
 }
 

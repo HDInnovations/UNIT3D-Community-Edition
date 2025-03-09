@@ -416,8 +416,6 @@
                         />
                         <label class="form__label" for="anon">{{ __('common.anonymous') }}?</label>
                     </p>
-                @else
-                    <input type="hidden" name="anon" value="{{ $torrent->anon }}" />
                 @endif
                 @if (auth()->user()->group->is_modo ||auth()->user()->internals()->exists())
                     <p class="form__group">
@@ -449,13 +447,8 @@
                         />
                         <label class="form__label" for="personal_release">Personal Release?</label>
                     </p>
-                @else
-                    <input
-                        type="hidden"
-                        name="personal_release"
-                        value="{{ $torrent->personal_release }}"
-                    />
                 @endif
+
                 <p class="form__group">
                     <button class="form__button form__button--filled">
                         {{ __('common.submit') }}
