@@ -166,8 +166,6 @@ class TorrentController extends BaseController
         $torrent->season_number = $request->input('season_number');
         $torrent->episode_number = $request->input('episode_number');
         $torrent->anon = $request->input('anonymous');
-        $torrent->stream = $request->input('stream');
-        $torrent->sd = $request->input('sd');
         $torrent->personal_release = $request->input('personal_release') ?? false;
 
         /** @phpstan-ignore property.notFound (Larastan doesn't yet support loadExists()) */
@@ -285,12 +283,6 @@ class TorrentController extends BaseController
                 Rule::prohibitedIf(!$category->tv_meta),
             ],
             'anon' => [
-                'required',
-            ],
-            'stream' => [
-                'required',
-            ],
-            'sd' => [
                 'required',
             ],
             'personal_release' => [
@@ -567,8 +559,6 @@ class TorrentController extends BaseController
                 doubleup: $request->filled('doubleup'),
                 refundable: $request->filled('refundable'),
                 featured: $request->filled('featured'),
-                stream: $request->filled('stream'),
-                sd: $request->filled('sd'),
                 highspeed: $request->filled('highspeed'),
                 internal: $request->filled('internal'),
                 personalRelease: $request->filled('personalRelease'),

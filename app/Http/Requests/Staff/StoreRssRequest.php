@@ -123,15 +123,7 @@ class StoreRssRequest extends FormRequest
                 'sometimes',
                 'boolean',
             ],
-            'stream' => [
-                'sometimes',
-                'boolean',
-            ],
             'highspeed' => [
-                'sometimes',
-                'boolean',
-            ],
-            'sd' => [
                 'sometimes',
                 'boolean',
             ],

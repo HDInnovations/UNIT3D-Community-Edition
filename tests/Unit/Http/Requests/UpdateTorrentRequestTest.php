@@ -99,14 +99,6 @@ test('rules', function (): void {
             'required',
             'boolean',
         ],
-        'stream' => [
-            'required',
-            'boolean',
-        ],
-        'sd' => [
-            'required',
-            'boolean',
-        ],
         'personal_release' => [
             'required',
             'boolean',

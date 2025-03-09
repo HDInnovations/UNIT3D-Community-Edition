@@ -398,28 +398,6 @@
                                                 class="form__checkbox"
                                                 type="checkbox"
                                                 value="1"
-                                                wire:model.live="stream"
-                                            />
-                                            {{ __('torrent.stream-optimized') }}
-                                        </label>
-                                    </p>
-                                    <p class="form__group">
-                                        <label class="form__label">
-                                            <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
-                                                wire:model.live="sd"
-                                            />
-                                            {{ __('torrent.sd-content') }}
-                                        </label>
-                                    </p>
-                                    <p class="form__group">
-                                        <label class="form__label">
-                                            <input
-                                                class="form__checkbox"
-                                                type="checkbox"
-                                                value="1"
                                                 wire:model.live="highspeed"
                                             />
                                             {{ __('common.high-speeds') }}

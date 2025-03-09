@@ -209,14 +209,6 @@ class StoreTorrentRequest extends FormRequest
                 'required',
                 'boolean',
             ],
-            'stream' => [
-                'required',
-                'boolean',
-            ],
-            'sd' => [
-                'required',
-                'boolean',
-            ],
             'personal_release' => [
                 'required',
                 'boolean',

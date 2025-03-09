@@ -117,15 +117,7 @@ test('rules', function (): void {
             'sometimes',
             'boolean',
         ],
-        'stream' => [
-            'sometimes',
-            'boolean',
-        ],
         'highspeed' => [
-            'sometimes',
-            'boolean',
-        ],
-        'sd' => [
             'sometimes',
             'boolean',
         ],

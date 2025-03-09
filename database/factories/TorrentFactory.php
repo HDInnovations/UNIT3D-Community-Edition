@@ -61,7 +61,6 @@ class TorrentFactory extends Factory
             'igdb'            => $this->faker->randomNumber(),
             'type_id'         => fn () => Type::factory()->create()->id,
             'resolution_id'   => fn () => Resolution::factory()->create()->id,
-            'stream'          => $this->faker->boolean(),
             'free'            => $freeleech[$selected],
             'doubleup'        => $this->faker->boolean(),
             'highspeed'       => $this->faker->boolean(),
@@ -70,7 +69,6 @@ class TorrentFactory extends Factory
             'moderated_by'    => 1,
             'anon'            => $this->faker->boolean(),
             'sticky'          => $this->faker->boolean(),
-            'sd'              => $this->faker->boolean(),
             'internal'        => $this->faker->boolean(),
         ];
     }

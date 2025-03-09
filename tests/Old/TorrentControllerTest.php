@@ -139,8 +139,6 @@ final class TorrentControllerTest extends TestCase
             'type_id'       => $type->id,
             'resolution_id' => $resolution->id,
             'anonymous'     => $torrent->anon,
-            'stream'        => $torrent->stream,
-            'sd'            => $torrent->sd,
             'internal'      => $torrent->internal,
             'featured'      => false,
             'doubleup'      => $torrent->doubleup,

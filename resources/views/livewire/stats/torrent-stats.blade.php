@@ -7,15 +7,16 @@
                 <dd>{{ $category->torrents_count }}</dd>
             </div>
         @endforeach
-
-        <div class="key-value__group">
-            <dt>HD</dt>
-            <dd>{{ $num_hd }}</dd>
-        </div>
-        <div class="key-value__group">
-            <dt>SD</dt>
-            <dd>{{ $num_sd }}</dd>
-        </div>
+    </dl>
+    <dl class="key-value">
+        @foreach ($resolutions as $resolution)
+            <div class="key-value__group">
+                <dt>{{ $resolution->name }} {{ __('common.resolution') }}</dt>
+                <dd>{{ $resolution->torrents_count }}</dd>
+            </div>
+        @endforeach
+    </dl>
+    <dl class="key-value">
         <div class="key-value__group">
             <dt>{{ __('stat.total-torrents') }}</dt>
             <dd>{{ $num_torrent }}</dd>

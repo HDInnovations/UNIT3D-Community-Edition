@@ -132,12 +132,6 @@ class SimilarTorrent extends Component
     public bool $refundable = false;
 
     #[Url(history: true)]
-    public bool $stream = false;
-
-    #[Url(history: true)]
-    public bool $sd = false;
-
-    #[Url(history: true)]
     public bool $highspeed = false;
 
     #[Url(history: true)]
@@ -310,8 +304,6 @@ class SimilarTorrent extends Component
                 internal: $this->internal,
                 personalRelease: $this->personalRelease,
                 trumpable: $this->trumpable,
-                stream: $this->stream,
-                sd: $this->sd,
                 highspeed: $this->highspeed,
                 userBookmarked: $this->bookmarked,
                 userWished: $this->wished,

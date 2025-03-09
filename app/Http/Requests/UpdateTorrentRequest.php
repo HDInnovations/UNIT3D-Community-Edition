@@ -132,14 +132,6 @@ class UpdateTorrentRequest extends FormRequest
                 Rule::requiredIf($torrent->user_id === $user->id || $user->group->is_modo),
                 Rule::excludeIf(!($torrent->user_id === $user->id || $user->group->is_modo)),
             ],
-            'stream' => [
-                'required',
-                'boolean',
-            ],
-            'sd' => [
-                'required',
-                'boolean',
-            ],
             'personal_release' => [
                 'sometimes',
                 'boolean',
