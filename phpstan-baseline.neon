@@ -535,12 +535,6 @@ parameters:
 			path: app/Http/Livewire/AttachmentUpload.php
 
 		-
-			message: '#^Argument of an invalid type list\<string\>\|false supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: app/Http/Livewire/AuditLogSearch.php
-
-		-
 			message: '#^Call to function method_exists\(\) with Spatie\\Backup\\BackupDestination\\Backup and ''sizeInBytes'' will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
