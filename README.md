@@ -1,7 +1,7 @@
 <h1 align="center">
     <img src="https://github.com/HDInnovations/UNIT3D-Community-Edition/blob/master/public/img/hdinnovations.png?raw=true" alt="UNIT3D Logo" width="50px" />
     <br />
-    UNIT3D Community Edition
+    UNIT3D
 </h1>
 
 <p align="center">
@@ -33,7 +33,7 @@
 
 ## <a name="introduction"></a> 🧐 Introduction
 
-We have been developing a Private Torrent Tracker Software called `UNIT3D` (pronounced "united"). This is a PHP software based on Laravel 11, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.3 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
+We have been developing a Private Torrent Tracker Software called `UNIT3D` (pronounced "united"). This is a PHP software based on Laravel 11, Livewire and AlpineJS. It is MySQL Strict Mode Compliant, and PHP 8.4 Ready. It uses an MVC Architecture to ensure clarity between logic and presentation.
 
 ## <a name="installation"></a> 🖥️ Installation
 
