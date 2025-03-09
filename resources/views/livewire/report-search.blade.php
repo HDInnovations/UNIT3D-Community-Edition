@@ -163,9 +163,7 @@
                             @include('livewire.includes._sort-icon', ['field' => 'reporter_id'])
                         </th>
                         <th>
-                            <i
-                                class="{{ config('other.font-awesome') }} fa-comment-alt-lines"
-                            ></i>
+                            <i class="{{ config('other.font-awesome') }} fa-comment-alt-lines"></i>
                         </th>
                         <th wire:click="sortBy('created_at')" role="columnheader button">
                             {{ __('user.created-on') }}

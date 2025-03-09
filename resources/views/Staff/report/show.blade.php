@@ -19,9 +19,7 @@
             {{ __('staff.reports-log') }}
         </a>
     </li>
-    <li class="breadcrumb--active">
-        {{ __('common.report') }} Details
-    </li>
+    <li class="breadcrumb--active">{{ __('common.report') }} Details</li>
 @endsection
 
 @section('page', 'page__poll--show')
@@ -101,7 +99,6 @@
 @endsection
 
 @section('sidebar')
-
     <section class="panelV2">
         <h2 class="panel__heading">Reported {{ __('common.user') }}</h2>
         <div class="panel__body">
