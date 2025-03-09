@@ -75,10 +75,10 @@ test('user tags user on request creates a notification for tagged user', functio
     $this->assertEquals(1, Comment::count());
 
     Notification::assertSentTo(
-        [$user],
-        NewCommentTag::class
+        $user,
+        NewCommentTag::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('user tags user on request creates a notification for tagged user when mentions are disabled for other specific group', function (): void {
@@ -128,11 +128,11 @@ test('user tags user on request creates a notification for tagged user when ment
 
     $this->assertEquals(1, Comment::count());
 
-    Notification::assertSentTo(
-        [$user],
-        NewCommentTag::class
+    Notification::assertSentToTimes(
+        $user,
+        NewCommentTag::class,
+        1,
     );
-    Notification::assertCount(1);
 });
 
 test('user tags user on request does not create a notification for tagged user when all notifications disabled', function (): void {
