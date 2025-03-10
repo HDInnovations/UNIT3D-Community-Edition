@@ -142,7 +142,6 @@ class Comments extends Component
                 break;
             case $this->model instanceof Article:
             case $this->model instanceof Playlist:
-            case $this->model instanceof Report:
             case $this->model instanceof TorrentRequest:
             case $this->model instanceof Torrent:
                 if ($this->user->id !== $this->model->user_id) {
