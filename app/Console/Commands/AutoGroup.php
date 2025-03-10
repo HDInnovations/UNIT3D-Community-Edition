@@ -57,6 +57,7 @@ class AutoGroup extends Command
 
         User::query()
             ->withSum('seedingTorrents as seedsize', 'size')
+            ->withAvg(['seedSizeHistory as avg_seed_size' => fn ($query) => $query->where('created_at', '>', now()->subDays(15))], 'seed_size')
             ->withCount([
                 'torrents as uploads',
                 'warnings' => fn ($query) => $query->where('active', '=', true),
@@ -72,6 +73,8 @@ class AutoGroup extends Command
                             && ($group->min_age === null || $timestamp - $user->created_at->timestamp >= $group->min_age)
                             && ($group->min_avg_seedtime === null || $user->avg_seedtime >= $group->min_avg_seedtime)
                             && ($group->min_seedsize === null || $user->seedsize >= $group->min_seedsize)
+                            // @phpstan-ignore property.notFound ($user->avg_seed_size is a custom selector in withAvg)
+                            && ($group->min_avg_seedsize === null || $user->avg_seed_size >= $group->min_avg_seedsize)
                             && ($group->min_uploads === null || $user->uploads >= $group->min_uploads)
                         ) {
                             $user->group_id = $group->id;
