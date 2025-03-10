@@ -62,6 +62,7 @@
                         <th>Min Age</th>
                         <th>Min Avg Seedtime</th>
                         <th>Min Seedsize</th>
+                        <th>Min Avg Seedsize</th>
                         <th>Min Uploads</th>
                     </tr>
                 </thead>
@@ -323,8 +324,12 @@
                                 <td>
                                     {{ \App\Helpers\StringHelper::formatBytes($group->min_seedsize ?? 0) }}
                                 </td>
+                                <td>
+                                    {{ \App\Helpers\StringHelper::formatBytes($group->min_avg_seedsize ?? 0) }}
+                                </td>
                                 <td>{{ $group->min_uploads }}</td>
                             @else
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>

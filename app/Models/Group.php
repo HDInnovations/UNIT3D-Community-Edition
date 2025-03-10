@@ -55,6 +55,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool     $system_required
  * @property int      $min_uploaded
  * @property int      $min_seedsize
+ * @property int      $min_avg_seedsize
  * @property int      $min_avg_seedtime
  * @property string   $min_ratio
  * @property int      $min_age
