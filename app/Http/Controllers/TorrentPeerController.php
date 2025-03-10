@@ -19,13 +19,14 @@ namespace App\Http\Controllers;
 use App\Models\Peer;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use Illuminate\Http\Request;
 
 class TorrentPeerController extends Controller
 {
     /**
      * Display Peers Of A Torrent.
      */
-    public function index(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(int $id, Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         $torrent = Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id);
 
@@ -36,6 +37,7 @@ class TorrentPeerController extends Controller
                 ->select(['torrent_id', 'user_id', 'uploaded', 'downloaded', 'left', 'port', 'agent', 'created_at', 'updated_at', 'seeder', 'active', 'visible', 'connectable'])
                 ->selectRaw('INET6_NTOA(ip) as ip')
                 ->where('torrent_id', '=', $id)
+                ->orderByRaw('user_id = ? DESC', [$request->user()->id])
                 ->orderByDesc('active')
                 ->orderByDesc('seeder')
                 ->get()
