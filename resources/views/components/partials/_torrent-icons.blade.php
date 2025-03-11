@@ -108,7 +108,7 @@
                                 __('torrent.freeleech-token') => $torrent->freeleech_tokens_exists,
                                 __('torrent.special-freeleech') => auth()->user()->group->is_freeleech,
                                 __('torrent.global-freeleech') => config('other.freeleech'),
-                                __('torrent.featured') . ' - 100%' . __('torrent.freeleech') => $torrent->featured,
+                                __('torrent.featured') . ' - 100% ' . __('torrent.freeleech') => $torrent->featured,
                                 $torrent->free . '% ' . __('common.free') . ($torrent->fl_until !== null ? ' (expires ' . $torrent->fl_until->diffForHumans() . ')' : '') => $torrent->free > 0,
                             ],
                             true
