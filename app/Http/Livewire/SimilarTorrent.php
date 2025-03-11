@@ -20,6 +20,7 @@ use App\DTO\TorrentSearchFiltersDTO;
 use App\Models\Category;
 use App\Models\Distributor;
 use App\Models\History;
+use App\Models\IgdbGame;
 use App\Models\Movie;
 use App\Models\Region;
 use App\Models\Resolution;
@@ -433,7 +434,7 @@ class SimilarTorrent extends Component
         $title = match (true) {
             $this->category->movie_meta => ($movie = Movie::find($this->tmdbId))->title.' ('.$movie->release_date->format('Y').')',
             $this->category->tv_meta    => ($tv = Tv::find($this->tmdbId))->name.' ('.$tv->first_air_date->format('Y').')',
-            $this->category->game_meta  => ($game = Game::find($this->igdbId))->name.' ('.$game->first_release_date->format('Y').')',
+            $this->category->game_meta  => ($game = IgdbGame::find($this->igdbId))->name.' ('.$game->first_release_date->format('Y').')',
             default                     => $torrents->pluck('name')->join(', '),
         };
 

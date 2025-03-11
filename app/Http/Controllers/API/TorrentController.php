@@ -24,6 +24,7 @@ use App\Http\Resources\TorrentResource;
 use App\Http\Resources\TorrentsResource;
 use App\Models\Category;
 use App\Models\FeaturedTorrent;
+use App\Models\IgdbGame;
 use App\Models\Keyword;
 use App\Models\Movie;
 use App\Models\Torrent;
@@ -40,7 +41,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
-use MarcReichel\IGDBLaravel\Models\Game;
 use Meilisearch\Endpoints\Indexes;
 
 /**
@@ -474,7 +474,7 @@ class TorrentController extends BaseController
         }
 
         if ($torrent->category->game_meta && $torrent->igdb) {
-            $torrent->setAttribute('meta', Game::with(['genres' => ['name']])->find($torrent->igdb));
+            $torrent->setAttribute('meta', IgdbGame::with(['genres'])->find($torrent->igdb));
         }
 
         TorrentResource::withoutWrapping();

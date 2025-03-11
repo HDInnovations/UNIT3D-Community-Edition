@@ -16,10 +16,10 @@ declare(strict_types=1);
 
 namespace App\Traits;
 
+use App\Models\IgdbGame;
 use App\Models\Movie;
 use App\Models\Tv;
 use JsonException;
-use MarcReichel\IGDBLaravel\Models\Game;
 use ReflectionException;
 
 trait TorrentMeta
@@ -52,11 +52,7 @@ trait TorrentMeta
 
         $movies = Movie::with('genres')->whereIntegerInRaw('id', $movieIds)->get()->keyBy('id');
         $tv = Tv::with('genres')->whereIntegerInRaw('id', $tvIds)->get()->keyBy('id');
-        $games = [];
-
-        foreach ($gameIds as $gameId) {
-            $games[$gameId] = Game::with(['cover' => ['url', 'image_id'], 'genres' => ['name']])->find($gameId);
-        }
+        $games = IgdbGame::with('genres')->whereIntegerInRaw('id', $gameIds)->get()->keyBy('id');
 
         $setRelation = function ($torrent) use ($movies, $tv, $games) {
             $torrent->setAttribute(
