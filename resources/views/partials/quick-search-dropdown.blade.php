@@ -3,7 +3,7 @@
         <input
             class="quick-search__input"
             type="text"
-            placeholder="Search Movie, TV Series or People"
+            placeholder="Search"
             x-model="searchText"
             x-on:input.debounce.100ms="performSearch"
             x-ref="quickSearch"
@@ -11,14 +11,21 @@
             x-on:keydown.up.prevent="focusLastResult"
             x-on:focus="searchPerformed = true"
         />
-        <template x-if="searchPerformed && searchResults.length === 0">
+        <template x-if="searchResults === null">
+            <div class="quick-search__results">
+                <article class="quick-search__result--default">
+                    <p class="quick-search__result-text">Search movies, tv series, or people</p>
+                </article>
+            </div>
+        </template>
+        <template x-if="Array.isArray(searchResults) && searchResults.length === 0">
             <div class="quick-search__results">
                 <article class="quick-search__result--empty">
                     <p class="quick-search__result-text">No results found</p>
                 </article>
             </div>
         </template>
-        <template x-if="searchResults.length > 0">
+        <template x-if="Array.isArray(searchResults) && searchResults.length > 0">
             <div class="quick-search__results" x-ref="searchResults">
                 <template x-for="result in searchResults" :key="result.id">
                     <article
@@ -55,12 +62,12 @@
         function quickSearch() {
             return {
                 searchText: '',
-                searchResults: [],
+                searchResults: null,
                 searchPerformed: false,
                 performSearch() {
                     this.searchPerformed = true;
                     if (this.searchText.length === 0) {
-                        this.searchResults = [];
+                        this.searchResults = null;
                         return;
                     }
 
