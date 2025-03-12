@@ -79,7 +79,7 @@
 
 .quick-search__result-link,
 .quick-search__result--empty,
-.quick-search__result--keep-typing {
+.quick-search__result--default {
     display: flex;
     background-color: var(--quick-search-bg);
     text-decoration: none;
@@ -92,7 +92,7 @@
 }
 
 .quick-search__result--empty,
-.quick-search__result--keep-typing {
+.quick-search__result--default {
     padding: 0;
 }
 
