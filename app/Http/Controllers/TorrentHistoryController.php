@@ -19,17 +19,23 @@ namespace App\Http\Controllers;
 use App\Models\History;
 use App\Models\Scopes\ApprovedScope;
 use App\Models\Torrent;
+use Illuminate\Http\Request;
 
 class TorrentHistoryController extends Controller
 {
     /**
      * Display History Of A Torrent.
      */
-    public function index(int $id): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+    public function index(int $id, Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\View\View
     {
         return view('torrent.history', [
             'torrent'   => Torrent::withoutGlobalScope(ApprovedScope::class)->findOrFail($id),
-            'histories' => History::with(['user'])->where('torrent_id', '=', $id)->latest()->get(),
+            'histories' => History::query()
+                ->with(['user'])
+                ->where('torrent_id', '=', $id)
+                ->orderByRaw('user_id = ? DESC', [$request->user()->id])
+                ->latest()
+                ->get(),
         ]);
     }
 }
