@@ -248,20 +248,6 @@
         @endif
     </ul>
     <div class="top-nav__right" x-bind:class="expanded && 'mobile'">
-        <ul class="top-nav__stats" x-bind:class="expanded && 'mobile'">
-            <li class="top-nav__stats-up" title="{{ __('common.upload') }}">
-                <i class="{{ config('other.font-awesome') }} fa-arrow-up text-green"></i>
-                {{ $user->formatted_uploaded }}
-            </li>
-            <li class="top-nav__stats-down" title="{{ __('common.download') }}">
-                <i class="{{ config('other.font-awesome') }} fa-arrow-down text-red"></i>
-                {{ $user->formatted_downloaded }}
-            </li>
-            <li class="top-nav__stats-ratio" title="{{ __('common.ratio') }}">
-                <i class="{{ config('other.font-awesome') }} fa-sync-alt text-blue"></i>
-                {{ $user->formatted_ratio }}
-            </li>
-        </ul>
         <ul class="top-nav__ratio-bar" x-bind:class="expanded && 'mobile'">
             <li class="ratio-bar__uploaded" title="{{ __('common.upload') }}">
                 <a href="{{ route('users.torrents.index', ['user' => auth()->user()]) }}">
