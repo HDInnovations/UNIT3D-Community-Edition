@@ -90,7 +90,7 @@ class QuickSearchController extends Controller
                     'year'  => $hit[$type]['year'],
                     'image' => $hit[$type]['poster'] ? tmdb_image('poster_small', $hit[$type]['poster']) : ($hit['name'][0] ?? '').($hit['name'][1] ?? ''),
                     'url'   => route('torrents.similar', ['category_id' => $hit['category']['id'], 'tmdb' => $hit['tmdb']]),
-                    'type'  => $type === 'movie' ? 'Movie' : 'TV Series',
+                    'type'  => $hit['category']['name'],
                 ];
             } elseif ($hit['_federation']['indexUid'] === config('scout.prefix').'people') {
                 $results[] = [
