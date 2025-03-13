@@ -995,6 +995,16 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Has many seed size histories.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<UserSeedSizeHistory, $this>
+     */
+    public function seedSizeHistory(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(UserSeedSizeHistory::class);
+    }
+
+    /**
      * Get the Users accepts notification as bool.
      */
     public function acceptsNotification(self $sender, self $target, string $group = 'follower', bool|string $type = false): bool
