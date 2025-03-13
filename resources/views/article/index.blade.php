@@ -45,7 +45,7 @@
                 @joypixels(preg_replace('#\[[^\]]+\]#', '', Str::limit(e($article->content), 500, '...'), 150))
             </p>
             <a
-                href="{{ $article->image == null ? url('img/missing-image.png') : route('articles.show', ['article' => $article]) }}"
+                href="{{ route('articles.show', ['article' => $article]) }}"
                 class="article-preview__read-more"
             >
                 {{ __('articles.read-more') }}

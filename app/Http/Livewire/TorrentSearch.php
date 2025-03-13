@@ -423,7 +423,7 @@ class TorrentSearch extends Component
             $this->reset('sortField');
         }
 
-        $isSqlAllowed = (($user->group->is_modo || $user->group->is_editor) && $this->driver === 'sql') || $this->description || $this->mediainfo;
+        $isSqlAllowed = (($user->group->is_modo || $user->group->is_torrent_modo || $user->group->is_editor) && $this->driver === 'sql') || $this->description || $this->mediainfo;
 
         $eagerLoads = fn (Builder $query) => $query
             ->with(['user:id,username,group_id', 'user.group', 'category', 'type', 'resolution'])
@@ -524,7 +524,7 @@ class TorrentSearch extends Component
             $this->reset('sortField');
         }
 
-        $isSqlAllowed = (($user->group->is_modo || $user->group->is_editor) && $this->driver === 'sql') || $this->description || $this->mediainfo;
+        $isSqlAllowed = (($user->group->is_modo || $user->group->is_torrent_modo || $user->group->is_editor) && $this->driver === 'sql') || $this->description || $this->mediainfo;
 
         $groupQuery = Torrent::query()
             ->select('tmdb')

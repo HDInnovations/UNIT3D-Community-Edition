@@ -106,7 +106,7 @@ Route::middleware('language')->group(function (): void {
         });
 
         // Authenticated Images
-        Route::prefix('authenticated-images')->name('authenticated_images.')->group(function (): void {
+        Route::prefix('authenticated-images')->name('authenticated_images.')->middleware('throttle:authenticated-images')->withoutMiddleware('throttle:web')->group(function (): void {
             Route::get('/article-images/{article}', [App\Http\Controllers\AuthenticatedImageController::class, 'articleImage'])->name('article_image');
             Route::get('/category-images/{category}', [App\Http\Controllers\AuthenticatedImageController::class, 'categoryImage'])->name('category_image');
             Route::get('/playlist-images/{playlist}', [App\Http\Controllers\AuthenticatedImageController::class, 'playlistImage'])->name('playlist_image');
@@ -275,7 +275,7 @@ Route::middleware('language')->group(function (): void {
             Route::get('/download/{id}', [App\Http\Controllers\TorrentDownloadController::class, 'store'])->name('download')->whereNumber('id');
             Route::post('/{id}/reseed', [App\Http\Controllers\ReseedController::class, 'store'])->name('reseed')->whereNumber('id');
             Route::get('/similar/{category_id}.{tmdb}', [App\Http\Controllers\SimilarTorrentController::class, 'show'])->name('torrents.similar')->whereNumber('category_id');
-            Route::patch('/similar/{category}.{tmdbId}', [App\Http\Controllers\SimilarTorrentController::class, 'update'])->name('torrents.similar.update');
+            Route::patch('/similar/{category}.{metaId}', [App\Http\Controllers\SimilarTorrentController::class, 'update'])->name('torrents.similar.update');
             Route::get('pending', [App\Http\Controllers\TorrentPendingController::class, 'index'])->name('torrents.pending');
         });
 

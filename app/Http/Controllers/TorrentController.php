@@ -27,6 +27,7 @@ use App\Models\Audit;
 use App\Models\Category;
 use App\Models\Distributor;
 use App\Models\History;
+use App\Models\IgdbGame;
 use App\Models\Keyword;
 use App\Models\Movie;
 use App\Models\Region;
@@ -44,8 +45,6 @@ use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
-use MarcReichel\IGDBLaravel\Models\Game;
-use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 use Exception;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
@@ -100,7 +99,6 @@ class TorrentController extends Controller
             ->findOrFail($id);
 
         $meta = null;
-        $platforms = null;
 
         if ($torrent->category->tv_meta && $torrent->tmdb) {
             $meta = Tv::with([
@@ -130,17 +128,12 @@ class TorrentController extends Controller
         }
 
         if ($torrent->category->game_meta && $torrent->igdb) {
-            $meta = Game::with([
-                'cover'    => ['url', 'image_id'],
-                'artworks' => ['url', 'image_id'],
-                'genres'   => ['name'],
-                'videos'   => ['video_id', 'name'],
-                'involved_companies.company',
-                'involved_companies.company.logo',
-                'platforms', ])
+            $meta = IgdbGame::with([
+                'genres',
+                'companies',
+                'platforms',
+            ])
                 ->find($torrent->igdb);
-            $link = collect($meta->videos)->take(1)->pluck('video_id');
-            $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
         }
 
         return view('torrent.show', [
@@ -157,7 +150,6 @@ class TorrentController extends Controller
                 ),
             'personal_freeleech' => cache()->get('personal_freeleech:'.$user->id),
             'meta'               => $meta,
-            'platforms'          => $platforms,
             'total_tips'         => $torrent->tips()->sum('bon'),
             'user_tips'          => $torrent->tips()->where('sender_id', '=', $user->id)->sum('bon'),
             'mediaInfo'          => $torrent->mediainfo !== null ? (new MediaInfo())->parse($torrent->mediainfo) : null,

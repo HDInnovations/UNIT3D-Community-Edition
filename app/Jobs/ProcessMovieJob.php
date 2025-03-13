@@ -29,6 +29,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 
 class ProcessMovieJob implements ShouldQueue
@@ -43,6 +44,16 @@ class ProcessMovieJob implements ShouldQueue
      */
     public function __construct(public int $id)
     {
+    }
+
+    /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<int, object>
+     */
+    public function middleware(): array
+    {
+        return [new WithoutOverlapping((string) $this->id)->dontRelease()->expireAfter(30)];
     }
 
     public function handle(): void

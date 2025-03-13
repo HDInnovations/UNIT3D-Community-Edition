@@ -19,6 +19,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTorrentRequestRequest;
 use App\Http\Requests\UpdateTorrentRequestRequest;
 use App\Models\Category;
+use App\Models\IgdbGame;
 use App\Models\Movie;
 use App\Models\Resolution;
 use App\Models\TorrentRequest;
@@ -28,7 +29,6 @@ use App\Models\Type;
 use App\Repositories\ChatRepository;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
-use MarcReichel\IGDBLaravel\Models\Game;
 use Exception;
 
 /**
@@ -80,13 +80,9 @@ class RequestController extends Controller
                     'collection'
                 ])
                     ->find($torrentRequest->tmdb),
-                ($torrentRequest->category->game_meta && $torrentRequest->igdb) => Game::with([
-                    'cover'    => ['url', 'image_id'],
-                    'artworks' => ['url', 'image_id'],
-                    'genres'   => ['name'],
-                    'videos'   => ['video_id', 'name'],
-                    'involved_companies.company',
-                    'involved_companies.company.logo',
+                ($torrentRequest->category->game_meta && $torrentRequest->igdb) => IgdbGame::with([
+                    'genres',
+                    'companies',
                     'platforms',
                 ])
                     ->find($torrentRequest->igdb),
