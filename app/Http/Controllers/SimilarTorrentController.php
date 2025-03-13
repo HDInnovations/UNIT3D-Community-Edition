@@ -17,15 +17,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\IgdbGame;
 use App\Models\Movie;
 use App\Models\Torrent;
 use App\Models\TorrentRequest;
 use App\Models\Tv;
+use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use MarcReichel\IGDBLaravel\Models\Game;
-use MarcReichel\IGDBLaravel\Models\PlatformLogo;
 
 class SimilarTorrentController extends Controller
 {
@@ -71,18 +71,12 @@ class SimilarTorrentController extends Controller
 
                 abort_unless($hasTorrents, 404, 'No Similar Torrents Found');
 
-                $meta = Game::with([
-                    'cover'    => ['url', 'image_id'],
-                    'artworks' => ['url', 'image_id'],
-                    'genres'   => ['name'],
-                    'videos'   => ['video_id', 'name'],
-                    'involved_companies.company',
-                    'involved_companies.company.logo',
+                $meta = IgdbGame::with([
+                    'genres',
+                    'companies',
                     'platforms',
-                ])
-                    ->findOrFail($tmdbId);
-                $link = collect($meta->videos)->take(1)->pluck('video_id');
-                $platforms = PlatformLogo::whereIn('id', collect($meta->platforms)->pluck('platform_logo')->toArray())->get();
+                ]);
+
                 $igdb = $tmdbId;
 
                 break;
@@ -95,66 +89,61 @@ class SimilarTorrentController extends Controller
         return view('torrent.similar', [
             'meta'               => $meta,
             'personal_freeleech' => $personalFreeleech,
-            'platforms'          => $platforms ?? null,
             'category'           => $category,
             'tmdb'               => $tmdb ?? null,
             'igdb'               => $igdb ?? null,
         ]);
     }
 
-    public function update(Request $request, Category $category, int $tmdbId): \Illuminate\Http\RedirectResponse
+    public function update(Request $request, Category $category, int $metaId): \Illuminate\Http\RedirectResponse
     {
+        if (!($category->movie_meta || $category->tv_meta || $category->game_meta)) {
+            return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $metaId])
+                ->withErrors('This meta type can not be updated.');
+        }
+
         if (
-            $tmdbId === 0
+            $metaId === 0
             || (
-                Torrent::where('category_id', '=', $category->id)->where('tmdb', '=', $tmdbId)->doesntExist()
-                && TorrentRequest::where('category_id', '=', $category->id)->where('tmdb', '=', $tmdbId)->doesntExist()
+                ($category->movie_meta || $category->tv_meta)
+                && Torrent::where('category_id', '=', $category->id)->where('tmdb', '=', $metaId)->doesntExist()
+                && TorrentRequest::where('category_id', '=', $category->id)->where('tmdb', '=', $metaId)->doesntExist()
+            )
+            || (
+                $category->game_meta
+                && Torrent::where('category_id', '=', $category->id)->where('igdb', '=', $metaId)->doesntExist()
+                && TorrentRequest::where('category_id', '=', $category->id)->where('igdb', '=', $metaId)->doesntExist()
             )
         ) {
-            return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $tmdbId])
+            return to_route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $metaId])
                 ->withErrors('There exists no torrent with this tmdb.');
         }
 
-        $tmdbScraper = new TMDBScraper();
+        /** @phpstan-ignore match.unhandled (The first line of this method ensures that at least one of these are true) */
+        $cacheKey = match (true) {
+            $category->movie_meta => "tmdb-movie-scraper:{$metaId}",
+            $category->tv_meta    => "tmdb-tv-scraper:{$metaId}",
+            $category->game_meta  => "igdb-game-scraper:{$metaId}",
+        };
 
-        switch (true) {
-            case $category->movie_meta:
-                $cacheKey = 'tmdb-movie-scraper:'.$tmdbId;
+        /** @var ?Carbon $lastUpdated */
+        $lastUpdated = cache()->get($cacheKey);
 
-                /** @var Carbon $lastUpdated */
-                $lastUpdated = cache()->get($cacheKey);
+        abort_if(
+            $lastUpdated !== null
+            && $lastUpdated->addDay()->isFuture()
+            && !($request->user()->group->is_modo || $request->user()->group->is_torrent_modo || $request->user()->group->is_editor),
+            403
+        );
 
-                abort_if(
-                    $lastUpdated !== null
-                    && $lastUpdated->addDay()->isFuture()
-                    && !($request->user()->group->is_modo || $request->user()->group->is_editor),
-                    403
-                );
+        cache()->put($cacheKey, now(), now()->addDay());
 
-                cache()->put($cacheKey, now(), now()->addDay());
-
-                $tmdbScraper->movie($tmdbId);
-
-                break;
-            case $category->tv_meta:
-                $cacheKey = 'tmdb-tv-scraper:'.$tmdbId;
-
-                /** @var Carbon $lastUpdated */
-                $lastUpdated = cache()->get($cacheKey);
-
-                abort_if(
-                    $lastUpdated !== null
-                    && $lastUpdated->addDay()->isFuture()
-                    && !($request->user()->group->is_modo || $request->user()->group->is_editor),
-                    403
-                );
-
-                cache()->put($cacheKey, now(), now()->addDay());
-
-                $tmdbScraper->tv($tmdbId);
-
-                break;
-        }
+        /** @phpstan-ignore match.unhandled (The first line of this method ensures that at least one of these are true) */
+        match (true) {
+            $category->movie_meta => new TMDBScraper()->movie($metaId),
+            $category->tv_meta    => new TMDBScraper()->tv($metaId),
+            $category->game_meta  => new IgdbScraper()->game($metaId),
+        };
 
         return back()->with('success', 'Metadata update queued successfully.');
     }

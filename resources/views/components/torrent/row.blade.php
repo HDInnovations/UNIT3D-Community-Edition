@@ -38,7 +38,7 @@
                 @if ($torrent->category->game_meta)
                     <img
                         style="height: 80px"
-                        src="{{ isset($meta->cover) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/' . $meta->cover['image_id'] . '.png' : 'https://via.placeholder.com/90x135' }}"
+                        src="{{ isset($meta->cover_image_id) ? 'https://images.igdb.com/igdb/image/upload/t_cover_small_2x/' . $meta->cover_image_id . '.png' : 'https://via.placeholder.com/90x135' }}"
                         class="torrent-search--list__poster-img"
                         loading="lazy"
                         alt="{{ __('torrent.similar') }}"

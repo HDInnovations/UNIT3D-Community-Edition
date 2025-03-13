@@ -409,24 +409,6 @@ parameters:
 			path: app/Http/Controllers/RequestController.php
 
 		-
-			message: '#^Strict comparison using \!\=\= between Illuminate\\Support\\Carbon and null will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
-			count: 2
-			path: app/Http/Controllers/SimilarTorrentController.php
-
-		-
-			message: '#^Unable to resolve the template type TKey in call to function collect$#'
-			identifier: argument.templateType
-			count: 2
-			path: app/Http/Controllers/SimilarTorrentController.php
-
-		-
-			message: '#^Unable to resolve the template type TValue in call to function collect$#'
-			identifier: argument.templateType
-			count: 2
-			path: app/Http/Controllers/SimilarTorrentController.php
-
-		-
 			message: '#^Call to function is_int\(\) with string\|null will always evaluate to false\.$#'
 			identifier: function.impossibleType
 			count: 1
@@ -496,18 +478,6 @@ parameters:
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\History\>\.$#'
 			identifier: return.type
 			count: 1
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: '#^Unable to resolve the template type TKey in call to function collect$#'
-			identifier: argument.templateType
-			count: 2
-			path: app/Http/Controllers/TorrentController.php
-
-		-
-			message: '#^Unable to resolve the template type TValue in call to function collect$#'
-			identifier: argument.templateType
-			count: 2
 			path: app/Http/Controllers/TorrentController.php
 
 		-
@@ -647,18 +617,6 @@ parameters:
 			identifier: return.type
 			count: 2
 			path: app/Http/Livewire/PersonSearch.php
-
-		-
-			message: '#^Access to an undefined property MarcReichel\\IGDBLaravel\\Models\\Game\:\:\$first_release_date\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
-
-		-
-			message: '#^Access to an undefined property MarcReichel\\IGDBLaravel\\Models\\Game\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Http/Livewire/SimilarTorrent.php
 
 		-
 			message: '#^Anonymous function should return Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\> but returns Illuminate\\Database\\Eloquent\\Builder\<App\\Models\\Group\>\.$#'

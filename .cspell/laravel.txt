@@ -5,6 +5,7 @@ doesntcontain
 doesntexist
 dontbroadcasttocurrentuser
 dontflash
+dontrelease
 dontreport
 ehlo
 encryptable

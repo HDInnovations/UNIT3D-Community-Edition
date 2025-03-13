@@ -2,7 +2,7 @@
     @if (isset($meta) && $meta->artworks)
         <img
             class="meta__backdrop"
-            src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/{{ $meta->artworks[0]['image_id'] }}.jpg"
+            src="https://images.igdb.com/igdb/image/upload/t_screenshot_big/{{ $meta->first_artwork_image_id }}.jpg"
             alt=""
         />
     @endif
@@ -21,7 +21,7 @@
         href="{{ route('torrents.similar', ['category_id' => $category->id, 'tmdb' => $igdb]) }}"
     >
         <img
-            src="{{ $meta?->cover ? 'https://images.igdb.com/igdb/image/upload/t_original/' . $meta->cover['image_id'] . '.jpg' : 'https://via.placeholder.com/400x600' }}"
+            src="{{ $meta?->cover_image_id ? 'https://images.igdb.com/igdb/image/upload/t_original/' . $meta->cover_image_id . '.jpg' : 'https://via.placeholder.com/400x600' }}"
             class="meta__poster"
         />
     </a>
@@ -35,7 +35,7 @@
                     href="{{
                         route('torrents.create', [
                             'category_id' => $category->id,
-                            'title' => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
+                            'title' => rawurlencode(($meta?->name ?? '') . ' ' . ($meta?->first_release_date?->format('Y') ?? '')),
                             'imdb' => $torrent->imdb ?? '',
                             'tmdb' => $torrent->tmdb ?? '',
                             'mal' => $torrent->mal ?? '',
@@ -52,7 +52,7 @@
                     href="{{
                         route('requests.create', [
                             'category_id' => $category->id,
-                            'title' => rawurlencode(($meta?->name ?? '') . ' ' . substr($meta->release_date ?? '', 0, 4) ?? ''),
+                            'title' => rawurlencode(($meta?->name ?? '') . ' ' . ($meta?->first_release_date?->format('Y') ?? '')),
                             'imdb' => $torrent->imdb ?? '',
                             'tmdb' => $torrent->tmdb ?? '',
                             'mal' => $torrent->mal ?? '',
@@ -64,13 +64,39 @@
                     Request similar
                 </a>
             </li>
+            @if ($meta?->id || $torrent?->igdb ?? null)
+                <li>
+                    <form
+                        action="{{ route('torrents.similar.update', ['category' => $category, 'metaId' => $meta?->id ?? $torrent->igdb]) }}"
+                        method="post"
+                    >
+                        @csrf
+                        @method('PATCH')
+
+                        <button
+                            @if (cache()->has('igdb-game-scraper:' . ($meta?->id ?? $torrent->igdb)) && ! auth()->user()->group->is_modo)
+                                disabled
+                                title="This item was recently updated. Try again tomorrow."
+                            @endif
+                            style="cursor: pointer"
+                        >
+                            Update Metadata
+                        </button>
+                    </form>
+                </li>
+            @endif
         </ul>
     </div>
     <ul class="meta__ids">
-        @if ($igdb > 0 && $meta->url)
-            <li class="meta__tvdb">
-                <a class="meta-id-tag" href="{{ $meta->url }}" title="IGDB" target="_blank">
-                    IGDB: {{ $igdb }}
+        @if ($igdb > 0 && $meta?->url)
+            <li class="meta__igdb">
+                <a
+                    class="meta-id-tag"
+                    href="{{ $meta->url }}"
+                    title="IGDB: {{ $igdb }}"
+                    target="_blank"
+                >
+                    <img src="{{ url('/img/meta/igdb.svg') }}" />
                 </a>
             </li>
         @endif
@@ -79,7 +105,7 @@
     <div class="meta__chips">
         <section class="meta__chip-container">
             <h2 class="meta__heading">Platforms</h2>
-            @foreach ($platforms ?? [] as $platform)
+            @foreach ($meta?->platforms ?? [] as $platform)
                 <article class="meta-chip-wrapper meta-chip">
                     @if ($platform->image_id)
                         <img
@@ -90,21 +116,21 @@
                     @else
                         <i class="{{ config('other.font-awesome') }} fa-user meta-chip__icon"></i>
                     @endif
-                    <h2 class="meta-chip__name"></h2>
-                    <h3 class="meta-chip__value"></h3>
+                    <h2 class="meta-chip__name">Platform</h2>
+                    <h3 class="meta-chip__value">{{ $platform->name }}</h3>
                 </article>
             @endforeach
         </section>
         <section class="meta__chip-container">
             <h2 class="meta__heading">Companies</h2>
-            @foreach ($meta?->involved_companies ?? [] as $company)
+            @foreach ($meta?->companies ?? [] as $company)
                 <article class="meta__company">
-                    <a class="meta-chip" href="{{ $company['company']['url'] }}" target="_blank">
-                        @if ($company['company']['logo'])
+                    <a class="meta-chip" href="{{ $company->url }}" target="_blank">
+                        @if ($company->logo_image_id)
                             <img
                                 class="meta-chip__image"
                                 style="object-fit: scale-down"
-                                src="https://images.igdb.com/igdb/image/upload/t_logo_med/{{ $company['company']['logo']['image_id'] }}.png"
+                                src="https://images.igdb.com/igdb/image/upload/t_logo_med/{{ $company->logo_image_id }}.png"
                                 alt=""
                             />
                         @else
@@ -113,7 +139,7 @@
                             ></i>
                         @endif
                         <h2 class="meta-chip__name">Company</h2>
-                        <h3 class="meta-chip__value">{{ $company['company']['name'] }}</h3>
+                        <h3 class="meta-chip__value">{{ $company->name }}</h3>
                     </a>
                 </article>
             @endforeach
@@ -124,11 +150,11 @@
                 <i class="{{ config('other.font-awesome') }} fa-star meta-chip__icon"></i>
                 <h2 class="meta-chip__name">{{ __('torrent.rating') }}</h2>
                 <h3 class="meta-chip__value">
-                    {{ round($meta->rating ?? 0) }}% ({{ $meta->rating_count ?? 0 }}
+                    {{ $meta->rating ?? 0 }}% ({{ $meta->rating_count ?? 0 }}
                     {{ __('torrent.votes') }})
                 </h3>
             </article>
-            @isset($trailer)
+            @isset($meta?->first_video_video_id)
                 <article class="meta__trailer show-trailer">
                     <a class="meta-chip" href="#">
                         <i
@@ -140,17 +166,34 @@
                 </article>
             @endisset
 
-            @if ($meta->genres !== [] && $meta->genres !== null)
+            @if ($meta?->genres !== [] && $meta?->genres !== null)
                 <article class="meta__genres meta-chip">
                     <i
                         class="{{ config('other.font-awesome') }} fa-theater-masks meta-chip__icon"
                     ></i>
                     <h2 class="meta-chip__name">Genres</h2>
                     <h3 class="meta-chip__value">
-                        {{ implode(' / ', array_map(fn ($genre) => $genre['name'], $meta->genres->toArray())) }}
+                        {{ $meta->genres->pluck('name')->join(' / ') }}
                     </h3>
                 </article>
             @endif
         </section>
     </div>
 </section>
+
+@if ($meta?->trailer)
+    <script nonce="{{ HDVinnie\SecureHeaders\SecureHeaders::nonce() }}">
+        document.getElementsByClassName('show-trailer')[0].addEventListener('click', (e) => {
+            e.preventDefault();
+            Swal.fire({
+                showConfirmButton: false,
+                showCloseButton: true,
+                background: 'rgb(35,35,35)',
+                width: 970,
+                html: '<iframe width="930" height="523" src="https://www.youtube-nocookie.com/embed/{{ $meta->trailer }}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+                title: '<i style="color: #a5a5a5;">{{ $meta->title }} Trailer</i>',
+                text: '',
+            });
+        });
+    </script>
+@endif

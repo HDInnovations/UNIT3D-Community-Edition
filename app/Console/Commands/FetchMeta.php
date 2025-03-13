@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use App\Models\Torrent;
+use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use Exception;
 use Illuminate\Console\Command;
@@ -45,25 +46,60 @@ class FetchMeta extends Command
      */
     final public function handle(): void
     {
-        $this->alert('Meta Fetcher Started');
+        $start = now();
+        $this->alert('Meta fetch queueing started. Fetching is done asynchronously in a separate job queue.');
 
         $tmdbScraper = new TMDBScraper();
-        $torrents = Torrent::with('category')->select('tmdb', 'category_id', 'name')->whereNotNull('tmdb')->where('tmdb', '!=', 0)->oldest()->get();
+        $igdbScraper = new IgdbScraper();
 
-        foreach ($torrents as $torrent) {
+        $this->info('Querying all tmdb movie ids');
+
+        $tmdbMovieIds = Torrent::query()
+            ->whereRelation('category', 'movie_meta', '=', true)
+            ->select('tmdb')
+            ->distinct()
+            ->pluck('tmdb');
+
+        $this->info('Queueing all tmdb movie metadata fetching');
+
+        foreach ($tmdbMovieIds as $id) {
             sleep(3);
-
-            if ($torrent->category->tv_meta) {
-                $tmdbScraper->tv($torrent->tmdb);
-                $this->info(\sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
-            }
-
-            if ($torrent->category->movie_meta) {
-                $tmdbScraper->movie($torrent->tmdb);
-                $this->info(\sprintf('(%s) Metadata Fetched For Torrent %s ', $torrent->category->name, $torrent->name));
-            }
+            $tmdbScraper->movie($id);
+            $this->info("Movie metadata fetched for tmdb {$id}");
         }
 
-        $this->alert('Meta Fetcher Complete');
+        $this->info('Querying all tmdb tv ids');
+
+        $tmdbTvIds = Torrent::query()
+            ->whereRelation('category', 'tv_meta', '=', true)
+            ->select('tmdb')
+            ->distinct()
+            ->pluck('tmdb');
+
+        $this->info('Queueing all tmdb tv metadata fetching');
+
+        foreach ($tmdbTvIds as $id) {
+            sleep(3);
+            $tmdbScraper->tv($id);
+            $this->info("Movie metadata fetched for tmdb {$id}");
+        }
+
+        $this->info('Querying all igdb game ids');
+
+        $igdbGameIds = Torrent::query()
+            ->whereRelation('category', 'game_meta', '=', true)
+            ->select('igdb')
+            ->distinct()
+            ->pluck('igdb');
+
+        $this->info('Queueing all igdb game metadata fetching');
+
+        foreach ($igdbGameIds as $id) {
+            usleep(250_000);
+            $igdbScraper->game($id);
+            $this->info("Game metadata fetched for igdb {$id}");
+        }
+
+        $this->alert('Meta fetch queueing complete in '.now()->floatDiffInSeconds($start).'s.');
     }
 }

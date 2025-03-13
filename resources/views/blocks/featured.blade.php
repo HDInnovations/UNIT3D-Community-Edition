@@ -59,8 +59,8 @@
                             $feature->torrent->category->movie_meta => App\Models\Movie::query()
                                 ->with('genres', 'companies', 'collection')
                                 ->find($feature->torrent->tmdb ?? 0),
-                            $feature->torrent->category->game_meta => MarcReichel\IGDBLaravel\Models\Game::query()
-                                ->with(['artworks' => ['url', 'image_id'], 'genres' => ['name']])
+                            $feature->torrent->category->game_meta => App\Models\Game::query()
+                                ->with('genres')
                                 ->find((int) $feature->torrent->igdb),
                             default => null,
                         };

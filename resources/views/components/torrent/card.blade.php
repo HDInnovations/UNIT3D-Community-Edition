@@ -49,8 +49,8 @@
                             src="{{ isset($meta->poster) ? tmdb_image('poster_mid', $meta->poster) : 'https://via.placeholder.com/160x240' }}"
                     
                             @break
-                        @case($torrent->category->game_meta && isset($torrent->meta) && $meta->cover->image_id && $meta->name)
-                            src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $torrent->meta->cover->image_id }}.jpg"
+                        @case($torrent->category->game_meta && isset($torrent->meta) && $meta->cover_image_id && $meta->name)
+                            src="https://images.igdb.com/igdb/image/upload/t_cover_big/{{ $torrent->meta->cover_image_id }}.jpg"
                     
                             @break
                         @case($torrent->category->music_meta)

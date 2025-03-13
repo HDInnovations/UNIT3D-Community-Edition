@@ -79,7 +79,7 @@
                 </li>
                 <li>
                     <form
-                        action="{{ route('torrents.similar.update', ['category' => $category, 'tmdbId' => $meta->id]) }}"
+                        action="{{ route('torrents.similar.update', ['category' => $category, 'metaId' => $meta->id]) }}"
                         method="post"
                     >
                         @csrf
