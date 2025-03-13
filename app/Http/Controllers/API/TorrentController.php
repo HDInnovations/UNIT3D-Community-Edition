@@ -334,7 +334,7 @@ class TorrentController extends BaseController
         }
 
         // Set torrent to featured
-        if ($user->group->is_modo || $user->group->is_internal && $request->input('featured')) {
+        if (($user->group->is_modo || $user->group->is_internal) && $request->input('featured')) {
             $featuredTorrent = new FeaturedTorrent();
             $featuredTorrent->user_id = $user->id;
             $featuredTorrent->torrent_id = $torrent->id;
@@ -345,7 +345,7 @@ class TorrentController extends BaseController
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        if ($user->group->is_modo || $user->group->is_internal && $request->input('featured')) {
+        if (($user->group->is_modo || $user->group->is_internal) && $request->input('featured')) {
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
