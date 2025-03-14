@@ -91,7 +91,7 @@
     </div>
     <div class="footer__sub-footer">
         <p class="footer__icons">
-            Built using:
+            Powered by:
             <a href="https://laravel.com" target="_blank">
                 <svg height="22" viewBox="0 0 50 52" xmlns="http://www.w3.org/2000/svg">
                     <path
