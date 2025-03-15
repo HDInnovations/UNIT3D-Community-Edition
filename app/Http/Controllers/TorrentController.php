@@ -40,6 +40,7 @@ use App\Models\Type;
 use App\Models\User;
 use App\Notifications\TorrentDeleted;
 use App\Repositories\ChatRepository;
+use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use Illuminate\Http\Request;
@@ -256,19 +257,14 @@ class TorrentController extends Controller
 
         $category = $torrent->category;
 
-        // TMDB Meta
-        if ($torrent->tmdb != 0) {
-            switch (true) {
-                case $category->tv_meta:
-                    (new TMDBScraper())->tv($torrent->tmdb);
+        // Meta
 
-                    break;
-                case $category->movie_meta:
-                    (new TMDBScraper())->movie($torrent->tmdb);
-
-                    break;
-            }
-        }
+        match (true) {
+            $category->tv_meta && $torrent->tmdb > 0    => new TMDBScraper()->tv($torrent->tmdb),
+            $category->movie_meta && $torrent->tmdb > 0 => new TMDBScraper()->movie($torrent->tmdb),
+            $category->game_meta && $torrent->igdb > 0  => new IgdbScraper()->game($torrent->igdb),
+            default                                     => null,
+        };
 
         return to_route('torrents.show', ['id' => $id])
             ->with('success', 'Successfully Edited!');
@@ -448,21 +444,15 @@ class TorrentController extends Controller
 
         Unit3dAnnounce::addTorrent($torrent);
 
-        // TMDB updates come after tracker updates in case TMDB's offline
+        // Metadata updates come after tracker updates in case TMDB or IGDB is offline
 
-        // TMDB Meta
-        if ($torrent->tmdb != 0) {
-            switch (true) {
-                case $category->tv_meta:
-                    (new TMDBScraper())->tv($torrent->tmdb);
-
-                    break;
-                case $category->movie_meta:
-                    (new TMDBScraper())->movie($torrent->tmdb);
-
-                    break;
-            }
-        }
+        // Meta
+        match (true) {
+            $category->tv_meta && $torrent->tmdb > 0    => new TMDBScraper()->tv($torrent->tmdb),
+            $category->movie_meta && $torrent->tmdb > 0 => new TMDBScraper()->movie($torrent->tmdb),
+            $category->game_meta && $torrent->igdb > 0  => new IgdbScraper()->game($torrent->igdb),
+            default                                     => null,
+        };
 
         // Torrent Keywords System
         $keywords = [];
