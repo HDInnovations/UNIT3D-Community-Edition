@@ -27,6 +27,7 @@ use App\Models\TorrentRequestBounty;
 use App\Models\Tv;
 use App\Models\Type;
 use App\Repositories\ChatRepository;
+use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use Illuminate\Http\Request;
 use Exception;
@@ -155,18 +156,12 @@ class RequestController extends Controller
 
         $category = $torrentRequest->category;
 
-        if ($torrentRequest->tmdb > 0) {
-            switch (true) {
-                case $category->tv_meta:
-                    (new TMDBScraper())->tv($torrentRequest->tmdb);
-
-                    break;
-                case $category->movie_meta:
-                    (new TMDBScraper())->movie($torrentRequest->tmdb);
-
-                    break;
-            }
-        }
+        match (true) {
+            $category->tv_meta && $torrentRequest->tmdb > 0    => new TMDBScraper()->tv($torrentRequest->tmdb),
+            $category->movie_meta && $torrentRequest->tmdb > 0 => new TMDBScraper()->movie($torrentRequest->tmdb),
+            $category->game_meta && $torrentRequest->igdb > 0  => new IgdbScraper()->game($torrentRequest->igdb),
+            default                                            => null,
+        };
 
         return to_route('requests.index')
             ->with('success', trans('request.added-request'));
@@ -211,18 +206,14 @@ class RequestController extends Controller
 
         $torrentRequest->update($request->validated());
 
-        if ($torrentRequest->tmdb > 0) {
-            switch (true) {
-                case $torrentRequest->category->tv_meta:
-                    (new TMDBScraper())->tv($torrentRequest->tmdb);
+        $category = $torrentRequest->category;
 
-                    break;
-                case $torrentRequest->category->movie_meta:
-                    (new TMDBScraper())->movie($torrentRequest->tmdb);
-
-                    break;
-            }
-        }
+        match (true) {
+            $category->tv_meta && $torrentRequest->tmdb > 0    => new TMDBScraper()->tv($torrentRequest->tmdb),
+            $category->movie_meta && $torrentRequest->tmdb > 0 => new TMDBScraper()->movie($torrentRequest->tmdb),
+            $category->game_meta && $torrentRequest->igdb > 0  => new IgdbScraper()->game($torrentRequest->igdb),
+            default                                            => null,
+        };
 
         return to_route('requests.show', ['torrentRequest' => $torrentRequest])
             ->with('success', trans('request.edited-request'));

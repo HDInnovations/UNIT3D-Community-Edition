@@ -32,6 +32,7 @@ use App\Models\TorrentFile;
 use App\Models\Tv;
 use App\Models\User;
 use App\Repositories\ChatRepository;
+use App\Services\Igdb\IgdbScraper;
 use App\Services\Tmdb\TMDBScraper;
 use App\Services\Unit3dAnnounce;
 use App\Traits\TorrentMeta;
@@ -349,17 +350,14 @@ class TorrentController extends BaseController
             Unit3dAnnounce::addFeaturedTorrent($torrent->id);
         }
 
-        // TMDB updates come after tracker updates in case TMDB's offline
+        // Metadata updates come after tracker updates in case TMDB or IGDB is offline
 
-        $tmdbScraper = new TMDBScraper();
-
-        if ($torrent->category->tv_meta && $torrent->tmdb) {
-            $tmdbScraper->tv($torrent->tmdb);
-        }
-
-        if ($torrent->category->movie_meta && $torrent->tmdb) {
-            $tmdbScraper->movie($torrent->tmdb);
-        }
+        match (true) {
+            $category->tv_meta && $torrent->tmdb > 0    => new TMDBScraper()->tv($torrent->tmdb),
+            $category->movie_meta && $torrent->tmdb > 0 => new TMDBScraper()->movie($torrent->tmdb),
+            $category->game_meta && $torrent->igdb > 0  => new IgdbScraper()->game($torrent->igdb),
+            default                                     => null,
+        };
 
         // Torrent Keywords System
         $keywords = [];
